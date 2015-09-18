@@ -1,4 +1,6 @@
 /******** reference modules ***********/
+var favicon = require('serve-favicon');
+var morgan = require('morgan');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
