@@ -1,0 +1,114 @@
+/* button css */
+.button {
+	background: #222 ;
+	display: inline-block;
+	padding: 5px 15px 6px;
+	color: #fff !important;
+	font-size: 13px;
+	font-weight: bold;
+	line-height: 1;
+	text-decoration: none;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+	position: relative;
+	cursor: pointer;
+	overflow: visible;
+	width: auto;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+button::-moz-focus-inner {
+	border: 0;
+	padding: 0;
+}
+.button:hover {
+	background-color: #111;
+	color: #fff;
+}
+.button:active {
+	-webkit-transform: translateY(1px);
+	-moz-transform: translateY(1px);
+}
+.small.button {
+	font-size: 11px;
+}
+.large.button {
+	font-size: 14px;
+	padding: 8px 19px 9px;
+}
+.blue.button {
+	background-color: #2daebf;
+}
+.blue.button:hover {
+	background-color: #007d9a;
+	text-decoration: none;
+}
+.blue-light.button {
+	background-color: #00a2d4;
+}
+.blue-light.button:hover {
+	background-color: #007d9a;
+	text-decoration: none;
+}
+.green.button {
+	background-color: #91bd09;
+}
+.green.button:hover {
+	background-color: #749a02;
+	text-decoration: none;
+}
+.red.button {
+	background-color: #e33100;
+}
+.red.button:hover {
+	background-color: #872300;
+	text-decoration: none;
+}
+.magenta.button {
+	background-color: #a9014b;
+}
+.magenta.button:hover {
+	background-color: #630030;
+	text-decoration: none;
+}
+.orange.button {
+	background-color: #ff5c00;
+}
+.orange.button:hover {
+	background-color: #d45500;
+	text-decoration: none;
+}
+.orangellow.button {
+	background-color: #ffb515;
+}
+.orangellow.button:hover {
+	text-decoration: none;
+	background-color: #fc9200;
+}
+.white.button {
+	background-color: #fff;
+	border: 1px solid #ccc;
+	color: #666 !important;
+	font-weight: normal;
+	text-shadow: 0 1px 1px rgba(255,255,255,1);
+}
+.white.button:hover {
+	background-color: #eee;
+}
+	
+.icon-circle-close {
+	background: url(/images/close-icon.png) no-repeat;
+	/*		 background-size:50% 50%;*/
+	background-size:cover;
+	/*		 background-size:12% 12%;*/
+	width: 30.72px;
+	height: 30.72px;
+}

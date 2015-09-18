@@ -1,29 +1,58 @@
+/******** reference modules ***********/
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var dateformat = require('console-stamp/node_modules/dateformat');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-
+/********** modules config *************/
 var app = express();
+var index = require('./routes/index');
 
-// view engine setup
+/**** routers config ****/
+app.use('/', index);
+
+/****** Global variable ************/
+colors = require('colors');
+colors.setTheme({
+	silly: 'rainbow',
+	input: 'grey',
+	verbose: 'cyan',
+	prompt: 'grey',
+	info: 'green',
+	data: 'grey',
+	help: 'cyan',
+	warn: 'yellow',
+	debug: 'blue',
+	error: 'red'
+});
+
+/*** view engine setup ****/
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+app.set("view options", {
+	layout: false
+});
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.settings.env === 'dev';
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
+/***** Log area *****/
+morgan.token('date', function gedate(req) {
+	var date = new Date();
+	return dateformat(date, 'dd/mm/yyyy HH:MM:ss TT');
+})
+app.use(morgan(':remote-addr - :remote-user :date :method :url :status :res[content-length] ":referrer" ":user-agent'));
+
+/**** cookie ****/
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+	extended: false
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', routes);
-app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -33,28 +62,22 @@ app.use(function(req, res, next) {
 });
 
 // error handlers
-
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
-  });
-}
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
+/********* catch 404 and forward to error handler **********/
+app.use(function(req, res, next) {
+	var err = new Error('Not Found');
+	err.status = 404;
+	res.status(404);
+	res.sendFile(process.cwd() + '/images/404.jpg');
 });
-
+/********* error handlers **********/
+app.use(function(err, req, res, next) {
+	if (err.code === 'ENOENT') {
+		next();
+	} else {
+		res.status(500);
+		res.sendFile(process.cwd() + '/images/500.jpg');
+		console.error(colors.error(err.stack));
+	}
+});
 
 module.exports = app;

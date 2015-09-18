@@ -1,0 +1,152 @@
+ol, ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	height: auto;
+	width: 100%;
+	position: relative;
+}
+li {
+	display: list-item;
+	text-align: -webkit-match-parent;
+	height: auto;
+	position: relative;
+}
+.discount {
+	background: #fff;
+	width: 100%;
+	border-bottom: 1px solid #eee;
+}
+.title {
+	font-size: 14px;
+	color: #746870;
+	line-height: 37.5px;
+	font-weight: normal;
+	padding-left: 28px;
+	position: relative;
+	background-color: #f8f8f8;
+}
+.title span {
+	color: #f69;
+	font-style: italic;
+	font-size: 12px;
+}
+.hmm_brand_container {
+	margin-bottom: 10px;
+/*	border-bottom: 1px solid #eee;*/
+}
+/*****分类*******/
+.clothes {
+	display: block;
+	line-height: 28px;
+	background-color: #fbfbfb;
+	padding-right: 13px;
+	border-bottom: 1px solid #eee;
+	color: #666;
+	text-decoration: none;
+	border-top: 1px solid #eee;
+}
+.clothes img {
+	width: 65px;
+	line-height: 30px;
+	vertical-align: middle;
+}
+.clothes span {
+    float: right;
+    color: #f69;
+    font-size: 12px;
+    font-style: italic;
+}
+.clothes:after {
+	clear: both;
+	content: ".";
+	display: block;
+	visibility: hidden;
+	height: 0;
+}
+.info {
+    background: #fff;
+    margin-bottom: 15px;
+	margin-top: 15px;
+}
+section {
+	padding-left: 13px;
+	padding-right: 13px;
+	padding-top: 14px;
+	padding-bottom: 10px;
+	display: block;
+	position: relative;
+	border-bottom: 1px solid #eee;
+}
+section:after {
+	clear: both;
+	content: ".";
+	display: block;
+	visibility: hidden;
+	height: 0;
+}
+section .main {
+	clear: both;
+	float: left;
+	width: 50%;
+	padding-right: 8px;
+}
+section .main dd {
+	font-size: 13px;
+	color: #a8a8a8;
+	text-align: right;
+	width: 40%;
+	height: 20px;
+	line-height: 20px;
+	/* word-wrap: normal; */
+	white-space: nowrap;
+	word-break: keep-all;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+section .main img {
+	width: 60%;
+	float: left;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+}
+section .main dd:nth-child(2) {
+	font-size: 14px;
+	color: #746870;
+	padding-bottom: 3px;
+}
+section .list p {
+	float: right;
+	color: #746870;
+	font-size: 14px;
+	padding-top: 5px;
+}
+section .count {
+	float: left;
+	width: 40%;
+	padding-left: 8px;
+	border-left: 1px solid #eee;
+}
+section .list {
+	padding-bottom: 5px;
+}
+section .list:nth-child(2) {
+	border-top: 1px solid #eee;
+	padding-top: 7px;
+}
+section .list a {
+	display: block;
+	overflow: hidden;
+}
+section .list:after {
+	clear: both;
+	content: ".";
+	display: block;
+	visibility: hidden;
+	height: 0;
+}
