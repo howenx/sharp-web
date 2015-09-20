@@ -90,7 +90,7 @@ a {
 	height: 44px;
 	width: 44px;
 	display: inline-block;
-	background: url("/images/hp_new/searchIcon.png") no-repeat center center;
+	background: url("/images/searchIcon.png") no-repeat center center;
 	background-size: contain;
 	z-index: 10;
 	cursor: pointer;
@@ -110,14 +110,14 @@ h1 .logo {
 	width: 59px;
 	padding-top: 44px;
 	display: inline-block;
-	background: url("/images/hp_new/title_hmm.png") no-repeat center center;
+	background: url("/images/title_hmm.png") no-repeat center center;
 	background-size: 100%;
 	/*	vertical-align: middle;*/
 }
 .icon-user-title {
 	height: 44px;
 	width: 44px;
-	background: url("/images/hp_new/userIcon.png") no-repeat center center;
+	background: url("/images/userIcon.png") no-repeat center center;
 	background-size: contain;
 	display: inline-block;
     position: absolute;
@@ -515,7 +515,7 @@ h1 .logo {
 }
 .u-icon-px {
 	display: inline-block;
-	background: url(/images/discount/bc.png) center center no-repeat;
+	background: url(/images/bc.png) center center no-repeat;
 	background-size: contain;
 }
 .u-flow-carttime {
@@ -557,7 +557,7 @@ h1 .logo {
 .i-backtop-rocket {
 	height: 100%;
 	display: block;
-	background: url(/images/discount/rocket.png) center center no-repeat;
+	background: url(/images/rocket.png) center center no-repeat;
 	background-size: contain;
 	position: relative;
 	width: 24px;
@@ -617,3 +617,214 @@ h1 .logo {
 	position: absolute;
 	left: 6px;
 }
+/*********************************分割线****************************************/
+ol, ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	height: auto;
+	width: 100%;
+	position: relative;
+}
+li {
+	display: list-item;
+	text-align: -webkit-match-parent;
+	height: auto;
+	position: relative;
+}
+.discount {
+	background: #fff;
+	width: 100%;
+	border-bottom: 1px solid #eee;
+}
+.title {
+	font-size: 14px;
+	color: #746870;
+	line-height: 37.5px;
+	font-weight: normal;
+	padding-left: 28px;
+	position: relative;
+	background-color: #f8f8f8;
+}
+.title span {
+	color: #f69;
+	font-style: italic;
+	font-size: 12px;
+}
+.hmm_brand_container {
+	margin-bottom: 10px;
+/*	border-bottom: 1px solid #eee;*/
+}
+/*****分类*******/
+.clothes {
+	display: block;
+	line-height: 28px;
+	background-color: #fbfbfb;
+	padding-right: 13px;
+	border-bottom: 1px solid #eee;
+	color: #666;
+	text-decoration: none;
+	border-top: 1px solid #eee;
+}
+.clothes img {
+	width: 65px;
+	line-height: 30px;
+	vertical-align: middle;
+}
+.clothes span {
+    float: right;
+    color: #f69;
+    font-size: 12px;
+    font-style: italic;
+}
+.clothes:after {
+	clear: both;
+	content: ".";
+	display: block;
+	visibility: hidden;
+	height: 0;
+}
+.info {
+    background: #fff;
+    margin-bottom: 15px;
+	margin-top: 15px;
+}
+section {
+	padding-left: 13px;
+	padding-right: 13px;
+	padding-top: 14px;
+	padding-bottom: 10px;
+	display: block;
+	position: relative;
+	border-bottom: 1px solid #eee;
+}
+section:after {
+	clear: both;
+	content: ".";
+	display: block;
+	visibility: hidden;
+	height: 0;
+}
+section .main {
+	clear: both;
+	float: left;
+	width: 50%;
+	padding-right: 8px;
+}
+section .main dd {
+	font-size: 13px;
+	color: #a8a8a8;
+	text-align: right;
+	width: 40%;
+	height: 20px;
+	line-height: 20px;
+	/* word-wrap: normal; */
+	white-space: nowrap;
+	word-break: keep-all;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+section .main img {
+	width: 60%;
+	float: left;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+}
+section .main dd:nth-child(2) {
+	font-size: 14px;
+	color: #746870;
+	padding-bottom: 3px;
+}
+section .list p {
+	float: right;
+	color: #746870;
+	font-size: 14px;
+	padding-top: 5px;
+}
+section .count {
+	float: left;
+	width: 40%;
+	padding-left: 8px;
+	border-left: 1px solid #eee;
+}
+section .list {
+	padding-bottom: 5px;
+}
+section .list:nth-child(2) {
+	border-top: 1px solid #eee;
+	padding-top: 7px;
+}
+section .list a {
+	display: block;
+	overflow: hidden;
+}
+section .list:after {
+	clear: both;
+	content: ".";
+	display: block;
+	visibility: hidden;
+	height: 0;
+}
+/*****************************************slide**************************************/
+.cycle-slideshow { width: 100%;}
+.cycle-slideshow div { width: 100%; height: auto }
+.cycle-caption {
+    position: absolute;
+    color: white;
+    bottom: 15px;
+    right: 15px;
+    z-index: 700;
+}
+#screen_wrap {
+    min-width: 320px;
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    overflow: auto;
+}
+.nav_ban_detail {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    z-index: 200;
+    top: 10px;
+    left: 0;
+}
+.composite-slide > div .cycle-overlay {
+    color: white;
+    background: black;
+    opacity: .6;
+    filter: alpha(opacity=60);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 15px;
+}
+.cycle-pager {
+    text-align: center;
+    width: 100%;
+    z-index: 500;
+    position: absolute;
+    top: 22px;
+    overflow: hidden;
+}
+.cycle-pager span {
+    font-family: arial;
+    font-size: 50px;
+    width: 17px;
+    height: 17px;
+    display: inline-block;
+    color: #ddd;
+    cursor: pointer;
+    line-height: 17px;
+}
+.cycle-pager span.cycle-pager-active { 
+	color: #F22F65;
+}
+.cycle-pager > * { cursor: pointer;}

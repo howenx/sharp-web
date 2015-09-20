@@ -13,9 +13,6 @@ var dateformat = require('console-stamp/node_modules/dateformat');
 var app = express();
 var index = require('./routes/index');
 
-/**** routers config ****/
-app.use('/', index);
-
 /****** Global variable ************/
 colors = require('colors');
 colors.setTheme({
@@ -54,7 +51,10 @@ app.use(bodyParser.urlencoded({
 	extended: false
 }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+
+/********* routers ******************/
+app.use(express.static('public'));
+app.use('/', index);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -69,7 +69,7 @@ app.use(function(req, res, next) {
 	var err = new Error('Not Found');
 	err.status = 404;
 	res.status(404);
-	res.sendFile(process.cwd() + '/images/404.jpg');
+	res.sendFile(process.cwd() + '/public/images/404.jpg');
 });
 /********* error handlers **********/
 app.use(function(err, req, res, next) {
@@ -77,7 +77,7 @@ app.use(function(err, req, res, next) {
 		next();
 	} else {
 		res.status(500);
-		res.sendFile(process.cwd() + '/images/500.jpg');
+		res.sendFile(process.cwd() + '/public/images/500.jpg');
 		console.error(colors.error(err.stack));
 	}
 });
