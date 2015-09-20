@@ -12,6 +12,7 @@ var dateformat = require('console-stamp/node_modules/dateformat');
 /********** modules config *************/
 var app = express();
 var index = require('./routes/index');
+var login = require('./routes/login');
 
 /****** Global variable ************/
 colors = require('colors');
@@ -55,6 +56,7 @@ app.use(cookieParser());
 /********* routers ******************/
 app.use(express.static('public'));
 app.use('/', index);
+app.use('/', login);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

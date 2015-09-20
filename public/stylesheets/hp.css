@@ -90,7 +90,7 @@ a {
 	height: 44px;
 	width: 44px;
 	display: inline-block;
-	background: url("/images/searchIcon.png") no-repeat center center;
+	background: url("/images/web/searchIcon.png") no-repeat center center;
 	background-size: contain;
 	z-index: 10;
 	cursor: pointer;
@@ -110,14 +110,14 @@ h1 .logo {
 	width: 59px;
 	padding-top: 44px;
 	display: inline-block;
-	background: url("/images/title_hmm.png") no-repeat center center;
+	background: url("/images/web/title_hmm.png") no-repeat center center;
 	background-size: 100%;
 	/*	vertical-align: middle;*/
 }
 .icon-user-title {
 	height: 44px;
 	width: 44px;
-	background: url("/images/userIcon.png") no-repeat center center;
+	background: url("/images/web/userIcon.png") no-repeat center center;
 	background-size: contain;
 	display: inline-block;
     position: absolute;
@@ -515,7 +515,7 @@ h1 .logo {
 }
 .u-icon-px {
 	display: inline-block;
-	background: url(/images/bc.png) center center no-repeat;
+	background: url(/images/web/bc.png) center center no-repeat;
 	background-size: contain;
 }
 .u-flow-carttime {
@@ -557,7 +557,7 @@ h1 .logo {
 .i-backtop-rocket {
 	height: 100%;
 	display: block;
-	background: url(/images/rocket.png) center center no-repeat;
+	background: url(/images/web/rocket.png) center center no-repeat;
 	background-size: contain;
 	position: relative;
 	width: 24px;
