@@ -1,0 +1,256 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+	<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+    <title>详情页 － 韩秘美</title>
+	<link rel="stylesheet" href="/stylesheets/login.css">
+	<link rel="stylesheet" href="/stylesheets/hp.css">
+	<link rel="stylesheet" href="/stylesheets/detail.css">
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+	<div id='screen_wrap'>
+		<div class="picture_wrap">
+			<div class="nav_ban_detail">		
+				<a href="/"><span class="icon-back-detail"></span></a>				
+				<a ><span class="icon-cart" ></span></a>			
+			</div>
+			<div id='slide' class="cycle-slideshow composite-slide"
+				data-cycle-slides="> div.slide-img"
+				data-cycle-fx="scrollHorz"
+				data-cycle-pause-on-hover="true"
+			    data-cycle-speed=400
+			    data-cycle-timeout=0
+			    data-cycle-next="#next"
+			    data-cycle-manual-fx="scrollHorz"
+			    data-cycle-manual-speed="200"
+				data-cycle-swipe=true
+				data-cycle-swipe-fx=scrollHorz
+				data-cycle-pager=".custom-pager"
+				data-cycle-pager-event="mouseover"
+			>
+				<div class="cycle-pager"></div>
+				<div class='slide-img'>
+					<img src='/images/sku-slide/0.jpg' style='display: block;' width='100%'>
+				</div>
+				<div class='slide-img'>
+					<img style='display: block;' width='100%'>
+				</div>
+				<div class='slide-img'>
+					<img style='display: block;' width='100%'>
+				</div>
+				<div class='slide-img'>
+					<img style='display: block;' width='100%'>
+				</div>
+				<div class='slide-img'>
+					<img style='display: block;' width='100%'>
+				</div>
+			</div>
+			<div class="custom-pager"></div>
+			<div class="cycle-overlay timer_box">
+				<span class="u-icon i-clock-white"></span>
+				<span style="font-size:14px; font-family:Arial;">距折扣结束仅剩</span>
+				<span id="timer" style="color:#e4007f; font-size:14px; font-family:Arial;">00天00小时00分00秒</span>
+				<input id="end_time" type="hidden" value="2015/09/16 00:00:05">
+				<input id="current_time" type="hidden" value="2015/09/15 00:00:00">
+			</div>
+		</div>
+		<div class="sku-meta">
+			<div class="sku-title">秋季新品学院风甜美两件套</div>
+			<p class="u-detail-pricebox clearfix">
+				<span class="u-detail-price">¥268</span>
+				<span class="u-detail-mprice">¥2680</span>
+				<span class="u-detail-discount">1折</span>
+			</p>
+			<section class="thw-detail-other" style="margin-bottom: 2px;">
+				<span class="detail-other-fee">销量<b style='color:#e4007f;'>100</b></span>
+				<span>喜欢<b style='color:#e4007f;'>2000</b></span>
+				<span class="detail-other-local">由韩国首尔发货</span>
+			</section>
+		</div>
+		<div class="detail-service">
+			<ul class="u-detail-introduce clearfix" style="display:block;">
+				<li><span class="u-icon-intro i-guarantee"></span><span class="u-indtit">100%正品</span>保证所有货源为韩国正品</li>
+				<li><span class="u-icon-intro i-return"></span><span class="u-indtit">72小时发货</span>72小时内保证发货</li>
+				<li><span class="u-icon-intro i-pay"></span><span class="u-indtit">全国包邮</span>海外购全国包邮</li>
+			</ul>
+		</div>
+		<!-- 切换tab -->
+		<div class="detail-tabpanel">
+			<div class="tabpanel-occupying" id="TabpanelOccupying"> 
+				<!-- 标签 --> 
+				<nav class="tabpanel-tabs center"> 
+					<li class="tab-item active pic-tex"> <span class='tab-span'>图文详情</span> <i></i> </li> 
+					<li class="tab-item goods-para"> <span class='tab-span'>商品参数</span> <i></i> </li> 
+					<li class="tab-item hot-sale"> <span>热卖推荐</span> <i></i> </li> 
+				</nav> 
+			</div>
+		</div>
+		<!-- 详情图片 -->
+		<div class="details">
+			<p class="dc_tit" id="J_proParam_scroll">商品图片展示<i class="far">Detail</i></p>
+			<div class="detail-pic-append">
+				<script>
+					<% pics.forEach(function(pic) { %>
+						var img_<%=pic%> = new Image();
+						img_<%=pic%>.onload=function(){
+							var padding =Math.floor(img_<%=pic%>.height/img_<%=pic%>.width*100);
+							// console.log(padding);
+							 setTimeout(function() {  
+								 $('.detail-pic-append').append('<div class="more_pic" style="padding-top:'+padding+'%">'+
+									'<span data-shown="1" style="opacity: 1; background-image: url(/images/sku-detail/<%=pic%>.jpg);"></span>'+							
+								 '</div>');
+							}, <%=pic%>*5);
+						}
+						img_<%=pic%>.src = '/images/sku-detail/<%=pic%>.jpg';
+					<% }); %>
+				</script>
+			</div>
+			<div class='sku-measure'>
+				<div class="parameter-wrap">
+					<p class="dc_tit" id="J_proParam_scroll">商品参数<i class="far">Detail</i></p>
+					<!-- 尺码表格 -->  
+					<div class="size-list">  
+						<div class="item">
+							<!--产品信息 -->
+							<table>
+								<tbody>
+				            		<tr>
+				            		  <td class="dc_table_tit">品牌名称：</td>
+				            		  <td>朗姿</td>
+				            		</tr>
+				            		<tr>
+				            		  <td class="dc_table_tit">商品名称：</td>
+				            		  <td>橙色优雅拼接时尚连衣裙</td>
+				            		</tr>
+				            		<tr>
+				            		  <td class="dc_table_tit">产地：</td>
+				            		  <td>北京</td>
+				            		</tr>
+				            		<tr>
+				            		  <td class="dc_table_tit">材质：</td>
+				            		  <td>面料1：聚酯纤维100%面料2：粘纤96%氨纶4%里料：聚酯纤维100%</td>
+				            		</tr>
+				            		<tr>
+				            		  <td class="dc_table_tit">洗涤说明：</td>
+				            		  <td>不可水洗不可漂白不可翻转干燥低温熨烫 干洗</td>
+				            		</tr>
+								</tbody>
+							</table>
+							<table>
+								<tbody>
+									<tr>  
+										<td>尺码</td>  
+										<td>35</td>  
+										<td>36</td>  
+										<td>37</td>  
+										<td>38</td>  
+									</tr>  
+									<tr>  
+										<td>脚长</td>  
+										<td>225mm</td>  
+										<td>230mm</td>  
+										<td>235mm</td>  
+										<td>240mm</td>  
+									</tr>  
+									<tr>  
+										<td>脚宽</td>  
+										<td>85mm</td>  
+										<td>90mm</td>  
+										<td>95mm</td>  
+										<td>100mm</td>  
+									</tr>  
+								</tbody>
+							</table> 
+						</div>  
+						<div class="item"> 
+							<table> <tbody>  
+								<tr>  
+									<td>尺码</td>  
+									<td>39</td>  
+								</tr>  
+								<tr>  
+									<td>脚长</td>  
+									<td>245mm</td>  
+								</tr>  
+								<tr>  
+									<td>脚宽</td>  
+									<td>105mm</td>  
+								</tr>  
+							</tbody> 
+						</table> 
+					</div>  
+				</div>  
+				<!-- 参数 -->  
+				<div class="param-list"> 
+					<ul>  
+						<li> 
+							<span class="param-name">鞋面材质</span> 
+							<p class="param-info">头层牛皮</p> 
+						</li> 
+						<li> 
+							<span class="param-name">内里材质</span> 
+							<p class="param-info">人造短毛绒</p> 
+						</li>  
+						<li> 
+							<span class="param-name">皮质特征</span> 
+							<p class="param-info">磨砂皮</p> 
+						</li>  
+						<li>
+							<span class="param-name">鞋头</span> 
+							<p class="param-info">尖头</p> 
+						</li>  
+						<li> 
+							<span class="param-name">跟高</span> 
+							<p class="param-info">中跟(3-5cm)</p> 
+						</li>  
+						<li> 
+							<span class="param-name">鞋跟款式</span> 
+							<p class="param-info">粗跟</p> 
+						</li>  
+						<li> 
+							<span class="param-name">闭合方式</span> 
+							<p class="param-info">套筒</p> 
+						</li>  
+						<li> 
+							<span class="param-name">流行元素</span> 
+							<p class="param-info">擦色</p> 
+						</li>  
+						<li> 
+							<span class="param-name">鞋底材质</span> 
+							<p class="param-info">木底</p> 
+						</li>  
+					</ul> 
+				</div>  
+				<!-- 尺码图片 -->  <!-- 尺码图片 -->  
+			</div>
+			<div class="moreDetailBtn">					
+				<span class="hide">查看全部详情 &gt;</span>					
+				<span class="show">收起全部详情 &gt;</span>				
+			</div>			
+		</div>
+		</div>
+		<a id="rocket" class="u-backtop-rocket">
+		    <span class="i-backtop-rocket"></span>
+		</a>
+		<div class='sku-detail-buy'>
+			<div class="buy_box">		
+				<a href="/" class="home_link">首页</a>		
+				<div class="add_cart" data-type="cart">加入购物车</div>		
+				<div class="buy_btn" data-type="buy">立即购买</div>		
+				<div class="cnt_seller">客服</div>	
+			</div>
+		</div>
+	</div>	
+<!--reference script region-->
+<script src="/javascripts/jquery/jquery.cycle2.min.js"></script>
+<script src="/javascripts/jquery/jquery.cycle2.swipe.min.js"></script>
+<script src="/javascripts/detail.js"></script>
+</body>
+</html>

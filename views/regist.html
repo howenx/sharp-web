@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+	<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+    <title>注册 － 韩秘美</title>
+	<link rel="stylesheet" href="/stylesheets/login.css">
+	<link rel="stylesheet" href="/stylesheets/hp.css">
+</head>
+<body>
+	<div id='screen_wrap'>
+		<div class="nav_ban">		
+			<h1>注册</h1>		
+			<a href="/login"><span class="icon-back" id="backBtn"></span></a>				
+			<a href="/login"><span class="icon-user-title" id="userBtn"></span></a>			
+		</div>
+		<div class="login">
+			<fieldset>
+				<form id="cell_loginForm" method="post" onsubmit="return false" action="" >
+					<dl class="list list-in">
+						<dd>
+							<dl>
+							 	<dd class="dd-padding">
+							 	   	 <input id="cell_login_phonenum" class="input-weak" type="text" value="" maxlength="4" placeholder="手机号">
+							 	   	  <div class="cell_login_sms">	
+										  <button id="smsCode" type="button" class="btn btn-weak kv-v" disabled="disabled">发送验证码</button>
+									  </div>
+							 	</dd>
+						        <dd class="dd-padding">
+									 <input id="cell_login_checkcode" class="input-weak" type="text" placeholder="请输入手机短信中的验证码" name="email" value="" required="">
+								</dd>
+					         	<dd class="dd-padding">
+								 	 <input id="password" class="input-weak" type="password" placeholder="请设置密码" name="password" required="">
+							 	</dd>
+						    </dl>
+						</dd>
+					</dl>	
+				</form>
+				<div class="submitBox">				
+					<input class="registBtn button" type="submit" value="立即注册">				
+				</div>
+				<div name="agreement" class="agree">	
+					<a class="tip" href="/">* 注册代表同意《韩秘美网络服务使用协议》</a>
+				</div>
+			</fieldset>	
+		</div>
+	</div>
+<!--reference script region-->
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+</body>
+</html>

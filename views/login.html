@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+	<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+    <title>登录 － 韩秘美</title>
+	<link rel="stylesheet" href="/stylesheets/login.css">
+	<link rel="stylesheet" href="/stylesheets/hp.css">
+</head>
+<body>
+	<div id='screen_wrap'>
+		<div class="nav_ban">		
+			<h1>韩秘美－登录</h1>		
+			<a href="/"><span class="icon-back" id="backBtn"></span></a>				
+			<a class="icon-home" href="/"></a>			
+		</div>
+		<div class="login">	
+					<div id="login">
+							<dl class="list">
+								<dd class="nav">
+									<ul class="taba">
+										<li class="active">
+											<a class="account react">账号登录</a>
+							            </li>
+										<li >
+											<a class="cellphone react">手机验证登录</a>
+							            </li>
+									</ul>
+							    </dd>
+							</dl>
+					</div>
+					
+			<fieldset>		
+				<form id="account_loginForm" method="post" onsubmit="return false" action="" >
+					<dl class="list list-in">
+						<dd>
+							<dl>
+						         <dd class="dd-padding">
+									 <input id="username" class="input-weak" type="text" placeholder="账户名/手机号/Email" name="email" value="" required="">
+								 </dd>
+						         <dd class="dd-padding">
+									 <input id="password" class="input-weak" type="password" placeholder="请输入您的密码" name="password" required="">
+								 </dd>
+								 <dd class="dd-padding">
+									 <input id="checkcode" class="input-weak" name="checkcode" type="text" value="" maxlength="4" placeholder="验证码">
+									 <div class="checkImage">						
+										 <span id="checkcodeImage">							
+											 <img width="90" height="36" isblank="false" src="http://mcaptcha.meilishuo.com/Register/Captcha?token=asde39ad9&amp;session=0.0196882588788867">						
+										 </span>				
+									 </div>
+								 </dd>
+						    </dl>
+						</dd>
+					</dl>	
+				</form>
+				<form id="cell_loginForm" method="post" onsubmit="return false" action="" style='display:none'>
+					<dl class="list list-in">
+						<dd>
+							<dl>
+							 	<dd class="dd-padding">
+							 	   	 <input id="cell_login_phonenum" class="input-weak" type="text" value="" maxlength="4" placeholder="请输入手机号">
+							 	   	  <div class="cell_login_sms">	
+										  <button id="smsCode" type="button" class="btn btn-weak kv-v" disabled="disabled">发送验证码</button>
+									  </div>
+							 	</dd>
+						        <dd class="dd-padding">
+									 <input id="cell_login_checkcode" class="input-weak" type="text" placeholder="请输入手机短信中的验证码" name="email" value="" required="">
+								</dd>
+						    </dl>
+						</dd>
+					</dl>	
+				</form>
+				<div class="submitBox">				
+					<input class="loginBtn button" type="submit" value="登录">				
+					<a href='/regist' class="button exBtn">注册</a>			
+				</div>
+			</fieldset>	
+			<div class="loginInfo">		
+				<div class="findWord">
+					<a >忘记密码</a>
+				</div>		
+				<div class="fastLogin">			
+					<h2>				
+						<span class="line_l"></span>				一键登录				<span class="line_r"></span>			
+					</h2>			
+					<div class="fastInfo">				
+						<a xr="welcome-main.user-login.user-register.welcome-main.user-login">					
+							<img src="http://d01.res.meilishuo.net/pic/_o/af/03/516ffa7dc6bdaa39aa1aed0b7976_110_153.ch.png">				
+						</a>				
+						<a xr="welcome-main.user-login.user-register.welcome-main.user-login">					
+							<img src="http://d04.res.meilishuo.net/pic/_o/17/fd/31d119474da9cdcf92bf2c389557_110_157.ch.png">				
+						</a>			
+					</div>		
+				</div>	
+			</div>
+		</div>
+	</div>
+<!--reference script region-->
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+</body>
+</html>
