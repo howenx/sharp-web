@@ -86,12 +86,12 @@ app.use(function(err, req, res, next) {
 });
 
 /************* set port *******************/
-app.set('port', process.env.PORT || 3002);
+app.set('port', process.env.PORT || 3333);
 
 var server = app.listen(app.get('port'), function() {
-  console.log('Express server listening on ' + ip.address()+':'+server.address().port);
+  console.log('> '+colors.grey('Time: '+dateformat(new Date(), 'yyyy-mm-dd HH:MM:ss TT'))+colors.gray('\tNodejs server listening on ' + colors.magenta(ip.address()+':'+server.address().port)));
+  console.log(colors.cyan('\n····························Server Started····························\n'));
 });
 url = 'http://'+ip.address()+':'+server.address().port;
-// console.log(colors.red(JSON.stringify(server.address())));
-// module.exports = app;
+module.exports = app;
 
