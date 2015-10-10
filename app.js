@@ -31,6 +31,7 @@ colors.setTheme({
 });
 
 /*** view engine setup ****/
+app.set('port', process.env.PORT || 3333);
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 app.set("view options", {
@@ -86,12 +87,8 @@ app.use(function(err, req, res, next) {
 });
 
 /************* set port *******************/
-app.set('port', process.env.PORT || 3333);
-
-// var server = app.listen(app.get('port'), function() {
-  console.log('> '+colors.grey('Time: '+dateformat(new Date(), 'yyyy-mm-dd HH:MM:ss TT'))+colors.gray('\tNodejs server listening on ' + colors.magenta(ip.address()+':'+process.env.PORT)));
-  console.log(colors.cyan('\n····························Server Started····························\n'));
-// });
-url = 'http://'+ip.address()+':'+process.env.PORT;
-module.exports = app;
-
+var server = app.listen(app.get('port'), function() {
+  console.log('> '+colors.grey('Time: '+dateformat(new Date(), 'yyyy-mm-dd HH:MM:ss TT'))+colors.gray('\tNodejs server listening on ') + colors.magenta(ip.address()+':'+server.address().port));
+  console.log(colors.cyan('\n····························style-web server started····························\n'));
+});
+url = 'http://'+ip.address()+':'+server.address().port;
