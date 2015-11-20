@@ -10,6 +10,14 @@
 	<link rel="stylesheet" href="/stylesheets/hp.css">
 </head>
 <body>
+    <header id="M_headBar" class="ui-head-bar">
+		<!--<span class="icon-search-title" id="searchBtn"></span>-->
+		<h1>
+			<a href="/homepage" class="logo"></a>
+		</h1>
+		<a href="/personal"><span class="icon-user-title" id="userBtn"></span></a>
+		<a href="/shopping" class="shopping"></a>
+    </header>
 	<div id='screen_wrap'>
 		<div class='banner'>
 			<img u="image" src="/images/billboard/55.jpg" style="width: 100%;">
@@ -17,19 +25,14 @@
 				<span>×</span>
 			</a>
 		</div>
-		<header id="M_headBar" class="ui-head-bar">
-			<span class="icon-search-title" id="searchBtn"></span>
-			<h1>
-				<a href="/homepage" class="logo"></a>
-			</h1>
-			<a href="/login"><span class="icon-user-title" id="userBtn"></span></a>
-		</header>
+
 		<div id="M_search" style="display: none;">
 				<form id="search_from" action="search">
 					<input type="text" placeholder="请输入商品名">
 					<div style="color: rgb(153, 153, 153);"></div>
 				</form>
 		</div>
+		<!--banner开始-->
 		<div id='slide' class="cycle-slideshow composite-slide"
 			data-cycle-slides="> div.slide-img"
 			data-cycle-fx="scrollHorz"
@@ -54,151 +57,96 @@
 				<img style='display: block;' width='100%'>
 			</div>
 		</div>
-			<div class="discount-floor info">
-				<div class='discount'>
-					<a class='half-floor'>					
-						<img src="/images/discount/385.jpg" width="100%" border="0">				
-					</a>				
-					<a class='up-floor'>							
-						<img src="/images/discount/55deb2acNa7d92567.jpg" width="100%">						
-					</a>					
-					<a class='down-floor'>					
-						<img src="/images/discount/55deb2acNdcce46bd.jpg"  width="100%" >		
-					</a>					
-				</div>
-			</div>
-			<div class="info">
-				<a class="clothes">				
-					<img src="/images/classification/class_jewelry_title.png">
-					<span>配饰畅销榜 >></span>			
-				</a>
-				<section>
-					<a class='half-floor'>					
-						<img src="/images/classification/448/55dc148bN5471cb69.jpg" width="100%" border="0">
-						<span class='hotsale-brand'>施华洛世奇水晶</span>
-						<span class='hotsale-title'><b>NO.1</b> 项链 8mm水晶球 纯金</span>				
-					</a>				
-					<a class='up-floor'>							
-						<img src="/images/classification/448/55dc0b8cN73b8a08d.jpg" width="50%" border="0">
-						<span class='hotsale-brand-down'>施华洛世奇水晶</span>
-						<span class='hotsale-title-down'><b>NO.2</b> 手链 珍珠 松紧型</span>							
-					</a>					
-					<a class='down-floor'>							
-						<img src="/images/classification/448/55d69834Na7c567cd.jpg" width="50%" border="0">
-						<span class='hotsale-brand-down' style='margin-top: 5px;'>施华洛世奇水晶</span>
-						<span class='hotsale-title-down' style='top: 20px;'><b>NO.3</b> 耳钉 14K金 8mm珍珠</span>							
-					</a>
-				</section>
-			</div>
-			<div class="info">
-				<a class="clothes">				
-					<img src="/images/classification/class_makeup_title.png">
-					<span>化妆品畅销榜 >></span>			
-				</a>
-				<section>
-					<a class='half-floor'>					
-						<img src="/images/classification/448/55d588ccN3949f909.jpg" width="100%" border="0">
-						<span class='hotsale-brand'>Skin1004</span>
-						<span class='hotsale-title'><b>NO.1</b> 貂油霜50ML</span>				
-					</a>				
-					<a class='up-floor'>							
-						<img src="/images/classification/448/55e6b7a0Nb1ce7f03.jpg" width="50%" border="0">
-						<span class='hotsale-brand-down'>FASY</span>
-						<span class='hotsale-title-down'><b>NO.2</b> 气垫粉 护手霜 套装</span>							
-					</a>					
-					<a class='down-floor'>							
-						<img src="/images/classification/448/55e6c360N971c73cd.jpg" width="50%" border="0">
-						<span class='hotsale-brand-down'>FASY</span>
-						<span class='hotsale-title-down'><b>NO.3</b> BB霜 护手霜 套装</span>							
-					</a>
-				</section>
-			</div>
-			<div class="info love">
-				<h3>			
-					<span></span> 精选推荐 <span></span>
-				</h3>
-				<div class="goods_wall">		
-					<div class="poster_wall"> 
-						<figure>  
-							<a href='/detail' class="pic_load" >   
-								<img src="http://d06.res.meilishuo.net/pic/_o/5c/e7/38cf8c4b0913778e78257cc94a68_640_899.cf.jpg_f8e2a3b2_s1_q0_150_5_0_226_800.jpg"  title="蝙蝠袖条纹宽松毛衣针织衫">  
-							</a>     
-							<p class="clothesTitle">蝙蝠袖条纹宽松毛衣针织衫</p>    
-							<figcaption>      
-								<span class="price">￥89.00</span>      
-								<span class="like">67</span>  
-							</figcaption> 
-						</figure>
-						<figure>  
-							<a href='/detail' class="pic_load" >   
-								<img src="http://d04.res.meilishuo.net/pic/_o/35/ba/7e3834ea67b71aebf2b1807914af_640_941.ch.jpg_213ac62c_s1_q0_150_5_0_226_800.jpg" title="秋装新款宽松BF韩版风衣">  
-							</a>     
-							<p class="clothesTitle">秋装新款宽松BF韩版风衣</p>    
-							<figcaption>      
-								<span class="price">￥169.00</span>      
-								<span class="like">3408</span>  
-							</figcaption> 
-						</figure>
-						<figure>  
-							<a href='/detail' class="pic_load" >   
-								<img src="http://d04.res.meilishuo.net/pic/_o/35/ba/7e3834ea67b71aebf2b1807914af_640_941.ch.jpg_213ac62c_s1_q0_150_5_0_226_800.jpg" title="秋装新款宽松BF韩版风衣">  
-							</a>     
-							<p class="clothesTitle">秋装新款宽松BF韩版风衣</p>    
-							<figcaption>      
-								<span class="price">￥169.00</span>      
-								<span class="like">3408</span>  
-							</figcaption> 
-						</figure>
-					</div>
-					<div class="poster_grid poster_wall">
-						<figure>  
-							<a href='/detail' class="pic_load" >   
-								<img src="http://d04.res.meilishuo.net/pic/_o/35/ba/7e3834ea67b71aebf2b1807914af_640_941.ch.jpg_213ac62c_s1_q0_150_5_0_226_800.jpg" title="秋装新款宽松BF韩版风衣">  
-							</a>     
-							<p class="clothesTitle">秋装新款宽松BF韩版风衣</p>    
-							<figcaption>      
-								<span class="price">￥169.00</span>      
-								<span class="like">3408</span>  
-							</figcaption> 
-						</figure>
-						<figure>  
-							<a href='/detail' class="pic_load">   
-								<img src="http://d05.res.meilishuo.net/pic/_o/11/c6/1e15f64b6de4cd01d97376c8abb2_640_900.cf.jpg_85ef8058_s1_q0_150_5_0_226_800.jpg" title="纯手工头层牛皮真皮女靴">  
-							</a>     
-							<p class="clothesTitle">纯手工头层牛皮真皮女靴</p>    
-							<figcaption>      
-								<span class="price">￥290.00</span>      
-								<span class="like">5</span>  
-							</figcaption> 
-						</figure> 
-						<figure>  
-							<a href='/detail' class="pic_load" >   
-								<img src="http://d06.res.meilishuo.net/pic/_o/59/9c/d0b5d4879f6f3280f48f37363d4b_640_899.cf.jpg_74cfaa3d_s1_q0_150_5_0_226_800.jpg" title="纯色连帽卫衣外套">  
-							</a>     
-							<p class="clothesTitle">纯色连帽卫衣外套</p>    
-							<figcaption>     
-								<span class="price">￥69.00</span>      
-								<span class="like">130</span>  
-							</figcaption> 
-						</figure>
-					</div>
-				</div>
-			</div>
+
+        <!--内容开始-->
+		    <div class="con">
+
+               <div class="above">
+					<a href="/list"><img src="http://172.28.3.18:3008/uploads/shot/c1f66538fdaf4275bd5e5409b361e83e.png"></a>
+					<a href="/list"><img src="http://172.28.3.18:3008/uploads/shot/281a17579ca7484fbbdd7900b94d49fb.png"></a>
+					<a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/c1f66538fdaf4275bd5e5409b361e83e.png"></a>
+					<a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/281a17579ca7484fbbdd7900b94d49fb.png"></a>
+					<a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/c1f66538fdaf4275bd5e5409b361e83e.png"></a>
+					<a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/281a17579ca7484fbbdd7900b94d49fb.png"></a>
+					<a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/c1f66538fdaf4275bd5e5409b361e83e.png"></a>
+					<a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/281a17579ca7484fbbdd7900b94d49fb.png"></a>
+					<a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/c1f66538fdaf4275bd5e5409b361e83e.png"></a>
+					<a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/281a17579ca7484fbbdd7900b94d49fb.png"></a>
+					<a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/c1f66538fdaf4275bd5e5409b361e83e.png"></a>
+					<a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/281a17579ca7484fbbdd7900b94d49fb.png"></a>
+					<a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/c1f66538fdaf4275bd5e5409b361e83e.png"></a>
+					<a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/281a17579ca7484fbbdd7900b94d49fb.png"></a>
+					<a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/c1f66538fdaf4275bd5e5409b361e83e.png"></a>
+					<a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/281a17579ca7484fbbdd7900b94d49fb.png"></a>
+					<a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/c1f66538fdaf4275bd5e5409b361e83e.png"></a>
+					<a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/281a17579ca7484fbbdd7900b94d49fb.png"></a>
+					<a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/c1f66538fdaf4275bd5e5409b361e83e.png"></a>
+					<a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/281a17579ca7484fbbdd7900b94d49fb.png"></a>
+					<a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/c1f66538fdaf4275bd5e5409b361e83e.png"></a>
+					<a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/281a17579ca7484fbbdd7900b94d49fb.png"></a>
+					<a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/c1f66538fdaf4275bd5e5409b361e83e.png"></a>
+					<a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/281a17579ca7484fbbdd7900b94d49fb.png"></a>
+					<a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/c1f66538fdaf4275bd5e5409b361e83e.png"></a>
+					<a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/281a17579ca7484fbbdd7900b94d49fb.png"></a>
+					<a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/c1f66538fdaf4275bd5e5409b361e83e.png"></a>
+					<a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/281a17579ca7484fbbdd7900b94d49fb.png"></a>
+					<a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/c1f66538fdaf4275bd5e5409b361e83e.png"></a>
+					<a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/281a17579ca7484fbbdd7900b94d49fb.png"></a>
+					<a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/c1f66538fdaf4275bd5e5409b361e83e.png"></a>
+					<a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/281a17579ca7484fbbdd7900b94d49fb.png"></a>
+			   </div>
+			   <div class="more">点击加载更多</div>
+
+
+			   <div class="later">
+				   <a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/281a17579ca7484fbbdd7900b94d49fb.png"></a>
+				   <a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/281a17579ca7484fbbdd7900b94d49fb.png"></a>
+				   <a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/281a17579ca7484fbbdd7900b94d49fb.png"></a>
+				   <a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/281a17579ca7484fbbdd7900b94d49fb.png"></a>
+				   <a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/281a17579ca7484fbbdd7900b94d49fb.png"></a>
+				   <a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/281a17579ca7484fbbdd7900b94d49fb.png"></a>
+				   <a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/281a17579ca7484fbbdd7900b94d49fb.png"></a>
+				   <a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/281a17579ca7484fbbdd7900b94d49fb.png"></a>
+				   <a href="javascript:;"><img src="http://172.28.3.18:3008/uploads/shot/c1f66538fdaf4275bd5e5409b361e83e.png"></a>
+
+
+
+			    </div>
+
+
+            </div>
+
+
 			<!-- 购物图标  -->
-			<div class="u-shopbag" data-shopcart="true">
+			<!--<div class="u-shopbag" data-shopcart="true">
 				<a mars_sead="floating-cart_btn">
 					<span class="u-icon-px i-flow-carticon"></span>
 					<span class="u-flow-cartnum hide"></span>
 					<span class="u-flow-carttime hide"></span>
 				</a>
-			</div>
+			</div>-->
 			<footer class="record"><i class="icon-vip-logo"></i><!-- <span>没有更多了...</span> --></footer>
-		</div>
-	</div>
+	  </div>
+
 	<div id="M_Mask" class="ui-mask" style="display: none;"></div>
 	<a id="rocket" class="u-backtop-rocket">
 	    <span class="i-backtop-rocket"></span>
 	</a>
+	<div class="download-box">
+		<div class="download scope">
+			<span class="ico"></span>
+
+			<span class="info">
+				<i>下载客户端</i>
+				<i>立返惊喜优惠</i>
+			</span>
+			<a href="javascript:;">立即领取</a>
+			<b>×</b>
+		</div>
+
+
+	</div>
+
 <!--reference script region-->
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="/javascripts/hp.js"></script>

@@ -372,7 +372,7 @@ ul {
     -ms-flex: 1;
     position: relative;
     overflow: auto;
-    width: 50%;
+    width: 49%;
     border-bottom: 2px solid #DDD8CE;
 }
 dl.list dt, dl.list dd {

@@ -51,6 +51,20 @@ $(function() {
 			$('body,html').css('overflow','auto');
 		}		
 	});
+
+
+	$('.more').click(function(){
+		$(this).hide();
+		$('.later').show();
+
+	});
+
+	$('.download b').click(function(){
+		$(this).parents('.download-box').hide();
+	})
+
+
+
 });
 window.onscroll = function(e) {
 	var scrollTop = document.body.scrollTop;

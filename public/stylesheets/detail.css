@@ -1,3 +1,58 @@
+/* 禁用iPhone中Safari的字号自动调整 */
+html {
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+}
+/* 去除iPhone中默认的input样式 */
+input{/* -webkit-appearance:none; */ resize: none;}
+/* 取消链接高亮  */
+body,div,ul,li,ol,h1,h2,h3,h4,h5,h6,input,textarea,select,p,dl,dt,dd,a,img,button,form,table,th,tr,td,tbody,article,
+aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section{ -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+	font-family: Microsoft YaHei;}
+/* 设置HTML5元素为块 */
+article, aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section {
+	display: block;
+}
+/* 图片自适应 */
+img {
+	max-width: 100%;
+	height: auto;
+	width:auto\9; /* ie8 */
+	-ms-interpolation-mode:bicubic;/*为了照顾ie图片缩放失真*/
+	display: block;
+}
+*:focus {
+	outline:none;
+}
+/* 清零 */
+body,div,ul,li,ol,h1,h2,h3,h4,h5,h6,input,textarea,select,p,dl,dt,dd,a,img,button,form,table,th,tr,td,tbody,article,
+aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section{margin:0; padding:0; border:none;}
+body{font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self; color:#ccc;background:#F0F0F0; }
+em,i{font-style:normal;}
+strong{font-weight: normal;}
+.clearfix:after{content:""; display:block; visibility:hidden; height:0; clear:both;}
+.clearfix{zoom:1;}
+a{text-decoration:none; color:#969696; font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self;}
+a:hover{color:#969696; text-decoration:none;}
+ul,ol,li{list-style:none;}
+h1, h2, h3, h4, h5, h6{ font-size:100%; font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self;}
+fieldset,img{border: none;}
+table {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+caption, th {
+	text-align:left;
+}
+q:before,
+q:after {
+	content:"";
+}
+input:password {
+	ime-mode:disabled;
+}
+*{box-sizing:border-box;}
+
 
 .picture_wrap {
 	overflow: auto;
@@ -6,36 +61,97 @@
 }
 /****-------------------------------nav-------------------------------************/
 .nav_ban_detail {
-	position: relative;
+
 	text-align: center;
 	width: 100%;
-	z-index: 11;
-	top: 0;
-	left: 0;
+	height:50px;
+	z-index: 200;
+	background:#F58292;
+	position: fixed;
+	top:0;
+
+
+
+
 }
+/*头部*/
+
+.nav_ban_detail .back{
+	position: absolute;
+	top:11px;
+	left:0;
+	width:40px;
+	height:40px;
+
+}
+
+
+.back i,.back b{
+	position: absolute;
+	left:0;
+	width:0;
+	height:0;
+	border-width:14px;
+	border-style:dashed solid dashed dashed ;
+	border-color:transparent #fff transparent transparent ;
+}
+.back b{
+	border-color:transparent #F58292 transparent transparent ;
+	left:3px;
+
+}
+
+/*购物车*/
 .nav_ban_detail .icon-cart {
 	height: 33px;
 	width: 33px;
-	position: absolute;
-	right: 0;
-	top: 0;
-	background: url("/images/web/cart.png") center center no-repeat;
+    background: url("/images/web/cart.png") center center no-repeat;
 	background-size: 100%;
-	line-height: 33px;
-	margin-right: 10px;
-	margin-top: 10px;
+	float: left;
+    margin-top: 10px;
+
+
 }
 .nav_ban_detail .icon-back-detail {
 	height: 33px;
 	width: 33px;
-	position: absolute;
-	left: 0;
+	float: left;
 	background: url("/images/web/back_detail.png") center center no-repeat;
 	background-size: 100%;
 	line-height: 33px;
 	margin-top: 10px;
-	margin-left: 10px;
+	margin-left: 2%;
+
 }
+
+.nav_ban_detail h1{
+
+	margin: 0 auto;
+	line-height: 50px;
+	font-size: 1rem;
+	width:30%;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	-webkit-text-overflow:ellipsis;
+	height:50px
+
+
+}
+
+.home_link {
+	width:25px;
+	height:21px;
+	background: url(/images/web/home-cf.png) no-repeat;
+	color: rgb(102, 102, 102);
+	background-size:cover;
+	position: absolute;
+	top:0;
+	right:0;
+    margin: 15px 1% 0 0;
+}
+
+
 /****-------------------------------nav end-------------------------------************/
 .picture_wrap .swipe {
 	position: relative;
@@ -53,6 +169,8 @@
 	background-size: cover;
 	opacity: 0;
 }
+
+
 /************************************cycle-slide************************************/
 .cycle-slideshow {
 	width: 100%;
@@ -76,14 +194,7 @@
 	position: relative;
 	overflow: auto;
 }
-.nav_ban_detail {
-	position: absolute;
-	text-align: center;
-	width: 100%;
-	z-index: 200;
-	top: 10px;
-	left: 0;
-}
+
 div .cycle-overlay {
 	color: white;
 	background: black;
@@ -94,7 +205,7 @@ div .cycle-overlay {
 	width: auto;
 	padding: 5px;
 	border-radius: 20px;
-	bottom: 3%;
+	bottom:7%;
 	left: 3%;
 	z-index: 999;
 }
@@ -127,7 +238,7 @@ div .cycle-overlay {
 	width: 100%;
 	z-index: 500;
 	position: absolute;
-	top: 10px;
+	bottom:0;
 	overflow: hidden;
 }
 .custom-pager span {
@@ -155,10 +266,11 @@ div .cycle-overlay {
 	position: absolute;
 	display: flex;
 	vertical-align: middle;
+
 }
 .u-icon {
 	display: inline-block;
-	background: url(/images/web/timer_red.png) no-repeat;
+    background: url(/images/web/timer_red.png) no-repeat;
 	background-size: contain;
 }
 .i-clock-white {
@@ -307,7 +419,7 @@ pointer-events: none;
 /****************************detail wrap nav *******************************/
 .detail-tabpanel-fixed {
 	position: fixed;
-	top: 0;
+	top:50px;
 	z-index: 900;
 	width: 100%;
 	background: #fff;
@@ -367,7 +479,7 @@ pointer-events: none;
 	left: 0;
 	display: none;
 	width: 100%;
-	height: .04rem;
+	height: 0.4rem;
 	min-height: 1px;
 	background: #f69;
 	font-size: 0;
@@ -473,9 +585,9 @@ pointer-events: none;
 /*********************rocket******************************/
 .u-backtop-rocket {
 	position: fixed;
-	right: 15px;
-	bottom: 90px;
-	display: block;
+	right:2%;
+	bottom:72px;
+    display: block;
 	width: 39px;
 	height: 39px;
 	border-radius: 22px;
@@ -494,18 +606,84 @@ pointer-events: none;
 	width: 24px;
 	height: 24px;
 }
-/********************buy nav***************************/
+/**购物车按钮**/
 
-/*********************************/
+
+
+.buy_box .add_cart {
+	float: left;
+	width: 25%;
+	margin-top: 1.5%;
+	border-radius: .6em;
+	background-color: #ffe817;
+	font-size: 1.5em;
+	color: #666;
+	line-height: 2.5em;
+	text-align: center;
+	margin-left:24%;
+	margin-right: 6%;
+	word-wrap: normal;
+	white-space: nowrap;
+}
+
+
+
+.buy_box .buy_btn {
+	float: left;
+	width: 25%;
+	font-size: 1.5em;
+	line-height:2.5em;
+	text-align: center;
+	color: #fff;
+	background-color: #f66;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 1.5%;
+	word-wrap: normal;
+	white-space: nowrap;
+	margin-top: 1.5%;
+	border-radius: .6em;
+
+}
+
+.buy_box i{
+    display: block;
+	background:url(/images/web/bc.png) no-repeat center;
+	background-size: contain;
+	width:30px;
+	height:30px;
+	margin: 10px auto;
+	position: relative;
+
+}
+
+.btnCart{
+	display: block;
+	width:100%;
+
+}
+
+.fly_item{
+	position: absolute;
+	left:25%;
+	width:50px;
+	height:50px;
+	visibility: hidden;
+	overflow: hidden;
+	opacity: 0.9;
+
+}
+
+
 @media (min-width: 750px) {
 	.buy_box {
 		position: fixed;
 		bottom: 0;
 		width: 100%;
-		height: auto;
+		height:auto;
 		background-color: rgba(255,255,255,0.95);
 		box-shadow: 0 -1px 0 0 rgba(51,51,51,0.15);
-		z-index: 200;
+		z-index:1000;
 		word-wrap: normal;
 		white-space: nowrap;
 		margin-left: auto;
@@ -521,97 +699,102 @@ pointer-events: none;
 		position: fixed;
 		bottom: 0;
 		width: 100%;
-		height: auto;
+		height:70px;
 		background-color: rgba(255,255,255,0.95);
 		box-shadow: 0 -1px 0 0 rgba(51,51,51,0.15);
-		z-index: 200;
+		z-index:1000;
 		word-wrap: normal;
 		white-space: nowrap;
 		margin-left: auto;
 		margin-right: auto;
-		font-size: 10px;
+
 	}
 
 }
 
-@media (max-width: 450px) and (min-width: 320px) {
+@media (max-width: 480px) and (min-width: 320px) {
 	.buy_box {
 		position: fixed;
 		bottom: 0;
 		width: 100%;
-		height: auto;
+		height:70px;
 		background-color: rgba(255,255,255,0.95);
 		box-shadow: 0 -1px 0 0 rgba(51,51,51,0.15);
-		z-index: 200;
+		z-index:1000;
 		word-wrap: normal;
 		white-space: nowrap;
 		margin-left: auto;
 		margin-right: auto;
-		font-size: 5px;
+
+	}
+	.buy_box .add_cart{
+		width: 35%;
+		margin-left:12%;
+		margin-top: 2.2%;
+
+
+
+	}
+	.buy_box .buy_btn{
+		width: 35%;
+		margin-top: 2.2%;
 	}
 
+	.fly_item{
+		left:10%;
+	}
 }
 
 
-.home_link {
-	width: 6%;
-	padding-top: 3.5%;
-	margin-top: 2.2%;
-	font-size: 1.3em;
-	background: url(/images/web/home-cf.png) center top no-repeat;
+
+
+/*购车icon*/
+
+.shopping{
+	background: url(/images/web/bc.png) center center no-repeat;
+	background-size: contain;
+	position: absolute;
+    top:20%;
+	right:12%;
+	width:30px;
+	height:30px;
+
+}
+
+
+.shopping i{
+	background: url(/images/web/bc.png) center center no-repeat;
+	background-size: contain;
+	position: absolute;
+	top:0;
+	right:0;
+	width:30px;
+	height:30px;
+}
+
+.shopping .cart_num{
+	width:21px;
+	height:21px;
+	position: absolute;
+
+	top:-7px;
+	left:15px;
+	background:#ed145b;
+	line-height: 21px;
 	cursor: pointer;
-	color: rgb(102, 102, 102);
-	background-size: 70%;
-	word-wrap: normal;
-	white-space: nowrap;
+	color:#fff;
+	border-radius:50%;
 	text-align: center;
-	display: block;
-	position: absolute;
-	left: 5%;
+
 }
-.add_cart {
-	float: left;
-	width: 30%;
-	margin-top: 1.5%;
-	border-radius: .6em;
-	background-color: #ffe817;
-	font-size: 1.5em;
-	color: #666;
-	line-height: 3em;
-	text-align: center;
-	margin-left: 17%;
-	margin-right: 6%;
-	word-wrap: normal;
-	white-space: nowrap;
+
+.buy_box a{
+	color:#fff;
+	font-weight: bold;
 }
-.buy_btn {
-	float: left;
-	width: 30%;
-	font-size: 1.5em;
-	line-height: 3em;
-	text-align: center;
-	color: #fff;
-	background-color: #f66;
-	margin-left: auto;
-	margin-right: auto;
-	margin-bottom: 1.5%;
-	word-wrap: normal;
-	white-space: nowrap;
-	margin-top: 1.5%;
-	border-radius: .6em;
-}
-.cnt_seller {
-	text-align: center;
-	background: url(/images/web/service.png) center top no-repeat;
-	background-size: 60%;
-	font-size: 1.3em;
-	word-wrap: normal;
-	white-space: nowrap;
-	right: 5%;
-	display: block;
-	position: absolute;
-	color: rgb(102, 102, 102);
-	width: 6%;
-	padding-top: 3.5%;
-	margin-top: 2.2%;
-}
+
+
+/*购车icon end*/
+
+
+

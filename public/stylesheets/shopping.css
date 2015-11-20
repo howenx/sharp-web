@@ -1,0 +1,213 @@
+/* 禁用iPhone中Safari的字号自动调整 */
+html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+/* 去除iPhone中默认的input样式 */
+input{/* -webkit-appearance:none; */ resize: none;}
+/* 取消链接高亮  */
+body,div,ul,li,ol,h1,h2,h3,h4,h5,h6,input,textarea,select,p,dl,dt,dd,a,img,button,form,table,th,tr,td,tbody,article,
+aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section{ -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+    font-family: Microsoft YaHei;}
+/* 设置HTML5元素为块 */
+article, aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section {
+    display: block;
+}
+/* 图片自适应 */
+img {
+    max-width: 100%;
+    height: auto;
+    width:auto\9; /* ie8 */
+    -ms-interpolation-mode:bicubic;/*为了照顾ie图片缩放失真*/
+    display: block;
+}
+*:focus {
+    outline:none;
+}
+/* 清零 */
+body,div,ul,li,ol,h1,h2,h3,h4,h5,h6,input,textarea,select,p,dl,dt,dd,a,img,button,form,table,th,tr,td,tbody,article,
+aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section{margin:0; padding:0; border:none;}
+body{font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self; color:#ccc;background:#F0F0F0; }
+em,i{font-style:normal;}
+strong{font-weight: normal;}
+.clearfix:after{content:""; display:block; visibility:hidden; height:0; clear:both;}
+.clearfix{zoom:1;}
+a{text-decoration:none; color:#969696; font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self;}
+a:hover{color:#969696; text-decoration:none;}
+ul,ol,li{list-style:none;}
+h1, h2, h3, h4, h5, h6{ font-size:100%; font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self;}
+fieldset,img{border: none;}
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+caption, th {
+    text-align:left;
+}
+q:before,
+q:after {
+    content:"";
+}
+input:password {
+    ime-mode:disabled;
+}
+*{box-sizing:border-box;}
+
+
+/*购买产品部分开始*/
+.cart-goods{
+    margin-top: 70px;
+    width: 100%;
+    background-color: #fff;
+    overflow: hidden;
+    margin-bottom: 58px;
+}
+.cart-goods-list li{
+    width: 100%;
+    float: left;
+    border-bottom: 1px solid #9FA0A0;
+    background-color: white;
+}
+.item{
+    padding: 10px 20px;
+    margin-left: 20px;
+    position: relative;
+}
+.check-wrapper{
+    height: 22px;
+    width: 22px;
+    position: absolute;
+    top: 50%;
+    left:-2px;/*这里修改了*/
+    margin-top: -10px;
+}
+
+.item-con{
+    overflow: hidden;
+    padding: 0;/*这里修改了*/
+    position: relative;
+}
+.item-con-l{
+    float: left;
+    display: block;
+    position:absolute;
+    left: 0;
+    top:50%;
+    transform: translate(0,-50%);
+    width: auto;
+    height: auto;
+}
+.item-con-l img{
+    width:70px;
+    height:70px;
+    text-align: center;
+}
+.item-con-r{
+    margin-left: 80px;
+    box-sizing: border-box;
+    text-align: left;
+}
+.cart-product-name{
+    text-align: left;
+    line-height: 22px;
+}
+.cart-product-name a span{
+    font-size: 16px;
+    color: #727171;
+}
+
+.cart-product-price{
+    font-size: 14px;
+    line-height: 25px;
+    color: #9FA0A0;
+    overflow: hidden;
+}
+.cart-product-price-l{
+    float: left;
+}
+.cart-product-price-r{
+    float: right;
+}
+.cart-product-number{
+    height: 24px;
+    padding-top:6px;
+    text-align: center;
+}
+.quantity-decrease,.quantity-increase{
+    display: block;
+    line-height:16px;
+    height: 20px;
+    width: 25px;
+    color: #fff;
+    -webkit-border-radius: 2px 0 0 2px;
+    border: 1px solid #ccc;
+    overflow: hidden;
+    background-color: #eee;
+    float: left;
+    font-size:29px;
+}
+.quantity{
+    display: block;
+    line-height: 20px;
+    height: 20px;
+    width: 35px;
+    color: #999;
+    border: 1px solid #ccc;
+    border-width: 1px 0 1px 0;
+    overflow: hidden;
+    float: left;
+    font-size: 14px;
+    text-align: center;
+
+}
+.quantity-increase{
+    font-size:18px;
+}
+.cart-del-btn{
+    color: white;
+    background-color: #8DC21F;
+    border-radius: 3px;
+    height: 22px;
+    padding: 0 10px;
+    float: right;
+    outline: none;
+}
+/*购买产品部分结束*/
+
+/*footer部分开始*/
+.footer-hd{
+    position: fixed;
+    left: 0;
+    bottom:0;
+}
+
+.link-shop i{
+    background: url("../images/tab_ico_index_grey_@2x.png") no-repeat;
+   background-size:cover;
+}
+.link-shopping-cart i{
+    background: url("../images/tab_ico_cart_green_@2x.png") no-repeat;
+    background-size:cover;
+}
+.link-shopping-cart i b{
+    content: "";
+    position: absolute;
+    top: 5px;
+    right:5px;
+    display:block;
+    width:12px;
+    height: 12px;
+    line-height:12px;
+    text-align: center;
+    font-size: 5px;
+    font-weight: normal;
+    color: #fff;
+    background-color: #FF5151;
+    border-radius: 50%;
+}
+
+/*footer部分结束*/
+
+
+
+

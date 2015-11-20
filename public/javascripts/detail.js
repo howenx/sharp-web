@@ -1,4 +1,25 @@
 $(function() {
+
+
+    $('.add_cart').click(function(){
+
+
+	})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	$('#slide').on('cycle-next', function(event, opts) {
 		if (opts.slides[opts.currSlide].firstElementChild.src === '') {
 			opts.slides[opts.currSlide].firstElementChild.src = "/images/sku-slide/" + opts.currSlide + ".jpg"

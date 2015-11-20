@@ -5,6 +5,35 @@ var router = express.Router();
 router.get('/login', function(req, res, next) {
 	res.render('login.html');
 });
+
+router.get('/list', function(req, res, next) {
+	res.render('list.html');
+});
+
+router.get('/personal', function(req, res, next) {
+	res.render('personal.html');
+});
+
+router.get('/shopping', function(req, res, next) {
+	res.render('shopping.html');
+});
+
+router.get('/obligation', function(req, res, next) {
+	res.render('obligation.html');
+});
+
+router.get('/orders', function(req, res, next) {
+	res.render('orders.html');
+});
+
+router.get('/delivered', function(req, res, next) {
+	res.render('delivered.html');
+});
+
+router.get('/pay', function(req, res, next) {
+	res.render('pay.html');
+});
+
 router.get('/regist', function(req, res, next) {
 	res.render('regist.html');
 });

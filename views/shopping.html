@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 视图窗口，移动端特属的标签。 -->
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+    <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- 忽略页面中的数字识别为电话号码,email识别 -->
+    <meta name="format-detection"content="telephone=no, email=no" />
+    <link rel="stylesheet" href="../stylesheets/common.css"/>
+    <link rel="stylesheet" href="../stylesheets/shopping.css"/>
+    <script src="/javascripts/jquery-1.11.1.min.js"></script>
+    <script src="/javascripts/shopping.js"></script>
+    <script src="/javascripts/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+<!--头部开始-->
+<header class="header">
+    <!--<a href="/" class="back">
+        <i></i>
+        <span></span>
+    </a>-->
+    <a href="/" class="home_link"></a>
+    <div class="header-text">
+        <h1 class="header-title">购物车</h1>
+    </div>
+    <a href="/"><span class="icon-user-title" id="userBtn"></span></a>
+</header>
+<!--头部结束-->
+<!--购买产品部分开始-->
+<div class="cart-goods" id="cart-goods">
+    <ul class="cart-goods-list">
+        <li>
+            <div class="item">
+                <div class="check-wrapper">
+                    <input type="checkbox" class="check-one check"  name="check_item" />
+                </div>
+                <div class="item-con">
+                    <a href="" class="item-con-l" target="_top">
+                        <img src="/images/0012a26d74a54b69bde4b2121ab411321445410248824.jpg" alt=""/>
+                    </a>
+                    <div class="item-con-r">
+                        <div class="cart-product-name">
+                            <a href="#" target="_top">
+                                <span>美国直邮Forever New芳新洗衣粉高档衣物宝宝内衣免揉搓908g</span>
+                            </a>
+                        </div>
+                        <div class="cart-product-price">
+                            <div class="cart-product-price-l">
+                                ￥
+                                <span class="price">105.00</span>
+                            </div>
+                            <div class="cart-product-price-r">
+                                小计:￥
+                                <span class="subtotal">105.00</span>
+                            </div>
+                        </div>
+                        <div class="cart-product-number">
+                            <a href="javascript:;" class="quantity-decrease">-</a>
+                            <input type="text" class="quantity" value="1"/>
+                            <a href="javascript:;" class="quantity-increase">+</a>
+                            <button class="cart-del-btn">删除</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="item">
+                <div class="check-wrapper">
+                    <input type="checkbox" class="check-one check"  name="check_item" />
+                </div>
+                <div class="item-con">
+                    <a href="javascript:;" class="item-con-l">
+                        <img src="/images/0012a26d74a54b69bde4b2121ab411321445410248824.jpg" alt=""/>
+                    </a>
+                    <div class="item-con-r">
+                        <div class="cart-product-name">
+                            <a href="javascript:;">
+                                <span>美国直邮Forever New芳2新洗衣粉高档衣物宝宝内衣免揉搓908g</span>
+                            </a>
+                        </div>
+                        <div class="cart-product-price">
+                            <div class="cart-product-price-l">
+                                ￥
+                                <span class="price">105.00</span>
+                            </div>
+                            <div class="cart-product-price-r">
+                                小计:￥
+                                <span class="subtotal">105.00</span>
+                            </div>
+
+                        </div>
+                        <div class="cart-product-number">
+                            <a href="javascript:;" class="quantity-decrease">-</a>
+                            <input type="text" class="quantity" value="1"/>
+                            <a href="javascript:;" class="quantity-increase">+</a>
+                            <button class="cart-del-btn">删除</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <li>
+            <div class="item">
+                <div class="check-wrapper">
+                    <input type="checkbox" class="check-one check"  name="check_item" />
+                </div>
+                <div class="item-con">
+                    <a href="javascript:;" class="item-con-l">
+                        <img src="/images/0012a26d74a54b69bde4b2121ab411321445410248824.jpg" alt=""/>
+                    </a>
+                    <div class="item-con-r">
+                        <div class="cart-product-name">
+                            <a href="javascript:;">
+                                <span>美国直邮Forever New芳2新洗衣粉高档衣物宝宝内衣免揉搓908g</span>
+                            </a>
+                        </div>
+                        <div class="cart-product-price">
+                            <div class="cart-product-price-l">
+                                ￥
+                                <span class="price">105.00</span>
+                            </div>
+                            <div class="cart-product-price-r">
+                                小计:￥
+                                <span class="subtotal">105.00</span>
+                            </div>
+
+                        </div>
+                        <div class="cart-product-number">
+                            <a href="javascript:;" class="quantity-decrease">-</a>
+                            <input type="text" class="quantity" value="1"/>
+                            <a href="javascript:;" class="quantity-increase">+</a>
+                            <button class="cart-del-btn">删除</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <li>
+            <div class="item">
+                <div class="check-wrapper">
+                    <input type="checkbox" class="check-one check"  name="check_item" />
+                </div>
+                <div class="item-con">
+                    <a href="javascript:;" class="item-con-l">
+                        <img src="/images/0012a26d74a54b69bde4b2121ab411321445410248824.jpg" alt=""/>
+                    </a>
+                    <div class="item-con-r">
+                        <div class="cart-product-name">
+                            <a href="javascript:;">
+                                <span>美国直邮Forever New芳2新洗衣粉高档衣物宝宝内衣免揉搓908g</span>
+                            </a>
+                        </div>
+                        <div class="cart-product-price">
+                            <div class="cart-product-price-l">
+                                ￥
+                                <span class="price">105.00</span>
+                            </div>
+                            <div class="cart-product-price-r">
+                                小计:￥
+                                <span class="subtotal">105.00</span>
+                            </div>
+
+                        </div>
+                        <div class="cart-product-number">
+                            <a href="javascript:;" class="quantity-decrease">-</a>
+                            <input type="text" class="quantity" value="1"/>
+                            <a href="javascript:;" class="quantity-increase">+</a>
+                            <button class="cart-del-btn">删除</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+<!--购买产品部分结束-->
+<!--footer部分开始-->
+<div class="last">
+    <div class="footer-hd">
+        <div class="footer-l">
+            <div class="footer-l-left">
+                <i><input type="checkbox" class="check-all check" name="check_all"/></i>
+                全选
+            </div>
+            <div class="footer-l-right">
+                合计:￥<span class="total" id="total">0.00</span>
+            </div>
+        </div>
+        <div class="footer-r" id="selected">去结算(<span id="selectedTotal">0</span>)</div>
+    </div>
+    <!--<footer class="footer">
+        <a href="javascript:;" class="link-shop">
+            <i></i>
+            <p>店铺</p>
+        </a>
+        <a href="javascript:;" class="link-shopping-cart">
+            <i><b id="cartCount"></b></i>
+            <p>购物车</p>
+        </a>
+        <a href="javascript:;" class="link-my">
+            <i></i>
+            <p>我的</p>
+        </a>
+    </footer>-->
+</div>
+<!--footer部分结束-->
+</body>
+</html>

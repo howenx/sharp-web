@@ -13,14 +13,32 @@
 	<link rel="stylesheet" href="/stylesheets/hp.css">
 	<link rel="stylesheet" href="/stylesheets/detail.css">
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<!--购物车-->
+	<script type="text/javascript" src="/javascripts/jquery/jquery.js"></script>
+	<script type="text/javascript" src="/javascripts/parabola.js"></script>
+
+
 </head>
 <body>
 	<div id='screen_wrap'>
-		<div class="picture_wrap">
-			<div class="nav_ban_detail">		
-				<a href="/"><span class="icon-back-detail"></span></a>				
-				<a ><span class="icon-cart" ></span></a>			
-			</div>
+		 <div class="picture_wrap">
+			<div class="nav_ban_detail">
+				<a href="/list" class="back">
+					<i></i>
+					<b></b>
+				</a>
+
+				<h1>秋季新品甜美两件套秋季新品甜美两件套</h1>
+                <a href="/" class="home_link"></a>
+			<!--	购物车icon-->
+				<div id="shopCart">
+					<a href="/shopping" class="message_list shopping">
+						<i class="message"></i>
+						<span class="cart_num">0</span>
+                    </a>
+				</div>
+		   </div>
+
 			<div id='slide' class="cycle-slideshow composite-slide"
 				data-cycle-slides="> div.slide-img"
 				data-cycle-fx="scrollHorz"
@@ -52,6 +70,30 @@
 					<img style='display: block;' width='100%'>
 				</div>
 			</div>
+
+		<!--加入购物车-->
+		    <div class="buy_box">
+
+
+
+				<div class="add_cart btns" data-type="cart">
+					<a href="javascript:;" class="btnCart add_cart_large">
+						加入购物车
+					</a>
+				</div>
+
+				<div class="buy_btn" data-type="buy">
+					<a href="javascript:;" class="">
+						立即购买
+					</a>
+
+				</div>
+
+				<div id="flyItem" class="fly_item">
+					<img src="images/icon1.png" width="50" height="50"/>
+				</div>
+			</div>
+		<!--加入购物车 end-->
 			<div class="custom-pager"></div>
 			<div class="cycle-overlay timer_box">
 				<span class="u-icon i-clock-white"></span>
@@ -102,14 +144,14 @@
 						img_<%=pic%>.onload=function(){
 							var padding =Math.floor(img_<%=pic%>.height/img_<%=pic%>.width*100);
 							// console.log(padding);
-							 setTimeout(function() {  
-								 $('.detail-pic-append').append('<div class="more_pic" style="padding-top:'+padding+'%">'+
-									'<span data-shown="1" style="opacity: 1; background-image: url(/images/sku-detail/<%=pic%>.jpg);"></span>'+							
-								 '</div>');
+							setTimeout(function() {
+								$('.detail-pic-append').append('<div class="more_pic" style="padding-top:'+padding+'%">'+
+										'<span data-shown="1" style="opacity: 1; background-image: url(/images/sku-detail/<%=pic%>.jpg);"></span>'+
+										'</div>');
 							}, <%=pic%>*5);
 						}
 						img_<%=pic%>.src = '/images/sku-detail/<%=pic%>.jpg';
-					<% }); %>
+						<% }); %>
 				</script>
 			</div>
 			<div class='sku-measure'>
@@ -239,18 +281,52 @@
 		<a id="rocket" class="u-backtop-rocket">
 		    <span class="i-backtop-rocket"></span>
 		</a>
-		<div class='sku-detail-buy'>
-			<div class="buy_box">		
-				<a href="/" class="home_link">首页</a>		
-				<div class="add_cart" data-type="cart">加入购物车</div>		
-				<div class="buy_btn" data-type="buy">立即购买</div>		
-				<div class="cnt_seller">客服</div>	
-			</div>
-		</div>
+
+
+
 	</div>	
 <!--reference script region-->
 <script src="/javascripts/jquery/jquery.cycle2.min.js"></script>
 <script src="/javascripts/jquery/jquery.cycle2.swipe.min.js"></script>
 <script src="/javascripts/detail.js"></script>
+<!--购物车-->
+<script type="text/javascript" src="/javascripts/jquery/jquery.js"></script>
+<!--[if lte IE 8]>
+<script src="/javascripts/jquery/ieBetter.js"></script>
+<![endif]-->
+<script type="text/javascript" src="/javascripts/jquery/parabola.js"></script>
+<script type="text/javascript">
+		// 元素以及其他一些变量
+		var eleFlyElement = document.querySelector("#flyItem"), eleShopCart = document.querySelector("#shopCart");
+		var numberItem = 0;
+		// 抛物线运动
+		var myParabola = funParabola(eleFlyElement, eleShopCart, {
+		speed:500, //抛物线速度
+		curvature: 0.0008, //控制抛物线弧度
+		complete: function() {
+		eleFlyElement.style.visibility = "hidden";
+		eleShopCart.querySelector("span").innerHTML = ++numberItem;
+		}
+		});
+		// 绑定点击事件
+		if (eleFlyElement && eleShopCart) {
+
+			[].slice.call(document.getElementsByClassName("btnCart")).forEach(function(button) {
+				button.addEventListener("click", function(event) {
+					var src = $(this).parents(".cycle-slideshow").find('.slide-img').find("img").attr("src");
+					$("#flyItem").find("img").attr("src", src);
+					// 滚动大小
+					var scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft || 0,
+					scrollTop = document.documentElement.scrollTop || document.body.scrollTop || 0;
+					//eleFlyElement.style.left = event.clientX + scrollLeft + "px";
+					//eleFlyElement.style.top = event.clientY + scrollTop + "px";
+					eleFlyElement.style.visibility = "visible";
+
+					// 需要重定位
+					myParabola.position().move();
+				});
+			});
+		}
+	</script>
 </body>
 </html>

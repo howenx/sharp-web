@@ -1,42 +1,61 @@
-#screen_wrap {
-	min-width: 320px;
-	max-width: 750px;
-	margin-left: auto;
-	margin-right: auto
+
+/* 禁用iPhone中Safari的字号自动调整 */
+html {
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
 }
-html,body,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,form,input,label,textarea,p {
-	margin: 0;
-	padding: 0;
-	-webkit-text-size-adjust: none
+/* 去除iPhone中默认的input样式 */
+input{/* -webkit-appearance:none; */ resize: none;}
+/* 取消链接高亮  */
+body,div,ul,li,ol,h1,h2,h3,h4,h5,h6,input,textarea,select,p,dl,dt,dd,a,img,button,form,table,th,tr,td,tbody,article,
+aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section{ -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+	font-family: Microsoft YaHei;}
+/* 设置HTML5元素为块 */
+article, aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section {
+	display: block;
 }
-html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	outline: 0;
-	vertical-align: baseline;
-	background: transparent;
-}
-article,aside,details,footer,header,nav,section {
-	display: block
-}
-em,i {
-	font-style: normal
-}
+/* 图片自适应 */
 img {
-	border: none;
-	vertical-align: middle
+	max-width: 100%;
+	height: auto;
+	width:auto\9; /* ie8 */
+	-ms-interpolation-mode:bicubic;/*为了照顾ie图片缩放失真*/
+	display: block;
 }
-ol,ul {
-	list-style: none
+*:focus {
+	outline:none;
 }
-/*input[type=text],input[type=password],input[type=number],input[type=email],input[type=search],input[type=tel],input[type=radio],input[type=checkbox] {
-	vertical-align: middle;
-	outline: 0;
-	color: #424242;
-	-webkit-appearance: none;
-	-webkit-user-select: text
-}*/
+/* 清零 */
+body,div,ul,li,ol,h1,h2,h3,h4,h5,h6,input,textarea,select,p,dl,dt,dd,a,img,button,form,table,th,tr,td,tbody,article,
+aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section{margin:0; padding:0; border:none;}
+body{font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self; color:#ccc;background:#F0F0F0; }
+em,i{font-style:normal;}
+strong{font-weight: normal;}
+.clearfix:after{content:""; display:block; visibility:hidden; height:0; clear:both;}
+.clearfix{zoom:1;}
+a{text-decoration:none; color:#969696; font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self;}
+a:hover{color:#969696; text-decoration:none;}
+ul,ol,li{list-style:none;}
+h1, h2, h3, h4, h5, h6{ font-size:100%; font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self;}
+fieldset,img{border: none;}
+table {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+caption, th {
+	text-align:left;
+}
+q:before,
+q:after {
+	content:"";
+}
+input:password {
+	ime-mode:disabled;
+}
+
+
+.scope{min-width:320px; max-width:730px;}
+
 input::-webkit-input-placeholder,textarea::-webkit-input-placeholder {
 	color: #999
 }
@@ -63,6 +82,7 @@ table {
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box
 }
+
 body {
 	font: 400 14px/1.5 Arial,sans-serif;
 	color: #5e5e5e;
@@ -77,7 +97,7 @@ a {
 
 /***header****/
 .ui-head-bar {
-	position: relative;
+	position:fixed;
 	width: 100%;
 	height: 44px;
 	line-height: 45px;
@@ -94,6 +114,17 @@ a {
 	background-size: contain;
 	z-index: 10;
 	cursor: pointer;
+}
+
+.shopping{
+	background: url(/images/web/bc.png) center center no-repeat;
+	background-size: contain;
+	position: absolute;
+	top:12%;
+	right:2%;
+	width:30px;
+	height:30px;
+
 }
 h1 {
 	height: 44px;
@@ -121,42 +152,24 @@ h1 .logo {
 	background-size: contain;
 	display: inline-block;
     position: absolute;
-    right: 0;
+    left: 0;
 }
 /****discount*****/
 .discount {
 	overflow: auto;
 	padding: 10px 10px;
 }
-.half-floor {
-	width: 50%;
-	float: left;
-	border-right: 1px solid #dadada;
-	overflow: auto;
-	position: relative;
-	font-size: small;
-}
-.up-floor {
-	border-bottom: 1px solid #dadada;
-	float: right;
-	width: 50%;
-	overflow: auto;
-	position: relative;
-	font-size: small;
-}
-.down-floor {
-	width: 50%;
-	float: right;
-	overflow: auto;
-	position: relative;
-	font-size: small;
-}
+
+
+
+
 
 /********banner*********/
 .banner {
 	display: block;
 	position: relative;
 	overflow: auto;
+	margin:44px 0 0 0 ;
 }
 .banner .bannerclose {
 	position: absolute;
@@ -278,26 +291,7 @@ h1 .logo {
 	font-style: italic;
 	font-size: 12px;
 }
-/*************精选推荐*************/
-.love h3 {
-	line-height: 25px;
-	text-align: center;
-	color: #de4e84;
-	font-size: 13px;
-	font-weight: normal;
-	padding-bottom: 5px;
-	background-color: #F6F6F6;
-}
-.love h3 span {
-	background-color: #de4e84;
-	height: 1px;
-	width: 10%;
-	display: inline-block;
-	vertical-align: middle;
-}
-/**********************/
 
-/*----蘑菇街----*/
 .panel {
 	width: 100%;
 	height: auto;
@@ -400,81 +394,41 @@ h1 .logo {
 	text-align: right;
 	display: block;
 }
-/*********美丽说**********/
-.waterfall-container {
-	position: relative;
+
+
+.con{
+	width:100%;
+	padding:10px;
 }
-.goods_wall {
-	background-color: #F6F6F6;
-	margin-left: auto;
-	margin-right: auto;
-	padding-bottom: 10px;
-	position: relative;
+
+.con a{
 	display: block;
-	overflow: auto;
-	width: auto;
-	height: auto;
+	width:100%;
+	height:auto;
+	margin: 0 0 10px 0;
+
 }
-.poster_wall {
-	float: left;
-	position: relative;
-	width: 50%;
-	height: auto;
-	overflow: auto;
-	display: block;
+
+.con a img{
+	width:100%;
+}
+
+.more{
+
+	width:100%;
+	height:40px;
+	background: white;
+	color:#F58292;
+	border-radius:3px;
+	margin: 0 0 70px 0;
 	text-align: center;
+	line-height: 40px;
+	cursor:pointer;
+
+
 }
-.goods_wall figure {
-	background: #fff;
-	border: 1px #ededed solid;
-	margin: 0px 5px 14px 5px;
-}
-.goods_wall  figure .pic_load {
-	width: 100%;
-	display: block;
-	overflow: hidden;
-	position: relative;
-	background: #fff url("http://i.meilishuo.net/css/images/group/g_loading1.gif") no-repeat;
-	background-size: 32px 32px;
-	background-position: center center;
-}
-.goods_wall  figure .pic_load img {
-	width: 100%;
-}
-.goods_wall .clothesTitle {
-	color: #80737a;
-	width: 100%;
-	padding: 0 7px;
-	line-height: 20px;
-	white-space: nowrap;
-	word-break: keep-all;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	font-size: 12px;
-	box-sizing: border-box;
-	text-align: left;
-}
-.goods_wall figcaption {
-	width: 100%;
-	height: 20px;
-	padding: 0 7px;
-	line-height: 20px;
-	font-size: 0.1em;
-	color: #ee4566;
-	display: block;
-}
-.goods_wall figcaption .price {
-	float: left;
-	color: #ff6597;
-}
-.goods_wall figcaption .like {
-	display: block;
-	text-indent: 13px;
-	background: url("http://d04.res.meilishuo.net/pic/_o/0b/af/01f834bdf72c210229a9d6277440_27_24.cg.jpg") 0px center no-repeat;
-	background-size: 10px auto;
-	color: #727272;
-	float: right;
-}
+
+
 /*********购物图标******************/
 .u-shopbag {
 	position: fixed;
@@ -543,7 +497,7 @@ h1 .logo {
 .u-backtop-rocket {
 	position: fixed;
 	right: 15px;
-	bottom: 22px;
+	bottom:61px;
 	display: block;
 	width: 39px;
 	height: 39px;
@@ -655,121 +609,10 @@ li {
 	margin-bottom: 10px;
 /*	border-bottom: 1px solid #eee;*/
 }
-/*****分类*******/
-.clothes {
-	display: block;
-	line-height: 28px;
-	background-color: #fbfbfb;
-	padding-right: 13px;
-	border-bottom: 1px solid #eee;
-	color: #666;
-	text-decoration: none;
-	border-top: 1px solid #eee;
-}
-.clothes img {
-	width: 65px;
-	line-height: 30px;
-	vertical-align: middle;
-}
-.clothes span {
-    float: right;
-    color: #f69;
-    font-size: 12px;
-    font-style: italic;
-}
-.clothes:after {
-	clear: both;
-	content: ".";
-	display: block;
-	visibility: hidden;
-	height: 0;
-}
-.info {
-    background: #fff;
-    margin-bottom: 15px;
-	margin-top: 15px;
-}
-section {
-	padding-left: 13px;
-	padding-right: 13px;
-	padding-top: 14px;
-	padding-bottom: 10px;
-	display: block;
-	position: relative;
-	border-bottom: 1px solid #eee;
-}
-section:after {
-	clear: both;
-	content: ".";
-	display: block;
-	visibility: hidden;
-	height: 0;
-}
-section .main {
-	clear: both;
-	float: left;
-	width: 50%;
-	padding-right: 8px;
-}
-section .main dd {
-	font-size: 13px;
-	color: #a8a8a8;
-	text-align: right;
-	width: 40%;
-	height: 20px;
-	line-height: 20px;
-	/* word-wrap: normal; */
-	white-space: nowrap;
-	word-break: keep-all;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-section .main img {
-	width: 60%;
-	float: left;
-	margin: 0;
-	padding: 0;
-	border: 0;
-	outline: 0;
-	font-size: 100%;
-	vertical-align: baseline;
-	background: transparent;
-}
-section .main dd:nth-child(2) {
-	font-size: 14px;
-	color: #746870;
-	padding-bottom: 3px;
-}
-section .list p {
-	float: right;
-	color: #746870;
-	font-size: 14px;
-	padding-top: 5px;
-}
-section .count {
-	float: left;
-	width: 40%;
-	padding-left: 8px;
-	border-left: 1px solid #eee;
-}
-section .list {
-	padding-bottom: 5px;
-}
-section .list:nth-child(2) {
-	border-top: 1px solid #eee;
-	padding-top: 7px;
-}
-section .list a {
-	display: block;
-	overflow: hidden;
-}
-section .list:after {
-	clear: both;
-	content: ".";
-	display: block;
-	visibility: hidden;
-	height: 0;
-}
+
+
+
+
 /*****************************************slide**************************************/
 .cycle-slideshow { width: 100%;}
 .cycle-slideshow div { width: 100%; height: auto }
@@ -811,11 +654,10 @@ section .list:after {
     width: 100%;
     z-index: 500;
     position: absolute;
-    top: 22px;
+	bottom:0;
     overflow: hidden;
 }
 .cycle-pager span {
-    font-family: arial;
     font-size: 50px;
     width: 17px;
     height: 17px;
@@ -828,3 +670,127 @@ section .list:after {
 	color: #F22F65;
 }
 .cycle-pager > * { cursor: pointer;}
+
+.later{
+	display: none;
+}
+
+.download-box{
+	width:100%;
+	height: 60px;
+	position: fixed;
+	bottom:0;
+	padding:
+
+}
+
+.download{
+    height: 60px;
+
+    background-color: rgba(0,0,0,0.7);
+	margin: 0 auto;
+	color:#fff;
+	padding:10px 0 0 0;
+	position: relative;
+	overflow: hidden;
+
+}
+
+
+.ico{
+	float: left;
+	background: url("/images/web/title_hmm.png")  no-repeat;
+	width:100px;
+	height:100px;
+	background-size:contain;
+	margin:5px 0 0 25%;
+
+}
+
+.download .info{
+	float: left;
+	margin: 0 0 0 3%;
+
+}
+
+.download a{
+	float:left;
+	width:120px;
+	height:40px;
+	background-color:#ed145b;
+	border-radius: 5px;
+	color:#fff;
+	text-align: center;
+	line-height: 40px;
+	margin: 0 0 0 15%;
+
+}
+
+.download i{
+	display: block;
+}
+
+
+
+.download b{
+	position: absolute;
+	top:-9px;
+	left:-7px;
+	width:30px;
+	height:30px;
+	border-radius: 50%;
+	background-color:#000;
+	padding:7px 0 0 12px;
+	cursor: pointer;
+
+}
+
+@media screen and (min-width:400px) and (max-width:534px){
+	.ico{
+
+		width:80px;
+		height:80px;
+		background-size:contain;
+		margin: 9px 0 0 15%;
+
+	}
+
+	.download a{
+		width:90px;
+		margin: 0 0 0 10%;
+	}
+
+}
+
+@media screen and (min-width:320px) and (max-width:399px){
+	.ico{
+
+		width:80px;
+		height:80px;
+		background-size:contain;
+		margin: 9px 0 0 10%;
+
+
+	}
+
+	.download a{
+		width:90px;
+		margin: 0 0 0 4%;
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
