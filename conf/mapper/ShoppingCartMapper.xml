@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.ShoppingCartMapper">
+
+    <!--enable mybatis default cache configure reference:
+        https://mybatis.github.io/mybatis-3/zh/sqlmap-xml.html#cache
+    -->
+    <!--<cache/>-->
+
+    <sql id="shoppingCartColumns">
+        ${alias}.cart_id
+        ,${alias}.user_id
+        ,${alias}.sku_id
+        ,${alias}.item_id
+        ,${alias}.amount
+        ,${alias}.price
+        ,${alias}.create_at
+        ,${alias}.destroy_at
+        ,${alias}.update_at
+        ,${alias}.order_id
+        ,${alias}.status
+        ,sum(${alias}.amount) over() cart_num
+    </sql>
+
+    <!---  获取用户购物车,以用户ID或者CartID    -->
+    <select id="getCartByUserSku" resultType="domain.Cart" parameterType="domain.Cart">
+        select
+        <include refid="shoppingCartColumns">
+            <property name="alias" value="t"/>
+        </include>
+        from sp_cart t
+        where 1=1 and t.status='I'
+        <if test="cartId!=null and cartId !=''">
+            and t.cart_id = #{cartId}
+        </if>
+        <if test="userId!=null and userId !=''">
+            and t.user_id = #{userId}
+        </if>
+        <if test="skuId!=null and skuId !=''">
+            and t.sku_id = #{skuId}
+        </if>
+        <if test="itemId!=null and itemId !=''">
+            and t.item_id = #{itemId}
+        </if>
+        ORDER BY t.create_at DESC,t.sku_id
+    </select>
+</mapper>
