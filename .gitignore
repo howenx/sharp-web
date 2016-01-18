@@ -16,9 +16,9 @@ target
 /out
 /.cache*
 /*.gz
-activator
-activator-launch-1.3.6.jar
-activator.bat
+#activator
+#activator-launch-1.3.6.jar
+#activator.bat
 # Ignore Play! working directory #
 bin/
 /db
