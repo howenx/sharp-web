@@ -7,7 +7,7 @@
 		revision="1.0-SNAPSHOT"
 		conf="default"
 		confs="default"
-		date="20160118140313"/>
+		date="20160118143438"/>
 	<dependencies>
 		<module organisation="com.typesafe.sbt" name="sbt-play-enhancer">
 			<revision name="1.1.0" status="release" pubdate="20150527125634" resolver="sbt-chain" artresolver="sbt-chain" homepage="https://github.com/playframework/play-enhancer" extra-scalaVersion="2.10" extra-sbtVersion="0.13" downloaded="false" searched="false" default="false" conf="compile, default(compile)" position="141">

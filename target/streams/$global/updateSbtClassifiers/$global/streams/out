@@ -4022,9 +4022,9 @@
 [debug] 	[NOT REQUIRED] asm#asm;3.1!asm.jar
 [debug] 	[NOT REQUIRED] jfree#jcommon;1.0.12!jcommon.jar
 [debug] 	[NOT REQUIRED] jfree#jfreechart;1.0.8a!jfreechart.jar
-[debug] :: resolution report :: resolve 2814ms :: artifacts dl 43ms
+[debug] :: resolution report :: resolve 3132ms :: artifacts dl 46ms
 [debug] 	report for play-java#play-java$sbt_2.11;1.0-SNAPSHOT default produced in /Users/howen/git/style-web/target/resolution-cache/reports/play-java-play-java$sbt_2.11-default.xml
-[debug] 	resolve done (2814ms resolve - 43ms download)
+[debug] 	resolve done (3132ms resolve - 46ms download)
 [debug] Using inline dependencies specified in Scala.
 [debug] :: resolving dependencies :: play-java#play-java$sources_2.11;1.0-SNAPSHOT
 [debug] 	confs: [default]
@@ -5180,6 +5180,6 @@
 [debug] 	[NOT REQUIRED] com.typesafe.sbt#sbt-mocha;1.1.0!sbt-mocha.jar(src)
 [debug] 	[NOT REQUIRED] com.typesafe.sbt#sbt-play-enhancer;1.1.0!sbt-play-enhancer.jar(src)
 [debug] 	[NOT REQUIRED] com.typesafe.play#play-enhancer;1.1.0!play-enhancer.jar(src)
-[debug] :: resolution report :: resolve 545ms :: artifacts dl 35ms
+[debug] :: resolution report :: resolve 369ms :: artifacts dl 22ms
 [debug] 	report for play-java#play-java$sources_2.11;1.0-SNAPSHOT default produced in /Users/howen/git/style-web/target/resolution-cache/reports/play-java-play-java$sources_2.11-default.xml
-[debug] 	resolve done (545ms resolve - 35ms download)
+[debug] 	resolve done (369ms resolve - 22ms download)

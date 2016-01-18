@@ -7,7 +7,7 @@
 [debug] == resolving dependencies for play-java#play-java_2.11;1.0-SNAPSHOT [compile]
 [debug] == resolving dependencies play-java#play-java_2.11;1.0-SNAPSHOT->org.scala-lang#scala-library;2.11.7 [compile->default(compile)]
 [info] Resolving org.scala-lang#scala-library;2.11.7 ...
-[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@790cc61e
+[debug] sbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@2904171c
 [debug] sbt-chain: module revision found in cache: org.scala-lang#scala-library;2.11.7
 [debug] 	found org.scala-lang#scala-library;2.11.7 in sbt-chain
 [debug] 	[2.11.7] org.scala-lang#scala-library;2.11.7
@@ -422,7 +422,7 @@
 [debug] 	public: downloading https://repo1.maven.org/maven2/com/google/inject/extensions/guice-assistedinject/4.0/guice-assistedinject-4.0.pom
 [debug] 	public: downloading https://repo1.maven.org/maven2/com/google/inject/extensions/guice-assistedinject/4.0/guice-assistedinject-4.0.pom.sha1
 [debug] sha1 OK for https://repo1.maven.org/maven2/com/google/inject/extensions/guice-assistedinject/4.0/guice-assistedinject-4.0.pom
-[debug] 	[SUCCESSFUL ] com.google.inject.extensions#guice-assistedinject;4.0!guice-assistedinject.pom(pom.original) (1112ms)
+[debug] 	[SUCCESSFUL ] com.google.inject.extensions#guice-assistedinject;4.0!guice-assistedinject.pom(pom.original) (1106ms)
 [info] Resolving com.google.inject.extensions#extensions-parent;4.0 ...
 [debug] sbt-chain: Checking cache for: dependency: com.google.inject.extensions#extensions-parent;4.0 {}
 [debug] sbt-chain: module revision found in cache: com.google.inject.extensions#extensions-parent;4.0
@@ -1157,21 +1157,8 @@
 [debug] == resolving dependencies play-java#play-java_2.11;1.0-SNAPSHOT->com.typesafe.play#filters-helpers_2.11;2.4.6 [compile->default(compile)]
 [info] Resolving com.typesafe.play#filters-helpers_2.11;2.4.6 ...
 [debug] sbt-chain: Checking cache for: dependency: com.typesafe.play#filters-helpers_2.11;2.4.6 {compile=[default(compile)]}
-[info] Resolving com.typesafe.play#filters-helpers_2.11;2.4.6 ...
-[debug] sbt-chain-delegate: Checking cache for: dependency: com.typesafe.play#filters-helpers_2.11;2.4.6 {compile=[default(compile)]}
-[debug] 		tried /Users/howen/.ivy2/local/com.typesafe.play/filters-helpers_2.11/2.4.6/ivys/ivy.xml
-[debug] 	local: no ivy file found for com.typesafe.play#filters-helpers_2.11;2.4.6
-[debug] 		tried https://repo1.maven.org/maven2/com/typesafe/play/filters-helpers_2.11/2.4.6/filters-helpers_2.11-2.4.6.pom
-[debug] 	public: found md file for com.typesafe.play#filters-helpers_2.11;2.4.6
-[debug] 		=> https://repo1.maven.org/maven2/com/typesafe/play/filters-helpers_2.11/2.4.6/filters-helpers_2.11-2.4.6.pom (2.4.6)
-[debug] downloading https://repo1.maven.org/maven2/com/typesafe/play/filters-helpers_2.11/2.4.6/filters-helpers_2.11-2.4.6.pom ...
-[debug] 	public: downloading https://repo1.maven.org/maven2/com/typesafe/play/filters-helpers_2.11/2.4.6/filters-helpers_2.11-2.4.6.pom
-[debug] 	public: downloading https://repo1.maven.org/maven2/com/typesafe/play/filters-helpers_2.11/2.4.6/filters-helpers_2.11-2.4.6.pom.sha1
-[debug] sha1 OK for https://repo1.maven.org/maven2/com/typesafe/play/filters-helpers_2.11/2.4.6/filters-helpers_2.11-2.4.6.pom
-[debug] 	[SUCCESSFUL ] com.typesafe.play#filters-helpers_2.11;2.4.6!filters-helpers_2.11.pom(pom.original) (1112ms)
-[debug] 		tried /Users/howen/.ivy2/local/com.typesafe.play/filters-helpers_2.11/2.4.6/jars/filters-helpers_2.11.jar
-[debug] 		tried https://repo1.maven.org/maven2/com/typesafe/play/filters-helpers_2.11/2.4.6/filters-helpers_2.11-2.4.6.jar
-[debug] 	found com.typesafe.play#filters-helpers_2.11;2.4.6 in public
+[debug] sbt-chain: module revision found in cache: com.typesafe.play#filters-helpers_2.11;2.4.6
+[debug] 	found com.typesafe.play#filters-helpers_2.11;2.4.6 in sbt-chain
 [debug] == resolving dependencies play-java#play-java_2.11;1.0-SNAPSHOT->com.typesafe.play#filters-helpers_2.11;2.4.6 [compile->runtime]
 [debug] == resolving dependencies play-java#play-java_2.11;1.0-SNAPSHOT->com.typesafe.play#filters-helpers_2.11;2.4.6 [compile->compile]
 [debug] == resolving dependencies com.typesafe.play#filters-helpers_2.11;2.4.6->org.scala-lang#scala-library;2.11.6 [compile->master(compile)]
@@ -1384,7 +1371,7 @@
 [debug] 	public: downloading https://repo1.maven.org/maven2/com/google/inject/extensions/guice-multibindings/4.0/guice-multibindings-4.0.pom
 [debug] 	public: downloading https://repo1.maven.org/maven2/com/google/inject/extensions/guice-multibindings/4.0/guice-multibindings-4.0.pom.sha1
 [debug] sha1 OK for https://repo1.maven.org/maven2/com/google/inject/extensions/guice-multibindings/4.0/guice-multibindings-4.0.pom
-[debug] 	[SUCCESSFUL ] com.google.inject.extensions#guice-multibindings;4.0!guice-multibindings.pom(pom.original) (1153ms)
+[debug] 	[SUCCESSFUL ] com.google.inject.extensions#guice-multibindings;4.0!guice-multibindings.pom(pom.original) (1086ms)
 [info] Resolving com.google.inject.extensions#extensions-parent;4.0 ...
 [debug] sbt-chain: Checking cache for: dependency: com.google.inject.extensions#extensions-parent;4.0 {}
 [debug] sbt-chain: module revision found in cache: com.google.inject.extensions#extensions-parent;4.0
@@ -8638,12 +8625,7 @@
 [debug] 	[NOT REQUIRED] com.typesafe.play#play-java-jdbc_2.11;2.4.6!play-java-jdbc_2.11.jar
 [debug] 	[NOT REQUIRED] com.typesafe.play#play-cache_2.11;2.4.6!play-cache_2.11.jar
 [debug] 	[NOT REQUIRED] com.typesafe.play#play-java-ws_2.11;2.4.6!play-java-ws_2.11.jar
-[debug] 		tried https://repo1.maven.org/maven2/com/typesafe/play/filters-helpers_2.11/2.4.6/filters-helpers_2.11-2.4.6.jar
-[info] downloading https://repo1.maven.org/maven2/com/typesafe/play/filters-helpers_2.11/2.4.6/filters-helpers_2.11-2.4.6.jar ...
-[debug] 	public: downloading https://repo1.maven.org/maven2/com/typesafe/play/filters-helpers_2.11/2.4.6/filters-helpers_2.11-2.4.6.jar
-[debug] 	public: downloading https://repo1.maven.org/maven2/com/typesafe/play/filters-helpers_2.11/2.4.6/filters-helpers_2.11-2.4.6.jar.sha1
-[debug] sha1 OK for https://repo1.maven.org/maven2/com/typesafe/play/filters-helpers_2.11/2.4.6/filters-helpers_2.11-2.4.6.jar
-[info] 	[SUCCESSFUL ] com.typesafe.play#filters-helpers_2.11;2.4.6!filters-helpers_2.11.jar (4027ms)
+[debug] 	[NOT REQUIRED] com.typesafe.play#filters-helpers_2.11;2.4.6!filters-helpers_2.11.jar
 [debug] 	[NOT REQUIRED] com.fasterxml.jackson.core#jackson-core;2.6.3!jackson-core.jar(bundle)
 [debug] 	[NOT REQUIRED] com.fasterxml.jackson.core#jackson-databind;2.6.3!jackson-databind.jar(bundle)
 [debug] 	[NOT REQUIRED] com.fasterxml.jackson.core#jackson-annotations;2.6.3!jackson-annotations.jar(bundle)
@@ -8797,7 +8779,7 @@
 [debug] 	[NOT REQUIRED] org.scala-lang.modules#scala-xml_2.11;1.0.4!scala-xml_2.11.jar(bundle)
 [debug] 	[NOT REQUIRED] org.scala-lang.modules#scala-parser-combinators_2.11;1.0.4!scala-parser-combinators_2.11.jar(bundle)
 [debug] 	[NOT REQUIRED] jline#jline;2.12.1!jline.jar
-[debug] :: resolution report :: resolve 12042ms :: artifacts dl 4088ms
+[debug] :: resolution report :: resolve 8569ms :: artifacts dl 62ms
 [debug] 	report for play-java#play-java_2.11;1.0-SNAPSHOT compile produced in /Users/howen/git/style-web/target/resolution-cache/reports/play-java-play-java_2.11-compile.xml
 [debug] 	report for play-java#play-java_2.11;1.0-SNAPSHOT runtime produced in /Users/howen/git/style-web/target/resolution-cache/reports/play-java-play-java_2.11-runtime.xml
 [debug] 	report for play-java#play-java_2.11;1.0-SNAPSHOT test produced in /Users/howen/git/style-web/target/resolution-cache/reports/play-java-play-java_2.11-test.xml
@@ -8811,5 +8793,5 @@
 [debug] 	report for play-java#play-java_2.11;1.0-SNAPSHOT docs produced in /Users/howen/git/style-web/target/resolution-cache/reports/play-java-play-java_2.11-docs.xml
 [debug] 	report for play-java#play-java_2.11;1.0-SNAPSHOT pom produced in /Users/howen/git/style-web/target/resolution-cache/reports/play-java-play-java_2.11-pom.xml
 [debug] 	report for play-java#play-java_2.11;1.0-SNAPSHOT scala-tool produced in /Users/howen/git/style-web/target/resolution-cache/reports/play-java-play-java_2.11-scala-tool.xml
-[debug] 	resolve done (12042ms resolve - 4088ms download)
+[debug] 	resolve done (8569ms resolve - 62ms download)
 [info] Done updating.
