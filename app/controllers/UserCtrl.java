@@ -22,10 +22,6 @@ public class UserCtrl extends Controller {
     public Result carded(){
         return ok(views.html.carded.render());
     }
-    //设置
-    public Result install(){
-        return ok(views.html.install.render());
-    }
 
 
 }

@@ -10,8 +10,6 @@ GET        /                                       controllers.Application.index
 GET        /address                                controllers.UserCtrl.address()
 GET        /addressnew                             controllers.UserCtrl.addressnew()
 GET        /carded                                 controllers.UserCtrl.carded()
-GET        /install                                controllers.UserCtrl.install()
-GET        /list                                   controllers.ProductsCtrl.list()
 GET        /detail                                 controllers.ProductsCtrl.detail()
 GET        /all                                    controllers.ShoppingCtrl.all()
 GET        /appraise                               controllers.ShoppingCtrl.appraise()

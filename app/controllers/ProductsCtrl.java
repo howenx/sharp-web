@@ -10,9 +10,6 @@ import play.mvc.Result;
 public class ProductsCtrl extends Controller {
     //商品明细
     public Result detail(){return ok( views.html.detail.render());}
-    //商品列表
-    public Result list(){return ok( views.html.list.render());}
-
 
 
 }
