@@ -1,0 +1,41 @@
+
+@(title: String = "韩秘美")(scripts: Html = Html(""))(content: Html)
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>@title</title>
+    <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    @scripts
+</head>
+<body>
+    <div class="wrap">
+        <div class="wrap-header" style="">
+            @header()
+        </div>
+        <div class="wrap-content">
+            @content
+        </div>
+        <div class="wrap-footer">
+            @footer()
+        </div>
+    </div>
+	<div id="mask" class="ui-mask" style="display: none;">
+		<div id="circularG">
+			<div id="circularG_1" class="circularG"></div>
+			<div id="circularG_2" class="circularG"></div>
+			<div id="circularG_3" class="circularG"></div>
+			<div id="circularG_4" class="circularG"></div>
+			<div id="circularG_5" class="circularG"></div>
+			<div id="circularG_6" class="circularG"></div>
+			<div id="circularG_7" class="circularG"></div>
+			<div id="circularG_8" class="circularG"></div>
+		</div>
+	</div>
+</body>
+</html>

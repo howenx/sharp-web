@@ -4,12 +4,21 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 /**
- * 主题,产品相关
+ * 首页,主题,产品相关
  * Created by howen on 16/3/9.
  */
 public class ProductsCtrl extends Controller {
+
+    //首页
+    public Result index() {
+        return ok(views.html.products.index.render());
+    }
+
+
     //商品明细
-    public Result detail(){return ok( views.html.detail.render());}
+    public Result detail() {
+        return ok(views.html.products.detail.render());
+    }
 
 
 }
