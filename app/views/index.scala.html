@@ -1,7 +1,206 @@
-@(message: String)
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+	<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+    <title>韩秘美,专卖韩国正品</title>
+	<link rel="stylesheet" href="/assets/stylesheets/hp.css">
+	<script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+	<script src="/assets/javascripts/jquery/TouchSlide.1.1.js"></script>
+	<script src="/assets/javascripts/hp.js"></script>
+</head>
+<body>
+<!--头部-->
+<div class="header">
+    <header class="head">
+		<!--<span class="icon-search-title" id="searchBtn"></span>-->
+		<h1>
+			<a href="/homepage" class="logo"></a>
+		</h1>
+		<a href="/personal"><span class="icon-user-title" id="userBtn"></span></a>
+		<a href="/" class="search"></a>
+    </header>
+</div>
 
-@main("Welcome to Play") {
+<!--主体	-->
+	<div id='screen_wrap'>
 
-    @play20.welcome(message, style = "Java")
+		<div id="M_search" style="display: none;">
+				<form id="search_from" action="search">
+					<input type="text" placeholder="请输入商品名">
+					<div style="color: rgb(153, 153, 153);"></div>
+				</form>
+		</div>
+		<!--banner开始-->
 
-}
+		<!-- 本例主要代码 Start ================================ -->
+		<div id="slideBox" class="slideBox">
+
+			<div class="bd">
+				<ul>
+					<li>
+						<a class="pic" href="#"><img src="/assets/images/HMM--01_02.jpg" /></a>
+					</li>
+					<li>
+						<a class="pic" href="#"><img src="/assets/images/HMM--01_02.jpg"/></a>
+					</li>
+					<li>
+						<a class="pic" href="#"><img src="/assets/images/HMM--01_02.jpg"/></a>
+					</li>
+					<li>
+						<a class="pic" href="#"><img src="/assets/images/HMM--01_02.jpg"/></a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="hd">
+				<ul></ul>
+			</div>
+		</div>
+		<script type="text/javascript">
+			TouchSlide({
+				slideCell:"#slideBox",
+				titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+				mainCell:".bd ul",
+				effect:"leftLoop",
+				autoPage:true,//自动分页
+				autoPlay:true //自动播放
+			});
+		</script>
+		<!-- 本例主要代码 End ================================ -->
+
+        <!--内容开始-->
+		<div class="con">
+
+               <div class="above">
+				   <!--<div class="goods">
+						<a href="/list"><img src="/images/banner_03.jpg"></a>
+						<div class="good-illustrate">
+							<div class="illustrate-box">
+								<div class="illustrate-l">
+									<div class="sale">
+									&lt;!&ndash;	<span class="sale-rate">20</span><i>%</i>&ndash;&gt;
+										<span class="sale-rate"></span>
+										<i>打折率:</i>
+									</div>
+									<div class="money">
+										<span class="money-raw">市场价:<i>￥600</i></span>
+										<span class="now">折扣价:<i>￥480</i></span>
+									</div>
+
+								</div>
+								<div class="illustrate-r">
+									<span class="one">拼购打折<i>(最低)</i></span>
+									<span class="two">2人拼购</span>
+									<span class="three">￥400</span>
+									<span class="four">已拼购2345人</span>
+								</div>
+
+
+							</div>
+						</div>-->
+
+
+					<a href="/list"><img src="/assets/images/HMM--index01.jpg"></a>
+					<a href="/list"><img src="/assets/images/HMM--01_03.jpg"></a>
+					<a href="/list"><img src="/assets/images/HMM--03.3_03.jpg"></a>
+					<a href="/list"><img src="/assets/images/HMM--index01.jpg"></a>
+					<a href="/list"><img src="/assets/images/HMM--01_03.jpg"></a>
+					<a href="/list"><img src="/assets/images/HMM--03.3_03.jpg"></a>
+			   </div>
+
+			   <div class="more">点击加载更多</div>
+
+
+			   <div class="later">
+				   <a href="javascript:;"><img src="/assetsimages/HMM--01_06.jpg"></a>
+				   <a href="javascript:;"><img src="/assetsimages/HMM--01_06.jpg"></a>
+				   <a href="javascript:;"><img src="/assetsimages/HMM--01_06.jpg"></a>
+				   <a href="javascript:;"><img src="/assetsimages/HMM--01_06.jpg"></a>
+				   <a href="javascript:;"><img src="/assetsimages/HMM--01_06.jpg"></a>
+				   <a href="javascript:;"><img src="/assetsimages/HMM--01_06.jpg"></a>
+				   <a href="javascript:;"><img src="/assetsimages/HMM--01_06.jpg"></a>
+			   </div>
+
+		</div>
+
+
+<!--底部-->
+	    <footer class="foot scope">
+			<nav>
+				<ul>
+					<li>
+						<a href="/" class="home">
+							<i class="icon01"></i>
+							<span>首页</span>
+						</a>
+					</li>
+
+					<li>
+						<a href="/list" class="buy">
+							<i class="icon02"></i>
+							<span>拼购</span>
+						</a>
+					</li>
+
+					<li>
+						<a href="" class="story">
+							<i id="icon03"></i>
+							<span>品牌故事</span>
+						</a>
+					</li>
+
+					<li>
+						<a href="/sho" class="shopping">
+							<i id="icon04"></i>
+							<span>购物车</span>
+						</a>
+					</li>
+
+					<li class="my-icon">
+						<a href="/myhmm" class="my">
+							<i id="icon05"></i>
+							<span>我的</span>
+						</a>
+					</li>
+
+
+				</ul>
+
+			</nav>
+
+		</footer>
+
+		<div class="top">
+			<img src="/assets/images/top.png">
+		</div>
+</div>
+
+
+	<!--<div id="M_Mask" class="ui-mask" style="display: none;"></div>
+	<a id="rocket" class="u-backtop-rocket">
+	    <span class="i-backtop-rocket"></span>
+	</a>
+	<div class="download-box">
+		<div class="download scope">
+			<span class="ico"></span>
+
+			<span class="info">
+				<i>下载客户端</i>
+				<i>立返惊喜优惠</i>
+			</span>
+			<a href="javascript:;">立即领取</a>
+			<b>×</b>
+		</div>
+
+
+	</div>-->
+
+
+
+</body>
+</html>
+>
