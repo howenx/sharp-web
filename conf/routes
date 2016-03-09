@@ -47,7 +47,7 @@ GET     /user/reset/passwd                      controllers.ShoppingCtrl.resetPa
 GET     /settle                                 controllers.ShoppingCtrl.settle()
 GET     /regist                                 controllers.ShoppingCtrl.regist()
 GET     /tickling                               controllers.ShoppingCtrl.tickling()
-
+GET     /cart                                   controllers.ShoppingCtrl.cart()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

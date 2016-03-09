@@ -24,6 +24,7 @@ public class ShoppingCtrl extends Controller {
     public Result settle(){return ok( views.html.settle.render());}
     public Result regist(){return ok( views.html.regist.render());}
     public Result tickling(){return ok( views.html.tickling.render());}
+    public Result cart(){return ok( views.html.cart.render());}
 
 
 }
