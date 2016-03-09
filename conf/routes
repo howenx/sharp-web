@@ -1,23 +1,17 @@
-# Routes
-# This file defines all application routes (Higher priority routes first)
-# ~~~~
 
-# Home page
-GET        /                                       controllers.Application.index()
-
-
-
-GET        /address                                controllers.UserCtrl.address()
-GET        /addressnew                             controllers.UserCtrl.addressnew()
-GET        /carded                                 controllers.UserCtrl.carded()
-GET        /detail                                 controllers.ProductsCtrl.detail()
-GET        /all                                    controllers.ShoppingCtrl.all()
-GET        /appraise                               controllers.ShoppingCtrl.appraise()
-GET        /assess                                 controllers.ShoppingCtrl.assess()
-GET        /coupon                                 controllers.ShoppingCtrl.coupon()
-GET        /delivered                              controllers.ShoppingCtrl.delivered()
-GET        /drawback                               controllers.ShoppingCtrl.drawback()
-GET        /fightgroups                            controllers.ShoppingCtrl.fightgroups()
+#用户相关
+GET        /address                  controllers.UserCtrl.address()
+GET        /addressnew               controllers.UserCtrl.addressnew()
+GET        /carded                   controllers.UserCtrl.carded()
+GET        /means                    controllers.UserCtrl.means()
+GET        /myView                   controllers.UserCtrl.myView()
+GET        /nav                      controllers.UserCtrl.navBar()
+GET        /login                    controllers.UserCtrl.login()
+GET        /setting                  controllers.UserCtrl.setting()
+GET        /regist                   controllers.UserCtrl.regist()
+GET        /tickling                 controllers.UserCtrl.tickling()
+GET        /user/reset/passwd        controllers.UserCtrl.resetPasswd()
+GET        /coupon                   controllers.UserCtrl.coupon()
 
 
 
@@ -26,23 +20,57 @@ GET        /fightgroups                            controllers.ShoppingCtrl.figh
 
 
 
-#by howen
-GET     /setting                                controllers.ShoppingCtrl.setting()
-GET     /pin/list                               controllers.ShoppingCtrl.pinList()
-GET     /login                                  controllers.ShoppingCtrl.login()
-GET     /logistic                               controllers.ShoppingCtrl.logistic()
-GET     /means                                  controllers.ShoppingCtrl.means()
-GET     /myView                                 controllers.ShoppingCtrl.myView()
-GET     /nav                                    controllers.ShoppingCtrl.navBar()
-GET     /obligati                               controllers.ShoppingCtrl.obligati()
-GET     /orders                                 controllers.ShoppingCtrl.orders()
-GET     /user/reset/passwd                      controllers.ShoppingCtrl.resetPasswd()
-GET     /settle                                 controllers.ShoppingCtrl.settle()
-GET     /regist                                 controllers.ShoppingCtrl.regist()
-GET     /tickling                               controllers.ShoppingCtrl.tickling()
-GET     /cart                                   controllers.ShoppingCtrl.cart()
+
+
+#首页,主题,详情页相关
+GET        /                         controllers.ProductsCtrl.index()
+GET        /detail                   controllers.ProductsCtrl.detail()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#购物车,结算,订单,拼购相关
+GET        /all                      controllers.ShoppingCtrl.all()
+GET        /appraise                 controllers.ShoppingCtrl.appraise()
+GET        /assess                   controllers.ShoppingCtrl.assess()
+GET        /delivered                controllers.ShoppingCtrl.delivered()
+GET        /drawback                 controllers.ShoppingCtrl.drawback()
+GET        /fightgroups              controllers.ShoppingCtrl.fightgroups()
+GET        /pin/list                 controllers.ShoppingCtrl.pinList()
+GET        /logistic                 controllers.ShoppingCtrl.logistic()
+GET        /obligati                 controllers.ShoppingCtrl.obligati()
+GET        /orders                   controllers.ShoppingCtrl.orders()
+GET        /settle                   controllers.ShoppingCtrl.settle()
+GET        /cart                     controllers.ShoppingCtrl.cart()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+GET        /assets/*file             controllers.Assets.versioned(path="/public", file: Asset)
 
 
