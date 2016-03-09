@@ -1,0 +1,34 @@
+
+
+.install-g i{
+    float: left;
+}
+.install-g span{
+    float: right;
+    background: url("/assets/images/right-arrow.png") right center no-repeat;
+    background-size:10px 20px;
+    padding:0 20px 0 0;
+    width:20px;
+    height:30px;
+    margin: 15px 0 0 0;
+
+}
+
+.install-g{
+    width:100%;
+    height:50px;
+    display: block;
+    background-color: #fff;
+    border-bottom:1px solid #e1e1e1;
+    line-height: 50px;
+    padding:0 2%;
+
+}
+.list p{
+    width:100%;
+    line-height:40px;
+    padding:0 2%;
+    border-bottom:1px solid #e1e1e1;
+}
+
+

@@ -1,0 +1,154 @@
+.wrap{
+    background-color: #F4F4F4;
+    padding:50px 0;
+    font-size: 18px;
+    height:1000px;
+}
+.assess-hd{
+    height:360px;
+    width:100%;
+    background-color: #fff;
+    padding:20px 2%;
+    position: relative;
+    border-bottom: 1px solid #e1e1e1;
+
+}
+
+.assess-hd span{
+    display: block;
+    background: url("/assets/images/hmmapp-assess01.jpg") no-repeat;
+    background-size:contain;
+    width:100%;
+    height:130px;
+    margin: 20px 0;
+    position:relative;
+    top:10px;
+}
+
+.assess-hd input{
+
+    width:100%;
+    height:100px;
+    z-index: 110;
+    filter: alpha(opacity = 0);
+    -moz-opacity:0;
+    opacity: 0;
+
+}
+
+.assess-hd-l{
+    float: left;
+    width:16%;
+    margin:0 2% 0 0 ;
+}
+
+.assess-hd-r{
+    width:80%;
+    float: left;
+    height:290px;
+    border: 1px solid #e1e1e1;
+}
+
+textarea{
+    resize:none;
+    width:100%;
+    height:290px;
+}
+
+/*星星*/
+.assess-star{
+    padding:30px 5% 0 2%;
+    background-color: #fff;
+    height:80px;
+}
+.assess-star-l{
+    float: left;
+}
+
+.assess-star-d{
+    height: 50px;
+    line-height: 50px;
+    background-color: #fff;
+    margin: 10px 0 0 0 ;
+    padding: 0 2%;
+}
+
+/*!*星星*!*/
+
+#xzw_starSys{float: right;width:170px;height:27px;margin: 0 3px 0 0;}
+#xzw_starBox{position:relative;width:115px;float:left}
+
+#xzw_starSys .description{clear:both;}
+
+#xzw_starSys .star{height:27px;width:170px;margin: 0;position:relative;cursor:pointer;
+    background:url(/images/s-2.png) 0 0 repeat-x;background-size: 34px 27px;
+}
+#xzw_starSys .star li{float:left;padding:0px;margin:0px}
+#xzw_starSys .star li a{display:block;width:34px;height:27px;overflow:hidden;text-indent:-9999px;position:absolute;z-index:5}
+#xzw_starSys .star li a:hover{background:url(/assets/images/s-1.png) 0 0 repeat-x;background-size: 34px 27px;z-index:3;left:0}
+#xzw_starSys .star a.one-star{left:0}
+#xzw_starSys .star a.one-star:hover{width:34px}
+#xzw_starSys .star a.two-stars{left:34px}
+#xzw_starSys .star a.two-stars:hover{width:68px}
+#xzw_starSys .star a.three-stars{left:68px}
+#xzw_starSys .star a.three-stars:hover{width:102px}
+#xzw_starSys .star a.four-stars{left:102px}
+#xzw_starSys .star a.four-stars:hover{width:136px}
+#xzw_starSys .star a.five-stars{left:136px}
+#xzw_starSys .star a.five-stars:hover{width:170px}
+#xzw_starSys .current-rating{background:url(/assets/images/s-1.png) 0 0 repeat-x;-webkit-background-size: 34px 27px;background-size:contain;position:absolute;height:27px;z-index:1;top:0;left:0;}
+
+
+.foot{
+    position: fixed;
+    bottom:0;
+    width: 100%;
+    height:50px;
+    background-color: #fff;
+    z-index: 10;
+    border-top:1px solid #e1e1e1;
+
+}
+
+.foot .r{
+    float: right;
+    width:120px;
+    height:50px;
+    text-align: center;
+    line-height:50px;
+    color:#fff;
+
+}
+.foot .l{
+    float: left;
+    width:150px;
+    height:50px;
+    line-height: 50px;
+    margin:0 0 0 10px ;
+}
+
+.foot .l i{
+    display:inline-block;
+    vertical-align: middle;
+    width:25px;
+    height:25px;
+    margin: -2px 5px 0 0 ;
+    border:1px solid #ccc;
+    border-radius: 50%;
+
+}
+
+.foot .l i.current{
+    background:url("/assets/images/hmmapp-assess-03.jpg");
+    background-size:cover;
+    border: 0 none;
+}
+
+
+
+
+
+
+
+
+

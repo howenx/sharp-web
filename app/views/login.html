@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+	<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+    <title>登录</title>
+	<link rel="stylesheet" href="/assets/stylesheets/login.css">
+
+</head>
+<body>
+	<div id="screen_wrap">
+		<div class="nav_ban">		
+			<h1>登录</h1>
+			<a href="/myhmm"><span class="icon-back" id="backBtn"></span></a>
+
+		</div>
+		<div class="login">
+			<fieldset>
+				<form id="account_loginForm" method="post" onsubmit="return false" action="" >
+					<dl class="list list-in">
+
+						         <dd class="dd-padding">
+									 <input id="username" class="input-weak" type="text" placeholder="请输入您的手机号" name="email" value="" required="">
+								 </dd>
+						         <dd class="dd-padding">
+									 <input id="password" class="input-weak" type="password" placeholder="请输入您的密码" name="password" required="">
+								 </dd>
+								 <dd class="dd-padding">
+									 <input id="checkcode" class="input-weak" name="checkcode" type="text" value="" maxlength="4" placeholder="验证码">
+								 </dd>
+
+					</dl>
+				</form>
+
+				<div class="submitBox">
+					<input class="loginBtn button" type="submit" value="登录">
+				</div>
+			</fieldset>
+
+			<div class="loginInfo">
+				<div class="findWord">
+					<a href="/regist" class="resist">快速注册</a>
+					<a href="/password" class="password">忘记密码?</a>
+				</div>
+			</div>
+		</div>
+	</div>
+<!--reference script region-->
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+</body>
+</html>

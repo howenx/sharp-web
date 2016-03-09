@@ -1,0 +1,521 @@
+/* 禁用iPhone中Safari的字号自动调整 */
+html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+/* 去除iPhone中默认的input样式 */
+input{/* -webkit-appearance:none; */ resize: none;}
+/* 取消链接高亮  */
+body,div,ul,li,ol,h1,h2,h3,h4,h5,h6,input,textarea,select,p,dl,dt,dd,a,img,button,form,table,th,tr,td,tbody,article,
+aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section{ -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+    font-family: Microsoft YaHei;}
+/* 设置HTML5元素为块 */
+article, aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section {
+    display: block;
+}
+/* 图片自适应 */
+img {
+    max-width: 100%;
+    height: auto;
+    width:auto\9; /* ie8 */
+    -ms-interpolation-mode:bicubic;/*为了照顾ie图片缩放失真*/
+    display: block;
+}
+*:focus {
+    outline:none;
+}
+/* 清零 */
+body,div,ul,li,ol,h1,h2,h3,h4,h5,h6,input,textarea,select,p,dl,dt,dd,a,img,button,form,table,th,tr,td,tbody,article,
+aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section{margin:0; padding:0; border:none;}
+body{font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self; color:#504e4d; background:#f5f5f5; }
+em,i{font-style:normal;}
+strong{font-weight: normal;}
+.clearfix:after{content:""; display:block; visibility:hidden; height:0; clear:both;}
+.clearfix{zoom:1;}
+a{text-decoration:none; color:#969696; font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self;}
+a:hover{color:#969696; text-decoration:none;}
+ul,ol,li{list-style:none;}
+h1, h2, h3, h4, h5, h6{ font-size:100%; font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self;}
+fieldset,img{border: none;}
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+caption, th {
+    text-align:left;
+}
+q:before,
+q:after {
+    content:"";
+}
+input:password {
+    ime-mode:disabled;
+}
+*{box-sizing:border-box;}
+#screen_wrap{
+    height:600px;
+    width:100%;
+    background-color: #fff;
+}
+/****nav************/
+.nav_ban {
+    text-align: center;
+    background: #fff;
+    height:60px;
+    overflow: auto;
+    position: relative;
+    width: 100%;
+    height:60px;
+    line-height:60px;
+    display: block;
+    background-color:#F1F1F1;
+    border-bottom:1px solid #C7C7C7;
+
+}
+.nav_ban h1 {
+    font-weight: normal;
+    display: inline-block;
+    height:60px;
+    position: relative;
+    line-height:60px;
+    font-size:24px;
+    color:#4A4A4A;
+}
+.nav_ban .icon-back {
+    position: relative;
+    height:20px;
+    width:20px;
+    position: absolute;
+    top:20px;
+    left:2%;
+    background: url("/assets/images/back.png") center center no-repeat;
+    background-size: cover;
+
+}
+
+/***********login****************/
+.login {
+    margin-bottom: 50px;
+	position: relative;
+	overflow: auto;
+}
+.login fieldset form .formInfo {
+    border-top: 1px solid #dbdbdb;
+    border-bottom: 1px solid #dbdbdb;
+    background: #fff;
+}
+legend {
+    display: none;
+}
+.login fieldset form p {
+    margin-left: 3%;
+    line-height: 45px;
+}
+.login fieldset form .userIcon {
+    width: 18px;
+    height: 16px;
+    background: url("http://d05.res.meilishuo.net/pic/_o/a5/54/599dfe7e1555f24d3e729160da52_36_31.ch.png") no-repeat;
+    background-size: 100% 100%;
+}
+.login fieldset form .icon {
+    display: inline-block;
+    vertical-align: middle;
+}
+.login fieldset form p input, .login fieldset form .checkBox input {
+    font-size: 1.4rem;
+    color: #ccc;
+    border: 0;
+    line-height: 45px;
+    width: 86%;
+    border-bottom: 1px solid #dbdbdb;
+    margin-left: 7px;
+}
+input[type="password"], input[type="text"], input[type="submit"] {
+    -webkit-appearance: none;
+    outline: 0;
+}
+input, select {
+    vertical-align: middle;
+}
+.login fieldset form .psdIcon {
+    width: 16px;
+    height: 18px;
+    background: url("http://d02.res.meilishuo.net/pic/_o/a2/66/8054cdac06496994e059fedc8168_31_36.cg.png") no-repeat;
+    background-size: 100% 100%;
+}
+.login fieldset form .checkBox {
+    margin-left: 3%;
+    position: relative;
+}
+.login fieldset form .checkBox input {
+    width: 50%;
+/*    margin-left: 28px;*/
+    border: 0;
+}
+.login fieldset form .checkImage {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: inline;
+    width: 110px;
+}
+.login fieldset form .checkImage span {
+    float: left;
+    line-height: 2;
+    margin-right: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+.login .loginErrorMessage {
+    color: #f69;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 1.6rem;
+}
+
+.login .loginBtn {
+    background-color:#E46359;
+    border: 1px solid #fff;
+    float: left;
+}
+
+.login .exBtn {
+    display: block;
+    background: #fff;
+    color: #ff94b7;
+    border: 1px solid #ff94b7;
+    float: right;
+    line-height: 40px;
+    vertical-align: middle;
+}
+
+
+/*快速注册 忘记密码*/
+.login .loginInfo {
+    margin:0 12px;
+}
+.login .findWord {
+    font-size: 14px;
+}
+
+.resist{
+    float: left;
+    color:#E46359;
+}
+.password{
+    float: right;
+    color: #b4b4b4;
+}
+
+/*一键登录*/
+/*.login .fastLogin {
+    padding-top: 10%;
+}
+.login .fastLogin h2 {
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    line-height: 20px;
+    font-weight: normal;
+    padding-bottom: 7%;
+}
+.login .fastLogin h2 span:nth-child(1) {
+    float: left;
+}
+.login .fastLogin h2 span {
+    width: 35%;
+    height: 1px;
+    background-color: #dbdbdb;
+    vertical-align: middle;
+    display: inline-block;
+    margin-top: 10px;
+}
+.login .fastLogin h2 span:nth-child(2) {
+    float: right;
+}
+.login .fastLogin h2:after {
+    clear: both;
+    content: ".";
+    display: block;
+    visibility: hidden;
+    height: 0;
+}
+.login .fastInfo {
+    text-align: center;
+}
+.login .fastInfo a {
+    display: inline-block;
+    text-align: center;
+    width: 32%;
+}
+.login .fastInfo img {
+    width: 50%;
+}*/
+
+/********唯品会登陆*************/
+/*
+.nav-list {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-bottom: 0;
+}
+.nav {
+    margin-left: 0;
+    list-style: none;
+}
+.nav-list li.control-group {
+    border-bottom: 1px solid #d9d9d9;
+    border-top: 1px solid #d9d9d9;
+    background-color: #fff;
+}
+.nav-list li {
+    position: relative;
+    margin-bottom: 0;
+    padding: 8px 15px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.form-horizontal .control-group {
+    margin-bottom: 5px;
+}
+.nav-list>li {
+    margin-right: -15px;
+    margin-left: -15px;
+    padding: 8px 15px;
+}
+.form-horizontal .control-group:after, .form-horizontal .control-group:before {
+    display: table;
+    line-height: 0;
+    content: "";
+}
+.control-label {
+    width: 45px;
+    text-align: left;
+    padding-top: 6px;
+}
+.form-horizontal .control-label {
+    float: left;
+    width: 70px;
+    padding-top: 7px;
+    text-align: right;
+}
+.user-login-box .panel-forms .controls {
+    margin-left: 45px;
+}
+.panel-forms .uneditable-input, .panel-forms input[type=color], .panel-forms input[type=date], .panel-forms input[type=datetime-local], .panel-forms input[type=datetime], .panel-forms input[type=email], .panel-forms input[type=month], .panel-forms input[type=number], .panel-forms input[type=password], .panel-forms input[type=search], .panel-forms input[type=tel], .panel-forms input[type=text], .panel-forms input[type=time], .panel-forms input[type=url], .panel-forms input[type=week], .panel-forms select, .panel-forms textarea {
+    width: 100%;
+    border: none;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    background: 0 0;
+}
+.form .uneditable-input, .form input[type=color], .form input[type=date], .form input[type=datetime-local], .form input[type=datetime], .form input[type=email], .form input[type=month], .form input[type=number], .form input[type=password], .form input[type=search], .form input[type=tel], .form input[type=text], .form input[type=time], .form input[type=url], .form input[type=week], .form select, .form textarea {
+    display: inline-block;
+    height: 20px;
+    padding: 4px 6px;
+    font-size: 14px;
+    line-height: 20px;
+    color: #555;
+    vertical-align: middle;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+.nav>li>a {
+    display: block;
+}
+.i-delete-text {
+    position: absolute;
+    display: block;
+    right: 3px;
+    top: 50%;
+    margin-top: -18px;
+    cursor: pointer;
+    z-index: 10;
+    padding: 10px;
+    width: 16px;
+}
+.i-delete-text .i-icon-remove {
+    width: 16px;
+    height: 16px;
+}
+.i-icon-remove {
+    background-position: -26px -140px;
+}
+.panel-forms .nav-list .control-text {
+    background: 0 0;
+    border: none;
+    cursor: default;
+}*/
+/********************自己写************************/
+.login{
+    margin: 25px 0 0 0;
+}
+
+.list dd>.input-weak {
+    width: 100%;
+    border:1px solid #DFDFDD;
+    margin:0 0 20px 0;
+}
+
+
+input.input-weak, textarea.input-weak {
+    font-size: 1rem;
+    color: #ccc;
+    border: 0;
+    line-height: 45px;
+    width: 86%;
+    padding-left: 7px;
+	vertical-align: middle;
+}
+.btn:disabled, .btn.btn-disabled {
+    background-color: #dcdcdc;
+    color: #999;
+    border: 0;
+}
+.btn-weak {
+    border: .02rem solid #06c1ae;
+    padding: 0 .3rem;
+    background: 0;
+    color: #06c1ae;
+}
+.btn {
+    display: inline-block;
+    text-align: center;
+    padding: 0 1.5em;
+    border-radius: 5px;
+    color: #fff;
+    border: 0;
+    background-color: #06c1ae;
+    font-size: 0.5em;
+    vertical-align: middle;
+    cursor: pointer;
+    line-height: 30px;
+    -webkit-user-select: none;
+    /* top: 0px; */
+}
+dl.list dd>.btn {
+    margin-top: -.15rem;
+    margin-bottom: -.15rem;
+}
+.kv-line-r>.kv-v, .kv-line-r>p {
+    display: block;
+}
+.cell_login_sms{
+    position: absolute;
+    bottom: 8px;
+    right: 7px;
+    /* display: inline; */
+    /* width: 110px; */
+}
+/******************************************regist****************************************/
+
+.agree {
+    text-align: left;
+    margin-top: 10px;
+    font-size: 60%;
+
+}
+
+.list dd .two{
+    width:65%;
+    float: left;
+}
+.code{
+    float: right;
+    width:30%;
+    line-height: 45px;
+    background: none;
+    border:1px solid #E1E1DF;
+    font-size:16px;
+
+}
+
+.inp{
+    float: left;
+    width:20px;
+    height:20px;
+    cursor: pointer;
+    border:1px solid #E1E1DF;
+}
+
+.tip {
+    float: left;
+    font-size: 12px;
+    color: #8C8C8C;
+    margin: 0 0 0 5px;
+
+}
+
+.tip span{
+    color:#E46359;
+}
+    /*完成*/
+.login .submitBox:after {
+    clear: both;
+    content: ".";
+    display: block;
+    visibility: hidden;
+    height: 0;
+}
+
+.login .registBtn {
+    width: 100%;
+    background-color:#E46359;
+    margin: 10px 0 5px 0;
+}
+.login .button {
+    width:100%;
+    line-height: 45px;
+    text-align: center;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.back{
+    text-align: right;
+
+}
+.back a{
+    color:#E46359;
+}
+
+/*
+提示信息*/
+
+.cue{
+    width:50%;
+    text-align: center;
+   line-height:45px;
+    color:#fff;
+    background-color:#5C5C5C ;
+    border-radius: 5px;
+    position: absolute;
+    bottom:134px;
+    left:30%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

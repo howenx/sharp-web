@@ -1,0 +1,195 @@
+
+
+.scope{min-width:320px; max-width:750px; margin: 0 auto; background-color: #fff; padding:60px 2% 0; }
+
+
+/*收货地址*/
+.add{
+    width:100%;
+    height:120px;
+    padding:35px 0;
+    font-size: 18px;
+}
+.add a{
+    display: block;
+    margin: 0 auto;
+    color:#fff;
+    text-align: center;
+    line-height: 50px;
+    width:50%;
+}
+
+.fashion {
+    width:100%;
+    height:160px;
+}
+
+.fashion p{
+    height: 50px;
+    border-top:1px solid #EBEBEB;
+    border-bottom:1px solid #EBEBEB;
+    margin: -1px 0 0 0 ;
+    padding:15px 0;
+
+}
+.fashion p span{
+   float: left;
+}
+
+.fashion p i{
+    float:right;
+}
+
+
+.money-box,.way-box,.address,.refer-box{
+    width:100%;
+}
+.money-box .picture{
+    float: left;
+    width:80px;
+    height:80px;
+    background: url("/assets/images/icon5.png") no-repeat;
+    background-size:cover;
+}
+.address{
+    padding:70px 20px 20px;
+
+}
+
+.address p{
+    margin:0 0 20px 0;
+}
+
+.address p span:nth-child(2n){
+    margin: 0 0 0 10%;
+}
+
+.address i{
+    color:#ccc;
+    display: block;
+    text-align: right;
+}
+
+
+.money-box .text{
+    line-height:50px;
+    border-bottom:1px solid #EBEBEB;
+    margin: 0 0 20px 0;
+
+}
+
+.money-box{
+    margin: 0 0 20px 0px;
+}
+
+.money-box h2{
+    padding:0 0 20px 0;
+}
+
+.money-box .goods{
+    padding:20px 2%;
+}
+
+.order{
+    float: left;
+    font-size: 20px;
+}
+
+.money{
+    float: right;
+}
+
+.way-box{
+    height:50px;
+    padding:0 20%;
+
+}
+
+.account-j,.account-w{
+    padding:20px 0;
+    height:50px;
+
+}
+.account-j{
+    float: left;
+}
+.account-w{
+    float:right;
+}
+.pitch{
+    width:25px;
+    height:25px;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    float: left;
+    margin: 0 5px 0 0;
+
+
+}
+
+.way i{
+    float: left;
+    width:40px;
+    height:50px;
+    margin: -5px 2% 0 5%;
+}
+
+
+.quick{
+    float: left;
+}
+
+.current{
+    border: none;
+    background: #ed145b;
+}
+.refer-box{
+    min-width:320px; max-width:750px; margin: 0 auto; background-color: #fff;
+    height:60px;
+}
+.refer{
+    width:100%;
+}
+
+.refer-rmb{
+    width:60%;
+    float: left;
+    text-align: right;
+    padding:0 2%0 0;
+    font-size:20px;
+    line-height:60px;
+}
+.refer{
+    float: left;
+    width:40%;
+    height:60px;
+    text-align: center;
+    line-height:60px;
+    font-size:20px;
+    color:#fff;
+}
+
+.tariff{
+    width:100%;
+    font-size: 16px;
+}
+.tariff ul li{
+    padding:15px 2%;
+    border-bottom:1px solid #EBEBEB;
+    border-top:1px solid #EBEBEB;
+    height:50px;
+    margin-top:-1px;
+
+}
+.tariff li span{
+    float: left;
+}
+.tariff li i{
+    float: right;
+}
+
+
+
+
+
+

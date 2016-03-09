@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>发表评价</title>
+    <!-- 视图窗口，移动端特属的标签。 -->
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+    <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- 忽略页面中的数字识别为电话号码,email识别 -->
+    <meta name="format-detection"content="telephone=no, email=no" />
+    <link rel="stylesheet" href="/assets/stylesheets/global.css"/>
+    <link rel="stylesheet" href="/assets/stylesheets/assess.css"/>
+    <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+    <script src="/assets/javascripts/script.js"></script>
+
+</head>
+
+<body>
+
+<header class="head">
+    <a href="/myhmm" class="back">
+        <i></i>
+        <b></b>
+    </a>
+    <h1>发表评价</h1>
+
+</header>
+
+<div class="wrap">
+    <div class="assess-hd">
+        <div class="assess-hd-l">
+            <img src="/assets/images/hmmapp-assess02.jpg">
+            <span><input type="file" class="face"/></span>
+
+        </div>
+        <div class="assess-hd-r">
+            <textarea></textarea>
+        </div>
+    </div>
+
+    <div class="assess-star">
+        <div class="assess-star-l">
+            <span>描述相符</span>
+        </div>
+
+        <!--星星-->
+        <div id="xzw_starSys">
+            <div id="xzw_starBox">
+                <ul class="star" id="star">
+                    <li><a href="javascript:void(0)" title="1" class="one-star">1</a></li>
+                    <li><a href="javascript:void(0)" title="2" class="two-stars">2</a></li>
+                    <li><a href="javascript:void(0)" title="3" class="three-stars">3</a></li>
+                    <li><a href="javascript:void(0)" title="4" class="four-stars">4</a></li>
+                    <li><a href="javascript:void(0)" title="5" class="five-stars">5</a></li>
+                </ul>
+                <div class="current-rating" id="showb1"></div>
+            </div>
+            <!--评价文字-->
+            <div class="description"></div>
+        </div>
+    </div>
+
+    <div>
+        <div class="assess-star-d">店铺评分</div>
+        <div class="assess-star">
+            <div class="assess-star-l">
+                <span>描述相符</span>
+            </div>
+
+            <!--星星-->
+            <div id="xzw_starSys">
+                <div id="xzw_starBox">
+                    <ul class="star" id="star">
+                        <li><a href="javascript:void(0)" title="1" class="one-star">1</a></li>
+                        <li><a href="javascript:void(0)" title="2" class="two-stars">2</a></li>
+                        <li><a href="javascript:void(0)" title="3" class="three-stars">3</a></li>
+                        <li><a href="javascript:void(0)" title="4" class="four-stars">4</a></li>
+                        <li><a href="javascript:void(0)" title="5" class="five-stars">5</a></li>
+                    </ul>
+                    <div class="current-rating" id="showb2"></div>
+                </div>
+                <!--评价文字-->
+                <div class="description"></div>
+            </div>
+        </div>
+
+        <div class="assess-star">
+            <div class="assess-star-l">
+                <span>服务态度</span>
+            </div>
+
+            <!--星星-->
+            <div id="xzw_starSys">
+                <div id="xzw_starBox">
+                    <ul class="star" id="star">
+                        <li><a href="javascript:void(0)" title="1" class="one-star">1</a></li>
+                        <li><a href="javascript:void(0)" title="2" class="two-stars">2</a></li>
+                        <li><a href="javascript:void(0)" title="3" class="three-stars">3</a></li>
+                        <li><a href="javascript:void(0)" title="4" class="four-stars">4</a></li>
+                        <li><a href="javascript:void(0)" title="5" class="five-stars">5</a></li>
+                    </ul>
+                    <div class="current-rating" id="showb3"></div>
+                </div>
+                <!--评价文字-->
+                <div class="description"></div>
+            </div>
+        </div>
+
+        <div class="foot">
+            <span class="l"><i></i>匿名评价</span>
+            <span class="r bg">发表评价</span>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

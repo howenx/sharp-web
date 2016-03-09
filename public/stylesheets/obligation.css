@@ -1,0 +1,258 @@
+body{
+    background:#F4F4F4;
+}
+
+/*主体部分*/
+/*导航部分*/
+.wrap{
+    padding:50px 0 60px 0 ;
+}
+
+.nav-tab-top li.current{
+    border-bottom: 2px solid red;
+}
+
+section{
+    display: none;
+}
+
+section.current{
+    display: block;
+}
+
+.nav-tab-top{
+    line-height:50px;
+    height:50px;
+    width:100%;
+    background-color: #fff;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.nav-tab-top ul{
+    width: 100%;
+    height:50px;
+
+}
+.nav-tab-top li{
+    float: left;
+    width:20%;
+    text-align: center;
+    line-height:50px;
+}
+.box{
+    width:100%;
+
+}
+.con{
+    width:100%;
+    background-color:#fff;
+    padding:10px 20px 60px 20px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    margin: 0 0 10px 0;
+
+
+}
+.day{
+    color:#8D8D8D;
+    height: 30px;
+    line-height: 30px;
+
+}
+.day-l{
+    float: left;
+}
+.day-r{
+    float: right;
+}
+
+h2{
+    color:#595758;
+    font-size: 18px;
+}
+.commodity{
+    width:100%;
+    height:144px;
+    display: block;
+    padding:20px 0;
+    border-top:1px solid #ccc;
+    border-bottom:1px dashed #ccc;
+    margin:10px 0 0 0;
+
+}
+
+.commodity .commodity-rmb{
+    display: block;
+    margin:50px 0 20px 0;
+    height:20px;
+
+}
+
+
+span .rmb{
+    float: left;
+    font-size:20px;
+}
+
+span .number{
+    float: right;
+}
+
+.commodity img{
+    width:80px;
+    height:106px;
+    float: left;
+    margin: 0 20px 0 0;
+}
+
+.commodity h2{
+    font-size: 16px;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+
+}
+
+.havenot{
+    height:180px;
+}
+
+.commodity p{
+    width: 100%;
+    text-align: right;
+    font-size: 14px;
+    height: 50px;
+    line-height: 30px;
+    border-top: 1px solid #e1e1e1;
+}
+.payment,.duein {
+    width:100%;
+}
+
+.payment a{
+    margin: 10px 0 0 0;
+    display: block;
+    width:80px;
+    height:35px;
+    color:#fff;
+    text-align: center;
+    line-height:35px;
+}
+.payment .left{
+    float: left;
+}
+.payment .right{
+    float:right;
+}
+.duein a{
+    float:right;
+    display: block;
+    width:80px;
+    height:40px;
+    text-align: center;
+    line-height: 40px;
+    margin: 10px 0 0 1%;
+    border: 1px solid #e1e1e1;
+}
+
+.payment .left{
+
+    color:#8D8D8D;
+}
+
+
+
+.footer{
+    position: fixed;
+    bottom:0;
+    width: 100%;
+    background-color: #000;
+    height:60px;
+    padding:10px 2%;
+
+}
+.footer a{
+    width:80px;
+    height:30px;
+    float: right;
+    color:#fff;
+    text-align: center;
+    line-height:30px;
+    margin: 5px 0 0 0;
+}
+.footer span{
+    width:210px;
+    height:50px;
+    float: left;
+    background: url("/assets/images/personal-14.jpg") no-repeat;
+    background-size: 40px 40px;
+    padding:0 0 0 50px;
+
+}
+.footer span i{
+    display:block;;
+}
+
+
+
+
+
+/*退款页面 drawback*/
+.commodity p {
+    font-size: 12px;
+}
+
+.commodity p span{
+    margin: 0 2% 0 0;
+}
+
+.drawback-box{
+    display: block;
+}
+
+/*全部订单页面 all*/
+.box li{
+     width:50%;
+}
+
+/*优惠券页面 coupon*/
+
+.coupon-body{
+    background-color: #fff;
+    height:1000px;
+}
+.coupon li{
+    width:33.3%;
+}
+.coupon-box ul{
+    width: 100%;
+}
+
+.coupon-box li{
+    width: 100%;
+}
+
+
+.coupon-box li img{
+    margin:10px auto;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

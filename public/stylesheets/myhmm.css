@@ -1,0 +1,264 @@
+
+.scope{min-width:320px; max-width:750px; margin: 0 auto;}
+
+.wap{
+    padding:50px 0 0 0;
+    height:900px;
+    background-color: #F4F4F4;
+}
+.user{
+     width:100%;
+     height:150px;
+}
+
+.land{
+    padding:25px 0 0 0;
+    height:100px;
+    width:60%;
+    display: block;
+    color:#fff;
+    font-size: 18px;
+    margin: 0 auto;
+    text-align: center;
+
+}
+.land img{
+    width:80px;
+    height:80px;
+    margin: 0 auto;
+}
+
+.apply{
+    width:100%;
+    height:120px;
+    background:#fff;
+}
+
+.apply ul{
+    width:100%;
+    padding:10px 0 0 0;
+}
+
+.apply ul li {
+    height:100px;
+    width:20%;
+    float: left;
+    text-align: center;
+    padding:20px 0 0 0;
+
+}
+
+.apply li a{
+    display: block;
+    width:100%;
+    border-right:1px solid #ccc;
+    font-size: 14px;
+}
+
+.apply li img{
+    margin: 0 auto;
+    margin-bottom:5px ;
+    width:30px;
+    height:30px;
+}
+
+.list{
+    background: #fff;
+    width:100%;
+    margin: 10px 0 90px 0;
+}
+
+.list div{
+    width:100%;
+    height:60px;
+    border-bottom:1px solid #ccc;
+    padding:0 2%;
+    line-height: 60px;
+}
+
+.whole i,.buy-box i,.agio-box i,.add-box i,.advise-box i{
+    background: url("/assets/images/personal-07.jpg") left center no-repeat;
+    float: left;
+    padding:0 0 0 45px;
+
+}
+.whole span,.buy-box span,.agio-box span,.add-box span,.advise-box span{
+    float: right;
+    background: url("/assets/images/right-arrow.png") right center no-repeat;
+    background-size:10px 20px;
+    padding:0 20px 0 0;
+
+}
+.buy-box i{
+    background: url("/assets/images/personal-08.jpg") left center no-repeat;
+
+}
+.buy-box span,.add-box span,.advise-box span{
+    width:20px;
+    height:30px;
+    background: url("/assets/images/right-arrow.png") right center no-repeat;
+    background-size:10px 20px;
+    margin: 15px 0 0 0;
+}
+
+.agio-box i{
+    background: url("/assets/images/personal-09.jpg") left center no-repeat;
+
+}
+
+.add-box i{
+    background: url("/assets/images/personal-10.jpg") left center no-repeat;
+}
+
+.advise-box i{
+    background: url("/assets/images/personal-12.jpg") left center no-repeat;
+}
+
+
+
+
+
+
+
+
+/*底部*/
+.foot{
+    width:100%;
+    height:90px;
+    background-color: #000;
+    position: fixed;
+    bottom:0;
+
+}
+
+.foot ul {
+    padding:22px 0 0 0;
+}
+
+.foot ul li{
+    float: left;
+    width:20%;
+
+}
+
+.foot ul a{
+    display: block;
+    width:100%;
+
+}
+
+
+.foot span{
+    text-align: center;
+    display: block;
+    margin: 3px 0 0 0;
+    color:#b1b1b1;
+}
+
+
+.foot i{
+    display: block;
+    background: url("/assets/images/home.png") no-repeat;
+    background-size: contain;
+    width:30px;
+    height:30px;
+    margin: 0 auto;
+}
+
+@media screen and (min-width:320px) and (max-width:500px) {
+    .foot {
+        height: 60px;
+        font-size: 12px;
+    }
+
+    .foot ul {
+        padding: 15px 0 0 0;
+    }
+
+    .foot i {
+        display: block;
+        background: url("/assets/images/home.png") no-repeat;
+        background-size: contain;
+        width: 20px;
+        height:20px;
+        margin: 0 auto;
+
+    }
+
+    .foot span{
+        text-align: center;
+        display: block;
+    }
+
+    .more{
+        margin:0 0 60px 0;
+    }
+}
+
+@media screen and (min-width:500px) and (max-width:759px) {
+    .more{
+        margin:0 0 90px 0;
+    }
+}
+
+@media screen and (min-width:760px)  {
+    .more{
+        margin:0 0 110px 0;
+    }
+}
+
+.buy i{
+    background: url("/assets/images/buy.png") no-repeat;
+    background-size: contain;
+}
+
+.story i {
+    background: url("/assets/images/story.png") no-repeat;
+    background-size: contain;
+}
+
+.shopping i {
+    background: url("/assets/images/shopping.png") no-repeat;
+    background-size: contain;
+}
+
+
+.my i {
+    background: url("/assets/images/05.png") no-repeat;
+    background-size: contain;
+}
+
+
+.top{
+    position: fixed;
+    bottom:100px;
+    right:20px;
+}
+.top img{
+    width:50px;
+    height:50px;
+
+}
+
+.main{
+    padding:60px 0 0 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

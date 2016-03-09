@@ -1,0 +1,685 @@
+body{
+    background-color:#F5F5F5;
+}
+
+
+.shopp{
+    background: url(/assets/images/shopping.png) center center no-repeat;
+    background-size: contain;
+    position: absolute;
+    top:22%;
+    right:2%;
+    width:30px;
+    height:30px;
+}
+
+
+.banner .title{
+    font-size:14px;
+    display: block;
+}
+
+.banner{
+    margin-bottom: 10px;
+}
+
+.banner a{
+    display: block;
+}
+
+.puy{
+	margin-top:20px;
+	margin-bottom:5px;}
+
+/*倒计时*/
+.timing{
+    width:100%;
+    text-align:center;
+}
+
+
+/*主体*/
+.purchase-box{
+	width:100%;
+    height:auto;
+	padding:0 10px;
+	}
+	
+.purchase-big{
+	width:100%;
+	border:1px solid #ccc;
+	background:#fff;
+	padding:20px 5%;
+    margin:20px 0;
+}
+
+.purchase{
+    position: relative;
+    display: block;
+    width: 100%;
+
+}
+
+.graph{
+	float:left;
+    width:40%;
+    position: relative;
+}
+
+.graph span{
+    position: absolute;
+    top:0;
+    left:0;
+}
+
+.con-box{
+    width:60%;
+    float: right;
+    padding:0 0 0 7%;
+}
+
+.con h2{
+    font-size:18px;
+    color:#504e4d;
+}
+
+.ag{
+    height:90px;
+}
+
+.sale{
+    float: left;
+    margin:5px 0 0 0;
+}
+
+.sale i:nth-child(2){
+    color:#b1b1b1;
+    display: block;
+    margin: -13px 0 0 0;}
+
+.ag .sale-rate{
+    color:#e56254;
+    font-size:50px;
+}
+
+.sale-rate i{
+    font-size:28px;
+}
+.sale span{
+   display: block;
+}
+
+.money{
+    margin-top:8px;
+    float: right;
+
+}
+.money-raw{
+    display: block;
+    color:#b1b1b1;
+    margin-bottom:5px;
+}
+
+.now{color:#b1b1b1;}
+
+.money-raw i{
+    text-decoration: line-through;
+}
+.money-raw i,.now i{
+   font-size:24px;
+
+
+}
+.now i{
+    color:#e56254;
+
+}
+
+.fight{
+    width:55%;
+    height:40px;
+    text-align: center;
+    line-height: 40px;
+    border:1px solid #ccc;
+    border-radius: 5px;
+    position: absolute;
+    bottom:0;
+    right:0;
+}
+
+.fight span,.fight i{
+
+    display: inline-block;
+    color:#565656;
+
+}
+
+.fight span{
+
+    font-size: 18px;
+}
+.fight i{
+    font-size: 13px;
+    margin-top:3px;
+}
+.fight b{
+    display: inline-block;
+    color:#e56254;
+    font-size:26px ;
+}
+
+@media screen and (min-width:460px) and (max-width:550px){
+    .purchase-big{
+        padding:40px 2%;
+    }
+    .graph span {
+        width:50px;
+    }
+
+    .ag .sale-rate{
+        color:#e56254;
+        font-size:40px;
+    }
+    .sale i:nth-child(2){
+        margin: -10px 0 0 0;
+    }
+
+    .sale{
+        margin:14px 0 0 0;
+    }
+
+    .sale-rate i{
+        font-size:28px;
+    }
+    .sale span{
+        display: block;
+    }
+
+    .money{
+        margin-top:16px;
+        float: right;
+
+    }
+    .money-raw{
+        display: block;
+        color:#b1b1b1;
+        margin-bottom:5px;
+        font-size: 14px;
+    }
+
+    .now{color:#b1b1b1;
+    font-size: 14px;}
+
+    .money-raw i{
+        text-decoration: line-through;
+    }
+    .money-raw i,.now i{
+        font-size:20px;
+    }
+    .now i{
+        color:#e56254;
+
+    }
+
+    .fight{
+        width:55%;
+        height:35px;
+        line-height: 35px;
+        text-align: center;
+        border:1px solid #ccc;
+        border-radius: 5px;
+        position: absolute;
+        bottom:-20px;
+        right:0;
+    }
+
+    .fight span,.fight i{
+
+        display: inline-block;
+        color:#565656;
+
+    }
+
+    .fight span{
+        font-size: 18px;
+    }
+    .fight i{
+        font-size: 14px;
+        margin-top:3px;
+    }
+    .fight b{
+        display: inline-block;
+        color:#e56254;
+        font-size:22px ;
+    }
+}
+
+
+@media screen and (min-width:401px) and (max-width:459px){
+    .purchase-big{
+        padding:20px 3% 60px 0;
+    }
+    .con-box{
+        padding:0 0 0 5%;
+    }
+
+    .con h1{
+        font-size:16px;
+    }
+
+
+    .sale{
+        margin: 12px 0 0 0;
+    }
+
+    .sale i:nth-child(2){
+        margin: -6px 0 0 0;
+        font-size: 12px;}
+
+    .ag .sale-rate{
+        font-size:36px;
+    }
+
+    .ag .sale-rate i{
+        font-size:28px;
+    }
+
+    .money{
+        margin-top:12px;
+        float: right;
+
+    }
+    .money-raw{
+        display: block;
+        color:#b1b1b1;
+        margin-bottom:7px;
+
+    }
+    .money-raw,.now{
+        font-size: 14px;
+    }
+    .money-raw i,.now i{
+        font-size:20px;
+    }
+    .money .now i{
+        color:#e56254;
+
+    }
+    .fight{
+        width:80%;
+        padding:0 5%;
+        bottom:-45px;
+        left:50%;
+        margin: 0 0 0 -40%;
+    }
+
+    .fight span{
+        font-size: 15px;
+    }
+
+    .fight b{
+        font-size:20px ;
+    }
+}
+
+@media screen and (min-width:320px) and (max-width:400px){
+    .purchase-big{
+        padding:20px 0 60px 0;
+    }
+    .con-box{
+        padding:0 0 0 5%;
+    }
+
+    .con h1{
+        font-size:16px;
+    }
+
+
+    .sale{
+        margin: 15px 0 0 0;
+    }
+
+    .sale i:nth-child(2){
+        margin: -6px 0 0 0;
+        font-size: 12px;}
+
+    .ag .sale-rate{
+
+        font-size:30px;
+    }
+
+    .ag .sale-rate i{
+        font-size:28px;
+    }
+
+    .money{
+        margin-top:12px;
+        float: right;
+
+    }
+    .money-raw{
+        display: block;
+        color:#b1b1b1;
+    }
+    .money-raw,.now{
+        font-size: 13px;
+    }
+    .money-raw i,.now i{
+        font-size:18px;
+
+
+    }
+    .money .now i{
+        color:#e56254;
+
+    }
+    .fight{
+        width:80%;
+        padding:0 5%;
+        bottom:-39px;
+        left:50%;
+        margin: 0 0 0 -40%;
+    }
+
+    .fight span{
+        font-size: 15px;
+    }
+
+    .fight b{
+        font-size:20px ;
+    }
+}
+
+
+/*非拼购产品*/
+
+.content ul li {
+    margin-bottom: 10px;
+}
+
+
+.content li a{
+    display: block;
+    border:1px solid #cfcfcf;
+}
+
+.title-hd{
+    background-color:#fff;
+    border-bottom:1px solid #ececec;
+    padding:10px 5%;
+}
+
+
+.content .title-fd{
+    display: block;
+    background:white;
+    width:100%;
+    height:50px;
+    padding:0 5%;
+    line-height: 50px;
+}
+
+.naw{
+    font-size:24px;
+    color:#504e4d;
+}
+.agio{
+   font-size:16px;
+   text-decoration: line-through;
+}
+
+.title-fd b{
+    float:right;
+    width:50px;
+    line-height:25px;
+    text-align: center;
+    border: 1px solid #e33a39;
+    color: #e56254;
+    font-weight: normal;
+    margin: 10px 0 0 0;
+}
+
+.product{
+    witdh:100%;
+}
+
+.product li{
+    width:100%;
+}
+
+.product li a{
+    width:48%;
+    display: inline-block;
+    margin:0 0 0 1%;
+
+}
+
+
+.footer {
+    width:100%;
+    text-align: center;
+    margin: 0 0 100px 0;
+
+}
+
+h2{
+    color:#e56254;
+
+}
+
+h2 span{
+
+    color:#454545;
+}
+
+
+@media screen and (min-width:390px) and (max-width:500px) {
+    .naw{
+        font-size:18px;
+
+    }
+    .agio{
+        font-size:12px;
+
+    }
+    .title-fd b{
+
+        width:45px;
+        line-height:20px;
+        text-align: center;
+        border: 1px solid #e33a39;
+        color: #e56254;
+        font-weight: normal;
+        margin: 15px 0 0 0;
+    }
+    .footer {
+
+        margin: 0 0 70px 0;
+
+    }
+
+
+}
+
+@media screen and (min-width:320px) and (max-width:389px) {
+    .content .title-fd{
+
+        padding:0 2%;
+
+    }
+    .naw{
+        font-size:14px;
+
+    }
+    .agio{
+        font-size:12px;
+
+    }
+    .title-fd b{
+        font-size:12px;
+        width:35px;
+        line-height:20px;
+        text-align: center;
+        border: 1px solid #e33a39;
+        color: #e56254;
+        font-weight: normal;
+        margin: 15px 0 0 0;
+    }
+    .footer {
+
+        margin: 0 0 70px 0;
+
+    }
+
+
+}
+
+
+
+/*底部*/
+.foot{
+    width:100%;
+    height:90px;
+    background-color: #000;
+    position: fixed;
+    bottom:0;
+
+}
+
+.foot ul {
+    padding:22px 0 0 0;
+}
+
+.foot ul li{
+    float: left;
+    width:20%;
+
+}
+
+.foot ul a{
+    display: block;
+    width:100%;
+
+}
+
+
+.foot span{
+    text-align: center;
+    display: block;
+    margin: 3px 0 0 0;
+    color:#b1b1b1;
+}
+
+
+.foot i{
+    display: block;
+    background: url("/assets/images/home.png") no-repeat;
+    background-size: contain;
+    width:30px;
+    height:30px;
+    margin: 0 auto;
+}
+
+@media screen and (min-width:320px) and (max-width:500px) {
+    .foot {
+        height: 60px;
+        font-size: 12px;
+    }
+
+    .foot ul {
+        padding: 15px 0 0 0;
+    }
+
+    .foot i {
+        display: block;
+        background: url("/assets/images/home.png") no-repeat;
+        background-size: contain;
+        width: 20px;
+        height:20px;
+        margin: 0 auto;
+
+    }
+
+    .foot span{
+        text-align: center;
+        display: block;
+    }
+
+    .more{
+        margin:0 0 60px 0;
+    }
+}
+
+@media screen and (min-width:500px) and (max-width:759px) {
+    .more{
+        margin:0 0 90px 0;
+    }
+}
+
+@media screen and (min-width:760px)  {
+    .more{
+        margin:0 0 110px 0;
+    }
+}
+
+.buy i{
+    background: url("/assets/images/02.png") no-repeat;
+    background-size: contain;
+}
+
+.story i {
+    background: url("/assets/images/story.png") no-repeat;
+    background-size: contain;
+}
+
+.shopping i {
+    background: url("/assets/images/shopping.png") no-repeat;
+    background-size: contain;
+}
+
+
+.my i {
+    background: url("/assets/images/my.png") no-repeat;
+    background-size: contain;
+}
+
+
+.top{
+    position: fixed;
+    bottom:100px;
+    right:20px;
+}
+.top img{
+    width:50px;
+    height:50px;
+
+}
+
+/*
+.timing{
+    background: url("/images/timer.png")  no-repeat;
+    width:30px;
+    height:30px;
+}
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,181 @@
+.wap a{
+    color:#555555;
+    font-size: 16px;
+}
+
+/*灰层开始*/
+.grayDiv { width: 100%; height: 100%; position:fixed; bottom:0;background: #000; opacity: 0.5; z-index: 99; padding:0 2%; display: none;}
+
+.grayDiv-box{width:90%; height:300px;position: absolute; bottom:0;}
+
+.grayDiv-box span,.closeBtn{
+    display: block;
+    width:100%;
+    height:60px;
+    background-color: #fff;
+    text-align: center;
+    line-height: 60px;
+}
+.grayDiv-box .closeBtn{
+    margin: 10px 0 0 0;
+    font-size: 16px;
+
+    color:#E46359;
+}
+.grayDiv-box span{
+    position: relative;
+}
+.grayDiv-box input{
+    width:100%;
+    height:60px;
+    z-index: 110;
+    filter: alpha(opacity = 0);
+    -moz-opacity:0;
+    opacity: 0;
+    position: absolute;
+    top:0;
+    left:0;
+}
+.wap,.tick{
+    height:1000px;
+    width:100%;
+    background-color:#F4F4F4;
+    padding:50px 0 0 0 ;
+}
+
+
+
+.face-box{
+    width:100%;
+    height:60px;
+    border-bottom:1px solid #ccc;
+    padding:0 2%;
+    line-height: 60px;
+    background: #fff;
+}
+
+.face-box i{
+    float: left;
+}
+
+.face-box span{
+    float: right;
+    width:20px;
+    height:30px;
+    background: url("/assets/images/right-arrow.png") right center no-repeat;
+    background-size:10px 20px;
+    margin: 15px 0 0 0;
+    line-height:30px;
+    padding:0 80px 0 0;
+}
+.footer{
+    position: fixed;
+    bottom:0;
+    width: 100%;
+    background-color: #000;
+    height:60px;
+    padding:10px 2%;
+
+}
+.footer a{
+    width:80px;
+    height:30px;
+    float: right;
+    color:#fff;
+    text-align: center;
+    line-height:30px;
+    margin: 5px 0 0 0;
+}
+.footer span{
+    width:210px;
+    height:50px;
+    float: left;
+    background: url("/assets/images/personal-14.jpg") no-repeat;
+    background-size: 40px 40px;
+    padding:0 0 0 50px;
+
+}
+.footer span i{
+    display:block;;
+}
+
+
+
+
+
+/*意见反馈页面*/
+.tick{
+    padding:60px 2% 0;
+}
+.text-box{
+    position: relative;
+}
+
+textarea{
+    width:100%;
+    height:200px;
+    resize: none;
+}
+.text{
+    text-align: right;
+    padding:0 2%;
+    color:#e1e1e1;
+    position: absolute;
+    bottom:10px;
+    right:0;
+}
+.tick-m{
+    margin:20px 0;
+}
+
+button{
+    width:100%;
+    line-height:50px;
+    text-align: center;
+    color: #fff;
+    font-size: 18px;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

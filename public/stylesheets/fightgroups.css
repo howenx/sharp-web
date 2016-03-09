@@ -1,0 +1,200 @@
+body{
+
+}
+.wrap{
+    padding:50px 0;
+    background-color:#F4F4F4 ;
+    height:1000px;
+}
+.con{
+    width:100%;
+    background-color:#fff;
+    padding:10px 20px 60px 20px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    margin:20px 0 10px 0;
+
+
+}
+
+h2{
+    color:#595758;
+    font-size: 18px;
+}
+.commodity{
+    width:100%;
+    height:100px;
+    display: block;
+    padding:10px 0;
+    margin:10px 0 0 0;
+
+}
+
+.commodity h2{
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    font-size: 16px;
+}
+
+.commodity .commodity-rmb{
+    display: block;
+    margin:50px 0 20px 0;
+    height:20px;
+
+}
+
+
+span .rmb,span .number{
+    float: left;
+    font-size:20px;
+}
+span .rmb{
+    margin: 0 0 0 2%;
+}
+.commodity img{
+    width:80px;
+    height:106px;
+    float: left;
+    margin: 0 20px 0 0;
+}
+
+
+.commodity p{
+    padding:10px 0 0 0;
+    width: 100%;
+    text-align: right;
+}
+
+
+
+.urse-photo-box{
+    width:90%;
+    height:140px;
+    padding:20px 0;
+    margin: 0 auto;
+}
+
+.urse-photo-m{
+    width:21%;
+    height:70px;
+    float: left;
+    margin: 0 4% 0 0;
+}
+.urse-photo{
+    width:60px;
+    height:100px;
+    margin:0 auto;
+}
+
+.urse-photo-box img{
+    border-radius: 50%;
+}
+
+
+.last{
+    margin-right:0;
+}
+
+
+.fight-hd{
+    width:100%;
+    height:100px;
+
+}
+
+.fight-hd span,.fight-hd i{
+    display: block;
+}
+
+.fight-hd span{
+    width:160px;
+    height:40px;
+    margin: 20px auto;
+    line-height: 50px;
+    background: url("/assets/images/hmmapp-p.jpg") no-repeat;
+    background-size:contain;
+    padding:0 0 0 50px ;
+    font-size:20px;
+}
+.fight-hd i{
+    width: 100%;
+    text-align: center;
+    font-size:16px;
+
+}
+
+.fight-txt{
+    margin: 10px 0 20px 0 ;
+    width:100%;
+    text-align: center;
+}
+
+.fight-txt p{
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    color: #999;
+}
+
+.fight-timer{
+    padding:0 2%;
+   background-color: #4B4B4B;
+    color:#fff;
+    height:60px;
+    line-height: 60px;
+}
+
+.fight-timer span,.fight-number span{
+    width:100px;
+    height:50px;
+    float: left;
+    background: url("/assets/images/100-100.png") no-repeat;
+    background-size:contain;
+    padding:0 0 0 60px ;
+    margin:4px 0 0 0;
+}
+
+.fight-timer i{
+    float: right;
+}
+
+.fight-number{
+    padding:0 2%;
+    height:200px;
+}
+.fight-number span{
+    margin:40px 0;
+    width:100%;
+    line-height:50px;
+    background: url("/assets/images/100-2.png") no-repeat;
+    background-size:contain;
+    color: #999;
+    font-size: 16px;
+}
+.btn-box{
+    background-color: #494949;
+    height:70px;
+    width: 100%;
+    color:#fff;
+    padding:10px 2%;
+    position: fixed;
+    bottom:0;
+}
+
+.btn{
+    width:100%;
+    height:50px;
+    display: block;
+    border-radius: 5px;
+    text-align: center;
+    line-height:50px;
+    font-size: 18px;
+    color: #fff;
+
+}
+
+
+

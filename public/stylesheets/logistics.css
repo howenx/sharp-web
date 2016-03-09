@@ -1,0 +1,114 @@
+body{
+    background-color: #F5F5F5;
+    color:#999999;
+}
+
+.wrap{
+    padding:50px 0;
+}
+
+
+.logistics-hd{
+    width:100%;
+    height:140px;
+    background-color: #fff;
+    padding:20px 2%;
+    font-size: 16px;
+    border-bottom: 1px solid #e1e1e1;
+
+}
+.logistics-l,.logistics-r{
+    float: left;
+}
+.logistics-l{
+    margin: 0 2% 0 0 ;
+}
+.logistics-l img{
+    width:100px;
+    height:100px;
+}
+.logistics-r span{
+    display: block;
+    margin: 0 0 5px 0;
+}
+.nub{
+    color:#87C0FA;
+}
+
+
+
+
+
+
+
+.logis-hd{
+    width:100%;
+    line-height:50px;
+    font-size: 18px;
+    color: #565656;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.logistics-fd{
+    background-color: #fff;
+    margin: 20px 0 0 0;
+    border-top: 1px solid #e1e1e1;
+    padding:0 2%;
+}
+
+.logis-fd ul{
+    padding:10px 2%;
+}
+
+.logis-fd li{
+
+    font-size: 16px;
+
+
+}
+
+.logis-box{
+    border-left:3px solid #ccc;
+    padding:0 0 0 30px;
+    position: relative;
+}
+
+.logis-content{
+    padding:10px 0;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.logis-box::after{
+    content: '';
+    display: inline-block;
+    position: absolute;
+    left: -6px;
+    top: 30px;
+    width: 6px;
+    height: 6px;
+    -webkit-border-radius: 10px;
+    background: #BDBDBD;
+    border: 2px solid #EEE;
+}
+
+
+.logis-fd ul li:first-child .logis-box:after{
+    background: #F40;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
