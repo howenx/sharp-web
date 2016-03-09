@@ -1,101 +1,8 @@
 
-/* 禁用iPhone中Safari的字号自动调整 */
-html {
-	-webkit-text-size-adjust: 100%;
-	-ms-text-size-adjust: 100%;
-}
-/* 去除iPhone中默认的input样式 */
-input{/* -webkit-appearance:none; */ resize: none;}
-/* 取消链接高亮  */
-body,div,ul,li,ol,h1,h2,h3,h4,h5,h6,input,textarea,select,p,dl,dt,dd,a,img,button,form,table,th,tr,td,tbody,article,
-aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section{ -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
-	font-family: Microsoft YaHei;}
-/* 设置HTML5元素为块 */
-article, aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section {
-	display: block;
-}
-/* 图片自适应 */
-img {
-	max-width: 100%;
-	height: auto;
-	width:auto\9; /* ie8 */
-	-ms-interpolation-mode:bicubic;/*为了照顾ie图片缩放失真*/
-	display: block;
-}
-*:focus {
-	outline:none;
-}
-/* 清零 */
-body,div,ul,li,ol,h1,h2,h3,h4,h5,h6,input,textarea,select,p,dl,dt,dd,a,img,button,form,table,th,tr,td,tbody,article,
-aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section{margin:0; padding:0; border:none;}
-body{font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self; color:#ccc;background:#F0F0F0; }
-em,i{font-style:normal;}
-strong{font-weight: normal;}
-.clearfix:after{content:""; display:block; visibility:hidden; height:0; clear:both;}
-.clearfix{zoom:1;}
-a{text-decoration:none; color:#969696; font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self;}
-a:hover{color:#969696; text-decoration:none;}
-ul,ol,li{list-style:none;}
-h1, h2, h3, h4, h5, h6{ font-size:100%; font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self;}
-fieldset,img{border: none;}
-table {
-	border-collapse:collapse;
-	border-spacing:0;
-}
-caption, th {
-	text-align:left;
-}
-q:before,
-q:after {
-	content:"";
-}
-input:password {
-	ime-mode:disabled;
-}
 
-
-.scope{min-width:320px; max-width:750px; margin: 0 auto;}
-
-
-input::-webkit-input-placeholder,textarea::-webkit-input-placeholder {
-	color: #999
+body{
+	background-color: #F6F6F6;
 }
-select,textarea {
-	outline: 0;
-	color: #424242;
-	-webkit-appearance: none
-}
-textarea {
-	-webkit-user-select: text
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0
-}
-* {
-	-webkit-user-select: none;
-	-webkit-tap-highlight-color: rgba(0,0,0,0);
-	-webkit-touch-callout: none;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box
-}
-:before,:after {
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box
-}
-
-body {
-	font: 400 14px/1.5 Arial,sans-serif;
-	color: #5e5e5e;
-	background-color: #f6f6f6;
-	overflow-x: hidden;
-	-webkit-text-size-adjust: none
-}
-a {
-	color: #5e5e5e;
-	text-decoration: none
-}
-
 /***header****/
 .head {
 	position:fixed;
@@ -109,7 +16,7 @@ a {
 }
 
 .icon-user-title{
-	background: url(/images/icon8.png) center center no-repeat;
+	background: url(/assets/images/icon8.png) center center no-repeat;
 	background-size: contain;
 	position: absolute;
 	top:15%;
@@ -118,7 +25,7 @@ a {
 	height:35px;
 }
 .search{
-	background: url(/images/search.png) center center no-repeat;
+	background: url(/assets/images/search.png) center center no-repeat;
 	background-size: contain;
 	position: absolute;
 	top:20%;
@@ -135,7 +42,7 @@ h1 .logo {
 	width:90px;
 	padding-top:32px;
 	display: inline-block;
-	background: url("/images/logo.png") no-repeat center center;
+	background: url("/assets/images/logo.png") no-repeat center center;
 	background-size: 100%;
 	margin: 10px 0 0 0;
 }
@@ -652,91 +559,7 @@ li {
 
 /*产品结束*/
 
-/*底部*/
-.foot{
-	width:100%;
-	height:90px;
-	background-color: #000;
-	position: fixed;
-	bottom:0;
 
-}
-
-.foot ul {
-	padding:22px 0 0 0;
-}
-
-.foot ul li{
-	float: left;
-	width:20%;
-
-}
-
-.foot ul a{
-	display: block;
-	width:100%;
-
-}
-
-
-.foot span{
-	text-align: center;
-	display: block;
-	margin: 3px 0 0 0;
-	color:#b1b1b1;
-}
-
-
-.foot i{
-	display: block;
-	background: url("/assets/images/01.png") no-repeat;
-	background-size: contain;
-	width:30px;
-	height:30px;
-	margin: 0 auto;
-}
-
-@media screen and (min-width:320px) and (max-width:500px) {
-	.foot {
-		height: 60px;
-		font-size: 12px;
-	}
-
-	.foot ul {
-		padding: 15px 0 0 0;
-	}
-
-	.foot i {
-		display: block;
-		background: url("/assets/images/01.png") no-repeat;
-		background-size: contain;
-		width: 20px;
-		height:20px;
-		margin: 0 auto;
-
-	}
-
-	.foot span{
-		text-align: center;
-		display: block;
-	}
-
-	.more{
-		margin:0 0 40px 0;
-	}
-}
-
-@media screen and (min-width:500px) and (max-width:759px) {
-	.more{
-		margin:0 0 70px 0;
-	}
-}
-
-@media screen and (min-width:760px)  {
-	.more{
-		margin:0 0 70px 0;
-	}
-}
 
 .buy i{
     background: url("/assets/images/buy.png") no-repeat;
