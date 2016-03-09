@@ -5,5 +5,50 @@
 # Home page
 GET     /                           controllers.Application.index()
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#by howen
+GET     /setting                                controllers.ShoppingCtrl.setting()
+GET     /pin/list                               controllers.ShoppingCtrl.pinList()
+GET     /login                                  controllers.ShoppingCtrl.login()
+GET     /logistic                               controllers.ShoppingCtrl.logistic()
+GET     /means                                  controllers.ShoppingCtrl.means()
+GET     /myView                                 controllers.ShoppingCtrl.myView()
+GET     /nav                                    controllers.ShoppingCtrl.navBar()
+GET     /obligati                               controllers.ShoppingCtrl.obligati()
+GET     /orders                                 controllers.ShoppingCtrl.orders()
+GET     /user/reset/passwd                      controllers.ShoppingCtrl.resetPasswd()
+GET     /settle                                 controllers.ShoppingCtrl.settle()
+GET     /regist                                 controllers.ShoppingCtrl.regist()
+GET     /tickling                               controllers.ShoppingCtrl.tickling()
+
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * For homepage theme list display function.
+ * For homepage theme pinList display function.
  * Created by howen on 15/10/26.
  */
 public interface ThemeService {
