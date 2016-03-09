@@ -13,10 +13,5 @@ public class Application extends Controller {
     //发布服务器url
     public static final String DEPLOY_URL = play.Play.application().configuration().getString("deploy.server.url");
 
-    public Result index() {
-
-        return ok(views.html.index.render());
-    }
-
 
 }
