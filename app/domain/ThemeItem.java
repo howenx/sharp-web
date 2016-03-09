@@ -1,8 +1,6 @@
 package domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import util.MoneySerializer;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -20,11 +18,11 @@ public class ThemeItem implements Serializable {
     private     String          itemUrl;   		        //商品详细页面链接
     private     String          itemUrlAndroid;   		//商品详细页面链接Android
     private     String          itemTitle;   	        //商品标题
-    @JsonSerialize(using = MoneySerializer.class)
+//    @JsonSerialize(using = MoneySerializer.class)
     private     BigDecimal      itemSrcPrice;   	    //商品价格
-    @JsonSerialize(using = MoneySerializer.class)
+//    @JsonSerialize(using = MoneySerializer.class)
     private     BigDecimal      itemPrice;              //商品原价
-    @JsonSerialize(using = MoneySerializer.class)
+//    @JsonSerialize(using = MoneySerializer.class)
     private     BigDecimal      itemDiscount;           //商品折扣
     private     Integer         itemSoldAmount;         //商品销量
     private     Integer         collectCount;           //收藏数

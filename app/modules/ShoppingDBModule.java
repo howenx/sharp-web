@@ -32,7 +32,7 @@ public class ShoppingDBModule extends PrivateModule{
                 //开启驼峰自动映射
                 mapUnderscoreToCamelCase(true);
 
-                bindDataSourceProviderType(DevDataSourceProvider.class);
+                bindDataSourceProviderType(ShoppingDataSourceProvider.class);
                 bindTransactionFactoryType(JdbcTransactionFactory.class);
                 addMapperClass(ShoppingCartMapper.class);
             }
@@ -52,12 +52,12 @@ public class ShoppingDBModule extends PrivateModule{
     }
 
     @Singleton
-    public static class DevDataSourceProvider implements Provider<DataSource> {
+    public static class ShoppingDataSourceProvider implements Provider<DataSource> {
 
         private final DBApi db;
 
         @Inject
-        public DevDataSourceProvider(final DBApi db) {
+        public ShoppingDataSourceProvider(final DBApi db) {
             this.db = db;
         }
 

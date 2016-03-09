@@ -1,9 +1,6 @@
 package domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import util.DiscountSerializer;
-import util.MoneySerializer;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -18,11 +15,11 @@ public class Inventory implements Serializable{
     private     Long                id;//库存ID
     private     String              itemColor;//颜色
     private     String              itemSize;//尺码
-    @JsonSerialize(using = MoneySerializer.class)
+//    @JsonSerialize(using = MoneySerializer.class)
     private     BigDecimal          itemSrcPrice;//商品原价
-    @JsonSerialize(using = MoneySerializer.class)
+//    @JsonSerialize(using = MoneySerializer.class)
     private     BigDecimal          itemPrice;//商品价格
-    @JsonSerialize(using = DiscountSerializer.class)
+//    @JsonSerialize(using = DiscountSerializer.class)
     private     BigDecimal          itemDiscount;//商品折扣
     private     Boolean             orMasterInv;//是否主商品
     private     String              state;//状态
