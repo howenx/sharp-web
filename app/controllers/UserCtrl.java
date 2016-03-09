@@ -1,8 +1,19 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.squareup.okhttp.*;
+import domain.IndexMap;
+import play.Logger;
+import play.libs.F;
+import play.libs.F.Function;
+import play.libs.F.Promise;
+import play.libs.Json;
 import play.mvc.Controller;
-
 import play.mvc.Result;
+
+import java.io.IOException;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 
 /**
@@ -10,6 +21,10 @@ import play.mvc.Result;
  * Created by howen on 16/3/9.
  */
 public class UserCtrl extends Controller {
+
+    public static final OkHttpClient client = new OkHttpClient();
+
+
     //收货地址
     public Result address() {
         return ok(views.html.users.address.render());
@@ -62,4 +77,29 @@ public class UserCtrl extends Controller {
         return ok(views.html.users.setting.render());
     }
 
+
+    public F.Promise<Result> loginSubmit() {
+
+
+        Promise<IndexMap> promiseOfInt = Promise.promise(() -> {
+            Request request = new Request.Builder().header("User-Agent","wechat")
+                    .url("http://172.28.3.51:9001/index/1")
+                    .build();
+
+            IndexMap indexMap = new IndexMap();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()){
+                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
+                indexMap =Json.fromJson(json, IndexMap.class);
+                Logger.error("测试----->\n"+ indexMap);
+                return indexMap;
+            }else  throw new IOException("Unexpected code " + response);
+        });
+
+        return promiseOfInt.map((Function<IndexMap, Result>) pi -> {
+            Logger.error("返回---->\n"+pi);
+            return ok("PI value computed: " + pi);
+            }
+        );
+    }
 }
