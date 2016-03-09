@@ -1,8 +1,6 @@
 package controllers;
 
 import play.mvc.Controller;
-import play.mvc.Result;
-import views.html.index;
 
 /**
  * Modified by Sunny Wu 16/1/19
@@ -14,14 +12,6 @@ public class Application extends Controller {
 
     //发布服务器url
     public static final String DEPLOY_URL = play.Play.application().configuration().getString("deploy.server.url");
-
-
-
-    public Result index() {
-        return ok(index.render("Your new application is ready."));
-    }
-
-
 
 
 }
