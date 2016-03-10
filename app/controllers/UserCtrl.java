@@ -1,7 +1,8 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.squareup.okhttp.*;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 import domain.IndexMap;
 import play.Logger;
 import play.libs.F;
@@ -14,6 +15,7 @@ import play.mvc.Result;
 import java.io.IOException;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static modules.SysParCom.*;
 
 
 /**
@@ -21,9 +23,6 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * Created by howen on 16/3/9.
  */
 public class UserCtrl extends Controller {
-
-    public static final OkHttpClient client = new OkHttpClient();
-
 
     //收货地址
     public Result address() {
@@ -83,7 +82,7 @@ public class UserCtrl extends Controller {
 
         Promise<IndexMap> promiseOfInt = Promise.promise(() -> {
             Request request = new Request.Builder().header("User-Agent","wechat")
-                    .url("http://172.28.3.51:9001/index/1")
+                    .url(INDEX_PAGE)
                     .build();
 
             IndexMap indexMap = new IndexMap();
