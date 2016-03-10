@@ -19,21 +19,9 @@ GET        /coupon                   controllers.UserCtrl.coupon()
 
 
 
-
-
-
 #首页,主题,详情页相关
 GET        /                         controllers.ProductsCtrl.index()
 GET        /detail                   controllers.ProductsCtrl.detail()
-
-
-
-
-
-
-
-
-
 
 
 

@@ -55,12 +55,17 @@ section.current{
 }
 .day{
     color:#8D8D8D;
-    height: 30px;
+    height:43px;
     line-height: 30px;
 
 }
 .day-l{
     float: left;
+}
+
+.day-l .date{
+   display: block;
+    font-size: 14px;
 }
 .day-r{
     float: right;
@@ -143,9 +148,18 @@ span .number{
 .payment .left{
     float: left;
 }
+
 .payment .right{
     float:right;
 }
+
+.payment .mi{
+    color:#E66255;
+    width: 100px;
+    margin:10px 10px 0 0;
+
+}
+
 .duein a{
     float:right;
     display: block;
@@ -214,7 +228,7 @@ span .number{
 
 /*全部订单页面 all*/
 .box li{
-     width:50%;
+     width:33%;
 }
 
 /*优惠券页面 coupon*/

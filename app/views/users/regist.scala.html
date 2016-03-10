@@ -49,15 +49,24 @@
 			<fieldset>
 				<form id="cell_loginForm" method="post" onsubmit="return false" action="" >
 					<dl class="list list-in">
-						<dd class="dd-padding">
+						<!--<dd class="dd-padding">
 							<input  class="input-weak" type="text" placeholder="请输入手机号">
+						</dd>-->
+						<dd class="dd-padding one">
+							验证码发送成功
 						</dd>
+
 						<dd class="dd-padding">
 							<input id="cell_login_checkcode" class="input-weak two" type="text" placeholder="请输入验证码" name="email">
 							<button id="smsCode" type="button" class="code" disabled="disabled">获取验证码</button>
 						</dd>
+
 						<dd class="dd-padding">
 							<input id="password" class="input-weak" type="password" placeholder="请输入密码"  >
+						</dd>
+
+						<dd class="dd-padding">
+							<input id="password" class="input-weak" type="password" placeholder="确认密码"  >
 						</dd>
 						<dd class="cue">验证码输入错误</dd>
 					</dl>

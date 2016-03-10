@@ -24,9 +24,9 @@ $(function() {
 		$(this).parents('.download-box').hide();
 	})
 
-	('.foot .buy').click(function(){
+	/*('.foot .buy').click(function(){
 		$(this).children('.icon02').css({'backgroundImage':'url(images/02.png)'});
-	})
+	})*/
 
 });
 

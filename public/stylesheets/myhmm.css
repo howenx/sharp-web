@@ -1,14 +1,21 @@
+.fit{
+    background-size: contain;
+    position: absolute;
+    top:0;
+    right:13%;
+    height:30px;
+}
 
 .scope{min-width:320px; max-width:750px; margin: 0 auto;}
 
 .wap{
-    padding:50px 0 0 0;
+
     height:900px;
     background-color: #F4F4F4;
 }
 .user{
      width:100%;
-     height:150px;
+     height:170px;
 }
 
 .land{
