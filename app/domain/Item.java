@@ -13,20 +13,27 @@ public class Item implements Serializable {
 
     private Long id;//商品ID
     private String itemTitle;//商品标题
-    @JsonIgnore
-    private String itemMasterImg;//商品主图,用于列表页显示的图片
-    private String onShelvesAt;//上架时间
-    private String offShelvesAt;//下架时间
     private String itemDetailImgs;//商品详细图片
     private String itemFeatures;//商品参数
-    private Long themeId;//商品属于主题的ID
-    private String state;//商品状态 'Y'--正常,'D'--下架,'N'--删除,'K'--售空
-    private String shareUrl;//分享链接
-    private Integer collectCount;//收藏数
     private String itemNotice;//商品重要布告
     private String publicity;//优惠区域显示信息（包括发货区域，多久后发货）
-    private Long masterInvId;//主SKU的ID
 
+    @JsonIgnore
+    private Long masterInvId;//主SKU的ID
+    @JsonIgnore
+    private String itemMasterImg;//商品主图,用于列表页显示的图片
+    @JsonIgnore
+    private String onShelvesAt;//上架时间
+    @JsonIgnore
+    private String offShelvesAt;//下架时间
+    @JsonIgnore
+    private Long themeId;//商品属于主题的ID
+    @JsonIgnore
+    private String state;//商品状态 'Y'--正常,'D'--下架,'N'--删除,'K'--售空
+    @JsonIgnore
+    private String shareUrl;//分享链接
+    @JsonIgnore
+    private Integer collectCount;//收藏数
     @JsonIgnore
     private Long cateId;
     @JsonIgnore
@@ -45,25 +52,27 @@ public class Item implements Serializable {
     private Timestamp updateAt;
     @JsonIgnore
     private Timestamp createAt;
+    @JsonIgnore
+    private String itemDetail;
 
     public Item() {
     }
 
-    public Item(Long id, String itemTitle, String itemMasterImg, String onShelvesAt, String offShelvesAt, String itemDetailImgs, String itemFeatures, Long themeId, String state, String shareUrl, Integer collectCount, String itemNotice, String publicity, Long masterInvId, Long cateId, Long brandId, String supplyMerch, Long shareCount, Long browseCount, Boolean orDestroy, Timestamp destroyAt, Timestamp updateAt, Timestamp createAt) {
+    public Item(Long id, String itemTitle, String itemDetailImgs, String itemFeatures, String itemNotice, String publicity, Long masterInvId, String itemMasterImg, String onShelvesAt, String offShelvesAt, Long themeId, String state, String shareUrl, Integer collectCount, Long cateId, Long brandId, String supplyMerch, Long shareCount, Long browseCount, Boolean orDestroy, Timestamp destroyAt, Timestamp updateAt, Timestamp createAt, String itemDetail) {
         this.id = id;
         this.itemTitle = itemTitle;
+        this.itemDetailImgs = itemDetailImgs;
+        this.itemFeatures = itemFeatures;
+        this.itemNotice = itemNotice;
+        this.publicity = publicity;
+        this.masterInvId = masterInvId;
         this.itemMasterImg = itemMasterImg;
         this.onShelvesAt = onShelvesAt;
         this.offShelvesAt = offShelvesAt;
-        this.itemDetailImgs = itemDetailImgs;
-        this.itemFeatures = itemFeatures;
         this.themeId = themeId;
         this.state = state;
         this.shareUrl = shareUrl;
         this.collectCount = collectCount;
-        this.itemNotice = itemNotice;
-        this.publicity = publicity;
-        this.masterInvId = masterInvId;
         this.cateId = cateId;
         this.brandId = brandId;
         this.supplyMerch = supplyMerch;
@@ -73,6 +82,7 @@ public class Item implements Serializable {
         this.destroyAt = destroyAt;
         this.updateAt = updateAt;
         this.createAt = createAt;
+        this.itemDetail = itemDetail;
     }
 
     public Long getId() {
@@ -89,6 +99,46 @@ public class Item implements Serializable {
 
     public void setItemTitle(String itemTitle) {
         this.itemTitle = itemTitle;
+    }
+
+    public String getItemDetailImgs() {
+        return itemDetailImgs;
+    }
+
+    public void setItemDetailImgs(String itemDetailImgs) {
+        this.itemDetailImgs = itemDetailImgs;
+    }
+
+    public String getItemFeatures() {
+        return itemFeatures;
+    }
+
+    public void setItemFeatures(String itemFeatures) {
+        this.itemFeatures = itemFeatures;
+    }
+
+    public String getItemNotice() {
+        return itemNotice;
+    }
+
+    public void setItemNotice(String itemNotice) {
+        this.itemNotice = itemNotice;
+    }
+
+    public String getPublicity() {
+        return publicity;
+    }
+
+    public void setPublicity(String publicity) {
+        this.publicity = publicity;
+    }
+
+    public Long getMasterInvId() {
+        return masterInvId;
+    }
+
+    public void setMasterInvId(Long masterInvId) {
+        this.masterInvId = masterInvId;
     }
 
     public String getItemMasterImg() {
@@ -113,22 +163,6 @@ public class Item implements Serializable {
 
     public void setOffShelvesAt(String offShelvesAt) {
         this.offShelvesAt = offShelvesAt;
-    }
-
-    public String getItemDetailImgs() {
-        return itemDetailImgs;
-    }
-
-    public void setItemDetailImgs(String itemDetailImgs) {
-        this.itemDetailImgs = itemDetailImgs;
-    }
-
-    public String getItemFeatures() {
-        return itemFeatures;
-    }
-
-    public void setItemFeatures(String itemFeatures) {
-        this.itemFeatures = itemFeatures;
     }
 
     public Long getThemeId() {
@@ -161,30 +195,6 @@ public class Item implements Serializable {
 
     public void setCollectCount(Integer collectCount) {
         this.collectCount = collectCount;
-    }
-
-    public String getItemNotice() {
-        return itemNotice;
-    }
-
-    public void setItemNotice(String itemNotice) {
-        this.itemNotice = itemNotice;
-    }
-
-    public String getPublicity() {
-        return publicity;
-    }
-
-    public void setPublicity(String publicity) {
-        this.publicity = publicity;
-    }
-
-    public Long getMasterInvId() {
-        return masterInvId;
-    }
-
-    public void setMasterInvId(Long masterInvId) {
-        this.masterInvId = masterInvId;
     }
 
     public Long getCateId() {
@@ -259,23 +269,31 @@ public class Item implements Serializable {
         this.createAt = createAt;
     }
 
+    public String getItemDetail() {
+        return itemDetail;
+    }
+
+    public void setItemDetail(String itemDetail) {
+        this.itemDetail = itemDetail;
+    }
+
     @Override
     public String toString() {
         return "Item{" +
                 "id=" + id +
                 ", itemTitle='" + itemTitle + '\'' +
+                ", itemDetailImgs='" + itemDetailImgs + '\'' +
+                ", itemFeatures='" + itemFeatures + '\'' +
+                ", itemNotice='" + itemNotice + '\'' +
+                ", publicity='" + publicity + '\'' +
+                ", masterInvId=" + masterInvId +
                 ", itemMasterImg='" + itemMasterImg + '\'' +
                 ", onShelvesAt='" + onShelvesAt + '\'' +
                 ", offShelvesAt='" + offShelvesAt + '\'' +
-                ", itemDetailImgs='" + itemDetailImgs + '\'' +
-                ", itemFeatures='" + itemFeatures + '\'' +
                 ", themeId=" + themeId +
                 ", state='" + state + '\'' +
                 ", shareUrl='" + shareUrl + '\'' +
                 ", collectCount=" + collectCount +
-                ", itemNotice='" + itemNotice + '\'' +
-                ", publicity='" + publicity + '\'' +
-                ", masterInvId=" + masterInvId +
                 ", cateId=" + cateId +
                 ", brandId=" + brandId +
                 ", supplyMerch='" + supplyMerch + '\'' +
@@ -285,6 +303,7 @@ public class Item implements Serializable {
                 ", destroyAt=" + destroyAt +
                 ", updateAt=" + updateAt +
                 ", createAt=" + createAt +
+                ", itemDetail='" + itemDetail + '\'' +
                 '}';
     }
 }

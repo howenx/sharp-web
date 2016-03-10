@@ -12,7 +12,7 @@ GET        /regist                   controllers.UserCtrl.regist()
 GET        /tickling                 controllers.UserCtrl.tickling()
 GET        /user/reset/passwd        controllers.UserCtrl.resetPasswd()
 GET        /coupon                   controllers.UserCtrl.coupon()
-
+GET        /login/submit             controllers.UserCtrl.loginSubmit()
 
 
 

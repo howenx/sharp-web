@@ -1,5 +1,7 @@
 package domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -12,6 +14,7 @@ public class ThemeBasic implements Serializable {
     private Long                themeId;   	            //主题ID
     private String              themeImg;               //主题图
     private String              masterItemTag;	        //如果是主打宣传商品，会需要tag json串
+    @JsonIgnore
     private String              masterItemTagAndroid;	//如果是主打宣传商品，会需要tag json串
     private List<ThemeItem>     themeItemList;          //主题中的商品数据
 

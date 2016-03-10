@@ -1,5 +1,7 @@
 package domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 
@@ -9,23 +11,29 @@ import java.sql.Timestamp;
  */
 public class Slider implements Serializable{
 
+    @JsonIgnore
     private Long id;
+    @JsonIgnore
     private String img;
+    @JsonIgnore
     private Integer sortNu;
+    @JsonIgnore
     private Timestamp createAt;
     private String  itemTarget;
     private String  targetType;
+    private String  url;
 
     public Slider() {
     }
 
-    public Slider(Long id, String img, Integer sortNu, Timestamp createAt, String itemTarget, String targetType) {
+    public Slider(Long id, String img, Integer sortNu, Timestamp createAt, String itemTarget, String targetType, String url) {
         this.id = id;
         this.img = img;
         this.sortNu = sortNu;
         this.createAt = createAt;
         this.itemTarget = itemTarget;
         this.targetType = targetType;
+        this.url = url;
     }
 
     public Long getId() {
@@ -76,6 +84,14 @@ public class Slider implements Serializable{
         this.targetType = targetType;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     @Override
     public String toString() {
         return "Slider{" +
@@ -85,6 +101,7 @@ public class Slider implements Serializable{
                 ", createAt=" + createAt +
                 ", itemTarget='" + itemTarget + '\'' +
                 ", targetType='" + targetType + '\'' +
+                ", url='" + url + '\'' +
                 '}';
     }
 }

@@ -11,9 +11,11 @@ import java.sql.Timestamp;
  */
 public class Theme implements Serializable {
 
+    @JsonIgnore
     private     Long        id;//主题ID
     private     String      themeImg;//主题图片
     private     String      themeUrl;//跳转到主题列表页的链接
+    private     String      type;//主题类型
 
     @JsonIgnore
     private     String      title;
@@ -48,13 +50,18 @@ public class Theme implements Serializable {
     @JsonIgnore
     private     Integer     themeNum;
 
+
+    @JsonIgnore
+    private     String      h5Link;
+
     public Theme() {
     }
 
-    public Theme(Long id, String themeImg, String themeUrl, String title, Timestamp startAt, Timestamp endAt, Integer sortNu, Boolean orDestroy, Timestamp destroyAt, Timestamp updateAt, Timestamp createAt, String themeSrcImg, String themeConfigInfo, String themeItem, String masterItemTag, Long masterItemId, String themeMasterImg, Integer themeNum) {
+    public Theme(Long id, String themeImg, String themeUrl, String type, String title, Timestamp startAt, Timestamp endAt, Integer sortNu, Boolean orDestroy, Timestamp destroyAt, Timestamp updateAt, Timestamp createAt, String themeSrcImg, String themeConfigInfo, String themeItem, String masterItemTag, Long masterItemId, String themeMasterImg, Integer themeNum, String h5Link) {
         this.id = id;
         this.themeImg = themeImg;
         this.themeUrl = themeUrl;
+        this.type = type;
         this.title = title;
         this.startAt = startAt;
         this.endAt = endAt;
@@ -70,6 +77,7 @@ public class Theme implements Serializable {
         this.masterItemId = masterItemId;
         this.themeMasterImg = themeMasterImg;
         this.themeNum = themeNum;
+        this.h5Link = h5Link;
     }
 
     public Long getId() {
@@ -94,6 +102,14 @@ public class Theme implements Serializable {
 
     public void setThemeUrl(String themeUrl) {
         this.themeUrl = themeUrl;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getTitle() {
@@ -216,12 +232,21 @@ public class Theme implements Serializable {
         this.themeNum = themeNum;
     }
 
+    public String getH5Link() {
+        return h5Link;
+    }
+
+    public void setH5Link(String h5Link) {
+        this.h5Link = h5Link;
+    }
+
     @Override
     public String toString() {
         return "Theme{" +
                 "id=" + id +
                 ", themeImg='" + themeImg + '\'' +
                 ", themeUrl='" + themeUrl + '\'' +
+                ", type='" + type + '\'' +
                 ", title='" + title + '\'' +
                 ", startAt=" + startAt +
                 ", endAt=" + endAt +
@@ -237,6 +262,7 @@ public class Theme implements Serializable {
                 ", masterItemId=" + masterItemId +
                 ", themeMasterImg='" + themeMasterImg + '\'' +
                 ", themeNum=" + themeNum +
+                ", h5Link='" + h5Link + '\'' +
                 '}';
     }
 }
