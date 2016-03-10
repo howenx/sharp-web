@@ -13,8 +13,6 @@ libraryDependencies ++= Seq(
   filters
 )
 
-
-
 libraryDependencies += "com.squareup.okhttp" % "okhttp" % "2.7.2"
 
 libraryDependencies += "org.apache.commons" % "commons-lang3" % "3.4" withSources() withJavadoc()

@@ -17,7 +17,5 @@ public class SysParCom {
     @Inject
     public SysParCom(Configuration configuration) {
         INDEX_PAGE = configuration.getString("products.page.index");
-
     }
-
 }
