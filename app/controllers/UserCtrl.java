@@ -81,7 +81,7 @@ public class UserCtrl extends Controller {
 
 
         Promise<IndexMap> promiseOfInt = Promise.promise(() -> {
-            Request request = new Request.Builder().header("User-Agent","wechat")
+            Request request = new Request.Builder().header("User-Agent",request().getHeader("User-Agent"))
                     .url(INDEX_PAGE)
                     .build();
 
