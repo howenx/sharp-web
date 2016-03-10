@@ -28,6 +28,11 @@ $(function() {
 		$(this).children('.icon02').css({'backgroundImage':'url(images/02.png)'});
 	})*/
 
+	$('.howl').click(function(){
+		alert('1');
+		$(this).toggleClass("min");
+	});
+
 });
 
 
