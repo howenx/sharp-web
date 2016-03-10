@@ -23,30 +23,45 @@ body{
 }
 
 .icon-user-title{
-	background: url(/assets/images/icon8.png) center center no-repeat;
+	background: url(/assets/images/my.png) center center no-repeat;
 	background-size: contain;
 	position: absolute;
 	top:15%;
 	left:2%;
-	width:35px;
-	height:35px;
+	width:30px;
+	height:30px;
 }
-.search{
-	background: url(/assets/images/icon_xiaoxi.png) center center no-repeat;
+.shopp{
+	background: url(/assets/images/white_shoppingcar.png) center center no-repeat;
 	background-size: contain;
 	position: absolute;
-	top:20%;
+	top:22%;
 	right:2%;
 	width:30px;
 	height:30px;
 }
-.search i{
-	display: block;
-	width:7px;
-	height:7px;
-	border-radius: 50px;
-	background-color:red;
-	margin: 1px 0 0 23px;
+.shopp i{
+	background: url(/assets/images/white_shoppingcar.png) center center no-repeat;
+	background-size: contain;
+	position: absolute;
+	top:0;
+	right:0;
+	width:30px;
+	height:30px;
+}
+
+.shopp .cart_num{
+	width:21px;
+	height:21px;
+	position: absolute;
+	top:-7px;
+	left:15px;
+	background:#ed145b;
+	line-height: 21px;
+	cursor: pointer;
+	color:#fff;
+	border-radius:50%;
+	text-align: center;
 
 }
 
@@ -247,7 +262,7 @@ li {
     cursor: pointer;
     line-height: 17px;
 }
-.cycle-pager span.cycle-pager-active { 
+.cycle-pager span.cycle-pager-active {
 	color: #F22F65;
 }
 .cycle-pager > * { cursor: pointer;}
