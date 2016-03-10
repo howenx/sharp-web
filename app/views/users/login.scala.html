@@ -1,53 +1,112 @@
 <!DOCTYPE HTML>
 <html>
-<head>
-    <meta charset="UTF-8">
-	<meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport">
-	<meta content="yes" name="apple-mobile-web-app-capable">
-	<meta content="black" name="apple-mobile-web-app-status-bar-style">
-	<meta content="telephone=no" name="format-detection">
-    <title>登录</title>
-	<link rel="stylesheet" href="/assets/stylesheets/login.css">
+    <head>
+        <meta charset="UTF-8">
+        <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport">
+        <meta content="yes" name="apple-mobile-web-app-capable">
+        <meta content="black" name="apple-mobile-web-app-status-bar-style">
+        <meta content="telephone=no" name="format-detection">
+        <title>登录</title>
+        <link rel="stylesheet" href="/assets/stylesheets/login.css">
+        <link rel="stylesheet" href="/assets/javascripts/jquery-1.11.1.min.js">
+        <style type="text/css">
 
-</head>
-<body>
-	<div id="screen_wrap">
-		<div class="nav_ban">		
-			<h1>登录</h1>
-			<a href="/myhmm"><span class="icon-back" id="backBtn"></span></a>
+        input:required:invalid, input:focus:invalid {
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAeVJREFUeNqkU01oE1EQ/mazSTdRmqSxLVSJVKU9RYoHD8WfHr16kh5EFA8eSy6hXrwUPBSKZ6E9V1CU4tGf0DZWDEQrGkhprRDbCvlpavan3ezu+LLSUnADLZnHwHvzmJlvvpkhZkY7IqFNaTuAfPhhP/8Uo87SGSaDsP27hgYM/lUpy6lHdqsAtM+BPfvqKp3ufYKwcgmWCug6oKmrrG3PoaqngWjdd/922hOBs5C/jJA6x7AiUt8VYVUAVQXXShfIqCYRMZO8/N1N+B8H1sOUwivpSUSVCJ2MAjtVwBAIdv+AQkHQqbOgc+fBvorjyQENDcch16/BtkQdAlC4E6jrYHGgGU18Io3gmhzJuwub6/fQJYNi/YBpCifhbDaAPXFvCBVxXbvfbNGFeN8DkjogWAd8DljV3KRutcEAeHMN/HXZ4p9bhncJHCyhNx52R0Kv/XNuQvYBnM+CP7xddXL5KaJw0TMAF8qjnMvegeK/SLHubhpKDKIrJDlvXoMX3y9xcSMZyBQ+tpyk5hzsa2Ns7LGdfWdbL6fZvHn92d7dgROH/730YBLtiZmEdGPkFnhX4kxmjVe2xgPfCtrRd6GHRtEh9zsL8xVe+pwSzj+OtwvletZZ/wLeKD71L+ZeHHWZ/gowABkp7AwwnEjFAAAAAElFTkSuQmCC);
+        background-position: right top;
+        background-repeat: no-repeat;
+        -moz-box-shadow: none;
+        }
+        input:required:valid {
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAepJREFUeNrEk79PFEEUx9/uDDd7v/AAQQnEQokmJCRGwc7/QeM/YGVxsZJQYI/EhCChICYmUJigNBSGzobQaI5SaYRw6imne0d2D/bYmZ3dGd+YQKEHYiyc5GUyb3Y+77vfeWNpreFfhvXfAWAAJtbKi7dff1rWK9vPHx3mThP2Iaipk5EzTg8Qmru38H7izmkFHAF4WH1R52654PR0Oamzj2dKxYt/Bbg1OPZuY3d9aU82VGem/5LtnJscLxWzfzRxaWNqWJP0XUadIbSzu5DuvUJpzq7sfYBKsP1GJeLB+PWpt8cCXm4+2+zLXx4guKiLXWA2Nc5ChOuacMEPv20FkT+dIawyenVi5VcAbcigWzXLeNiDRCdwId0LFm5IUMBIBgrp8wOEsFlfeCGm23/zoBZWn9a4C314A1nCoM1OAVccuGyCkPs/P+pIdVIOkG9pIh6YlyqCrwhRKD3GygK9PUBImIQQxRi4b2O+JcCLg8+e8NZiLVEygwCrWpYF0jQJziYU/ho2TUuCPTn8hHcQNuZy1/94sAMOzQHDeqaij7Cd8Dt8CatGhX3iWxgtFW/m29pnUjR7TSQcRCIAVW1FSr6KAVYdi+5Pj8yunviYHq7f72po3Y9dbi7CxzDO1+duzCXH9cEPAQYAhJELY/AqBtwAAAAASUVORK5CYII=);
+        background-position: right top;
+        background-repeat: no-repeat;
+        }
 
-		</div>
-		<div class="login">
-			<fieldset>
-				<form id="account_loginForm" method="post" onsubmit="return false" action="" >
-					<dl class="list list-in">
+        </style>
+        <script>
+            $(function() {
+                $(document).on('click', '#bt_login', function() {
 
-						         <dd class="dd-padding">
-									 <input id="username" class="input-weak" type="text" placeholder="请输入您的手机号" name="email" value="" required="">
-								 </dd>
-						         <dd class="dd-padding">
-									 <input id="password" class="input-weak" type="password" placeholder="请输入您的密码" name="password" required="">
-								 </dd>
-								 <dd class="dd-padding">
-									 <input id="checkcode" class="input-weak" name="checkcode" type="text" value="" maxlength="4" placeholder="验证码">
-								 </dd>
-					</dl>
-				</form>
+                    var formdata = new FormData();
 
-				<div class="submitBox">
-					<input class="loginBtn button" type="submit" value="登录">
-				</div>
-			</fieldset>
+                    if($('#input_username').length!=11){
+                        $('#js-userinfo-error').text('请选择类型');
+                        setTimeout("$('#js-userinfo-error').text('')", 2000);
+                    }else if($('input[name=releaseNumber]').val()===null || $('input[name=releaseNumber]').val()===''){
+                        $('#js-userinfo-error').text('请输入版本号');
+                        setTimeout("$('#js-userinfo-error').text('')", 2000);
+                    }else if($('textarea[name=releaseDesc]').val()===null || $('textarea[name=releaseDesc]').val()===''){
+                        $('#js-userinfo-error').text('请输入版描述');
+                        setTimeout("$('#js-userinfo-error').text('')", 2000);
+                    }else if($('#fileinput').val()===null || $('#fileinput').val()===''){
+                        $('#js-userinfo-error').text('请上传文件');
+                        setTimeout("$('#js-userinfo-error').text('')", 2000);
+                    }else{
+                        $("#release").serializeArray().map(function(x){
+                            if(x.value!=='' && x.value!==null){
+                                // console.log(x.name+ ' '+x.value)
+                                formdata.append(x.name, x.value);
+                            }
+                        });
+                        formdata.append('file', $('#fileinput')[0].files[0]);
+                        $.ajax({
+                            url: "/release/public",
+                            data: formdata,
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            type: 'POST',
+                            success: function(data) {
+                                console.log(data);
+                                if(data==='success'){
+                                    $('.usercenter-option > .user-state').css('background-position', '20px -174px');
+                                    $('.usercenter-option > .user-state').text('未更改');
+                                    $('#js-userinfo-error').text('保存成功').css('color', '#2fa900');
+                                    setTimeout("$('#js-userinfo-error').text('').css('color','#c00')", 1000);
+                                    setTimeout(function(){
+                                        window.location.href='/release/view';
+                                    }, 2000);
+                                }else{
+                                    alert('Server Error.')
+                                }
+                            }
+                        });
+                    }
+                })
+            })
+        </script>
+    </head>
+    <body>
+        <div id="screen_wrap">
+            <div class="nav_ban">
+                <h1>登录</h1>
+                <a href="/"><span class="icon-back" id="backBtn"></span></a>
+            </div>
+            <div class="login">
+                <fieldset>
+                    <form id="account_loginForm" method="post" action="/login/submit">
+                        <dl class="list list-in">
+                            <dd class="dd-padding">
+                                <input id="input_username" class="input-weak" maxlength="11" type="text" placeholder="请输入您的手机号" name="name" required pattern="[1][345678]\d{9}">
+                            </dd>
+                            <dd class="dd-padding">
+                                <input id="input_password" class="input-weak" maxlength="12" type="password" placeholder="请输入您的密码" name="password" required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}">
+                            </dd>
+                        </dl>
+                    </form>
+                    <div class="submitBox">
+                        <input id="bt_login" class="loginBtn button" type="button" value="登录">
+                    </div>
+                </fieldset>
 
-			<div class="loginInfo">
-				<div class="findWord">
-					<a href="/regist" class="resist">快速注册</a>
-					<a href="/password" class="password">忘记密码?</a>
-				</div>
-			</div>
-		</div>
-	</div>
-<!--reference script region-->
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-</body>
+                <div class="loginInfo">
+                    <div class="findWord">
+                        <a href="/regist" class="resist">快速注册</a>
+                        <a href="/password" class="password">忘记密码?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
