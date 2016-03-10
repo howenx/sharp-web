@@ -94,6 +94,16 @@ input:password {
 }
 
 /***********login****************/
+
+.cue{
+    width:100%;
+    height: 25px;
+    line-height: 25px;
+    background-color: #FFEEDE;
+    color:#E66255 ;
+    padding: 0 0 0 15px;
+
+}
 .login {
     margin-bottom: 50px;
 	position: relative;
@@ -354,7 +364,7 @@ input, select {
 }
 
 .list dd>.input-weak {
-    width:85%;
+    width:100%;
     border:1px solid #DFDFDD;
     margin:0 0 20px 0;
 }
@@ -429,32 +439,13 @@ dl.list dd>.btn {
     color:#DA8C77;
 }
 
-.howl{
-    display:inline-block;
-    background: url("/assets/images/exclamation.png") no-repeat;
-    width:10%;
-    height:20px;
-    background-size: contain;
 
-}
-.correct{
-    display:inline-block;
-    background: url("/assets/images/duigou.jpg") no-repeat;
-    width:10%;
-    height:20px;
-    background-size: contain;
-    display: none;
-}
 
 .code{
-    float: right;
-    width:30%;
-    line-height: 45px;
-    background: none;
-    border:1px solid #E1E1DF;
-    font-size:16px;
-
+    position: relative;
 }
+
+
 
 .inp{
     float: left;
@@ -511,21 +502,31 @@ dl.list dd>.btn {
 /*
 提示信息*/
 
-.cue{
-    width:50%;
-    text-align: center;
-   line-height:45px;
-    color:#fff;
-    background-color:#5C5C5C ;
-    border-radius: 5px;
+
+
+.howl{
+
+    background: url("/assets/images/icon_show.png") no-repeat;
+    display:inline-block;
+    width:10%;
+    height:20px;
+    background-size: contain;
     position: absolute;
-    bottom:134px;
-    left:30%;
+    right:5px;
+    top:12px;
+
 }
 
-
-
-
+.bg1{
+    background:url("/assets/images/icon_kejian.png") no-repeat;
+    display:inline-block;
+    width:10%;
+    height:20px;
+    background-size: contain;
+    position: absolute;
+    right:5px;
+    top:12px;
+}
 
 
 
