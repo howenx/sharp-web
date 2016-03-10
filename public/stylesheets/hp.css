@@ -42,11 +42,12 @@ body{
 }
 .search i{
 	display: block;
-	width:18px;
-	height:18px;
+	width:7px;
+	height:7px;
 	border-radius: 50px;
-	background-color: #fff;
-	margin: -5px 0 0 15px;
+	background-color:red;
+	margin: 1px 0 0 23px;
+
 }
 
 h1 {
@@ -90,8 +91,6 @@ h1 .logo {
 	padding:10px;
 }
 
-#container{margin:50px auto;}
-
 #container ul{width:100%;list-style:none;float:left;margin-right:20px;}
 
 #container ul li{margin-bottom:20px;}
@@ -114,7 +113,7 @@ h1 .logo {
 }
 
 /****************搜索mask*****************/
-.ui-mask {
+/*.ui-mask {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -122,8 +121,8 @@ h1 .logo {
 	height: 100%;
 	z-index: 999;
 	background: rgba(0,0,0,.6);
-}
-#M_search {
+}*/
+/*#M_search {
 	width: 100%;
 	height: 46px;
 	background: #f6f6f6;
@@ -135,8 +134,8 @@ h1 .logo {
 	display: block;
 	text-align: center;
 	overflow: auto;
-}
-#M_search form {
+}*/
+/*#M_search form {
     width: 96%;
     height: 35px;
     margin: 5px auto 0 auto;
@@ -166,7 +165,7 @@ h1 .logo {
 	font-size: 14px;
 	position: absolute;
 	left: 6px;
-}
+}*/
 /*********************************分割线****************************************/
 ol, ul {
 	list-style: none;
