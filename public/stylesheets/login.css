@@ -505,8 +505,9 @@ dl.list dd>.btn {
 
 
 .howl{
-    display:inline-block;
+
     background: url("/assets/images/icon_show.png") no-repeat;
+    display:inline-block;
     width:10%;
     height:20px;
     background-size: contain;
@@ -516,11 +517,15 @@ dl.list dd>.btn {
 
 }
 
-.howl .min{
-    background: url("/assets/images/icon_kejian.png") no-repeat;
+.bg1{
+    background:url("/assets/images/icon_kejian.png") no-repeat;
+    display:inline-block;
     width:10%;
     height:20px;
     background-size: contain;
+    position: absolute;
+    right:5px;
+    top:12px;
 }
 
 
