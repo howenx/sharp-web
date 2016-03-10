@@ -3,16 +3,23 @@
 body{
 	background-color: #F6F6F6;
 }
+
+
+
+
 /***header****/
-.head {
+.battener{
 	position:fixed;
 	width: 100%;
 	height:50px;
+	background:#E66255;
+	z-index:1000;
+}
+.batten{
+	width:100%;
+	height:50px;
 	line-height:50px;
-	display: -webkit-box;
-	background: #fff;
 	background-size: 100% auto;
-	z-index: 998;
 }
 
 .icon-user-title{
@@ -25,7 +32,7 @@ body{
 	height:35px;
 }
 .search{
-	background: url(/assets/images/search.png) center center no-repeat;
+	background: url(/assets/images/icon_xiaoxi.png) center center no-repeat;
 	background-size: contain;
 	position: absolute;
 	top:20%;
@@ -33,6 +40,15 @@ body{
 	width:30px;
 	height:30px;
 }
+.search i{
+	display: block;
+	width:18px;
+	height:18px;
+	border-radius: 50px;
+	background-color: #fff;
+	margin: -5px 0 0 15px;
+}
+
 h1 {
 	width:100%;
 	height:50px;
@@ -74,17 +90,14 @@ h1 .logo {
 	padding:10px;
 }
 
-.con a{
-	display: block;
-	width:100%;
-	height:auto;
-	margin: 0 0 10px 0;
+#container{margin:50px auto;}
 
-}
+#container ul{width:100%;list-style:none;float:left;margin-right:20px;}
 
-.con a img{
-	width:100%;
-}
+#container ul li{margin-bottom:20px;}
+
+#container ul li img{width:100%;}
+
 
 .more{
 	width:100%;
@@ -92,7 +105,7 @@ h1 .logo {
 	background: white;
 	color:#F58292;
 	border-radius:3px;
-	margin: 0 0 69px 0;
+	margin: 0 0 15% 0;
 	text-align: center;
 	line-height: 40px;
 	cursor:pointer;
@@ -240,9 +253,6 @@ li {
 }
 .cycle-pager > * { cursor: pointer;}
 
-.later{
-	display: none;
-}
 
 
 /*下载app*/
@@ -559,7 +569,10 @@ li {
 
 /*产品结束*/
 
-
+.home i{
+	background: url("/assets/images/01.png") no-repeat;
+	background-size: contain;
+}
 
 .buy i{
     background: url("/assets/images/buy.png") no-repeat;

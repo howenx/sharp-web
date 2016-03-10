@@ -1,19 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>列表页</title>
-    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport">
-    <meta content="yes" name="apple-mobile-web-app-capable">
-    <meta content="black" name="apple-mobile-web-app-status-bar-style">
-    <meta content="telephone=no" name="format-detection">
-    <link rel="stylesheet" href="/assets/stylesheets/global.css">
-    <link rel="stylesheet" href="/assets/stylesheets/list.css">
-    <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
-    <script src="/assets/javascripts/list.js"></script>
-</head>
+@scripts = {
+<link rel="stylesheet" href="/assets/stylesheets/list.css">
+<script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+<script src="/assets/javascripts/list.js"></script>
+}
 
-<body>
+@layout(title="韩秘美,专卖韩国正品")(scripts) {
 
     <div class="header">
         <header class="head">
@@ -22,7 +13,7 @@
                 <b></b>
             </a>
             <h1>化妆品专场</h1>
-            <a href="/sho" class="shopp"></a>
+            <a href="/cart" class="shopp"></a>
         </header>
     </div>
 
@@ -238,7 +229,7 @@
                         </a>
                     </li>
 
-                    <li>
+                    <!--<li>
                         <a href="/pin/list" class="buy">
                             <i></i>
                             <span>拼购</span>
@@ -250,7 +241,7 @@
                             <i></i>
                             <span>品牌故事</span>
                         </a>
-                    </li>
+                    </li>-->
 
                     <li>
                         <a href="/cart" class="shopping">
@@ -278,8 +269,7 @@
       </div>
 
 
-</body>
-</html>
+}
 
 <script type="text/javascript">
 

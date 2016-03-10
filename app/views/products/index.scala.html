@@ -1,18 +1,27 @@
 @scripts = {
+<link rel="stylesheet" href="/assets/stylesheets/hp.css">
+<script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+<script src="/assets/javascripts/jquery/TouchSlide.1.1.js"></script>
+<script src="/assets/javascripts/hp.js"></script>
+<script src="/assets/javascripts/jquery/jquery-1.9.1.min.js"></script>
 }
 
 @layout(title="韩秘美,专卖韩国正品")(scripts) {
 <!--头部-->
-<div class="header">
-    <header class="head">
-		<!--<span class="icon-search-title" id="searchBtn"></span>-->
-		<h1>
-			<a href="/homepage" class="logo"></a>
-		</h1>
-		<a href="/personal"><span class="icon-user-title" id="userBtn"></span></a>
-		<a href="/" class="search"></a>
-    </header>
-</div>
+	<div class="battener">
+		<header class="batten">
+			<!--<span class="icon-search-title" id="searchBtn"></span>-->
+			<h1>
+				韩秘美
+			</h1>
+			<!--<a href="/personal"><span class="icon-user-title" id="userBtn"></span></a>-->
+			<a href="/" class="search">
+				<i></i>
+			</a>
+		</header>
+	</div>
+
+
 
 <!--主体	-->
 	<div id='screen_wrap'>
@@ -58,57 +67,87 @@
         <!--内容开始-->
 		<div class="con">
 
-               <div class="above">
-				   <!--<div class="goods">
-						<a href="/list"><img src="/images/banner_03.jpg"></a>
-						<div class="good-illustrate">
-							<div class="illustrate-box">
-								<div class="illustrate-l">
-									<div class="sale">
-									&lt;!&ndash;	<span class="sale-rate">20</span><i>%</i>&ndash;&gt;
-										<span class="sale-rate"></span>
-										<i>打折率:</i>
-									</div>
-									<div class="money">
-										<span class="money-raw">市场价:<i>￥600</i></span>
-										<span class="now">折扣价:<i>￥480</i></span>
-									</div>
+			<div id="container">
+				<ul class="col">
 
-								</div>
-								<div class="illustrate-r">
-									<span class="one">拼购打折<i>(最低)</i></span>
-									<span class="two">2人拼购</span>
-									<span class="three">￥400</span>
-									<span class="four">已拼购2345人</span>
-								</div>
+					<li><img src="/assets/images/1.jpg" /></li>
 
+					<li><img src="/assets/images/2.jpg" /></li>
 
-							</div>
-						</div>-->
+					<li><img src="/assets/images/3.jpg" /></li>
 
-
-					<a href="/list"><img src="/assets/images/HMM--index01.jpg"></a>
-					<a href="/list"><img src="/assets/images/HMM--01_03.jpg"></a>
-					<a href="/list"><img src="/assets/images/HMM--03.3_03.jpg"></a>
-					<a href="/list"><img src="/assets/images/HMM--index01.jpg"></a>
-					<a href="/list"><img src="/assets/images/HMM--01_03.jpg"></a>
-					<a href="/list"><img src="/assets/images/HMM--03.3_03.jpg"></a>
-			   </div>
-
-			   <div class="more">点击加载更多</div>
-
-
-			   <div class="later">
-				   <a href="javascript:;"><img src="/assetsimages/HMM--01_06.jpg"></a>
-				   <a href="javascript:;"><img src="/assetsimages/HMM--01_06.jpg"></a>
-				   <a href="javascript:;"><img src="/assetsimages/HMM--01_06.jpg"></a>
-				   <a href="javascript:;"><img src="/assetsimages/HMM--01_06.jpg"></a>
-				   <a href="javascript:;"><img src="/assetsimages/HMM--01_06.jpg"></a>
-				   <a href="javascript:;"><img src="/assetsimages/HMM--01_06.jpg"></a>
-				   <a href="javascript:;"><img src="/assetsimages/HMM--01_06.jpg"></a>
-			   </div>
-
+				</ul>
+			</div>
 		</div>
+
+		<script type="text/javascript">
+
+			$(function(){
+
+				//url data function dataType
+
+				function loadMeinv(){
+
+					var data = 0;
+
+					for(var i=0;i<4;i++){//每次加载时模拟随机加载图片
+
+						data = parseInt(Math.random()*4);
+
+						var html = "";
+
+						html = '<li><img src =/assets/images/'
+
+								+data+'.jpg></li>';
+
+						$minUl = getMinUl();
+
+						$minUl.append(html);
+
+					}
+
+				}
+
+				loadMeinv();
+
+				$(window).on("scroll",function(){
+
+					$minUl = getMinUl();
+
+					if($minUl.height() <= $(window).scrollTop()+$(window).height()){
+
+						//当最短的ul的高度比窗口滚出去的高度+浏览器高度大时加载新图片
+
+						loadMeinv();
+
+					}
+
+				})
+
+				function getMinUl(){//每次获取最短的ul,将图片放到其后
+
+					var $arrUl = $("#container .col");
+
+					var $minUl =$arrUl.eq(0);
+
+					$arrUl.each(function(index,elem){
+
+						if($(elem).height()<$minUl.height()){
+
+							$minUl = $(elem);
+
+						}
+
+					});
+
+					return $minUl;
+
+				}
+
+			})
+
+		</script>
+
 		<div class="top">
 			<img src="/assets/images/top.png">
 		</div>

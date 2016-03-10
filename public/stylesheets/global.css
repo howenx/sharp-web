@@ -64,21 +64,21 @@ input:password {
 .color5{
     color:#555656;
 }
+
 .head {
     position:fixed;
     width: 100%;
     height:50px;
     line-height:50px;
-    background:#F5F5F5;
+    background:#E66255;
     z-index: 998;
-    border-bottom:1px solid #CECECE;
 }
 
 h1 {
     width:100%;
     text-align: center;
     font-size:20px;
-    color:#504e4d;
+    color:#fff;
 }
 
 .back{
@@ -97,21 +97,15 @@ h1 {
     height:0;
     border-width:14px;
     border-style:dashed solid dashed dashed ;
-    border-color:transparent #BEBEBE transparent transparent ;
+    border-color:transparent #fff transparent transparent ;
 }
 .back b{
-    border-color:transparent #F5F5F5 transparent transparent ;
+    border-color:transparent #E66255 transparent transparent ;
     left:2px;
 
 }
 
-.fit{
-    background-size: contain;
-    position: absolute;
-    top:0;
-    right:2%;
-    height:30px;
-}
+
 
 /*空购物车*/
 
@@ -121,10 +115,9 @@ h1 {
 .foot{
     width:100%;
     height:90px;
-    background-color: #000;
+    background-color:#fff;
     position: fixed;
     bottom:0;
-
 }
 
 .foot ul {
@@ -133,7 +126,7 @@ h1 {
 
 .foot ul li{
     float: left;
-    width:20%;
+    width:33%;
 
 }
 

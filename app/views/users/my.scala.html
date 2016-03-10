@@ -1,163 +1,104 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport">
-    <meta content="yes" name="apple-mobile-web-app-capable">
-    <meta content="black" name="apple-mobile-web-app-status-bar-style">
-    <meta content="telephone=no" name="format-detection">
-    <link rel="stylesheet" href="/assets/stylesheets/global.css">
-    <link rel="stylesheet" href="/assets/stylesheets/myhmm.css">
+@scripts = {
+<link rel="stylesheet" href="/assets/stylesheets/global.css">
+<link rel="stylesheet" href="/assets/stylesheets/myhmm.css">
+}
 
-</head>
-<body>
+@layout(title="韩秘美,专卖韩国正品")(scripts) {
+<!--
 <header class="head">
     <a href="/pin/list" class="back">
         <i></i>
         <b></b>
     </a>
     <h1>我的</h1>
-    <a href="/install" class="fit">设置</a>
-</header>
 
-<div class="wap scope">
+</header>-->
+
+<a class="wap scope">
+    <a href="/install" class="fit">设置</a>
     <div class="user bg">
          <a href="/login" class="land">
              <img src="/assets/images/personal-01.jpg">
              登录
          </a>
     </div>
-    <section class="apply">
-        <ul>
-            <li>
-                <a href="/obligation" class="">
-                    <img src="/assets/images/personal-02.jpg">
-                    待支付
-                </a>
-            </li>
-            <li>
-                <a href="/delivered" class="">
-                    <img src="/assets/images/personal-03.jpg">
-                    待发货
-                </a>
-            </li>
-            <li>
-                <a href="/orders" class="">
-                    <img src="/assets/images/personal-04.jpg">
-                    待收货
-                </a>
-            </li>
-            <li>
-                <a href="/appraise" class="">
-                    <img src="/assets/images/personal-05.jpg">
-                    待评价
-                </a>
-            </li>
-            <li>
-                <a href="/drawback" class="">
-                    <img src="/assets/images/personal-06.jpg">
-                    退款
-                </a>
-            </li>
-        </ul>
-   </section>
+    <!--<section class="apply">-->
+        <!--<ul>-->
+            <!--<li>-->
+                <!--<a href="/obligation" class="">-->
+                    <!--<img src="/assets/images/personal-02.jpg">-->
+                    <!--待支付-->
+                <!--</a>-->
+            <!--</li>-->
+            <!--<li>-->
+                <!--<a href="/delivered" class="">-->
+                    <!--<img src="/assets/images/personal-03.jpg">-->
+                    <!--待发货-->
+                <!--</a>-->
+            <!--</li>-->
+            <!--<li>-->
+                <!--<a href="/orders" class="">-->
+                    <!--<img src="/assets/images/personal-04.jpg">-->
+                    <!--待收货-->
+                <!--</a>-->
+            <!--</li>-->
+            <!--<li>-->
+                <!--<a href="/appraise" class="">-->
+                    <!--<img src="/assets/images/personal-05.jpg">-->
+                    <!--待评价-->
+                <!--</a>-->
+            <!--</li>-->
+            <!--<li>-->
+                <!--<a href="/drawback" class="">-->
+                    <!--<img src="/assets/images/personal-06.jpg">-->
+                    <!--退款-->
+                <!--</a>-->
+            <!--</li>-->
+        <!--</ul>-->
+   <!--</section>-->
 
     <section class="list">
-        <div class="whole-box">
-            <a href="/all" class="whole">
+        <a href="/all" class="whole-box">
+            <div href="/all" class="whole">
                 <i>我的订单</i>
                 <span>查看全部订单</span>
-            </a>
-        </div>
-        <div class="list-buy">
-            <a href="/fightgroups" class="buy-box">
+            </div>
+        </a>
+        <a href="/fightgroups" class="list-buy">
+            <div class="buy-box">
                 <i>我的拼团</i>
                 <span></span>
-            </a>
-        </div>
-        <div class="list-agio">
-            <a href="/coupon" class="agio-box">
+            </div>
+        </a>
+        <a href="/coupon" class="list-agio">
+            <div class="agio-box">
                 <i>我的优惠券</i>
                 <span>2个</span>
-            </a>
-        </div>
-        <div class="list-add">
-            <a href="/address" class="add-box">
+            </div>
+        </a>
+        <a href="/address" class="list-add">
+            <div class="add-box">
                 <i>我的地址</i>
                 <span></span>
-            </a>
-        </div>
-        <div class="list-advise">
-            <a href="/tickling" class="advise-box">
+            </div>
+        </a>
+        <a href="/tickling" class="list-advise">
+            <div class="advise-box">
                 <i>意见反馈</i>
                 <span></span>
-            </a>
-        </div>
-        <div class="whole-box">
-            <a href="/#" class="whole">
-                <i>联系韩秘美</i>
+            </div>
+        </a>
+        <a href="/#" class="whole-box">
+            <div class="whole">
+                <i>我的收藏</i>
                 <span>4006666</span>
-            </a>
-        </div>
+            </div>
+        </a>
     </section>
 
-    <div class="foot-box scope">
-        <footer class="foot scope">
-            <nav>
-                <ul>
-                    <li>
-                        <a href="/" class="home">
-                            <i></i>
-                            <span>首页</span>
-                        </a>
-                    </li>
 
-                    <li>
-                        <a href="/pin/list" class="buy">
-                            <i></i>
-                            <span>拼购</span>
-                        </a>
-                    </li>
+ </div>
+}
 
-                    <li>
-                        <a href="javascript:;" class="story">
-                            <i></i>
-                            <span>品牌故事</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="/cart" class="shopping">
-                            <i></i>
-                            <span>购物车</span>
-                        </a>
-                    </li>
-
-                    <li class="my-icon">
-                        <a href="/myView" class="my">
-                            <i></i>
-                            <span>我的</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </footer>
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
 </body>
 </html>

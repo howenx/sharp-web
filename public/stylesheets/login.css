@@ -68,7 +68,7 @@ input:password {
     height:60px;
     line-height:60px;
     display: block;
-    background-color:#F1F1F1;
+    background-color:#E66255;
     border-bottom:1px solid #C7C7C7;
 
 }
@@ -79,16 +79,16 @@ input:password {
     position: relative;
     line-height:60px;
     font-size:24px;
-    color:#4A4A4A;
+    color:#fff;
 }
 .nav_ban .icon-back {
     position: relative;
-    height:20px;
-    width:20px;
+    height:25px;
+    width:25px;
     position: absolute;
     top:20px;
     left:2%;
-    background: url("/assets/images/back.png") center center no-repeat;
+    background: url("/assets/images/icon_back.png") center center no-repeat;
     background-size: cover;
 
 }
@@ -350,7 +350,7 @@ input, select {
 }*/
 /********************自己写************************/
 .login{
-    margin: 25px 0 0 0;
+    margin: 20px 0 0 0;
 }
 
 .list dd>.input-weak {
@@ -421,7 +421,14 @@ dl.list dd>.btn {
 .list dd .two{
     width:65%;
     float: left;
+    line-height:30px;
 }
+
+.list .one{
+    background-color:#FFEEDE;
+    color:#DA8C77;
+}
+
 .code{
     float: right;
     width:30%;
