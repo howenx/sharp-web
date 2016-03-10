@@ -62,6 +62,17 @@ input:password {
     overflow: hidden;
     margin-bottom: 58px;
 }
+.cart-goods-area{
+    border-bottom: 1px solid #ccc;
+    position: relative;
+    height: 40px;
+}
+.cart-goods-area .check-wrapper{
+    left: 20px;
+}
+.cart-goods-list{
+    overflow: hidden;
+}
 .cart-goods-list li{
     width: 100%;
     float: left;
@@ -80,6 +91,14 @@ input:password {
     top: 50%;
     left:-2px;/*这里修改了*/
     margin-top: -10px;
+}
+/*.area*/
+.area{
+    position: absolute;
+    top: 50%;
+    left:50px;
+    margin-top: -10px;
+    color: #333;
 }
 
 .item-con{
