@@ -42,34 +42,47 @@ $(function(){
          }
          else {  }
      });
-
-    /*****area点击******/
-    $(".cart-goods-area input[type=checkbox]").change(function(){
+    /***** checkBox 点击******/
+    var selectInputs = document.getElementsByClassName('check');
+    var checkAllInputs = document.getElementsByClassName('check-all');
+    $(checkAllInputs).click(function(){
         if($(this).prop("checked")==true){
-            $(this).parents(".cart-goods-area").next().find("input[type=checkbox]").prop("checked",true);
-            Total();
+            $(selectInputs).prop("checked",true);
         }else{
-            $(this).parents(".cart-goods-area").next().find("input[type=checkbox]").prop("checked",false);
-            Total();
+            $(selectInputs).prop("checked",false);
         }
-
+        Total();
     })
 
-   /*ѡ��ĳһ��*/
-    var selectInputs = document.getElementsByClassName('check'); // ���й�ѡ��
-    var checkAllInputs = document.getElementsByClassName('check-all') // ȫѡ��
-    for(var i = 0; i < selectInputs.length; i++ ){
-        selectInputs[i].onclick = function () {
-            if (this.className.indexOf('check-all') >= 0) { //�����ȫѡ��������е�ѡ���ѡ��
-                for (var j = 0; j < selectInputs.length; j++) {
-                    selectInputs[j].checked = this.checked;
+    $(selectInputs).change(function(){
+        if($(this).hasClass("areac")){
+            if($(this).prop("checked")==true){
+                $(this).parents(".cart-goods-area").next().find("input[type=checkbox]").prop("checked",true);
+                if($(".cart-goods .check:checked").length==selectInputs.length){
+                    $(checkAllInputs).prop("checked",true);
                 }
+            }else{
+                $(checkAllInputs).prop("checked",false);
+                $(this).parents(".cart-goods-area").next().find("input[type=checkbox]").prop("checked",false);
             }
-            Total();//ѡ������ܼ�
+        }else if($(this).hasClass("check-one")){
+            if($(this).prop("checked")==true) {
+                var input1 = $(this).parents("ul").find("input[type=checkbox]:checked").length;
+                var input2 = $(this).parents("ul").find("input[type=checkbox]").length;
+                if (input1 == input2) {
+                    $(this).parents("ul").prev().find(".check").prop("checked", true);
+                    if ($(".cart-goods .check:checked").length == selectInputs.length) {
+                        $(checkAllInputs).prop("checked", true);
+                    } else {
+                        $(checkAllInputs).prop("checked", false);
+                    }
+                }
+            }else {
+                $(checkAllInputs).prop("checked", false);
+            }
         }
-    }
-
-
+        Total();
+    })
 
     /*���С��*/
     function setTotal(){
