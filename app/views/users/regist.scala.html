@@ -2,87 +2,142 @@
 <html>
 <head>
     <meta charset="UTF-8">
-	<!-- 视图窗口，移动端特属的标签。 -->
-	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
-	<!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
-	<meta name="apple-mobile-web-app-capable" content="yes" />
-	<!-- 这个主要是根据实际的页面设计的主体色为搭配来进行设置。 -->
-	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-	<!-- 忽略页面中的数字识别为电话号码,email识别 -->
-	<meta name="format-detection"content="telephone=no, email=no" />
-	<!-- 启用360浏览器的极速模式(webkit) -->
-	<meta name="renderer" content="webkit">
-	<!-- 避免IE使用兼容模式 -->
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
-	<meta name="HandheldFriendly" content="true">
-	<!-- 微软的老式浏览器 -->
-	<meta name="MobileOptimized" content="320">
-	<!-- uc强制竖屏 -->
-	<meta name="screen-orientation" content="portrait">
-	<!-- QQ强制竖屏 -->
-	<meta name="x5-orientation" content="portrait">
-	<!-- UC强制全屏 -->
-	<meta name="full-screen" content="yes">
-	<!-- QQ强制全屏 -->
-	<meta name="x5-fullscreen" content="true">
-	<!-- UC应用模式 -->
-	<meta name="browsermode" content="application">
-	<!-- QQ应用模式 -->
-	<meta name="x5-page-mode" content="app">
-	<!-- windows phone 点击无高光 -->
-	<meta name="msapplication-tap-highlight" content="no">
+    <!-- 视图窗口，移动端特属的标签。 -->
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+    <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- 这个主要是根据实际的页面设计的主体色为搭配来进行设置。 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <!-- 忽略页面中的数字识别为电话号码,email识别 -->
+    <meta name="format-detection"content="telephone=no, email=no" />
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
     <title>注册</title>
-	<link rel="stylesheet" href="/assets/stylesheets/login.css">
+    <link rel="stylesheet" href="/assets/stylesheets/login.css">
 
-	<link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+    <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
 
 </head>
 <body>
-	<div id='screen_wrap'>
-		<div class="nav_ban">		
-			<h1>注册</h1>		
-			<a href="/login"><span class="icon-back" id="backBtn"></span></a>				
-			<!--<a href="/login"><span class="icon-user-title" id="userBtn"></span></a>-->
-		</div>
-		<div class="login">
-			<fieldset>
-				<form id="cell_loginForm" method="post" onsubmit="return false" action="" >
-					<dl class="list list-in">
-						<!--<dd class="dd-padding">
-							<input  class="input-weak" type="text" placeholder="请输入手机号">
-						</dd>-->
-						<dd class="dd-padding one">
-							验证码发送成功
-						</dd>
+<div id='screen_wrap'>
+    <div class="nav_ban">
+        <h1>注册</h1>
+        <a href="/login"><span class="icon-back" id="backBtn"></span></a>
+        <!--<a href="/login"><span class="icon-user-title" id="userBtn"></span></a>-->
+    </div>
+    <div class="login">
+        <fieldset>
+            <form id="cell_loginForm" method="post" onsubmit="return false" action="" >
+                <dl class="list list-in">
+                    <dd class="dd-padding">
+                        <input id="phoneNum" type="text" class="input-weak" placeholder="请输入手机号"/>
+                    </dd>
+                    <dd class="dd-padding one" style="display:none;">验证码发送成功</dd>
 
-						<dd class="dd-padding">
-							<input id="cell_login_checkcode" class="input-weak two" type="text" placeholder="请输入验证码" name="email">
-							<button id="smsCode" type="button" class="code" disabled="disabled">获取验证码</button>
-						</dd>
+                    <dd class="dd-padding">
+                        <input id="cell_login_checkcode" class="input-weak two" type="text" placeholder="请输入验证码" name="email">
+                        <button id="smsCode" type="button" class="code" disabled="disabled">获取验证码</button>
+                    </dd>
 
-						<dd class="dd-padding">
-							<input id="password" class="input-weak" type="password" placeholder="请输入密码"  >
-						</dd>
+                    <dd class="dd-padding">
+                        <input id="password" class="input-weak" type="password" placeholder="密码为6-12位字母/数字的组合"  >
+                    </dd>
 
-						<dd class="dd-padding">
-							<input id="password" class="input-weak" type="password" placeholder="确认密码"  >
-						</dd>
-						<dd class="cue">验证码输入错误</dd>
-					</dl>
-				</form>
-				<div class="agree">
-					<input class="inp" type="checkbox">
-					<a class="tip" href="/">我已阅读并接受 <span>韩秘美用户注册协议</span></a>
-				</div>
-				<div class="submitBox">				
-					<input class="registBtn button" type="submit" value="完成">
-				</div>
-				<div class="back"><a href="/personal">< 已有账号 返回登录</a></div>
-			</fieldset>
-		</div>
-	</div>
+                    <dd class="dd-padding">
+                        <input id="pwd-confirm" class="input-weak" type="password" placeholder="确认密码"  >
+                    </dd>
+                    <dd class="cue" style="display:none;">验证码输入错误</dd>
+                </dl>
+            </form>
+            <div class="agree">
+                <input class="inp" type="checkbox">
+                <a class="tip" href="/">我已阅读并接受 <span>韩秘美用户注册协议</span></a>
+            </div>
+            <div class="submitBox">
+                <input class="registBtn button" type="submit" value="完成">
+            </div>
+            <div class="back"><a href="/login">< 已有账号 返回登录</a></div>
+        </fieldset>
+    </div>
+</div>
 <!--reference script region-->
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 </body>
 </html>
+
+<script>
+
+    var phoneReg = /[1][345678]\d{9}/;   // "[1]"代表第1位为数字1，"[358]"代表第二位可以为3、5、8中的一个，"\d{9}"代表后面是可以是0～9的数字，有9位
+
+    //手机号只能输入数字
+    $('#phoneNum').keyup(function() {
+        $(this).keypress(function (event) {
+            var eventObj = event || e;
+            var keyCode = eventObj.keyCode || eventObj.which;
+        if ((keyCode >= 48 && keyCode <= 57))
+            return true;
+        else
+            return false;
+        }).focus(function () {
+        //禁用输入法
+            this.style.imeMode = 'disabled';
+        }).bind("paste", function () {
+        //获取剪切板的内容
+        var clipboard = window.clipboardData.getData("Text");
+        if (/^\d+$/.test(clipboard))
+            return true;
+        else
+            return false;
+        });
+    });
+
+    //输入正确手机号
+    $('#phoneNum').bind('input propertychange', function() {
+        if (phoneReg.test($(this).val())) {
+            $("#smsCode").css('background-color', '#E46359');
+            $("#smsCode").css('color', '#fff');
+            $("#smsCode").css('cursor', 'pointer');
+            $('#smsCode').attr("disabled",false);
+        }
+        if (!phoneReg.test($(this).val())) {
+            $("#smsCode").css('background', 'none');
+            $("#smsCode").css('color', '#7F7F87');
+            $("#smsCode").css('cursor', 'default');
+            $('#smsCode').attr("disabled",true);
+        }
+        if ($(this).val().length==11) {
+
+            $('#phoneNum').css("ime-mode", "disabled");
+        }
+    });
+
+
+    $(".registBtn").click(function(){
+
+
+    });
+
+
+
+
+</script>
