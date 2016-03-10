@@ -4,7 +4,7 @@ body{
 
 
 .shopp{
-    background: url(/assets/images/shopping.png) center center no-repeat;
+    background: url(/assets/images/white_shoppingcar.png) center center no-repeat;
     background-size: contain;
     position: absolute;
     top:22%;
@@ -25,8 +25,79 @@ body{
 
 .banner a{
     display: block;
+    position: relative;
 }
 
+/*雷达动画*/
+@-webkit-keyframes run1 {
+    from{
+        bottom:-50px;
+    }
+    to{
+        bottom:-20px;
+    }
+}
+
+.cartoon{
+    position:absolute;
+    top:50%;
+    left:40%;
+    height: 25px;
+    padding:0 5px;
+    line-height: 25px;
+    background-color:rgba(0,0,0,0.5);
+    border-radius: 5px;
+    color: #fff;
+}
+
+.cartoon i{
+    display: block;
+    border-width:12px;
+    border-color:transparent transparent transparent rgba(0,0,0,0.5);
+    border-style:dashed dashed dashed solid;
+    position: absolute;
+    right:-22px;
+    top:0;
+
+}
+
+.ripple{
+    width:15px;
+    height:15px;
+    position:absolute;
+    top:50%;
+    left:50%;
+
+}
+.ripple div{
+    width: 100%;
+    height: 100%;
+    background-color:#fff;
+    border-radius: 50%;
+    position: absolute;
+    top:0;
+    left:0;
+}
+.ripple .c2{
+    -webkit-animation: run2 1s linear infinite;
+}
+.ripple .c3{
+    -webkit-animation: run2 1s linear 0.5s infinite;
+}
+
+@-webkit-keyframes run2 {
+    from{
+        transform:scale(1);
+        opacity: 1;
+    }
+    to{
+        transform: scale(2.5);
+        opacity: 0;
+    }
+}
+
+
+/*拼购*/
 .puy{
 	margin-top:20px;
 	margin-bottom:5px;}
@@ -399,15 +470,37 @@ body{
 
 
 .content li a{
+    position: relative;
     display: block;
     border:1px solid #cfcfcf;
+    background-color: #fff;
+    padding:50px 0 0 0 ;
+
 }
 
 .title-hd{
+    color:#4B4B4B;
     background-color:#fff;
     border-bottom:1px solid #ececec;
     padding:10px 5%;
 }
+
+.product-box{
+    padding: 10px 0 10px;
+    position: absolute;
+    top:0;
+    left:0;
+}
+
+.product-top{
+
+    background: url("/assets/images/hmm_klmpintuan.png") no-repeat 5px #F8616A;
+    display: inline-block;
+    padding:10px 5px 10px 40px;
+    color: #fff;
+    font-size: 14px;
+}
+
 
 
 .content .title-fd{
@@ -421,7 +514,7 @@ body{
 
 .naw{
     font-size:24px;
-    color:#504e4d;
+    color:#EF2628;
 }
 .agio{
    font-size:16px;
