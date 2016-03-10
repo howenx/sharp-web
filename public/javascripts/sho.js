@@ -8,10 +8,10 @@ $(function(){
         var t=$(this).parent().find('input[class*=quantity]');
         var aa = parseInt(t.val()) + 1;
         t.val(aa);
-        var s = $(".cart-goods-list li").eq($(this).parents("li").index()).find(".price").html();
+        var s = $(this).parents("li").find(".price").html();
         var d = aa * s;
 
-        var ss = $(".cart-goods-list li").eq($(this).parents("li").index()).find(".subtotal").html(d);
+        var ss = $(this).parents("li").find(".subtotal").html(d);
 
         Total();
     })
@@ -23,10 +23,10 @@ $(function(){
             t.val(0);
         }
         var aa = parseInt(t.val());
-        var s = $(".cart-goods-list li").eq($(this).parents("li").index()).find(".price").html();
+        var s = $(this).parents("li").find(".price").html();
         var d = aa * s;
 
-        var ss = $(".cart-goods-list li").eq($(this).parents("li").index()).find(".subtotal").html(d);
+        var ss = $(this).parents("li").find(".subtotal").html(d);
 
         Total();
     })
@@ -43,7 +43,17 @@ $(function(){
          else {  }
      });
 
+    /*****area点击******/
+    $(".cart-goods-area input[type=checkbox]").change(function(){
+        if($(this).prop("checked")==true){
+            $(this).parents(".cart-goods-area").next().find("input[type=checkbox]").prop("checked",true);
+            Total();
+        }else{
+            $(this).parents(".cart-goods-area").next().find("input[type=checkbox]").prop("checked",false);
+            Total();
+        }
 
+    })
 
    /*ѡ��ĳһ��*/
     var selectInputs = document.getElementsByClassName('check'); // ���й�ѡ��
@@ -53,11 +63,6 @@ $(function(){
             if (this.className.indexOf('check-all') >= 0) { //�����ȫѡ��������е�ѡ���ѡ��
                 for (var j = 0; j < selectInputs.length; j++) {
                     selectInputs[j].checked = this.checked;
-                }
-            }
-            if (!this.checked) { //ֻҪ��һ��δ��ѡ����ȡ��ȫѡ���ѡ��״̬
-                for (var i = 0; i < checkAllInputs.length; i++) {
-                    checkAllInputs[i].checked = false;
                 }
             }
             Total();//ѡ������ܼ�
