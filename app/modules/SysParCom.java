@@ -14,8 +14,11 @@ import javax.inject.Singleton;
 public class SysParCom {
     public static String INDEX_PAGE;
     public static final OkHttpClient client = new OkHttpClient();
+    public static String LOGIN_PAGE;
     @Inject
     public SysParCom(Configuration configuration) {
+
         INDEX_PAGE = configuration.getString("products.page.index");
+        LOGIN_PAGE = configuration.getString("user.page.login");
     }
 }

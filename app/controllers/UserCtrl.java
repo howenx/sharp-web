@@ -1,9 +1,12 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 import domain.IndexMap;
+import domain.Message;
 import play.Logger;
 import play.libs.F;
 import play.libs.F.Function;
@@ -13,6 +16,8 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static modules.SysParCom.*;
@@ -78,24 +83,34 @@ public class UserCtrl extends Controller {
 
 
     public F.Promise<Result> loginSubmit() {
+        Map<String,String[]> stringMap = request().body().asFormUrlEncoded();
+        Map<String,String> map = new HashMap<>();
+        stringMap.forEach((k, v) -> map.put(k,v[0]));
 
+        Logger.error("这你妈的啥:\n"+map.toString());
 
-        Promise<IndexMap> promiseOfInt = Promise.promise(() -> {
-            Request request = new Request.Builder().header("User-Agent",request().getHeader("User-Agent"))
-                    .url(INDEX_PAGE)
+        Promise<Message> promiseOfInt = Promise.promise(() -> {
+            FormEncodingBuilder feb =new FormEncodingBuilder();
+            map.put("code","-1");
+            map.forEach(feb::add);
+            RequestBody formBody = feb.build();
+
+            Request request = new Request.Builder()
+                    .header("User-Agent",request().getHeader("User-Agent"))
+                    .url(LOGIN_PAGE)
+                    .post(formBody)
                     .build();
 
-            IndexMap indexMap = new IndexMap();
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()){
                 JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
-                indexMap =Json.fromJson(json, IndexMap.class);
-                Logger.error("测试----->\n"+ indexMap);
-                return indexMap;
+                Message message  =Json.fromJson(json, Message.class);
+                Logger.error("测试----->\n"+ message);
+                return message;
             }else  throw new IOException("Unexpected code " + response);
         });
 
-        return promiseOfInt.map((Function<IndexMap, Result>) pi -> {
+        return promiseOfInt.map((Function<Message, Result>) pi -> {
             Logger.error("返回---->\n"+pi);
             return ok("PI value computed: " + pi);
             }
