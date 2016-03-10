@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport">
+        <meta content="yes" name="apple-mobile-web-app-capable">
+        <meta content="black" name="apple-mobile-web-app-status-bar-style">
+        <meta content="telephone=no" name="format-detection">
+        <title>登录</title>
+        <link rel="stylesheet" href="/assets/stylesheets/login.css">
+        <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+        <script src="/assets/javascripts/hp.js"></script>
+
+
+        <style type="text/css">
+        input:required:invalid, input:focus:invalid {
+        background-image: url('/assets/images/ex.png');
+        background-position: right top;
+        background-repeat: no-repeat;
+        -moz-box-shadow: none;
+        }
+        input:required:valid {
+        background-image: url("/assets/images/dui.png");
+        background-position: right top;
+        background-repeat: no-repeat;
+        }
+        </style>
+
+        <script>
+            $(function() {
+                $('#js-userinfo-error').hide();
+                $(document).on('click', '#bt_login', function() {
+
+                    var formdata = new FormData();
+                    var name_regexp = new RegExp(/^1[345678]\d{9}$/);
+                    var password_regexp = new RegExp(/^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}/);
+
+                    if($('#input_username').val().length!=11){
+                        $('#js-userinfo-error').text('请输入正确位数的手机号').show();
+                        setTimeout("$('#js-userinfo-error').hide()", 2000);
+                    }else if(!name_regexp.test($('#input_username').val())){
+                        $('#js-userinfo-error').text('请输入正确的手机号').show();
+                        setTimeout("$('#js-userinfo-error').hide()", 2000);
+                    }else if($('#input_password').val().length<6 || $('#input_password').val().length>12){
+                        $('#js-userinfo-error').text('请输入正确的密码').show();
+                        setTimeout("$('#js-userinfo-error').hide()", 2000);
+                    }else if(!password_regexp.test($('#input_password').val())){
+                        $('#js-userinfo-error').text('请输入正确的密码').show();
+                        setTimeout("$('#js-userinfo-error').hide()", 2000);
+                    }else{
+                        $("#account_loginForm").serializeArray().map(function(x){
+                            if(x.value!=='' && x.value!==null){
+                                formdata.append(x.name, x.value);
+                            }
+                        });
+                        $.ajax({
+                            url: "/login/submit",
+                            data: formdata,
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            type: 'POST',
+                            success: function(data) {
+                                console.log(data);
+//                                if(data==='success'){
+//                                    $('.usercenter-option > .user-state').css('background-position', '20px -174px');
+//                                    $('.usercenter-option > .user-state').text('未更改');
+//                                    $('#js-userinfo-error').text('保存成功').css('color', '#2fa900');
+//                                    setTimeout("$('#js-userinfo-error').text('').css('color','#c00')", 1000);
+//                                    setTimeout(function(){
+//                                        window.location.href='/release/view';
+//                                    }, 2000);
+//                                }else{
+//                                    alert('Server Error.')
+//                                }
+                            }
+                        });
+                    }
+                });
+                $('.howl').click(function(){
+                    $(this).toggleClass('bg1');
+                });
+            })
+        </script>
+    </head>
+
+    <body>
+        <div id="screen_wrap">
+            <div class="nav_ban">
+                <h1>登录</h1>
+                <a href="/"><span class="icon-back" id="backBtn"></span></a>
+            </div>
+            <div class="login">
+                <div id="js-userinfo-error" class="cue"></div>
+                <fieldset>
+                    <form id="account_loginForm" method="post" action="/login/submit">
+                        <dl class="list list-in">
+                            <dd class="dd-padding">
+                                <input id="input_username" class="input-weak" maxlength="11" type="text" placeholder="请输入您的手机号" name="name" required pattern="[1][345678]\d{9}">
+                            </dd>
+                            <dd class="dd-padding code">
+                                <input id="input_password" class="input-weak" maxlength="12" type="password" placeholder="请输入您的密码" name="password" required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}">
+                                <i class="howl"></i>
+                            </dd>
+                        </dl>
+                    </form>
+                    <div class="submitBox">
+                        <input id="bt_login" class="loginBtn button" type="button" value="登录">
+                    </div>
+                </fieldset>
+
+                <div class="loginInfo">
+                    <div class="findWord">
+                        <a href="/regist" class="resist">快速注册</a>
+                        <a href="/user/reset/passwd" class="password">忘记密码?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
