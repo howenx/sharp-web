@@ -485,7 +485,7 @@ body{
 }
 
 
-/*非拼购产品*/
+/*拼购产品*/
 
 .content ul li {
     margin-bottom: 10px;
@@ -570,6 +570,7 @@ body{
 
 }
 
+/*拼购结束*/
 
 .footer {
     width:100%;

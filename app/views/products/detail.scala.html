@@ -13,6 +13,12 @@
 	<script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
 	<script src="/assets/javascripts/jquery/TouchSlide.1.1.js"></script>
 	<script src="/assets/javascripts/detail.js"></script>
+	<script>
+		window.onload = function(){
+			var oSp = document.getElementById()
+
+		}
+	</script>
 
 </head>
 
@@ -26,13 +32,8 @@
 				<b></b>
 			</a>
 			<h1>秋季新品甜美两件套秋季新品甜美两件套</h1>
-			<!--分享icon-->
-			<div id="shopCart">
-				<a href="" class="message_list shopping">
-					<i class="message"></i>
-					<span class="cart_num">0</span>
-				</a>
-			</div>
+
+
 		</div>
 
 		<!-- Start ================================ -->
@@ -74,9 +75,21 @@
 		<!--加入购物车-->
 		<div class="buy_box">
 			<div class="love">
-				<a href="javascript:;"><span></span></a>
-				<a href="javascript:;" class="like"><span></span></a>
+				<div id="shopCart">
+					<a href="" class="message_list shopping">
+						<i class="message"></i>
+						<span class="cart_num">0</span>
+					</a>
+				</div>
+				<!--收藏-->
+				<a href="javascript:;" class="like">
+					<span class="soul"></span>
+					<i class="like-s">收藏成功</i>
+					<i class="like-x">取消收藏</i>
+				</a>
+
 			</div>
+
 			<div class="add_cart btns" data-type="cart">
 				<a href="javascript:;" class="btnCart add_cart_large">
 					加入购物车
@@ -90,7 +103,7 @@
 			</div>
 
 			<div id="flyItem" class="fly_item">
-				<img src="images/icon1.png" width="50" height="50"/>
+				<img src="/assets/images/gouwu.jpg" width="25" height="25"/>
 			</div>
 		</div>
 		<!--加入购物车 end-->
@@ -113,7 +126,7 @@
 			<section class="thw-detail-other" style="margin-bottom: 2px;">
 				<span class="one">快递 <i>免运费</i></span>
 				<span class="two">月销<i>2000笔</i></span>
-				<span class="three">行邮税</span>
+				<span class="three">杭州保税仓直邮</span>
 			</section>
 		</div>
 
@@ -233,7 +246,58 @@
 		</div>
 	</div>
 	<div class="hot">
-		<p>热卖商品</p>
+		<p class="hot-hd">热卖商品</p>
+		<ul class="product">
+			<li>
+				<a href="/detail">
+					<p class="product-box">
+						<span class="product-top">已结束</span>
+					</p>
+					<img src="/assets/images/HMM--list_01.jpg">
+					<p class="title-hd">德国原产 深层修护经典护手霜100ml</p>
+                   <span class="title-fd">
+                       <i class="naw">￥75.00</i>
+                       <i class="agio">￥125.00</i>
+                       <b>5.6折</b>
+                   </span>
+				</a>
+				<a href="javascript:;">
+					<p class="product-box">
+						<span class="product-top">截止7月14日下午14:00</span>
+					</p>
+					<img src="/assets/images/HMM--list_01.jpg">
+					<p class="title-hd">德国原产 深层修护经典护手霜100ml</p>
+                   <span class="title-fd">
+                       <i class="naw">￥75.00</i>
+                       <i class="agio">￥125.00</i>
+                       <b>5.6折</b>
+                   </span>
+				</a>
+			</li>
+
+			<li>
+				<a href="/detail"><img src="/assets/images/HMM--list_01.jpg">
+					<p class="title-hd">德国原产 深层修护经典护手霜100ml</p>
+                   <span class="title-fd">
+                       <i class="naw">￥75.00</i>
+                       <i class="agio">￥125.00</i>
+                       <b>5.6折</b>
+                   </span>
+				</a>
+				<a href="javascript:;"><img src="/assets/images/HMM--list_01.jpg">
+					<p class="title-hd">德国原产 深层修护经典护手霜100ml</p>
+                   <span class="title-fd">
+                       <i class="naw">￥75.00</i>
+                       <i class="agio">￥125.00</i>
+                       <b>5.6折</b>
+                   </span>
+				</a>
+			</li>
+
+
+
+
+		</ul>
 	</div>
 
 	<div class="top">
@@ -255,8 +319,8 @@
 	var numberItem = 0;
 	// 抛物线运动
 	var myParabola = funParabola(eleFlyElement, eleShopCart, {
-		speed:500, //抛物线速度
-		curvature: 0.0008, //控制抛物线弧度
+		speed:30, //抛物线速度
+		curvature: 0.0090, //控制抛物线弧度
 		complete: function() {
 			eleFlyElement.style.visibility = "hidden";
 			eleShopCart.querySelector("span").innerHTML = ++numberItem;
