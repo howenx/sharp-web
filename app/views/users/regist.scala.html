@@ -176,10 +176,10 @@ $(function() {
                 processData: false,
                 type: 'POST',
                 success: function(data) {
+                   console.log(data);
                    $("#send-code-ok").show();
                    $("#send-code-ok").html("验证码发送成功 已发送至"+phoneNum.subString(0,3)+"****"+phoneNum.subString(7,11)+".");
-                },
-                error
+                }
         });
     });
 
