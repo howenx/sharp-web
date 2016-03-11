@@ -1,14 +1,18 @@
 package controllers;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
+import domain.*;
 import domain.Message;
 import domain.UserLoginInfo;
 import filters.UserAuth;
+import modules.SysParCom;
 import net.spy.memcached.MemcachedClient;
 import play.Logger;
 import play.cache.Cache;
@@ -24,11 +28,11 @@ import play.mvc.Security;
 
 import javax.inject.Inject;
 import java.io.IOException;
+import java.util.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
-
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static modules.SysParCom.*;
 import static play.libs.Json.newObject;
@@ -42,11 +46,37 @@ public class UserCtrl extends Controller {
 
     @Inject
     private MemcachedClient memchache;
+    @Inject
+    private SysParCom sysParCom;
 
 
     //收货地址
-    public Result address() {
-        return ok(views.html.users.address.render());
+    @Security.Authenticated(UserAuth.class)
+    public F.Promise<Result> address() {
+        Promise<List<Address> > promiseOfInt = Promise.promise(() -> {
+            Request.Builder builder =(Request.Builder)ctx().args.get("request");
+            Request request=builder.url(sysParCom.ADDRESS_PAGE).get().build();
+
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()){
+                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
+                Logger.info("===json==" + json);
+                Message message = Json.fromJson(json.get("message"), Message.class);
+                if(null==message||message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+                    Logger.error("返回收藏数据错误code="+(null!=message?message.getCode():0));
+                    return new ArrayList<Address>();
+                }
+                ObjectMapper mapper = new ObjectMapper();
+                List<Address> addressList = mapper.readValue(json.get("address").toString(), new TypeReference<List<Address>>() {});
+                return addressList;
+            }else  throw new IOException("Unexpected code " + response);
+        });
+
+        return promiseOfInt.map((Function<List<Address> , Result>) pi -> {
+                    Logger.error("返回---->\n"+pi);
+                    return ok(views.html.users.address.render(pi));
+                }
+        );
     }
 
     //创建新的收货地址
@@ -102,6 +132,37 @@ public class UserCtrl extends Controller {
         Logger.error(request().cookie("user_token").value());
 
         return ok(views.html.users.setting.render());
+    }
+
+    /**
+     * 我的收藏
+     * @return
+     */
+    @Security.Authenticated(UserAuth.class)
+    public F.Promise<Result> collect() {
+        Promise<List<CollectDto> > promiseOfInt = Promise.promise(() -> {
+            Request.Builder builder =(Request.Builder)ctx().args.get("request");
+            Request request=builder.url(sysParCom.COLLECT_PAGE).get().build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()){
+                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
+                Logger.info("===json==" + json);
+                Message message = Json.fromJson(json.get("message"), Message.class);
+                if(null==message||message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+                    Logger.error("返回收藏数据错误code="+(null!=message?message.getCode():0));
+                   return new ArrayList<CollectDto>();
+                }
+                ObjectMapper mapper = new ObjectMapper();
+                List<CollectDto> collectList = mapper.readValue(json.get("collectList").toString(), new TypeReference<List<CollectDto>>() {});
+                return collectList;
+            }else  throw new IOException("Unexpected code " + response);
+        });
+
+        return promiseOfInt.map((Function<List<CollectDto> , Result>) pi -> {
+                    Logger.error("返回---->\n"+pi);
+                    return ok(views.html.users.collect.render(pi));
+                }
+        );
     }
 
 
@@ -198,4 +259,5 @@ public class UserCtrl extends Controller {
 //    public F.Promise<Result> registSubmit() {
 //
 //    }
+
 }
