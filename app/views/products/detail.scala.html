@@ -97,7 +97,7 @@
 			</div>
 
 			<div class="buy_btn" data-type="buy">
-				<a href="/pay" class="">
+				<a href="/settle" class="">
 					立即购买
 				</a>
 			</div>
@@ -305,7 +305,7 @@
 	</div>
 </div>
 <div class="toup">
-	<div class="bd"></div>
+	<div class="bg"></div>
 	<div class="con">
 		<h3>该活动已结束，去看看其他拼购吧</h3>
 		<div class="conaddr">
@@ -403,6 +403,16 @@
 			});
 		});
 	}
+	$(".toup .con").animate({
+		bottom:0,
+	},1000);
+	$(".bg").click(function(){
+		$(".toup .con").animate({
+			bottom:-295,
+		},1000,function(){
+			$(".toup").css("display","none");
+		});
+	})
 </script>
 
 

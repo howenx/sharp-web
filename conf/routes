@@ -13,16 +13,21 @@ GET         /tickling                 controllers.UserCtrl.tickling()
 GET         /user/reset/passwd        controllers.UserCtrl.resetPasswd()
 GET         /coupon                   controllers.UserCtrl.coupon()
 POST        /login/submit             controllers.UserCtrl.loginSubmit()
+<<<<<<< HEAD
 GET         /collect                  controllers.UserCtrl.collect()
 
 
+=======
+POST        /regist/code              controllers.UserCtrl.registCode()
+#POST        /regist/submit            controllers.UserCtrl.registSubmit()
+>>>>>>> a649c06ed5a23c8e2a72f1828de1415b0d86790d
 
 
 
 
 #首页,主题,详情页相关
-GET         /                         controllers.ProductsCtrl.index()
-GET         /detail                   controllers.ProductsCtrl.detail()
+GET          /                         controllers.ProductsCtrl.index()
+GET         /detail/*type/*url         controllers.ProductsCtrl.detail(type,url)
 
 
 
@@ -38,7 +43,7 @@ GET         /assess                   controllers.ShoppingCtrl.assess()
 GET         /delivered                controllers.ShoppingCtrl.delivered()
 GET         /drawback                 controllers.ShoppingCtrl.drawback()
 GET         /fightgroups              controllers.ShoppingCtrl.fightgroups()
-GET         /pin/list                 controllers.ShoppingCtrl.pinList()
+GET         /pin/list/*url            controllers.ShoppingCtrl.pinList(url)
 GET         /logistic                 controllers.ShoppingCtrl.logistic()
 GET         /obligati                 controllers.ShoppingCtrl.obligati()
 GET         /orders                   controllers.ShoppingCtrl.orders()
