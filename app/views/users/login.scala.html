@@ -19,7 +19,7 @@
         background-repeat: no-repeat;
         -moz-box-shadow: none;
         }
-        input:required:valid {
+        input:required:valid, input:focus:valid{
         background-image: url("/assets/images/dui.png");
         background-position: right top;
         background-repeat: no-repeat;
@@ -28,51 +28,36 @@
 
         <script>
             $(function() {
-                $('#js-userinfo-error').hide();
                 $(document).on('click', '#bt_login', function() {
-
                     var formdata = new FormData();
                     var name_regexp = new RegExp(/^1[345678]\d{9}$/);
                     var password_regexp = new RegExp(/^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}/);
 
-                    if($('#input_username').val().length!=11){
-                        $('#js-userinfo-error').text('请输入正确位数的手机号').show();
-                        setTimeout("$('#js-userinfo-error').hide()", 2000);
-                    }else if(!name_regexp.test($('#input_username').val())){
-                        $('#js-userinfo-error').text('请输入正确的手机号').show();
-                        setTimeout("$('#js-userinfo-error').hide()", 2000);
-                    }else if($('#input_password').val().length<6 || $('#input_password').val().length>12){
-                        $('#js-userinfo-error').text('请输入正确的密码').show();
-                        setTimeout("$('#js-userinfo-error').hide()", 2000);
-                    }else if(!password_regexp.test($('#input_password').val())){
-                        $('#js-userinfo-error').text('请输入正确的密码').show();
-                        setTimeout("$('#js-userinfo-error').hide()", 2000);
-                    }else{
-                        $("#account_loginForm").serializeArray().map(function(x){
-                            if(x.value!=='' && x.value!==null){
-                                formdata.append(x.name, x.value);
-                            }
-                        });
+                    if(11!=$('#input_username').val().length){
+                        $('#js-userinfo-error').removeClass("pcue").text('请输入正确位数的手机号').addClass("cue");
+                        setTimeout("$('#js-userinfo-error').removeClass('cue').addClass('pcue')", 2000);
+                    }
+//                    else if(!name_regexp.test($('#input_username').val())){
+//                        $('#js-userinfo-error').removeClass("pcue").text('请输入正确的手机号').addClass("cue");
+//                        setTimeout("$('#js-userinfo-error').removeClass('cue').addClass('pcue')", 2000);
+//                    }
+//                    else if($('#input_password').val().length<6 || $('#input_password').val().length>12){
+//                        $('#js-userinfo-error').removeClass("pcue").text('请输入正确的密码').addClass("cue");
+//                        setTimeout("$('#js-userinfo-error').removeClass('cue').addClass('pcue')", 2000);
+//                    }
+//                    else if(!password_regexp.test($('#input_password').val())){
+//                        $('#js-userinfo-error').removeClass("pcue").text('请输入正确的密码').addClass("cue");
+//                        setTimeout("$('#js-userinfo-error').removeClass('cue').addClass('pcue')", 2000);
+//                    }
+                    else{
+
                         $.ajax({
                             url: "/login/submit",
-                            data: formdata,
-                            cache: false,
-                            contentType: false,
-                            processData: false,
+                            dataType: 'json',
+                            data: $('form#account_loginForm').append("<input name='code' type='hidden' value='-1'>").serialize(),
                             type: 'POST',
                             success: function(data) {
                                 console.log(data);
-//                                if(data==='success'){
-//                                    $('.usercenter-option > .user-state').css('background-position', '20px -174px');
-//                                    $('.usercenter-option > .user-state').text('未更改');
-//                                    $('#js-userinfo-error').text('保存成功').css('color', '#2fa900');
-//                                    setTimeout("$('#js-userinfo-error').text('').css('color','#c00')", 1000);
-//                                    setTimeout(function(){
-//                                        window.location.href='/release/view';
-//                                    }, 2000);
-//                                }else{
-//                                    alert('Server Error.')
-//                                }
                             }
                         });
                     }
@@ -91,7 +76,7 @@
                 <a href="/"><span class="icon-back" id="backBtn"></span></a>
             </div>
             <div class="login">
-                <div id="js-userinfo-error" class="cue"></div>
+                <div id="js-userinfo-error" class="pcue"></div>
                 <fieldset>
                     <form id="account_loginForm" method="post" action="/login/submit">
                         <dl class="list list-in">
