@@ -5,7 +5,6 @@ import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
-import domain.IndexMap;
 import domain.Message;
 import play.Logger;
 import play.libs.F;
@@ -20,7 +19,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static modules.SysParCom.*;
+import static modules.SysParCom.LOGIN_PAGE;
+import static modules.SysParCom.client;
+import static modules.SysParCom.REGIST_CODE;
 
 
 /**
@@ -116,4 +117,48 @@ public class UserCtrl extends Controller {
             }
         );
     }
+
+
+    /**
+     * 注册请求验证码
+     * @return
+     */
+    public F.Promise<Result> registCode() {
+        Map<String,String[]> stringMap = request().body().asFormUrlEncoded();
+        Logger.error("stringMap:"+stringMap);
+        Map<String, String> map = new HashMap<>();
+        stringMap.forEach((k,v) -> map.put(k, v[0]));
+        Logger.error("请求验证码:"+map.toString());
+
+        Promise<Message> promiseOfInt = Promise.promise(() -> {
+            FormEncodingBuilder feb = new FormEncodingBuilder();
+            map.forEach(feb::add);
+            RequestBody formBody = feb.build();
+            Request request = new Request.Builder()
+                    .header("User-Agent", request().getHeader("User-Agent"))
+                    .url(REGIST_CODE)
+                    .post(formBody)
+                    .build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
+                Message message = Json.fromJson(json, Message.class);
+                Logger.error("验证码:"+message);
+                return message;
+            } else throw new IOException("Unexpected code" + response);
+        });
+
+        return promiseOfInt.map((Function<Message, Result>) pi -> {
+            Logger.error("返回结果"+pi);
+            return ok("PI value computed: " + pi);
+        });
+
+    }
+
+
+
+
+//    public F.Promise<Result> registSubmit() {
+//
+//    }
 }
