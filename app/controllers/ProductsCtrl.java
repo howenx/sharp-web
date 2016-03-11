@@ -39,15 +39,18 @@ public class ProductsCtrl extends Controller {
                     String targetUrl = slider.getItemTarget();
                     //主题
                     if("T".equals(slider.getTargetType())){
-                        targetUrl = targetUrl.replace("http://172.28.3.51:9001/topic/list/","");
+                        //targetUrl = targetUrl.replace("http://172.28.3.51:9001/topic/list/","");
+                        targetUrl = targetUrl.replace(IHEME_PAGE,"");
                     }
                     //普通商品
                     if("D".equals(slider.getTargetType())){
-                        targetUrl = targetUrl.replace("http://172.28.3.51:9001/comm/detail/","");
+                        //targetUrl = targetUrl.replace("http://172.28.3.51:9001/comm/detail/","");
+                        targetUrl = targetUrl.replace(ITEM_PAGE,"");
                     }
                     //拼购商品
                     if("P".equals(slider.getTargetType())){
-                        targetUrl = targetUrl.replace("http://172.28.3.51:9001/comm/pin/detail/","");
+                        //targetUrl = targetUrl.replace("http://172.28.3.51:9001/comm/pin/detail/","");
+                        targetUrl = targetUrl.replace(PIN_PAGE,"");
                     }
                     slider.setItemTarget(targetUrl);
                     sliderList.add(slider);
@@ -63,7 +66,8 @@ public class ProductsCtrl extends Controller {
                     theme.setThemeImg(imgUrl);
                     if(!"h5".equals(theme.getType())){
                         String themeUrl = theme.getThemeUrl();
-                        themeUrl = themeUrl.replace("http://172.28.3.51:9001/topic/list/","");
+                        //themeUrl = themeUrl.replace("http://172.28.3.51:9001/topic/list/","");
+                        themeUrl = themeUrl.replace(IHEME_PAGE,"");
                         theme.setThemeUrl(themeUrl);
                     }
                     themeList.add(theme);
