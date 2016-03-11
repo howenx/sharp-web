@@ -1,7 +1,22 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+import domain.Slider;
+import domain.Theme;
+import play.Logger;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static modules.SysParCom.INDEX_PAGE;
+import static modules.SysParCom.client;
 
 /**
  * 购物车,结算相关
@@ -56,6 +71,23 @@ public class ShoppingCtrl extends Controller {
     }
 
     public Result pinList() {
+
+//        String themeUrl = "";
+//        Request request = new Request.Builder()
+//                .url(themeUrl)
+//                .build();
+//
+//        client.newCall(request).enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Request request, IOException e) {
+//                e.printStackTrace();
+//            }
+//            @Override
+//            public void onResponse(Response response) throws IOException {
+//                Logger.error(response.body().string());
+//            }
+//        });
+
         return ok(views.html.shopping.pinList.render());
     }
 
