@@ -13,14 +13,11 @@ GET         /tickling                 controllers.UserCtrl.tickling()
 GET         /user/reset/passwd        controllers.UserCtrl.resetPasswd()
 GET         /coupon                   controllers.UserCtrl.coupon()
 POST        /login/submit             controllers.UserCtrl.loginSubmit()
-<<<<<<< HEAD
 GET         /collect                  controllers.UserCtrl.collect()
 
 
-=======
 POST        /regist/code              controllers.UserCtrl.registCode()
 #POST        /regist/submit            controllers.UserCtrl.registSubmit()
->>>>>>> a649c06ed5a23c8e2a72f1828de1415b0d86790d
 
 
 
