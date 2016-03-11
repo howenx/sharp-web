@@ -62,12 +62,11 @@ input:password {
 .nav_ban_detail {
 	text-align: center;
 	width: 100%;
-	height:60px;
 	z-index: 200;
 	background:#E66255;
 	position: fixed;
 	top:0;
-	color:#171918;
+	color:#fff;
 	border-bottom: 1px solid #ededed;
 	min-width: 320px;
 	max-width: 750px;
@@ -98,6 +97,17 @@ input:password {
 	left:2px;
 
 }
+
+/*海报*/
+/* 本例子css -------------------------------------- */
+.slideBox{ position:relative; width:100%;  height:auto; overflow:hidden; margin:10px auto; }
+.slideBox .hd{ position:absolute; height:auto; line-height:28px; bottom:0; right:0; z-index:1; }
+.slideBox .hd li{ display:inline-block; width:8px; height:8px; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px; background:#333; text-indent:-9999px; overflow:hidden; margin:0 6px;   }
+.slideBox .hd li.on{ background:#E66255;  }
+.slideBox .bd{ position:relative; z-index:0; }
+.slideBox .bd li{ position:relative;  }
+.slideBox .bd li img{ width:100%;  height:auto; display:block;   }
+.slideBox .bd li a{ -webkit-tap-highlight-color:rgba(0, 0, 0, 0); /* 取消链接高亮 */ }
 
 /*购物车*/
 .nav_ban_detail .icon-cart {
@@ -322,27 +332,6 @@ div .cycle-overlay {
 	text-align: center;
 }
 
-/*购车icon*/
-
-.shopping{
-	position: absolute;
-	top:20%;
-	right:2%;
-	width:30px;
-	height:30px;
-
-}
-
-
-.shopping i{
-	background: url("/assets/images/icon_back.png") center center no-repeat;
-	background-size: contain;
-	position: absolute;
-	top:0;
-	right:0;
-	width:30px;
-	height:30px;
-}
 
 
 
@@ -417,11 +406,15 @@ div .cycle-overlay {
 
 
 .three{
+    padding:0 0 0 20px;
+	font-size: 14px;
+	background: url("/assets/images/hmm_dingwei_icon.png") no-repeat;
 	float: right;
+	background-size: 20px 20px;
 }
 
 
-/*正品保障*/
+/*!*正品保障*!
 .detail-service{
 	width: 100%;
 	height: 120px;
@@ -464,10 +457,10 @@ div .cycle-overlay {
 	background: url("/assets/images/detail-icon04.png") no-repeat top center;
 	background-size: 70px;
 }
+*/
 
-.u-detail-introduce li span{
 
-}
+
 
 /*分类*/
 .classify{
@@ -510,6 +503,8 @@ div .cycle-overlay {
 	line-height: 30px;
 	color:#ed145b ;
 }
+
+
 
 /*商品参数*/
 .sku-measure {
@@ -558,50 +553,183 @@ div .cycle-overlay {
 	-webkit-box-flex: 1;
 	color: #eb4868;
 }
+
+/*热卖商品*/
 .hot{
 	background-color: #fff;
-	height:730px;
 	width: 100%;
-	margin: 0 0 100px 0;
-	padding: 0 2%;
+	margin: 0 0 70px 0;
+	padding: 0 0 2% 0;
+
 }
-.hot p{
+.hot .hot-hd{
+	padding: 0 2%;
 	line-height: 40px;
 }
 
+/*拼购产品*/
 
-.top{
-	position: fixed;
-	bottom:100px;
-	right:20px;
-}
-.top img{
-	width:50px;
-	height:50px;
-
+.product li {
+	margin-bottom: 10px;
 }
 
 
+.product li a{
+	position: relative;
+	display: block;
+	border:1px solid #cfcfcf;
+	background-color: #fff;
+	padding:50px 0 0 0 ;
 
+}
 
-/*购车icon*/
+.title-hd{
+	color:#4B4B4B;
+	background-color:#fff;
+	border-bottom:1px solid #ececec;
+	padding:10px 5%;
+}
 
-.shopping{
+.product-box{
+	padding: 10px 0 10px;
 	position: absolute;
-	top:20%;
-	right:2%;
+	top:0;
+	left:0;
+}
+
+.product-top{
+
+	background: url("/assets/images/hmm_klmpintuan.png") no-repeat 5px #F8616A;
+	display: inline-block;
+	padding:10px 5px 10px 40px;
+	color: #fff;
+	font-size: 14px;
+}
+
+
+
+.product .title-fd{
+	display: block;
+	background:white;
+	width:100%;
+	height:50px;
+	padding:0 5%;
+	line-height: 50px;
+}
+
+.naw{
+	font-size:24px;
+	color:#EF2628;
+}
+.agio{
+	font-size:16px;
+	text-decoration: line-through;
+}
+
+.title-fd b{
+	float:right;
+	width:50px;
+	line-height:25px;
+	text-align: center;
+	border: 1px solid #e33a39;
+	color: #e56254;
+	font-weight: normal;
+	margin: 10px 0 0 0;
+}
+
+.product{
+	witdh:100%;
+}
+
+.product li{
+	width:100%;
+}
+
+.product li a{
+	width:48%;
+	display: inline-block;
+	margin:0 0 0 1%;
+
+}
+
+
+@media screen and (min-width:390px) and (max-width:500px) {
+	.naw{
+		font-size:18px;
+
+	}
+	.agio{
+		font-size:12px;
+
+	}
+	.title-fd b{
+
+		width:45px;
+		line-height:20px;
+		text-align: center;
+		border: 1px solid #e33a39;
+		color: #e56254;
+		font-weight: normal;
+		margin: 15px 0 0 0;
+	}
+
+
+
+}
+
+@media screen and (min-width:320px) and (max-width:389px) {
+	.product .title-fd{
+
+		padding:0 2%;
+
+	}
+	.naw{
+		font-size:14px;
+
+	}
+	.agio{
+		font-size:12px;
+
+	}
+	.title-fd b{
+		font-size:12px;
+		width:35px;
+		line-height:20px;
+		text-align: center;
+		border: 1px solid #e33a39;
+		color: #e56254;
+		font-weight: normal;
+		margin: 15px 0 0 0;
+	}
+
+
+
+}
+
+/*热卖结束*/
+
+
+/*底部购物车*/
+
+.buy_box a{
+	color:#fff;
+}
+
+
+#shopCart{
+	width: 50%;
+	float: left;
+
+}
+.shopping{
 	width:30px;
 	height:30px;
-
+	position: relative;
 }
-
 
 .shopping i{
 	background: url(/assets/images/white_shoppingcar.png) center center no-repeat;
 	background-size: contain;
-	position: absolute;
-	top:0;
-	right:0;
 	width:30px;
 	height:30px;
 }
@@ -610,55 +738,86 @@ div .cycle-overlay {
 	width:21px;
 	height:21px;
 	position: absolute;
-	top:-7px;
-	left:15px;
+	top:2px;
+	left:18px;
 	background:#ed145b;
 	line-height: 21px;
 	cursor: pointer;
 	color:#fff;
 	border-radius:50%;
 	text-align: center;
-
 }
-
-.buy_box a{
-	color:#fff;
-}
-
-
-/*购车icon end*/
-
-
-
-/**购物车按钮**/
 
 .love{
 	float: left;
 	height:44px;
 	width:25%;
 	background: #ccc;
-	padding:0 2% 0 0;
-
+	padding:0 2%;
 }
+
 .love a{
 	display: inline-block;
 	width:50%;
 }
-
-.love span{
+.love .like{
+	padding: 10px 0 0 0;
+	float: right;
+	position: relative;
+}
+.soul{
 	width:100%;
-	height:44px;
-	display: inline-block;
-	background: url("/assets/images/detail-kefu.png") center no-repeat;
-	background-size:25px 25px;
-	margin: 0 auto;
-}
-.love .like span{
-	background: url("/assets/images/detail-shou.png") center no-repeat;
+	height: 25px;
+	display: block;
+	background: url("/assets/images/detail-shou.png") center center no-repeat;
 	background-size:25px 20px;
+}
+.min{
+	width:100%;
+	height: 25px;
+	display: block;
+	background: url("/assets/images/icon_collect.png") center center no-repeat;
+	background-size:30px 25px;
+}
+
+.like-s{
+	display: block;
+	width: 80px;
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+	background-color:#565656;
+	color: #fff;
+	border-radius: 50px;
+	position: absolute;
+	top:-30px;
+	left:0;
+	display: none;
 
 
 }
+
+.like-x{
+	display: block;
+	width: 80px;
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+	background-color:#565656;
+	color: #fff;
+	border-radius: 50px;
+	position: absolute;
+	top:-30px;
+	left:0;
+	display: none;
+
+}
+
+
+
+
+
+/*加入购物车*/
 
 .buy_box .add_cart {
 	float: left;
@@ -686,7 +845,7 @@ div .cycle-overlay {
 	white-space: nowrap;
 }
 
-.buy_box i{
+.buy_box .message{
 	display: block;
 	background:url(/assets/images/web/bc.png) no-repeat center;
 	background-size: contain;
@@ -765,17 +924,8 @@ div .cycle-overlay {
 		white-space: nowrap;
 
 	}
-	.buy_box .add_cart{
-		width:37.5%;
-		font-size:14px;
-	}
-	.buy_box .buy_btn{
-		width: 37.5%;
-	}
 
-	.fly_item{
-		left:10%;
-	}
+
 }
 
 /* 本例子css -------------------------------------- */
@@ -787,3 +937,53 @@ div .cycle-overlay {
 .slideBox .bd li{ position:relative;  }
 .slideBox .bd li img{ width:100%;  height:auto; display:block;   }
 .slideBox .bd li a{ -webkit-tap-highlight-color:rgba(0, 0, 0, 0); /* 取消链接高亮 */ }
+
+.toup{
+	width: 100%;background: #fff;
+	position: fixed;left: 0;bottom: 0;
+}
+.toup .con h3{
+	background: red;color: #fff;text-align: center;
+	padding-top: 10px;padding-bottom: 10px;
+}
+.toup .con .conaddr{
+	width: 100%;overflow: scroll;
+}
+.toup .con .conaddr>div{
+	width: 300%;
+}
+.toup .con .item{
+	width: 180px;float: left;
+}
+.toup .con .item div{
+	margin-top: 10px;
+}
+.toup .con .item div:nth-of-type(1){
+	border-top-right-radius:14px;
+	border-bottom-right-radius:14px;
+	background: red;
+	padding: 2px 0 2px 2px;
+	font-size: 12px;
+	margin-right: 10px;
+}
+.toup .con .item div:nth-of-type(1) span{
+	width: 24px;height:24px;text-align: center;line-height: 24px;
+	display: inline-block;color: red;background: #fff;border-radius: 50%;
+}
+.toup .con .item div:nth-of-type(1) p{
+	display: inline-block;color: #fff;
+}
+
+
+/*返回顶部*/
+.top{
+	position: fixed;
+	bottom:100px;
+	right:20px;
+}
+.top img{
+	width:50px;
+	height:50px;
+
+}
+

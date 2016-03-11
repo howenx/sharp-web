@@ -206,6 +206,7 @@ input, select {
 }
 .login .findWord {
     font-size: 14px;
+    height:30px;
 }
 
 .resist{
@@ -215,6 +216,10 @@ input, select {
 .password{
     float: right;
     color: #b4b4b4;
+}
+
+.min{
+    font-size: 14px;
 }
 
 /*一键登录*/
@@ -499,38 +504,48 @@ dl.list dd>.btn {
     color:#E46359;
 }
 
-/*
-提示信息*/
 
 
-
-.howl{
-
-    background: url("/assets/images/icon_show.png") no-repeat;
+/*提示信息*/
+.out{
+    width:20px;
+    right:80px;
+    top:12px;
+}
+.out,.delet{
+    background: url("/assets/images/icon_guanbi.png") no-repeat;
     display:inline-block;
-    width:10%;
     height:20px;
     background-size: contain;
     position: absolute;
-    right:5px;
+}
+.delet{
+    width:20px;
+    right:40px;
     top:12px;
+}
 
+.howl{
+    background: url("/assets/images/icon_show.png") no-repeat;
+    display:inline-block;
+    width:20px;
+    height:20px;
+    background-size: contain;
+    position: absolute;
+    right:40px;
+    top:12px;
 }
 
 .bg1{
     background:url("/assets/images/icon_kejian.png") no-repeat;
     display:inline-block;
-    width:10%;
+    width:20px;
     height:20px;
     background-size: contain;
     position: absolute;
-    right:5px;
+    right:40px;
     top:12px;
 }
-
-
-
-
 
 
 

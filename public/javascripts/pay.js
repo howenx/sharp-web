@@ -1,13 +1,10 @@
 $(function(){
-    $('.pitch').click(function(){
-        $(this).closest('.way-box').find('.pitch').removeClass('current');
-        $(this).addClass('current')
+
+    $('.account-j h2').click(function(){
+        $('.way').eq($(this).index()).show();
+
 
     })
 
-
-
-
-
-
 })
+

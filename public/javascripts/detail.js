@@ -47,4 +47,37 @@ $(function() {
 		$('html,body').stop().animate({'scrollTop':'0'},500);
 	});
 
+	/*收藏*/
+	var off = true;
+    var tim = null;
+	$('.soul').click(function(){
+
+		clearInterval( tim );
+		if(off){
+			$(this).addClass('min');
+			$('.like-s').show();
+
+			tim = setInterval(function () {
+				$('.like-s').hide();
+			},1000);
+
+			$('.like-x').hide();
+			off =false;
+
+		}else {
+			$(this).removeClass('min');
+			$('.like-s').hide();
+			$('.like-x').show();
+			tim = setInterval(function () {
+				$('.like-x').hide();
+			},1000);
+			off =true;
+		}
+
+
+
+	})
+
+
+
 })
