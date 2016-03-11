@@ -52,10 +52,11 @@ $(function() {
     var tim = null;
 	$('.soul').click(function(){
 
-		/*$(this).toggleClass('min');*/
+		clearInterval( tim );
 		if(off){
 			$(this).addClass('min');
 			$('.like-s').show();
+
 			tim = setInterval(function () {
 				$('.like-s').hide();
 			},1000);

@@ -786,7 +786,7 @@ div .cycle-overlay {
 	height: 30px;
 	text-align: center;
 	line-height: 30px;
-	background-color: #000;
+	background-color:#565656;
 	color: #fff;
 	border-radius: 50px;
 	position: absolute;
@@ -803,7 +803,7 @@ div .cycle-overlay {
 	height: 30px;
 	text-align: center;
 	line-height: 30px;
-	background-color: #000;
+	background-color:#565656;
 	color: #fff;
 	border-radius: 50px;
 	position: absolute;
@@ -928,7 +928,6 @@ div .cycle-overlay {
 
 }
 
-<<<<<<< HEAD
 /* 本例子css -------------------------------------- */
 .slideBox{ position:relative; width:100%;  height:auto; overflow:hidden; margin:10px auto; }
 .slideBox .hd{ position:absolute; height:auto; line-height:28px; bottom:0; right:0; z-index:1; }
@@ -974,7 +973,6 @@ div .cycle-overlay {
 .toup .con .item div:nth-of-type(1) p{
 	display: inline-block;color: #fff;
 }
-=======
 
 
 /*返回顶部*/
@@ -989,5 +987,3 @@ div .cycle-overlay {
 
 }
 
-
->>>>>>> fa2de9bf7c577ee456e29501b15154a55c601f20

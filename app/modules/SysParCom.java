@@ -5,6 +5,7 @@ import play.Configuration;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 查询参数表中的参数项
