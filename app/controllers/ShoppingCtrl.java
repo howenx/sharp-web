@@ -1,22 +1,18 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
-import domain.Slider;
 import domain.Theme;
 import play.Logger;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static modules.SysParCom.INDEX_PAGE;
-import static modules.SysParCom.client;
+import static modules.SysParCom.*;
 
 /**
  * 购物车,结算相关
@@ -70,24 +66,34 @@ public class ShoppingCtrl extends Controller {
         return ok(views.html.shopping.orders.render());
     }
 
-    public Result pinList() {
+    public Result pinList(String url) throws Exception {
+        List<Object[]> tagList = new ArrayList<>();
+        Request request = new Request.Builder()
+                .url(IHEME_PAGE + url)
+                .build();
+        Response response = client.newCall(request).execute();
+        if(response.isSuccessful()){
+            JsonNode json = Json.parse(response.body().string());
+            if(json.has("themeList")){
+                JsonNode themeJson = json.get("themeList");
+                if(themeJson.has("masterItemTag")){
+                    JsonNode tagJson = themeJson.get("masterItemTag");
+                    Logger.error("");
+                    for(JsonNode tag : tagJson){
+                        Logger.error(tag.toString());
+                        Object[] tagObject = new Object[5];
+                        tagObject[0] = tag.get("top").asDouble();
+                        tagObject[1] = tag.get("url").toString();
+                        tagObject[2] = tag.get("left").asDouble();
+                        tagObject[3] = tag.get("name").toString();
+                        tagObject[4] = tag.get("angle").asInt();
+                        tagList.add(tagObject);
+                    }
+                    Logger.error(tagList.toString());
+                }
+            }
 
-//        String themeUrl = "";
-//        Request request = new Request.Builder()
-//                .url(themeUrl)
-//                .build();
-//
-//        client.newCall(request).enqueue(new Callback() {
-//            @Override
-//            public void onFailure(Request request, IOException e) {
-//                e.printStackTrace();
-//            }
-//            @Override
-//            public void onResponse(Response response) throws IOException {
-//                Logger.error(response.body().string());
-//            }
-//        });
-
+        }
         return ok(views.html.shopping.pinList.render());
     }
 
