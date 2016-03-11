@@ -21,16 +21,12 @@
 
 .fashion {
     width:100%;
-    height:160px;
 }
 
-.fashion p{
-    height: 50px;
+.fashion .fashion-hd{
     border-top:1px solid #EBEBEB;
     border-bottom:1px solid #EBEBEB;
     margin: -1px 0 0 0 ;
-    padding:15px 0;
-
 }
 .fashion p span{
    float: left;
@@ -41,7 +37,7 @@
 }
 
 
-.money-box,.way-box,.address,.refer-box{
+.money-box,.address,.refer-box{
     width:100%;
 }
 .money-box .picture{
@@ -99,50 +95,85 @@
     float: right;
 }
 
-.way-box{
-    height:50px;
-    padding:0 20%;
-
+.account-j span{
+    display: block;
 }
 
-.account-j,.account-w{
-    padding:20px 0;
-    height:50px;
+.account-j span,.account-j h2{
+
+    line-height:50px;
+    height: 50px;
+    border-bottom: 1px solid #ccc;
 
 }
-.account-j{
-    float: left;
+.way{
+    display: none;
 }
-.account-w{
-    float:right;
+.way li{
+    font-size: 14px;
+    background-color: #ededed;
+    padding: 0 0 0 20px;
+    line-height:36px;
+    height:36px;
+    border-bottom: 1px solid #ccc;
 }
+
+
+
 .pitch{
     width:25px;
     height:25px;
     border: 1px solid #ccc;
     border-radius: 50%;
     float: left;
-    margin: 0 5px 0 0;
-
-
+    margin: 5px 5px 0 0;
 }
-
-.way i{
-    float: left;
-    width:40px;
-    height:50px;
-    margin: -5px 2% 0 5%;
+.pitch-hd{
+    margin: 13px 5px 0 0;
 }
-
-
 .quick{
     float: left;
 }
 
-.current{
-    border: none;
-    background: #ed145b;
+input[type=radio] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    vertical-align: bottom;
+    border: 2px solid #9FA0A0;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+
 }
+
+input[type=radio]:checked::after {
+    content: url("/assets/images/icon3.png");
+    display: block;
+    width: 20px;
+    height: 20px;
+    transform: scale(0.55,0.55);
+    position: absolute;
+    top: -9px;
+    left: -8px;
+
+}
+
+.current{
+    width:25px;
+    height:25px;
+    background: #ed145b;
+    border-radius: 50%;
+    float: left;
+    margin: 5px 5px 0 0;
+}
+
 .refer-box{
     min-width:320px; max-width:750px; margin: 0 auto; background-color: #fff;
     height:60px;
@@ -172,6 +203,7 @@
 .tariff{
     width:100%;
     font-size: 16px;
+    margin:20px 0 0 0;
 }
 .tariff ul li{
     padding:15px 2%;

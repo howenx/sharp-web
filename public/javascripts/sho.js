@@ -79,6 +79,7 @@ $(function(){
                 }
             }else {
                 $(checkAllInputs).prop("checked", false);
+                $(this).parents(".cart-goods-list").prev().find(".check").prop("checked",false);
             }
         }
         Total();
