@@ -8,6 +8,7 @@ import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 import domain.Message;
 import domain.UserLoginInfo;
+import filters.UserAuth;
 import net.spy.memcached.MemcachedClient;
 import play.Logger;
 import play.api.libs.Codecs;
@@ -19,6 +20,7 @@ import play.libs.F.Promise;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
 import util.Crypto;
 
 import javax.inject.Inject;
@@ -91,10 +93,14 @@ public class UserCtrl extends Controller {
         return ok(views.html.users.tickling.render());
     }
 
+    @Security.Authenticated(UserAuth.class)
     public Result setting() {
+        Request.Builder builder =(Request.Builder)ctx().args.get("request");
+
+
         Logger.error("session token----> " + session().get("id-token"));
         Logger.error("Cache user----> " + memchache.get(session().get("id-token")));
-        Logger.error(request().cookie("id-token").value());
+        Logger.error(request().cookie("user_token").value());
 
         return ok(views.html.users.setting.render());
     }
@@ -105,12 +111,13 @@ public class UserCtrl extends Controller {
 
         ObjectNode result = newObject();
         Form<UserLoginInfo> userForm = Form.form(UserLoginInfo.class).bindFromRequest();
+        Map<String, String> userMap = userForm.data();
 
         if (userForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
         } else {
-            Map<String, String> userMap = userForm.data();
+
 
             Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
                 FormEncodingBuilder feb = new FormEncodingBuilder();
@@ -133,11 +140,13 @@ public class UserCtrl extends Controller {
 
                         Message message = Json.fromJson(json.findValue("message"), Message.class);
                         if (message.getCode().equals(200)) {
-                            String session_id = UUID.randomUUID().toString().replaceAll("-","");
-                            Cache.set(session_id,json.findValue("token").asText(),json.findValue("expired").asInt());
-                            session("session_id",session_id);
-                            response().setCookie("session_id", session_id,  json.findValue("expired").asInt());
-                            response().setCookie("user_token", json.findValue("token").asText(),  json.findValue("expired").asInt());
+                            if (userMap.get("auto").equals("true")) {
+                                String session_id = UUID.randomUUID().toString().replaceAll("-", "");
+                                Cache.set(session_id, json.findValue("token").asText(), json.findValue("expired").asInt());
+                                session("session_id", session_id);
+                                response().setCookie("session_id", session_id, json.findValue("expired").asInt());
+                                response().setCookie("user_token", json.findValue("token").asText(), json.findValue("expired").asInt());
+                            }
                             session("id-token", json.findValue("token").asText());
                         }
                         Logger.error("测试----->\n" + json.toString() + " " + message.toString());
