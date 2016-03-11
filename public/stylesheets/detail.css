@@ -787,3 +787,39 @@ div .cycle-overlay {
 .slideBox .bd li{ position:relative;  }
 .slideBox .bd li img{ width:100%;  height:auto; display:block;   }
 .slideBox .bd li a{ -webkit-tap-highlight-color:rgba(0, 0, 0, 0); /* 取消链接高亮 */ }
+
+.toup{
+	width: 100%;background: #fff;
+	position: fixed;left: 0;bottom: 0;
+}
+.toup .con h3{
+	background: red;color: #fff;text-align: center;
+	padding-top: 10px;padding-bottom: 10px;
+}
+.toup .con .conaddr{
+	width: 100%;overflow: scroll;
+}
+.toup .con .conaddr>div{
+	width: 300%;
+}
+.toup .con .item{
+	width: 180px;float: left;
+}
+.toup .con .item div{
+	margin-top: 10px;
+}
+.toup .con .item div:nth-of-type(1){
+	border-top-right-radius:14px;
+	border-bottom-right-radius:14px;
+	background: red;
+	padding: 2px 0 2px 2px;
+	font-size: 12px;
+	margin-right: 10px;
+}
+.toup .con .item div:nth-of-type(1) span{
+	width: 24px;height:24px;text-align: center;line-height: 24px;
+	display: inline-block;color: red;background: #fff;border-radius: 50%;
+}
+.toup .con .item div:nth-of-type(1) p{
+	display: inline-block;color: #fff;
+}
