@@ -534,17 +534,16 @@ dl.list dd>.btn {
     position: absolute;
     right:40px;
     top:12px;
-
 }
 
 .bg1{
     background:url("/assets/images/icon_kejian.png") no-repeat;
     display:inline-block;
-    width:10%;
+    width:20px;
     height:20px;
     background-size: contain;
     position: absolute;
-    right:10px;
+    right:40px;
     top:12px;
 }
 
