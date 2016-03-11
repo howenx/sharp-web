@@ -1,10 +1,11 @@
 package controllers;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.squareup.okhttp.FormEncodingBuilder;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.squareup.okhttp.*;
+import domain.Collect;
+import domain.CollectDto;
 import domain.IndexMap;
 import domain.Message;
 import play.Logger;
@@ -16,8 +17,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static modules.SysParCom.*;
@@ -30,8 +30,30 @@ import static modules.SysParCom.*;
 public class UserCtrl extends Controller {
 
     //收货地址
-    public Result address() {
-        return ok(views.html.users.address.render());
+    public F.Promise<Result> address() {
+        Promise<List<Address> > promiseOfInt = Promise.promise(() -> {
+            Request request = new Request.Builder()
+                    .header("User-Agent", request().getHeader("User-Agent")).addHeader("id-token","db95fc4fc315ccb739f26fb4d0d8783c")
+                    .url(ADDRESS_PAGE)
+                    .get()
+                    .build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()){
+                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
+                Logger.info("===json==" + json);
+                Message message = Json.fromJson(json.get("message"), Message.class);
+                //TODO ... 失败
+                ObjectMapper mapper = new ObjectMapper();
+                List<Address> addressList = mapper.readValue(json.get("address").toString(), new TypeReference<List<Address>>() {});
+                return addressList;
+            }else  throw new IOException("Unexpected code " + response);
+        });
+
+        return promiseOfInt.map((Function<List<Address> , Result>) pi -> {
+                    Logger.error("返回---->\n"+pi);
+                    return ok(views.html.users.address.render(pi));
+                }
+        );
     }
 
     //创建新的收货地址
@@ -81,6 +103,35 @@ public class UserCtrl extends Controller {
         return ok(views.html.users.setting.render());
     }
 
+    /**
+     * 我的收藏
+     * @return
+     */
+    public F.Promise<Result> collect() {
+        Promise<List<CollectDto> > promiseOfInt = Promise.promise(() -> {
+            Request request = new Request.Builder()
+                    .header("User-Agent", request().getHeader("User-Agent")).addHeader("id-token","db95fc4fc315ccb739f26fb4d0d8783c")
+                    .url(COLLECT_PAGE)
+                    .get()
+                    .build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()){
+                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
+                Logger.info("===json==" + json);
+                Message message = Json.fromJson(json.get("message"), Message.class);
+                ObjectMapper mapper = new ObjectMapper();
+                List<CollectDto> collectList = mapper.readValue(json.get("collectList").toString(), new TypeReference<List<CollectDto>>() {});
+                return collectList;
+            }else  throw new IOException("Unexpected code " + response);
+        });
+
+        return promiseOfInt.map((Function<List<CollectDto> , Result>) pi -> {
+                    Logger.error("返回---->\n"+pi);
+                    return ok(views.html.users.collect.render(pi));
+                }
+        );
+    }
+
 
     public F.Promise<Result> loginSubmit() {
         Map<String,String[]> stringMap = request().body().asFormUrlEncoded();
@@ -116,4 +167,5 @@ public class UserCtrl extends Controller {
             }
         );
     }
+
 }

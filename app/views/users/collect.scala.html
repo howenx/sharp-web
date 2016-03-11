@@ -1,8 +1,9 @@
-@(address:List[domain.Address])
+@(collectList:List[domain.CollectDto])
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>地址列表</title>
+    <title>我的收藏</title>
     <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport">
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
@@ -19,15 +20,16 @@
         <i></i>
         <b></b>
     </a>
-    <h1>地址列表</h1>
+    <h1>我的收藏</h1>
 </header>
 
 <div class="scope wap">
     <ul>
+        @for(collect<-collectList){
         <li>
             <div class="touch">
-                <span class="touch-name">赵薇</span>
-                <i class="touch-numb">18209875622</i>
+                <span class="touch-name">@collect.getCollectId()</span>
+                <i class="touch-numb">@collect.getCartSkuDto().getSkuTitle()</i>
             </div>
 
             <div class="add">安徽省 安庆市 星光大道502</div>
@@ -38,34 +40,8 @@
             </div>
 
         </li>
-        <li>
-            <div class="touch">
-                <span class="touch-name">赵薇</span>
-                <i class="touch-numb">18209875622</i>
-            </div>
+        }
 
-            <div class="add">安徽省 安庆市 星光大道502</div>
-
-            <div class="alter">
-                <a href="javascript:;" class="alter-btn color">删除</a>
-                <a href="addressnew" class="color">修改</a>
-            </div>
-
-        </li>
-        <li>
-            <div class="touch">
-                <span class="touch-name">赵薇</span>
-                <i class="touch-numb">18209875622</i>
-            </div>
-
-            <div class="add">安徽省 安庆市 星光大道502</div>
-
-            <div class="alter">
-                <a href="javascript:;" class="alter-btn color">删除</a>
-                <a href="javascript:;" class="color">修改</a>
-            </div>
-
-        </li>
         <li>
             <div class="touch">
                 <span class="touch-name">赵薇</span>
