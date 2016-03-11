@@ -13,17 +13,17 @@
 
 
         <style type="text/css">
-        input:required:invalid, input:focus:invalid {
-        background-image: url('/assets/images/ex.png');
-        background-position: right top;
-        background-repeat: no-repeat;
-        -moz-box-shadow: none;
-        }
-        input:required:valid {
-        background-image: url("/assets/images/dui.png");
-        background-position: right top;
-        background-repeat: no-repeat;
-        }
+            input:required:valid, input:focus:invalid {
+            background-image: url('/assets/images/ex.png');
+            background-position: right 14px;
+            background-repeat: no-repeat;
+            -moz-box-shadow: none;
+            }
+            input:required:valid {
+            background-image: url("/assets/images/dui.png");
+            background-position: right 14px;
+            background-repeat: no-repeat;
+            }
         </style>
 
         <script>
@@ -95,11 +95,13 @@
                 <fieldset>
                     <form id="account_loginForm" method="post" action="/login/submit">
                         <dl class="list list-in">
-                            <dd class="dd-padding">
+                            <dd class="dd-padding code">
                                 <input id="input_username" class="input-weak" maxlength="11" type="text" placeholder="请输入您的手机号" name="name" required pattern="[1][345678]\d{9}">
+                                <i class="delet"></i>
                             </dd>
                             <dd class="dd-padding code">
                                 <input id="input_password" class="input-weak" maxlength="12" type="password" placeholder="请输入您的密码" name="password" required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}">
+                                <i class="out"></i>
                                 <i class="howl"></i>
                             </dd>
                         </dl>
@@ -113,6 +115,12 @@
                     <div class="findWord">
                         <a href="/regist" class="resist">快速注册</a>
                         <a href="/user/reset/passwd" class="password">忘记密码?</a>
+                    </div>
+                    <div class="min">
+                        <label>
+                            <input type="checkbox" checked="checked">
+                            两周内免登录
+                        </label>
                     </div>
                 </div>
             </div>
