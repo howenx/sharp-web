@@ -3,17 +3,16 @@ package controllers;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.squareup.okhttp.*;
-import domain.Collect;
-import domain.CollectDto;
-import domain.IndexMap;
-import domain.Message;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+import domain.*;
 import play.Logger;
 import play.libs.F;
 import play.libs.F.Function;
 import play.libs.F.Promise;
 import play.libs.Json;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 
 import java.io.IOException;
@@ -32,7 +31,7 @@ public class UserCtrl extends Controller {
     //收货地址
     public F.Promise<Result> address() {
         Promise<List<Address> > promiseOfInt = Promise.promise(() -> {
-            Request request = new Request.Builder()
+            Http.Request request = new Request.Builder()
                     .header("User-Agent", request().getHeader("User-Agent")).addHeader("id-token","db95fc4fc315ccb739f26fb4d0d8783c")
                     .url(ADDRESS_PAGE)
                     .get()
