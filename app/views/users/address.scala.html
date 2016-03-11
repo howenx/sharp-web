@@ -1,4 +1,4 @@
-@(address:List[domain.Address])
+@(addressList:List[domain.Address])
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -24,62 +24,21 @@
 
 <div class="scope wap">
     <ul>
+        @for(address<-addressList){
         <li>
             <div class="touch">
-                <span class="touch-name">赵薇</span>
-                <i class="touch-numb">18209875622</i>
+                <span class="touch-name">@address.getName()</span>
+                <i class="touch-numb">@address.getTel()</i>
             </div>
 
-            <div class="add">安徽省 安庆市 星光大道502</div>
+            <div class="add">@address.getDeliveryDetail()</div>
 
             <div class="alter">
                 <a href="javascript:;" class="alter-btn color">删除</a>
                 <a href="addressnew" class="color">修改</a>
             </div>
-
         </li>
-        <li>
-            <div class="touch">
-                <span class="touch-name">赵薇</span>
-                <i class="touch-numb">18209875622</i>
-            </div>
-
-            <div class="add">安徽省 安庆市 星光大道502</div>
-
-            <div class="alter">
-                <a href="javascript:;" class="alter-btn color">删除</a>
-                <a href="addressnew" class="color">修改</a>
-            </div>
-
-        </li>
-        <li>
-            <div class="touch">
-                <span class="touch-name">赵薇</span>
-                <i class="touch-numb">18209875622</i>
-            </div>
-
-            <div class="add">安徽省 安庆市 星光大道502</div>
-
-            <div class="alter">
-                <a href="javascript:;" class="alter-btn color">删除</a>
-                <a href="javascript:;" class="color">修改</a>
-            </div>
-
-        </li>
-        <li>
-            <div class="touch">
-                <span class="touch-name">赵薇</span>
-                <i class="touch-numb">18209875622</i>
-            </div>
-
-            <div class="add">安徽省 安庆市 星光大道502</div>
-
-            <div class="alter">
-                <a href="javascript:;" class="alter-btn color">删除</a>
-                <a href="javascript:;" class="color">修改</a>
-            </div>
-
-        </li>
+        }
     </ul>
 
     <a href="/addressnew" class="plus-add bg">新增收货地址</a>

@@ -2,46 +2,36 @@ package controllers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
-<<<<<<< HEAD
 import com.fasterxml.jackson.databind.ObjectMapper;
-=======
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.squareup.okhttp.FormEncodingBuilder;
->>>>>>> c55e7943d2968e83c63421c5461eed2ab5e748c3
 import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
-<<<<<<< HEAD
 import domain.*;
-=======
 import domain.Message;
 import domain.UserLoginInfo;
 import filters.UserAuth;
+import modules.SysParCom;
 import net.spy.memcached.MemcachedClient;
->>>>>>> c55e7943d2968e83c63421c5461eed2ab5e748c3
 import play.Logger;
-import play.api.libs.Codecs;
 import play.cache.Cache;
 import play.data.Form;
+import play.libs.F;
 import play.libs.F.Function;
 import play.libs.F.Function0;
 import play.libs.F.Promise;
 import play.libs.Json;
 import play.mvc.Controller;
-import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
-import util.Crypto;
 
 import javax.inject.Inject;
 import java.io.IOException;
-<<<<<<< HEAD
 import java.util.*;
-=======
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
->>>>>>> c55e7943d2968e83c63421c5461eed2ab5e748c3
-
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static modules.SysParCom.LOGIN_PAGE;
 import static modules.SysParCom.client;
@@ -56,22 +46,26 @@ public class UserCtrl extends Controller {
 
     @Inject
     private MemcachedClient memchache;
+    @Inject
+    private SysParCom sysParCom;
 
 
     //收货地址
+    @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> address() {
         Promise<List<Address> > promiseOfInt = Promise.promise(() -> {
-            Http.Request request = new Request.Builder()
-                    .header("User-Agent", request().getHeader("User-Agent")).addHeader("id-token","db95fc4fc315ccb739f26fb4d0d8783c")
-                    .url(ADDRESS_PAGE)
-                    .get()
-                    .build();
+            Request.Builder builder =(Request.Builder)ctx().args.get("request");
+            Request request=builder.url(sysParCom.ADDRESS_PAGE).get().build();
+
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()){
                 JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
                 Logger.info("===json==" + json);
                 Message message = Json.fromJson(json.get("message"), Message.class);
-                //TODO ... 失败
+                if(null==message||message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+                    Logger.error("返回收藏数据错误code="+(null!=message?message.getCode():0));
+                    return new ArrayList<Address>();
+                }
                 ObjectMapper mapper = new ObjectMapper();
                 List<Address> addressList = mapper.readValue(json.get("address").toString(), new TypeReference<List<Address>>() {});
                 return addressList;
@@ -144,18 +138,20 @@ public class UserCtrl extends Controller {
      * 我的收藏
      * @return
      */
+    @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> collect() {
         Promise<List<CollectDto> > promiseOfInt = Promise.promise(() -> {
-            Request request = new Request.Builder()
-                    .header("User-Agent", request().getHeader("User-Agent")).addHeader("id-token","db95fc4fc315ccb739f26fb4d0d8783c")
-                    .url(COLLECT_PAGE)
-                    .get()
-                    .build();
+            Request.Builder builder =(Request.Builder)ctx().args.get("request");
+            Request request=builder.url(sysParCom.COLLECT_PAGE).get().build();
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()){
                 JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
                 Logger.info("===json==" + json);
                 Message message = Json.fromJson(json.get("message"), Message.class);
+                if(null==message||message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+                    Logger.error("返回收藏数据错误code="+(null!=message?message.getCode():0));
+                   return new ArrayList<CollectDto>();
+                }
                 ObjectMapper mapper = new ObjectMapper();
                 List<CollectDto> collectList = mapper.readValue(json.get("collectList").toString(), new TypeReference<List<CollectDto>>() {});
                 return collectList;

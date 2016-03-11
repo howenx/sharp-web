@@ -15,13 +15,16 @@ public class Address implements Serializable {
     private String name;//姓名
     private String deliveryCity;//配送城市
     private String deliveryDetail;//配送详细地址
-
+    private String idCardNum; //身份证
+    private String cityCode;
     @JsonIgnore
     private Long userId;//用户ID
     @JsonIgnore
     private String userToken;//客户端返回的token
     @JsonIgnore
     private Boolean orDefault;//是否默认收获地址
+    @JsonIgnore
+    private Boolean orDestroy;
 
     public Address() {
     }
@@ -99,6 +102,30 @@ public class Address implements Serializable {
 
     public void setDeliveryDetail(String deliveryDetail) {
         this.deliveryDetail = deliveryDetail;
+    }
+
+    public String getIdCardNum() {
+        return idCardNum;
+    }
+
+    public void setIdCardNum(String idCardNum) {
+        this.idCardNum = idCardNum;
+    }
+
+    public String getCityCode() {
+        return cityCode;
+    }
+
+    public void setCityCode(String cityCode) {
+        this.cityCode = cityCode;
+    }
+
+    public Boolean getOrDestroy() {
+        return orDestroy;
+    }
+
+    public void setOrDestroy(Boolean orDestroy) {
+        this.orDestroy = orDestroy;
     }
 
     @Override
