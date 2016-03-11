@@ -1,3 +1,4 @@
+@(sliderList:List[domain.Slider],themeList:List[domain.Theme])
 @scripts = {
 <link rel="stylesheet" href="/assets/stylesheets/hp.css">
 <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
@@ -35,18 +36,24 @@
 
 			<div class="bd">
 				<ul>
-					<li>
-						<a class="pic" href="#"><img src="/assets/images/HMM--01_02.jpg" /></a>
-					</li>
-					<li>
-						<a class="pic" href="#"><img src="/assets/images/HMM--01_02.jpg"/></a>
-					</li>
-					<li>
-						<a class="pic" href="#"><img src="/assets/images/HMM--01_02.jpg"/></a>
-					</li>
-					<li>
-						<a class="pic" href="#"><img src="/assets/images/HMM--01_02.jpg"/></a>
-					</li>
+					@for(slider <- sliderList){
+						@if(slider.getTargetType() == "D" || slider.getTargetType() == "P"){
+							<li>
+								<a class="pic" href="/detail/@slider.getTargetType()/@slider.getItemTarget()"><img src="@slider.getImg()" /></a>
+							</li>
+						}
+						@if(slider.getTargetType() == "U"){
+						<li>
+							<a class="pic" href="@slider.getItemTarget()"><img src="@slider.getImg()" /></a>
+						</li>
+						}
+						@if(slider.getTargetType() == "T"){
+						<li>
+							<a class="pic" href="/pin/list/@slider.getItemTarget()"><img src="@slider.getImg()" /></a>
+						</li>
+						}
+
+					}
 				</ul>
 			</div>
 
@@ -71,13 +78,14 @@
 
 			<div id="container">
 				<ul class="col">
-
-					<li><a href="/pin/list"><img src="/assets/images/1.jpg" /></a></li>
-
-					<li><a href="/pin/list"><img src="/assets/images/2.jpg" /></a></li>
-
-					<li><a href="/pin/list"><img src="/assets/images/3.jpg" /></a></li>
-
+					@for(theme <- themeList){
+						@if(theme. getType() == "ordinary"){
+							<li><a href="/pin/list/@theme.getThemeUrl()"><img src="@theme.getThemeImg()"/></a></li>
+						}
+						@if(theme. getType() == "h5"){
+						<li><a href="@theme.getThemeUrl()"><img src="@theme.getThemeImg()"/></a></li>
+						}
+					}
 				</ul>
 			</div>
 		</div>
