@@ -37,6 +37,23 @@
 
     <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
 
+    <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+    <script  src="/assets/javascripts/md5.js"></script>
+
+    <style type="text/css">
+        input:required:invalid, input:focus:invalid {
+        background-image: url('/assets/images/ex.png');
+        background-position: right top;
+        background-repeat: no-repeat;
+        -moz-box-shadow: none;
+        }
+        input:required:valid {
+        background-image: url("/assets/images/dui.png");
+        background-position: right top;
+        background-repeat: no-repeat;
+        }
+    </style>
+
 </head>
 <body>
 <div id='screen_wrap'>
@@ -46,35 +63,38 @@
         <!--<a href="/login"><span class="icon-user-title" id="userBtn"></span></a>-->
     </div>
     <div class="login">
+        <div id="js-userinfo-error" class="cue"></div>
         <fieldset>
             <form id="cell_loginForm" method="post" onsubmit="return false" action="" >
                 <dl class="list list-in">
-                    <dd class="dd-padding">
-                        <input id="phoneNum" type="text" class="input-weak" placeholder="请输入手机号"/>
+                    <dd class="dd-padding">13241179879
+                        <input id="phoneNum" type="text" class="input-weak" placeholder="请输入手机号" maxlength="11" name="name" required pattern="[1][345678]\d{9}"/>
                     </dd>
-                    <dd class="dd-padding one" style="display:none;">验证码发送成功</dd>
+                    <dd class="dd-padding one" id="send-code-ok"></dd>
+                        <!--验证码发送成功-->
 
                     <dd class="dd-padding">
-                        <input id="cell_login_checkcode" class="input-weak two" type="text" placeholder="请输入验证码" name="email">
+                        <input id="cell_login_checkcode" class="input-weak two" type="text" placeholder="请输入验证码" name="code" >
                         <button id="smsCode" type="button" class="code" disabled="disabled">获取验证码</button>
                     </dd>
 
                     <dd class="dd-padding">
-                        <input id="password" class="input-weak" type="password" placeholder="密码为6-12位字母/数字的组合"  >
+                        <input id="password" class="input-weak" type="password" placeholder="密码为6-12位字母/数字的组合" maxlength="12" name="password" required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}"/>
                     </dd>
 
                     <dd class="dd-padding">
-                        <input id="pwd-confirm" class="input-weak" type="password" placeholder="确认密码"  >
+                        <input id="pwd-confirm" class="input-weak" type="password" placeholder="确认密码" maxlength="12" required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}" />
                     </dd>
-                    <dd class="cue" style="display:none;">验证码输入错误</dd>
+                    <dd class="cue" id="code-input-error"></dd>
+                        <!--验证码输入错误-->
                 </dl>
             </form>
             <div class="agree">
-                <input class="inp" type="checkbox">
+                <input id="tip" class="inp" type="checkbox">
                 <a class="tip" href="/">我已阅读并接受 <span>韩秘美用户注册协议</span></a>
             </div>
             <div class="submitBox">
-                <input class="registBtn button" type="submit" value="完成">
+                <input id="btn-reg" class="registBtn button" type="submit" value="完成">
             </div>
             <div class="back"><a href="/login">< 已有账号 返回登录</a></div>
         </fieldset>
@@ -87,7 +107,16 @@
 
 <script>
 
-    var phoneReg = /[1][345678]\d{9}/;   // "[1]"代表第1位为数字1，"[358]"代表第二位可以为3、5、8中的一个，"\d{9}"代表后面是可以是0～9的数字，有9位
+$(function() {
+
+        //  13241179879
+
+     var phoneReg = new RegExp(/^1[345678]\d{9}$/);
+     var passwordReg = new RegExp(/^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}/);
+
+    $('#js-userinfo-error').hide();
+    $("#send-code-ok").hide();
+    $("#code-input-error").hide();
 
     //手机号只能输入数字
     $('#phoneNum').keyup(function() {
@@ -111,7 +140,7 @@
         });
     });
 
-    //输入正确手机号
+    //输入手机号格式正确可以点击获取验证码
     $('#phoneNum').bind('input propertychange', function() {
         if (phoneReg.test($(this).val())) {
             $("#smsCode").css('background-color', '#E46359');
@@ -120,24 +149,93 @@
             $('#smsCode').attr("disabled",false);
         }
         if (!phoneReg.test($(this).val())) {
-            $("#smsCode").css('background', 'none');
+            $("#smsCode").css('background', '#C0C0C0');
             $("#smsCode").css('color', '#7F7F87');
             $("#smsCode").css('cursor', 'default');
             $('#smsCode').attr("disabled",true);
         }
-        if ($(this).val().length==11) {
+    });
 
-            $('#phoneNum').css("ime-mode", "disabled");
+    //获取验证码
+    $("#smsCode").click(function() {
+        var formdata = new FormData();
+        var phoneNum = $("#phoneNum").val();
+        var hash = hex_md5(phoneNum+"hmm");
+        formdata.name = phoneNum;
+        formdata.msg = hash;
+        formdata.append("name", phoneNum);
+        formdata.append("msg", hash);
+        console.log(phoneNum);
+        console.log(hash);
+        console.log(formdata);
+        $.ajax({
+                url: "/regist/code",
+                data: formdata,
+                cache: false,
+                contentType: false,
+                processData: false,
+                type: 'POST',
+                success: function(data) {
+                   $("#send-code-ok").show();
+                   $("#send-code-ok").html("验证码发送成功 已发送至"+phoneNum.subString(0,3)+"****"+phoneNum.subString(7,11)+".");
+                },
+                error
+        });
+    });
+
+
+    //注册提交数据
+    $(document).on('click', '#btn-reg', function() {
+
+        var formdata = new FormData();
+
+        if ($('#phoneNum').val().length!=11 || !phoneReg.test($('#phoneNum').val())) {
+            $('#js-userinfo-error').text('请输入正确的手机号').show();
+            setTimeout("$('#js-userinfo-error').hide()", 2000);
+        }
+        else if ($("#cell_login_checkcode").val().length<0 ) {
+            $('#js-userinfo-error').text('请输入验证码').show();
+            setTimeout("$('#js-userinfo-error').hide()", 2000);
+        }
+        else if ($('#password').val().length<6 || $('#password').val().length>12 || !passwordReg.test($('#password').val())) {
+            $('#js-userinfo-error').text('请输入正确的密码').show();
+            setTimeout("$('#js-userinfo-error').hide()", 2000);
+        }
+        else if ($('#pwd-confirm').val()!=$('#password').val()) {
+            $('#js-userinfo-error').text('两次密码输入不一致').show();
+            setTimeout("$('#js-userinfo-error').hide()", 2000);
+        }
+        else if ($("#tip").is(":checked")==false) {
+             alert("请阅读并确定是否接受注册协议!");
+        }
+        else {
+            $("#cell_loginForm").serializeArray().map(function(x){
+                if(x.value!=='' && x.value!==null){
+                    formdata.append(x.name, x.value);
+                }
+            });
+            $.ajax({
+                    url: "/regist/submit",
+                    data: formdata,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    type: 'POST',
+                    success: function(data) {
+                        console.log(data);
+                        if(data==='success'){
+                            setTimeout(function(){
+                                window.location.href='/login';
+                            }, 2000);
+                        }else{
+                            alert('Server Error.')
+                        }
+                    }
+            });
         }
     });
 
-
-    $(".registBtn").click(function(){
-
-
-    });
-
-
-
+});
 
 </script>
+
