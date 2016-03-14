@@ -2,6 +2,7 @@
 #用户相关
 GET         /address                  controllers.UserCtrl.address()
 GET         /addressnew               controllers.UserCtrl.addressnew()
+POST        /address/save             controllers.UserCtrl.addressSave()
 GET         /carded                   controllers.UserCtrl.carded()
 GET         /means                    controllers.UserCtrl.means()
 GET         /myView                   controllers.UserCtrl.myView()
@@ -13,6 +14,7 @@ GET         /user/reset/passwd        controllers.UserCtrl.resetPasswd()
 GET         /coupon                   controllers.UserCtrl.coupon()
 POST        /login/submit             controllers.UserCtrl.loginSubmit()
 GET         /collect                  controllers.UserCtrl.collect()
+GET         /collect/del/$collectId<[0-9]+>              controllers.UserCtrl.collectDel(collectId:Long)
 
 
 POST        /regist/code              controllers.UserCtrl.registCode()
@@ -51,6 +53,7 @@ GET         /cart/empty               controllers.ShoppingCtrl.emptyCart()
 
 
 
+#
 
 
 
