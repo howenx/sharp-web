@@ -17,7 +17,7 @@ $(function(){
     $(".quantity-decrease").on("click",function(){
         var t=$(this).parent().find('input[class*=quantity]');
         t.val(parseInt(t.val())-1);
-        if(parseInt(t.val())<0){
+        if(parseInt(t.val())<0){uut
             t.val(0);
         }
         var aa = parseInt(t.val());
