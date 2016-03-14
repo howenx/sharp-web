@@ -9,8 +9,6 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 import domain.*;
-import domain.Message;
-import domain.UserLoginInfo;
 import filters.UserAuth;
 import modules.SysParCom;
 import net.spy.memcached.MemcachedClient;
@@ -29,10 +27,8 @@ import play.mvc.Security;
 import javax.inject.Inject;
 import java.io.IOException;
 import java.util.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static modules.SysParCom.*;
 import static play.libs.Json.newObject;
@@ -221,42 +217,53 @@ public class UserCtrl extends Controller {
      * 注册请求验证码
      * @return
      */
-    public F.Promise<Result> registCode() {
-        Map<String,String[]> stringMap = request().body().asFormUrlEncoded();
-        Logger.error("stringMap:"+stringMap);
-        Map<String, String> map = new HashMap<>();
-        stringMap.forEach((k,v) -> map.put(k, v[0]));
-        Logger.error("请求验证码:"+map.toString());
+    public Promise<Result> registCode() {
+        ObjectNode result = newObject();
+        Form<UserRegistCode> userRegistCodeForm = Form.form(UserRegistCode.class).bindFromRequest();
+        Map<String, String> userMap = userRegistCodeForm.data();
+        Logger.error(userRegistCodeForm.toString());
+        if (userRegistCodeForm.hasErrors()) {
+            Logger.error("手机号有错误");
+            result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
+            Logger.error(result.asText());
+            return Promise.promise((Function0<Result>) () -> ok(result));
+        } else {
+            Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
+                FormEncodingBuilder feb = new FormEncodingBuilder();
+                userMap.forEach(feb::add);
+                RequestBody formBody = feb.build();
+                Request request = new Request.Builder()
+                        .url(REGIST_CODE)
+                        .post(formBody)
+                        .build();
+                client.setConnectTimeout(10, TimeUnit.SECONDS);
+                Response response = client.newCall(request).execute();
+                Logger.error(response.toString());
+                if (response.isSuccessful()) {
+                    JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
+                    Logger.error("验证码:"+json);
+                    return json;
+                } else throw new IOException("Unexpected code" + response);
+            });
 
-        Promise<Message> promiseOfInt = Promise.promise(() -> {
-            FormEncodingBuilder feb = new FormEncodingBuilder();
-            map.forEach(feb::add);
-            RequestBody formBody = feb.build();
-            Request request = new Request.Builder()
-                    .header("User-Agent", request().getHeader("User-Agent"))
-                    .url(REGIST_CODE)
-                    .post(formBody)
-                    .build();
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
-                Message message = Json.fromJson(json, Message.class);
-                Logger.error("验证码:"+message);
-                return message;
-            } else throw new IOException("Unexpected code" + response);
-        });
+            return promiseOfInt.map((Function<JsonNode, Result>) json -> {
+                Logger.error("返回结果"+json);
+                Message message = Json.fromJson(json.findValue("message"), Message.class);
+                if (message.getCode().equals(200)) {
+                    Logger.error("验证码发送成功");
+                }
+                Logger.error(json.toString()+"-----"+message.toString());
+                return ok(Json.toJson(message));
+            });
 
-        return promiseOfInt.map((Function<Message, Result>) pi -> {
-            Logger.error("返回结果"+pi);
-            return ok("PI value computed: " + pi);
-        });
 
+        }
     }
 
 
 
 
-//    public F.Promise<Result> registSubmit() {
+//    public Promise<Result> registSubmit() {
 //
 //    }
 
