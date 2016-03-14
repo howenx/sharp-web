@@ -26,6 +26,7 @@ POST        /regist/code              controllers.UserCtrl.registCode()
 GET          /                         controllers.ProductsCtrl.index()
 POST        /indexAjax                 controllers.ProductsCtrl.loadIndexAjax()
 GET         /detail/*type/*url         controllers.ProductsCtrl.detail(type,url)
+GET         /pinDetail                 controllers.ProductsCtrl.pinDetail()
 
 
 

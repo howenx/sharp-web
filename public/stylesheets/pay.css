@@ -2,6 +2,9 @@
 
 .scope{min-width:320px; max-width:750px; margin: 0 auto; background-color: #fff; padding:60px 2% 0; }
 
+.color{
+    color: #E66255;
+}
 
 /*收货地址*/
 .add{
@@ -18,6 +21,7 @@
     line-height: 50px;
     width:50%;
 }
+
 
 .fashion {
     width:100%;
@@ -48,20 +52,28 @@
     background-size:cover;
 }
 .address{
-    padding:70px 20px 20px;
-
+    padding:10px 20px 20px;
+    border-bottom: 1px solid #ededed;
 }
 
 .address p{
     margin:0 0 20px 0;
 }
 
-.address p span:nth-child(2n){
-    margin: 0 0 0 10%;
+.address p span{
+    margin: 0 10px 0 0;
+}
+
+.address .add-icon{
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    background: url("/assets/images/hmm_dingwei_icon.png") no-repeat;
+    background-size: contain;
+    margin: 0 0 0 -20px;
 }
 
 .address i{
-    color:#ccc;
     display: block;
     text-align: right;
 }
@@ -138,7 +150,7 @@ label{
 }
 
 input[type=radio] {
-    -webkit-appearance: none;
+    /*-webkit-appearance: none;*/
     appearance: none;
     width: 20px;
     height: 20px;
@@ -158,8 +170,8 @@ input[type=radio] {
 input[type=radio]:checked::after {
     content: url("/assets/images/icon3.png");
     display: block;
-    width: 20px;
-    height: 20px;
+    width:20px;
+    height:20px;
     transform: scale(0.55,0.55);
     position: absolute;
     top: -9px;
@@ -205,7 +217,6 @@ input[type=radio]:checked::after {
 .tariff{
     width:100%;
     font-size: 16px;
-    margin:20px 0 0 0;
 }
 .tariff ul li{
     padding:15px 2%;
