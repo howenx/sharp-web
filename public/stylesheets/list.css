@@ -44,13 +44,16 @@ body{
 
 .banner{
     margin-bottom: 10px;
+    position: relative;
 }
 
 .banner a{
     display: block;
-    position: relative;
-}
 
+}
+.banner .banner-box{
+
+}
 /*雷达动画*/
 @-webkit-keyframes run1 {
     from{
@@ -61,10 +64,9 @@ body{
     }
 }
 
-.cartoon{
+.cartoon,.cartoon-right{
     position:absolute;
-    top:50%;
-    left:40%;
+
     height: 25px;
     padding:0 5px;
     line-height: 25px;
@@ -72,19 +74,40 @@ body{
     border-radius: 5px;
     color: #fff;
 }
+.cartoon{
 
-.cartoon i{
+    top:50%;
+    left:40%;
+
+}
+
+.cartoon-right{
+    top:20%;
+    left:25%;
+}
+
+.cartoon i,.cartoon-right i{
     display: block;
     border-width:12px;
+    position: absolute;
+}
+
+.cartoon i{
     border-color:transparent transparent transparent rgba(0,0,0,0.5);
     border-style:dashed dashed dashed solid;
     position: absolute;
     right:-22px;
     top:0;
-
 }
 
-.ripple{
+.cartoon-right i{
+    border-color:transparent rgba(0,0,0,0.5) transparent transparent ;
+    border-style:dashed  solid dashed dashed ;
+    left:-22px;
+    top:0;
+}
+
+.ripple,.ripple-right{
     width:15px;
     height:15px;
     position:absolute;
@@ -92,7 +115,16 @@ body{
     left:50%;
 
 }
-.ripple div{
+.ripple{
+    top:50%;
+    left:50%;
+}
+
+.ripple-right{
+    top:20%;
+    left:20%;
+}
+.ripple div,.ripple-right div{
     width: 100%;
     height: 100%;
     background-color:#fff;
@@ -101,10 +133,12 @@ body{
     top:0;
     left:0;
 }
-.ripple .c2{
+
+
+.ripple .c2,.ripple-right .c2{
     -webkit-animation: run2 1s linear infinite;
 }
-.ripple .c3{
+.ripple .c3,.ripple-right .c3{
     -webkit-animation: run2 1s linear 0.5s infinite;
 }
 

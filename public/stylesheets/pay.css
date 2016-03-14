@@ -168,7 +168,7 @@ input[type=radio] {
 }
 
 input[type=radio]:checked::after {
-    content: url("/assets/images/icon3.png");
+    /*content: url("/assets/images/icon3.png");*/
     display: block;
     width:20px;
     height:20px;
