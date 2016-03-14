@@ -39,7 +39,7 @@
     background-size:cover;
     position: absolute;
     top:15px;
-    left:5%;
+    left:2%;
 }
 
 .back i,.back span{
@@ -61,7 +61,7 @@
 .icon-user-title {
     height: 44px;
     width: 44px;
-    background: url("/images/web/userIcon.png") no-repeat center center;
+    background: url("/assets/images/dieail-dian.png") no-repeat center center;
     background-size: contain;
 
     position: absolute;

@@ -1,18 +1,29 @@
 package controllers;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
-import domain.Item;
-import domain.Theme;
+import domain.CartListResultVo;
+import domain.CollectDto;
+import domain.Message;
+import filters.UserAuth;
+import play.Application;
 import play.Logger;
+import play.cache.Cache;
+import play.libs.F;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static modules.SysParCom.*;
 
 /**
@@ -36,8 +47,55 @@ public class ShoppingCtrl extends Controller {
         return ok(views.html.shopping.assess.render());
     }
 
-    public Result cart() {
-        return ok(views.html.shopping.cart.render());
+    /**
+     * 购物车列表
+     *
+     * @return page
+     */
+    @Security.Authenticated(UserAuth.class)
+    public F.Promise<Result> cart() {
+
+        F.Promise<JsonNode> promise = F.Promise.promise(() -> {
+            Request.Builder builder = (Request.Builder) ctx().args.get("request");
+            Request request = builder.url(SHOPPING_LIST).get().build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
+                Logger.info("===json==\n" + json);
+                return json;
+            } else throw new IOException("Unexpected code " + response);
+        });
+
+        return promise.map((F.Function<JsonNode, Result>) json -> {
+
+                    String path = routes.ProductsCtrl.index().url();
+                    if (session().containsKey("path")) {
+                        path = session().get("path");
+                        session().replace("path", routes.ShoppingCtrl.cart().url());
+                    }else session().put("path", routes.ShoppingCtrl.cart().url());
+
+                    CartListResultVo resultVo = Json.fromJson(json, CartListResultVo.class);
+                    if (resultVo.getMessage().getCode() == Message.ErrorCode.SUCCESS.getIndex()) {
+                        return ok(views.html.shopping.cart.render(path, resultVo));
+                    } else if (resultVo.getMessage().getCode() == Message.ErrorCode.CART_LIST_NULL_EXCEPTION.getIndex()) {
+                        return ok(views.html.shopping.cartempty.render(path));
+                    } else return badRequest(views.html.error500.render());
+                }
+        );
+    }
+
+    /**
+     * 空购物车页面
+     *
+     * @return page
+     */
+    public Result emptyCart() {
+        String path = routes.ProductsCtrl.index().url();
+        if (session().containsKey("path")) {
+            path = session().get("path");
+            session().replace("path", routes.ShoppingCtrl.emptyCart().url());
+        }else session().put("path", routes.ShoppingCtrl.cart().url());
+        return ok(views.html.shopping.cartempty.render(path));
     }
 
     //待发货
@@ -72,7 +130,7 @@ public class ShoppingCtrl extends Controller {
         List<Object[]> tagList = new ArrayList<>();
         List<Object[]> itemList = new ArrayList<>();
         Request request = new Request.Builder()
-                .url(IHEME_PAGE + url)
+                .url(THEME_PAGE + url)
                 .build();
         Response response = client.newCall(request).execute();
         if(response.isSuccessful()){
@@ -94,12 +152,21 @@ public class ShoppingCtrl extends Controller {
                     if(tags != null){
                         JsonNode tagJson = Json.parse(tags);
                         for(JsonNode tag : tagJson){
-                            Object[] tagObject = new Object[5];
-                            tagObject[0] = tag.get("top").asDouble();
+                            Object[] tagObject = new Object[6];
+                            tagObject[0] = tag.get("top").asDouble() * 100;
                             tagObject[1] = tag.get("url").toString();
-                            tagObject[2] = tag.get("left").asDouble();
-                            tagObject[3] = tag.get("name").toString();
+                            tagObject[2] = tag.get("left").asDouble() * 100;
+                            String tagName = tag.get("name").toString();
+                            tagName = tagName.substring(1,tagName.length()-1);
+                            tagObject[3] = tagName;
                             tagObject[4] = tag.get("angle").asInt();
+                            if(tagObject[4].equals(0)){
+                                tagObject[5] = tag.get("left").asDouble() * 100 + 5 ;
+                            }
+//                            if(tagObject[4].equals(180)){
+//                                tagObject[5] = tag.get("left").asDouble() * 100;
+//                            }
+
                             tagList.add(tagObject);
                         }
                     }

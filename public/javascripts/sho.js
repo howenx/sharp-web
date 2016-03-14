@@ -1,9 +1,7 @@
-/**
- * Created by bentudou on 2015/11/9
- */
+
 $(function(){
         var count=0;
-    /*�ı��Ʒ����*/
+    /*改变产品数量*/
     $(".quantity-increase").on("click",function(){
         var t=$(this).parent().find('input[class*=quantity]');
         var aa = parseInt(t.val()) + 1;
@@ -19,7 +17,7 @@ $(function(){
     $(".quantity-decrease").on("click",function(){
         var t=$(this).parent().find('input[class*=quantity]');
         t.val(parseInt(t.val())-1);
-        if(parseInt(t.val())<0){
+        if(parseInt(t.val())<0){uut
             t.val(0);
         }
         var aa = parseInt(t.val());
@@ -33,7 +31,7 @@ $(function(){
 
 
 
-    /* ���ɾ����ťɾ����Ʒ*/
+    /*点击删除按钮删除商品*/
      $(".cart-del-btn").on("click",function(){
          var r=confirm(" Do you want to remove the goods")
          if (r==true)
@@ -42,9 +40,9 @@ $(function(){
          }
          else {  }
      });
-    /***** checkBox 点击******/
-    var selectInputs = document.getElementsByClassName('check');
-    var checkAllInputs = document.getElementsByClassName('check-all');
+    /*选择某一个*/
+    var selectInputs = document.getElementsByClassName('check'); //所有勾选
+    var checkAllInputs = document.getElementsByClassName('check-all'); //全勾选
     $(checkAllInputs).click(function(){
         if($(this).prop("checked")==true){
             $(selectInputs).prop("checked",true);
@@ -54,6 +52,7 @@ $(function(){
         Total();
     })
 
+    /*checkBox 点击*/
     $(selectInputs).change(function(){
         if($(this).hasClass("areac")){
             if($(this).prop("checked")==true){
@@ -85,14 +84,14 @@ $(function(){
         Total();
     })
 
-    /*���С��*/
+    /*金额小计*/
     function setTotal(){
         /*var s=0;*/
         var v=0;
         $(".cart-product-number").each(function(){
             s+=parseInt($(this).find('input[class*=quantity]').val())*parseFloat($(this).siblings().find('span[class*=price]').text());
         });
-        <!--�������-->
+        <!--计算分数-->
         $("input[type='text']").each(function(){
             v += parseInt($(this).val());
         });
@@ -108,23 +107,23 @@ $(function(){
     }
      funss();
 
-    <!--�����ܶ�-->
+   /*计算总额*/
     function Total(){
         var total =0.00;
         var v =0;
         var n =0;
-        /*������Ǯ��*/
+        /*计算总钱数*/
         $(".check-one:checked").each(function(){
             var ts = $(this).parents("li").find(".subtotal").html();
             total+=parseFloat(ts);
         });
         $(".total").html(total.toFixed(2));
-        /*�����ܷ���*/
+        /*计算总份数*/
         $(".check-one:checked").each(function(){
             v+= parseInt($(this).parents("li").find(".quantity").val());
         });
         $("#selectedTotal").html(v);
-        /*���㹺�ﳵ������*/
+        /*计算购物车的数量*/
 
     }
 
