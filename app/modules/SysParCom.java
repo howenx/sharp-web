@@ -29,6 +29,7 @@ public class SysParCom {
     public static String PIN_PAGE;
 
 
+    public static String IMAGE_CODE;//图形验证码
 
 
 
@@ -66,6 +67,7 @@ public class SysParCom {
         THEME_PAGE = configuration.getString("products.page.theme");
         PIN_PAGE = configuration.getString("products.page.pin");
 
+        IMAGE_CODE =configuration.getString("user.page.imagecode");
 
 
 

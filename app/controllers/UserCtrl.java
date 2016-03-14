@@ -120,7 +120,7 @@ public class UserCtrl extends Controller {
     }
 
     public Result login() {
-        return ok(views.html.users.login.render());
+        return ok(views.html.users.login.render(IMAGE_CODE));
     }
 
     public Result means() {
