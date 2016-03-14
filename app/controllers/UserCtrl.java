@@ -5,12 +5,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.squareup.okhttp.*;
-import domain.*;
 import domain.Address;
-import domain.Message;
-import domain.UserLoginInfo;
+import domain.*;
 import filters.UserAuth;
-import modules.SysParCom;
 import net.spy.memcached.MemcachedClient;
 import play.Logger;
 import play.cache.Cache;
@@ -26,7 +23,10 @@ import play.mvc.Security;
 
 import javax.inject.Inject;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -270,6 +270,7 @@ public class UserCtrl extends Controller {
      * @return
      */
     public Promise<Result> registCode() {
+        Logger.error("REGIST_CODE"+REGIST_VARIFY);
         ObjectNode result = newObject();
         Form<UserRegistCode> userRegistCodeForm = Form.form(UserRegistCode.class).bindFromRequest();
         Map<String, String> userMap = userRegistCodeForm.data();
@@ -301,7 +302,7 @@ public class UserCtrl extends Controller {
             return promiseOfInt.map((Function<JsonNode, Result>) json -> {
                 Logger.error("返回结果"+json);
                 Message message = Json.fromJson(json.findValue("message"), Message.class);
-                if (message.getCode().equals(200)) {
+                if (Message.ErrorCode.SUCCESS.getIndex()==message.getCode()) {
                     Logger.error("验证码发送成功");
                 }
                 Logger.error(json.toString()+"-----"+message.toString());
