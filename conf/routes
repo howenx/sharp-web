@@ -5,7 +5,6 @@ GET         /addressnew               controllers.UserCtrl.addressnew()
 GET         /carded                   controllers.UserCtrl.carded()
 GET         /means                    controllers.UserCtrl.means()
 GET         /myView                   controllers.UserCtrl.myView()
-GET         /nav                      controllers.UserCtrl.navBar()
 GET         /login                    controllers.UserCtrl.login()
 GET         /setting                  controllers.UserCtrl.setting()
 GET         /regist                   controllers.UserCtrl.regist()
@@ -48,6 +47,7 @@ GET         /obligati                 controllers.ShoppingCtrl.obligati()
 GET         /orders                   controllers.ShoppingCtrl.orders()
 GET         /settle                   controllers.ShoppingCtrl.settle()
 GET         /cart                     controllers.ShoppingCtrl.cart()
+GET         /cart/empty               controllers.ShoppingCtrl.emptyCart()
 
 
 

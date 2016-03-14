@@ -36,8 +36,8 @@ public class UserAuth extends Security.Authenticator {
             }
             else return null;
         }else{
-            Optional<String> user_token = Optional.ofNullable(ctx.request().cookie("user_token").value());
-            Optional<String> session_id = Optional.ofNullable(ctx.request().cookie("session_id").value());
+            Optional<String> user_token = Optional.ofNullable(ctx.request().cookies().get("user_token").value());
+            Optional<String> session_id = Optional.ofNullable(ctx.request().cookies().get("session_id").value());
             if (user_token.isPresent() && session_id.isPresent() ){
                 if (Cache.get(session_id.get())!=null && Cache.get(session_id.get()).equals(user_token.get())){
                     Optional<String> token = Optional.ofNullable(cache.get(user_token.get()).toString());
@@ -51,7 +51,7 @@ public class UserAuth extends Security.Authenticator {
                         JsonNode userJson = Json.parse(token.get());
                         Long userId = userJson.findValue("id").asLong();
                         ctx.session().put("id-token",user_token.get());
-                        ctx.args.put("request",new Request.Builder().header("User-Agent", ctx.request().getHeader("User-Agent")).addHeader("id-token",header.get()));
+                        ctx.args.put("request",new Request.Builder().header("User-Agent", ctx.request().getHeader("User-Agent")).addHeader("id-token",user_token.get()));
                         return userId.toString();
                     }else return null;
                 } else return null;

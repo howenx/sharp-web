@@ -57,7 +57,7 @@ input:password {
     width:100%;
     background-color: #fff;
 }
-/****nav************/
+/****cartempty************/
 .nav_ban {
     text-align: center;
     background: #fff;
@@ -280,21 +280,21 @@ input, select {
 
 /********唯品会登陆*************/
 /*
-.nav-pinList {
+.cartempty-pinList {
     padding-right: 15px;
     padding-left: 15px;
     margin-bottom: 0;
 }
-.nav {
+.cartempty {
     margin-left: 0;
     pinList-style: none;
 }
-.nav-pinList li.control-group {
+.cartempty-pinList li.control-group {
     border-bottom: 1px solid #d9d9d9;
     border-top: 1px solid #d9d9d9;
     background-color: #fff;
 }
-.nav-pinList li {
+.cartempty-pinList li {
     position: relative;
     margin-bottom: 0;
     padding: 8px 15px;
@@ -305,7 +305,7 @@ input, select {
 .form-horizontal .control-group {
     margin-bottom: 5px;
 }
-.nav-pinList>li {
+.cartempty-pinList>li {
     margin-right: -15px;
     margin-left: -15px;
     padding: 8px 15px;
@@ -348,7 +348,7 @@ input, select {
     -moz-border-radius: 4px;
     border-radius: 4px;
 }
-.nav>li>a {
+.cartempty>li>a {
     display: block;
 }
 .i-delete-text {
@@ -369,7 +369,7 @@ input, select {
 .i-icon-remove {
     background-position: -26px -140px;
 }
-.panel-forms .nav-pinList .control-text {
+.panel-forms .cartempty-pinList .control-text {
     background: 0 0;
     border: none;
     cursor: default;
