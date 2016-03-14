@@ -1,6 +1,5 @@
 package domain;
 
-import play.Logger;
 import play.data.validation.Constraints;
 import play.data.validation.ValidationError;
 
@@ -24,7 +23,6 @@ public class UserRegistCode implements Serializable {
 
     public List<ValidationError> validate() {
         List<ValidationError> errors = new ArrayList<>();
-        Logger.error("msg:"+msg);
         if ("".equals(msg)) {
             errors.add(new ValidationError("msg", "This msg is wrong"));
         }

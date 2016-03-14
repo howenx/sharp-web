@@ -18,7 +18,7 @@ GET         /collect/del/$collectId<[0-9]+>              controllers.UserCtrl.co
 
 
 POST        /regist/code              controllers.UserCtrl.registCode()
-#POST        /regist/submit            controllers.UserCtrl.registSubmit()
+POST        /regist/submit            controllers.UserCtrl.registSubmit()
 
 
 
