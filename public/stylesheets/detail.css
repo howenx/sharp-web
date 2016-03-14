@@ -58,7 +58,7 @@ input:password {
 	position: relative;
 	background-color: #f4f4f4;
 }
-/****-------------------------------nav-------------------------------************/
+/****-------------------------------cartempty-------------------------------************/
 .nav_ban_detail {
 	text-align: center;
 	width: 100%;
@@ -148,7 +148,7 @@ input:password {
 
 
 
-/****-------------------------------nav end-------------------------------************/
+/****-------------------------------cartempty end-------------------------------************/
 .picture_wrap .swipe {
 	position: relative;
 	overflow: hidden;

@@ -106,9 +106,7 @@ public class UserCtrl extends Controller {
         return ok(views.html.users.my.render());
     }
 
-    public Result navBar() {
-        return ok(views.html.users.nav.render());
-    }
+
 
     public Result regist() {
         return ok(views.html.users.regist.render());
@@ -125,7 +123,6 @@ public class UserCtrl extends Controller {
     @Security.Authenticated(UserAuth.class)
     public Result setting() {
         Request.Builder builder =(Request.Builder)ctx().args.get("request");
-
 
         Logger.error("session token----> " + session().get("id-token"));
         Logger.error("Cache user----> " + memchache.get(session().get("id-token")));
@@ -168,7 +165,6 @@ public class UserCtrl extends Controller {
 
     public Promise<Result> loginSubmit() {
 
-
         ObjectNode result = newObject();
         Form<UserLoginInfo> userForm = Form.form(UserLoginInfo.class).bindFromRequest();
         Map<String, String> userMap = userForm.data();
@@ -199,7 +195,7 @@ public class UserCtrl extends Controller {
             return promiseOfInt.map((Function<JsonNode, Result>) json -> {
 
                         Message message = Json.fromJson(json.findValue("message"), Message.class);
-                        if (message.getCode().equals(200)) {
+                        if (Message.ErrorCode.SUCCESS.getIndex()==message.getCode()) {
                             if (userMap.get("auto").equals("true")) {
                                 String session_id = UUID.randomUUID().toString().replaceAll("-", "");
                                 Cache.set(session_id, json.findValue("token").asText(), json.findValue("expired").asInt());
@@ -209,7 +205,6 @@ public class UserCtrl extends Controller {
                             }
                             session("id-token", json.findValue("token").asText());
                         }
-                        Logger.error("测试----->\n" + json.toString() + " " + message.toString());
                         return ok(Json.toJson(message));
                     }
             );

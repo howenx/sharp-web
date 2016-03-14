@@ -1,3 +1,4 @@
+@(path:String,resultVo:domain.CartListResultVo)
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -13,16 +14,15 @@
     <link rel="stylesheet" href="/assets/stylesheets/sho.css"/>
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
     <script src="/assets/javascripts/sho.js"></script>
-
 </head>
 <body>
 <!--头部开始-->
 <header class="header">
-    <a href="/" class="home_link"></a>
+    <a href="@path" class="home_link"></a>
     <div class="header-text">
         <h1 class="header-title">购物车</h1>
     </div>
-    <a href="/personal"><span class="icon-user-title" id="userBtn"></span></a>
+    <a href="@routes.UserCtrl.myView()"><span class="icon-user-title" id="userBtn"></span></a>
 </header>
 <!--头部结束-->
 <!--购买产品部分开始-->

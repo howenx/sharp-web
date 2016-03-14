@@ -29,6 +29,28 @@ public class SysParCom {
     public static String IHEME_PAGE;
     public static String PIN_PAGE;
 
+
+
+
+
+
+
+
+
+
+    /******** 购物相关 ********/
+    public static  String SHOPPING_LIST;//购物车列表
+
+
+
+
+
+
+
+
+
+
+
     @Inject
     public SysParCom(Configuration configuration) {
 
@@ -44,6 +66,29 @@ public class SysParCom {
         ITEM_PAGE = configuration.getString("products.page.item");
         IHEME_PAGE = configuration.getString("products.page.theme");
         PIN_PAGE = configuration.getString("products.page.pin");
+
+
+
+
+
+
+
+
+        /******** 购物相关 ********/
+        SHOPPING_LIST = configuration.getString("shopping.page.cart.list");
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 }
