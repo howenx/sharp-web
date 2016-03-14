@@ -2,10 +2,10 @@
 #用户相关
 GET         /address                  controllers.UserCtrl.address()
 GET         /addressnew               controllers.UserCtrl.addressnew()
+POST        /address/save             controllers.UserCtrl.addressSave()
 GET         /carded                   controllers.UserCtrl.carded()
 GET         /means                    controllers.UserCtrl.means()
 GET         /myView                   controllers.UserCtrl.myView()
-GET         /nav                      controllers.UserCtrl.navBar()
 GET         /login                    controllers.UserCtrl.login()
 GET         /setting                  controllers.UserCtrl.setting()
 GET         /regist                   controllers.UserCtrl.regist()
@@ -14,6 +14,7 @@ GET         /user/reset/passwd        controllers.UserCtrl.resetPasswd()
 GET         /coupon                   controllers.UserCtrl.coupon()
 POST        /login/submit             controllers.UserCtrl.loginSubmit()
 GET         /collect                  controllers.UserCtrl.collect()
+GET         /collect/del/$collectId<[0-9]+>              controllers.UserCtrl.collectDel(collectId:Long)
 
 
 POST        /regist/code              controllers.UserCtrl.registCode()
@@ -25,7 +26,7 @@ POST        /regist/code              controllers.UserCtrl.registCode()
 #首页,主题,详情页相关
 GET          /                         controllers.ProductsCtrl.index()
 POST        /indexAjax                 controllers.ProductsCtrl.loadIndexAjax()
-GET         /detail/*type/*url         controllers.ProductsCtrl.detail(type,url)
+GET         /detail/:type/*url         controllers.ProductsCtrl.detail(type,url)
 GET         /pinDetail                 controllers.ProductsCtrl.pinDetail()
 
 
@@ -48,9 +49,11 @@ GET         /obligati                 controllers.ShoppingCtrl.obligati()
 GET         /orders                   controllers.ShoppingCtrl.orders()
 GET         /settle                   controllers.ShoppingCtrl.settle()
 GET         /cart                     controllers.ShoppingCtrl.cart()
+GET         /cart/empty               controllers.ShoppingCtrl.emptyCart()
 
 
 
+#
 
 
 

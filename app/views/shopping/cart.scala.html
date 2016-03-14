@@ -1,7 +1,9 @@
+@(path:String,resultVo:domain.CartListResultVo)
 <!DOCTYPE html>
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
     <!-- 视图窗口，移动端特属的标签。 -->
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
     <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
@@ -18,15 +20,18 @@
 <body>
 <!--头部开始-->
 <header class="header">
-    <a href="/" class="home_link"></a>
+    <a href="@path" class="home_link"></a>
     <div class="header-text">
         <h1 class="header-title">购物车</h1>
     </div>
-    <a href="/personal"><span class="icon-user-title" id="userBtn"></span></a>
+    <a href="@routes.ProductsCtrl.index()"><span class="icon-user-title" id="userBtn"></span></a>
+    <div class="hint-hd">友情提示 : 同一保税区商品总额有限制</div>
 </header>
 <!--头部结束-->
 <!--购买产品部分开始-->
+
 <div class="cart-goods" id="cart-goods">
+
     <div class="cart-goods-area">
         <div class="check-wrapper">
             <input type="checkbox" class="areac check" name="check_item" />
@@ -146,10 +151,16 @@
             </div>
         </li>
     </ul>
+    <div class="hint">
+        本商品限购10件
+    </div>
+
 </div>
 <!--购买产品部分结束-->
 <!--footer部分开始-->
+
 <div class="last">
+
     <div class="footer-hd">
         <div class="footer-l">
             <div class="footer-l-left">
