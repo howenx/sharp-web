@@ -52,6 +52,7 @@ $(function(){
         Total();
     })
 
+    /*checkBox 点击*/
     $(selectInputs).change(function(){
         if($(this).hasClass("areac")){
             if($(this).prop("checked")==true){
