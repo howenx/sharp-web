@@ -78,6 +78,17 @@ $(function() {
 
 	})
 
+//    弹出
+	$(".toup .con").animate({
+		bottom:0,
+	},1000);
+	$(".bg").click(function(){
+		$(".toup .con").animate({
+			bottom:-295,
+		},1000,function(){
+			$(".toup").css("display","none");
+		});
+	})
 
 
 })
