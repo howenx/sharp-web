@@ -1,3 +1,4 @@
+@(imageCode:String)
 <!DOCTYPE HTML>
 <html>
     <head>
@@ -65,19 +66,48 @@
                                     setTimeout(function(){
                                         window.location.href='/myView';
                                     }, 1500);
-                                }else{
+                                }else if (data.code==4001){
+
+                                }
+                                else{
                                     $('#js-userinfo-error').removeClass("pcue").text(data.message).addClass("cue");
                                     setTimeout("$('#js-userinfo-error').removeClass('cue').addClass('pcue')", 1000);
-                                    setTimeout(function(){
-                                        window.location.href='/login';
-                                    }, 1200);
+//                                    setTimeout(function(){
+//                                        window.location.href='/login';
+//                                    }, 1200);
+
                                 }
                             }
                         });
                     }
                 });
+                /*显示密码*/
+                var of = true;
                 $('.howl').click(function(){
                     $(this).toggleClass('bg1');
+                    if(of){
+                        $('.input-weak-show').attr({'type':'text'});
+                        of = false;
+                    }else{
+                        $('.input-weak-show').attr({'type':'password'});
+                        of = true;
+                    }
+                });
+
+
+
+                /*按下回车键事件*/
+                $(document).keydown(function(event){
+                    if (event.keyCode == 13) {
+                        $('#bt_login').click();
+                    }
+                });
+
+                $(".delet").click(function() {
+                    $("input[name='name']").val("").focus(); // 清空并获得焦点
+                });
+                $(".out").click(function() {
+                    $("input[name='password']").val("").focus();
                 });
             })
         </script>
@@ -99,9 +129,12 @@
                                 <i class="delet"></i>
                             </dd>
                             <dd class="dd-padding code">
-                                <input id="input_password" class="input-weak" maxlength="12" type="password" placeholder="请输入您的密码" name="password" required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}">
+                                <input id="input_password" class="input-weak input-weak-show" maxlength="12" type="password" placeholder="请输入您的密码" name="password" required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}">
                                 <i class="out"></i>
                                 <i class="howl"></i>
+                            </dd>
+                            <dd class="dd-padding code">
+                                <img style="-webkit-user-select: none;" src="@imageCode">
                             </dd>
                         </dl>
                     </form>

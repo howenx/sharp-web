@@ -35,6 +35,7 @@ public class SysParCom {
     public static String PIN_PAGE;
 
 
+    public static String IMAGE_CODE;//图形验证码
 
 
 
@@ -66,17 +67,20 @@ public class SysParCom {
         ADDRESS_PAGE=configuration.getString("user.address");
         ADDRESS_ADD=configuration.getString("user.addressnew");
 
+
         COUPON_PAGE=configuration.getString("user.coupons");
         ORDER_PAGE=configuration.getString("user.order.all");
 
+        
+        REGIST_VARIFY = configuration.getString("user.regist.verify");
+        REGIST_CODE = configuration.getString("user.regist.code");
 
-        REGIST_VARIFY = configuration.getString("user.page.regist.verify");
-        REGIST_CODE = configuration.getString("user.page.regist.code");
         REGIST_PAGE = configuration.getString("user.page.regist");
         ITEM_PAGE = configuration.getString("products.page.item");
         THEME_PAGE = configuration.getString("products.page.theme");
         PIN_PAGE = configuration.getString("products.page.pin");
 
+        IMAGE_CODE =configuration.getString("user.page.imagecode");
 
 
 
