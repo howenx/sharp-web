@@ -4,6 +4,7 @@ package controllers;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+import domain.Item;
 import domain.Slider;
 import domain.Theme;
 import play.Logger;
@@ -41,7 +42,7 @@ public class ProductsCtrl extends Controller {
                     //主题
                     if("T".equals(slider.getTargetType())){
                         //targetUrl = targetUrl.replace("http://172.28.3.51:9001/topic/list/","");
-                        targetUrl = targetUrl.replace(IHEME_PAGE,"");
+                        targetUrl = targetUrl.replace(THEME_PAGE,"");
                     }
                     //普通商品
                     if("D".equals(slider.getTargetType())){
@@ -68,7 +69,7 @@ public class ProductsCtrl extends Controller {
                     if(!"h5".equals(theme.getType())){
                         String themeUrl = theme.getThemeUrl();
                         //themeUrl = themeUrl.replace("http://172.28.3.51:9001/topic/list/","");
-                        themeUrl = themeUrl.replace(IHEME_PAGE,"");
+                        themeUrl = themeUrl.replace(THEME_PAGE,"");
                         theme.setThemeUrl(themeUrl);
                     }
                     themeList.add(theme);
@@ -81,9 +82,6 @@ public class ProductsCtrl extends Controller {
     //Ajax加载首页
     public Result loadIndexAjax() throws Exception{
         String pageCount = request().body().asJson().toString();
-        Logger.error("********************");
-        Logger.error(INDEX_PAGE + pageCount);
-        Logger.error("********************");
         List<Theme> themeList = new ArrayList<>();
         Request request = new Request.Builder()
                 .url(INDEX_PAGE + pageCount)
@@ -102,7 +100,7 @@ public class ProductsCtrl extends Controller {
                     if(!"h5".equals(theme.getType())){
                         String themeUrl = theme.getThemeUrl();
                         //themeUrl = themeUrl.replace("http://172.28.3.51:9001/topic/list/","");
-                        themeUrl = themeUrl.replace(IHEME_PAGE,"");
+                        themeUrl = themeUrl.replace(THEME_PAGE,"");
                         theme.setThemeUrl(themeUrl);
                     }
                     themeList.add(theme);
@@ -116,7 +114,24 @@ public class ProductsCtrl extends Controller {
 
 
     //商品明细
-    public Result detail(String type,String url) {
+    public Result detail(String type,String url) throws Exception {
+        if("D".equals(type)){
+            Item item = new Item();
+            Request request = new Request.Builder()
+                    .url(ITEM_PAGE + url)
+                    .build();
+            Response response = client.newCall(request).execute();
+            if(response.isSuccessful()){
+                JsonNode json = Json.parse(response.body().string());
+
+            }
+
+
+
+        }
+
+
+
 
 
         return ok(views.html.products.detail.render());
