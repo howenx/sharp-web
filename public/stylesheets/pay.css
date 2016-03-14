@@ -2,6 +2,9 @@
 
 .scope{min-width:320px; max-width:750px; margin: 0 auto; background-color: #fff; padding:60px 2% 0; }
 
+.color{
+    color: #E66255;
+}
 
 /*收货地址*/
 .add{
@@ -48,7 +51,7 @@
     background-size:cover;
 }
 .address{
-    padding:70px 20px 20px;
+    padding:10px 20px 20px;
 
 }
 
@@ -56,8 +59,11 @@
     margin:0 0 20px 0;
 }
 
+.address p span{
+    margin: 0 10px 0 0;
+}
 .address p span:nth-child(2n){
-    margin: 0 0 0 10%;
+
 }
 
 .address i{
