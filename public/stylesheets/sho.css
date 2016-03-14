@@ -349,3 +349,11 @@ input:password {
     margin: 0 auto;
     color: #fff;
 }
+
+.hint-hd{
+    width: 100%;
+    height:30px;
+    line-height: 30px;
+    background-color:#FFEEDE ;
+    color:#E66255;
+}
