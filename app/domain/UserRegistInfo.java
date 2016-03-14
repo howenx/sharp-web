@@ -1,11 +1,8 @@
 package domain;
 
 import play.data.validation.Constraints;
-import play.data.validation.ValidationError;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Sunny Wu on 16/3/11.
@@ -28,14 +25,6 @@ public class UserRegistInfo implements Serializable {
     @Constraints.MinLength(6)
     @Constraints.Pattern("[0-9]\\d{6}")
     protected  String code;
-
-    public List<ValidationError> validate() {
-        List<ValidationError> errors = new ArrayList<>();
-        if (!code.equals("-1")) {
-            errors.add(new ValidationError("code", "This code is wrong"));
-        }
-        return errors.isEmpty() ? null : errors;
-    }
 
     public UserRegistInfo(String name, String password, String code) {
         this.name = name;

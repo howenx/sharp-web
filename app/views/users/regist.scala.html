@@ -41,7 +41,7 @@
     <script  src="/assets/javascripts/md5.js"></script>
 
     <style type="text/css">
-        input:required:invalid, input:focus:invalid {
+        input:required:valid, input:focus:invalid {
         background-image: url('/assets/images/ex.png');
         background-position: right top;
         background-repeat: no-repeat;
@@ -68,22 +68,27 @@
             <form id="cell_loginForm" method="post" onsubmit="return false" action="" >
                 <dl class="list list-in">
                     <dd class="dd-padding">13241179879
-                        <input id="phoneNum" type="text" class="input-weak" placeholder="请输入手机号" maxlength="11" name="name" required pattern="[1][345678]\d{9}"/>
+                        <input id="phoneNum" type="text" class="input-weak" placeholder="请输入手机号" maxlength="11" name="phone" required pattern="[1][345678]\d{9}"/>
+                        <i class="delet"></i>
                     </dd>
                     <dd class="dd-padding one" id="send-code-ok"></dd>
                         <!--验证码发送成功-->
 
                     <dd class="dd-padding">
-                        <input id="cell_login_checkcode" class="input-weak two" type="text" placeholder="请输入验证码" name="code" >
+                        <input id="cell_login_checkcode" class="input-weak two" type="text" placeholder="请输入验证码" >
                         <button id="smsCode" type="button" class="code" disabled="disabled">获取验证码</button>
                     </dd>
 
                     <dd class="dd-padding">
-                        <input id="password" class="input-weak" type="password" placeholder="密码为6-12位字母/数字的组合" maxlength="12" name="password" required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}"/>
+                        <input id="password" class="input-weak" type="password" placeholder="密码为6-12位字母/数字的组合" maxlength="12"  required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}"/>
+                        <i class="out"></i>
+                        <i class="howl"></i>
                     </dd>
 
                     <dd class="dd-padding">
                         <input id="pwd-confirm" class="input-weak" type="password" placeholder="确认密码" maxlength="12" required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}" />
+                        <i class="out"></i>
+                        <i class="howl"></i>
                     </dd>
                     <dd class="cue" id="code-input-error"></dd>
                         <!--验证码输入错误-->
@@ -158,27 +163,35 @@ $(function() {
 
     //获取验证码
     $("#smsCode").click(function() {
-        var formdata = new FormData();
+
+        //var formdata = new FormData();
         var phoneNum = $("#phoneNum").val();
-        var hash = hex_md5(phoneNum+"hmm");
-        formdata.name = phoneNum;
-        formdata.msg = hash;
-        formdata.append("name", phoneNum);
-        formdata.append("msg", hash);
-        console.log(phoneNum);
-        console.log(hash);
-        console.log(formdata);
+        var msg = hex_md5(phoneNum+"hmm");
+        //formdata.phone = phoneNum;
+        //formdata.msg = msg;
+        //console.log(formdata);
+        console.log($('form#cell_loginForm').append("<input name='msg' type='text' value='"+msg+"'>").serialize());
         $.ajax({
                 url: "/regist/code",
-                data: formdata,
-                cache: false,
-                contentType: false,
-                processData: false,
+                dataType: 'json',
+               	data: $('form#cell_loginForm').append("<input name='msg' type='hidden' value='"+msg+"'>").serialize(),
                 type: 'POST',
                 success: function(data) {
                    console.log(data);
                    $("#send-code-ok").show();
-                   $("#send-code-ok").html("验证码发送成功 已发送至"+phoneNum.subString(0,3)+"****"+phoneNum.subString(7,11)+".");
+                   $("#send-code-ok").html("验证码发送成功 已发送至"+phoneNum.substring(0,3)+"****"+phoneNum.substring(7,11));
+                   var time = 8;
+                   $("#smsCode").html(time+"s后再次获取");
+                   timer = window.setInterval(function() {
+                   $("#smsCode").html(time+"s后再次获取");
+                   $("#smsCode").html(--time+"s后再次获取");
+                   if (time == 0) {
+                        window.clearInterval(timer);
+                        $("#smsCode").html("获取验证码");
+                        $("#send-code-ok").hide();
+                   }
+
+                   }, 1000);
                 }
         });
     });
@@ -216,10 +229,8 @@ $(function() {
             });
             $.ajax({
                     url: "/regist/submit",
+                    dataType: 'json',
                     data: formdata,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
                     type: 'POST',
                     success: function(data) {
                         console.log(data);
