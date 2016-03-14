@@ -26,7 +26,7 @@ public class SysParCom {
     public static String REGIST_PAGE;//用户注册
 
     public static String ITEM_PAGE;
-    public static String IHEME_PAGE;
+    public static String THEME_PAGE;
     public static String PIN_PAGE;
 
     @Inject
@@ -42,7 +42,7 @@ public class SysParCom {
         REGIST_CODE = configuration.getString("user.page.regist.code");
         REGIST_PAGE = configuration.getString("user.page.regist");
         ITEM_PAGE = configuration.getString("products.page.item");
-        IHEME_PAGE = configuration.getString("products.page.theme");
+        THEME_PAGE = configuration.getString("products.page.theme");
         PIN_PAGE = configuration.getString("products.page.pin");
 
     }

@@ -25,7 +25,7 @@ POST        /regist/code              controllers.UserCtrl.registCode()
 #首页,主题,详情页相关
 GET          /                         controllers.ProductsCtrl.index()
 POST        /indexAjax                 controllers.ProductsCtrl.loadIndexAjax()
-GET         /detail/*type/*url         controllers.ProductsCtrl.detail(type,url)
+GET         /detail/:type/*url         controllers.ProductsCtrl.detail(type,url)
 GET         /pinDetail                 controllers.ProductsCtrl.pinDetail()
 
 

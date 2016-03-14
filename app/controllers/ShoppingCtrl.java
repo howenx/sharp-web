@@ -72,7 +72,7 @@ public class ShoppingCtrl extends Controller {
         List<Object[]> tagList = new ArrayList<>();
         List<Object[]> itemList = new ArrayList<>();
         Request request = new Request.Builder()
-                .url(IHEME_PAGE + url)
+                .url(THEME_PAGE + url)
                 .build();
         Response response = client.newCall(request).execute();
         if(response.isSuccessful()){
@@ -94,12 +94,21 @@ public class ShoppingCtrl extends Controller {
                     if(tags != null){
                         JsonNode tagJson = Json.parse(tags);
                         for(JsonNode tag : tagJson){
-                            Object[] tagObject = new Object[5];
-                            tagObject[0] = tag.get("top").asDouble();
+                            Object[] tagObject = new Object[6];
+                            tagObject[0] = tag.get("top").asDouble() * 100;
                             tagObject[1] = tag.get("url").toString();
-                            tagObject[2] = tag.get("left").asDouble();
-                            tagObject[3] = tag.get("name").toString();
+                            tagObject[2] = tag.get("left").asDouble() * 100;
+                            String tagName = tag.get("name").toString();
+                            tagName = tagName.substring(1,tagName.length()-1);
+                            tagObject[3] = tagName;
                             tagObject[4] = tag.get("angle").asInt();
+                            if(tagObject[4].equals(0)){
+                                tagObject[5] = tag.get("left").asDouble() * 100 + 5 ;
+                            }
+//                            if(tagObject[4].equals(180)){
+//                                tagObject[5] = tag.get("left").asDouble() * 100;
+//                            }
+
                             tagList.add(tagObject);
                         }
                     }
