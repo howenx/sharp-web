@@ -335,4 +335,17 @@ input:password {
 .my i {
     background: url("/assets/images/my.png") no-repeat;
     background-size: contain;
+
+}
+
+/*提示信息*/
+.hint{
+    width:200px;
+    height: 40px;
+    line-height: 40px;
+    background-color:rgba(0,0,0,0.5);
+    text-align: center;
+    border-radius: 20px;
+    margin: 0 auto;
+    color: #fff;
 }
