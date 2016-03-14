@@ -47,12 +47,21 @@ body{
     position: relative;
 }
 
-.banner a{
-    display: block;
+.banner .left,.banner .right{
+    position: absolute;
+    width: 400px;
 
 }
-.banner .banner-box{
 
+.banner .left{
+    top:30%;
+    left:20%;
+}
+
+
+.banner .right{
+    top:60%;
+    left:30%;
 }
 /*雷达动画*/
 @-webkit-keyframes run1 {
@@ -66,7 +75,6 @@ body{
 
 .cartoon,.cartoon-right{
     position:absolute;
-
     height: 25px;
     padding:0 5px;
     line-height: 25px;
@@ -74,16 +82,14 @@ body{
     border-radius: 5px;
     color: #fff;
 }
-.cartoon{
-
-    top:50%;
-    left:40%;
-
+.banner .cartoon {
+    top: 50%;
+    left:32%;
 }
 
 .cartoon-right{
     top:20%;
-    left:25%;
+    left:32%;
 }
 
 .cartoon i,.cartoon-right i{
