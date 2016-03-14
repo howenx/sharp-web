@@ -4,11 +4,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.squareup.okhttp.FormEncodingBuilder;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
+import com.squareup.okhttp.*;
 import domain.*;
+import domain.Address;
 import domain.Message;
 import domain.UserLoginInfo;
 import filters.UserAuth;
@@ -29,13 +27,12 @@ import play.mvc.Security;
 import javax.inject.Inject;
 import java.io.IOException;
 import java.util.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static modules.SysParCom.*;
 import static play.libs.Json.newObject;
+import static play.libs.Json.toJson;
 
 
 /**
@@ -46,16 +43,15 @@ public class UserCtrl extends Controller {
 
     @Inject
     private MemcachedClient memchache;
-    @Inject
-    private SysParCom sysParCom;
 
+    public static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
 
     //收货地址
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> address() {
         Promise<List<Address> > promiseOfInt = Promise.promise(() -> {
             Request.Builder builder =(Request.Builder)ctx().args.get("request");
-            Request request=builder.url(sysParCom.ADDRESS_PAGE).get().build();
+            Request request=builder.url(ADDRESS_PAGE).get().build();
 
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()){
@@ -63,7 +59,7 @@ public class UserCtrl extends Controller {
                 Logger.info("===json==" + json);
                 Message message = Json.fromJson(json.get("message"), Message.class);
                 if(null==message||message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
-                    Logger.error("返回收藏数据错误code="+(null!=message?message.getCode():0));
+                    Logger.error("返回地址数据错误code="+(null!=message?message.getCode():0));
                     return new ArrayList<Address>();
                 }
                 ObjectMapper mapper = new ObjectMapper();
@@ -82,6 +78,33 @@ public class UserCtrl extends Controller {
     //创建新的收货地址
     public Result addressnew() {
         return ok(views.html.users.addressnew.render());
+    }
+    //创建新的收货地址
+    @Security.Authenticated(UserAuth.class)
+    public F.Promise<Result> addressSave() {
+        JsonNode requestJson = request().body().asJson();
+        Logger.info(ADDRESS_ADD+"=====addressSave="+requestJson);
+
+        Promise<Message> promiseOfInt = Promise.promise(() -> {
+            RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON,requestJson.toString());
+            Request.Builder builder =(Request.Builder)ctx().args.get("request");
+            Request request=builder.url(ADDRESS_ADD).post(formBody).build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
+                Logger.info("===json==" + json);
+                Message message = Json.fromJson(json.get("message"), Message.class);
+                if(null==message||message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+                    Logger.error("返回创建新的收货地址数据错误code="+(null!=message?message.getCode():0));
+                }
+                return message;
+            } else throw new IOException("Unexpected code" + response);
+        });
+
+        return promiseOfInt.map((Function<Message, Result>) pi -> {
+            Logger.error("返回结果"+pi);
+            return ok("PI value computed: " + pi);
+        });
     }
 
     //身份认证
@@ -139,7 +162,7 @@ public class UserCtrl extends Controller {
     public F.Promise<Result> collect() {
         Promise<List<CollectDto> > promiseOfInt = Promise.promise(() -> {
             Request.Builder builder =(Request.Builder)ctx().args.get("request");
-            Request request=builder.url(sysParCom.COLLECT_PAGE).get().build();
+            Request request=builder.url(COLLECT_PAGE).get().build();
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()){
                 JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
@@ -161,6 +184,36 @@ public class UserCtrl extends Controller {
                 }
         );
     }
+
+    /**
+     * 取消收藏
+     * @return
+     */
+    @Security.Authenticated(UserAuth.class)
+    public F.Promise<Result> collectDel(Long collectId) {
+        Promise<Message> promiseOfInt = Promise.promise(() -> {
+            Request.Builder builder =(Request.Builder)ctx().args.get("request");
+            Request request=builder.url(COLLECT_DEL+collectId).get().build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()){
+                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
+                Logger.info("===json==" + json);
+                Message message = Json.fromJson(json.get("message"), Message.class);
+                if(null==message||message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+                    Logger.error("返回取消收藏数据错误code="+(null!=message?message.getCode():0));
+                }
+                return message;
+
+            }else  throw new IOException("Unexpected code " + response);
+        });
+
+        return promiseOfInt.map((Function<Message, Result>) pi -> {
+                    Logger.error("返回---->\n"+pi);
+                    return ok(toJson(pi));
+                }
+        );
+    }
+
 
 
     public Promise<Result> loginSubmit() {
@@ -216,42 +269,53 @@ public class UserCtrl extends Controller {
      * 注册请求验证码
      * @return
      */
-    public F.Promise<Result> registCode() {
-        Map<String,String[]> stringMap = request().body().asFormUrlEncoded();
-        Logger.error("stringMap:"+stringMap);
-        Map<String, String> map = new HashMap<>();
-        stringMap.forEach((k,v) -> map.put(k, v[0]));
-        Logger.error("请求验证码:"+map.toString());
+    public Promise<Result> registCode() {
+        ObjectNode result = newObject();
+        Form<UserRegistCode> userRegistCodeForm = Form.form(UserRegistCode.class).bindFromRequest();
+        Map<String, String> userMap = userRegistCodeForm.data();
+        Logger.error(userRegistCodeForm.toString());
+        if (userRegistCodeForm.hasErrors()) {
+            Logger.error("手机号有错误");
+            result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
+            Logger.error(result.asText());
+            return Promise.promise((Function0<Result>) () -> ok(result));
+        } else {
+            Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
+                FormEncodingBuilder feb = new FormEncodingBuilder();
+                userMap.forEach(feb::add);
+                RequestBody formBody = feb.build();
+                Request request = new Request.Builder()
+                        .url(REGIST_CODE)
+                        .post(formBody)
+                        .build();
+                client.setConnectTimeout(10, TimeUnit.SECONDS);
+                Response response = client.newCall(request).execute();
+                Logger.error(response.toString());
+                if (response.isSuccessful()) {
+                    JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
+                    Logger.error("验证码:"+json);
+                    return json;
+                } else throw new IOException("Unexpected code" + response);
+            });
 
-        Promise<Message> promiseOfInt = Promise.promise(() -> {
-            FormEncodingBuilder feb = new FormEncodingBuilder();
-            map.forEach(feb::add);
-            RequestBody formBody = feb.build();
-            Request request = new Request.Builder()
-                    .header("User-Agent", request().getHeader("User-Agent"))
-                    .url(REGIST_CODE)
-                    .post(formBody)
-                    .build();
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
-                Message message = Json.fromJson(json, Message.class);
-                Logger.error("验证码:"+message);
-                return message;
-            } else throw new IOException("Unexpected code" + response);
-        });
+            return promiseOfInt.map((Function<JsonNode, Result>) json -> {
+                Logger.error("返回结果"+json);
+                Message message = Json.fromJson(json.findValue("message"), Message.class);
+                if (message.getCode().equals(200)) {
+                    Logger.error("验证码发送成功");
+                }
+                Logger.error(json.toString()+"-----"+message.toString());
+                return ok(Json.toJson(message));
+            });
 
-        return promiseOfInt.map((Function<Message, Result>) pi -> {
-            Logger.error("返回结果"+pi);
-            return ok("PI value computed: " + pi);
-        });
 
+        }
     }
 
 
 
 
-//    public F.Promise<Result> registSubmit() {
+//    public Promise<Result> registSubmit() {
 //
 //    }
 
