@@ -275,6 +275,7 @@ public class UserCtrl extends Controller {
      */
 
     public Promise<Result> registCode() {
+        Logger.error("REGIST_CODE"+REGIST_VARIFY);
         ObjectNode result = newObject();
         Form<UserRegistCode> userRegistCodeForm = Form.form(UserRegistCode.class).bindFromRequest();
         Map<String, String> userMap = userRegistCodeForm.data();
@@ -306,7 +307,7 @@ public class UserCtrl extends Controller {
             return promiseOfInt.map((Function<JsonNode, Result>) json -> {
                 Logger.error("返回结果"+json);
                 Message message = Json.fromJson(json.findValue("message"), Message.class);
-                if (message.getCode().equals(200)) {
+                if (Message.ErrorCode.SUCCESS.getIndex()==message.getCode()) {
                     Logger.error("验证码发送成功");
                 }
                 Logger.error(json.toString()+"-----"+message.toString());

@@ -170,7 +170,7 @@ $(function() {
         //formdata.phone = phoneNum;
         //formdata.msg = msg;
         //console.log(formdata);
-        console.log($('form#cell_loginForm').append("<input name='msg' type='text' value='"+msg+"'>").serialize());
+        //console.log($('form#cell_loginForm').append("<input name='msg' type='text' value='"+msg+"'>").serialize());
         $.ajax({
                 url: "/regist/code",
                 dataType: 'json',
@@ -179,18 +179,17 @@ $(function() {
                 success: function(data) {
                    console.log(data);
                    $("#send-code-ok").show();
-                   $("#send-code-ok").html("验证码发送成功 已发送至"+phoneNum.substring(0,3)+"****"+phoneNum.substring(7,11));
+                   $("#send-code-ok").html("验证码已成功发送至"+phoneNum.substring(0,3)+"****"+phoneNum.substring(7,11));
                    var time = 8;
                    $("#smsCode").html(time+"s后再次获取");
                    timer = window.setInterval(function() {
-                   $("#smsCode").html(time+"s后再次获取");
-                   $("#smsCode").html(--time+"s后再次获取");
-                   if (time == 0) {
-                        window.clearInterval(timer);
-                        $("#smsCode").html("获取验证码");
-                        $("#send-code-ok").hide();
-                   }
-
+                        $("#smsCode").html(time+"s后再次获取");
+                        $("#smsCode").html(--time+"s后再次获取");
+                        if (time == 0) {
+                            window.clearInterval(timer);
+                            $("#smsCode").html("获取验证码");
+                            $("#send-code-ok").hide();
+                        }
                    }, 1000);
                 }
         });

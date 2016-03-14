@@ -59,8 +59,8 @@ public class SysParCom {
         ADDRESS_PAGE=configuration.getString("user.address");
         ADDRESS_ADD=configuration.getString("user.addressnew");
 
-        REGIST_VARIFY = configuration.getString("user.page.regist.verify");
-        REGIST_CODE = configuration.getString("user.page.regist.code");
+        REGIST_VARIFY = configuration.getString("user.regist.verify");
+        REGIST_CODE = configuration.getString("user.regist.code");
         REGIST_PAGE = configuration.getString("user.page.regist");
         ITEM_PAGE = configuration.getString("products.page.item");
         THEME_PAGE = configuration.getString("products.page.theme");
