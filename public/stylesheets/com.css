@@ -59,14 +59,13 @@
 
 
 .icon-user-title {
-    height: 44px;
-    width: 44px;
-    background: url("/assets/images/dieail-dian.png") no-repeat center center;
+    height:35px;
+    width:35px;
+    background: url("/assets/images/home_un.png") no-repeat center center;
     background-size: contain;
-
     position: absolute;
-    top:4px;
-    right: 0;
+    top:5px;
+    right:2%;
 }
 /*头部结束*/
 

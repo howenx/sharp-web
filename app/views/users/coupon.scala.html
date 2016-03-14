@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+@(couponList:List[domain.CouponVo])
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,7 +21,7 @@
         <i></i>
         <b></b>
     </a>
-    <h1>全部订单</h1>
+    <h1>优惠券</h1>
 </header>
 
 <div class="wrap coupon-body">
@@ -40,9 +41,17 @@
             <!--全部订单-->
             <section class="coupon-box current">
                 <ul>
+                    @for(coupon<-couponList){
                     <li>
-                        <img src="/assets/images/hmmapp-coupon.jpg">
+                        <div class="touch">
+                            <span class="touch-name">@coupon.getCateNm()</span>
+                            <i>¥@coupon.getDenomination()</i>
+                        </div>
+                        <div class="touch">
+                            <span class="touch-name">@coupon.getEndAt()</span>
+                        </div>
                     </li>
+                    }
 
                 </ul>
             </section>

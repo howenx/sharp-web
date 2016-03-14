@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+@(orderList:List[domain.OrderDTO])
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -37,58 +37,51 @@
 
             <section class="current">
                 <ul>
+                    @for(order<-orderList){
                     <li>
                         <div class="con">
                             <div class="day">
                                 <div class="day-l">
-                                    <span >订单号: </span><i>1234567</i>
-                                    <span class="date">2016-03-09</span>
+                                    <span >订单号: </span><i>@order.getOrder().getOrderId()</i>
+                                    <span class="date">@order.getOrder().getOrderCreateAt()</span>
                                 </div>
 
-                                <span class="day-r">未完成</span>
+<!--//I:初始化即未支付状态，S:成功，C：取消， F:失败，R:已收货，D:已经发货，J:拒收，N已删除，T已退款，PI:拼购未支付状态，PS:拼购支付成功状态，PF:拼团失败还未成功退款-->
+                                <span class="day-r">
+                                    @if(order.getOrder().getOrderStatus()=="I"){<a href="/all/@order.getOrder().getOrderId()">待支付</a>}
+                                    @if(order.getOrder().getOrderStatus()=="S"){成功}
+                                    @if(order.getOrder().getOrderStatus()=="C"){取消}
+                                    @if(order.getOrder().getOrderStatus()=="F"){失败}
+                                    @if(order.getOrder().getOrderStatus()=="R"){已收货}
+                                    @if(order.getOrder().getOrderStatus()=="D"){已经发货}
+                                    @if(order.getOrder().getOrderStatus()=="J"){拒收}
+                                    @if(order.getOrder().getOrderStatus()=="N"){已删除}
+                                    @if(order.getOrder().getOrderStatus()=="T"){已退款}
+                                    @if(order.getOrder().getOrderStatus()=="PI"){拼购未支付状态}
+                                    @if(order.getOrder().getOrderStatus()=="PS"){拼购支付成功状态}
+                                    @if(order.getOrder().getOrderStatus()=="PF"){拼团失败还未成功退款}
+                                </span>
                             </div>
-                            <a href="javascript:;" class="commodity">
-                                <img src="/assets/images/one.png" alt=""/>
-                                <h2>韩国发希陆新娃娃护手霜80ml深层滋润保湿五件套</h2>
-                                <span class="commodity-rmb"><i class="rmb color">￥75.00</i><i class="number">数量: 1</i></span>
+                            @for(sku<-order.getSku()){
+                            <a href="@sku.getInvUrl()" class="commodity">
+                                <img src="@sku.getInvImg()" alt=""/>
+                                <h2>@sku.getSkuTitle()</h2>
+                                <span class="commodity-rmb"><i class="rmb color">￥@sku.getPrice()</i><i class="number">数量: @sku.getAmount()</i></span>
 
                             </a>
+                            }
                             <div class="payment">
                                 <a href="javascript:;" class="left">取消订单</a>
                                 <a href="javascript:;" class="right bg">完成</a>
                             </div>
                         </div>
                     </li>
-                    <li>
-                        <div class="con">
-                            <div class="day">
-                                <div class="day-l">
-                                    <span >订单号: </span><i>1234567</i>
-                                    <span class="date">2016-03-09</span>
-                                </div>
-
-                                <span class="day-r">未完成</span>
-                            </div>
-                            <a href="javascript:;" class="commodity">
-                                <img src="/assets/images/one.png" alt=""/>
-                                <h2>韩国发希陆新娃娃护手霜80ml深层滋润保湿五件套</h2>
-                                <span class="commodity-rmb"><i class="rmb color">￥75.00</i><i class="number">数量: 1</i></span>
-
-                            </a>
-                            <div class="payment">
-                                <a href="javascript:;" class="left">取消订单</a>
-
-                                <a href="javascript:;" class="right bg">立即支付</a>
-
-                                <a href="javascript:;" class="right mi">应付金额:144</a>
-                            </div>
-                        </div>
-                    </li>
+                    }
 
                 </ul>
             </section>
 
-            <section class="current">
+            <section>
                 <ul>
                     <li>
                         <div class="con">
