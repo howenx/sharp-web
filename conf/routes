@@ -37,7 +37,8 @@ GET         /pinDetail                 controllers.ProductsCtrl.pinDetail()
 
 
 #购物车,结算,订单,拼购相关
-GET         /all                      controllers.ShoppingCtrl.all()
+GET         /all                      controllers.ShoppingCtrl.all(orderId: Long ?= 0L)
+GET         /all/$orderId<[0-9]+>     controllers.ShoppingCtrl.all(orderId: Long)
 GET         /appraise                 controllers.ShoppingCtrl.appraise()
 GET         /assess                   controllers.ShoppingCtrl.assess()
 GET         /delivered                controllers.ShoppingCtrl.delivered()

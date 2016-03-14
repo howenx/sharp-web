@@ -158,6 +158,14 @@ input[type="password"], input[type="text"], input[type="submit"] {
 input, select {
     vertical-align: middle;
 }
+
+input[type=checkbox]{
+    width:30px;
+    height:30px;
+    cursor: pointer;
+    display:inline-block;
+}
+
 .login fieldset form .psdIcon {
     width: 16px;
     height: 18px;
