@@ -47,7 +47,6 @@ public class ShoppingCtrl extends Controller {
         return ok(views.html.shopping.assess.render());
     }
 
-
     /**
      * 购物车列表
      *
@@ -131,60 +130,69 @@ public class ShoppingCtrl extends Controller {
         List<Object[]> tagList = new ArrayList<>();
         List<Object[]> itemList = new ArrayList<>();
         Request request = new Request.Builder()
-                .url(IHEME_PAGE + url)
+                .url(THEME_PAGE + url)
                 .build();
         Response response = client.newCall(request).execute();
-        if (response.isSuccessful()) {
+        if(response.isSuccessful()){
             JsonNode json = Json.parse(response.body().string());
-            if (json.has("themeList")) {
+            if(json.has("themeList")){
                 JsonNode themeJson = json.get("themeList");
                 //主题主图
-                if (themeJson.has("themeImg")) {
-                    String img = Json.fromJson(themeJson.get("themeImg"), String.class);
+                if(themeJson.has("themeImg")){
+                    String img = Json.fromJson(themeJson.get("themeImg"),String.class);
                     JsonNode imgJson = Json.parse(img);
                     themeImg = imgJson.get("url").toString();
-                    themeImg = themeImg.substring(1, themeImg.length() - 1);
+                    themeImg = themeImg.substring(1,themeImg.length()-1);
                 }
                 //主题标签
-                if (themeJson.has("masterItemTag")) {
+                if(themeJson.has("masterItemTag")){
                     JsonNode tempJson = themeJson.get("masterItemTag");
 
-                    String tags = Json.fromJson(tempJson, String.class);
-                    if (tags != null) {
+                    String tags = Json.fromJson(tempJson,String.class);
+                    if(tags != null){
                         JsonNode tagJson = Json.parse(tags);
-                        for (JsonNode tag : tagJson) {
-                            Object[] tagObject = new Object[5];
-                            tagObject[0] = tag.get("top").asDouble();
+                        for(JsonNode tag : tagJson){
+                            Object[] tagObject = new Object[6];
+                            tagObject[0] = tag.get("top").asDouble() * 100;
                             tagObject[1] = tag.get("url").toString();
-                            tagObject[2] = tag.get("left").asDouble();
-                            tagObject[3] = tag.get("name").toString();
+                            tagObject[2] = tag.get("left").asDouble() * 100;
+                            String tagName = tag.get("name").toString();
+                            tagName = tagName.substring(1,tagName.length()-1);
+                            tagObject[3] = tagName;
                             tagObject[4] = tag.get("angle").asInt();
+                            if(tagObject[4].equals(0)){
+                                tagObject[5] = tag.get("left").asDouble() * 100 + 5 ;
+                            }
+//                            if(tagObject[4].equals(180)){
+//                                tagObject[5] = tag.get("left").asDouble() * 100;
+//                            }
+
                             tagList.add(tagObject);
                         }
                     }
                 }
                 //主题中的商品
-                if (themeJson.has("themeItemList")) {
+                if(themeJson.has("themeItemList")){
                     JsonNode itemJson = themeJson.get("themeItemList");
-                    for (JsonNode tempJson : itemJson) {
+                    for(JsonNode tempJson : itemJson){
                         Object[] itemObject = new Object[7];
-                        String itemImg = Json.fromJson(tempJson.get("itemImg"), String.class);
+                        String itemImg = Json.fromJson(tempJson.get("itemImg"),String.class);
                         JsonNode itemImgJson = Json.parse(itemImg);
                         String itemImgUrl = itemImgJson.get("url").toString();
-                        itemImgUrl = itemImgUrl.substring(1, itemImgUrl.length() - 1);
+                        itemImgUrl = itemImgUrl.substring(1,itemImgUrl.length()-1);
                         itemObject[0] = itemImgUrl;                                         //商品图片
                         itemObject[1] = tempJson.get("itemType");                           //商品类型
                         String itemType = tempJson.get("itemType").toString();
-                        itemType = itemType.substring(1, itemType.length() - 1);
+                        itemType = itemType.substring(1,itemType.length()-1);
                         String itemUrl = tempJson.get("itemUrl").toString();
-                        itemUrl = itemUrl.substring(1, itemUrl.length() - 1);
-                        if ("pin".equals(itemType)) {
+                        itemUrl = itemUrl.substring(1,itemUrl.length()-1);
+                        if("pin".equals(itemType)){
                             //itemUrl = itemUrl.replace("http://172.28.3.51:9001/comm/pin/detail/","");
-                            itemUrl = itemUrl.replace(PIN_PAGE, "");
+                            itemUrl = itemUrl.replace(PIN_PAGE,"");
                         }
-                        if ("item".equals(itemType)) {
+                        if("item".equals(itemType)){
                             //itemUrl = itemUrl.replace("http://172.28.3.51:9001/comm/detail/","");
-                            itemUrl = itemUrl.replace(ITEM_PAGE, "");
+                            itemUrl = itemUrl.replace(ITEM_PAGE,"");
                         }
                         itemObject[2] = itemUrl;                                            //商品链接
                         itemObject[3] = tempJson.get("itemTitle");                          //商品Title
@@ -196,7 +204,7 @@ public class ShoppingCtrl extends Controller {
                 }
             }
         }
-        return ok(views.html.shopping.pinList.render(themeImg, tagList, itemList));
+        return ok(views.html.shopping.pinList.render(themeImg,tagList,itemList));
     }
 
     public Result settle() {
