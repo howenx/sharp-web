@@ -101,6 +101,7 @@
                     }
                 });
 
+                /*删除*/
                 $(".delet").click(function() {
                     $("input[name='name']").val("").focus(); // 清空并获得焦点
                 });
@@ -108,8 +109,14 @@
                     $("input[name='password']").val("").focus();
                 });
 
+                $(document).on('click', '.proving-txt', function() {
+                    $("#imageCodeImage").attr("src","\@imageCode"+Math.round(Math.random()*1000000));
+                })
 
             })
+            function getImageCode() {
+                document.getElementById("imageCodeImage").src="\@imageCode"+Math.round(Math.random()*1000000);
+            }
         </script>
     </head>
 
@@ -133,8 +140,10 @@
                                 <i class="out"></i>
                                 <i class="howl"></i>
                             </dd>
-                            <dd class="dd-padding code">
-                                <img style="-webkit-user-select: none;" src="@imageCode@Math.round(Math.random()*1000000)">
+                            <dd class="dd-padding proving-box">
+                                <input class="proving" maxlength="4" type="text" size="5" placeholder="请输验证码"/>
+                                <img id="imageCodeImage" style="-webkit-user-select: none;" onclick="getImageCode()" src="@imageCode@Math.round(Math.random()*1000000)">
+                                <a href="javascript:;" class="proving-txt">看不清换一张</a>
                             </dd>
                         </dl>
                     </form>

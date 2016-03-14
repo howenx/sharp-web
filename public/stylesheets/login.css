@@ -33,7 +33,7 @@ strong{font-weight: normal;}
 .clearfix:after{content:""; display:block; visibility:hidden; height:0; clear:both;}
 .clearfix{zoom:1;}
 a{text-decoration:none; color:#969696; font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self;}
-a:hover{color:#969696; text-decoration:none;}
+a:hover{text-decoration:none;}
 ul,ol,li{list-style:none;}
 h1, h2, h3, h4, h5, h6{ font-size:100%; font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self;}
 fieldset,img{border: none;}
@@ -239,6 +239,29 @@ input[type=checkbox]{
 
 .min{
     font-size: 14px;
+}
+
+.dd-padding .proving{
+    float: left;
+    width:100px;
+    border: 1px solid #DFDFDD;
+    height:40px;
+    padding: 4px 10px;
+    font-size: 14px;
+    line-height:40px;
+    color: #555;
+    vertical-align: middle;
+    border-radius: 4px;
+
+}
+
+.proving-box img,.proving-txt{
+    float: left;
+}
+
+.proving-txt{
+    line-height:40px;
+    color: #666;
 }
 
 /*一键登录*/
@@ -513,6 +536,7 @@ dl.list dd>.btn {
     color: #fff;
     font-size: 16px;
     cursor: pointer;
+    margin: 20px 0 0 0;
 }
 
 .back{
