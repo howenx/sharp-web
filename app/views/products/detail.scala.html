@@ -1,3 +1,4 @@
+@(itemMain:domain.Item,itemFeaturesList:List[Array[Object]])
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,7 +32,7 @@
 				<i></i>
 				<b></b>
 			</a>
-			<h1>秋季新品甜美两件套秋季新品甜美两件套</h1>
+			<h1>@itemMain.getItemTitle()</h1>
 
 
 		</div>
@@ -139,10 +140,7 @@
 			</ul>
 		</div>
 		<div class="sale">
-			<p>全场满299减30</p>
-			<p>全场满299减30</p>
-			<p>全场满299减30</p>
-			<p>全场满299减30</p>
+			<p>@itemMain.getPublicity()</p>
 		</div>
 		<!--<div class="detail-service">
 			<ul class="u-detail-introduce">
@@ -185,17 +183,23 @@
 
 	<!-- 详情图片 -->
 	<div class="conner">
-		<img src="/assets/images/img1.png"/>
+		<!--<img src="/assets/images/img1.png"/>-->
+		@Html(itemMain.getItemDetailImgs())
+
+
+
+
+
 		<img src="/assets/images/img2.png"/>
 
 	</div>
 	<div class="sku-measure01">
-		<img src="/assets/images/img3.png"/>
-		<img src="/assets/images/img4.png"/>
-		<img src="/assets/images/img5.png"/>
-		<img src="/assets/images/img6.png"/>
-		<img src="/assets/images/img7.png"/>
-		<img src="/assets/images/img8.png"/>
+		<!--<img src="/assets/images/img3.png"/>-->
+		<!--<img src="/assets/images/img4.png"/>-->
+		<!--<img src="/assets/images/img5.png"/>-->
+		<!--<img src="/assets/images/img6.png"/>-->
+		<!--<img src="/assets/images/img7.png"/>-->
+		<!--<img src="/assets/images/img8.png"/>-->
 	</div>
 	<div class='sku-measure'>
 		<div class="parameter-wrap">
@@ -204,42 +208,48 @@
 			<!-- 参数 -->
 			<div class="param-list">
 				<ul>
-					<li>
-						<span class="param-name">鞋面材质</span>
-						<p class="param-info">头层牛皮</p>
-					</li>
-					<li>
-						<span class="param-name">内里材质</span>
-						<p class="param-info">人造短毛绒</p>
-					</li>
-					<li>
-						<span class="param-name">皮质特征</span>
-						<p class="param-info">磨砂皮</p>
-					</li>
-					<li>
-						<span class="param-name">鞋头</span>
-						<p class="param-info">尖头</p>
-					</li>
-					<li>
-						<span class="param-name">跟高</span>
-						<p class="param-info">中跟(3-5cm)</p>
-					</li>
-					<li>
-						<span class="param-name">鞋跟款式</span>
-						<p class="param-info">粗跟</p>
-					</li>
-					<li>
-						<span class="param-name">闭合方式</span>
-						<p class="param-info">套筒</p>
-					</li>
-					<li>
-						<span class="param-name">流行元素</span>
-						<p class="param-info">擦色</p>
-					</li>
-					<li>
-						<span class="param-name">鞋底材质</span>
-						<p class="param-info">木底</p>
-					</li>
+					@for(feature <- itemFeaturesList){
+						<li>
+							<span class="param-name">@feature(0)</span>
+							<p class="param-info">@feature(1)</p>
+						</li>
+					}
+					<!--<li>-->
+						<!--<span class="param-name">鞋面材质</span>-->
+						<!--<p class="param-info">头层牛皮</p>-->
+					<!--</li>-->
+					<!--<li>-->
+						<!--<span class="param-name">内里材质</span>-->
+						<!--<p class="param-info">人造短毛绒</p>-->
+					<!--</li>-->
+					<!--<li>-->
+						<!--<span class="param-name">皮质特征</span>-->
+						<!--<p class="param-info">磨砂皮</p>-->
+					<!--</li>-->
+					<!--<li>-->
+						<!--<span class="param-name">鞋头</span>-->
+						<!--<p class="param-info">尖头</p>-->
+					<!--</li>-->
+					<!--<li>-->
+						<!--<span class="param-name">跟高</span>-->
+						<!--<p class="param-info">中跟(3-5cm)</p>-->
+					<!--</li>-->
+					<!--<li>-->
+						<!--<span class="param-name">鞋跟款式</span>-->
+						<!--<p class="param-info">粗跟</p>-->
+					<!--</li>-->
+					<!--<li>-->
+						<!--<span class="param-name">闭合方式</span>-->
+						<!--<p class="param-info">套筒</p>-->
+					<!--</li>-->
+					<!--<li>-->
+						<!--<span class="param-name">流行元素</span>-->
+						<!--<p class="param-info">擦色</p>-->
+					<!--</li>-->
+					<!--<li>-->
+						<!--<span class="param-name">鞋底材质</span>-->
+						<!--<p class="param-info">木底</p>-->
+					<!--</li>-->
 				</ul>
 			</div>
 			<!-- 尺码图片 -->  <!-- 尺码图片 -->
