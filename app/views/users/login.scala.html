@@ -94,8 +94,6 @@
                     }
                 });
 
-
-
                 /*按下回车键事件*/
                 $(document).keydown(function(event){
                     if (event.keyCode == 13) {
@@ -109,6 +107,8 @@
                 $(".out").click(function() {
                     $("input[name='password']").val("").focus();
                 });
+
+
             })
         </script>
     </head>
@@ -134,7 +134,7 @@
                                 <i class="howl"></i>
                             </dd>
                             <dd class="dd-padding code">
-                                <img style="-webkit-user-select: none;" src="@imageCode">
+                                <img style="-webkit-user-select: none;" src="@imageCode@Math.round(Math.random()*1000000)">
                             </dd>
                         </dl>
                     </form>
