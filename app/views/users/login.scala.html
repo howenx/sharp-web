@@ -1,3 +1,4 @@
+@(imageCode:String)
 <!DOCTYPE HTML>
 <html>
     <head>
@@ -138,10 +139,15 @@
                                 <i class="out"></i>
                                 <i class="howl"></i>
                             </dd>
+<<<<<<< HEAD
                             <dd class="dd-padding proving-box">
                                 <input class="proving" maxlength="4" type="text" size="5" placeholder="请输验证码"/>
                                 <img style="-webkit-user-select: none;" src="http://172.28.3.51:9004/getImageCodes/123">
                                 <a href="javascript:;" class="proving-txt">看不清换一张</a>
+=======
+                            <dd class="dd-padding code">
+                                <img style="-webkit-user-select: none;" src="@imageCode">
+>>>>>>> d1e87114109c122ff661e1e326243e3a6e4386b4
                             </dd>
                         </dl>
                     </form>

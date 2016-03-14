@@ -19,6 +19,12 @@ public class SysParCom {
     public static String COLLECT_DEL; //取消收藏
     public static String ADDRESS_PAGE;//地址
     public static String ADDRESS_ADD;//地址新增
+    public static String COUPON_PAGE;//我的优惠券
+    public static String ORDER_PAGE;//我的订单
+
+
+
+
 
     public static String REGIST_VARIFY;//用户注册手机号检测
     public static String REGIST_CODE;//用户注册发送短信验证码
@@ -28,6 +34,8 @@ public class SysParCom {
     public static String THEME_PAGE;
     public static String PIN_PAGE;
 
+
+    public static String IMAGE_CODE;//图形验证码
 
 
 
@@ -59,14 +67,20 @@ public class SysParCom {
         ADDRESS_PAGE=configuration.getString("user.address");
         ADDRESS_ADD=configuration.getString("user.addressnew");
 
+
+        COUPON_PAGE=configuration.getString("user.coupons");
+        ORDER_PAGE=configuration.getString("user.order.all");
+
+        
         REGIST_VARIFY = configuration.getString("user.regist.verify");
         REGIST_CODE = configuration.getString("user.regist.code");
+
         REGIST_PAGE = configuration.getString("user.page.regist");
         ITEM_PAGE = configuration.getString("products.page.item");
         THEME_PAGE = configuration.getString("products.page.theme");
         PIN_PAGE = configuration.getString("products.page.pin");
 
-
+        IMAGE_CODE =configuration.getString("user.page.imagecode");
 
 
 

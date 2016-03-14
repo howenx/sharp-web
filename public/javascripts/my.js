@@ -25,7 +25,7 @@ $(function(){
         deliveryCity.province_code=province_code;
 
         var address=new Object();
-      //  address.addId=addId;
+        address.addId=addId;
         address.name=name;
         address.tel=tel;
         address.idCardNum=idCardNum;
@@ -49,7 +49,7 @@ $(function(){
                     },
                     success: function(data) {
                     console.log("data="+data);
-                        if (data!=""&&data!=null) {
+                        if (data!=""&&data!=null&&data.code==200)) {
                             setTimeout("location.href='/address'", 3000);
                         }
                      }
