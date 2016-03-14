@@ -3,6 +3,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
     <!-- 视图窗口，移动端特属的标签。 -->
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
     <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
@@ -14,6 +15,7 @@
     <link rel="stylesheet" href="/assets/stylesheets/sho.css"/>
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
     <script src="/assets/javascripts/sho.js"></script>
+
 </head>
 <body>
 <!--头部开始-->
@@ -22,7 +24,7 @@
     <div class="header-text">
         <h1 class="header-title">购物车</h1>
     </div>
-    <a href="@routes.UserCtrl.myView()"><span class="icon-user-title" id="userBtn"></span></a>
+    <a href="@routes.ProductsCtrl.index()"><span class="icon-user-title" id="userBtn"></span></a>
 </header>
 <!--头部结束-->
 <!--购买产品部分开始-->
