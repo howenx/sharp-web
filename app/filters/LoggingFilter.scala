@@ -23,7 +23,7 @@ class LoggingFilter extends EssentialFilter {
         accessLogger.info(
           s"${requestHeader.method} ${result.header.status} ${requestHeader.host}${requestHeader.uri}" +
             s" Remote Address:${requestHeader.remoteAddress} " +
-            s" id-token:${requestHeader.headers.get("id-token").getOrElse("")} " +
+            s" id-token:${requestHeader.session.get("id-toke").getOrElse("")} " +
             s" Time:${requestTime}ms"+
             s" User-Agent:${requestHeader.headers.get("User-Agent").getOrElse("")}")
         result.withHeaders("Request-Time" -> requestTime.toString)

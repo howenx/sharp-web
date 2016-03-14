@@ -51,7 +51,7 @@ public class UserAuth extends Security.Authenticator {
                         JsonNode userJson = Json.parse(token.get());
                         Long userId = userJson.findValue("id").asLong();
                         ctx.session().put("id-token",user_token.get());
-                        ctx.args.put("request",new Request.Builder().header("User-Agent", ctx.request().getHeader("User-Agent")).addHeader("id-token",header.get()));
+                        ctx.args.put("request",new Request.Builder().header("User-Agent", ctx.request().getHeader("User-Agent")).addHeader("id-token",user_token.get()));
                         return userId.toString();
                     }else return null;
                 } else return null;
