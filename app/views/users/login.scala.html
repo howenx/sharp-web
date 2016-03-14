@@ -65,12 +65,16 @@
                                     setTimeout(function(){
                                         window.location.href='/myView';
                                     }, 1500);
-                                }else{
+                                }else if (data.code==4001){
+
+                                }
+                                else{
                                     $('#js-userinfo-error').removeClass("pcue").text(data.message).addClass("cue");
                                     setTimeout("$('#js-userinfo-error').removeClass('cue').addClass('pcue')", 1000);
-                                    setTimeout(function(){
-                                        window.location.href='/login';
-                                    }, 1200);
+//                                    setTimeout(function(){
+//                                        window.location.href='/login';
+//                                    }, 1200);
+
                                 }
                             }
                         });
@@ -93,9 +97,8 @@
 
                 /*按下回车键事件*/
                 $(document).keydown(function(event){
-
                     if (event.keyCode == 13) {
-                        alert(1);
+                        $('#bt_login').click();
                     }
                 });
 
@@ -106,6 +109,11 @@
                 $(".out").click(function() {
                     $("input[name='password']").val("").focus();
                 });
+
+                $('.proving-txt').click(function(){
+                    $('img').remove();
+                    $(".proving-box").append('<img style="-webkit-user-select:none;" src="http://172.28.3.51:9004/getImageCodes/123"/>')
+                })
             })
         </script>
     </head>
@@ -130,10 +138,10 @@
                                 <i class="out"></i>
                                 <i class="howl"></i>
                             </dd>
-                            <dd class="dd-padding code">
-                                <input id="input_password" class="input-weak input-weak-show" maxlength="12" type="password" placeholder="请输入您的密码" name="password" required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}">
-                                <i class="out"></i>
-                                <i class="howl"></i>
+                            <dd class="dd-padding proving-box">
+                                <input class="proving" maxlength="4" type="text" size="5" placeholder="请输验证码"/>
+                                <img style="-webkit-user-select: none;" src="http://172.28.3.51:9004/getImageCodes/123">
+                                <a href="javascript:;" class="proving-txt">看不清换一张</a>
                             </dd>
                         </dl>
                     </form>
