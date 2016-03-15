@@ -37,7 +37,7 @@ GET          /                         controllers.ProductsCtrl.index()
 POST        /indexAjax                 controllers.ProductsCtrl.loadIndexAjax()
 GET         /themeDetail/*url          controllers.ProductsCtrl.themeDetail(url)
 GET         /detail/:type/*url         controllers.ProductsCtrl.detail(type,url)
-GET         /pinDetail                 controllers.ProductsCtrl.pinDetail()
+
 
 
 

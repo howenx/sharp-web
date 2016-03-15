@@ -123,7 +123,7 @@ public class ProductsCtrl extends Controller {
     public Result themeDetail(String url) throws Exception {
         String themeImg = "";
         List<Object[]> tagList = new ArrayList<>();
-        List<Object[]> itemList = new ArrayList<>();
+        List<List<Object[]>> itemResultList = new ArrayList<>();
         Request request = new Request.Builder()
                 .url(THEME_PAGE + url)
                 .build();
@@ -147,7 +147,7 @@ public class ProductsCtrl extends Controller {
                     if(tags != null){
                         JsonNode tagJson = Json.parse(tags);
                         for(JsonNode tag : tagJson){
-                            Object[] tagObject = new Object[6];
+                            Object[] tagObject = new Object[5];
                             tagObject[0] = tag.get("top").asDouble() * 100;
                             tagObject[1] = tag.get("url").toString();
                             tagObject[2] = tag.get("left").asDouble() * 100;
@@ -155,13 +155,6 @@ public class ProductsCtrl extends Controller {
                             tagName = tagName.substring(1,tagName.length()-1);
                             tagObject[3] = tagName;
                             tagObject[4] = tag.get("angle").asInt();
-                            if(tagObject[4].equals(0)){
-                                tagObject[5] = tag.get("left").asDouble() * 100 + 5 ;
-                            }
-//                            if(tagObject[4].equals(180)){
-//                                tagObject[5] = tag.get("left").asDouble() * 100;
-//                            }
-
                             tagList.add(tagObject);
                         }
                     }
@@ -169,37 +162,59 @@ public class ProductsCtrl extends Controller {
                 //主题中的商品
                 if(themeJson.has("themeItemList")){
                     JsonNode itemJson = themeJson.get("themeItemList");
+                    List<Object[]> itemList = new ArrayList<>();
                     for(JsonNode tempJson : itemJson){
-                        Object[] itemObject = new Object[7];
+                        Object[] itemObject = new Object[8];
                         String itemImg = Json.fromJson(tempJson.get("itemImg"),String.class);
                         JsonNode itemImgJson = Json.parse(itemImg);
                         String itemImgUrl = itemImgJson.get("url").toString();
                         itemImgUrl = itemImgUrl.substring(1,itemImgUrl.length()-1);
                         itemObject[0] = itemImgUrl;                                         //商品图片
-                        itemObject[1] = tempJson.get("itemType");                           //商品类型
-                        String itemType = tempJson.get("itemType").toString();
-                        itemType = itemType.substring(1,itemType.length()-1);
-                        String itemUrl = tempJson.get("itemUrl").toString();
-                        itemUrl = itemUrl.substring(1,itemUrl.length()-1);
+                        String itemType = Json.fromJson(tempJson.get("itemType"),String.class);
+                        String itemUrl = Json.fromJson(tempJson.get("itemUrl"),String.class);
                         if("pin".equals(itemType)){
-                            //itemUrl = itemUrl.replace("http://172.28.3.51:9001/comm/pin/detail/","");
                             itemUrl = itemUrl.replace(PIN_PAGE,"");
                         }
-                        if("item".equals(itemType)){
-                            //itemUrl = itemUrl.replace("http://172.28.3.51:9001/comm/detail/","");
+                        if("item".equals(itemType) || "vary".equals(itemType)){
                             itemUrl = itemUrl.replace(ITEM_PAGE,"");
                         }
-                        itemObject[2] = itemUrl;                                            //商品链接
-                        itemObject[3] = tempJson.get("itemTitle");                          //商品Title
-                        itemObject[4] = tempJson.get("itemSrcPrice");                       //商品原价
-                        itemObject[5] = tempJson.get("itemPrice");                          //商品价格
-                        itemObject[6] = tempJson.get("itemDiscount");                       //商品折扣
+                        if("customize".equals(itemType)){
+                            itemUrl = itemUrl.replace(SUBJECT_PAGE,"");
+                        }
+                        itemObject[1] = itemType;                                                   //商品类型
+                        itemObject[2] = itemUrl;                                                    //商品链接
+                        itemObject[3] = Json.fromJson(tempJson.get("itemTitle"),String.class);      //商品Title
+                        itemObject[4] = Json.fromJson(tempJson.get("itemSrcPrice"),String.class);   //商品原价
+                        itemObject[5] = Json.fromJson(tempJson.get("itemPrice"),String.class);      //商品价格
+                        itemObject[6] = Json.fromJson(tempJson.get("itemDiscount"),String.class);   //商品折扣
+                        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        Date now = new Date();
+                        String strNow = sdfDate.format(now);
+                        String endAt = Json.fromJson(tempJson.get("endAt"),String.class);
+                        if(endAt.compareTo(strNow) < 0){
+                            itemObject[7] = "已结束";
+                        }else{
+                            itemObject[7] = "截止" + endAt;
+                        }
                         itemList.add(itemObject);
                     }
+                    for(int i=0;i<itemList.size()/2;i++){
+                        List<Object[]> rowList = new ArrayList<>();
+                        rowList.add(itemList.get(i*2));
+                        rowList.add(itemList.get(i*2+1));
+                        itemResultList.add(rowList);
+                    }
+                    if(itemList.size()%2 != 0){
+                        List<Object[]> rowList = new ArrayList<>();
+                        rowList.add(itemList.get(itemList.size()-1));
+                        itemResultList.add(rowList);
+                    }
+                    Logger.error(itemResultList.toString());
+
                 }
             }
         }
-        return ok(views.html.products.themeDetail.render(themeImg,tagList,itemList));
+        return ok(views.html.products.themeDetail.render(themeImg,tagList,itemResultList));
     }
 
 
@@ -212,7 +227,7 @@ public class ProductsCtrl extends Controller {
         //热卖推荐
         List<List<Object[]>> pushResultList = new ArrayList<>();
         //普通商品
-        if("D".equals(type) || "item".equals(type) || "vary".equals(type)){
+        if("D".equals(type) || "item".equals(type) || "vary".equals(type) || "customize".equals(type)){
             Request request = new Request.Builder()
                     .url(ITEM_PAGE + url)
                     .build();
@@ -286,34 +301,24 @@ public class ProductsCtrl extends Controller {
 
                         pushList.add(pushObject);
                     }
-                    if(pushList.size()%2 == 0){
-                        for(int i=0;i<pushList.size()/2;i++){
-                            List<Object[]> rowList = new ArrayList<>();
-                            rowList.add(pushList.get(i*2));
-                            rowList.add(pushList.get(i*2+1));
-                            pushResultList.add(rowList);
-                        }
-                    }else{
-                        for(int i=0;i<pushList.size()/2 + 1;i++){
-                            List<Object[]> rowList = new ArrayList<>();
-                            rowList.add(pushList.get(i*2));
-                            rowList.add(pushList.get(i*2+1));
-                            pushResultList.add(rowList);
-                        }
+
+                    for(int i=0;i<pushList.size()/2;i++){
+                        List<Object[]> rowList = new ArrayList<>();
+                        rowList.add(pushList.get(i*2));
+                        rowList.add(pushList.get(i*2+1));
+                        pushResultList.add(rowList);
+                    }
+                    if(pushList.size()%2 != 0){
+                        List<Object[]> rowList = new ArrayList<>();
+                        rowList.add(pushList.get(pushList.size()-1));
+                        pushResultList.add(rowList);
                     }
                 }
 
             }
+            return ok(views.html.products.detail.render(itemMain,itemFeaturesList,pushResultList));
+        }else{
+            return ok(views.html.products.pinDetail.render());
         }
-        return ok(views.html.products.detail.render(itemMain,itemFeaturesList,pushResultList));
     }
-
-   //拼购详情
-   public Result pinDetail() {
-
-
-        return ok(views.html.products.pinDetail.render());
-    }
-
-
 }
