@@ -74,6 +74,8 @@ public class SysParCom {
         COUPON_PAGE=configuration.getString("user.coupons");
         ORDER_PAGE=configuration.getString("user.order.all");
 
+
+        
         //注册与密码
         REGIST_VARIFY = configuration.getString("user.regist.verify");
         REGIST_CODE = configuration.getString("user.regist.code");

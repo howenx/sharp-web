@@ -24,56 +24,33 @@
 </header>
 
 <div class="scope wap">
-    <!--@if(null==collectList||collectList.size()<=0){<div class="add">暂无收藏的商品</div>}-->
-    <!--<ul>-->
-        <!--@for(collect<-collectList){-->
-        <!--<li id="li@collect.getCollectId()">-->
-            <!--<div class="touch">-->
-                <!--<span class="touch-name">@collect.getCollectId()</span>-->
-                <!--<i class="touch-numb">@collect.getCartSkuDto().getSkuTitle()</i>-->
-            <!--</div>-->
 
-            <!--<div class="add">安徽省 安庆市 星光大道502</div>-->
-
-            <!--<div class="alter">-->
-                <!--<a  class="alter-btn color" onclick="collectDel(@collect.getCollectId())">取消收藏</a>-->
-            <!--</div>-->
-
-        <!--</li>-->
-        <!--}-->
-    <!--</ul>-->
     <div class="coll">
+
         <ul>
-            <li>
+            @if(null==collectList||collectList.size()<=0){暂无收藏的商品}
+            @for(collect<-collectList){
+            <li value="@collect.getCollectId()">
                 <div class="con">
-                    <a href="javascript:;" class="commodity havenot">
-                        <img src="/assets/images/one.png" alt=""/>
-                        <h2>韩国发希陆新娃娃护手霜80ml深层滋润保湿五件套</h2>
-                        <div class="size"><span>水晶色</span><span>均码</span></div>
-                        <span class="commodity-rmb"><span>单价:</span><i class="rmb color">￥75.00</i><i class="cancelColl">取消收藏</i></span>
+                    <a href="@collect.getCartSkuDto().getInvUrl()" class="commodity havenot">
+                        <div class="pin">
+                            <img src="@collect.getCartSkuDto().getInvImg()" alt=""/>
+                            <div class="pinicon">
+                                <span>拼</span>
+                            </div>
+                        </div>
+
+                        <h2>@collect.getCartSkuDto().getSkuTitle()</h2>
+                        <div class="size"><span>@collect.getCartSkuDto().getItemColor()</span><span>@collect.getCartSkuDto().getItemSize()</span></div>
+                        <span class="commodity-rmb">
+                            <span>单价:</span>
+                            <i class="rmb color">￥@collect.getCartSkuDto().getPrice()</i>
+                            <i class="cancelColl">取消收藏</i>
+                        </span>
                     </a>
                 </div>
             </li>
-            <li>
-                <div class="con">
-                    <a href="javascript:;" class="commodity havenot">
-                        <img src="/assets/images/one.png" alt=""/>
-                        <h2>韩国发希陆新娃娃护手霜80ml深层滋润保湿五件套</h2>
-                        <div class="size"><span>水晶色</span><span>均码</span></div>
-                        <span class="commodity-rmb"><span>单价:</span><i class="rmb color">￥75.00</i><i class="cancelColl">取消收藏</i></span>
-                    </a>
-                </div>
-            </li>
-            <li>
-                <div class="con">
-                    <a href="javascript:;" class="commodity havenot">
-                        <img src="/assets/images/one.png" alt=""/>
-                        <h2>韩国发希陆新娃娃护手霜80ml深层滋润保湿五件套</h2>
-                        <div class="size"><span>水晶色</span><span>均码</span></div>
-                        <span class="commodity-rmb"><span>单价:</span><i class="rmb color">￥75.00</i><i class="cancelColl">取消收藏</i></span>
-                    </a>
-                </div>
-            </li>
+            }
         </ul>
     </div>
 </div>
