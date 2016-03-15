@@ -49,7 +49,7 @@
 						}
 						@if(slider.getTargetType() == "T"){
 						<li>
-							<a class="pic" href="/pin/list/@slider.getItemTarget()"><img src="@slider.getImg()" /></a>
+							<a class="pic" href="/themeDetail/@slider.getItemTarget()"><img src="@slider.getImg()" /></a>
 						</li>
 						}
 
@@ -80,7 +80,7 @@
 				<ul class="col">
 					@for(theme <- themeList){
 						@if(theme. getType() == "ordinary"){
-							<li><a href="/pin/list/@theme.getThemeUrl()"><img src="@theme.getThemeImg()"/></a></li>
+							<li><a href="/themeDetail/@theme.getThemeUrl()"><img src="@theme.getThemeImg()"/></a></li>
 						}
 						@if(theme. getType() == "h5"){
 						<li><a href="@theme.getThemeUrl()"><img src="@theme.getThemeImg()"/></a></li>
