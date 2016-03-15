@@ -33,9 +33,10 @@ public class SysParCom {
     public static String RESET_PASSWORD;//密码修改
     public static String USER_UPDATE;//个人信息修改
 
-    public static String ITEM_PAGE;
-    public static String THEME_PAGE;
-    public static String PIN_PAGE;
+    public static String ITEM_PAGE;//普通商品,多样化价格商品
+    public static String THEME_PAGE;//主题
+    public static String PIN_PAGE;//拼购商品
+    public static String SUBJECT_PAGE;//主题中自定义价格商品
 
 
     public static String IMAGE_CODE;//图形验证码
@@ -74,6 +75,8 @@ public class SysParCom {
         COUPON_PAGE=configuration.getString("user.coupons");
         ORDER_PAGE=configuration.getString("user.order.all");
 
+
+        
         //注册与密码
         REGIST_VARIFY = configuration.getString("user.regist.verify");
         REGIST_CODE = configuration.getString("user.regist.code");
@@ -86,6 +89,7 @@ public class SysParCom {
         ITEM_PAGE = configuration.getString("products.page.item");
         THEME_PAGE = configuration.getString("products.page.theme");
         PIN_PAGE = configuration.getString("products.page.pin");
+        SUBJECT_PAGE = configuration.getString("products.page.subject");
 
         IMAGE_CODE =configuration.getString("user.page.imagecode");
 

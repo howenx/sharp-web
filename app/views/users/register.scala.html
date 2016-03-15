@@ -124,12 +124,13 @@
         <a href="/login"><span class="icon-back" id="backBtn"></span></a>
     </div>
     <div class="login">
+
         <div class="login-t">我们将发送验证码到你的手机</div>
         <fieldset>
             <form id="cell_loginForm" method="post" onsubmit="return false" action="" >
                 <dl class="list list-in">
                     <dd class="dd-padding">
-                       <span>手机号</span> <input id="phoneNum" type="text" class="input-weak" placeholder="请输入手机号" maxlength="11" required pattern="[1][345678]\d{9}" onkeyup="this.value=this.value.replace(/\D/g,'')"/>
+                       <span>手机号</span> <input id="phoneNum" type="text" class="input-rese" placeholder="请输入手机号" maxlength="11" required pattern="[1][345678]\d{9}" onkeyup="this.value=this.value.replace(/\D/g,'')"/>
                         <i class="delet delet-box"></i>
                     </dd>
                 </dl>

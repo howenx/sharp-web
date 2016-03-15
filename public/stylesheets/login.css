@@ -240,6 +240,12 @@ input[type=checkbox]{
 .min{
     font-size: 14px;
 }
+.dd-padding{
+    width: 100%;
+    background-color:#fff;
+    position: relative;
+
+}
 
 .dd-padding .proving{
     float: left;
@@ -472,7 +478,7 @@ dl.list dd>.btn {
     text-align: left;
     margin-top: 10px;
     font-size: 60%;
-
+    width: 236px;
 }
 
 .list dd .two{
@@ -495,7 +501,6 @@ dl.list dd>.btn {
 
 
 .inp{
-    float: left;
     width:20px;
     height:20px;
     cursor: pointer;
@@ -503,11 +508,8 @@ dl.list dd>.btn {
 }
 
 .tip {
-    float: left;
     font-size: 12px;
     color: #8C8C8C;
-    margin: 0 0 0 5px;
-
 }
 
 .tip span{
@@ -579,6 +581,17 @@ dl.list dd>.btn {
     top:12px;
 }
 
+
+.howl-reT{
+
+    top:15px;
+}
+
+.howl-reB{
+
+    top:10px;
+}
+
 .bg1{
     background:url("/assets/images/icon_kejian.png") no-repeat;
     display:inline-block;
@@ -590,10 +603,25 @@ dl.list dd>.btn {
     top:12px;
 }
 
+.bg2,.bg3{
+    background:url("/assets/images/icon_kejian.png") no-repeat;
+    display:inline-block;
+    width:20px;
+    height:20px;
+    background-size: contain;
+    position: absolute;
+    right:40px;
 
+}
 
+.bg2{
+    top:15px;
 
+}
+.bg3{
+    top:10px;
 
+}
 
 
 

@@ -34,7 +34,7 @@
     <meta name="msapplication-tap-highlight" content="no">
     <title>注册</title>
     <link rel="stylesheet" href="/assets/stylesheets/login.css">
-
+    <link rel="stylesheet" href="/assets/stylesheets/regist.css">
     <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
 
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
@@ -43,13 +43,13 @@
     <style type="text/css">
         input:required:valid, input:focus:invalid {
         background-image: url('/assets/images/ex.png');
-        background-position: right top;
+        background-position: right 13px;
         background-repeat: no-repeat;
         -moz-box-shadow: none;
         }
         input:required:valid {
         background-image: url("/assets/images/dui.png");
-        background-position: right top;
+        background-position: right 13px;
         background-repeat: no-repeat;
         }
     </style>
@@ -62,38 +62,37 @@
         <a href="/login"><span class="icon-back" id="backBtn"></span></a>
         <!--<a href="/login"><span class="icon-user-title" id="userBtn"></span></a>-->
     </div>
+    <div class="cue">验证码发送成功</div>
+
     <div class="login">
+        <div class="login-t">已经发送验证码至123224353453</div>
         <div id="js-userinfo-error" class="cue"></div>
         <fieldset>
             <form id="cell_loginForm" method="post" onsubmit="return false" action="" >
                 <dl class="list list-in">
-                    <dd class="dd-padding">
-                        <input id="phoneNum" type="text" class="input-weak" placeholder="请输入手机号" maxlength="11" name="phone" required pattern="[1][345678]\d{9}"/>
-                        <i class="delet"></i>
-                    </dd>
-                    <dd class="dd-padding one" id="send-code-ok"></dd>
-                        <!--验证码发送成功-->
 
-                    <dd class="dd-padding">
-                        <input id="cell_login_checkcode" class="input-weak two" type="text" placeholder="请输入验证码" name="code">
-                        <button id="smsCode" type="button" class="code" disabled="disabled">获取验证码</button>
+
+                    <dd class="dd-padding clearfix dd-one">
+                        <span>验证码</span> <input id="phoneNum" type="text" class="input-rese" placeholder="短信验证码" maxlength="11" name="phone" required pattern="[1][345678]\d{9}"/>
+                        <div class="hq">获取验证码 <i>67s</i></div>
                     </dd>
 
-                    <dd class="dd-padding">
-                        <input id="password" class="input-weak input-weak-show" type="password" name="password" placeholder="密码为6-12位字母/数字的组合" maxlength="12"  required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}"/>
-                        <i class="out" style="top:130px;right:50px;"></i>
-                        <i class="howl" style="top:130px;right:20px;"></i>
+                    <dd class="dd-padding clearfix">
+                        <span>设置密码</span> <input id="phoneNum" type="password" class="input-rese input-reseT" placeholder="6-12位字母/数字组合" maxlength="11" name="pow" required pattern="[1][345678]\d{9}"/>
+                        <i class="delet delet-re"></i>
+                        <i class="howl howl-reT"></i>
                     </dd>
 
-                    <dd class="dd-padding">
-                        <input id="pwd-confirm" class="input-weak input-weak-show" type="password" placeholder="确认密码" maxlength="12" required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}" />
-                        <i class="out" style="top:205px;right:50px;"></i>
-                        <i class="howl" style="top:205px;right:20px;"></i>
+                    <dd class="dd-padding clearfix">
+                        <span>确认密码</span> <input id="phoneNum" type="password" class="input-rese input-reseB" placeholder="再次确认密码" maxlength="11" name="powq" required pattern="[1][345678]\d{9}"/>
+                        <i class="delet delet-rese"></i>
+                        <i class="howl howl-reB"></i>
                     </dd>
                     <dd class="cue" id="code-input-error"></dd>
                         <!--验证码输入错误-->
                 </dl>
             </form>
+
             <div class="agree">
                 <input id="tip" class="inp" type="checkbox">
                 <a class="tip" href="/">我已阅读并接受 <span>韩秘美用户注册协议</span></a>
@@ -248,13 +247,24 @@ $(function() {
 
     /*显示密码*/
     var of = true;
-    $('.howl').click(function(){
-        $(this).toggleClass('bg1');
+    $('.howl-reT').click(function(){
+        $(this).toggleClass('bg2');
         if(of){
-            $('.input-weak-show').attr({'type':'text'});
+            $('.input-reseT').attr({'type':'text'});
             of = false;
         }else{
-            $('.input-weak-show').attr({'type':'password'});
+            $('.input-reseT').attr({'type':'password'});
+            of = true;
+        }
+    });
+
+    $('.howl-reB').click(function(){
+        $(this).toggleClass('bg3');
+        if(of){
+            $('.input-reseB').attr({'type':'text'});
+            of = false;
+        }else{
+            $('.input-reseB').attr({'type':'password'});
             of = true;
         }
     });
