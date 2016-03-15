@@ -322,8 +322,11 @@ div .cycle-overlay {
 	text-align: center;
 
 }
+.classify .current{
+	border: 1px solid #E46359;
+}
 .current{
-	border-bottom:2px solid #f69;
+	border-bottom: 2px solid #f69;
 }
 .tabpanel-tabs .tab-span {
 	display: block;
@@ -408,7 +411,7 @@ div .cycle-overlay {
 .three{
     padding:0 0 0 20px;
 	font-size: 14px;
-	background: url("/assets/images/hmm_dingwei_icon.png") no-repeat;
+	background: url("/assets/images/hmm_dingwei_icon.png") 0 20px no-repeat;
 	float: right;
 	background-size: 20px 20px;
 }
@@ -487,11 +490,6 @@ div .cycle-overlay {
 	cursor: pointer;
 
 }
-.classify ul li:nth-child(1){
-	border: 1px solid #E46359;
-}
-
-
 .sale{
 	margin: 2% 0 0 0;
 	width: 100%;
@@ -552,6 +550,7 @@ div .cycle-overlay {
 	-webkit-flex: 1;
 	-webkit-box-flex: 1;
 	color: #eb4868;
+	line-height: 40px;
 }
 
 /*热卖商品*/
@@ -993,5 +992,21 @@ div .cycle-overlay {
 	width:50px;
 	height:50px;
 
+}
+
+/*ffqwfewafegargsdgga*/
+.thw-detail-other .xian{
+	background: #E66255;color: #fff;padding: 2px 4px;
+	border-radius: 3px;
+}
+.picture_wrap .item{
+	width: 100%;
+	height: 0;
+	overflow: hidden;
+	visibility: hidden;
+}
+.picture_wrap .item.now{
+	visibility: visible;
+	height: auto;
 }
 
