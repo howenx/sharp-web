@@ -26,20 +26,20 @@
         <div class="nav-tab-top box">
             <ul>
 
-                <li class="current">全部订单</li>
+                <li class="current">全部</li>
                 <!--<li>待付款</li>-->
                 <li>
                    <a href="javascript:;" class="message_list shopping">
-                        <i class="message">待收货</i>
-                        <span class="cart_num">0</span>
+                        <i class="message">待付款</i>
+                        <span class="cart_num" id="waitPay">0</span>
                    </a>
 
                 </li>
 
                 <li>
                     <a href="javascript:;" class="message_list shopping">
-                        <i class="message">待发货</i>
-                        <span class="cart_num">0</span>
+                        <i class="message">待收货</i>
+                        <span class="cart_num" id="waitGoods">0</span>
                     </a>
 
                 </li>
@@ -113,7 +113,7 @@
             </section>
 
             <section>
-                <ul>
+                <ul id="waitPayUl">
                     @for(order<-orderList){
                         @if(order.getOrder().getOrderStatus()=="I"||order.getOrder().getOrderStatus()=="F"){
                             <li value="@order.getOrder().getOrderId()">
@@ -152,7 +152,7 @@
             </section>
 
             <section>
-                <ul>
+                <ul id="waitGoodsUl">
                     @for(order<-orderList){
                         @if(order.getOrder().getOrderStatus()=="D"){
                             <li>
