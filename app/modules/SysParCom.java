@@ -29,6 +29,9 @@ public class SysParCom {
     public static String REGIST_VARIFY;//用户注册手机号检测
     public static String REGIST_CODE;//用户注册发送短信验证码
     public static String REGIST_PAGE;//用户注册
+    public static String RESET_VERIFY;//忘记密码手机号检测
+    public static String RESET_PASSWORD;//密码修改
+    public static String USER_UPDATE;//个人信息修改
 
     public static String ITEM_PAGE;
     public static String THEME_PAGE;
@@ -71,11 +74,15 @@ public class SysParCom {
         COUPON_PAGE=configuration.getString("user.coupons");
         ORDER_PAGE=configuration.getString("user.order.all");
 
-        
+        //注册与密码
         REGIST_VARIFY = configuration.getString("user.regist.verify");
         REGIST_CODE = configuration.getString("user.regist.code");
-
         REGIST_PAGE = configuration.getString("user.page.regist");
+        RESET_VERIFY = configuration.getString("user.reset.verify");
+        RESET_PASSWORD = configuration.getString("user.reset.password ");
+        USER_UPDATE = configuration.getString("user.page.update");
+
+
         ITEM_PAGE = configuration.getString("products.page.item");
         THEME_PAGE = configuration.getString("products.page.theme");
         PIN_PAGE = configuration.getString("products.page.pin");

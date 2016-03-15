@@ -16,10 +16,12 @@ POST        /login/submit             controllers.UserCtrl.loginSubmit()
 GET         /collect                  controllers.UserCtrl.collect()
 GET         /collect/del/$collectId<[0-9]+>              controllers.UserCtrl.collectDel(collectId:Long)
 
-
+POST        /regist/verify            controllers.UserCtrl.registVerify()
 POST        /regist/code              controllers.UserCtrl.registCode()
 POST        /regist/submit            controllers.UserCtrl.registSubmit()
-
+POST        /reset/verify             controllers.UserCtrl.resetVerify()
+POST        /reset/password           controllers.UserCtrl.resetPassword()
+#POST        /user/update              controllers.UserCtrl.userUpdate()
 
 
 
