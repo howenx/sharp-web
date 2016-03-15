@@ -62,31 +62,27 @@ $(function(){
     });
 
 })
+$(document).on("click",".cancelColl",function(e){
+    e.preventDefault();
+    var id=$(this).parents("li").val();
+    var li=$(this).parents("li");
+    console.log("id="+id);
+    $.ajax({
+          type :"GET",
+          url : "/collect/del/"+id,
+          contentType: "application/json; charset=utf-8",
+          error : function(request) {
+              alert("删除失败!")
+          },
+          success: function(data) {
+             console.log("data="+data);
 
-function collectDel(id){
-    if (window.confirm("确定取消收藏吗?")) {
-        $.ajax({
-              type :"GET",
-              url : "/collect/del/"+id,
-              contentType: "application/json; charset=utf-8",
-              error : function(request) {
-                  if (window.lang = 'cn') {
-                      $('#js-userinfo-error').text('删除失败');
-                  } else {
-                      $('#js-userinfo-error').text('delete error');
-                  }
-                  setTimeout("$('#js-userinfo-error').text('')", 2000);
-              },
-              success: function(data) {
-                 console.log("data="+data);
+               if(data.code==200){ //取消收藏成功
+                  li.remove();
+               } else alert("删除失败!");
 
-                   if(data.code==200){ //取消收藏成功
-                       $("#li"+id).remove();
-                   } else alert("删除失败!");
-
-              }
-          });
-    }
-}
+          }
+     });
+})
 
 

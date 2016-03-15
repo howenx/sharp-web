@@ -273,7 +273,22 @@ span .number{
 .coll ul .commodity-rmb span{
     float: left;font-size: 20px;
 }
+.coll .cancelColl{
+    float: right;
+    padding: 3px 6px;
+}
+.coll .pin{
+    position: relative;
+}
+.coll .pin .pinicon{
+    position: absolute;left: 0;top: 0;
+    width: 30px;height: 30px;background: orangered;
+}
+.coll .pin .pinicon span{
+    display: inline-block;width: 24px;height: 24px;text-align: center;line-height: 24px;
+    margin: 3px;border-radius: 50%;background: #fff;color: orangered;font-size: 14px;
 
+}
 
 
 
