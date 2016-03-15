@@ -25,7 +25,7 @@
 
 .list span{
    float: left;
-    width:70px;
+    width:80px;
     height: 45px;
     line-height: 45px;
     padding:0 0 0 10px;
@@ -85,7 +85,7 @@
 
 }
 
-.delet {
+.delet{
     width: 20px;
     right: 40px;
     top: 20px;
@@ -93,8 +93,18 @@
 
 .delet-box{
     top:60px;
+
 }
 
+.delet-re{
+    top:114px;
+    right:70px;
+}
+
+.delet-rese{
+    top:158px;
+    right: 70px;
+}
 /*找回密码*/
 .box-s{
     width:100%;
@@ -139,4 +149,31 @@ input.input-proof{
     margin: 10px 10px 0 0;
 }
 
+/*找回密码*/
+.dd-one{
+    margin: 0 0 10px 0;
 
+}
+
+.hq{
+    padding:11px 0 ;
+    float: right;
+    width:150px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+.input-rese{
+    float: left;
+    width: 38%;
+    border: none;
+    margin: 0;
+    font-size: 14px;
+    line-height: 45px;
+    vertical-align: middle;
+}
+
+.cue{
+    background-color:#FFEEDE;
+    color: #E66255;
+}

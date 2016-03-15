@@ -240,6 +240,11 @@ input[type=checkbox]{
 .min{
     font-size: 14px;
 }
+.dd-padding{
+    width: 100%;
+    background-color:#fff;
+
+}
 
 .dd-padding .proving{
     float: left;
@@ -579,6 +584,17 @@ dl.list dd>.btn {
     top:12px;
 }
 
+
+.howl-reT{
+
+    top:114px;
+}
+
+.howl-reB{
+
+    top:158px;
+}
+
 .bg1{
     background:url("/assets/images/icon_kejian.png") no-repeat;
     display:inline-block;
@@ -590,10 +606,25 @@ dl.list dd>.btn {
     top:12px;
 }
 
+.bg2,.bg3{
+    background:url("/assets/images/icon_kejian.png") no-repeat;
+    display:inline-block;
+    width:20px;
+    height:20px;
+    background-size: contain;
+    position: absolute;
+    right:40px;
 
+}
 
+.bg2{
+    top:114px;
 
+}
+.bg3{
+    top:158px;
 
+}
 
 
 
