@@ -273,6 +273,10 @@ span .number{
 .coll ul .commodity-rmb span{
     float: left;font-size: 20px;
 }
+.coll .cancelColl{
+    float: right;
+    padding: 3px 6px;
+}
 
 
 
