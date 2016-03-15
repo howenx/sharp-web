@@ -113,32 +113,38 @@ public class UserCtrl extends Controller {
         return ok(views.html.users.carded.render());
     }
 
-    //优惠券
-    @Security.Authenticated(UserAuth.class)
-    public F.Promise<Result> coupon() {
-        Promise<List<CouponVo> > promiseOfInt = Promise.promise(() -> {
-            Request.Builder builder =(Request.Builder)ctx().args.get("request");
-            Request request=builder.url(COUPON_PAGE).get().build();
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()){
-                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
-                Logger.info("===json==" + json);
-                Message message = Json.fromJson(json.get("message"), Message.class);
-                if(null==message||message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
-                    Logger.error("返回收藏数据错误code="+(null!=message?message.getCode():0));
-                    return new ArrayList<CouponVo>();
-                }
-                ObjectMapper mapper = new ObjectMapper();
-                List<CouponVo> couponList = mapper.readValue(json.get("coupons").toString(), new TypeReference<List<CouponVo>>() {});
-                return couponList;
-            }else  throw new IOException("Unexpected code " + response);
-        });
+//    //优惠券
+//    @Security.Authenticated(UserAuth.class)
+//    public F.Promise<Result> coupon() {
+//        Promise<List<CouponVo> > promiseOfInt = Promise.promise(() -> {
+//            Request.Builder builder =(Request.Builder)ctx().args.get("request");
+//            Request request=builder.url(COUPON_PAGE).get().build();
+//            Response response = client.newCall(request).execute();
+//            if (response.isSuccessful()){
+//                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
+//                Logger.info("===json==" + json);
+//                Message message = Json.fromJson(json.get("message"), Message.class);
+//                if(null==message||message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+//                    Logger.error("返回收藏数据错误code="+(null!=message?message.getCode():0));
+//                    return new ArrayList<CouponVo>();
+//                }
+//                ObjectMapper mapper = new ObjectMapper();
+//                List<CouponVo> couponList = mapper.readValue(json.get("coupons").toString(), new TypeReference<List<CouponVo>>() {});
+//                return couponList;
+//            }else  throw new IOException("Unexpected code " + response);
+//        });
+//
+//        return promiseOfInt.map((Function<List<CouponVo> , Result>) pi -> {
+//                    return ok(views.html.users.coupon.render(pi));
+//                }
+//        );
+//    }
 
-        return promiseOfInt.map((Function<List<CouponVo> , Result>) pi -> {
-                    return ok(views.html.users.coupon.render(pi));
-                }
-        );
+    //优惠券
+    public Result coupon() {
+        return ok(views.html.users.coupon.render());
     }
+
 
     public Result login() {
         return ok(views.html.users.login.render(IMAGE_CODE));
