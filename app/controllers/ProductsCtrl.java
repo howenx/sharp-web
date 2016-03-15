@@ -119,6 +119,103 @@ public class ProductsCtrl extends Controller {
 
     }
 
+    //主题详情页
+    public Result themeDetail(String url) throws Exception {
+        String themeImg = "";
+        List<Object[]> tagList = new ArrayList<>();
+        List<List<Object[]>> itemResultList = new ArrayList<>();
+        Request request = new Request.Builder()
+                .url(THEME_PAGE + url)
+                .build();
+        Response response = client.newCall(request).execute();
+        if(response.isSuccessful()){
+            JsonNode json = Json.parse(response.body().string());
+            if(json.has("themeList")){
+                JsonNode themeJson = json.get("themeList");
+                //主题主图
+                if(themeJson.has("themeImg")){
+                    String img = Json.fromJson(themeJson.get("themeImg"),String.class);
+                    JsonNode imgJson = Json.parse(img);
+                    themeImg = imgJson.get("url").toString();
+                    themeImg = themeImg.substring(1,themeImg.length()-1);
+                }
+                //主题标签
+                if(themeJson.has("masterItemTag")){
+                    JsonNode tempJson = themeJson.get("masterItemTag");
+
+                    String tags = Json.fromJson(tempJson,String.class);
+                    if(tags != null){
+                        JsonNode tagJson = Json.parse(tags);
+                        for(JsonNode tag : tagJson){
+                            Object[] tagObject = new Object[5];
+                            tagObject[0] = tag.get("top").asDouble() * 100;
+                            tagObject[1] = tag.get("url").toString();
+                            tagObject[2] = tag.get("left").asDouble() * 100;
+                            String tagName = tag.get("name").toString();
+                            tagName = tagName.substring(1,tagName.length()-1);
+                            tagObject[3] = tagName;
+                            tagObject[4] = tag.get("angle").asInt();
+                            tagList.add(tagObject);
+                        }
+                    }
+                }
+                //主题中的商品
+                if(themeJson.has("themeItemList")){
+                    JsonNode itemJson = themeJson.get("themeItemList");
+                    List<Object[]> itemList = new ArrayList<>();
+                    for(JsonNode tempJson : itemJson){
+                        Object[] itemObject = new Object[8];
+                        String itemImg = Json.fromJson(tempJson.get("itemImg"),String.class);
+                        JsonNode itemImgJson = Json.parse(itemImg);
+                        String itemImgUrl = itemImgJson.get("url").toString();
+                        itemImgUrl = itemImgUrl.substring(1,itemImgUrl.length()-1);
+                        itemObject[0] = itemImgUrl;                                         //商品图片
+                        String itemType = Json.fromJson(tempJson.get("itemType"),String.class);
+                        String itemUrl = Json.fromJson(tempJson.get("itemUrl"),String.class);
+                        if("pin".equals(itemType)){
+                            itemUrl = itemUrl.replace(PIN_PAGE,"");
+                        }
+                        if("item".equals(itemType) || "vary".equals(itemType)){
+                            itemUrl = itemUrl.replace(ITEM_PAGE,"");
+                        }
+                        if("customize".equals(itemType)){
+                            itemUrl = itemUrl.replace(SUBJECT_PAGE,"");
+                        }
+                        itemObject[1] = itemType;                                                   //商品类型
+                        itemObject[2] = itemUrl;                                                    //商品链接
+                        itemObject[3] = Json.fromJson(tempJson.get("itemTitle"),String.class);      //商品Title
+                        itemObject[4] = Json.fromJson(tempJson.get("itemSrcPrice"),String.class);   //商品原价
+                        itemObject[5] = Json.fromJson(tempJson.get("itemPrice"),String.class);      //商品价格
+                        itemObject[6] = Json.fromJson(tempJson.get("itemDiscount"),String.class);   //商品折扣
+                        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        Date now = new Date();
+                        String strNow = sdfDate.format(now);
+                        String endAt = Json.fromJson(tempJson.get("endAt"),String.class);
+                        if(endAt.compareTo(strNow) < 0){
+                            itemObject[7] = "已结束";
+                        }else{
+                            itemObject[7] = "截止" + endAt;
+                        }
+                        itemList.add(itemObject);
+                    }
+                    for(int i=0;i<itemList.size()/2;i++){
+                        List<Object[]> rowList = new ArrayList<>();
+                        rowList.add(itemList.get(i*2));
+                        rowList.add(itemList.get(i*2+1));
+                        itemResultList.add(rowList);
+                    }
+                    if(itemList.size()%2 != 0){
+                        List<Object[]> rowList = new ArrayList<>();
+                        rowList.add(itemList.get(itemList.size()-1));
+                        itemResultList.add(rowList);
+                    }
+                    Logger.error(itemResultList.toString());
+
+                }
+            }
+        }
+        return ok(views.html.products.themeDetail.render(themeImg,tagList,itemResultList));
+    }
 
 
     //商品明细
@@ -130,7 +227,7 @@ public class ProductsCtrl extends Controller {
         //热卖推荐
         List<List<Object[]>> pushResultList = new ArrayList<>();
         //普通商品
-        if("D".equals(type) || "item".equals(type) || "vary".equals(type)){
+        if("D".equals(type) || "item".equals(type) || "vary".equals(type) || "customize".equals(type)){
             Request request = new Request.Builder()
                     .url(ITEM_PAGE + url)
                     .build();
@@ -141,9 +238,9 @@ public class ProductsCtrl extends Controller {
                 if(json.has("main")){
                     JsonNode mainJson = json.get("main");
                     itemMain = Json.fromJson(mainJson,Item.class);
-                    String itemPublicity = itemMain.getPublicity();
-                    itemPublicity = itemPublicity.substring(2,itemPublicity.length()-2);
-                    itemMain.setPublicity(itemPublicity);
+//                    String itemPublicity = itemMain.getPublicity();
+//                    itemPublicity = itemPublicity.substring(2,itemPublicity.length()-2);
+//                    itemMain.setPublicity(itemPublicity);
                     //商品参数
                     if(itemMain != null){
                         JsonNode features = Json.parse(itemMain.getItemFeatures());
@@ -204,34 +301,57 @@ public class ProductsCtrl extends Controller {
 
                         pushList.add(pushObject);
                     }
-                    if(pushList.size()%2 == 0){
-                        for(int i=0;i<pushList.size()/2;i++){
-                            List<Object[]> rowList = new ArrayList<>();
-                            rowList.add(pushList.get(i*2));
-                            rowList.add(pushList.get(i*2+1));
-                            pushResultList.add(rowList);
-                        }
-                    }else{
-                        for(int i=0;i<pushList.size()/2 + 1;i++){
-                            List<Object[]> rowList = new ArrayList<>();
-                            rowList.add(pushList.get(i*2));
-                            rowList.add(pushList.get(i*2+1));
-                            pushResultList.add(rowList);
-                        }
+
+                    for(int i=0;i<pushList.size()/2;i++){
+                        List<Object[]> rowList = new ArrayList<>();
+                        rowList.add(pushList.get(i*2));
+                        rowList.add(pushList.get(i*2+1));
+                        pushResultList.add(rowList);
+                    }
+                    if(pushList.size()%2 != 0){
+                        List<Object[]> rowList = new ArrayList<>();
+                        rowList.add(pushList.get(pushList.size()-1));
+                        pushResultList.add(rowList);
                     }
                 }
-
             }
+            return ok(views.html.products.detail.render(itemMain,itemFeaturesList,pushResultList));
         }
-        return ok(views.html.products.detail.render(itemMain,itemFeaturesList,pushResultList));
+        //拼购商品
+        else{
+            Request request = new Request.Builder()
+                    .url(PIN_PAGE + url)
+                    .build();
+            Response response = client.newCall(request).execute();
+            if(response.isSuccessful()){
+                JsonNode json = Json.parse(response.body().string());
+                //拼购商品基本信息
+                if(json.has("main")){
+                    JsonNode mainJson = json.get("main");
+                    itemMain = Json.fromJson(mainJson,Item.class);
+//                    String itemPublicity = itemMain.getPublicity();
+//                    itemPublicity = itemPublicity.substring(2,itemPublicity.length()-2);
+//                    itemMain.setPublicity(itemPublicity);
+                    //商品参数
+                    if(itemMain != null){
+                        JsonNode features = Json.parse(itemMain.getItemFeatures());
+                        HashMap featuresMap = Json.fromJson(features,HashMap.class);
+                        for(Object key : featuresMap.keySet()){
+                            Object[] featureObj = new Object[2];
+                            featureObj[0] = key;
+                            featureObj[1] = featuresMap.get(key);
+                            itemFeaturesList.add(featureObj);
+                        }
+                    }
+                    Logger.error(itemMain.toString());
+                }
+                //拼购商品Sku
+                JsonNode stockJson = json.get("stock");
+
+                //商品推荐
+                JsonNode pushJson = json.get("push");
+            }
+            return ok(views.html.products.pinDetail.render(itemMain,itemFeaturesList));
+        }
     }
-
-   //拼购详情
-   public Result pinDetail() {
-
-
-        return ok(views.html.products.pinDetail.render());
-    }
-
-
 }

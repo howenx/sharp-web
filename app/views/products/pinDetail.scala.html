@@ -1,3 +1,4 @@
+@(itemMain:domain.Item,itemFeaturesList:List[Array[Object]])
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +27,7 @@
                 <i></i>
                 <b></b>
             </a>
-            <h1>秋季新品甜美两件套秋季新品甜美两件套</h1>
+            <h1>商品详情</h1>
             <!--分享icon-->
             <div id="shopCart">
                 <a href="" class="message_list shopping">
@@ -118,17 +119,15 @@
 
     <!-- 详情图片 -->
     <div class="conner">
-        <img src="/assets/images/img1.png"/>
-        <img src="/assets/images/img2.png"/>
-
+        @Html(itemMain.getItemDetailImgs())
     </div>
     <div class="sku-measure">
-        <img src="/assets/images/img3.png"/>
-        <img src="/assets/images/img4.png"/>
-        <img src="/assets/images/img5.png"/>
-        <img src="/assets/images/img6.png"/>
-        <img src="/assets/images/img7.png"/>
-        <img src="/assets/images/img8.png"/>
+        <!--<img src="/assets/images/img3.png"/>-->
+        <!--<img src="/assets/images/img4.png"/>-->
+        <!--<img src="/assets/images/img5.png"/>-->
+        <!--<img src="/assets/images/img6.png"/>-->
+        <!--<img src="/assets/images/img7.png"/>-->
+        <!--<img src="/assets/images/img8.png"/>-->
     </div>
 
 </div>

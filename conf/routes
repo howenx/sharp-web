@@ -35,8 +35,10 @@ POST        /reset/password           controllers.UserCtrl.resetPassword()
 #首页,主题,详情页相关
 GET          /                         controllers.ProductsCtrl.index()
 POST        /indexAjax                 controllers.ProductsCtrl.loadIndexAjax()
+GET         /themeDetail/*url          controllers.ProductsCtrl.themeDetail(url)
 GET         /detail/:type/*url         controllers.ProductsCtrl.detail(type,url)
-GET         /pinDetail                 controllers.ProductsCtrl.pinDetail()
+
+
 
 
 
@@ -53,14 +55,14 @@ GET         /assess                   controllers.ShoppingCtrl.assess()
 GET         /delivered                controllers.ShoppingCtrl.delivered()
 GET         /drawback                 controllers.ShoppingCtrl.drawback()
 GET         /fightgroups              controllers.ShoppingCtrl.fightgroups()
-GET         /pin/list/*url            controllers.ShoppingCtrl.pinList(url)
 GET         /logistic                 controllers.ShoppingCtrl.logistic()
 GET         /obligati                 controllers.ShoppingCtrl.obligati()
 GET         /orders                   controllers.ShoppingCtrl.orders()
 GET         /settle                   controllers.ShoppingCtrl.settle()
 GET         /cart                     controllers.ShoppingCtrl.cart()
 GET         /cart/empty               controllers.ShoppingCtrl.emptyCart()
-
+GET         /order/cancel/$orderId<[0-9]+>     controllers.ShoppingCtrl.cancelOrder(orderId:Long)
+GET         /order/del/$orderId<[0-9]+>        controllers.ShoppingCtrl.delOrder(orderId:Long)
 
 
 #
