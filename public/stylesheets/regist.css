@@ -74,7 +74,7 @@
     margin:20px auto;
 }
 
-.box-a .box-l,.box-a .box-r{
+.box-a .box-l,.box-a .box-r,.box-s .box-q,.box-s .box-d{
     width:100px;
     text-align: center;
     display: inline-block;
@@ -96,6 +96,47 @@
 }
 
 /*找回密码*/
-.shade-box{
+.box-s{
+    width:100%;
+}
+.box-s .box-q,.box-s .box-d{
+    width:50%;
+    float: left;
+    border: none;
+    background-color: #ededed;
+}
+.box-s .box-q{
+    border-right:1px solid #ccc;
+    color: #999;
+}
+.proof-box{
+    width: 100%;
+    border: 1px solid #ccc;
+    height:50px;
+}
+
+input.input-proof{
+    width:60%;
+    float: left;
 
 }
+
+.proof-box div{
+    width:40%;
+    float: right;
+}
+#imageCodeImage{
+   float: right;
+    width:70px;
+    margin: 12px 0 0 0;
+}
+.proof-icon{
+    width:30px;
+    height:30px;
+    background: url("/assets/images/icon_shuaxin.png") no-repeat;
+    background-size: contain;
+    float: right;
+    margin: 10px 10px 0 0;
+}
+
+
