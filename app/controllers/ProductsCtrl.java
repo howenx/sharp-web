@@ -159,7 +159,7 @@ public class ProductsCtrl extends Controller {
         return ok(views.html.products.detail.render(itemMain,itemFeaturesList));
     }
 
-    //拼购详情
+   //拼购详情
    public Result pinDetail() {
 
 
