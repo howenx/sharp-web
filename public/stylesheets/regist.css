@@ -1,0 +1,37 @@
+#screen_wrap {
+   background-color:#F3F5F4;
+}
+
+.login-t{
+    color: #999;
+    padding: 0 0 0 2%;
+    font-size: 14px;
+    margin: 10px 0;
+}
+.list dd>.input-weak {
+    float: left;
+    width:70%;
+    border:none;
+    margin: 0 ;
+    font-size: 14px;
+
+}
+
+.list{
+    width: 100%;
+    background-color: #fff;
+    height: 45px;
+}
+
+.list span{
+   float: left;
+    width:70px;
+    height: 45px;
+    line-height: 45px;
+    padding:0 0 0 10px;
+
+}
+
+.back{
+    margin:20px 0;
+}

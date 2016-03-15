@@ -371,4 +371,10 @@ public class UserCtrl extends Controller {
         }
 
     }
+
+    //注册
+        public Result register() {
+            return ok(views.html.users.register.render());
+        }
 }
+
