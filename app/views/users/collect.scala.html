@@ -33,7 +33,13 @@
             <li value="@collect.getCollectId()">
                 <div class="con">
                     <a href="@collect.getCartSkuDto().getInvUrl()" class="commodity havenot">
-                        <img src="@collect.getCartSkuDto().getInvImg()" alt=""/>
+                        <div class="pin">
+                            <img src="@collect.getCartSkuDto().getInvImg()" alt=""/>
+                            <div class="pinicon">
+                                <span>拼</span>
+                            </div>
+                        </div>
+
                         <h2>@collect.getCartSkuDto().getSkuTitle()</h2>
                         <div class="size"><span>@collect.getCartSkuDto().getItemColor()</span><span>@collect.getCartSkuDto().getItemSize()</span></div>
                         <span class="commodity-rmb">
