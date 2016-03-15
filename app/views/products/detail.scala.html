@@ -1,4 +1,4 @@
-@(itemMain:domain.Item,itemFeaturesList:List[Array[Object]])
+@(itemMain:domain.Item,itemFeaturesList:List[Array[Object]],pushList:List[List[Array[Object]]])
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,7 +32,7 @@
 				<i></i>
 				<b></b>
 			</a>
-			<h1>@itemMain.getItemTitle()</h1>
+			<h1>商品详情</h1>
 
 
 		</div>
@@ -258,53 +258,83 @@
 	<div class="hot">
 		<p class="hot-hd">热卖商品</p>
 		<ul class="product">
-			<li>
-				<a href="/detail">
-					<p class="product-box">
-						<span class="product-top">已结束</span>
-					</p>
-					<img src="/assets/images/HMM--list_01.jpg">
-					<p class="title-hd">德国原产 深层修护经典护手霜100ml</p>
-                   <span class="title-fd">
-                       <i class="naw">￥75.00</i>
-                       <i class="agio">￥125.00</i>
-                       <b>5.6折</b>
-                   </span>
-				</a>
-				<a href="javascript:;">
-					<p class="product-box">
-						<span class="product-top">截止7月14日下午14:00</span>
-					</p>
-					<img src="/assets/images/HMM--list_01.jpg">
-					<p class="title-hd">德国原产 深层修护经典护手霜100ml</p>
-                   <span class="title-fd">
-                       <i class="naw">￥75.00</i>
-                       <i class="agio">￥125.00</i>
-                       <b>5.6折</b>
-                   </span>
-				</a>
-			</li>
+			@for(rowList <- pushList){
+				<li>
+					@for(pushItem <- rowList){
+						@if(pushItem(9) == "item" || pushItem(9) == "vary" || pushItem(9) == "customize"){
+							<a href="/detail/@pushItem(9)/@pushItem(1)">
+								<img src="@pushItem(0)">
+								<p class="title-hd">@pushItem(2)</p>
+								   <span class="title-fd">
+									   <i class="naw">￥@pushItem(4)</i>
+									   <i class="agio">￥@pushItem(3)</i>
+									   <b>@pushItem(5)折</b>
+								   </span>
+							</a>
+						}
+						@if(pushItem(9) == "pin"){
+							<a href="/detail/@pushItem(9)/@pushItem(1)">
+								<p class="product-box">
+									<span class="product-top">@pushItem(12)</span>
+								</p>
+								<img src="@pushItem(0)">
+								<p class="title-hd">@pushItem(2)</p>
+						   <span class="title-fd">
+							   <i class="naw">￥@pushItem(4)</i>
+							   <i class="agio">￥@pushItem(3)</i>
+							   <b>@pushItem(5)折</b>
+						   </span>
+							</a>
+						}
+					}
+				</li>
+			}
 
-			<li>
-				<a href="/detail"><img src="/assets/images/HMM--list_01.jpg">
-					<p class="title-hd">德国原产 深层修护经典护手霜100ml</p>
-                   <span class="title-fd">
-                       <i class="naw">￥75.00</i>
-                       <i class="agio">￥125.00</i>
-                       <b>5.6折</b>
-                   </span>
-				</a>
-				<a href="javascript:;"><img src="/assets/images/HMM--list_01.jpg">
-					<p class="title-hd">德国原产 深层修护经典护手霜100ml</p>
-                   <span class="title-fd">
-                       <i class="naw">￥75.00</i>
-                       <i class="agio">￥125.00</i>
-                       <b>5.6折</b>
-                   </span>
-				</a>
-			</li>
+			<!--<li>-->
+				<!--<a href="/detail">-->
+					<!--<p class="product-box">-->
+						<!--<span class="product-top">已结束</span>-->
+					<!--</p>-->
+					<!--<img src="/assets/images/HMM&#45;&#45;list_01.jpg">-->
+					<!--<p class="title-hd">德国原产 深层修护经典护手霜100ml</p>-->
+                   <!--<span class="title-fd">-->
+                       <!--<i class="naw">￥75.00</i>-->
+                       <!--<i class="agio">￥125.00</i>-->
+                       <!--<b>5.6折</b>-->
+                   <!--</span>-->
+				<!--</a>-->
+				<!--<a href="javascript:;">-->
+					<!--<p class="product-box">-->
+						<!--<span class="product-top">截止7月14日下午14:00</span>-->
+					<!--</p>-->
+					<!--<img src="/assets/images/HMM&#45;&#45;list_01.jpg">-->
+					<!--<p class="title-hd">德国原产 深层修护经典护手霜100ml</p>-->
+                   <!--<span class="title-fd">-->
+                       <!--<i class="naw">￥75.00</i>-->
+                       <!--<i class="agio">￥125.00</i>-->
+                       <!--<b>5.6折</b>-->
+                   <!--</span>-->
+				<!--</a>-->
+			<!--</li>-->
 
-
+			<!--<li>-->
+				<!--<a href="/detail"><img src="/assets/images/HMM&#45;&#45;list_01.jpg">-->
+					<!--<p class="title-hd">德国原产 深层修护经典护手霜100ml</p>-->
+                   <!--<span class="title-fd">-->
+                       <!--<i class="naw">￥75.00</i>-->
+                       <!--<i class="agio">￥125.00</i>-->
+                       <!--<b>5.6折</b>-->
+                   <!--</span>-->
+				<!--</a>-->
+				<!--<a href="javascript:;"><img src="/assets/images/HMM&#45;&#45;list_01.jpg">-->
+					<!--<p class="title-hd">德国原产 深层修护经典护手霜100ml</p>-->
+                   <!--<span class="title-fd">-->
+                       <!--<i class="naw">￥75.00</i>-->
+                       <!--<i class="agio">￥125.00</i>-->
+                       <!--<b>5.6折</b>-->
+                   <!--</span>-->
+				<!--</a>-->
+			<!--</li>-->
 
 
 		</ul>
