@@ -22,6 +22,7 @@ import java.util.List;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static modules.SysParCom.*;
+import static play.libs.Json.toJson;
 
 /**
  * 购物车,结算相关
@@ -233,4 +234,56 @@ public class ShoppingCtrl extends Controller {
     public Result settle() {
         return ok(views.html.shopping.settle.render());
     }
+
+    /**
+     * 取消订单
+     * @param id
+     * @return
+     */
+    @Security.Authenticated(UserAuth.class)
+    public F.Promise<Result>  cancelOrder(Long id) {
+        play.libs.F.Promise<Message > promiseOfInt = play.libs.F.Promise.promise(() -> {
+            Request.Builder builder =(Request.Builder)ctx().args.get("request");
+            Request request=builder.url(ORDER_CANCEL+id).get().build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()){
+                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
+                Logger.info("===json==" + json);
+                Message message = Json.fromJson(json.get("message"), Message.class);
+                return message;
+            }else  throw new IOException("Unexpected code " + response);
+        });
+
+        return promiseOfInt.map((play.libs.F.Function<Message , Result>) pi -> {
+                    return ok(toJson(pi));
+                }
+        );
+    }
+
+    /**
+     * 删除订单
+     * @param id
+     * @return
+     */
+    @Security.Authenticated(UserAuth.class)
+    public F.Promise<Result>  delOrder(Long id) {
+        play.libs.F.Promise<Message > promiseOfInt = play.libs.F.Promise.promise(() -> {
+            Request.Builder builder =(Request.Builder)ctx().args.get("request");
+            Request request=builder.url(ORDER_DEL+id).get().build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()){
+                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
+                Logger.info("===json==" + json);
+                Message message = Json.fromJson(json.get("message"), Message.class);
+                return message;
+            }else  throw new IOException("Unexpected code " + response);
+        });
+
+        return promiseOfInt.map((play.libs.F.Function<Message , Result>) pi -> {
+                    return ok(toJson(pi));
+                }
+        );
+    }
+
 }
+

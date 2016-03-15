@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/assets/stylesheets/obligation.css">
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
     <script src="/assets/javascripts/obligation.js"></script>
+    <script src="/assets/javascripts/my.js"></script>
 </head>
 <body>
 <header class="head">
@@ -38,7 +39,7 @@
             <section class="current">
                 <ul>
                     @for(order<-orderList){
-                    <li>
+                    <li value="@order.getOrder().getOrderId()">
                         <div class="con">
                             <div class="day">
                                 <div class="day-l">
@@ -75,12 +76,15 @@
                             }
                             <div class="payment">
                                 @if(order.getOrder().getOrderStatus()=="I"||order.getOrder().getOrderStatus()=="F"){
-                                    <a href="javascript:;" class="left">取消订单</a>
+                                    <a href="javascript:;" class="left cancelOrder">取消订单</a>
                                     <a href="javascript:;" class="right bg">去支付</a>
                                     <a href="javascript:;" class="right mi">应付金额:￥@order.getOrder().getPayTotal()</a>
                                 }
                                 @if(order.getOrder().getOrderStatus()=="D"){
                                     <a href="javascript:;" class="right bg">查看物流</a>
+                                }
+                                @if(order.getOrder().getOrderStatus()=="C"){
+                                <a href="javascript:;" class="right bg delOrder">删除</a>
                                 }
 
                             </div>
@@ -95,7 +99,7 @@
                 <ul>
                     @for(order<-orderList){
                         @if(order.getOrder().getOrderStatus()=="I"||order.getOrder().getOrderStatus()=="F"){
-                            <li>
+                            <li value="@order.getOrder().getOrderId()">
                                 <div class="con">
                                     <div class="day">
                                         <div class="day-l">
@@ -118,7 +122,7 @@
                                     </a>
                                     }
                                     <div class="payment">
-                                        <a href="javascript:;" class="left">取消订单</a>
+                                        <a href="javascript:;" class="left cancelOrder">取消订单</a>
                                         <a href="javascript:;" class="right bg">去支付</a>
                                         <a href="javascript:;" class="right mi">应付金额:￥@order.getOrder().getPayTotal()</a>
                                     </div>
