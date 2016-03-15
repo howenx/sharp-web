@@ -8,7 +8,50 @@
     <meta content="telephone=no" name="format-detection">
     <title>注册 － 韩秘美</title>
     <link rel="stylesheet" href="/assets/stylesheets/login.css">
-    <link rel="stylesheet" href="/assets/stylesheets/hp.css">
+    <link rel="stylesheet" href="/assets/stylesheets/regist.css">
+    <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+    <script>
+        $(function(){
+
+            setInterval(function () {
+
+               $('.cue').hide();
+
+            },1000);
+
+            /*删除*/
+            $(".delet-re").click(function () {
+                $("input[name='pow']").val("").focus(); // 清空并获得焦点
+            });
+            $(".delet-rese").click(function () {
+                $("input[name='powq']").val("").focus();
+            });
+
+            var of = true;
+            $('.howl-reT').click(function () {
+                $(this).toggleClass('bg2');
+                if (of) {
+                    $('.input-reseT').attr({'type': 'text'});
+                    of = false;
+                } else {
+                    $('.input-reseT').attr({'type': 'password'});
+                    of = true;
+                }
+            });
+
+            $('.howl-reB').click(function () {
+                $(this).toggleClass('bg3');
+                if (of) {
+                    $('.input-reseB').attr({'type': 'text'});
+                    of = false;
+                } else {
+                    $('.input-reseB').attr({'type': 'password'});
+                    of = true;
+                }
+            });
+        })
+    </script>
+
 </head>
 <body>
 <div id="screen_wrap">
@@ -17,39 +60,41 @@
         <a href="/login"><span class="icon-back" id="backBtn"></span></a>
         <!--<a href="/login"><span class="icon-user-title" id="userBtn"></span></a>		-->
     </div>
+    <div class="cue">验证码发送成功</div>
     <div class="login">
+
+        <div class="login-t">已经发送验证码至123224353453</div>
         <fieldset>
             <form id="cell_loginForm" method="post" onsubmit="return false" action="" >
                 <dl class="list list-in">
-                    <dd>
-                        <dl>
-                    <dd class="dd-padding">
-                        <input id="cell_login_phonenum" class="input-weak" type="text" value="" maxlength="4" placeholder="请输入手机号">
-                        <div class="cell_login_sms">
+                    <dd class="dd-padding clearfix dd-one">
+                        <span>验证码</span> <input id="phoneNum" type="text" class="input-rese" placeholder="短信验证码" maxlength="11" name="phone" required pattern="[1][345678]\d{9}"/>
+                        <div class="hq">获取验证码 <i>67s</i></div>
+                    </dd>
 
-                        </div>
+
+                    <dd class="dd-padding clearfix">
+                        <span>设置密码</span> <input id="phoneNum" type="password" class="input-rese input-reseT" placeholder="6-12位字母/数字组合" maxlength="11" name="pow" required pattern="[1][345678]\d{9}"/>
+                        <i class="delet delet-re"></i>
+                        <i class="howl howl-reT"></i>
                     </dd>
-                    <dd class="dd-padding">
-                        <input id="cell_login_checkcode" class="input-weak two" type="text" placeholder="请输入验证码" name="email" value="" required="">
-                        <button id="smsCode" type="button" class="code" disabled="disabled">获取验证码</button>
+
+                    <dd class="dd-padding clearfix">
+                        <span>确认密码</span> <input id="phoneNum" type="password" class="input-rese input-reseB" placeholder="再次确认密码" maxlength="11" name="powq" required pattern="[1][345678]\d{9}"/>
+                        <i class="delet delet-rese"></i>
+                        <i class="howl howl-reB"></i>
                     </dd>
-                    <dd class="dd-padding">
-                        <input id="password" class="input-weak" type="password" placeholder="请输入新密码" name="password" required="">
-                    </dd>
-                    <dd class="dd-padding">
-                        <input id="password" class="input-weak" type="password" placeholder="请再次输入新密码" name="password" required="">
-                    </dd>
-                    <div class="cue">验证码输入错误</div>
                 </dl>
-                </dd>
-                </dl>
+
+
             </form>
+
             <div class="submitBox">
-                <input class="registBtn button" type="submit" value="完成">
+                <input id="btn-reg" class="registBtn button" type="submit" value="重置密码">
             </div>
+
         </fieldset>
     </div>
-</div>
 <!--reference script region-->
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 </body>
