@@ -1,12 +1,20 @@
 .wap{
-    height:800px;
+    height:1000px;
     background-color: #fff;
     padding:65px 2%;
 }
 
 ul li{
-    padding:10px 0;
-    border-bottom: 1px solid #ccc;
+    padding:10px;
+    border: 1px solid #ccc;
+    height: 220px;
+    margin: 0 0 10px 0;
+    background-color: #ededed;
+
+}
+
+ul li a{
+    color: #4B4B4B;
 }
 
 li div{
@@ -59,7 +67,7 @@ li div{
 .dqld_div{
     width:100%;
     background-color:#fff;
-    margin-top: -600px;
+    margin-top: -479px;
     position: absolute;
 }
 
@@ -83,6 +91,41 @@ li div{
 }
 
 
+.money-box,.address,.refer-box{
+    width:100%;
+}
+.money-box .picture{
+    float: left;
+    width:80px;
+    height:80px;
+    background: url("/assets/images/icon5.png") no-repeat;
+    background-size:cover;
+}
+.address{
+    padding:10px 20px 20px;
+}
+
+.address p{
+    margin:0 0 20px 0;
+}
+
+.address p span{
+    margin: 0 10px;
+}
+
+.address .add-icon{
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    background: url("/assets/images/hmm_dingwei_icon.png") no-repeat;
+    background-size: contain;
+    margin: 0 0 0 -20px;
+}
+
+.address i{
+    display: block;
+    text-align: right;
+}
 
 
 
