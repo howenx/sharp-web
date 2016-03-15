@@ -3,8 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <meta charset="UTF-8">
+    <!-- 视图窗口，移动端特属的标签。 -->
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+    <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- 这个主要是根据实际的页面设计的主体色为搭配来进行设置。 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <!-- 忽略页面中的数字识别为电话号码,email识别 -->
+    <meta name="format-detection"content="telephone=no, email=no" />
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <link rel="stylesheet" href="/assets/stylesheets/login.css">
+    <link rel="stylesheet" href="/assets/stylesheets/regist.css">
+    <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+    <script>
+        $(function(){
+            $('.submitBox').click(function(){
+                $('.shade').show();
+            });
+            $('.box-l').click(function(){
+                $('.shade').hide();
+            })
+
+            /*删除*/
+            $(".delet").click(function () {
+                $("input[name='phone']").val("").focus(); // 清空并获得焦点
+            });
+
+
+        })
+    </script>
+
 </head>
 <body>
+<div id='screen_wrap'>
+    <div class="nav_ban">
+        <h1>手机注册</h1>
+        <a href="/login"><span class="icon-back" id="backBtn"></span></a>
+    </div>
+    <div class="login">
+        <fieldset>
+            <form id="cell_loginForm" method="post" onsubmit="return false" action="" >
+                <dl class="list list-in">
+                    <dd class="dd-padding">
+                        <span>手机号</span> <input id="phoneNum" type="text" class="input-weak" placeholder="请输入手机号" maxlength="11" name="phone" required pattern="[1][345678]\d{9}"/>
+                        <i class="delet"></i>
+                    </dd>
+                    <dd class="dd-padding one" id="send-code-ok"></dd>
+                    <!--验证码发送成功-->
+                </dl>
+            </form>
 
+            <div class="submitBox">
+                <input id="btn-reg" class="registBtn button" type="submit" value="完成">
+            </div>
+            <div class="back"><a href="/login">已有账号? 去登录</a></div>
+        </fieldset>
+    </div>
+
+
+    <div class="shade shade-box">
+        <div class="box">
+            <span>安全校验</span>
+            <div>
+                <input type="text" class="input-weak" placeholder="请填写校验码" maxlength="11" name="phone" required pattern="[1][345678]\d{9}"/>
+            </div>
+            <div class="box-a">
+                <a href="javascript:;" class="box-l">取消</a>
+                <a href="javascript:;" class="box-r">确定</a>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
