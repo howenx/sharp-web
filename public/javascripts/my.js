@@ -62,31 +62,39 @@ $(function(){
     });
 
 })
-
-function collectDel(id){
-    if (window.confirm("确定取消收藏吗?")) {
-        $.ajax({
-              type :"GET",
-              url : "/collect/del/"+id,
-              contentType: "application/json; charset=utf-8",
-              error : function(request) {
-                  if (window.lang = 'cn') {
-                      $('#js-userinfo-error').text('删除失败');
-                  } else {
-                      $('#js-userinfo-error').text('delete error');
-                  }
-                  setTimeout("$('#js-userinfo-error').text('')", 2000);
-              },
-              success: function(data) {
-                 console.log("data="+data);
-
-                   if(data.code==200){ //取消收藏成功
-                       $("#li"+id).remove();
-                   } else alert("删除失败!");
-
-              }
-          });
+$(document).on("click",".cancelColl",function(){
+    //collectDel($(this).parents("li"));
+    var ul=$(this).parents("ul");
+    $(this).parents("li").remove();
+    if($(ul).children("li").length==0){
+        $(ul).html("没有任何收藏");
     }
-}
+})
+
+//function collectDel(id){
+//    if (window.confirm("确定取消收藏吗?")) {
+//        $.ajax({
+//              type :"GET",
+//              url : "/collect/del/"+id,
+//              contentType: "application/json; charset=utf-8",
+//              error : function(request) {
+//                  if (window.lang = 'cn') {
+//                      $('#js-userinfo-error').text('删除失败');
+//                  } else {
+//                      $('#js-userinfo-error').text('delete error');
+//                  }
+//                  setTimeout("$('#js-userinfo-error').text('')", 2000);
+//              },
+//              success: function(data) {
+//                 console.log("data="+data);
+//
+//                   if(data.code==200){ //取消收藏成功
+//                       $("#li"+id).remove();
+//                   } else alert("删除失败!");
+//
+//              }
+//          });
+//    }
+//}
 
 
