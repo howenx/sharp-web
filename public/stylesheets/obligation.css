@@ -245,8 +245,37 @@ span .number{
 }
 
 .coupon-box li{
+    width:400px;
+    height:140px;
+    background: url("/assets/images/youhuiquan_bg.png") no-repeat;
+    background-size: contain;
+    margin: 10px auto;
+    padding:10px 15px;
+    color: #fff;
+}
+
+.coupon-box li p{
     width: 100%;
 }
+
+.coupon-box-l{
+    float: left;
+}
+
+.coupon-box-r{
+    float: right;
+    font-size:36px;
+    margin:16px;
+}
+.coupon-m{
+    margin: 5px 0;
+    font-size: 20px;
+}
+
+.coupon-rmb{
+    text-align: right;
+}
+
 
 
 .coupon-box li img{
