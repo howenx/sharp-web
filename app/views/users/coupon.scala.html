@@ -1,5 +1,5 @@
+@(couponList:List[domain.CouponVo])
 
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -41,74 +41,56 @@
             <!--全部订单-->
             <section class="coupon-box current">
                 <ul>
-                    <li>
-                        <div class="coupon-box-l">
-                            <p class="coupon-hd">化妆品类适用券</p>
-                            <p class="coupon-m">满200可用</p>
-                            <p class="coupon-deta">有效期至 <span >2016-03-31</span> <i class="coupon-time">13:05:01</i></p>
-                        </div>
-                        <div class="coupon-box-r"><i class="coupon-rmb">￥100</i></div>
+                    @for(coupon<-couponList){
+                        @if(coupon.getState()=="N"){
+                            <li>
+                                <div class="coupon-box-l">
+                                    <p class="coupon-hd">@coupon.getCateNm()</p>
+                                    <p class="coupon-m">满@coupon.getLimitQuota()可用</p>
+                                    <p class="coupon-deta">有效期至 <span >@coupon.getEndAt()</span></p>
+                                </div>
+                                <div class="coupon-box-r"><i class="coupon-rmb">￥@coupon.getDenomination()</i></div>
 
-                    </li>
+                            </li>
+                        }
+                    }
                 </ul>
             </section>
 
             <section class="coupon-box">
                 <ul>
-                    <li>
-                        <div class="coupon-box-l">
-                            <p class="coupon-hd">化妆品类适用券</p>
-                            <p class="coupon-m">满200可用</p>
-                            <p class="coupon-deta">有效期至 <span >2016-03-31</span> <i class="coupon-time">13:05:01</i></p>
-                        </div>
-                        <div class="coupon-box-r"><i class="coupon-rmb">￥100</i></div>
+                    @for(coupon<-couponList){
+                        @if(coupon.getState()=="Y"){
+                            <li>
+                                <div class="coupon-box-l">
+                                    <p class="coupon-hd">@coupon.getCateNm()</p>
+                                    <p class="coupon-m">满@coupon.getLimitQuota()可用</p>
+                                    <p class="coupon-deta">有效期至 <span >@coupon.getEndAt()</span></p>
+                                </div>
+                                <div class="coupon-box-r"><i class="coupon-rmb">￥@coupon.getDenomination()</i></div>
 
-                    </li>
-
-                    <li>
-                        <div class="coupon-box-l">
-                            <p class="coupon-hd">化妆品类适用券</p>
-                            <p class="coupon-m">满200可用</p>
-                            <p class="coupon-deta">有效期至 <span >2016-03-31</span> <i class="coupon-time">13:05:01</i></p>
-                        </div>
-                        <div class="coupon-box-r"><i class="coupon-rmb">￥100</i></div>
-
-                    </li>
+                            </li>
+                        }
+                    }
 
                 </ul>
             </section>
 
             <section class="coupon-box">
                 <ul>
-                    <li>
-                        <div class="coupon-box-l">
-                            <p class="coupon-hd">化妆品类适用券</p>
-                            <p class="coupon-m">满200可用</p>
-                            <p class="coupon-deta">有效期至 <span >2016-03-31</span> <i class="coupon-time">13:05:01</i></p>
-                        </div>
-                        <div class="coupon-box-r"><i class="coupon-rmb">￥100</i></div>
+                    @for(coupon<-couponList){
+                        @if(coupon.getState()=="S"){
+                            <li>
+                                <div class="coupon-box-l">
+                                    <p class="coupon-hd">@coupon.getCateNm()</p>
+                                    <p class="coupon-m">满@coupon.getLimitQuota()可用</p>
+                                    <p class="coupon-deta">有效期至 <span >@coupon.getEndAt()</span></p>
+                                </div>
+                                <div class="coupon-box-r"><i class="coupon-rmb">￥@coupon.getDenomination()</i></div>
 
-                    </li>
-
-                    <li>
-                        <div class="coupon-box-l">
-                            <p class="coupon-hd">化妆品类适用券</p>
-                            <p class="coupon-m">满200可用</p>
-                            <p class="coupon-deta">有效期至 <span >2016-03-31</span> <i class="coupon-time">13:05:01</i></p>
-                        </div>
-                        <div class="coupon-box-r"><i class="coupon-rmb">￥100</i></div>
-
-                    </li>
-
-                    <li>
-                        <div class="coupon-box-l">
-                            <p class="coupon-hd">化妆品类适用券</p>
-                            <p class="coupon-m">满200可用</p>
-                            <p class="coupon-deta">有效期至 <span >2016-03-31</span> <i class="coupon-time">13:05:01</i></p>
-                        </div>
-                        <div class="coupon-box-r"><i class="coupon-rmb">￥100</i></div>
-
-                    </li>
+                            </li>
+                        }
+                    }
                 </ul>
             </section>
        </div>
