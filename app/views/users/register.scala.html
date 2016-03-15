@@ -46,6 +46,11 @@
                 $('.shade').hide();
             })
 
+            /*删除*/
+            $(".delet").click(function () {
+                $("input[name='phone']").val("").focus(); // 清空并获得焦点
+            });
+
         })
     </script>
 
@@ -63,6 +68,7 @@
                 <dl class="list list-in">
                     <dd class="dd-padding">
                        <span>手机号</span> <input id="phoneNum" type="text" class="input-weak" placeholder="请输入手机号" maxlength="11" name="phone" required pattern="[1][345678]\d{9}"/>
+                        <i class="delet delet-box"></i>
                     </dd>
                     <dd class="dd-padding one" id="send-code-ok"></dd>
                     <!--验证码发送成功-->

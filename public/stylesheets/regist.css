@@ -84,3 +84,18 @@
     color: #E4634F;
 
 }
+
+.delet {
+    width: 20px;
+    right: 40px;
+    top: 20px;
+}
+
+.delet-box{
+    top:60px;
+}
+
+/*找回密码*/
+.shade-box{
+
+}
