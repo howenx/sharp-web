@@ -204,5 +204,11 @@ public class ShoppingCtrl extends Controller {
         );
     }
 
+
+    public Result orderpage() {
+            return ok(views.html.shopping.orderpage.render());
+    }
+
+
 }
 
