@@ -2,16 +2,22 @@ package controllers;
 
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+
 import domain.Item;
 import domain.Slider;
 import domain.Theme;
 import play.Logger;
+import play.api.libs.json.JsArray;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import java.util.ArrayList;
+
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import static modules.SysParCom.*;
@@ -115,26 +121,39 @@ public class ProductsCtrl extends Controller {
 
     //商品明细
     public Result detail(String type,String url) throws Exception {
+        Item itemMain = new Item();
+        List<Object[]> itemFeaturesList = new ArrayList<>();
         if("D".equals(type)){
-            Item item = new Item();
             Request request = new Request.Builder()
                     .url(ITEM_PAGE + url)
                     .build();
             Response response = client.newCall(request).execute();
             if(response.isSuccessful()){
                 JsonNode json = Json.parse(response.body().string());
+                if(json.has("main")){
+                    JsonNode mainJson = json.get("main");
+                    itemMain = Json.fromJson(mainJson,Item.class);
+                    if(itemMain != null){
+                        JsonNode features = Json.parse(itemMain.getItemFeatures());
+                        HashMap<String,Object> featuresMap = Json.fromJson(features,HashMap.class);
+                        for(String key : featuresMap.keySet()){
+                            Object[] featureObj = new Object[2];
+                            featureObj[0] = key;
+                            featureObj[1] = featuresMap.get(key);
+                            itemFeaturesList.add(featureObj);
+                        }
+                    }
+                }
+                if(json.has("stock")){
+                    JsonNode stockJson = json.get("stock");
+                }
+                if(json.has("push")){
+                    JsonNode pushJson = json.get("push");
+                }
 
             }
-
-
-
         }
-
-
-
-
-
-        return ok(views.html.products.detail.render());
+        return ok(views.html.products.detail.render(itemMain,itemFeaturesList));
     }
 
    //拼购详情
