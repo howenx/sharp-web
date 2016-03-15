@@ -140,6 +140,7 @@ public class UserCtrl extends Controller {
         );
     }
 
+
     public Result login() {
         return ok(views.html.users.login.render(IMAGE_CODE));
     }
@@ -294,9 +295,9 @@ public class UserCtrl extends Controller {
      */
     public F.Promise<Result> registVerify() {
         ObjectNode result = newObject();
-        Form<UserRegistCode> userRegistCodeForm = Form.form(UserRegistCode.class).bindFromRequest();
-        Map<String, String> userMap = userRegistCodeForm.data();
-        if (userRegistCodeForm.hasErrors()) {
+        Form<UserRegistVerify> userRegistVerifyForm = Form.form(UserRegistVerify.class).bindFromRequest();
+        Map<String, String> userMap = userRegistVerifyForm.data();
+        if (userRegistVerifyForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
         } else {
@@ -310,7 +311,6 @@ public class UserCtrl extends Controller {
                         .build();
                 client.setConnectTimeout(10, TimeUnit.SECONDS);
                 Response response = client.newCall(request).execute();
-                Logger.error(response.toString());
                 if (response.isSuccessful()) {
                     JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
                     return json;
@@ -319,10 +319,7 @@ public class UserCtrl extends Controller {
 
             return promiseOfInt.map((Function<JsonNode, Result>) json -> {
                 Message message = Json.fromJson(json.findValue("message"), Message.class);
-                if (Message.ErrorCode.SUCCESS.getIndex()==message.getCode()) {
-                    Logger.error("验证码发送成功");
-                }
-//                Logger.error(json.toString()+"-----"+message.toString());
+                Logger.error(json.toString()+"-----"+message.toString());
                 return ok(Json.toJson(message));
             });
         }
@@ -334,7 +331,6 @@ public class UserCtrl extends Controller {
      *
      * @return
      */
-
     public Promise<Result> registCode() {
         ObjectNode result = newObject();
         Form<UserRegistCode> userRegistCodeForm = Form.form(UserRegistCode.class).bindFromRequest();
@@ -365,7 +361,7 @@ public class UserCtrl extends Controller {
                 if (Message.ErrorCode.SUCCESS.getIndex()==message.getCode()) {
                     Logger.error("验证码发送成功");
                 }
-//                Logger.error(json.toString()+"-----"+message.toString());
+                Logger.error(json.toString()+"-----"+message.toString());
                 return ok(Json.toJson(message));
             });
         }

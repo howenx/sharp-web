@@ -243,6 +243,7 @@ input[type=checkbox]{
 .dd-padding{
     width: 100%;
     background-color:#fff;
+    position: relative;
 
 }
 
@@ -477,7 +478,7 @@ dl.list dd>.btn {
     text-align: left;
     margin-top: 10px;
     font-size: 60%;
-
+    width: 236px;
 }
 
 .list dd .two{
@@ -500,7 +501,6 @@ dl.list dd>.btn {
 
 
 .inp{
-    float: left;
     width:20px;
     height:20px;
     cursor: pointer;
@@ -508,11 +508,8 @@ dl.list dd>.btn {
 }
 
 .tip {
-    float: left;
     font-size: 12px;
     color: #8C8C8C;
-    margin: 0 0 0 5px;
-
 }
 
 .tip span{
@@ -587,12 +584,12 @@ dl.list dd>.btn {
 
 .howl-reT{
 
-    top:114px;
+    top:15px;
 }
 
 .howl-reB{
 
-    top:158px;
+    top:10px;
 }
 
 .bg1{
@@ -618,11 +615,11 @@ dl.list dd>.btn {
 }
 
 .bg2{
-    top:114px;
+    top:15px;
 
 }
 .bg3{
-    top:158px;
+    top:10px;
 
 }
 

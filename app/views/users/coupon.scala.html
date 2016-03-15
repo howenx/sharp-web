@@ -17,7 +17,7 @@
 </head>
 <body>
 <header class="head">
-    <a href="/myhmm" class="back">
+    <a href="/myView" class="back">
         <i></i>
         <b></b>
     </a>
@@ -42,15 +42,35 @@
             <section class="coupon-box current">
                 <ul>
                     @for(coupon<-couponList){
-                    <li>
-                        <div class="touch">
-                            <span class="touch-name">@coupon.getCateNm()</span>
-                            <i>¥@coupon.getDenomination()</i>
-                        </div>
-                        <div class="touch">
-                            <span class="touch-name">@coupon.getEndAt()</span>
-                        </div>
-                    </li>
+                        @if(coupon.getState()=="N"){
+                            <li>
+                                <div class="coupon-box-l">
+                                    <p class="coupon-hd">@coupon.getCateNm()</p>
+                                    <p class="coupon-m">满@coupon.getLimitQuota()可用</p>
+                                    <p class="coupon-deta">有效期至 <span >@coupon.getEndAt()</span></p>
+                                </div>
+                                <div class="coupon-box-r"><i class="coupon-rmb">￥@coupon.getDenomination()</i></div>
+
+                            </li>
+                        }
+                    }
+                </ul>
+            </section>
+
+            <section class="coupon-box">
+                <ul>
+                    @for(coupon<-couponList){
+                        @if(coupon.getState()=="Y"){
+                            <li>
+                                <div class="coupon-box-l">
+                                    <p class="coupon-hd">@coupon.getCateNm()</p>
+                                    <p class="coupon-m">满@coupon.getLimitQuota()可用</p>
+                                    <p class="coupon-deta">有效期至 <span >@coupon.getEndAt()</span></p>
+                                </div>
+                                <div class="coupon-box-r"><i class="coupon-rmb">￥@coupon.getDenomination()</i></div>
+
+                            </li>
+                        }
                     }
 
                 </ul>
@@ -58,31 +78,19 @@
 
             <section class="coupon-box">
                 <ul>
-                    <li>
-                        <img src="/assets/images/hmmapp-coupon.jpg">
-                    </li>
-                    <li>
-                        <img src="/assets/images/hmmapp-coupon.jpg">
-                    </li>
+                    @for(coupon<-couponList){
+                        @if(coupon.getState()=="S"){
+                            <li>
+                                <div class="coupon-box-l">
+                                    <p class="coupon-hd">@coupon.getCateNm()</p>
+                                    <p class="coupon-m">满@coupon.getLimitQuota()可用</p>
+                                    <p class="coupon-deta">有效期至 <span >@coupon.getEndAt()</span></p>
+                                </div>
+                                <div class="coupon-box-r"><i class="coupon-rmb">￥@coupon.getDenomination()</i></div>
 
-                </ul>
-            </section>
-
-            <section class="coupon-box">
-                <ul>
-                    <li>
-                        <img src="/assets/images/hmmapp-coupon.jpg">
-                    </li>
-                    <li>
-                        <img src="/assets/images/hmmapp-coupon.jpg">
-                    </li>
-                    <li>
-                        <img src="/assets/images/hmmapp-coupon.jpg">
-                    </li>
-                    <li>
-                        <img src="/assets/images/hmmapp-coupon.jpg">
-                    </li>
-
+                            </li>
+                        }
+                    }
                 </ul>
             </section>
        </div>

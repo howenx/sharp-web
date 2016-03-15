@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>手机注册</title>
     <meta charset="UTF-8">
     <!-- 视图窗口，移动端特属的标签。 -->
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
@@ -37,11 +37,42 @@
     <link rel="stylesheet" href="/assets/stylesheets/login.css">
     <link rel="stylesheet" href="/assets/stylesheets/regist.css">
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+    <script  src="/assets/javascripts/md5.js"></script>
+    <style type="text/css">
+        input:required:valid, input:focus:invalid {
+        background-image: url('/assets/images/ex.png');
+        background-position: right 14px;
+        background-repeat: no-repeat;
+        -moz-box-shadow: none;
+        }
+        input:required:valid {
+        background-image: url("/assets/images/dui.png");
+        background-position: right 14px;
+        background-repeat: no-repeat;
+        }
+    </style>
     <script>
         $(function(){
-            $('.submitBox').click(function(){
-                $('.shade').show();
+            var phoneReg = new RegExp(/^1[345678]\d{9}$/);
+            $("#btn-reg").css('background', '#C0C0C0');
+            //输入手机号格式正确可以点击下一步
+            $('#phoneNum').bind('input propertychange', function() {
+                if (phoneReg.test($(this).val())) {
+                    $("#btn-reg").css('background-color', '#E46359');
+                    $("#btn-reg").css('cursor', 'pointer');
+                    $('#btn-reg').attr("disabled",false);
+                }
+                if (!phoneReg.test($(this).val())) {
+                    $("#btn-reg").css('background', '#C0C0C0');
+                    $("#btn-reg").css('cursor', 'default');
+                    $('#btn-reg').attr("disabled",true);
+                }
             });
+
+            $('.submitBox').click(function(){
+               // $('.shade').show();
+            });
+            //弹框取消按钮
             $('.box-l').click(function(){
                 $('.shade').hide();
             })
@@ -51,6 +82,37 @@
                 $("input[name='phone']").val("").focus(); // 清空并获得焦点
             });
 
+            //用户注册检测手机号
+            $("#btn-reg").click(function() {
+                var phoneNum = $("#phoneNum").val();
+                var msg = hex_md5(phoneNum+"hmm");
+                $.ajax({
+                        url: "/regist/verify",
+                        dataType: 'json',
+                        data: $('form#cell_loginForm').append("<input name='phone' type='hidden' value='"+phoneNum+"'>").serialize(),
+                        type: 'POST',
+                        success: function(data) {
+                           console.log(data);
+                           //用户已经注册,弹框提示
+                           if (data.code === 5001) {
+                                $('.shade').show();
+                           }
+                           //用户未注册,请求手机验证码接口
+                           if (data.code === 4003) {
+                                   $.ajax({
+                                            url: "/regist/code",
+                                            dataType: 'json',
+                                            data: $('form#cell_loginForm').append("<input name='name' type='hidden' value='"+phoneNum+"'>").append("<input name='msg' type='hidden' value='"+msg+"'>").serialize(),
+                                            type: 'POST',
+                                            success: function(data) {
+                                               console.log(data);
+
+                                            }
+                                   });
+                           }
+                        }
+                });
+            });
         })
     </script>
 
@@ -68,16 +130,13 @@
             <form id="cell_loginForm" method="post" onsubmit="return false" action="" >
                 <dl class="list list-in">
                     <dd class="dd-padding">
-                       <span>手机号</span> <input id="phoneNum" type="text" class="input-weak" placeholder="请输入手机号" maxlength="11" name="phone" required pattern="[1][345678]\d{9}"/>
+                       <span>手机号</span> <input id="phoneNum" type="text" class="input-rese" placeholder="请输入手机号" maxlength="11" required pattern="[1][345678]\d{9}" onkeyup="this.value=this.value.replace(/\D/g,'')"/>
                         <i class="delet delet-box"></i>
                     </dd>
-                    <dd class="dd-padding one" id="send-code-ok"></dd>
-                    <!--验证码发送成功-->
                 </dl>
             </form>
-
             <div class="submitBox">
-                <input id="btn-reg" class="registBtn button" type="submit" value="完成">
+                <input id="btn-reg" class="registBtn button" type="submit" disabled="disabled" value="下一步">
             </div>
             <div class="back"><a href="/login">已有账号? 去登录</a></div>
         </fieldset>
@@ -86,7 +145,7 @@
 
     <div class="shade">
         <div class="box">
-            <span>该手机号已注册</span>
+            <span>该手机号已经注册</span>
             <div class="box-a">
                 <a href="javascript:;" class="box-l">取消</a>
                 <a href="/retrieve" class="box-r">找回密码</a>

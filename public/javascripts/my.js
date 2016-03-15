@@ -72,12 +72,57 @@ $(document).on("click",".cancelColl",function(e){
           url : "/collect/del/"+id,
           contentType: "application/json; charset=utf-8",
           error : function(request) {
-              alert("删除失败!")
+              alert("删除失败!");
           },
           success: function(data) {
              console.log("data="+data);
 
                if(data.code==200){ //取消收藏成功
+                  li.remove();
+               } else alert("删除失败!");
+
+          }
+     });
+})
+
+$(document).on("click",".cancelOrder",function(e){
+    e.preventDefault();
+    var id=$(this).parents("li").val();
+    console.log("id="+id);
+    $.ajax({
+          type :"GET",
+          url : "/order/cancel/"+id,
+          contentType: "application/json; charset=utf-8",
+          error : function(request) {
+              alert("取消订单失败!");
+          },
+          success: function(data) {
+             console.log("data="+data);
+
+               if(data.code==200){ //取消订单成功
+                 setTimeout("location.href='/all'", 3000);
+               } else alert("取消订单失败!");
+
+          }
+     });
+})
+
+$(document).on("click",".delOrder",function(e){
+    e.preventDefault();
+    var id=$(this).parents("li").val();
+    var li=$(this).parents("li");
+    console.log("id="+id);
+    $.ajax({
+          type :"GET",
+          url : "/order/del/"+id,
+          contentType: "application/json; charset=utf-8",
+          error : function(request) {
+              alert("删除失败!");
+          },
+          success: function(data) {
+             console.log("data="+data);
+
+               if(data.code==200){ //删除订单成功
                   li.remove();
                } else alert("删除失败!");
 

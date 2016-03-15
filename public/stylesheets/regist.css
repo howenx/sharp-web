@@ -19,18 +19,30 @@
 
 .list{
     width: 100%;
-    background-color: #fff;
-    height: 45px;
+    height:150px;
 }
 
 .list span{
-   float: left;
     width:80px;
     height: 45px;
     line-height: 45px;
     padding:0 0 0 10px;
-
+    position: absolute;
+    top:0;
+    left:0;
 }
+
+
+.input-rese{
+    width:80%;
+    border: none;
+    margin: 0;
+    font-size: 14px;
+    line-height: 45px;
+    vertical-align: middle;
+    margin: 0 0 0 88px;
+}
+
 
 .back{
     margin:20px 0;
@@ -88,21 +100,21 @@
 .delet{
     width: 20px;
     right: 40px;
-    top: 20px;
+    top:15px;
 }
 
 .delet-box{
-    top:60px;
+    top:14px;
 
 }
 
 .delet-re{
-    top:114px;
+    top:15px;
     right:70px;
 }
 
 .delet-rese{
-    top:158px;
+    top:10px;
     right: 70px;
 }
 /*找回密码*/
@@ -135,6 +147,7 @@ input.input-proof{
     width:40%;
     float: right;
 }
+
 #imageCodeImage{
    float: right;
     width:70px;
@@ -157,21 +170,15 @@ input.input-proof{
 
 .hq{
     padding:11px 0 ;
-    float: right;
     width:150px;
     text-align: center;
     border: 1px solid #ccc;
+    position: absolute;
+    top:0;
+    right:0;
 }
 
-.input-rese{
-    float: left;
-    width: 38%;
-    border: none;
-    margin: 0;
-    font-size: 14px;
-    line-height: 45px;
-    vertical-align: middle;
-}
+
 
 .cue{
     background-color:#FFEEDE;
