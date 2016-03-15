@@ -130,4 +130,10 @@ $(document).on("click",".delOrder",function(e){
      });
 })
 
+$(document).ready(function(){
+     //修改待支付待收货个数
+    $("#waitPay").html($("#waitPayUl li").length);
+    $("#waitGoods").html($("#waitGoodsUl li").length);
+})
+
 
