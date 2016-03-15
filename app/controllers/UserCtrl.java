@@ -292,7 +292,7 @@ public class UserCtrl extends Controller {
      * 用户注册手机号检测
      * @return
      */
-    public Promise registVerify() {
+    public F.Promise<Result> registVerify() {
         ObjectNode result = newObject();
         Form<UserRegistCode> userRegistCodeForm = Form.form(UserRegistCode.class).bindFromRequest();
         Map<String, String> userMap = userRegistCodeForm.data();
@@ -412,6 +412,7 @@ public class UserCtrl extends Controller {
 
     }
 
+
     /**
      * 忘记密码手机号检测
      * @return
@@ -492,4 +493,15 @@ public class UserCtrl extends Controller {
             });
         }
     }
+
+    //注册
+        public Result register() {
+            return ok(views.html.users.register.render());
+        }
+    //找回密码
+        public Result retrieve() {
+            return ok(views.html.users.retrieve.render());
+        }
+
 }
+

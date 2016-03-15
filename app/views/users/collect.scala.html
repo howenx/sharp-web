@@ -9,7 +9,7 @@
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <meta content="telephone=no" name="format-detection">
     <link rel="stylesheet" href="/assets/stylesheets/global.css">
-    <link rel="stylesheet" href="/assets/stylesheets/address.css">
+    <link rel="stylesheet" href="/assets/stylesheets/obligation.css"/>
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="/assets/javascripts/my.js"></script>
 </head>
@@ -24,26 +24,58 @@
 </header>
 
 <div class="scope wap">
-    @if(null==collectList||collectList.size()<=0){<div class="add">暂无收藏的商品</div>}
-    <ul>
-        @for(collect<-collectList){
-        <li id="li@collect.getCollectId()">
-            <div class="touch">
-                <span class="touch-name">@collect.getCollectId()</span>
-                <i class="touch-numb">@collect.getCartSkuDto().getSkuTitle()</i>
-            </div>
+    <!--@if(null==collectList||collectList.size()<=0){<div class="add">暂无收藏的商品</div>}-->
+    <!--<ul>-->
+        <!--@for(collect<-collectList){-->
+        <!--<li id="li@collect.getCollectId()">-->
+            <!--<div class="touch">-->
+                <!--<span class="touch-name">@collect.getCollectId()</span>-->
+                <!--<i class="touch-numb">@collect.getCartSkuDto().getSkuTitle()</i>-->
+            <!--</div>-->
 
-            <div class="add">安徽省 安庆市 星光大道502</div>
+            <!--<div class="add">安徽省 安庆市 星光大道502</div>-->
 
-            <div class="alter">
-                <a  class="alter-btn color" onclick="collectDel(@collect.getCollectId())">取消收藏</a>
-            </div>
+            <!--<div class="alter">-->
+                <!--<a  class="alter-btn color" onclick="collectDel(@collect.getCollectId())">取消收藏</a>-->
+            <!--</div>-->
 
-        </li>
-        }
-    </ul>
-
-
+        <!--</li>-->
+        <!--}-->
+    <!--</ul>-->
+    <div class="coll">
+        <ul>
+            <li>
+                <div class="con">
+                    <a href="javascript:;" class="commodity havenot">
+                        <img src="/assets/images/one.png" alt=""/>
+                        <h2>韩国发希陆新娃娃护手霜80ml深层滋润保湿五件套</h2>
+                        <div class="size"><span>水晶色</span><span>均码</span></div>
+                        <span class="commodity-rmb"><span>单价:</span><i class="rmb color">￥75.00</i><i class="cancelColl">取消收藏</i></span>
+                    </a>
+                </div>
+            </li>
+            <li>
+                <div class="con">
+                    <a href="javascript:;" class="commodity havenot">
+                        <img src="/assets/images/one.png" alt=""/>
+                        <h2>韩国发希陆新娃娃护手霜80ml深层滋润保湿五件套</h2>
+                        <div class="size"><span>水晶色</span><span>均码</span></div>
+                        <span class="commodity-rmb"><span>单价:</span><i class="rmb color">￥75.00</i><i class="cancelColl">取消收藏</i></span>
+                    </a>
+                </div>
+            </li>
+            <li>
+                <div class="con">
+                    <a href="javascript:;" class="commodity havenot">
+                        <img src="/assets/images/one.png" alt=""/>
+                        <h2>韩国发希陆新娃娃护手霜80ml深层滋润保湿五件套</h2>
+                        <div class="size"><span>水晶色</span><span>均码</span></div>
+                        <span class="commodity-rmb"><span>单价:</span><i class="rmb color">￥75.00</i><i class="cancelColl">取消收藏</i></span>
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </div>
 </div>
 
 

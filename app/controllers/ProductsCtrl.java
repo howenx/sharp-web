@@ -2,7 +2,7 @@ package controllers;
 
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
@@ -10,12 +10,10 @@ import domain.Item;
 import domain.Slider;
 import domain.Theme;
 import play.Logger;
-import play.api.libs.json.JsArray;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import java.util.ArrayList;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -133,10 +131,15 @@ public class ProductsCtrl extends Controller {
                 if(json.has("main")){
                     JsonNode mainJson = json.get("main");
                     itemMain = Json.fromJson(mainJson,Item.class);
+                    if(mainJson.has("publicity")){
+                        JsonNode publicityJson = mainJson.get("publicity");
+                        Iterator<String> names = publicityJson.fieldNames();
+                        Logger.error(names.toString());
+                    }
                     if(itemMain != null){
                         JsonNode features = Json.parse(itemMain.getItemFeatures());
-                        HashMap<String,Object> featuresMap = Json.fromJson(features,HashMap.class);
-                        for(String key : featuresMap.keySet()){
+                        HashMap featuresMap = Json.fromJson(features,HashMap.class);
+                        for(Object key : featuresMap.keySet()){
                             Object[] featureObj = new Object[2];
                             featureObj[0] = key;
                             featureObj[1] = featuresMap.get(key);
@@ -156,7 +159,7 @@ public class ProductsCtrl extends Controller {
         return ok(views.html.products.detail.render(itemMain,itemFeaturesList));
     }
 
-    //拼购详情
+   //拼购详情
    public Result pinDetail() {
 
 
