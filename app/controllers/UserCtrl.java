@@ -153,8 +153,9 @@ public class UserCtrl extends Controller {
     }
 
 
-    public Result regist() {
-        return ok(views.html.users.regist.render());
+    public Result regist(String phone) {
+        //String phone = request().body().asJson().toString();
+        return ok(views.html.users.regist.render(phone));
     }
 
     public Result resetPasswd() {
@@ -348,7 +349,7 @@ public class UserCtrl extends Controller {
                         .build();
                 client.setConnectTimeout(10, TimeUnit.SECONDS);
                 Response response = client.newCall(request).execute();
-                Logger.error(response.toString());
+                //Logger.error(response.toString());
                 if (response.isSuccessful()) {
                     JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
                     return json;
@@ -358,9 +359,9 @@ public class UserCtrl extends Controller {
             return promiseOfInt.map((Function<JsonNode, Result>) json -> {
                 Message message = Json.fromJson(json.findValue("message"), Message.class);
                 if (Message.ErrorCode.SUCCESS.getIndex()==message.getCode()) {
-                    Logger.error("验证码发送成功");
+                    //Logger.error("验证码发送成功");
                 }
-                Logger.error(json.toString()+"-----"+message.toString());
+                //Logger.error(json.toString()+"-----"+message.toString());
                 return ok(Json.toJson(message));
             });
         }
