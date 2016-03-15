@@ -49,7 +49,7 @@ $(function(){
                     },
                     success: function(data) {
                     console.log("data="+data);
-                        if (data!=""&&data!=null&&data.code==200)) {
+                        if (data!=""&&data!=null&&data.code==200) {
                             setTimeout("location.href='/address'", 3000);
                         }
                      }
