@@ -37,12 +37,50 @@
 }
 
 
-.shade {
+.shade{
     width: 100%;
     height: 2000px;
-    position: fixed;
-    top: 0;
+    position:fixed;
+    top:0;
     left: 0;
     background-color: rgba(0,0,0,0.8);
     z-index: 20;
+    display: none;
+
+}
+
+.shade .box{
+    width: 80%;
+    background-color:#fff;
+    padding:2% 5%;
+    position: fixed;
+    top:30%;
+    left: 50%;
+    margin-left:-40%;
+
+}
+.box span{
+    width:100%;
+    text-align: center;
+    display: block;
+    font-weight: bold;
+    font-size:22px;
+    color: #333;
+
+}
+
+.box-a{
+    width:212px;
+    margin:20px auto;
+}
+
+.box-a .box-l,.box-a .box-r{
+    width:100px;
+    text-align: center;
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    border:1px solid #ccc ;
+    color: #E4634F;
+
 }

@@ -376,5 +376,9 @@ public class UserCtrl extends Controller {
         public Result register() {
             return ok(views.html.users.register.render());
         }
+    //找回密码
+        public Result retrieve() {
+            return ok(views.html.users.retrieve.render());
+        }
 }
 

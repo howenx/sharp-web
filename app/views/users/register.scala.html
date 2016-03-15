@@ -36,6 +36,18 @@
     <meta name="msapplication-tap-highlight" content="no">
     <link rel="stylesheet" href="/assets/stylesheets/login.css">
     <link rel="stylesheet" href="/assets/stylesheets/regist.css">
+    <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+    <script>
+        $(function(){
+            $('.submitBox').click(function(){
+                $('.shade').show();
+            });
+            $('.box-l').click(function(){
+                $('.shade').hide();
+            })
+
+        })
+    </script>
 
 </head>
 <body>
@@ -67,15 +79,12 @@
 
     <div class="shade">
         <div class="box">
-            <span>我的奖励</span>
-            <ul>
-                <li>mlnoihnoihihiohobob</li>
-                <li>mlnoihnoihihiohobob</li>
-                <li>mlnoihnoihihiohobob</li>
-                <li>mlnoihnoihihiohobob</li>
-                <li>mlnoihnoihihiohobob</li>
-                <li>mlnoihnoihihiohobob</li>
-            </ul>
+            <span>该手机号已注册</span>
+            <div class="box-a">
+                <a href="javascript:;" class="box-l">取消</a>
+                <a href="javascript:;" class="box-r">找回密码</a>
+            </div>
+
         </div>
     </div>
 </div>
