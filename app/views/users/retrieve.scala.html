@@ -42,7 +42,7 @@
             $('.submitBox').click(function(){
                 $('.shade').show();
             });
-            $('.box-l').click(function(){
+            $('.box-q').click(function(){
                 $('.shade').hide();
             })
 
@@ -52,6 +52,7 @@
             });
 
 
+
         })
     </script>
 
@@ -59,7 +60,7 @@
 <body>
 <div id='screen_wrap'>
     <div class="nav_ban">
-        <h1>手机注册</h1>
+        <h1>找回密码</h1>
         <a href="/login"><span class="icon-back" id="backBtn"></span></a>
     </div>
     <div class="login">
@@ -84,14 +85,19 @@
 
 
     <div class="shade shade-box">
-        <div class="box">
+        <div class="box" >
             <span>安全校验</span>
-            <div>
-                <input type="text" class="input-weak" placeholder="请填写校验码" maxlength="11" name="phone" required pattern="[1][345678]\d{9}"/>
+            <div class="proof-box">
+                <input type="text" class="input-weak input-proof" placeholder="请填写校验码" maxlength="11" name="phone" required pattern="[1][345678]\d{9}"/>
+                <div>
+                    <img id="imageCodeImage" style="-webkit-user-select: none;" src="http://172.28.3.51:9004/getImageCodes/123">
+
+                    <i class="proof-icon"></i>
+                </div>
             </div>
-            <div class="box-a">
-                <a href="javascript:;" class="box-l">取消</a>
-                <a href="javascript:;" class="box-r">确定</a>
+            <div class="box-s">
+                <a href="javascript:;" class="box-q">取消</a>
+                <a href="/regist" class="box-d">确定</a>
             </div>
         </div>
     </div>
