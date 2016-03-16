@@ -503,5 +503,10 @@ public class UserCtrl extends Controller {
             return ok(views.html.users.retrieve.render());
         }
 
+    //找回密码
+        public Result nickname() {
+            return ok(views.html.users.nickname.render());
+        }
+
 }
 
