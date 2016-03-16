@@ -14,7 +14,7 @@ import javax.inject.Singleton;
 public class SysParCom {
     public static String INDEX_PAGE;
     public static final OkHttpClient client = new OkHttpClient();
-    public static String LOGIN_PAGE;
+    public static String LOGIN_PAGE;//用户登录
     public static String COLLECT_PAGE;
     public static String COLLECT_DEL; //取消收藏
     public static String ADDRESS_PAGE;//地址
@@ -28,10 +28,9 @@ public class SysParCom {
 
 
 
-    public static String REGIST_VARIFY;//用户注册手机号检测
-    public static String REGIST_CODE;//用户注册发送短信验证码
-    public static String REGIST_PAGE;//用户注册
-    public static String RESET_VERIFY;//忘记密码手机号检测
+    public static String PHONE_VERIFY;//手机号检测
+    public static String PHONE_CODE;//发送短信验证码
+    public static String REGISTER_PAGE;//用户注册
     public static String RESET_PASSWORD;//密码修改
     public static String USER_UPDATE;//个人信息修改
 
@@ -84,10 +83,9 @@ public class SysParCom {
 
 
         //注册与密码
-        REGIST_VARIFY = configuration.getString("user.regist.verify");
-        REGIST_CODE = configuration.getString("user.regist.code");
-        REGIST_PAGE = configuration.getString("user.page.regist");
-        RESET_VERIFY = configuration.getString("user.reset.verify");
+        PHONE_VERIFY = configuration.getString("user.phone.verify");
+        PHONE_CODE = configuration.getString("user.phone.code");
+        REGISTER_PAGE = configuration.getString("user.page.register");
         RESET_PASSWORD = configuration.getString("user.reset.password ");
         USER_UPDATE = configuration.getString("user.page.update");
 
