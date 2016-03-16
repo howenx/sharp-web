@@ -15,7 +15,7 @@ GET         /coupon                   controllers.UserCtrl.coupon()
 POST        /login/submit             controllers.UserCtrl.loginSubmit()
 GET         /collect                  controllers.UserCtrl.collect()
 GET         /collect/del/$collectId<[0-9]+>              controllers.UserCtrl.collectDel(collectId:Long)
-
+GET         /nickname                  controllers.UserCtrl.nickname()
 
 POST        /regist/verify            controllers.UserCtrl.registVerify()
 
