@@ -10,6 +10,7 @@ import domain.*;
 import filters.UserAuth;
 import net.spy.memcached.MemcachedClient;
 import play.Logger;
+import play.api.libs.Codecs;
 import play.cache.Cache;
 import play.data.Form;
 import play.libs.F;
@@ -323,7 +324,7 @@ public class UserCtrl extends Controller {
 
             return promiseOfInt.map((Function<JsonNode, Result>) json -> {
                 Message message = Json.fromJson(json.findValue("message"), Message.class);
-                Logger.error(json.toString()+"-----"+message.toString());
+                //Logger.error(json.toString()+"-----"+message.toString());
                 return ok(Json.toJson(message));
             });
         }
@@ -353,7 +354,6 @@ public class UserCtrl extends Controller {
                         .build();
                 client.setConnectTimeout(10, TimeUnit.SECONDS);
                 Response response = client.newCall(request).execute();
-                //Logger.error(response.toString());
                 if (response.isSuccessful()) {
                     JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
                     return json;
@@ -388,24 +388,46 @@ public class UserCtrl extends Controller {
                 userMap.forEach(feb::add);
                 RequestBody formBody = feb.build();
                 Request request = new Request.Builder()
+                        .header("User-Agent", request().getHeader("User-Agent"))
                         .url(REGIST_PAGE)
                         .post(formBody)
                         .build();
                 client.setConnectTimeout(10, TimeUnit.SECONDS);
                 Response response = client.newCall(request).execute();
-                Logger.error(response.toString());
                 if (response.isSuccessful()) {
-                    JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
-                    return json;
+                    return Json.parse(new String(response.body().bytes(), UTF_8));
                 } else throw new IOException("Unexpected code" + response);
             });
 
             return promiseOfInt.map((Function<JsonNode, Result>) json -> {
                 Message message = Json.fromJson(json.findValue("message"), Message.class);
                 if (Message.ErrorCode.SUCCESS.getIndex()==message.getCode()) {
-                    Logger.error("用户注册成功");
+                    //注册成功请求登录接口
+                    FormEncodingBuilder feb = new FormEncodingBuilder();
+                    userMap.forEach(feb::add);
+                    RequestBody formBody = feb.build();
+                    Request request2 = new Request.Builder()
+                            .header("User-Agent", request().getHeader("User-Agent"))
+                            .url(LOGIN_PAGE)
+                            .post(formBody)
+                            .build();
+                    client.setConnectTimeout(10, TimeUnit.SECONDS);
+                    Response response2 = client.newCall(request2).execute();
+                    if (response2.isSuccessful()) {
+                        JsonNode json2 = Json.parse(new String(response2.body().bytes(), UTF_8));
+                        Message message2 = Json.fromJson(json2.findValue("message"), Message.class);
+                        if (Message.ErrorCode.SUCCESS.getIndex() == message2.getCode()) {
+                            String session_id = UUID.randomUUID().toString().replaceAll("-", "");
+                            Cache.set(session_id, json2.findValue("token").asText(), json2.findValue("expired").asInt());
+                            session("session_id", session_id);
+                            response().setCookie("session_id", session_id, json2.findValue("expired").asInt());
+                            response().setCookie("user_token", json2.findValue("token").asText(), json2.findValue("expired").asInt());
+                            session("id-token", json2.findValue("token").asText());
+                        }
+                        return ok(Json.toJson(message2));
+                    } else throw new IOException("Unexpected code" + response2);
                 }
-//                Logger.error(json.toString()+"-----"+message.toString());
+                //Logger.error(json.toString()+"-----"+message.toString());
                 return ok(Json.toJson(message));
             });
         }
@@ -503,7 +525,7 @@ public class UserCtrl extends Controller {
             return ok(views.html.users.retrieve.render());
         }
 
-    //找回密码
+    //修改昵称
         public Result nickname() {
             return ok(views.html.users.nickname.render());
         }

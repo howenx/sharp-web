@@ -82,6 +82,14 @@
                 $("input[name='phone']").val("").focus(); // 清空并获得焦点
             });
 
+            /*按下回车键事件*/
+            $(document).keydown(function (event) {
+                    if (event.keyCode == 13) {
+                        $('#btn-reg').click();
+                    }
+            });
+
+
             //用户注册检测手机号
             $("#btn-reg").click(function() {
                 var phoneNum = $("#phoneNum").val();
@@ -101,10 +109,11 @@
                                    }
                                    //用户未注册,请求手机验证码接口
                                    if (data.code === 4003) {
+                                           //console.log($('form#cell_loginForm').append("<input name='msg' type='hidden' value='"+msg+"'>").serialize());
                                            $.ajax({
                                                     url: "/regist/code",
                                                     dataType: 'json',
-                                                    data: $('form#cell_loginForm').append("<input name='name' type='hidden' value='"+phoneNum+"'>").append("<input name='msg' type='hidden' value='"+msg+"'>").serialize(),
+                                                    data: $('form#cell_loginForm').append("<input name='msg' type='hidden' value='"+msg+"'>").serialize(),
                                                     type: 'POST',
                                                     success: function(data) {
                                                        console.log(data);
@@ -113,12 +122,21 @@
                                                             console.log(JSON.stringify(phoneNum));
                                                             window.location.href = "/regist/"+phoneNum;
                                                        }
+                                                       if (data.code === 5005) {
+                                                            alert("发送验证码次数过多,请明天再试");
+                                                       }
+                                                       if (data.code === 5004) {
+                                                            alert("安全校验不通过");
+                                                       }
                                                     }
                                            });
                                    }
                         }
                 });
             });
+
+
+
         })
     </script>
 

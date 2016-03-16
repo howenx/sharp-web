@@ -545,6 +545,7 @@ div .cycle-overlay {
 	display: inline-block;
 	width: 100px;
 	color: #727272;
+	font-size: 12px;
 }
 .parameter-wrap .param-list .param-info {
 	-webkit-flex: 1;
@@ -978,7 +979,7 @@ div .cycle-overlay {
 	display: inline-block;color: red;background: #fff;border-radius: 50%;
 }
 .toup .con .item div:nth-of-type(1) p{
-	display: inline-block;color: #fff;
+	display: inline;color: #fff;
 }
 
 

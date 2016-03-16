@@ -24,7 +24,7 @@ public class UserRegistCode implements Serializable {
     public List<ValidationError> validate() {
         List<ValidationError> errors = new ArrayList<>();
         if ("".equals(msg)) {
-            errors.add(new ValidationError("msg", "This msg is wrong"));
+            errors.add(new ValidationError("code", "This code is wrong"));
         }
         return errors.isEmpty() ? null : errors;
     }
