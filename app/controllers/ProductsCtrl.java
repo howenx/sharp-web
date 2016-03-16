@@ -17,10 +17,7 @@ import play.mvc.Result;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import static modules.SysParCom.*;
 /**
@@ -191,10 +188,15 @@ public class ProductsCtrl extends Controller {
                         Date now = new Date();
                         String strNow = sdfDate.format(now);
                         String endAt = Json.fromJson(tempJson.get("endAt"),String.class);
+                        Date endAtDate = sdfDate.parse(endAt);
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(endAtDate);
+                        String endDate = calendar.MONTH + "月" + calendar.DAY_OF_MONTH + "日" + calendar.HOUR_OF_DAY +":"+calendar.MINUTE;
+
                         if(endAt.compareTo(strNow) < 0){
                             itemObject[7] = "已结束";
                         }else{
-                            itemObject[7] = "截止" + endAt;
+                            itemObject[7] = "截止" + endDate;
                         }
                         itemList.add(itemObject);
                     }
