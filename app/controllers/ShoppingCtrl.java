@@ -227,6 +227,12 @@ public class ShoppingCtrl extends Controller {
         );
     }
 
+    
+
+    public Result opengroup() {
+                return ok(views.html.shopping.opengroup.render());
+        }
+
 
 }
 

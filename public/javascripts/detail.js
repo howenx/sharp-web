@@ -22,6 +22,9 @@ $(function() {
 	//切换
 	var top = $('.pic-tex').offset().top;
 	$(window).scroll(function(e) {
+		if($(".pic-tex").length==0){
+			$('.nav_ban_detail').hide();
+		}
 		if($(window).scrollTop() > top-51){
 			$('.detail-tabpanel').addClass('detail-tabpanel-fixed');
 			$('.nav_ban_detail').hide()
@@ -44,11 +47,22 @@ $(function() {
 			$('body').scrollTop($('.hot').offset().top-61);
 		}
 
-	})
+	});
+
+	$(window).scroll(function(e) {
+		//console.log($(window).scrollTop());
+		if($(window).scrollTop() > $(window).height()){
+			$('.top').show();
+		}else{
+			$('.top').hide();
+		}
+	});
 
 	$('.top').click(function(e) {
 		$('html,body').stop().animate({'scrollTop':'0'},500);
 	});
+
+
 
 	/*收藏*/
 	var off = true;

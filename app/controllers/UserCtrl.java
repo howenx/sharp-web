@@ -381,7 +381,7 @@ public class UserCtrl extends Controller {
      */
     public F.Promise<Result> registVerify() {
         ObjectNode result = newObject();
-        Form<UserRegistVerify> userRegistVerifyForm = Form.form(UserRegistVerify.class).bindFromRequest();
+        Form<UserPhoneVerify> userRegistVerifyForm = Form.form(UserPhoneVerify.class).bindFromRequest();
         Map<String, String> userMap = userRegistVerifyForm.data();
         if (userRegistVerifyForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
@@ -392,7 +392,7 @@ public class UserCtrl extends Controller {
                 userMap.forEach(feb::add);
                 RequestBody formBody = feb.build();
                 Request request = new Request.Builder()
-                        .url(REGIST_VARIFY)
+                        .url(PHONE_VERIFY)
                         .post(formBody)
                         .build();
                 client.setConnectTimeout(10, TimeUnit.SECONDS);
@@ -430,7 +430,7 @@ public class UserCtrl extends Controller {
                 userMap.forEach(feb::add);
                 RequestBody formBody = feb.build();
                 Request request = new Request.Builder()
-                        .url(REGIST_CODE)
+                        .url(PHONE_CODE)
                         .post(formBody)
                         .build();
                 client.setConnectTimeout(10, TimeUnit.SECONDS);
@@ -470,7 +470,7 @@ public class UserCtrl extends Controller {
                 RequestBody formBody = feb.build();
                 Request request = new Request.Builder()
                         .header("User-Agent", request().getHeader("User-Agent"))
-                        .url(REGIST_PAGE)
+                        .url(REGISTER_PAGE)
                         .post(formBody)
                         .build();
                 client.setConnectTimeout(10, TimeUnit.SECONDS);
@@ -533,7 +533,7 @@ public class UserCtrl extends Controller {
                 userMap.forEach(feb::add);
                 RequestBody formBody = feb.build();
                 Request request = new Request.Builder()
-                        .url(RESET_VERIFY)
+                        .url(PHONE_VERIFY)
                         .post(formBody)
                         .build();
                 client.setConnectTimeout(10, TimeUnit.SECONDS);
@@ -603,7 +603,7 @@ public class UserCtrl extends Controller {
         }
     //找回密码
         public Result retrieve() {
-            return ok(views.html.users.retrieve.render());
+            return ok(views.html.users.retrieve.render(IMAGE_CODE));
         }
 
     //修改昵称
@@ -612,6 +612,9 @@ public class UserCtrl extends Controller {
         }
         public Result mypin() {
             return ok(views.html.users.mypin.render());
+        }
+        public Result mypinDetail() {
+            return ok(views.html.users.mypinDetail.render());
         }
 
 }
