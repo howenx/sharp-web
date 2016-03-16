@@ -53,7 +53,7 @@ public class ShoppingCtrl extends Controller {
 
         return promiseOfInt.map((play.libs.F.Function<List<OrderDTO> , Result>) pi -> {
                     if (id > 0) {
-                        return ok(views.html.shopping.orderpa.render());
+                        return ok(views.html.shopping.orderpa.render(pi));
                     }
                     return ok(views.html.shopping.all.render(pi));
                 }
@@ -175,9 +175,6 @@ public class ShoppingCtrl extends Controller {
         return ok(views.html.shopping.settle.render());
     }
 
- public Result orderpa() {
-        return ok(views.html.shopping.orderpa.render());
-    }
 
 
     /**
@@ -228,11 +225,6 @@ public class ShoppingCtrl extends Controller {
                     return ok(toJson(pi));
                 }
         );
-    }
-
-
-    public Result orderpage() {
-            return ok(views.html.shopping.orderpa.render());
     }
 
 

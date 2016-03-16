@@ -1,10 +1,12 @@
-<!DOCTYPE html>
+@(orderList:List[domain.OrderDTO])
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="/assets/stylesheets/global.css">
     <link rel="stylesheet" href="/assets/stylesheets/orderpage.css">
+    <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+    <script src="/assets/javascripts/my.js"></script>
 </head>
 <body>
 
@@ -13,23 +15,38 @@
         <i></i>
         <b></b>
     </a>
-    <h1>待收货</h1>
-    <span></span>
+    <h1>订单详情</h1>
+    @if(orderList.get(0).getOrder().getOrderStatus()=="C"){
+    <span onclick="delOrder(@orderList.get(0).getOrder().getOrderId(),1)"></span>
+    }
 
 
 </header>
 
 <div class="wap">
     <ul>
+        @for(order<-orderList){
         <li>
             <p class="first">
                 <span>订单号 :</span>
-                <i>566777888</i>
+                <i>@order.getOrder().getOrderId()</i>
             </p>
 
             <p>
                 <span>订单状态 :</span>
-                <i>已取消</i>
+                <i>@if(order.getOrder().getOrderStatus()=="I"){待支付}
+                    @if(order.getOrder().getOrderStatus()=="S"){待发货}
+                    @if(order.getOrder().getOrderStatus()=="C"){已取消}
+                    @if(order.getOrder().getOrderStatus()=="F"){失败}
+                    @if(order.getOrder().getOrderStatus()=="R"){已完成}
+                    @if(order.getOrder().getOrderStatus()=="D"){待收货}
+                    @if(order.getOrder().getOrderStatus()=="J"){拒收}
+                    @if(order.getOrder().getOrderStatus()=="N"){已删除}
+                    @if(order.getOrder().getOrderStatus()=="T"){已退款}
+                    @if(order.getOrder().getOrderStatus()=="PI"){拼购未支付状态}
+                    @if(order.getOrder().getOrderStatus()=="PS"){拼购支付成功状态}
+                    @if(order.getOrder().getOrderStatus()=="PF"){拼团失败还未成功退款}
+                </i>
             </p>
 
             <p>
@@ -39,7 +56,7 @@
 
             <p>
                 <span>下单时间 :</span>
-                <i>2016-03-06 09:40:06</i>
+                <i>@order.getOrder().getOrderCreateAt()</i>
             </p>
 
         </li>
@@ -49,14 +66,16 @@
                 <span>商品详情</span>
             </p>
 
+            @for(sku<-order.getSku()){
+                <div>
+                    <a href="@sku.getInvUrl()" class="commodity">
+                        <img src="@sku.getInvImg()" alt=""/>
+                        <h2>@sku.getSkuTitle()</h2>
+                        <span class="commodity-rmb">￥@sku.getPrice()<i class="rmb color"></i><i class="number">数量:@sku.getAmount()</i></span>
+                    </a>
+                </div>
+            }
 
-            <div>
-                <a href="javascript:;" class="commodity">
-                    <img src="http://img.hanmimei.com/item/photo/20160315/b3730fc560ab471a9faa38bd19535d981458023469090.jpg" alt=""/>
-                    <h2>商品商品商品商品商品商品商品商品商品商品商品商品</h2>
-                    <span class="commodity-rmb">￥30<i class="rmb color"></i><i class="number">数量:1</i></span>
-                </a>
-            </div>
 
         </li>
 
@@ -66,22 +85,22 @@
             </p>
             <p>
                 <span>收货人 :</span>
-                <i>张同兰</i>
+                <i>@order.getAddress().getName()</i>
             </p>
 
             <p>
                 <span>手机号码 :</span>
-                <i>123455667777</i>
+                <i>@order.getAddress().getTel()</i>
             </p>
 
             <p>
                 <span>身份证 :</span>
-                <i>45666778899009999</i>
+                <i>@order.getAddress().getIdCardNum()</i>
             </p>
 
             <p>
                 <span>收货地址 :</span>
-                <i>安徽安徽安徽安徽安徽安徽安徽安徽安徽安徽安徽安徽安徽</i>
+                <i>@order.getAddress().getDeliveryCity()@order.getAddress().getDeliveryDetail()</i>
             </p>
         </li>
 
@@ -91,29 +110,38 @@
             </p>
             <p>
                 <span>订单总件数 :</span>
-                <i>1</i>
+                <i>@order.getOrder().getOrderAmount()</i>
             </p>
 
             <p>
                 <span>商品总费用 :</span>
-                <i>123455667777</i>
+                <i>@order.getOrder().getTotalFee()</i>
             </p>
 
             <p>
                 <span>邮费 :</span>
-                <i>20</i>
+                <i>@order.getOrder().getShipFee()</i>
             </p>
 
             <p>
                 <span>行邮税 :</span>
-                <i>0</i>
+                <i>@order.getOrder().getPostalFee()</i>
             </p>
 
             <p>
                 <span>订单应付金额 :</span>
-                <i>666</i>
+                <i>@order.getOrder().getPayTotal()</i>
             </p>
         </li>
+
+        @if(order.getOrder().getOrderStatus()=="I"||order.getOrder().getOrderStatus()=="F"){
+            <li value="@order.getOrder().getOrderId()">
+                <a href="javascript:;" class="left cancelOrder">取消订单</a>
+                <a href="javascript:;" class="right bg">去支付</a>
+            </li>
+        }
+
+        }
     </ul>
 
 

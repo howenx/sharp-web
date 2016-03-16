@@ -113,6 +113,35 @@ $(document).on("click",".delOrder",function(e){
           }
      });
 });
+
+function delOrder(id,position){
+    if (window.confirm("确定删除吗?")) {
+        console.log("id="+id);
+        $.ajax({
+              type :"GET",
+              url : "/order/del/"+id,
+              contentType: "application/json; charset=utf-8",
+              error : function(request) {
+                  alert("删除失败!");
+              },
+              success: function(data) {
+                 console.log("data="+data);
+
+                  if (data!=""&&data!=null&&data.code==200){ //删除成功
+                      if(position==0){
+                        $("#li"+id).remove();
+                      }else{
+                       setTimeout("location.href='/all'", 2000);
+                      }
+
+                   } else alert("删除失败!");
+
+              }
+         });
+    }
+};
+
+
 function delAddress(addId,orDefault){
     if (window.confirm("确定删除该地址吗?")) {
         var obj=new Object();
@@ -140,8 +169,17 @@ function delAddress(addId,orDefault){
 
 $(document).ready(function(){
      //修改待支付待收货个数
-    $("#waitPay").html($("#waitPayUl li").length);
-    $("#waitGoods").html($("#waitGoodsUl li").length);
-})
+     var waitPayNum=$("#waitPayUl li").length;
+     if(waitPayNum>0){
+         $("#waitPay").addClass("cart_num").html(waitPayNum);
+     }
+     var waitGoodsNum=$("#waitGoodsUl li").length;
+     if(waitGoodsNum>0){
+        $("#waitGoods").addClass("cart_num").html(waitGoodsNum);
+     }
+});
+
+
+
 
 

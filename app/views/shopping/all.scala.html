@@ -31,7 +31,7 @@
                 <li>
                    <a href="javascript:;" class="message_list shopping">
                         <i class="message">待付款</i>
-                        <span class="cart_num" id="waitPay">0</span>
+                        <span id="waitPay"></span>
                    </a>
 
                 </li>
@@ -39,7 +39,7 @@
                 <li>
                     <a href="javascript:;" class="message_list shopping">
                         <i class="message">待收货</i>
-                        <span class="cart_num" id="waitGoods">0</span>
+                        <span id="waitGoods"></span>
                     </a>
 
                 </li>
@@ -56,7 +56,7 @@
             <section class="current">
                 <ul>
                     @for(order<-orderList){
-                    <li value="@order.getOrder().getOrderId()">
+                    <li value="@order.getOrder().getOrderId()" id="li@order.getOrder().getOrderId()">
                         <div class="con">
                             <div class="day">
                                 <div class="day-l">
@@ -101,7 +101,7 @@
                                     <a href="javascript:;" class="right bg">查看物流</a>
                                 }
                                 @if(order.getOrder().getOrderStatus()=="C"){
-                                <a href="javascript:;" class="right bg delOrder">删除</a>
+                                <a href="javascript:;" class="right bg" onclick="delOrder(@order.getOrder().getOrderId(),0)">删除</a>
                                 }
 
                             </div>
