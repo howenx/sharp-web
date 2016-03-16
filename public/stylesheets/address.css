@@ -6,15 +6,17 @@
 
 ul li{
     padding:10px;
-    border: 1px solid #ccc;
-    height: 220px;
-    margin: 0 0 10px 0;
+    border-bottom: 1px solid #ccc;
     background-color: #ededed;
 
 }
 
 ul li a{
     color: #4B4B4B;
+}
+
+.ul-box li{
+    height: 300px;
 }
 
 li div{
@@ -67,12 +69,13 @@ li div{
 .dqld_div{
     width:100%;
     background-color:#fff;
-    margin-top: -479px;
+    margin-top: -618px;
     position: absolute;
 }
 
 .dqld_div ul{
     width:90%;
+    margin: 0 auto;
 }
 
 .dqld_div ul li{
