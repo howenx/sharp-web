@@ -235,6 +235,10 @@ public class ShoppingCtrl extends Controller {
             return ok(views.html.shopping.orderpa.render());
     }
 
+    public Result opengroup() {
+                return ok(views.html.shopping.opengroup.render());
+        }
+
 
 }
 

@@ -7,5 +7,13 @@ $(function(){
         $(this).parents("ul").prev().find(".quick").html($(this).find(".quick").html())
     })
 
+    $('.back').click(function(){
+        $('.shade').show();
+    })
+
+    $('.first').click(function(){
+        $('.shade').hide();
+    })
+
 })
 

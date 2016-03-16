@@ -13,11 +13,6 @@ public class UserRegistInfo implements Serializable {
     @Constraints.MaxLength(11)
     @Constraints.MinLength(11)
     @Constraints.Pattern("[1][345678]\\d{9}")
-    protected String name;
-
-    @Constraints.MaxLength(11)
-    @Constraints.MinLength(11)
-    @Constraints.Pattern("[1][345678]\\d{9}")
     protected String phone;
 
     @Constraints.MaxLength(12)
@@ -34,19 +29,10 @@ public class UserRegistInfo implements Serializable {
     public UserRegistInfo() {
     }
 
-    public UserRegistInfo(String name, String phone, String password, String code) {
-        this.name = name;
+    public UserRegistInfo(String phone, String password, String code) {
         this.phone = phone;
         this.password = password;
         this.code = code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getPassword() {
@@ -77,7 +63,6 @@ public class UserRegistInfo implements Serializable {
     @Override
     public String toString() {
         return "UserRegistInfo{" +
-                "name='" + name + '\'' +
                 ", phone='" + phone + '\'' +
                 ", password='" + password + '\'' +
                 ", code='" + code + '\'' +
