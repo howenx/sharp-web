@@ -16,7 +16,6 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -140,21 +139,33 @@ public class ProductsCtrl extends Controller {
                 //主题标签
                 if(themeJson.has("masterItemTag")){
                     JsonNode tempJson = themeJson.get("masterItemTag");
-
                     String tags = Json.fromJson(tempJson,String.class);
                     if(tags != null){
                         JsonNode tagJson = Json.parse(tags);
                         for(JsonNode tag : tagJson){
-                            Object[] tagObject = new Object[5];
+                            Logger.error(tag.toString());
+                            Object[] tagObject = new Object[6];
                             tagObject[0] = tag.get("top").asDouble() * 100;
-                            tagObject[1] = tag.get("url").toString();
+                            String tagUrl = Json.fromJson(tag.get("url"),String.class);
+                            String urlType = "";
+                            if(tagUrl.contains(PIN_PAGE)){
+                                tagUrl = tagUrl.replace(PIN_PAGE,"");
+                                urlType = "pin";
+                            }
+                            if(tagUrl.contains(ITEM_PAGE)){
+                                tagUrl = tagUrl.replace(ITEM_PAGE,"");
+                                urlType = "item";
+                            }
+                            tagObject[1] = tagUrl;
                             tagObject[2] = tag.get("left").asDouble() * 100;
                             String tagName = tag.get("name").toString();
                             tagName = tagName.substring(1,tagName.length()-1);
                             tagObject[3] = tagName;
                             tagObject[4] = tag.get("angle").asInt();
+                            tagObject[5] = urlType;
                             tagList.add(tagObject);
                         }
+
                     }
                 }
                 //主题中的商品
