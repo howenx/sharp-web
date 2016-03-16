@@ -56,7 +56,7 @@
             var phoneReg = new RegExp(/^1[345678]\d{9}$/);
             $("#btn-reg").css('background', '#C0C0C0');
             //输入手机号格式正确可以点击下一步
-            $('#phoneNum').bind('input propertychange', function() {
+            $('#phone').bind('input propertychange', function() {
                 if (phoneReg.test($(this).val())) {
                     $("#btn-reg").css('background-color', '#E46359');
                     $("#btn-reg").css('cursor', 'pointer');
@@ -69,9 +69,6 @@
                 }
             });
 
-            $('.submitBox').click(function(){
-               // $('.shade').show();
-            });
             //弹框取消按钮
             $('.box-l').click(function(){
                 $('.shade').hide();
@@ -91,15 +88,14 @@
 
 
             //用户注册检测手机号
-            $("#btn-reg").click(function() {
-                var phoneNum = $("#phoneNum").val();
-                //console.log(phoneNum);
-                //console.log($('form#cell_loginForm').serialize());
-                var msg = hex_md5(phoneNum+"hmm");
+            $(document).on('click', '#btn-reg', function() {
+                var phone = $("#phone").val();
+                //console.log($('form#cell_verifyForm').serialize());
+                var msg = hex_md5(phone+"hmm");
                 $.ajax({
                         url: "/regist/verify",
                         dataType: 'json',
-                        data: $('form#cell_loginForm').serialize(),
+                        data: $('form#cell_verifyForm').serialize(),
                         type: 'POST',
                         success: function(data) {
                                    console.log(data);
@@ -109,18 +105,18 @@
                                    }
                                    //用户未注册,请求手机验证码接口
                                    if (data.code === 4003) {
-                                           //console.log($('form#cell_loginForm').append("<input name='msg' type='hidden' value='"+msg+"'>").serialize());
+                                           console.log($('form#cell_verifyForm').append("<input name='msg' type='hidden' value='"+msg+"'>").serialize());
                                            $.ajax({
                                                     url: "/regist/code",
                                                     dataType: 'json',
-                                                    data: $('form#cell_loginForm').append("<input name='msg' type='hidden' value='"+msg+"'>").serialize(),
+                                                    data: $('form#cell_verifyForm').append("<input name='msg' type='hidden' value='"+msg+"'>").serialize(),
                                                     type: 'POST',
                                                     success: function(data) {
                                                        console.log(data);
                                                        //手机验证码发送成功
                                                        if (data.code === 200) {
-                                                            console.log(JSON.stringify(phoneNum));
-                                                            window.location.href = "/regist/"+phoneNum;
+                                                            console.log(JSON.stringify(phone));
+                                                            window.location.href = "/regist/"+phone;
                                                        }
                                                        if (data.code === 5005) {
                                                             alert("发送验证码次数过多,请明天再试");
@@ -134,9 +130,6 @@
                         }
                 });
             });
-
-
-
         })
     </script>
 
@@ -151,11 +144,12 @@
 
         <div class="login-t">我们将发送验证码到你的手机 13241179879  18676889842</div>
         <fieldset>
-            <form id="cell_loginForm" method="post" onsubmit="return false" action="" >
+            <form id="cell_verifyForm" method="post" onsubmit="return false" action="" >
                 <dl class="list list-in">
                     <dd class="dd-padding">
-                       <span>手机号</span> <input id="phoneNum" type="text" class="input-rese" name='phone' placeholder="请输入手机号" maxlength="11" required pattern="[1][345678]\d{9}" onkeyup="this.value=this.value.replace(/\D/g,'')"/>
+                       <span>手机号</span> <input id="phone" type="text" class="input-rese" name='phone' placeholder="请输入手机号" maxlength="11" required pattern="[1][345678]\d{9}" onkeyup="this.value=this.value.replace(/\D/g,'')"/>
                         <i class="delet delet-box"></i>
+                            <input type="hidden" id="code" name="code" value="-1">
                     </dd>
                 </dl>
             </form>
