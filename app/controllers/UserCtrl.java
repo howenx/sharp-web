@@ -607,6 +607,9 @@ public class UserCtrl extends Controller {
         public Result nickname() {
             return ok(views.html.users.nickname.render());
         }
+        public Result mypin() {
+            return ok(views.html.users.mypin.render());
+        }
 
 }
 
