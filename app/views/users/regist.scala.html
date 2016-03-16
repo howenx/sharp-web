@@ -60,7 +60,7 @@
 <div id='screen_wrap'>
     <div class="nav_ban">
         <h1>账号注册</h1>
-        <a href="/login"><span class="icon-back" id="backBtn"></span></a>
+        <a href="/register"><span class="icon-back" id="backBtn"></span></a>
         <!--<a href="/login"><span class="icon-user-title" id="userBtn"></span></a>-->
     </div>
     <div id="js-userinfo-error" class="cue"></div>
@@ -120,7 +120,7 @@ $(function() {
         $("#phone-send-code").text("已发送验证码至"+phone.substring(0,3)+"*****"+phone.substring(7,11));
 
         //验证码获取倒计时
-        var time = 8;
+        var time = 80;
         $("#time").html(time+"s");
         timer = window.setInterval(function() {
                 $("#time").html(--time+"s");
@@ -135,6 +135,10 @@ $(function() {
         //再次获取验证码
         $("#get-code").click(function() {
                 //var msg = hex_md5(phone+"hmm");
+                $("#name").removeAttr("name");
+                $("#password").removeAttr("name");
+                $("#code").removeAttr("name");
+                console.log($('form#cell_loginForm').serialize());
                 $.ajax({
                         url: "/regist/code",
                         dataType: 'json',
@@ -143,12 +147,20 @@ $(function() {
                         success: function(data) {
                                 console.log(data);
                                 //手机验证码发送成功
+                                //验证码发送次数过多
+                                if (data.code == 5005) {
+                                   $('#js-userinfo-error').text('验证码发送次数过多,请明天再试!').show();
+                                    setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                }
                                 if (data.code === 200) {
+                                           $("#name").attr({"name":"name"});
+                                           $("#password").attr({"name":"password"});
+                                           $("#code").attr({"name":"code"});
                                            $('#js-userinfo-error').text('验证码发送成功!').show();
                                            setTimeout("$('#js-userinfo-error').hide()", 2000);
                                            $("#get-code").css("color", "#000");
                                            $("#get-code").css('cursor', 'auto');
-                                           var ctime = 8;
+                                           var ctime = 80;
                                            $("#time").html(ctime+"s");
                                            timer2 = window.setInterval(function() {
                                                 $("#time").html(--ctime+"s");
@@ -191,19 +203,29 @@ $(function() {
                      setTimeout("$('#js-userinfo-error').hide()", 2000);
                 }
                 else {
+                       $("#msg").removeAttr("name");
                        console.log($('form#cell_loginForm').serialize());
                     $.ajax({
                             url: "/regist/submit",
                             dataType: 'json',
-                            data: $('form#cell_loginForm').append("<input name='name' type='hidden' value='"+phoneNum+"'>").append("<input name='msg' type='hidden' value='"+msg+"'>").serialize(),,
+                            data: $('form#cell_loginForm').serialize(),
                             type: 'POST',
                             success: function(data) {
                                 console.log(data);
-                                if(data==='success'){
+                                if(data.code === 200){
+                                    $("#msg").attr({"name":"msg"});
+                                    $('#js-userinfo-error').text('注册并登录成功').show();
+                                    setTimeout("$('#js-userinfo-error').hide()", 1000);
                                     setTimeout(function(){
-                                        window.location.href='/login';
-                                    }, 2000);
-                                }else{
+                                        window.location.href='/myView';
+                                    }, 1500);
+                                } else if(data.code === 5002){
+                                    $('#js-userinfo-error').text('验证码错误!').show();
+                                    setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                } else if(data.code === 5001){
+                                    $('#js-userinfo-error').text('此手机已经注册!').show();
+                                    setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                } else{
                                     alert('Server Error.')
                                 }
                             }
@@ -212,34 +234,41 @@ $(function() {
         });
 
         $(".delet").click(function() {
-        $("input[name='name']").val("").focus(); // 清空并获得焦点
+                $("input[name='name']").val("").focus(); // 清空并获得焦点
         });
         $(".out").click(function() {
-        $("input[name='password']").val("").focus(); // 清空并获得焦点
+                $("input[name='password']").val("").focus(); // 清空并获得焦点
         });
 
         /*显示密码*/
         var of = true;
         $('.howl-reT').click(function(){
-        $(this).toggleClass('bg2');
-        if(of){
-            $('.input-reseT').attr({'type':'text'});
-            of = false;
-        }else{
-            $('.input-reseT').attr({'type':'password'});
-            of = true;
-        }
+                $(this).toggleClass('bg2');
+                if(of){
+                    $('.input-reseT').attr({'type':'text'});
+                    of = false;
+                }else{
+                    $('.input-reseT').attr({'type':'password'});
+                    of = true;
+                }
         });
 
         $('.howl-reB').click(function(){
-        $(this).toggleClass('bg3');
-        if(of){
-            $('.input-reseB').attr({'type':'text'});
-            of = false;
-        }else{
-            $('.input-reseB').attr({'type':'password'});
-            of = true;
-        }
+                $(this).toggleClass('bg3');
+                if(of){
+                    $('.input-reseB').attr({'type':'text'});
+                    of = false;
+                }else{
+                    $('.input-reseB').attr({'type':'password'});
+                    of = true;
+                }
+        });
+
+        /*按下回车键事件*/
+        $(document).keydown(function (event) {
+            if (event.keyCode == 13) {
+                $('#btn-reg').click();
+            }
         });
 
 });

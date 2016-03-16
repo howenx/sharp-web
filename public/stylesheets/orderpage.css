@@ -53,18 +53,78 @@ input:password {
 }
 *{box-sizing:border-box;}
 
+body{
+    background-color: #ccc;
+}
 
 
+.wap{
+    padding: 80px 2%;
+}
+
+.head span{
+    width: 25px;
+    height: 25px;
+    background: url("/assets/images/icon_delete_hui.png");
+    background-size: contain;
+    position: absolute;
+    top:12px;
+    right: 2%;
+}
+
+.wap ul li{
+    width: 100%;
+    background-color:#fff;
+    border-radius: 5px;
+    border: 1px solid #ededed;
+    padding: 2% 2% 0;
+    margin: 0 0 10px 0;
+}
+.wap ul p{
+    width: 100%;
+    margin: 0 0 20px 0;
+}
 
 
+.first{
+    border-bottom: 1px solid #ededed;
+    padding:0 0 2% 0 ;
+}
 
 
+.commodity{
+    width:100%;
+    height:125px;
+    display: block;
+
+}
+
+.commodity .commodity-rmb {
+    display: block;
+}
 
 
+span .rmb{
+    font-size:20px;
+    margin: 0 10px 0 0 ;
+}
 
 
+.commodity img{
+    width:80px;
+    height:106px;
+    float: left;
+    margin: 0 10px 0 0;
+}
 
-
+.commodity h2{
+    font-size: 16px;
+    overflow: hidden;
+    display: -webkit-box;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    margin: 0 0 10px 0;
+}
 
 
 

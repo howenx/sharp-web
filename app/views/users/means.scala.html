@@ -11,6 +11,24 @@
     <link rel="stylesheet" href="/assets/stylesheets/means.css">
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="/assets/javascripts/obligation.js"></script>
+    <script>
+        $(function(){
+            $('.face-mw').click(function(){
+                $('.mw').toggle();
+            });
+
+            $('.mw span').click(function(){
+                $(this).parents('.wap').find('.mw-box').html($(this).html());
+            })
+
+            /*var tim = null;
+            clearInterval( tim );
+            tim = setInterval(function () {
+                $('.mw').hide();
+            },3000);*/
+        })
+    </script>
+
 
 </head>
 
@@ -48,11 +66,24 @@
             <span>aaimaaf</span>
         </a>
     </div>
+
+    <div class="face-box face-mw">
+        <a href="javascript:;" class="face">
+            <i>性别</i>
+            <span class="mw-box">女</span>
+        </a>
+    </div>
+
     <div class="face-box">
         <a href="javascript:;" class="face ">
-            <i>性别</i>
-            <span>女</span>
+            <i>手机号</i>
+            <span>13456677889</span>
         </a>
+    </div>
+
+    <div class="mw">
+        <p>请选择您的性别</p>
+        <span>男</span><span>女</span>
     </div>
 
 </div>

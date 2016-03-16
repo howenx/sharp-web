@@ -7,7 +7,6 @@
 
 @layout(title="韩秘美,专卖韩国正品")(scripts) {
 
-    <div class="header">
         <header class="head">
             <a href="/" class="back">
                 <i></i>
@@ -19,7 +18,7 @@
                 <span class="cart_num">0</span>
             </a>
         </header>
-    </div>
+ 
 
 
 
@@ -191,7 +190,7 @@
     <div class="content scope">
         <ul class="product">
             @for(rowList <- itemList){
-            <li>
+            <li class="clearfix">
                 @for(item <- rowList){
                     @if(item(1) == "item" || item(1) == "vary" || item(1) == "customize"){
                         <a href="/detail/@item(1)/@item(2)"><img src="@item(0)">
@@ -208,7 +207,11 @@
                             <p class="product-box">
                                 <span class="product-top">@item(7)</span>
                             </p>
-                            <img src="@item(0)">
+
+                            <p class="figure">
+                                <img src="@item(0)">
+                            </p>
+
                             <p class="title-hd">@item(3)</p>
                            <span class="title-fd">
                                <i class="naw">￥@item(5)</i>
@@ -305,60 +308,7 @@
             <!--</li>-->
         </ul>
 
-        <h2 class="footer">韩秘美 <span>只卖韩国正品</span></h2>
-
     </div>
-
-     <div class="foot-box scope">
-        <footer class="foot scope">
-            <cartempty>
-                <ul>
-                    <li>
-                        <a href="/" class="home">
-                            <i></i>
-                            <span>首页</span>
-                        </a>
-                    </li>
-
-                    <!--<li>
-                        <a href="/pin/list" class="buy">
-                            <i></i>
-                            <span>拼购</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="javascript:;" class="story">
-                            <i></i>
-                            <span>品牌故事</span>
-                        </a>
-                    </li>-->
-
-                    <li>
-                        <a href="/cart" class="shopping">
-                            <i></i>
-                            <span>购物车</span>
-                        </a>
-                    </li>
-
-                    <li class="my-icon">
-                        <a href="/myView" class="my">
-                            <i></i>
-                            <span>我的</span>
-                        </a>
-                    </li>
-
-
-                </ul>
-
-            </cartempty>
-
-        </footer>
-      </div>
-      <div class="top">
-          <img src="/assets/images/top.png">
-      </div>
-
 
 }
 
