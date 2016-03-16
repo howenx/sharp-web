@@ -238,9 +238,9 @@ public class ProductsCtrl extends Controller {
                 if(json.has("main")){
                     JsonNode mainJson = json.get("main");
                     itemMain = Json.fromJson(mainJson,Item.class);
-                    String itemPublicity = itemMain.getPublicity();
-                    itemPublicity = itemPublicity.substring(2,itemPublicity.length()-2);
-                    itemMain.setPublicity(itemPublicity);
+//                    String itemPublicity = itemMain.getPublicity();
+//                    itemPublicity = itemPublicity.substring(2,itemPublicity.length()-2);
+//                    itemMain.setPublicity(itemPublicity);
                     //商品参数
                     if(itemMain != null){
                         JsonNode features = Json.parse(itemMain.getItemFeatures());
@@ -314,11 +314,44 @@ public class ProductsCtrl extends Controller {
                         pushResultList.add(rowList);
                     }
                 }
-
             }
             return ok(views.html.products.detail.render(itemMain,itemFeaturesList,pushResultList));
-        }else{
-            return ok(views.html.products.pinDetail.render());
+        }
+        //拼购商品
+        else{
+            Request request = new Request.Builder()
+                    .url(PIN_PAGE + url)
+                    .build();
+            Response response = client.newCall(request).execute();
+            if(response.isSuccessful()){
+                JsonNode json = Json.parse(response.body().string());
+                //拼购商品基本信息
+                if(json.has("main")){
+                    JsonNode mainJson = json.get("main");
+                    itemMain = Json.fromJson(mainJson,Item.class);
+//                    String itemPublicity = itemMain.getPublicity();
+//                    itemPublicity = itemPublicity.substring(2,itemPublicity.length()-2);
+//                    itemMain.setPublicity(itemPublicity);
+                    //商品参数
+                    if(itemMain != null){
+                        JsonNode features = Json.parse(itemMain.getItemFeatures());
+                        HashMap featuresMap = Json.fromJson(features,HashMap.class);
+                        for(Object key : featuresMap.keySet()){
+                            Object[] featureObj = new Object[2];
+                            featureObj[0] = key;
+                            featureObj[1] = featuresMap.get(key);
+                            itemFeaturesList.add(featureObj);
+                        }
+                    }
+                    Logger.error(itemMain.toString());
+                }
+                //拼购商品Sku
+                JsonNode stockJson = json.get("stock");
+
+                //商品推荐
+                JsonNode pushJson = json.get("push");
+            }
+            return ok(views.html.products.pinDetail.render(itemMain,itemFeaturesList));
         }
     }
 }

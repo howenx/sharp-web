@@ -38,6 +38,7 @@ $(function(){
                     type :  "POST",
                     url : "/address/save",
                     contentType: "application/json; charset=utf-8",
+                    dataType:"json",
                     data : JSON.stringify(address),
                     error : function(request) {
                         if (window.lang = 'cn') {

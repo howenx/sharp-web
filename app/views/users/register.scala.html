@@ -85,31 +85,37 @@
             //用户注册检测手机号
             $("#btn-reg").click(function() {
                 var phoneNum = $("#phoneNum").val();
+                //console.log(phoneNum);
+                //console.log($('form#cell_loginForm').serialize());
                 var msg = hex_md5(phoneNum+"hmm");
                 $.ajax({
                         url: "/regist/verify",
                         dataType: 'json',
-                        data: $('form#cell_loginForm').append("<input name='phone' type='hidden' value='"+phoneNum+"'>").serialize(),
+                        data: $('form#cell_loginForm').serialize(),
                         type: 'POST',
                         success: function(data) {
-                           console.log(data);
-                           //用户已经注册,弹框提示
-                           if (data.code === 5001) {
-                                $('.shade').show();
-                           }
-                           //用户未注册,请求手机验证码接口
-                           if (data.code === 4003) {
-                                   $.ajax({
-                                            url: "/regist/code",
-                                            dataType: 'json',
-                                            data: $('form#cell_loginForm').append("<input name='name' type='hidden' value='"+phoneNum+"'>").append("<input name='msg' type='hidden' value='"+msg+"'>").serialize(),
-                                            type: 'POST',
-                                            success: function(data) {
-                                               console.log(data);
-
-                                            }
-                                   });
-                           }
+                                   console.log(data);
+                                   //用户已经注册,弹框提示
+                                   if (data.code === 5001) {
+                                        $('.shade').show();
+                                   }
+                                   //用户未注册,请求手机验证码接口
+                                   if (data.code === 4003) {
+                                           $.ajax({
+                                                    url: "/regist/code",
+                                                    dataType: 'json',
+                                                    data: $('form#cell_loginForm').append("<input name='name' type='hidden' value='"+phoneNum+"'>").append("<input name='msg' type='hidden' value='"+msg+"'>").serialize(),
+                                                    type: 'POST',
+                                                    success: function(data) {
+                                                       console.log(data);
+                                                       //手机验证码发送成功
+                                                       if (data.code === 200) {
+                                                            console.log(JSON.stringify(phoneNum));
+                                                            window.location.href = "/regist/"+phoneNum;
+                                                       }
+                                                    }
+                                           });
+                                   }
                         }
                 });
             });
@@ -125,12 +131,12 @@
     </div>
     <div class="login">
 
-        <div class="login-t">我们将发送验证码到你的手机</div>
+        <div class="login-t">我们将发送验证码到你的手机 13241179879  18676889842</div>
         <fieldset>
             <form id="cell_loginForm" method="post" onsubmit="return false" action="" >
                 <dl class="list list-in">
                     <dd class="dd-padding">
-                       <span>手机号</span> <input id="phoneNum" type="text" class="input-rese" placeholder="请输入手机号" maxlength="11" required pattern="[1][345678]\d{9}" onkeyup="this.value=this.value.replace(/\D/g,'')"/>
+                       <span>手机号</span> <input id="phoneNum" type="text" class="input-rese" name='phone' placeholder="请输入手机号" maxlength="11" required pattern="[1][345678]\d{9}" onkeyup="this.value=this.value.replace(/\D/g,'')"/>
                         <i class="delet delet-box"></i>
                     </dd>
                 </dl>
