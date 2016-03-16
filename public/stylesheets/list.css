@@ -2,12 +2,81 @@ body{
     background-color:#F5F5F5;
 }
 
-.header{
-    position: fixed;
+/***header****/
+.battener{
+    position:fixed;
     width: 100%;
-    height: 50px;
-    line-height: 50px;
+    height:50px;
+    background:#E66255;
+    z-index:1000;
 }
+.batten{
+    width:100%;
+    height:50px;
+    line-height:50px;
+    background-size: 100% auto;
+}
+
+.icon-user-title{
+    background: url(/assets/images/my.png) center center no-repeat;
+    background-size: contain;
+    position: absolute;
+    top:15%;
+    left:2%;
+    width:30px;
+    height:30px;
+}
+.shopp{
+    background: url(/assets/images/white_shoppingcar.png) center center no-repeat;
+    background-size: contain;
+    position: absolute;
+    top:22%;
+    right:2%;
+    width:30px;
+    height:30px;
+}
+.shopp i{
+    background: url(/assets/images/white_shoppingcar.png) center center no-repeat;
+    background-size: contain;
+    position: absolute;
+    top:0;
+    right:0;
+    width:30px;
+    height:30px;
+}
+
+.shopp .cart_num{
+    width:21px;
+    height:21px;
+    position: absolute;
+    top:-7px;
+    left:15px;
+    background:#ed145b;
+    line-height: 21px;
+    cursor: pointer;
+    color:#fff;
+    border-radius:50%;
+    text-align: center;
+
+}
+
+h1 {
+    width:100%;
+    height:50px;
+    text-align: center;
+}
+h1 .logo {
+    width:90px;
+    padding-top:32px;
+    display: inline-block;
+    background: url("/assets/images/logo.png") no-repeat center center;
+    background-size: 100%;
+    margin: 10px 0 0 0;
+}
+
+
+
+
 .shopp{
     background: url(/assets/images/white_shoppingcar.png) center center no-repeat;
     background-size: contain;
@@ -55,8 +124,8 @@ body{
 
 .banner .left,.banner .right{
     position: absolute;
-    width: 400px;
-
+    width:100px;
+    height: 40px;
 }
 
 .banner .left{
@@ -89,14 +158,11 @@ body{
     color: #fff;
 }
 .banner .cartoon {
-    top: 50%;
-    left:32%;
+    top:0;
+    left:0;
 }
 
-.cartoon-right{
-    top:20%;
-    left:32%;
-}
+
 
 .cartoon i,.cartoon-right i{
     display: block;
@@ -108,14 +174,14 @@ body{
     border-color:transparent transparent transparent rgba(0,0,0,0.5);
     border-style:dashed dashed dashed solid;
     position: absolute;
-    right:-22px;
+    right:-20px;
     top:0;
 }
 
 .cartoon-right i{
     border-color:transparent rgba(0,0,0,0.5) transparent transparent ;
     border-style:dashed  solid dashed dashed ;
-    left:-22px;
+    left:-20px;
     top:0;
 }
 
@@ -123,23 +189,24 @@ body{
     width:15px;
     height:15px;
     position:absolute;
-    top:50%;
-    left:50%;
-
-}
-.ripple{
-    top:50%;
-    left:50%;
+    top:0;
+    right:0;
 }
 
-.ripple-right{
-    top:20%;
-    left:20%;
+.right .ripple-right{
+    top:0;
+    left:0;
 }
+
+.cartoon-right{
+    top:0%;
+    right:0%;
+}
+
 .ripple div,.ripple-right div{
     width: 100%;
     height: 100%;
-    background-color:#fff;
+    background-color:#666;
     border-radius: 50%;
     position: absolute;
     top:0;
@@ -149,12 +216,25 @@ body{
 
 .ripple .c2,.ripple-right .c2{
     -webkit-animation: run2 1s linear infinite;
+    -moz-animation: run2 1s linear infinite;
 }
 .ripple .c3,.ripple-right .c3{
     -webkit-animation: run2 1s linear 0.5s infinite;
+    -moz-animation: run2 1s linear 0.5s infinite;
 }
 
 @-webkit-keyframes run2 {
+    from{
+        transform:scale(1);
+        opacity: 1;
+    }
+    to{
+        transform: scale(2.5);
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes run2 {
     from{
         transform:scale(1);
         opacity: 1;
@@ -532,8 +612,11 @@ body{
 
 
 /*拼购产品*/
-
+.content,.content ul{
+    width: 100%;
+}
 .content ul li {
+    width: 100%;
     margin-bottom: 10px;
 }
 
@@ -547,7 +630,7 @@ body{
 
 .title-hd{
     color:#4B4B4B;
-    height: 55px;
+    height: 50px;
     background-color:#fff;
     padding:10px 5%;
     overflow: hidden;
