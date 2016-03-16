@@ -153,7 +153,9 @@
 					@for(pushItem <- rowList){
 						@if(pushItem(9) == "item" || pushItem(9) == "vary" || pushItem(9) == "customize"){
 							<a href="/detail/@pushItem(9)/@pushItem(1)">
-								<img src="@pushItem(0)">
+								<p class="figure figure-f">
+								   <img src="@pushItem(0)">
+								</p>
 								<p class="title-hd">@pushItem(2)</p>
 								   <span class="title-fd">
 									   <i class="naw">￥@pushItem(4)</i>
@@ -167,7 +169,9 @@
 								<p class="product-box">
 									<span class="product-top">@pushItem(12)</span>
 								</p>
-								<img src="@pushItem(0)">
+								<p class="figure figure-f">
+									<img src="@pushItem(0)">
+								</p>
 								<p class="title-hd">@pushItem(2)</p>
 						   <span class="title-fd">
 							   <i class="naw">￥@pushItem(4)</i>
