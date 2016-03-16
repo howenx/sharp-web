@@ -31,6 +31,7 @@ public class AddressInfo implements Serializable {
     private String deliveryDetail;//配送详细地址
     private String idCardNum; //身份证
     private Boolean orDefault;//是否默认收获地址
+    @Constraints.MinLength(1)
     private String province;
     private String city;
     private String area;

@@ -133,22 +133,14 @@
                 <i>@order.getOrder().getPayTotal()</i>
             </p>
         </li>
-
-<<<<<<< HEAD
         @if(order.getOrder().getOrderStatus()=="I"||order.getOrder().getOrderStatus()=="F"){
-            <li value="@order.getOrder().getOrderId()">
+            <li value="@order.getOrder().getOrderId()" class="btn">
                 <a href="javascript:;" class="left cancelOrder">取消订单</a>
                 <a href="javascript:;" class="right bg">去支付</a>
             </li>
         }
 
         }
-=======
-        <li class="btn">
-            <a href="javascript:;">取消订单</a>
-            <a href="javascript:;">去支付</a>
-        </li>
->>>>>>> 021b9705aaccd02c81b0274b5e145e5c94fe3156
     </ul>
 
 

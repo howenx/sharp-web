@@ -98,7 +98,7 @@ public class UserCtrl extends Controller {
             Long addId=Long.valueOf(addressMap.get("addId"));
             object.put("addId",addId);
             String province=addressMap.get("province");
-            if(!"".equals(province)&&null!=province&&!"0".equals(province)){
+            if(!"0".equals(province)){//未修改省份
                 ObjectNode cityObject = Json.newObject();
                 cityObject.put("province", addressMap.get("province"));
                 cityObject.put("city", addressMap.get("city"));

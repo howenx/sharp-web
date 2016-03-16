@@ -48,6 +48,7 @@ function getAreaBuy(val,val1){
 		$("#province").val(province[val1].NAME);
         $("#city").val(city[val].NAME);
         $("#area").val("");
+		$("#province_code").val(province[val1].EN);
 
 		$("body .dqld_div").remove();
 	}
@@ -67,6 +68,7 @@ function getallArea(val,val1,val2){
     $("#province").val(province[val].NAME);
     $("#city").val(city[val1].NAME);
     $("#area").val(area[val2].NAME);
+    $("#province_code").val(province[val].EN);
 	$("body .dqld_div").remove();
 }
 /*地区联动*/
