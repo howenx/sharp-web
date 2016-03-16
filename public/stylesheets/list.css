@@ -122,6 +122,10 @@ h1 .logo {
     padding: 50px 0 0 0;
 }
 
+.banner-box,.banner-box img{
+    width: 100%;
+}
+
 .banner .left,.banner .right{
     position: absolute;
     width:100px;
@@ -657,10 +661,18 @@ h1 .logo {
 
 .figure{
     width: 100%;
-    height:110px;
+    height:140px;
     overflow: hidden;
 }
 
+.figure img{
+    width: 100%;
+    height: auto;
+}
+
+.figure-f{
+    height:205px;
+}
 
 .content .title-fd{
     display: block;
