@@ -3,6 +3,8 @@
 GET         /address                  controllers.UserCtrl.address()
 GET         /addressnew               controllers.UserCtrl.addressnew()
 POST        /address/save             controllers.UserCtrl.addressSave()
+POST        /address/del              controllers.UserCtrl.addressDel()
+GET         /address/update/$addId<[0-9]+>           controllers.UserCtrl.addressUpdate(addId:Long)
 GET         /carded                   controllers.UserCtrl.carded()
 GET         /means                    controllers.UserCtrl.means()
 GET         /myView                   controllers.UserCtrl.myView()

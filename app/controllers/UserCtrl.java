@@ -8,7 +8,9 @@ import com.squareup.okhttp.*;
 import domain.Address;
 import domain.*;
 import filters.UserAuth;
+import modules.ComTools;
 import net.spy.memcached.MemcachedClient;
+import okio.BufferedSink;
 import play.Logger;
 import play.api.libs.Codecs;
 import play.cache.Cache;
@@ -50,65 +52,141 @@ public class UserCtrl extends Controller {
     //收货地址
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> address() {
-        Promise<List<Address>> promiseOfInt = Promise.promise(() -> {
+        Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
             Request request = builder.url(ADDRESS_PAGE).get().build();
 
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
-                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
-                Logger.info("===json==" + json);
-                Message message = Json.fromJson(json.get("message"), Message.class);
-                if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
-                    Logger.error("返回地址数据错误code=" + (null != message ? message.getCode() : 0));
-                    return new ArrayList<Address>();
-                }
-                ObjectMapper mapper = new ObjectMapper();
-                List<Address> addressList = mapper.readValue(json.get("address").toString(), new TypeReference<List<Address>>() {
-                });
-                return addressList;
+                return Json.parse(new String(response.body().bytes(), UTF_8));
             } else throw new IOException("Unexpected code " + response);
         });
 
-        return promiseOfInt.map((Function<List<Address>, Result>) pi -> {
-                    Logger.error("返回---->\n" + pi);
-                    return ok(views.html.users.address.render(pi));
-                }
-        );
+        return promiseOfInt.map((Function<JsonNode, Result>) json -> {
+            Logger.error("返回---->\n" + json);
+            Message message = Json.fromJson(json.get("message"), Message.class);
+            if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
+                Logger.error("返回地址数据错误code=" + (null != message ? message.getCode() : 0));
+                return badRequest();
+            }
+            ObjectMapper mapper = new ObjectMapper();
+            List<Address> addressList = mapper.readValue(json.get("address").toString(), new TypeReference<List<Address>>() {
+            });
+            return ok(views.html.users.address.render(addressList));
+        });
     }
 
     //创建新的收货地址
     public Result addressnew() {
         return ok(views.html.users.addressnew.render());
     }
-    //创建新的收货地址 TODO...id项目校验失败
+    //创建新的收货地址
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> addressSave() {
-        JsonNode requestJson = request().body().asJson();
-        Logger.info(ADDRESS_ADD + "=====addressSave=" + requestJson);
 
-        String str=Json.stringify(requestJson);
-        Logger.info(str+  "=====Json.stringify(requestJson)=" + Json.stringify(requestJson));
+        ObjectNode result = Json.newObject();
+        Form<AddressInfo> addressForm = Form.form(AddressInfo.class).bindFromRequest();
+        Logger.info("====addressSave==="+addressForm.data());
+        Map<String, String> addressMap = addressForm.data();
+        String idCardNum=addressMap.get("idCardNum");
+        if (addressForm.hasErrors()||!"".equals(ComTools.IDCardValidate(idCardNum))) { //身份证校验不通过
+            result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
+            return Promise.promise((Function0<Result>) () -> ok(result));
+        }
+        else {
+            ObjectNode object =Json.newObject();
+            Long addId=Long.valueOf(addressMap.get("addId"));
+            object.put("addId",addId);
+            ObjectNode cityObject = Json.newObject();
+            cityObject.put("province", addressMap.get("province"));
+            cityObject.put("city", addressMap.get("city"));
+            cityObject.put("area", addressMap.get("area"));
+            cityObject.put("province_code", addressMap.get("province_code"));
+            cityObject.put("area_code", addressMap.get("area_code"));
+            cityObject.put("city_code", addressMap.get("city_code"));
+            object.put("deliveryCity", cityObject.toString());
+            object.put("tel", addressMap.get("tel"));
+            object.put("name", addressMap.get("name"));
+            object.put("deliveryDetail", addressMap.get("deliveryDetail"));
+            object.put("orDefault", "on".equals(addressMap.get("orDefault"))?1:0);
+            object.put("idCardNum", addressMap.get("idCardNum"));
 
-        Promise<Message> promiseOfInt = Promise.promise(() -> {
-            RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, str);
+
+            Promise<Message> promiseOfInt = Promise.promise(() -> {
+                RequestBody formBody =RequestBody.create(MEDIA_TYPE_JSON,new String(object.toString()));
+                Request.Builder builder = (Request.Builder) ctx().args.get("request");
+                Request request = builder.url(addId>0?ADDRESS_UPDATE:ADDRESS_ADD).post(formBody).build();
+                Response response = client.newCall(request).execute();
+                if (response.isSuccessful()) {
+                    JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
+                    Logger.info("===json==" + json);
+                    Message message = Json.fromJson(json.get("message"), Message.class);
+                    if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
+                        Logger.error("返回创建新的收货地址数据错误code=" + (null != message ? message.getCode() : 0));
+                    }
+                    return message;
+                } else throw new IOException("Unexpected code" + response);
+            });
+
+            return promiseOfInt.map((Function<Message, Result>) pi -> {
+                Logger.error("返回结果" + pi);
+                return ok("PI value computed: " + pi);
+            });
+        }
+    }
+    @Security.Authenticated(UserAuth.class)
+    public F.Promise<Result> addressUpdate(Long addId){
+        Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
-            Request request = builder.url(ADDRESS_ADD).post(formBody).build();
+            Request request = builder.url(ADDRESS_PAGE).get().build();
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
-                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
-                Logger.info("===json==" + json);
-                Message message = Json.fromJson(json.get("message"), Message.class);
-                if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
-                    Logger.error("返回创建新的收货地址数据错误code=" + (null != message ? message.getCode() : 0));
-                }
-                return message;
-            } else throw new IOException("Unexpected code" + response);
+                return Json.parse(new String(response.body().bytes(), UTF_8));
+            } else throw new IOException("Unexpected code " + response);
         });
 
-        return promiseOfInt.map((Function<Message, Result>) pi -> {
-            Logger.error("返回结果" + pi);
-            return ok("PI value computed: " + pi);
+        return promiseOfInt.map((Function<JsonNode, Result>) json -> {
+            Logger.error("返回---->\n" + json);
+            Message message = Json.fromJson(json.get("message"), Message.class);
+            if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
+                Logger.error("返回地址数据错误code=" + (null != message ? message.getCode() : 0));
+                return badRequest();
+            }
+            ObjectMapper mapper = new ObjectMapper();
+            List<Address> addressList = mapper.readValue(json.get("address").toString(), new TypeReference<List<Address>>() {});
+            for(Address address:addressList){
+                if(address.getAddId()==addId.longValue()){
+                    return ok(views.html.users.addressupdate.render(address));
+                }
+            }
+            return badRequest();
+        });
+    }
+
+    /***
+     * 地址删除
+     * @return
+     */
+    @Security.Authenticated(UserAuth.class)
+    public F.Promise<Result>  addressDel(){
+        Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
+            Request.Builder builder = (Request.Builder) ctx().args.get("request");
+            RequestBody formBody =RequestBody.create(MEDIA_TYPE_JSON,new String(request().body().asJson().toString()));
+            Request request = builder.url(ADDRESS_DEL).post(formBody).build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                return Json.parse(new String(response.body().bytes(), UTF_8));
+            } else throw new IOException("Unexpected code " + response);
+        });
+
+        return promiseOfInt.map((Function<JsonNode, Result>) json -> {
+            Logger.error("返回---->\n" + json);
+            Message message = Json.fromJson(json.get("message"), Message.class);
+            if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
+                Logger.error("返回地址删除数据错误code=" + (null != message ? message.getCode() : 0));
+                return badRequest();
+            }
+            return ok(toJson(message));
         });
     }
 
