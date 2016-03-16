@@ -545,7 +545,12 @@ body{
     color:#4B4B4B;
     background-color:#fff;
     border-bottom:1px solid #ececec;
-    padding:10px 5%;
+    margin:10px 5%;
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .product-box{
