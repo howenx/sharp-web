@@ -543,22 +543,29 @@ body{
 
 .title-hd{
     color:#4B4B4B;
+    height: 55px;
     background-color:#fff;
-    border-bottom:1px solid #ececec;
     padding:10px 5%;
+    overflow: hidden;
+    margin-bottom: 10px;
 }
 
 .product-box{
+    height: 45px;
+    line-height: 45px;
     padding: 10px 0 10px;
     position: absolute;
     top:0;
     left:0;
+
 }
 
 .product-top{
+    height: 45px;
+    line-height: 45px;
     background: url("/assets/images/hmm_klmpintuan.png") no-repeat 5px #F8616A;
     display: inline-block;
-    padding:10px 5px 10px 40px;
+    padding: 0 5px 10px 40px;
     color: #fff;
     font-size: 14px;
 }
@@ -572,6 +579,8 @@ body{
     height:50px;
     padding:0 5%;
     line-height: 50px;
+    border-bottom: 1px solid #ececec;
+    border-top:1px solid #ececec;
 }
 
 .naw{
@@ -604,7 +613,7 @@ body{
 
 .product li a{
     width:48%;
-    display: inline-block;
+   float: left;
     margin:0 0 0 1%;
 
 }
