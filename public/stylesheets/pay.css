@@ -234,7 +234,52 @@ input[type=radio]:checked::after {
 }
 
 
+.shade{
+    width: 100%;
+    height: 2000px;
+    position:fixed;
+    top:0;
+    left: 0;
+    background-color: rgba(0,0,0,0.8);
+    z-index: 20;
+    display: none;
 
+}
 
+.shade .box{
+    width: 80%;
+    background-color:#fff;
+    padding:5% 5%;
+    position: fixed;
+    top:30%;
+    left: 50%;
+    margin-left:-40%;
+    border-radius:10px;
 
+}
+.box span{
+    width:100%;
+    text-align: center;
+    display: block;
+    font-weight: bold;
 
+}
+
+.box,.box div{
+    width:100%;
+
+}
+.box a{
+    display: inline-block;
+    width:47%;
+    text-align: center;
+    line-height: 40px;
+    margin:10px 0 0 0;
+    color: #333;
+    background-color:#ededed;
+
+}
+.box .first{
+    background-color:#E66255;
+    color:#fff
+}
