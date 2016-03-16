@@ -19,6 +19,8 @@ public class SysParCom {
     public static String COLLECT_DEL; //取消收藏
     public static String ADDRESS_PAGE;//地址
     public static String ADDRESS_ADD;//地址新增
+    public static String ADDRESS_DEL;//地址删除
+    public static String ADDRESS_UPDATE;//地址更新
     public static String COUPON_PAGE;//我的优惠券
     public static String ORDER_PAGE;//我的订单
     public static String ORDER_CANCEL;//取消订单
@@ -70,8 +72,10 @@ public class SysParCom {
         COLLECT_PAGE=configuration.getString("user.collect");
         COLLECT_DEL=configuration.getString("user.collectdel");
         //地址
-        ADDRESS_PAGE=configuration.getString("user.address");
-        ADDRESS_ADD=configuration.getString("user.addressnew");
+        ADDRESS_PAGE=configuration.getString("user.address.list");
+        ADDRESS_ADD=configuration.getString("user.address.add");
+        ADDRESS_DEL=configuration.getString("user.address.del");
+        ADDRESS_UPDATE=configuration.getString("user.address.update");
 
 
         COUPON_PAGE=configuration.getString("user.coupons");
