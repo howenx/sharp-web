@@ -86,8 +86,11 @@ public class UserCtrl extends Controller {
         JsonNode requestJson = request().body().asJson();
         Logger.info(ADDRESS_ADD + "=====addressSave=" + requestJson);
 
+        String str=Json.stringify(requestJson);
+        Logger.info(str+  "=====Json.stringify(requestJson)=" + Json.stringify(requestJson));
+
         Promise<Message> promiseOfInt = Promise.promise(() -> {
-            RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, requestJson.toString());
+            RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, str);
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
             Request request = builder.url(ADDRESS_ADD).post(formBody).build();
             Response response = client.newCall(request).execute();
