@@ -236,6 +236,8 @@ public class ProductsCtrl extends Controller {
         List<List<Object[]>> pushResultList = new ArrayList<>();
         //商品Sku
         List<Inventory> inventoryList = new ArrayList<>();
+        //Sku商品预览图片
+        List<List<String>> preImgList = new ArrayList<>();
 
         //普通商品
         if("D".equals(type) || "item".equals(type) || "vary".equals(type) || "customize".equals(type)){
@@ -249,9 +251,6 @@ public class ProductsCtrl extends Controller {
                 if(json.has("main")){
                     JsonNode mainJson = json.get("main");
                     itemMain = Json.fromJson(mainJson,Item.class);
-//                    String itemPublicity = itemMain.getPublicity();
-//                    itemPublicity = itemPublicity.substring(2,itemPublicity.length()-2);
-//                    itemMain.setPublicity(itemPublicity);
                     //商品参数
                     if(itemMain != null){
                         JsonNode features = Json.parse(itemMain.getItemFeatures());
@@ -269,8 +268,18 @@ public class ProductsCtrl extends Controller {
                     JsonNode stockJson = json.get("stock");
                     for(JsonNode stockInv : stockJson){
                         Inventory inventory = Json.fromJson(stockInv,Inventory.class);
+                        JsonNode imgJson = Json.parse(inventory.getInvImg());
+                        String imgUrl = Json.fromJson(imgJson.get("url"),String.class);
+                        inventory.setInvImg(imgUrl);
+                        JsonNode previewImgJson = Json.parse(inventory.getItemPreviewImgs());
+                        List<String> preImgSubList = new ArrayList<>();
+                        for(JsonNode previewJson : previewImgJson){
+                            preImgSubList.add(Json.fromJson(previewJson.get("url"),String.class));
+                        }
+                        preImgList.add(preImgSubList);
                         inventoryList.add(inventory);
                     }
+
                 }
                 //热卖推荐
                 if(json.has("push")){
@@ -343,7 +352,7 @@ public class ProductsCtrl extends Controller {
                     }
                 }
             }
-            return ok(views.html.products.detail.render(itemMain,itemFeaturesList,pushResultList,inventoryList));
+            return ok(views.html.products.detail.render(itemMain,itemFeaturesList,pushResultList,inventoryList,inventoryList.size(),preImgList));
         }
         //拼购商品
         else{

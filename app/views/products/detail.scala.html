@@ -1,4 +1,4 @@
-@(itemMain:domain.Item,itemFeaturesList:List[Array[Object]],pushList:List[List[Array[Object]]],inventoryList:List[domain.Inventory])
+@(itemMain:domain.Item,itemFeaturesList:List[Array[Object]],pushList:List[List[Array[Object]]],inventoryList:List[domain.Inventory],stockSize:Int,preImgList:List[List[String]])
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,8 +15,6 @@
 	<script src="/assets/javascripts/jquery/TouchSlide.1.1.js"></script>
 	<script src="/assets/javascripts/detail.js"></script>
 </head>
-
-
 <body>
 <div id='screen_wrap'>
 	<div class="nav_ban_detail">
@@ -27,112 +25,23 @@
 		<h1>商品详情</h1>
 	</div>
 	<div class="picture_wrap">
-
-		<!--<div class="item now">-->
-			<!--<div id="slideBox" class="slideBox">-->
-
-				<!--<div class="bd">-->
-					<!--<ul>-->
-						<!--<li>-->
-							<!--<a class="pic" href="#"><img src="/assets/images/HMM&#45;&#45;detail02.jpg" /></a>-->
-						<!--</li>-->
-
-						<!--<li>-->
-							<!--<a class="pic" href="#"><img src="/assets/images/HMM&#45;&#45;detail02.jpg"/></a>-->
-
-						<!--</li>-->
-
-						<!--<li>-->
-							<!--<a class="pic" href="#"><img src="/assets/images/HMM&#45;&#45;detail02.jpg"/></a>-->
-						<!--</li>-->
-
-					<!--</ul>-->
-				<!--</div>-->
-
-				<!--<div class="hd">-->
-					<!--<ul></ul>-->
-				<!--</div>-->
-			<!--</div>-->
-
-			<!--<div class="sku-meta box">-->
-				<!--<div class="sku-title">秋季新品学院风甜美两件套</div>-->
-				<!--<p class="u-detail-pricebox clearfix">-->
-					<!--<span class="u-detail-price"><i>¥</i>88</span>-->
-					<!--<span class="u-detail-mprice">¥125</span>-->
-					<!--<span class="u-detail-discount">5.6折</span>-->
-					<!--<span class="three">杭州保税仓直邮</span>-->
-				<!--</p>-->
-				<!--<section class="thw-detail-other" style="margin-bottom: 2px;">-->
-					<!--<span class="one">-->
-						<!--<span class="xian">限</span>-->
-						<!--<span>10件</span>-->
-					<!--</span>-->
-					<!--<span class="three" style="text-decoration: underline">行邮税</span>-->
-				<!--</section>-->
-			<!--</div>-->
-		<!--</div>-->
-		<!--<div class="item">-->
-			<!--<div id="slideBox1" class="slideBox">-->
-
-				<!--<div class="bd">-->
-					<!--<ul>-->
-						<!--<li>-->
-							<!--<a class="pic" href="#"><img src="/assets/images/HMM&#45;&#45;detail02.jpg" /></a>-->
-
-						<!--</li>-->
-						<!--<li>-->
-							<!--<a class="pic" href="#"><img src="/assets/images/HMM&#45;&#45;detail02.jpg"/></a>-->
-
-						<!--</li>-->
-						<!--<li>-->
-							<!--<a class="pic" href="#"><img src="/assets/images/HMM&#45;&#45;detail02.jpg"/></a>-->
-						<!--</li>-->
-
-					<!--</ul>-->
-				<!--</div>-->
-
-				<!--<div class="hd">-->
-					<!--<ul></ul>-->
-				<!--</div>-->
-			<!--</div>-->
-
-			<!--<div class="sku-meta box">-->
-				<!--<div class="sku-title">秋季新品学院风甜美两件套</div>-->
-				<!--<p class="u-detail-pricebox clearfix">-->
-					<!--<span class="u-detail-price"><i>¥</i>88</span>-->
-					<!--<span class="u-detail-mprice">¥125</span>-->
-					<!--<span class="u-detail-discount">10折</span>-->
-					<!--<span class="three">杭州保税仓直邮</span>-->
-				<!--</p>-->
-				<!--<section class="thw-detail-other" style="margin-bottom: 2px;">-->
-					<!--<span class="one">-->
-						<!--<span class="xian">限</span>-->
-						<!--<span>10件</span>-->
-					<!--</span>-->
-					<!--<span class="three" style="text-decoration: underline">行邮税</span>-->
-				<!--</section>-->
-			<!--</div>-->
-		<!--</div>-->
-		@for(inventory <- inventoryList){
+		@for((inventory,index) <- inventoryList.zipWithIndex){
 			@if(inventory.getOrMasterInv()){
 				<div class="item now">
-					<div id="slideBox" class="slideBox">
+			}
+			@if(!inventory.getOrMasterInv()){
+				<div class="item">
+			}
+					<div id="slideBox@index" class="slideBox">
 
 						<div class="bd">
 							<ul>
-								<li>
-									<a class="pic" href="#"><img src="/assets/images/HMM&#45;&#45;detail02.jpg" /></a>
-								</li>
+								@for(imgUrl <- preImgList.get(index)){
+									<li>
+										<a class="pic" href="#"><img src="@imgUrl"/></a>
 
-								<li>
-									<a class="pic" href="#"><img src="/assets/images/HMM&#45;&#45;detail02.jpg"/></a>
-
-								</li>
-
-								<li>
-									<a class="pic" href="#"><img src="/assets/images/HMM&#45;&#45;detail02.jpg"/></a>
-								</li>
-
+									</li>
+								}
 							</ul>
 						</div>
 
@@ -140,7 +49,6 @@
 							<ul></ul>
 						</div>
 					</div>
-
 					<div class="sku-meta box">
 						<div class="sku-title">@inventory.getInvTitle()</div>
 						<p class="u-detail-pricebox clearfix">
@@ -158,69 +66,19 @@
 						</section>
 					</div>
 				</div>
-			}
-			@if(!inventory.getOrMasterInv()){
-				<div class="item">
-			<div id="slideBox1" class="slideBox">
-
-				<div class="bd">
-					<ul>
-						<li>
-							<a class="pic" href="#"><img src="/assets/images/HMM&#45;&#45;detail02.jpg" /></a>
-
-						</li>
-						<li>
-							<a class="pic" href="#"><img src="/assets/images/HMM&#45;&#45;detail02.jpg"/></a>
-						</li>
-					</ul>
-				</div>
-
-				<div class="hd">
-					<ul></ul>
-				</div>
-			</div>
-
-			<div class="sku-meta box">
-				<div class="sku-title">@inventory.getInvTitle()</div>
-				<p class="u-detail-pricebox clearfix">
-					<span class="u-detail-price"><i>¥</i>@inventory.getItemPrice()</span>
-					<span class="u-detail-mprice">¥@inventory.getItemSrcPrice()</span>
-					<span class="u-detail-discount">@inventory.getItemDiscount()折</span>
-					<span class="three">@inventory.getInvAreaNm()</span>
-				</p>
-				<section class="thw-detail-other" style="margin-bottom: 2px;">
-					<span class="one">
-						<span class="xian">限</span>
-						<span>@inventory.getRestrictAmount()件</span>
-					</span>
-					<span class="three" style="text-decoration: underline">行邮税  @inventory.getPostalTaxRate()%</span>
-				</section>
-			</div>
-		</div>
-			}
-
 		}
-
-
-
-
 		<script type="text/javascript">
-			TouchSlide({
-				slideCell:"#slideBox",
-				titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
-				mainCell:".bd ul",
-				effect:"leftLoop",
-				autoPage:true //自动分页
-			});
-			TouchSlide({
-				slideCell:"#slideBox1",
-				titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
-				mainCell:".bd ul",
-				effect:"leftLoop",
-				autoPage:true //自动分页
-			});
+			for(var i=0;i<@stockSize;i++){
+				var sliderName = "#slideBox" + i;
+				TouchSlide({
+					slideCell:sliderName,
+					titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+					mainCell:".bd ul",
+					effect:"leftLoop",
+					autoPage:true //自动分页
+				});
+			}
 		</script>
-
 	</div>
 	<!--标题-->
 	<div class="sku-meta">
@@ -237,15 +95,12 @@
 					}
 
 				}
-				<!--<li class="current">经典200ml</li>-->
-				<!--<li>不经典800ml</li>-->
 			</ul>
 		</div>
 		<div class="sale">
 			<p>@itemMain.getPublicity()</p>
 		</div>
 	</div>
-
 
 	<!-- 切换tab -->
 	<div class="detail-tabpanel">
@@ -264,13 +119,6 @@
 	<!-- 详情图片 -->
 	<div class="conner">
 		@Html(itemMain.getItemDetailImgs())
-
-
-
-
-
-		<img src="/assets/images/img2.png"/>
-
 	</div>
 	<div class="sku-measure01">
 		<!--<img src="/assets/images/img3.png"/>-->
@@ -377,11 +225,8 @@
                    <!--</span>-->
 				<!--</a>-->
 			<!--</li>-->
-
-
 		</ul>
 	</div>
-
 	<!--加入购物车-->
 	<div class="buy_box">
 		<div class="love">
