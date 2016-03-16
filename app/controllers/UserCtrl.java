@@ -10,9 +10,7 @@ import domain.*;
 import filters.UserAuth;
 import modules.ComTools;
 import net.spy.memcached.MemcachedClient;
-import okio.BufferedSink;
 import play.Logger;
-import play.api.libs.Codecs;
 import play.cache.Cache;
 import play.data.Form;
 import play.libs.F;
@@ -89,7 +87,9 @@ public class UserCtrl extends Controller {
         Logger.info("====addressSave==="+addressForm.data());
         Map<String, String> addressMap = addressForm.data();
         String idCardNum=addressMap.get("idCardNum");
-        if (addressForm.hasErrors()||!"".equals(ComTools.IDCardValidate(idCardNum))) { //身份证校验不通过
+        Logger.info("==ComTools.IDCardValidate(idCardNum)=="+ComTools.IDCardValidate(idCardNum));
+        if (addressForm.hasErrors()) { //身份证校验不通过
+            Logger.info("======addressForm.hasErrors()====");
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
         }
@@ -97,14 +97,17 @@ public class UserCtrl extends Controller {
             ObjectNode object =Json.newObject();
             Long addId=Long.valueOf(addressMap.get("addId"));
             object.put("addId",addId);
-            ObjectNode cityObject = Json.newObject();
-            cityObject.put("province", addressMap.get("province"));
-            cityObject.put("city", addressMap.get("city"));
-            cityObject.put("area", addressMap.get("area"));
-            cityObject.put("province_code", addressMap.get("province_code"));
-            cityObject.put("area_code", addressMap.get("area_code"));
-            cityObject.put("city_code", addressMap.get("city_code"));
-            object.put("deliveryCity", cityObject.toString());
+            String province=addressMap.get("province");
+            if(!"".equals(province)&&null!=province&&!"0".equals(province)){
+                ObjectNode cityObject = Json.newObject();
+                cityObject.put("province", addressMap.get("province"));
+                cityObject.put("city", addressMap.get("city"));
+                cityObject.put("area", addressMap.get("area"));
+                cityObject.put("province_code", addressMap.get("province_code"));
+                cityObject.put("area_code", addressMap.get("area_code"));
+                cityObject.put("city_code", addressMap.get("city_code"));
+                object.put("deliveryCity", cityObject.toString());
+            }
             object.put("tel", addressMap.get("tel"));
             object.put("name", addressMap.get("name"));
             object.put("deliveryDetail", addressMap.get("deliveryDetail"));

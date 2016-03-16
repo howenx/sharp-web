@@ -126,7 +126,18 @@ span .rmb{
     margin: 0 0 10px 0;
 }
 
-
+.wap .btn{
+    padding:10px 2%;
+}
+.wap .btn a{
+    display: inline-block;
+    width: 100px;
+    text-align: center;
+    line-height: 40px;
+    background-color: #E66255;
+    color: #fff;
+    margin:0 20px 0 0;
+}
 
 
 

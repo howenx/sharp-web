@@ -9,6 +9,7 @@ $(function(){
                 var tel=$("#tel").val();
                 var idCardNum=$("#idCardNum").val(); //TODO ...
                 var deliveryDetail=$("#deliveryDetail").val();
+                var province=$("#province").val();
 
                 if (name.length>15||name.length<2 ||!zszReg.test(name)) {
                     $('#js-userinfo-error').text('姓名只能是中文/数字/字母').show();
@@ -22,6 +23,9 @@ $(function(){
                 }else if(!((idCardNum.length==15&&card15Reg.test(idCardNum))||(idCardNum.length==18&&card18Reg.test(idCardNum)))){
                      $('#js-userinfo-error').text('请填写正确的身份证号码').show();
                      setTimeout("$('#js-userinfo-error').hide()", 3000);
+                }else if(null==province||""==province||0==province){
+                      $('#js-userinfo-error').text('请填写正确的地址').show();
+                      setTimeout("$('#js-userinfo-error').hide()", 3000);
                 }
                 else {
                     console.log($('form#cell_addressForm').serialize());
