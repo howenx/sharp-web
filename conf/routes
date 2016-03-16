@@ -63,12 +63,12 @@ GET         /cart                     controllers.ShoppingCtrl.cart()
 GET         /cart/empty               controllers.ShoppingCtrl.emptyCart()
 GET         /order/cancel/$orderId<[0-9]+>     controllers.ShoppingCtrl.cancelOrder(orderId:Long)
 GET         /order/del/$orderId<[0-9]+>        controllers.ShoppingCtrl.delOrder(orderId:Long)
-<<<<<<< HEAD
+
 GET         /orderpa                  controllers.ShoppingCtrl.orderpa()
-=======
+
 
 GET         /orderdetail                    controllers.ShoppingCtrl.orderpage()
->>>>>>> a74fe6c077e45220e7dc424d1aa7744a6537a77e
+
 
 #
 
