@@ -19,6 +19,7 @@ GET         /collect                  controllers.UserCtrl.collect()
 GET         /collect/del/$collectId<[0-9]+>              controllers.UserCtrl.collectDel(collectId:Long)
 GET         /nickname                  controllers.UserCtrl.nickname()
 GET         /mypin                  controllers.UserCtrl.mypin()
+GET         /mypinDetail                 controllers.UserCtrl.mypinDetail()
 
 POST        /regist/verify            controllers.UserCtrl.registVerify()
 

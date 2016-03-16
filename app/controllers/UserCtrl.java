@@ -610,6 +610,9 @@ public class UserCtrl extends Controller {
         public Result mypin() {
             return ok(views.html.users.mypin.render());
         }
+        public Result mypinDetail() {
+            return ok(views.html.users.mypinDetail.render());
+        }
 
 }
 
