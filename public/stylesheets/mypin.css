@@ -56,9 +56,9 @@ img{
 }
 .up .info div{
     height: 36px;
-    background: url("/assets/images/price_bg.png") no-repeat;
-    background-size: 75%;color: #fff;line-height: 36px;
-    text-indent:4em;
+    background: url("/assets/images/price_bg.png") no-repeat left center;
+    background-size: 200px;color: #fff;line-height: 36px;
+    text-indent:4em;margin-top: 5px;
 }
 .up>div,.down>div{
     float: left;
