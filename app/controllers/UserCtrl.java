@@ -9,6 +9,7 @@ import domain.Address;
 import domain.*;
 import filters.UserAuth;
 import modules.ComTools;
+import modules.SysParCom;
 import net.spy.memcached.MemcachedClient;
 import play.Logger;
 import play.cache.Cache;
@@ -589,12 +590,85 @@ public class UserCtrl extends Controller {
         return ok(views.html.users.nickname.render());
     }
 
-        public Result mypin() {
-            return ok(views.html.users.mypin.render());
-        }
-        public Result mypinDetail() {
-            return ok(views.html.users.mypinDetail.render());
-        }
+    //我的拼团
+    @Security.Authenticated(UserAuth.class)
+    public F.Promise<Result> mypin() {
+        play.libs.F.Promise<JsonNode > promiseOfInt = play.libs.F.Promise.promise(() -> {
+            Request.Builder builder =(Request.Builder)ctx().args.get("request");
+            Request request=builder.url(PIN_LIST).get().build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()){
+                return Json.parse(new String(response.body().bytes(), UTF_8));
+            }else  throw new IOException("Unexpected code " + response);
+        });
+        return promiseOfInt.map((play.libs.F.Function<JsonNode , Result>) json -> {
+                    Logger.info("===json==" + json);
+                    Message message = Json.fromJson(json.get("message"), Message.class);
+                    if(null==message||message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+                        Logger.error("返回拼团数据错误code="+(null!=message?message.getCode():0));
+                        return badRequest(views.html.error500.render());
+                    }
+                    ObjectMapper mapper = new ObjectMapper();
+                    List<PinActivityListDTO> pinList = mapper.readValue(json.get("activityList").toString(), new TypeReference<List<PinActivityListDTO>>(){});
+                    for(PinActivityListDTO pin:pinList){
+                        if (pin.getPinImg().contains("url")) {
+                            JsonNode jsonNode = Json.parse(pin.getPinImg());
+                            if (jsonNode.has("url")) {
+                                pin.setPinImg(jsonNode.get("url").asText());
+                            }
+                        }
+                        else
+                            pin.setPinImg(SysParCom.IMAGE_URL + pin.getPinImg());
+                    }
+
+
+
+                        return ok(views.html.users.mypin.render(pinList));
+                }
+
+        );
+    }
+
+
+    //我的拼团
+    @Security.Authenticated(UserAuth.class)
+    public F.Promise<Result> pinActivity(Long pinActivity) {
+        play.libs.F.Promise<JsonNode > promiseOfInt = play.libs.F.Promise.promise(() -> {
+            Request.Builder builder =(Request.Builder)ctx().args.get("request");
+            Request request=builder.url(PIN_ACTIVITY+pinActivity).get().build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()){
+                return Json.parse(new String(response.body().bytes(), UTF_8));
+            }else  throw new IOException("Unexpected code " + response);
+        });
+        return promiseOfInt.map((play.libs.F.Function<JsonNode , Result>) json -> {
+                    Logger.info("===json==" + json);
+                    Message message = Json.fromJson(json.get("message"), Message.class);
+                    if(null==message||message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+                        Logger.error("返回拼团数据错误code="+(null!=message?message.getCode():0));
+                        return badRequest(views.html.error500.render());
+                    }
+                    ObjectMapper mapper = new ObjectMapper();
+                    PinActivityDTO pin = Json.fromJson(json.get("activity"), PinActivityDTO.class);
+                    if (pin.getPinImg().contains("url")) {
+                        JsonNode jsonNode = Json.parse(pin.getPinImg());
+                        if (jsonNode.has("url")) {
+                            pin.setPinImg(jsonNode.get("url").asText());
+                        }
+                    }
+                    else
+                        pin.setPinImg(SysParCom.IMAGE_URL + pin.getPinImg());
+
+
+                    return ok(views.html.shopping.fightgroups.render(pin));
+                }
+
+        );
+    }
+
+    public Result pinOrderDetail(Long orderId) {
+        return ok(views.html.users.mypinDetail.render());
+    }
 
 }
 

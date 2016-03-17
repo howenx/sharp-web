@@ -1137,3 +1137,45 @@ div .cycle-overlay {
 }
 
 
+
+/*玩法页面*/
+.footer{
+	position: fixed;
+	bottom:0;
+	width: 100%;
+	background-color: #000;
+	height:60px;
+	padding:10px 2%;
+
+}
+.footer a{
+	width:80px;
+	height:30px;
+	float: right;
+	color:#fff;
+	text-align: center;
+	line-height:30px;
+	margin: 5px 0 0 0;
+	background-color: #E46359;
+}
+.footer span{
+	width:210px;
+	height:50px;
+	float: left;
+	background: url("/assets/images/personal-14.jpg") no-repeat;
+	background-size: 40px 40px;
+	padding:0 0 0 50px;
+	color: #E46359;
+
+}
+.footer span i{
+	display:block;
+}
+
+
+.flow{
+	padding:50px 0 0 0;
+	margin:0 0 100px 0;
+
+
+}

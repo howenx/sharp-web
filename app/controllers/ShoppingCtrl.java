@@ -132,31 +132,6 @@ public class ShoppingCtrl extends Controller {
         return ok(views.html.shopping.drawback.render());
     }
 
-    //我的拼团
-    @Security.Authenticated(UserAuth.class)
-    public F.Promise<Result> fightgroups() {
-        play.libs.F.Promise<JsonNode > promiseOfInt = play.libs.F.Promise.promise(() -> {
-            Request.Builder builder =(Request.Builder)ctx().args.get("request");
-            Request request=builder.url(PIN_LIST).get().build();
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()){
-                return Json.parse(new String(response.body().bytes(), UTF_8));
-            }else  throw new IOException("Unexpected code " + response);
-        });
-        return promiseOfInt.map((play.libs.F.Function<JsonNode , Result>) json -> {
-                    Logger.info("===json==" + json);
-                    Message message = Json.fromJson(json.get("message"), Message.class);
-                    if(null==message||message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
-                        Logger.error("返回拼团数据错误code="+(null!=message?message.getCode():0));
-                        return badRequest(views.html.error500.render());
-                    }
-                    ObjectMapper mapper = new ObjectMapper();
-                    List<PinActivityListDTO> pinList = mapper.readValue(json.get("activityList").toString(), new TypeReference<List<PinActivityListDTO>>(){});
-                    return ok(views.html.shopping.fightgroups.render(pinList));
-                }
-
-        );
-    }
 
     public Result logistic() {
         return ok(views.html.shopping.logistics.render());
@@ -174,6 +149,9 @@ public class ShoppingCtrl extends Controller {
     public Result settle() {
         return ok(views.html.shopping.settle.render());
     }
+    public Result pinplay() {
+            return ok(views.html.shopping.pinplay.render());
+        }
 
 
 

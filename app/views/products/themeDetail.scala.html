@@ -30,10 +30,10 @@
             @for(tag <- tagList){
             @if(tag(4) == 0){
             @if(tag(5) == "pin"){
-            <a href="/detail/pin/@tag(1)" class="right"  style="">
+            <a href="/detail/pin/@tag(1)" class="right"  style="left:@tag(2)%;top:@tag(0)%">
                 }
                 @if(tag(5) == "item"){
-                <a href="/detail/item/@tag(1)" class="right"  style="">
+                <a href="/detail/item/@tag(1)" class="right"  style="left:@tag(2)%;top:@tag(0)%">
                     }
                     <div class="cartoon-right">@tag(3)
                         <i></i>
@@ -49,10 +49,10 @@
                 }
                 @if(tag(4) == 180){
                 @if(tag(5) == "pin"){
-                <a href="/detail/pin/@tag(1)" class="left"  style="">
+                <a href="/detail/pin/@tag(1)" class="left"  style="left:@tag(2)%;top:@tag(0)%">
                     }
                     @if(tag(5) == "item"){
-                    <a href="/detail/item/@tag(1)" class="left"  style="">
+                    <a href="/detail/item/@tag(1)" class="left"  style="left:@tag(2)%;top:@tag(0)%">
                         }
                         <div class="cartoon">@tag(3)
                             <i></i>

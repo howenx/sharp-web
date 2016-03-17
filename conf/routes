@@ -14,8 +14,13 @@ GET         /coupon                   controllers.UserCtrl.coupon()
 POST        /login/submit             controllers.UserCtrl.loginSubmit()
 GET         /collect                  controllers.UserCtrl.collect()
 GET         /collect/del/$collectId<[0-9]+>              controllers.UserCtrl.collectDel(collectId:Long)
+GET         /nickname                  controllers.UserCtrl.nickname()
+
+#我的拼购
 GET         /mypin                  controllers.UserCtrl.mypin()
-GET         /mypinDetail                 controllers.UserCtrl.mypinDetail()
+GET         /pin/activity/$pinActivity<[0-9]+>   controllers.UserCtrl.pinActivity(pinActivity:Long)
+GET         /pin/order/detail/$orderId<[0-9]+>         controllers.UserCtrl.pinOrderDetail(orderId:Long)
+
 
 
 #注册
@@ -58,13 +63,13 @@ GET         /appraise                 controllers.ShoppingCtrl.appraise()
 GET         /assess                   controllers.ShoppingCtrl.assess()
 GET         /delivered                controllers.ShoppingCtrl.delivered()
 GET         /drawback                 controllers.ShoppingCtrl.drawback()
-GET         /fightgroups              controllers.ShoppingCtrl.fightgroups()
 GET         /logistic                 controllers.ShoppingCtrl.logistic()
 GET         /obligati                 controllers.ShoppingCtrl.obligati()
 GET         /orders                   controllers.ShoppingCtrl.orders()
 GET         /settle                   controllers.ShoppingCtrl.settle()
 GET         /cart                     controllers.ShoppingCtrl.cart()
 GET         /opengroup                     controllers.ShoppingCtrl.opengroup()
+GET         /pinplay                     controllers.ShoppingCtrl.pinplay()
 GET         /cart/empty               controllers.ShoppingCtrl.emptyCart()
 GET         /order/cancel/$orderId<[0-9]+>     controllers.ShoppingCtrl.cancelOrder(orderId:Long)
 GET         /order/del/$orderId<[0-9]+>        controllers.ShoppingCtrl.delOrder(orderId:Long)

@@ -12,6 +12,10 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class SysParCom {
+    //图片服务器url
+    public static String IMAGE_URL;
+
+
     public static String INDEX_PAGE;
     public static final OkHttpClient client = new OkHttpClient();
     public static String LOGIN_PAGE;//用户登录
@@ -27,6 +31,8 @@ public class SysParCom {
     public static String ORDER_DEL;//删除订单
 
     public static String PIN_LIST;//我的拼团
+    public static String PIN_ACTIVITY;//拼团详情
+    public static String PIN_ORDER_DETAIL;//拼团详情
 
 
 
@@ -67,6 +73,9 @@ public class SysParCom {
     @Inject
     public SysParCom(Configuration configuration) {
 
+        IMAGE_URL = configuration.getString("image.server.url");
+
+
         INDEX_PAGE = configuration.getString("products.page.index");
         LOGIN_PAGE = configuration.getString("user.page.login");
         COLLECT_PAGE=configuration.getString("user.collect");
@@ -84,7 +93,8 @@ public class SysParCom {
         ORDER_DEL=configuration.getString("user.order.del");
 
         PIN_LIST=configuration.getString("user.pin.list");
-
+        PIN_ACTIVITY=configuration.getString("user.pin.activity");
+        PIN_ORDER_DETAIL=configuration.getString("user.pin.detail");
 
 
         //注册与密码
