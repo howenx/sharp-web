@@ -41,7 +41,7 @@
 
 
     <div class="con">
-        <a href="javascript:;" class="commodity">
+        <a href="@pin.getPinSkuUrl()" class="commodity">
             <img src="@pin.getPinImg()" alt=""/>
             <h2>@pin.getPinTitle()</h2>
             <span class="commodity-rmb"><i class="number color5">@pin.getPersonNum()人团</i> <i class="rmb color"> ￥@pin.getPinPrice()</i></span>
@@ -49,13 +49,20 @@
         </a>
 
     </div>
+<<<<<<< HEAD
     <div class="urse-photo-box clearfix">
+=======
+    @{var needNum=pin.getPersonNum()-pin.getPinUsers().size}
+    <div class="urse-photo-box">
+>>>>>>> 7d6880803b948b7c48d66aafb7656ffc1c3c8b6c
 
              @for(pinUser<-pin.getPinUsers()){
                 <div class="urse-photo-m"><div class="urse-photo"><img src="@pinUser.getUserImg()"></div></div>
              }
-            <div class="urse-photo-m"><div class="urse-photo"><img src="/assets/images/100-2.png"></div></div>
-            <div class="urse-photo-m"><div class="urse-photo"><img src="/assets/images/100-2.png"></div></div>
+            @{var i: Int=0}
+            @for(i <- 1 to pin.getPersonNum()-pin.getPinUsers().size){
+                <div class="urse-photo-m"><div class="urse-photo"><img src="/assets/images/100-2.png"></div></div>
+            }
     </div>
     @if(pin.getStatus()=="Y"&&pin.getPersonNum()-pin.getPinUsers().size>0){
         <div class="fight-txt"><p>还差<span class="color">@(pin.getPersonNum()-pin.getPinUsers().size)人</span>,让小伙伴们都来组团吧!</p></div>

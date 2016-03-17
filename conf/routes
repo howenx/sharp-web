@@ -35,7 +35,7 @@ GET         /reset/passwd/$phone<[1][345678]\d{9}>      controllers.UserCtrl.res
 POST        /reset/submit             controllers.UserCtrl.resetPwdSubmit()
 #用户信息
 GET         /means                    controllers.UserCtrl.means()
-GET         /nickname                  controllers.UserCtrl.nickname()
+POST         /nickname                  controllers.UserCtrl.nickname()
 #POST        /user/update              controllers.UserCtrl.userUpdate()
 
 
