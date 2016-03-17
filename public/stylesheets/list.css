@@ -134,14 +134,15 @@ h1 .logo {
     top:46%;
     left:36%;
     transform: translate(-5%,-15%);
+    padding: 0 42px 0 0;
 }
 
 
 .banner .right{
-
     top:26%;
     left:51%;
     transform: translate(-5%,-15%);
+    padding: 0 0 0 42px;
 }
 /*雷达动画*/
 @-webkit-keyframes run1 {
@@ -178,14 +179,14 @@ h1 .logo {
     border-color:transparent transparent transparent rgba(0,0,0,0.5);
     border-style:dashed dashed dashed solid;
     position: absolute;
-    right:-20px;
+    right:20px;
     top:0;
 }
 
 .cartoon-right i{
     border-color:transparent rgba(0,0,0,0.5) transparent transparent ;
     border-style:dashed  solid dashed dashed ;
-    left:-20px;
+    left:20px;
     top:0;
 }
 
@@ -194,12 +195,12 @@ h1 .logo {
     height:10px;
     position:absolute;
     top:0;
-    right:-35px;
+    right:5px;
 }
 
 .right .ripple-right{
     top:5px;
-    left:-29px;
+    left:5px;
 }
 
 .cartoon-right{
@@ -852,7 +853,11 @@ h2 span{
 }
 
 
-
+.a{
+    top:0;
+    left: 0;
+    position: absolute;
+}
 
 
 
