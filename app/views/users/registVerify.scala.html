@@ -107,7 +107,7 @@
                                    if (data.code === 4003) {
                                            //console.log($('form#cell_verifyForm').append("<input name='msg' type='hidden' value='"+msg+"'>").serialize());
                                            $.ajax({
-                                                    url: "/regist/code",
+                                                    url: "/phone/code",
                                                     dataType: 'json',
                                                     data: $('form#cell_verifyForm').append("<input name='msg' type='hidden' value='"+msg+"'>").serialize(),
                                                     type: 'POST',

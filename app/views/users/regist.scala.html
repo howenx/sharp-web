@@ -60,7 +60,7 @@
 <div id='screen_wrap'>
     <div class="nav_ban">
         <h1>账号注册</h1>
-        <a href="/register"><span class="icon-back" id="backBtn"></span></a>
+        <a href="/regist/verify"><span class="icon-back" id="backBtn"></span></a>
         <!--<a href="/login"><span class="icon-user-title" id="userBtn"></span></a>-->
     </div>
     <div id="js-userinfo-error" class="cue">验证码发送成功</div>
@@ -68,7 +68,7 @@
     <div class="login">
         <div class="login-t" id="phone-send-code"></div>
         <fieldset>
-            <form id="cell_loginForm" method="post" onsubmit="return false" action="" >
+            <form id="cell_regForm" method="post" onsubmit="return false" action="" >
                 <dl class="list list-in">
                     <dd class="dd-padding clearfix dd-one">
                         <input type="hidden" id="phone" name="phone" value="@phone">
@@ -136,11 +136,11 @@ $(function() {
                 //var msg = hex_md5(phone+"hmm");
                 $("#password").removeAttr("name");
                 $("#code").removeAttr("name");
-                console.log($('form#cell_loginForm').serialize());
+                console.log($('form#cell_regForm').serialize());
                 $.ajax({
-                        url: "/regist/code",
+                        url: "/phone/code",
                         dataType: 'json',
-                        data: $('form#cell_loginForm').serialize(),
+                        data: $('form#cell_regForm').serialize(),
                         type: 'POST',
                         success: function(data) {
                                 console.log(data);
@@ -200,12 +200,12 @@ $(function() {
                      setTimeout("$('#js-userinfo-error').hide()", 2000);
                 }
                 else {
-                       $("#msg").removeAttr("name");
-                       console.log($('form#cell_loginForm').serialize());
+                    $("#msg").removeAttr("name");
+                    console.log($('form#cell_regForm').serialize());
                     $.ajax({
                             url: "/regist/submit",
                             dataType: 'json',
-                            data: $('form#cell_loginForm').serialize(),
+                            data: $('form#cell_regForm').serialize(),
                             type: 'POST',
                             success: function(data) {
                                 console.log(data);
@@ -215,10 +215,10 @@ $(function() {
                                         window.location.href='/login';
                                     }, 2000);
                                 } else if(data.code === 5002){
-                                    $('#js-userinfo-error').text('验证码错误!').show();
+                                    $('#js-userinfo-error').text('验证码错误').show();
                                     setTimeout("$('#js-userinfo-error').hide()", 2000);
                                 } else if(data.code === 5001){
-                                    $('#js-userinfo-error').text('此手机已经注册!').show();
+                                    $('#js-userinfo-error').text('此手机已经注册').show();
                                     setTimeout("$('#js-userinfo-error').hide()", 2000);
                                 } else{
                                     alert('Server Error.')
@@ -228,15 +228,16 @@ $(function() {
                 }
         });
 
-        $(".delet").click(function() {
-                $("input[name='name']").val("").focus(); // 清空并获得焦点
+        $(".delet-re").click(function() {
+                $("input[id='password']").val("").focus(); // 清空并获得焦点
         });
-        $(".out").click(function() {
-                $("input[name='password']").val("").focus(); // 清空并获得焦点
+        $(".delet-rese").click(function() {
+                $("input[id='re_password']").val("").focus(); // 清空并获得焦点
         });
 
         /*显示密码*/
         var of = true;
+        var of2 = true;
         $('.howl-reT').click(function(){
                 $(this).toggleClass('bg2');
                 if(of){
@@ -250,12 +251,12 @@ $(function() {
 
         $('.howl-reB').click(function(){
                 $(this).toggleClass('bg3');
-                if(of){
+                if(of2){
                     $('.input-reseB').attr({'type':'text'});
-                    of = false;
+                    of2 = false;
                 }else{
                     $('.input-reseB').attr({'type':'password'});
-                    of = true;
+                    of2 = true;
                 }
         });
 
