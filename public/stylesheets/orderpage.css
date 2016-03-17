@@ -1,0 +1,155 @@
+/* 禁用iPhone中Safari的字号自动调整 */
+html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+/* 去除iPhone中默认的input样式 */
+input{/* -webkit-appearance:none; */ resize: none;}
+/* 取消链接高亮  */
+body,div,ul,li,ol,h1,h2,h3,h4,h5,h6,input,textarea,select,p,dl,dt,dd,a,img,button,form,table,th,tr,td,tbody,article,
+aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section{ -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+    font-family: Microsoft YaHei;}
+/* 设置HTML5元素为块 */
+article, aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section {
+    display: block;
+}
+/* 图片自适应 */
+img {
+    max-width: 100%;
+    height: auto;
+    width:auto\9; /* ie8 */
+    -ms-interpolation-mode:bicubic;/*为了照顾ie图片缩放失真*/
+    display: block;
+}
+*:focus {
+    outline:none;
+}
+/* 清零 */
+body,div,ul,li,ol,h1,h2,h3,h4,h5,h6,input,textarea,select,p,dl,dt,dd,a,img,button,form,table,th,tr,td,tbody,article,
+aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section{margin:0; padding:0; border:none;}
+body{font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self; color:#555656; background-color:#acacac;  }
+em,i{font-style:normal;}
+strong{font-weight: normal;}
+.clearfix:after{content:""; display:block; visibility:hidden; height:0; clear:both;}
+.clearfix{zoom:1;}
+a{text-decoration:none; color:#969696; font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self;}
+a:hover{text-decoration:none;}
+ul,ol,li{list-style:none;}
+h1, h2, h3, h4, h5, h6{ font-size:100%; font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self;}
+fieldset,img{border: none;}
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+caption, th {
+    text-align:left;
+}
+q:before,
+q:after {
+    content:"";
+}
+input:password {
+    ime-mode:disabled;
+}
+*{box-sizing:border-box;}
+
+body{
+    background-color: #ccc;
+}
+
+
+.wap{
+    padding: 80px 2%;
+}
+
+.head span{
+    width: 25px;
+    height: 25px;
+    background: url("/assets/images/icon_delete_hui.png");
+    background-size: contain;
+    position: absolute;
+    top:12px;
+    right: 2%;
+}
+
+.wap ul li{
+    width: 100%;
+    background-color:#fff;
+    border-radius: 5px;
+    border: 1px solid #ededed;
+    padding: 2% 2% 0;
+    margin: 0 0 10px 0;
+}
+.wap ul p{
+    width: 100%;
+    margin: 0 0 20px 0;
+}
+
+
+.first{
+    border-bottom: 1px solid #ededed;
+    padding:0 0 2% 0 ;
+}
+
+
+.commodity{
+    width:100%;
+    height:125px;
+    display: block;
+
+}
+
+.commodity .commodity-rmb {
+    display: block;
+}
+
+
+span .rmb{
+    font-size:20px;
+    margin: 0 10px 0 0 ;
+}
+
+
+.commodity img{
+    width:80px;
+    height:106px;
+    float: left;
+    margin: 0 10px 0 0;
+}
+
+.commodity h2{
+    font-size: 16px;
+    overflow: hidden;
+    display: -webkit-box;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    margin: 0 0 10px 0;
+}
+
+.wap .btn{
+    padding:10px 2%;
+}
+.wap .btn a{
+    display: inline-block;
+    width: 100px;
+    text-align: center;
+    line-height: 40px;
+    background-color: #E66255;
+    color: #fff;
+    margin:0 20px 0 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

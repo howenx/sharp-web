@@ -5,6 +5,7 @@ import play.data.validation.Constraints;
 import java.io.Serializable;
 
 /**
+ * 用户注册/修改密码dto
  * Created by Sunny Wu on 16/3/11.
  * kakao china.
  */
@@ -13,7 +14,7 @@ public class UserRegistInfo implements Serializable {
     @Constraints.MaxLength(11)
     @Constraints.MinLength(11)
     @Constraints.Pattern("[1][345678]\\d{9}")
-    protected String name;
+    protected String phone;
 
     @Constraints.MaxLength(12)
     @Constraints.MinLength(6)
@@ -23,25 +24,16 @@ public class UserRegistInfo implements Serializable {
 
     @Constraints.MaxLength(6)
     @Constraints.MinLength(6)
-    @Constraints.Pattern("[0-9]\\d{6}")
+    @Constraints.Pattern("[0-9]{6}")
     protected  String code;
-
-    public UserRegistInfo(String name, String password, String code) {
-        this.name = name;
-        this.password = password;
-        this.code = code;
-    }
 
     public UserRegistInfo() {
     }
 
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public UserRegistInfo(String phone, String password, String code) {
+        this.phone = phone;
+        this.password = password;
+        this.code = code;
     }
 
     public String getPassword() {
@@ -60,13 +52,21 @@ public class UserRegistInfo implements Serializable {
         this.code = code;
     }
 
+    public String getPhone() {
+
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     @Override
     public String toString() {
-        return "UserLoginInfo{" +
-                "name='" + name + '\'' +
+        return "UserRegistInfo{" +
+                ", phone='" + phone + '\'' +
                 ", password='" + password + '\'' +
                 ", code='" + code + '\'' +
                 '}';
     }
-
 }

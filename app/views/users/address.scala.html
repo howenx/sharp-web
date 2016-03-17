@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/assets/stylesheets/global.css">
     <link rel="stylesheet" href="/assets/stylesheets/address.css">
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" src="/assets/javascripts/obligation.js"></script>
+    <script type="text/javascript" src="/assets/javascripts/my.js"></script>
 </head>
 
 <body>
@@ -23,19 +23,25 @@
 </header>
 
 <div class="scope wap">
-    <ul>
+    <ul class="ul-box">
         @for(address<-addressList){
-        <li>
-            <div class="touch">
-                <span class="touch-name">@address.getName()</span>
-                <i class="touch-numb">@address.getTel()</i>
-            </div>
+        <li id="li@address.getAddId()">
+            <div class="address">
+                <a href="javascript:;">
+                    <p><i class="add-icon"></i><span>姓名:</span><span>@address.getName()</span>
+                        @if(address.getOrDefault()==true){
+                             <span class="color">默认</span>
+                        }
+                    </p>
+                    <p><span>联系电话:</span><span>@address.getTel()</span></p>
+                    <p><span>身份证号:</span><span>@address.getIdCardNum()</span></p>
+                    <p><span>收货地址:</span><span>@address.getDeliveryCity()@address.getDeliveryDetail()</span></p>
+                </a>
 
-            <div class="add">@address.getDeliveryDetail()</div>
-
-            <div class="alter">
-                <a href="javascript:;" class="alter-btn color">删除</a>
-                <a href="addressnew" class="color">修改</a>
+                <div class="alter">
+                    <a href="javascript:;" class="alter-btn color" onclick="delAddress(@address.getAddId(),@address.getOrDefault())">删除</a>
+                    <a href="/address/update/@address.getAddId()" class="color">修改</a>
+                </div>
             </div>
         </li>
         }

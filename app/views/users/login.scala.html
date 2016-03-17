@@ -28,27 +28,27 @@
 
         <script>
             $(function() {
-                $(document).on('click', '#bt_login', function() {
+                $(document).on('click', '#bt_login', function () {
                     var name_regexp = new RegExp(/^1[345678]\d{9}$/);
                     var password_regexp = new RegExp(/^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}/);
 
-                    if(11!=$('#input_username').val().length){
+                    if (11 != $('#input_username').val().length) {
                         $('#js-userinfo-error').removeClass("pcue").text('请输入正确位数的手机号').addClass("cue");
                         setTimeout("$('#js-userinfo-error').removeClass('cue').addClass('pcue')", 2000);
                     }
-                    else if(!name_regexp.test($('#input_username').val())){
+                    else if (!name_regexp.test($('#input_username').val())) {
                         $('#js-userinfo-error').removeClass("pcue").text('请输入正确的手机号').addClass("cue");
                         setTimeout("$('#js-userinfo-error').removeClass('cue').addClass('pcue')", 2000);
                     }
-                    else if($('#input_password').val().length<6 || $('#input_password').val().length>12){
+                    else if ($('#input_password').val().length < 6 || $('#input_password').val().length > 12) {
                         $('#js-userinfo-error').removeClass("pcue").text('请输入正确的密码').addClass("cue");
                         setTimeout("$('#js-userinfo-error').removeClass('cue').addClass('pcue')", 2000);
                     }
-                    else if(!password_regexp.test($('#input_password').val())){
+                    else if (!password_regexp.test($('#input_password').val())) {
                         $('#js-userinfo-error').removeClass("pcue").text('请输入正确的密码').addClass("cue");
                         setTimeout("$('#js-userinfo-error').removeClass('cue').addClass('pcue')", 2000);
                     }
-                    else{
+                    else {
 
                         if ($('#autoLogin').is(':checked')) $('form#account_loginForm').append("<input name='auto' type='hidden' value='true'>");
                         else $('form#account_loginForm').append("<input name='auto' type='hidden' value='false'>");
@@ -58,18 +58,18 @@
                             dataType: 'json',
                             data: $('form#account_loginForm').append("<input name='code' type='hidden' value='-1'>").serialize(),
                             type: 'POST',
-                            success: function(data) {
+                            success: function (data) {
                                 console.log(data);
-                                if(data.code===200) {
+                                if (data.code === 200) {
                                     $('#js-userinfo-error').removeClass("pcue").text('登录成功').addClass("cue");
                                     setTimeout("$('#js-userinfo-error').removeClass('cue').addClass('pcue')", 1000);
-                                    setTimeout(function(){
-                                        window.location.href='/myView';
+                                    setTimeout(function () {
+                                        window.location.href = '/myView';
                                     }, 1500);
-                                }else if (data.code==4001){
+                                } else if (data.code == 4001) {
 
                                 }
-                                else{
+                                else {
                                     $('#js-userinfo-error').removeClass("pcue").text(data.message).addClass("cue");
                                     setTimeout("$('#js-userinfo-error').removeClass('cue').addClass('pcue')", 1000);
 //                                    setTimeout(function(){
@@ -83,40 +83,48 @@
                 });
                 /*显示密码*/
                 var of = true;
-                $('.howl').click(function(){
+                $('.howl').click(function () {
                     $(this).toggleClass('bg1');
-                    if(of){
-                        $('.input-weak-show').attr({'type':'text'});
+                    if (of) {
+                        $('.input-weak-show').attr({'type': 'text'});
                         of = false;
-                    }else{
-                        $('.input-weak-show').attr({'type':'password'});
+                    } else {
+                        $('.input-weak-show').attr({'type': 'password'});
                         of = true;
                     }
                 });
 
                 /*按下回车键事件*/
-                $(document).keydown(function(event){
+                $(document).keydown(function (event) {
                     if (event.keyCode == 13) {
                         $('#bt_login').click();
                     }
                 });
 
                 /*删除*/
-                $(".delet").click(function() {
+                $(".delet").click(function () {
                     $("input[name='name']").val("").focus(); // 清空并获得焦点
                 });
-                $(".out").click(function() {
+                $(".out").click(function () {
                     $("input[name='password']").val("").focus();
                 });
 
-                $(document).on('click', '.proving-txt', function() {
-                    $("#imageCodeImage").attr("src","\@imageCode"+Math.round(Math.random()*1000000));
+
+                /*验证码*/
+                $('.proving-txt').click(function () {
+                    $(".proving-box img").attr('src:"http://172.28.3.51:9004/getImageCodes/123+"?""+Math.random()');
+
+                    $(document).on('click', '.proving-txt', function () {
+                        $("#imageCodeImage").attr("src", "\@imageCode" + Math.round(Math.random() * 1000000));
+
+                    })
+
                 })
+                function getImageCode() {
+                    document.getElementById("imageCodeImage").src = "\@imageCode" + Math.round(Math.random() * 1000000);
+                }
 
             })
-            function getImageCode() {
-                document.getElementById("imageCodeImage").src="\@imageCode"+Math.round(Math.random()*1000000);
-            }
         </script>
     </head>
 
@@ -132,19 +140,28 @@
                     <form id="account_loginForm" method="post" action="/login/submit">
                         <dl class="list list-in">
                             <dd class="dd-padding code">
-                                <input id="input_username" class="input-weak" maxlength="11" type="text" placeholder="请输入您的手机号" name="name" required pattern="[1][345678]\d{9}">
+                                <input id="input_username" class="input-weak" maxlength="11" type="text" placeholder="请输入您的手机号" name="phone" required pattern="[1][345678]\d{9}">
                                 <i class="delet"></i>
                             </dd>
+
                             <dd class="dd-padding code">
                                 <input id="input_password" class="input-weak input-weak-show" maxlength="12" type="password" placeholder="请输入您的密码" name="password" required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}">
                                 <i class="out"></i>
                                 <i class="howl"></i>
                             </dd>
+
+
+
                             <dd class="dd-padding proving-box">
                                 <input class="proving" maxlength="4" type="text" size="5" placeholder="请输验证码"/>
                                 <img id="imageCodeImage" style="-webkit-user-select: none;" onclick="getImageCode()" src="@imageCode@Math.round(Math.random()*1000000)">
                                 <a href="javascript:;" class="proving-txt">看不清换一张</a>
+
                             </dd>
+
+                           <!-- <dd class="dd-padding code">
+                                <img style="-webkit-user-select: none;" src="@imageCode">
+                            </dd>-->
                         </dl>
                     </form>
                     <div class="submitBox">
@@ -154,8 +171,8 @@
 
                 <div class="loginInfo">
                     <div class="findWord">
-                        <a href="/regist" class="resist">快速注册</a>
-                        <a href="/user/reset/passwd" class="password">忘记密码?</a>
+                        <a href="/regist/verify" class="resist">快速注册</a>
+                        <a href="/retrieve" class="password">忘记密码?</a>
                     </div>
                     <div class="min">
                         <label>

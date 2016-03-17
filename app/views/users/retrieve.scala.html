@@ -1,0 +1,219 @@
+@(imageCode:String)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>找回密码</title>
+    <meta charset="UTF-8">
+    <!-- 视图窗口，移动端特属的标签。 -->
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+    <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- 这个主要是根据实际的页面设计的主体色为搭配来进行设置。 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <!-- 忽略页面中的数字识别为电话号码,email识别 -->
+    <meta name="format-detection"content="telephone=no, email=no" />
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <link rel="stylesheet" href="/assets/stylesheets/login.css">
+    <link rel="stylesheet" href="/assets/stylesheets/regist.css">
+    <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+    <style type="text/css">
+        input:required:valid, input:focus:invalid {
+        background-image: url('/assets/images/ex.png');
+        background-position: right 14px;
+        background-repeat: no-repeat;
+        -moz-box-shadow: none;
+        }
+        input:required:valid {
+        background-image: url("/assets/images/dui.png");
+        background-position: right 14px;
+        background-repeat: no-repeat;
+        }
+    </style>
+    <script>
+        $(function(){
+
+            var phoneReg = new RegExp(/^1[345678]\d{9}$/);
+            //var codeReg = new RegExp(/(?![^0-9a-zA-Z]+$)[a-zA-Z0-9]{4}/);
+            var codeReg = new RegExp(/^[0-9a-zA-Z]{4}$/);
+
+            $('#js-userinfo-error').hide()
+            $("#btn-res").css('background', '#C0C0C0');
+            //输入手机号格式正确可以点击下一步
+            $('#phone').bind('input propertychange', function() {
+                if (phoneReg.test($(this).val())) {
+                    $("#btn-res").css('background-color', '#E46359');
+                    $("#btn-res").css('cursor', 'pointer');
+                    $('#btn-res').attr("disabled",false);
+                }
+                if (!phoneReg.test($(this).val())) {
+                    $("#btn-res").css('background', '#C0C0C0');
+                    $("#btn-res").css('cursor', 'default');
+                    $('#btn-res').attr("disabled",true);
+                }
+            });
+
+            //点击下一步请求图形验证码
+            $(document).on('click', '#btn-res', function() {
+                getImageCode();
+                $('.shade').show();
+            });
+
+            //刷新验证码
+            $(document).on('click', '.proof-icon', function () {
+                $("#imageCodeImage").attr("src", "\@imageCode" + Math.round(Math.random() * 1000000));
+            });
+            function getImageCode() {
+                document.getElementById("imageCodeImage").src = "\@imageCode" + Math.round(Math.random() * 1000000);
+            }
+
+            //验证码格式校验
+            $(document).on('click', '.box-d', function () {
+                var code = $("#code").val();
+                if (!codeReg.test(code)) {
+                    $('#js-userinfo-error').text('验证码格式不正确').show();
+                }
+                //验证码格式正确检测手机号
+                if (codeReg.test(code)) {
+                    $('.shade').hide();
+                    $('#js-userinfo-error').text('').hide();
+                    $("#code").val("");
+                    console.log($('form#cell_verifyForm').append("<input name='code' type='hidden' value='"+code+"'>").serialize());
+                    $.ajax({
+                            url: "/phone/verify",
+                            dataType: 'json',
+                            data: $('form#cell_verifyForm').append("<input name='code' type='hidden' value='"+code+"'>").serialize(),
+                            type: 'POST',
+                            success: function(data) {
+                                console.log(data);
+                                if(data.code === 200){
+                                    $("#msg").attr({"name":"msg"});
+                                    //请求手机验证码接口
+                                    $.ajax({
+                                            url: "/phone/code",
+                                            dataType: 'json',
+                                            data: $('form#cell_verifyForm').append("<input name='msg' type='hidden' value='"+msg+"'>").serialize(),
+                                            type: 'POST',
+                                            success: function(data) {
+                                               console.log(data);
+                                               //手机验证码发送成功
+                                               if (data.code === 200) {
+                                                    console.log(JSON.stringify(phone));
+                                                    window.location.href = "/reset/passwd/"+phone;
+                                               }
+                                               if (data.code === 5005) {
+                                                    alert("发送验证码次数过多,请明天再试");
+                                               }
+                                               if (data.code === 5004) {
+                                                    alert("安全校验不通过");
+                                               }
+                                            }
+                                    });
+                                } else if(data.code === 5002){
+                                    $('#js-userinfo-error').text('验证码校验失败').show();
+                                    setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                } else if (data.code === 4003) {
+                                    //用户尚未注册,弹框提示
+                                    $('.shade').show();
+                                } else{
+                                    alert('Server Error.')
+                                }
+                            }
+                    });
+                }
+            });
+
+            //弹框取消按钮
+            $('.box-q').click(function(){
+                $('.shade-box').hide();
+            })
+            $('.box-l').click(function(){
+                $('.shade-reg').hide();
+            })
+
+            /*删除*/
+            $(".delet").click(function () {
+                $("input[name='phone']").val("").focus(); // 清空并获得焦点
+            });
+
+        })
+    </script>
+
+</head>
+<body>
+<div id='screen_wrap'>
+    <div class="nav_ban">
+        <h1>找回密码</h1>
+        <a href="/login"><span class="icon-back" id="backBtn"></span></a>
+    </div>
+    <div class="login">
+        <div class="login-t">我们将发送验证码到你的手机 13241179879  18676889842 </div>
+        <fieldset>
+            <form id="cell_verifyForm" method="post" onsubmit="return false" action="" >
+                <dl class="list list-in">
+                    <dd class="dd-padding">
+                        <span>手机号</span> <input id="phone" name="phone" type="text" class="input-rese" maxlength="11" required pattern="[1][345678]\d{9}" onkeyup="this.value=this.value.replace(/\D/g,'')"/>
+                        <i class="delet"></i>
+                    </dd>
+                </dl>
+            </form>
+
+            <div class="submitBox">
+                <input id="btn-res" class="registBtn button" type="submit" value="下一步">
+            </div>
+        </fieldset>
+    </div>
+
+
+    <div class="shade shade-box">
+        <div class="box" >
+            <span>安全校验</span>
+            <div id="js-userinfo-error" class="cue"></div>
+            <div class="proof-box">
+                <input type="text" class="input-weak input-proof" placeholder="请填写校验码" maxlength="4" id="code" name="code"/>
+                <div>
+                    <i class="proof-icon"></i>
+                    <img id="imageCodeImage" style="-webkit-user-select: none;" src="@imageCode@Math.round(Math.random()*1000000)">
+                </div>
+            </div>
+            <div class="box-s">
+                <a href="javascript:;" class="box-q">取消</a>
+                <a class="box-d">确定</a>
+            </div>
+        </div>
+    </div>
+
+     <div class="shade shade-reg">
+          <div class="box">
+              <span>该手机号尚未注册</span>
+              <div class="box-a">
+                   <a href="javascript:;" class="box-l">取消</a>
+                   <a href="/regist/verify" class="box-r">立即注册</a>
+              </div>
+          </div>
+     </div>
+
+</div>
+</body>
+</html>

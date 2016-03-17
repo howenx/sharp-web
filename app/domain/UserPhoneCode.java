@@ -11,7 +11,7 @@ import java.util.List;
  * Created by Sunny Wu on 16/3/14.
  * kakao china.
  */
-public class UserRegistCode implements Serializable {
+public class UserPhoneCode implements Serializable {
 
     @Constraints.MaxLength(11)
     @Constraints.MinLength(11)
@@ -24,17 +24,17 @@ public class UserRegistCode implements Serializable {
     public List<ValidationError> validate() {
         List<ValidationError> errors = new ArrayList<>();
         if ("".equals(msg)) {
-            errors.add(new ValidationError("msg", "This msg is wrong"));
+            errors.add(new ValidationError("code", "This code is wrong"));
         }
         return errors.isEmpty() ? null : errors;
     }
 
-    public UserRegistCode() {
+    public UserPhoneCode() {
     }
 
     @Override
     public String toString() {
-        return "UserRegistCode{" +
+        return "UserPhoneCode{" +
                 "phone='" + phone + '\'' +
                 ", msg='" + msg + '\'' +
                 '}';
@@ -56,7 +56,7 @@ public class UserRegistCode implements Serializable {
         this.msg = msg;
     }
 
-    public UserRegistCode(String phone, String msg) {
+    public UserPhoneCode(String phone, String msg) {
 
         this.phone = phone;
         this.msg = msg;

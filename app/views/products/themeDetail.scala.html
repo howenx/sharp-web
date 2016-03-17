@@ -1,0 +1,326 @@
+@(path:String,themeImg:String,tagList:List[Array[Object]],itemList:List[List[Array[Object]]])
+@scripts = {
+<link rel="stylesheet" href="/assets/stylesheets/list.css">
+<script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+<script src="/assets/javascripts/list.js"></script>
+}
+
+@layout(title="韩秘美,专卖韩国正品")(scripts) {
+
+    <header class="head">
+        <a href="@path"  class="back">
+            <i></i>
+            <b></b>
+        </a>
+        <h1>化妆品专场</h1>
+        <a href="/cart" class="shopp ">
+            <i></i>
+            <span class="cart_num">0</span>
+        </a>
+    </header>
+
+
+
+    <div class="banner scope">
+        <div class="big-box">
+            <a href="javascript:;" class="banner-box">
+                <img src="@themeImg">
+            </a>
+
+            @for(tag <- tagList){
+            @if(tag(4) == 0){
+            @if(tag(5) == "pin"){
+            <a href="/detail/pin/@tag(1)" class="right"  style="left:@tag(2)%;top:@tag(0)%">
+                }
+                @if(tag(5) == "item"){
+                <a href="/detail/item/@tag(1)" class="right"  style="left:@tag(2)%;top:@tag(0)%">
+                    }
+                    <div class="cartoon-right">
+                        @tag(3)
+
+                        <i></i>
+
+                        <div class="ripple-right">
+                            <div class="c1"></div>
+                            <div class="c2"></div>
+                            <div class="c3"></div>
+                        </div>
+                    </div>
+
+                </a>
+                }
+                @if(tag(4) == 180){
+                @if(tag(5) == "pin"){
+                <a href="/detail/pin/@tag(1)" class="left"  style="left:@tag(2)%;top:@tag(0)%">
+                    }
+                    @if(tag(5) == "item"){
+                    <a href="/detail/item/@tag(1)" class="left"  style="left:@tag(2)%;top:@tag(0)%">
+                        }
+                        <div class="cartoon">@tag(3)
+                            <i></i>
+
+                            <div class="ripple">
+                                <div class="c1"></div>
+                                <div class="c2"></div>
+                                <div class="c3"></div>
+                            </div>
+                        </div>
+
+                    </a>
+                    }
+                    }
+
+
+        </div>
+
+
+        <!--@for(tag <- tagList){
+            @if(tag(4) == 0){
+                @if(tag(5) == "pin"){
+                    <a href="/detail/pin/@tag(1)" class="right"  style="left:@tag(2)%;top:@tag(0)%">
+                }
+                @if(tag(5) == "item"){
+                    <a href="/detail/item/@tag(1)" class="right"  style="left:@tag(2)%;top:@tag(0)%">
+                }
+                        <div class="cartoon-right">@tag(3)
+                            <i></i>
+                        </div>
+                        <div class="ripple-right">
+                            <div class="c1"></div>
+                            <div class="c2"></div>
+                            <div class="c3"></div>
+                        </div>
+                    </a>
+            }
+            @if(tag(4) == 180){
+                 @if(tag(5) == "pin"){
+                    <a href="/detail/pin/@tag(1)" class="left"  style="left:@tag(2)%;top:@tag(0)%">
+                 }
+                 @if(tag(5) == "item"){
+                    <a href="/detail/item/@tag(1)" class="left"  style="left:@tag(2)%;top:@tag(0)%">
+                 }
+                        <div class="cartoon">@tag(3)
+                            <i></i>
+                        </div>
+                        <div class="ripple">
+                            <div class="c1"></div>
+                            <div class="c2"></div>
+                            <div class="c3"></div>
+                        </div>
+                    </a>
+            }
+        }-->
+
+        <!--<a href="javascript:;" class="left">-->
+            <!--<div class="cartoon">兰蔻-->
+                <!--<i></i>-->
+            <!--</div>-->
+            <!--<div class="ripple">-->
+                <!--<div class="c1"></div>-->
+                <!--<div class="c2"></div>-->
+                <!--<div class="c3"></div>-->
+            <!--</div>-->
+        <!--</a>-->
+
+        <!--<a href="javascript:;" class="right">-->
+            <!--<div class="cartoon-right">asasasa-->
+                <!--<i></i>-->
+            <!--</div>-->
+            <!--<div class="ripple-right">-->
+                <!--<div class="c1"></div>-->
+                <!--<div class="c2"></div>-->
+                <!--<div class="c3"></div>-->
+            <!--</div>-->
+        <!--</a>-->
+
+    </div>
+
+
+    <!--拼购-->
+    <!--<div class="puy scope"><img src="/assets/images/HMM&#45;&#45;list_02 .jpg"></div>
+    <div id="time" class="scope timing"></div>
+
+
+    <div class="purchase-box scope">
+        <div class="purchase-big">
+            <a href="/detail" class="purchase">
+                <div class="purchase-box clearfix">
+                    <div class="graph">
+                        <img src="/assets/images/HMM&#45;&#45;list_05.jpg">
+                        <span><img src="/assets/images/pin.png"></span>
+                    </div>
+                    <div class="con-box">
+                        <div class="con">
+                            <h2>韩国发希fascy陆心媛娃娃护手霜80ml</h2>
+                        </div>
+
+                        <div class="ag">
+                            <div class="sale">
+                                <span class="sale-rate">20<i>%</i></span>
+                                <i>打折率:</i>
+                            </div>
+
+                            <div class="money">
+                                <span class="money-raw">市场价:<i>￥600</i></span>
+                                <span class="now">折扣价:<i>￥480</i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fight">
+                    <span>拼购打折</span><i>(两人拼购价)</i><b>￥480</b>
+                </div>
+
+            </a>
+        </div>
+
+        <div class="purchase-big">
+            <a href="/detail" class="purchase">
+                <div class="purchase-box clearfix">
+                    <div class="graph">
+                        <img src="/assets/images/HMM&#45;&#45;list_05.jpg">
+                        <span><img src="/assets/images/pin.png"></span>
+                    </div>
+                    <div class="con-box">
+                        <div class="con">
+                            <h2>韩国发希fascy陆心媛娃娃护手霜80ml</h2>
+                        </div>
+
+                        <div class="ag">
+                            <div class="sale">
+                                <span class="sale-rate">20<i>%</i></span>
+                                <i>打折率:</i>
+                            </div>
+
+                            <div class="money">
+                                <span class="money-raw">市场价:<i>￥600</i></span>
+                                <span class="now">折扣价:<i>￥480</i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fight">
+                    <span>拼购打折</span><i>(两人拼购价)</i><b>￥480</b>
+                </div>
+
+            </a>
+        </div>
+
+
+    </div>-->
+
+    <!--非拼购产品-->
+    <div class="content scope">
+        <ul class="product">
+            @for(rowList <- itemList){
+            <li class="clearfix">
+                @for(item <- rowList){
+                    @if(item(1) == "item" || item(1) == "vary" || item(1) == "customize"){
+                        <a href="/detail/@item(1)/@item(2)">
+                            <p class="figure figure-f">
+                                <img src="@item(0)">
+                            </p>
+                            <p class="title-hd">@item(3)</p>
+                            <span class="title-fd">
+                                <i class="naw">￥@item(5)</i>
+                                <i class="agio">￥@item(4)</i>
+                                <b>@item(6)折</b>
+                            </span>
+                        </a>
+                    }
+                    @if(item(1) == "pin"){
+                        <a href="/detail/@item(1)/@item(2)">
+                            <p class="product-box">
+                                <span class="product-top">@item(7)</span>
+                            </p>
+
+                            <p class="figure">
+                                <img src="@item(0)">
+                            </p>
+
+                            <p class="title-hd">@item(3)</p>
+
+                            <span class="title-fd">
+                               <i class="naw">￥@item(5)</i>
+                               <i class="agio">￥@item(4)</i>
+                               <b>@item(6)折</b>
+                            </span>
+                        </a>
+                    }
+                }
+            </li>
+            }
+            <!--<li>-->
+                <!--<a href="/detail/D/889577/112406/112408">-->
+                    <!--<p class="product-box">-->
+                        <!--<span class="product-top">已结束</span>-->
+                    <!--</p>-->
+                   <!--<img src="/assets/images/HMM&#45;&#45;list_01.jpg">-->
+                   <!--<p class="title-hd">德国原产 深层修护经典护手霜100ml</p>-->
+                   <!--<span class="title-fd">-->
+                       <!--<i class="naw">￥75.00</i>-->
+                       <!--<i class="agio">￥125.00</i>-->
+                       <!--<b>5.6折</b>-->
+                   <!--</span>-->
+               <!--</a>-->
+               <!--<a href="javascript:;">-->
+                   <!--<p class="product-box">-->
+                       <!--<span class="product-top">截止7月14日下午14:00</span>-->
+                   <!--</p>-->
+                   <!--<img src="/assets/images/HMM&#45;&#45;list_01.jpg">-->
+                   <!--<p class="title-hd">德国原产 深层修护经典护手霜100ml</p>-->
+                   <!--<span class="title-fd">-->
+                       <!--<i class="naw">￥75.00</i>-->
+                       <!--<i class="agio">￥125.00</i>-->
+                       <!--<b>5.6折</b>-->
+                   <!--</span>-->
+               <!--</a>-->
+            <!--</li>-->
+
+
+        </ul>
+
+    </div>
+
+}
+
+<!--<script type="text/javascript">
+
+        function clock(){
+
+            var str = '';
+            var oP = document.getElementById( 'time' );
+
+            //用将来的时间 - 现在的时间，然后再将这个差值换算成我们需要的 天数 时 分 秒的格式。
+            
+            var newTime = new Date(2016,11,29,23,30);//即将到来的时间
+
+            var nowTime = new Date();//现在的时间
+
+            // 将得到的毫秒数转换成天数 时钟数 分钟  秒数( 123000秒 )
+            // 86400 3600 60 
+            
+            var time = (newTime - nowTime)/1000; //两个时间的差值
+
+            if( time <0 ){
+                clearInterval(iTimer);
+				alert('活动已结束');
+                return;
+            }else{
+                str = '距离活动结束还有' +Math.floor((time/86400)) +'天'+ Math.floor( (time%86400)/3600 ) +'时'+ Math.floor((time%86400%3600)/60) +'分'+ Math.floor(time%86400%3600%60) +'秒';
+
+                oP.innerHTML = str;
+            }
+ 
+        }
+
+        clock();
+        var iTimer = setInterval( clock,1000 );
+
+
+
+        //alert( newTime - nowTime  );
+        
+    </script>-->

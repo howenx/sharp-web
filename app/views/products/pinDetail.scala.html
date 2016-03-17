@@ -1,3 +1,4 @@
+@(itemMain:domain.Item,itemFeaturesList:List[Array[Object]])
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,24 +16,25 @@
     <script src="/assets/javascripts/jquery/jquery.cycle2.swipe.min.js"></script>
     <script src="/assets/javascripts/detail.js"></script>
 
-
-
 </head>
+
 <body>
-<div id='screen_wrap'>
+<div id='screen_wrap' class="pin-wrap">
     <div class="picture_wrap">
         <div class="nav_ban_detail">
             <a href="/plist" class="back">
                 <i></i>
                 <b></b>
             </a>
-            <h1>秋季新品甜美两件套秋季新品甜美两件套</h1>
+            <h1>商品详情</h1>
             <!--分享icon-->
             <div id="shopCart">
                 <a href="" class="message_list shopping">
                     <i class="message"></i>
                 </a>
             </div>
+
+            <span class="finish">该商品已售罄</span>
         </div>
 
         <div id='slide' class="cycle-slideshow composite-slide"
@@ -72,10 +74,10 @@
 
     </div>
     <!--标题-->
-    <div class="sku-meta">
-        <div class="sku-title">
+    <div class="sku-meta pin-hd">
+        <div class="sku-title pin-title">
             <h2>秋季新品学院风甜美两件套秋季新品学院风甜美两件套秋季新品学院风甜美两件套</h2>
-            <p>已售: 1250件</p>
+            <p class="num">已售: 1250件</p>
         </div>
 
         <div class="txt">
@@ -108,7 +110,7 @@
             <!-- 标签 -->
             <nav class="tabpanel-tabs center">
                 <ul>
-                    <li class="tab-item active pic-tex current"> <span class='tab-span'>图文详情</span> <i></i> </li>
+                    <li class="tab-item active pic-tex pin-pic current"> <span class='tab-span'>图文详情</span> <i></i> </li>
                     <li class="tab-item goods-para"> <span class='tab-span'>商品参数</span> <i></i> </li>
                     <li class="tab-item hot-sale"> <span class='tab-span'>热卖推荐</span> <i></i> </li>
                 </ul>
@@ -117,12 +119,7 @@
     </div>
 
     <!-- 详情图片 -->
-    <div class="conner">
-        <img src="/assets/images/img1.png"/>
-        <img src="/assets/images/img2.png"/>
-
-    </div>
-    <div class="sku-measure">
+    <div class="sku-measure01">
         <img src="/assets/images/img3.png"/>
         <img src="/assets/images/img4.png"/>
         <img src="/assets/images/img5.png"/>
@@ -131,7 +128,207 @@
         <img src="/assets/images/img8.png"/>
     </div>
 
+
+    <div class="sku-measure">
+        <div class="parameter-wrap">
+            <p class="dc_tit" id="J_proParam_scroll">商品参数<!--<i class="far">Detail</i>--></p>
+
+            <!-- 参数 -->
+            <div class="param-list">
+                <ul>
+
+                    <li>
+                        <span class="param-name">用途</span>
+                        <p class="param-info">送女友</p>
+                    </li>
+
+                    <li>
+                        <span class="param-name">适用场景</span>
+                        <p class="param-info">日常佩戴</p>
+                    </li>
+
+                    <li>
+                        <span class="param-name">材质</span>
+                        <p class="param-info">施华洛世奇水晶</p>
+                    </li>
+
+                    <li>
+                        <span class="param-name">适用人群</span>
+                        <p class="param-info">女</p>
+                    </li>
+
+                    <li>
+                        <span class="param-name">款式</span>
+                        <p class="param-info">心形</p>
+                    </li>
+
+                    <li>
+                        <span class="param-name">风格</span>
+                        <p class="param-info">日韩</p>
+                    </li>
+
+                    <li>
+                        <span class="param-name">是否镶嵌</span>
+                        <p class="param-info">是</p>
+                    </li>
+
+                    <li>
+                        <span class="param-name">商品编号</span>
+                        <p class="param-info">1953709774</p>
+                    </li>
+
+                    <li>
+                        <span class="param-name">商品产地</span>
+                        <p class="param-info">韩国</p>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="hot">
+        <p class="hot-hd">热卖商品</p>
+        <ul class="product">
+
+            <li>
+                <a href="/detail/item/item/888356/111396">
+                    <p class="figure figure-f">
+                        <img src="http://img.hanmimei.com/de5a2f21a057478cb432fe4f9e903ed71451370005389.jpg">
+                    </p>
+                    <p class="title-hd">韩秘美 Crystalshop 施华洛世奇水晶 wendy温蒂爱的花环银饰</p>
+                       <span class="title-fd">
+                           <i class="naw">￥308</i>
+                           <i class="agio">￥308</i>
+                           <b>0.0折</b>
+                       </span>
+                </a>
+
+                <a href="/detail/item/item/888351/111387">
+                    <p class="figure figure-f">
+                        <img src="http://img.hanmimei.com/7b557e46bded43358f6d06c8f0a10dbc1451370164326.jpg">
+                    </p>
+                    <p class="title-hd">韩秘美 Crystalshop 施华洛世奇 水晶巨星闪耀单钻银饰</p>
+                       <span class="title-fd">
+                           <i class="naw">￥228</i>
+                           <i class="agio">￥228</i>
+                           <b>0.0折</b>
+                       </span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/detail/item/item/888366/111405">
+                    <p class="figure figure-f">
+                        <img src="http://img.hanmimei.com/4817629168024ff6bec95b05cb7c41d71451369519437.jpg">
+                    </p>
+                    <p class="title-hd">韩秘美 Crystalshop 施华洛世奇水晶ONLY YOU我心只有你心形银饰</p>
+                       <span class="title-fd">
+                           <i class="naw">￥318</i>
+                           <i class="agio">￥318</i>
+                           <b>0.0折</b>
+                       </span>
+                </a>
+
+                <a href="/detail/item/item/888391/111450">
+                    <p class="figure figure-f">
+                        <img src="http://img.hanmimei.com/f8739cc1d100490983de8c66f725d9e11451365061997.jpg">
+                    </p>
+                    <p class="title-hd">韩秘美 Crystalshop 施华洛世奇水晶 brilliant亮彩水晶银饰 水晶色 项链</p>
+                       <span class="title-fd">
+                           <i class="naw">￥424</i>
+                           <i class="agio">￥424</i>
+                           <b>0.0折</b>
+                       </span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/detail/item/item/888331/111354">
+                    <p class="figure figure-f">
+                        <img src="http://img.hanmimei.com/6553d754065c4a10bed16f6fb1b1da561451367341039.jpg">
+                    </p>
+                    <p class="title-hd">韩秘美 Crystalshop 施华洛世奇水晶 凯莉水晶银饰</p>
+                       <span class="title-fd">
+                           <i class="naw">￥201</i>
+                           <i class="agio">￥201</i>
+                           <b>0.0折</b>
+                       </span>
+                </a>
+
+                <a href="/detail/item/item/888346/111378">
+                    <p class="figure figure-f">
+                        <img src="http://img.hanmimei.com/8a998e2589264b54a2ae8e0c77d926041451370316252.jpg">
+                    </p>
+                    <p class="title-hd">韩秘美 Crystalshop 施华洛世奇水晶 双色条形银饰</p>
+                       <span class="title-fd">
+                           <i class="naw">￥185.5</i>
+                           <i class="agio">￥193</i>
+                           <b>7.5折</b>
+                       </span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+
+
+
+
+    <!--加入购物车-->
+    <div class="buy_box">
+        <div class="finish-box">
+            该商品已结束去看看其他拼购吧
+        </div>
+
+        <div class="love">
+           <!-- <div id="shopCart">
+                <a href="/cart" class="message_list shopping">
+                    <i class="message"></i>
+                    <span class="cart_num">0</span>
+                </a>
+            </div>-->
+
+            <!--收藏-->
+            <a href="javascript:;" class="like pin-love">
+                <span class="soul"></span>
+                <i class="like-s">收藏成功</i>
+                <i class="like-x">取消收藏</i>
+            </a>
+
+        </div>
+
+        <div class="add_cart btns" data-type="cart">
+            <a href="/opengroup" class="btnCart add_cart_large pin-cart">
+                立即参团
+            </a>
+        </div>
+
+        <div class="buy_btn pin-buy" data-type="buy">
+            <a href="/settle" class="">
+                单独购买
+            </a>
+        </div>
+
+    </div>
+
+
+    <div class="top">
+        <img src="/assets/images/top.png">
+    </div>
+
+
+
+
 </div>
+
+
+
+
+
+
+<!--该活动已结束-->
 
 <div class="toup">
     <div class="bg"></div>
@@ -148,7 +345,19 @@
                         <img src="/assets/images/banner_03.jpg" alt="">
                     </div>
                     <div>
-                        <p>韩秘美 Crystalshop 施华洛世奇水晶。。。</p>
+                        <p>韩秘美 Crystalshop 施fewafewgregrdawrhrefrgewfewf华洛世奇水晶。。。</p>
+                    </div>
+                </div>
+                <div class="item">
+                    <div>
+                        <span>拼</span>
+                        <p>截止3月17日下午5:16</p>
+                    </div>
+                    <div>
+                        <img src="/assets/images/banner_03.jpg" alt="">
+                    </div>
+                    <div>
+                        <p>韩秘美 Crystalshop 施华洛世奇水晶。。施华洛世奇水晶施华洛世奇水晶。</p>
                     </div>
                 </div>
                 <div class="item">
@@ -172,9 +381,10 @@
                         <img src="/assets/images/banner_03.jpg" alt="">
                     </div>
                     <div>
-                        <p>韩秘美 Crystalshop 施华洛世奇水晶。。。</p>
+                        <p>韩秘美 Crystalshop 施华洛世奇水晶dfgd。。。</p>
                     </div>
                 </div>
+
                 <div class="item">
                     <div>
                         <span>拼</span>
@@ -184,7 +394,20 @@
                         <img src="/assets/images/banner_03.jpg" alt="">
                     </div>
                     <div>
-                        <p>韩秘美 Crystalshop 施华洛世奇水晶。。。</p>
+                        <p>韩秘美 Crystalshop 施华洛世奇水晶dfgd。。。</p>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div>
+                        <span>拼</span>
+                        <p>截止3月17日下午5:16</p>
+                    </div>
+                    <div>
+                        <img src="/assets/images/banner_03.jpg" alt="">
+                    </div>
+                    <div>
+                        <p>韩秘美 Crystalshop 施华洛世奇水晶dfgd。。。</p>
                     </div>
                 </div>
             </div>
@@ -199,9 +422,6 @@
   </span>
   <a href="javascript:;" class="bg">立即下载</a>
 </div> -->
-
-
-
 
 </body>
 

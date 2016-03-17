@@ -1,0 +1,79 @@
+@(address:domain.Address)
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理地址</title>
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <script type="text/javascript" src="/assets/javascripts/jquery/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="/assets/javascripts/jquery/area.js"></script>
+    <script type="text/javascript" src="/assets/javascripts/my.js"></script>
+    <link rel="stylesheet" href="/assets/stylesheets/global.css">
+    <link rel="stylesheet" href="/assets/stylesheets/address.css">
+
+
+</head>
+<body>
+<header class="head">
+    <a href="/address" class="back">
+        <i></i>
+        <b></b>
+    </a>
+    <h1>管理地址</h1>
+</header>
+
+<div class="scope wap">
+    <div id="js-userinfo-error" class="cue"></div>
+    <form id="cell_addressForm">
+        <input  id="addId" name="addId" value="@address.getAddId()" type="hidden"/>
+       <div class="add-s">
+           <input  placeholder="请输入收货人" id="name" name="name" value="@address.getName()">
+       </div>
+
+        <div class="add-s">
+            <input placeholder="请输入联系电话" id="tel" name="tel" value="@address.getTel()">
+        </div>
+        <div class="add-s">
+            <input placeholder="身份证" id="idCardNum" name="idCardNum" value="@address.getIdCardNum()">
+        </div>
+
+        <div id="addAddress">
+            <div class="address_input">
+                <input class="address_input1" type="text" placeholder="请选择省市" id="shengshi" onClick="getProvinceBuy()" readonly="readonly" value="@address.getDeliveryCity()">
+            </div>
+        </div>
+
+        <input  type="hidden" id="province" name="province" value="0"/>
+        <input  type="hidden" id="city" name="city" />
+        <input  type="hidden" id="area" name="area" />
+        <input  type="hidden" id="area_code" name="area_code" />
+        <input  type="hidden" id="city_code" name="city_code" />
+        <input  type="hidden" id="province_code" name="province_code" />
+
+
+        <div class="add-s">
+            <input placeholder="输入详细地址" id="deliveryDetail" name="deliveryDetail" value="@address.getDeliveryDetail()">
+        </div>
+
+        <div class="add-m">
+            <span>
+                @if(address.getOrDefault()==true){<input type="checkbox" name="orDefault" checked/>}
+                @if(address.getOrDefault()!=true){<input type="checkbox" name="orDefault" />}
+                设为默认
+            </span>
+        </div>
+
+        <div class="cue">
+            <p class="color">提示:</p>
+            <p>1.海关需要对海外购物查验身份信息，错误信息可能导致无法通关。</p>
+            <p>2.身份信息将加密报关，韩秘美将保证您的信息安全。</p>
+        </div>
+    </form>
+    <button class="plus-add bg" id="addAddressBtn">保存修改</button>
+
+</div>
+
+</body>
+</html>

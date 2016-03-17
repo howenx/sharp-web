@@ -19,7 +19,7 @@ public class UserLoginInfo implements Serializable {
     @Constraints.MaxLength(11)
     @Constraints.MinLength(11)
     @Constraints.Pattern("[1][345678]\\d{9}")
-    protected String name;
+    protected String phone;
 
     @Constraints.MaxLength(12)
     @Constraints.MinLength(6)
@@ -39,8 +39,8 @@ public class UserLoginInfo implements Serializable {
         return errors.isEmpty() ? null : errors;
     }
 
-    public UserLoginInfo(String name, String password, String code) {
-        this.name = name;
+    public UserLoginInfo(String phone, String password, String code) {
+        this.phone = phone;
         this.password = password;
         this.code = code;
     }
@@ -49,12 +49,12 @@ public class UserLoginInfo implements Serializable {
     }
 
 
-    public String getName() {
-        return name;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getPassword() {
@@ -76,7 +76,7 @@ public class UserLoginInfo implements Serializable {
     @Override
     public String toString() {
         return "UserLoginInfo{" +
-                "name='" + name + '\'' +
+                "phone='" + phone + '\'' +
                 ", password='" + password + '\'' +
                 ", code='" + code + '\'' +
                 '}';

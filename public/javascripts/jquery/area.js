@@ -45,6 +45,11 @@ function getAreaBuy(val,val1){
 		var allarea=province[val1].NAME+city[val].NAME;
 		$("#shengshi").attr({"SS":province[val1].NAME,"SQ":city[val].NAME,"XS":""});
 		$("#shengshi").val(allarea);
+		$("#province").val(province[val1].NAME);
+        $("#city").val(city[val].NAME);
+        $("#area").val("");
+		$("#province_code").val(province[val1].EN);
+
 		$("body .dqld_div").remove();
 	}
 	else{
@@ -60,6 +65,10 @@ function getallArea(val,val1,val2){
 	var allarea=province[val].NAME+city[val1].NAME+area[val2].NAME;
 	$("#shengshi").attr({"SS":province[val].NAME,"SQ":city[val1].NAME,"XS":area[val2].NAME});
 	$("#shengshi").val(allarea);
+    $("#province").val(province[val].NAME);
+    $("#city").val(city[val1].NAME);
+    $("#area").val(area[val2].NAME);
+    $("#province_code").val(province[val].EN);
 	$("body .dqld_div").remove();
 }
 /*地区联动*/

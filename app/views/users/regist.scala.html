@@ -1,5 +1,6 @@
+@(phone:String)
 <!DOCTYPE HTML>
-<html>
+<html xmlns:filter="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <!-- 视图窗口，移动端特属的标签。 -->
@@ -34,7 +35,7 @@
     <meta name="msapplication-tap-highlight" content="no">
     <title>注册</title>
     <link rel="stylesheet" href="/assets/stylesheets/login.css">
-
+    <link rel="stylesheet" href="/assets/stylesheets/regist.css">
     <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
 
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
@@ -43,13 +44,13 @@
     <style type="text/css">
         input:required:valid, input:focus:invalid {
         background-image: url('/assets/images/ex.png');
-        background-position: right top;
+        background-position: right 13px;
         background-repeat: no-repeat;
         -moz-box-shadow: none;
         }
         input:required:valid {
         background-image: url("/assets/images/dui.png");
-        background-position: right top;
+        background-position: right 13px;
         background-repeat: no-repeat;
         }
     </style>
@@ -58,42 +59,36 @@
 <body>
 <div id='screen_wrap'>
     <div class="nav_ban">
-        <h1>注册</h1>
-        <a href="/login"><span class="icon-back" id="backBtn"></span></a>
+        <h1>账号注册</h1>
+        <a href="/regist/verify"><span class="icon-back" id="backBtn"></span></a>
         <!--<a href="/login"><span class="icon-user-title" id="userBtn"></span></a>-->
     </div>
+    <div id="js-userinfo-error" class="cue">验证码发送成功</div>
+
     <div class="login">
-        <div id="js-userinfo-error" class="cue"></div>
+        <div class="login-t" id="phone-send-code"></div>
         <fieldset>
-            <form id="cell_loginForm" method="post" onsubmit="return false" action="" >
+            <form id="cell_regForm" method="post" onsubmit="return false" action="" >
                 <dl class="list list-in">
-                    <dd class="dd-padding">
-                        <input id="phoneNum" type="text" class="input-weak" placeholder="请输入手机号" maxlength="11" name="phone" required pattern="[1][345678]\d{9}"/>
-                        <i class="delet"></i>
+                    <dd class="dd-padding clearfix dd-one">
+                        <input type="hidden" id="phone" name="phone" value="@phone">
+                        <input type="hidden" id="msg" name="msg" value="">
+                        <span>验证码</span> <input id="code" name="code" type="text" class="input-rese" placeholder="短信验证码" maxlength="6" required pattern="[0-9]{6}" onkeyup="this.value=this.value.replace(/\D/g,'')"/>
+                        <div class="hq" id="get-code">获取验证码 <i id="time"></i></div>
                     </dd>
-                    <dd class="dd-padding one" id="send-code-ok"></dd>
-                        <!--验证码发送成功-->
-
-                    <dd class="dd-padding">
-                        <input id="cell_login_checkcode" class="input-weak two" type="text" placeholder="请输入验证码" name="code">
-                        <button id="smsCode" type="button" class="code" disabled="disabled">获取验证码</button>
+                    <dd class="dd-padding clearfix">
+                        <span>设置密码</span> <input id="password" name="password" type="password" class="input-rese input-reseT" placeholder="6-12位字母/数字组合" maxlength="12"  required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}"/>
+                        <i class="delet delet-re"></i>
+                        <i class="howl howl-reT"></i>
                     </dd>
-
-                    <dd class="dd-padding">
-                        <input id="password" class="input-weak input-weak-show" type="password" name="password" placeholder="密码为6-12位字母/数字的组合" maxlength="12"  required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}"/>
-                        <i class="out" style="top:130px;right:50px;"></i>
-                        <i class="howl" style="top:130px;right:20px;"></i>
+                    <dd class="dd-padding clearfix">
+                        <span>确认密码</span> <input id="re_password" type="password" class="input-rese input-reseB" placeholder="再次填写密码" maxlength="12" required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}"/>
+                        <i class="delet delet-rese"></i>
+                        <i class="howl howl-reB"></i>
                     </dd>
-
-                    <dd class="dd-padding">
-                        <input id="pwd-confirm" class="input-weak input-weak-show" type="password" placeholder="确认密码" maxlength="12" required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}" />
-                        <i class="out" style="top:205px;right:50px;"></i>
-                        <i class="howl" style="top:205px;right:20px;"></i>
-                    </dd>
-                    <dd class="cue" id="code-input-error"></dd>
-                        <!--验证码输入错误-->
                 </dl>
             </form>
+
             <div class="agree">
                 <input id="tip" class="inp" type="checkbox">
                 <a class="tip" href="/">我已阅读并接受 <span>韩秘美用户注册协议</span></a>
@@ -114,150 +109,163 @@
 
 $(function() {
 
-        //  13241179879
+        //$('#js-userinfo-error').text('验证码发送成功!').show();
+        setTimeout("$('#js-userinfo-error').hide()", 1000);
 
-     var phoneReg = new RegExp(/^1[345678]\d{9}$/);
-     var passwordReg = new RegExp(/^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}/);
+        var phone = $("#phone").val();
+        var msg = hex_md5(phone+"hmm");
+        $("#msg").val(msg);
 
-    $('#js-userinfo-error').hide();
-    $("#send-code-ok").hide();
-    $("#code-input-error").hide();
+        $("#phone-send-code").text("已发送验证码至"+phone.substring(0,3)+"*****"+phone.substring(7,11));
 
-    //手机号只能输入数字
-    $('#phoneNum').keyup(function() {
-        $(this).keypress(function (event) {
-            var eventObj = event || e;
-            var keyCode = eventObj.keyCode || eventObj.which;
-        if ((keyCode >= 48 && keyCode <= 57))
-            return true;
-        else
-            return false;
-        }).focus(function () {
-        //禁用输入法
-            this.style.imeMode = 'disabled';
-        }).bind("paste", function () {
-        //获取剪切板的内容
-        var clipboard = window.clipboardData.getData("Text");
-        if (/^\d+$/.test(clipboard))
-            return true;
-        else
-            return false;
-        });
-    });
+        //验证码获取倒计时
+        var time = 80;
+        $("#time").html(time+"s");
+        timer = window.setInterval(function() {
+                $("#time").html(--time+"s");
+                if (time == 0) {
+                    window.clearInterval(timer);
+                    $("#time").html("");
+                    $("#get-code").css("color", "#E46359");
+                    $("#get-code").css('cursor', 'pointer');
+                }
+        }, 1000);
 
-    //输入手机号格式正确可以点击获取验证码
-    $('#phoneNum').bind('input propertychange', function() {
-        if (phoneReg.test($(this).val())) {
-            $("#smsCode").css('background-color', '#E46359');
-            $("#smsCode").css('color', '#fff');
-            $("#smsCode").css('cursor', 'pointer');
-            $('#smsCode').attr("disabled",false);
-        }
-        if (!phoneReg.test($(this).val())) {
-            $("#smsCode").css('background', '#C0C0C0');
-            $("#smsCode").css('color', '#7F7F87');
-            $("#smsCode").css('cursor', 'default');
-            $('#smsCode').attr("disabled",true);
-        }
-    });
-
-    //获取验证码
-    $("#smsCode").click(function() {
-        var phoneNum = $("#phoneNum").val();
-        var msg = hex_md5(phoneNum+"hmm");
-        $.ajax({
-                url: "/regist/code",
-                dataType: 'json',
-               	data: $('form#cell_loginForm').append("<input name='msg' type='hidden' value='"+msg+"'>").serialize(),
-                type: 'POST',
-                success: function(data) {
-                   console.log(data);
-                   $("#send-code-ok").show();
-                   $("#send-code-ok").html("验证码已成功发送至"+phoneNum.substring(0,3)+"****"+phoneNum.substring(7,11));
-                   var time = 8;
-                   $("#smsCode").html(time+"s后再次获取");
-                   timer = window.setInterval(function() {
-                        $("#smsCode").html(time+"s后再次获取");
-                        $("#smsCode").html(--time+"s后再次获取");
-                        if (time == 0) {
-                            window.clearInterval(timer);
-                            $("#smsCode").html("获取验证码");
-                            $("#send-code-ok").hide();
+        //再次获取验证码
+        $("#get-code").click(function() {
+                //var msg = hex_md5(phone+"hmm");
+                $("#password").removeAttr("name");
+                $("#code").removeAttr("name");
+                console.log($('form#cell_regForm').serialize());
+                $.ajax({
+                        url: "/phone/code",
+                        dataType: 'json',
+                        data: $('form#cell_regForm').serialize(),
+                        type: 'POST',
+                        success: function(data) {
+                                console.log(data);
+                                //手机验证码发送成功
+                                //验证码发送次数过多
+                                if (data.code == 5005) {
+                                   $('#js-userinfo-error').text('验证码发送次数过多,请明天再试!').show();
+                                    setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                }
+                                if (data.code === 200) {
+                                           $("#password").attr({"name":"password"});
+                                           $("#code").attr({"name":"code"});
+                                           $('#js-userinfo-error').text('验证码发送成功!').show();
+                                           setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                           $("#get-code").css("color", "#000");
+                                           $("#get-code").css('cursor', 'auto');
+                                           var ctime = 80;
+                                           $("#time").html(ctime+"s");
+                                           timer2 = window.setInterval(function() {
+                                                $("#time").html(--ctime+"s");
+                                                if (ctime == 0) {
+                                                    window.clearInterval(timer2);
+                                                    $("#time").html("");
+                                                    $("#get-code").css("color", "#E46359");
+                                                    $("#get-code").css('cursor', 'pointer');
+                                                }
+                                           }, 1000);
+                                }
                         }
-                   }, 1000);
+                });
+        });
+
+
+        //注册提交数据
+        $(document).on('click', '#btn-reg', function() {
+                var codeReg = new RegExp(/^[0-9]{6}$/);
+                var passwordReg = new RegExp(/^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}/);
+
+                if ($('#code').val().length!=6 || !codeReg.test($('#code').val())) {
+                    $('#js-userinfo-error').text('请输入6位验证码').show();
+                    setTimeout("$('#js-userinfo-error').hide()", 2000);
+                }
+                else if ($('#password').val().length<6 || $('#password').val().length>12) {
+                    $('#js-userinfo-error').text('请输入6-12位密码').show();
+                    setTimeout("$('#js-userinfo-error').hide()", 2000);
+                }
+                else if (!passwordReg.test($('#password').val())) {
+                    $('#js-userinfo-error').text('密码必须是字母数字组合').show();
+                    setTimeout("$('#js-userinfo-error').hide()", 2000);
+                }
+                else if ($('#re_password').val()!=$('#password').val()) {
+                    $('#js-userinfo-error').text('两次密码输入的不一致').show();
+                    setTimeout("$('#js-userinfo-error').hide()", 2000);
+                }
+                else if ($("#tip").is(":checked")==false) {
+                     $('#js-userinfo-error').text('请阅读并确定是否接受注册协议!').show();
+                     setTimeout("$('#js-userinfo-error').hide()", 2000);
+                }
+                else {
+                    $("#msg").removeAttr("name");
+                    console.log($('form#cell_regForm').serialize());
+                    $.ajax({
+                            url: "/regist/submit",
+                            dataType: 'json',
+                            data: $('form#cell_regForm').serialize(),
+                            type: 'POST',
+                            success: function(data) {
+                                console.log(data);
+                                if(data.code === 200){
+                                    $("#msg").attr({"name":"msg"});
+                                    setTimeout(function(){
+                                        window.location.href='/login';
+                                    }, 2000);
+                                } else if(data.code === 5002){
+                                    $('#js-userinfo-error').text('验证码错误').show();
+                                    setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                } else if(data.code === 5001){
+                                    $('#js-userinfo-error').text('此手机已经注册').show();
+                                    setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                } else{
+                                    alert('Server Error.')
+                                }
+                            }
+                    });
                 }
         });
-    });
 
+        $(".delet-re").click(function() {
+                $("input[id='password']").val("").focus(); // 清空并获得焦点
+        });
+        $(".delet-rese").click(function() {
+                $("input[id='re_password']").val("").focus(); // 清空并获得焦点
+        });
 
-    //注册提交数据
-    $(document).on('click', '#btn-reg', function() {
-
-        var formdata = new FormData();
-
-        if ($('#phoneNum').val().length!=11 || !phoneReg.test($('#phoneNum').val())) {
-            $('#js-userinfo-error').text('请输入正确的手机号').show();
-            setTimeout("$('#js-userinfo-error').hide()", 2000);
-        }
-        else if ($("#cell_login_checkcode").val().length<0 ) {
-            $('#js-userinfo-error').text('请输入验证码').show();
-            setTimeout("$('#js-userinfo-error').hide()", 2000);
-        }
-        else if ($('#password').val().length<6 || $('#password').val().length>12 || !passwordReg.test($('#password').val())) {
-            $('#js-userinfo-error').text('请输入正确的密码').show();
-            setTimeout("$('#js-userinfo-error').hide()", 2000);
-        }
-        else if ($('#pwd-confirm').val()!=$('#password').val()) {
-            $('#js-userinfo-error').text('两次密码输入不一致').show();
-            setTimeout("$('#js-userinfo-error').hide()", 2000);
-        }
-        else if ($("#tip").is(":checked")==false) {
-             alert("请阅读并确定是否接受注册协议!");
-        }
-        else {
-            $("#cell_loginForm").serializeArray().map(function(x){
-                if(x.value!=='' && x.value!==null){
-                    formdata.append(x.name, x.value);
+        /*显示密码*/
+        var of = true;
+        var of2 = true;
+        $('.howl-reT').click(function(){
+                $(this).toggleClass('bg2');
+                if(of){
+                    $('.input-reseT').attr({'type':'text'});
+                    of = false;
+                }else{
+                    $('.input-reseT').attr({'type':'password'});
+                    of = true;
                 }
-            });
-            $.ajax({
-                    url: "/regist/submit",
-                    dataType: 'json',
-                    data: formdata,
-                    type: 'POST',
-                    success: function(data) {
-                        console.log(data);
-                        if(data==='success'){
-                            setTimeout(function(){
-                                window.location.href='/login';
-                            }, 2000);
-                        }else{
-                            alert('Server Error.')
-                        }
-                    }
-            });
-        }
-    });
+        });
 
-    $(".delet").click(function() {
-        $("input[name='name']").val("").focus(); // 清空并获得焦点
-    });
-    $(".out").click(function() {
-        $("input[name='password']").val("").focus(); // 清空并获得焦点
-    });
+        $('.howl-reB').click(function(){
+                $(this).toggleClass('bg3');
+                if(of2){
+                    $('.input-reseB').attr({'type':'text'});
+                    of2 = false;
+                }else{
+                    $('.input-reseB').attr({'type':'password'});
+                    of2 = true;
+                }
+        });
 
-    /*显示密码*/
-    var of = true;
-    $('.howl').click(function(){
-        $(this).toggleClass('bg1');
-        if(of){
-            $('.input-weak-show').attr({'type':'text'});
-            of = false;
-        }else{
-            $('.input-weak-show').attr({'type':'password'});
-            of = true;
-        }
-    });
+        /*按下回车键事件*/
+        $(document).keydown(function (event) {
+            if (event.keyCode == 13) {
+                $('#btn-reg').click();
+            }
+        });
 
 });
 

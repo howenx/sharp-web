@@ -11,6 +11,43 @@
     <link rel="stylesheet" href="/assets/stylesheets/means.css">
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="/assets/javascripts/obligation.js"></script>
+    <script>
+        $(function(){
+            $('.face-mw').click(function(){
+                $('.mw').toggle();
+            });
+
+            $('.mw span').click(function(){
+                $(this).parents('.wap').find('.mw-box').html($(this).html());
+            })
+
+            /*var tim = null;
+            clearInterval( tim );
+            tim = setInterval(function () {
+                $('.mw').hide();
+            },3000);*/
+
+            //修改用户昵称
+            $(document).on('click', '#nickname', function() {
+                var nickname = $("#nickname").html();
+                //alert(nickname);
+                $.ajax({
+                        type: 'POST', 
+                        url:  "/nickname", 
+                        data: JSON.stringify(nickname), 
+                        contentType: "application/json; charset=utf-8", 
+                        dataType: 'json',
+                        success: function(data) { 
+                            condole.log(data);
+                        },
+                        error: function() { 
+                            console.log("error!");
+                        }
+                });
+            });
+        })
+    </script>
+
 
 </head>
 
@@ -19,7 +56,7 @@
 <!--灰层 结束-->
 
 <header class="head">
-    <a href="/install" class="back">
+    <a href="/myView" class="back">
         <i></i>
         <b></b>
     </a>
@@ -44,15 +81,28 @@
     </div>
     <div class="face-box">
         <a href="javascript:;" class="face ">
-            <i>我的昵称</i>
-            <span>aaimaaf</span>
+            <i>昵称</i>
+            <a ><span id="nickname">hmm123</span></a>
         </a>
     </div>
+
+    <div class="face-box face-mw">
+        <a href="javascript:;" class="face">
+            <i>性别</i>
+            <span class="mw-box">女</span>
+        </a>
+    </div>
+
     <div class="face-box">
         <a href="javascript:;" class="face ">
-            <i>性别</i>
-            <span>女</span>
+            <i>手机号</i>
+            <span>13456677889</span>
         </a>
+    </div>
+
+    <div class="mw">
+        <p>请选择您的性别</p>
+        <span>男</span><span>女</span>
     </div>
 
 </div>

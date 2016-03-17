@@ -9,14 +9,14 @@
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <meta content="telephone=no" name="format-detection">
     <link rel="stylesheet" href="/assets/stylesheets/global.css">
-    <link rel="stylesheet" href="/assets/stylesheets/address.css">
+    <link rel="stylesheet" href="/assets/stylesheets/obligation.css"/>
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="/assets/javascripts/my.js"></script>
 </head>
 
 <body>
 <header class="head">
-    <a href="/myhmm" class="back">
+    <a href="/myView" class="back">
         <i></i>
         <b></b>
     </a>
@@ -24,26 +24,41 @@
 </header>
 
 <div class="scope wap">
-    @if(null==collectList||collectList.size()<=0){<div class="add">暂无收藏的商品</div>}
-    <ul>
-        @for(collect<-collectList){
-        <li id="li@collect.getCollectId()">
-            <div class="touch">
-                <span class="touch-name">@collect.getCollectId()</span>
-                <i class="touch-numb">@collect.getCartSkuDto().getSkuTitle()</i>
-            </div>
 
-            <div class="add">安徽省 安庆市 星光大道502</div>
+    <div class="coll">
 
-            <div class="alter">
-                <a  class="alter-btn color" onclick="collectDel(@collect.getCollectId())">取消收藏</a>
-            </div>
+        <ul>
+            @if(null==collectList||collectList.size()<=0){暂无收藏的商品}
+            @for(collect<-collectList){
+            <li value="@collect.getCollectId()">
+                <div class="con">
+                    <a href="@collect.getCartSkuDto().getInvUrl()" class="commodity havenot">
+                        <div class="pin">
+                            <img src="@collect.getCartSkuDto().getInvImg()" alt=""/>
+                            @if(collect.getSkuType=="pin"){
+                                <div class="pinicon">
+                                    <span>拼</span>
+                                </div>
+                            }
+                        </div>
 
-        </li>
-        }
-    </ul>
+                        <h2>@collect.getCartSkuDto().getSkuTitle()</h2>
+                        <div class="size"><span>@collect.getCartSkuDto().getItemColor()</span><span>@collect.getCartSkuDto().getItemSize()</span></div>
+                        <span class="commodity-rmb">
+                             <span>
+                                 @if(collect.getSkuType=="pin"){最低至}
+                                 @if(collect.getSkuType!="pin"){单价}
+                                : </span>
 
-
+                            <i class="rmb color">￥@collect.getCartSkuDto().getPrice()</i>
+                            <i class="cancelColl">取消收藏</i>
+                        </span>
+                    </a>
+                </div>
+            </li>
+            }
+        </ul>
+    </div>
 </div>
 
 

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -25,17 +25,18 @@
 </header>
 
 <div class="scope wap">
-    <form>
-        <input  id="addId" value="1" hidden/>
+    <div id="js-userinfo-error" class="cue"></div>
+    <form id="cell_addressForm">
+        <input  id="addId" name="addId" value="0" type="hidden"/>
        <div class="add-s">
-           <input  placeholder="请输入收货人" id="name">
+           <input  placeholder="请输入收货人" id="name" name="name">
        </div>
 
         <div class="add-s">
-            <input placeholder="请输入联系电话" id="tel">
+            <input placeholder="请输入联系电话" id="tel" name="tel">
         </div>
         <div class="add-s">
-            <input placeholder="身份证" id="idCardNum">
+            <input placeholder="身份证" id="idCardNum" name="idCardNum">
         </div>
 
         <div id="addAddress">
@@ -44,20 +45,20 @@
             </div>
         </div>
 
-        <input  id="province" value="朝阳区" hidden/>
-        <input  id="city" value="北京市" hidden/>
-        <input  id="area" value="北京市" hidden/>
-        <input  id="area_code" value="" hidden/>
-        <input  id="city_code" value="" hidden/>
-        <input  id="province_code" value="BJ" hidden/>
+        <input  type="hidden" id="province" name="province"/>
+        <input  type="hidden" id="city" name="city" />
+        <input  type="hidden" id="area" name="area" />
+        <input  type="hidden" id="area_code" name="area_code" />
+        <input  type="hidden" id="city_code" name="city_code" />
+        <input  type="hidden" id="province_code" name="province_code" />
 
 
         <div class="add-s">
-            <input placeholder="输入详细地址" id="deliveryDetail">
+            <input placeholder="输入详细地址" id="deliveryDetail" name="deliveryDetail">
         </div>
 
         <div class="add-m">
-            <span><input type="checkbox" id="orDefault"/>设为默认</span>
+            <span><input type="checkbox" id="orDefault" name="orDefault"/>设为默认</span>
         </div>
 
         <div class="cue">
@@ -66,8 +67,8 @@
             <p>2.身份信息将加密报关，韩秘美将保证您的信息安全。</p>
         </div>
 
-        <button class="plus-add bg" id="addAddressBtn" type="submit">添加</button>
     </form>
+    <button class="plus-add bg" id="addAddressBtn">添加</button>
 
 </div>
 
