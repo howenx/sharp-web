@@ -26,54 +26,64 @@
             <img src="@themeImg">
         </a>
 
-        <!--@for(tag <- tagList){-->
-            <!--@if(tag(4) == 0){-->
-                <!--<a href="javascript:;" class="right">-->
-                    <!--<div class="cartoon-right"  style="left:@tag(2);top:@tag(0)">@tag(3)-->
-                        <!--<i></i>-->
-                    <!--</div>-->
-                    <!--<div class="ripple-right">-->
-                        <!--<div class="c1"></div>-->
-                        <!--<div class="c2"></div>-->
-                        <!--<div class="c3"></div>-->
-                    <!--</div>-->
-                <!--</a>-->
-            <!--}-->
-            <!--@if(tag(4) == 180){-->
-                <!--<a href="javascript:;" class="left">-->
-                    <!--<div class="cartoon" style="left:@tag(2);top:@tag(0)">@tag(3)-->
-                        <!--<i></i>-->
-                    <!--</div>-->
-                    <!--<div class="ripple">-->
-                        <!--<div class="c1"></div>-->
-                        <!--<div class="c2"></div>-->
-                        <!--<div class="c3"></div>-->
-                    <!--</div>-->
-                <!--</a>-->
-            <!--}-->
-        <!--}-->
+        @for(tag <- tagList){
+            @if(tag(4) == 0){
+                @if(tag(5) == "pin"){
+                    <a href="/detail/pin/@tag(1)" class="right"  style="left:@tag(2)%;top:@tag(0)%">
+                }
+                @if(tag(5) == "item"){
+                    <a href="/detail/item/@tag(1)" class="right"  style="left:@tag(2)%;top:@tag(0)%">
+                }
+                        <div class="cartoon-right">@tag(3)
+                            <i></i>
+                        </div>
+                        <div class="ripple-right">
+                            <div class="c1"></div>
+                            <div class="c2"></div>
+                            <div class="c3"></div>
+                        </div>
+                    </a>
+            }
+            @if(tag(4) == 180){
+                 @if(tag(5) == "pin"){
+                    <a href="/detail/pin/@tag(1)" class="left"  style="left:@tag(2)%;top:@tag(0)%">
+                 }
+                 @if(tag(5) == "item"){
+                    <a href="/detail/item/@tag(1)" class="left"  style="left:@tag(2)%;top:@tag(0)%">
+                 }
+                        <div class="cartoon">@tag(3)
+                            <i></i>
+                        </div>
+                        <div class="ripple">
+                            <div class="c1"></div>
+                            <div class="c2"></div>
+                            <div class="c3"></div>
+                        </div>
+                    </a>
+            }
+        }
 
-        <a href="javascript:;" class="left">
-            <div class="cartoon">兰蔻
-                <i></i>
-            </div>
-            <div class="ripple">
-                <div class="c1"></div>
-                <div class="c2"></div>
-                <div class="c3"></div>
-            </div>
-        </a>
+        <!--<a href="javascript:;" class="left">-->
+            <!--<div class="cartoon">兰蔻-->
+                <!--<i></i>-->
+            <!--</div>-->
+            <!--<div class="ripple">-->
+                <!--<div class="c1"></div>-->
+                <!--<div class="c2"></div>-->
+                <!--<div class="c3"></div>-->
+            <!--</div>-->
+        <!--</a>-->
 
-        <a href="javascript:;" class="right">
-            <div class="cartoon-right">asasasa
-                <i></i>
-            </div>
-            <div class="ripple-right">
-                <div class="c1"></div>
-                <div class="c2"></div>
-                <div class="c3"></div>
-            </div>
-        </a>
+        <!--<a href="javascript:;" class="right">-->
+            <!--<div class="cartoon-right">asasasa-->
+                <!--<i></i>-->
+            <!--</div>-->
+            <!--<div class="ripple-right">-->
+                <!--<div class="c1"></div>-->
+                <!--<div class="c2"></div>-->
+                <!--<div class="c3"></div>-->
+            <!--</div>-->
+        <!--</a>-->
 
     </div>
 
