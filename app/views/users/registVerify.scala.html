@@ -93,7 +93,7 @@
                 //console.log($('form#cell_verifyForm').serialize());
                 var msg = hex_md5(phone+"hmm");
                 $.ajax({
-                        url: "/regist/verify",
+                        url: "/phone/verify",
                         dataType: 'json',
                         data: $('form#cell_verifyForm').serialize(),
                         type: 'POST',
@@ -105,7 +105,7 @@
                                    }
                                    //用户未注册,请求手机验证码接口
                                    if (data.code === 4003) {
-                                           console.log($('form#cell_verifyForm').append("<input name='msg' type='hidden' value='"+msg+"'>").serialize());
+                                           //console.log($('form#cell_verifyForm').append("<input name='msg' type='hidden' value='"+msg+"'>").serialize());
                                            $.ajax({
                                                     url: "/regist/code",
                                                     dataType: 'json',

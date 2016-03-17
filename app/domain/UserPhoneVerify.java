@@ -1,11 +1,8 @@
 package domain;
 
 import play.data.validation.Constraints;
-import play.data.validation.ValidationError;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Sunny Wu on 16/3/15.
@@ -16,42 +13,42 @@ public class UserPhoneVerify implements Serializable {
     @Constraints.MaxLength(11)
     @Constraints.MinLength(11)
     @Constraints.Pattern("[1][345678]\\d{9}")
-    protected String phone;
+    protected String name;
 
     @Constraints.Required
     protected  String code;
 
 
-    public List<ValidationError> validate() {
-        List<ValidationError> errors = new ArrayList<>();
-        if (!code.equals("-1")) {
-            errors.add(new ValidationError("code", "This code is wrong"));
-        }
-        return errors.isEmpty() ? null : errors;
-    }
+//    public List<ValidationError> validate() {
+//        List<ValidationError> errors = new ArrayList<>();
+//        if (!code.equals("-1")) {
+//            errors.add(new ValidationError("code", "This code is wrong"));
+//        }
+//        return errors.isEmpty() ? null : errors;
+//    }
 
     public UserPhoneVerify() {
     }
 
-    public UserPhoneVerify(String phone, String code) {
-        this.phone = phone;
+    public UserPhoneVerify(String name, String code) {
+        this.name = name;
         this.code = code;
     }
 
     @Override
     public String toString() {
         return "UserPhoneVerify{" +
-                "phone='" + phone + '\'' +
+                "name='" + name + '\'' +
                 "code='" + code + '\'' +
                 '}';
     }
 
-    public String getPhone() {
-        return phone;
+    public String getName() {
+        return name;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCode() {

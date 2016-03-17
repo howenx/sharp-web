@@ -55,7 +55,8 @@
         $(function(){
 
             var phoneReg = new RegExp(/^1[345678]\d{9}$/);
-            var codeReg = new RegExp(/[0-9a-zA-Z]{4}/);
+            //var codeReg = new RegExp(/(?![^0-9a-zA-Z]+$)[a-zA-Z0-9]{4}/);
+            var codeReg = new RegExp(/^[0-9a-zA-Z]{4}$/);
 
             $('#js-userinfo-error').hide()
             $("#btn-reg").css('background', '#C0C0C0');
@@ -75,23 +76,56 @@
 
             //点击下一步请求图形验证码
             $(document).on('click', '#btn-reg', function() {
+                getImageCode();
                 $('.shade').show();
             });
 
             //刷新验证码
             $(document).on('click', '.proof-icon', function () {
                 $("#imageCodeImage").attr("src", "\@imageCode" + Math.round(Math.random() * 1000000));
-
             });
+            function getImageCode() {
+                document.getElementById("imageCodeImage").src = "\@imageCode" + Math.round(Math.random() * 1000000);
+            }
 
+            //验证码格式校验
             $(document).on('click', '.box-d', function () {
-                if (!codeReg.test($(this).val())) {
+                var code = $("#code").val();
+                if (!codeReg.test(code)) {
                     $('#js-userinfo-error').text('验证码格式不正确').show();
                 }
-                if (codeReg.test($(this).val())) {
-                    alert(89432 );
+                if (codeReg.test(code)) {
                     $('.shade').hide();
-                    //验证验证码输入是否正确
+                    $('#js-userinfo-error').text('').hide();
+                    $("#code").val("");
+                    console.log($('form#cell_verifyForm').append("<input name='code' type='hidden' value='"+code+"'>").serialize());
+                    //请求检测手机号接口
+                    $.ajax({
+                            url: "/phone/verify",
+                            dataType: 'json',
+                            data: $('form#cell_verifyForm').append("<input name='code' type='hidden' value='"+code+"'>").serialize(),
+                            type: 'POST',
+                            success: function(data) {
+                                console.log(data);
+                                <!--if(data.code === 200){-->
+                                    <!--$("#msg").attr({"name":"msg"});-->
+                                    <!--setTimeout(function(){-->
+                                        <!--window.location.href='/login';-->
+                                    <!--}, 2000);-->
+                                <!--} else if(data.code === 5002){-->
+                                    <!--$('#js-userinfo-error').text('验证码错误!').show();-->
+                                    <!--setTimeout("$('#js-userinfo-error').hide()", 2000);-->
+                                <!--} else if(data.code === 5001){-->
+                                    <!--$('#js-userinfo-error').text('此手机已经注册!').show();-->
+                                    <!--setTimeout("$('#js-userinfo-error').hide()", 2000);-->
+                                <!--} else{-->
+                                    <!--alert('Server Error.')-->
+                                <!--}-->
+                            }
+                    });
+
+
+
                 }
 
             });
@@ -140,7 +174,7 @@
             <span>安全校验</span>
             <div id="js-userinfo-error" class="cue"></div>
             <div class="proof-box">
-                <input type="text" class="input-weak input-proof" placeholder="请填写校验码" id="code" name="code"/>
+                <input type="text" class="input-weak input-proof" placeholder="请填写校验码" maxlength="4" id="code" name="code"/>
                 <div>
                     <i class="proof-icon"></i>
                     <img id="imageCodeImage" style="-webkit-user-select: none;" src="@imageCode@Math.round(Math.random()*1000000)">

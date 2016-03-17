@@ -12,7 +12,7 @@ GET         /login                    controllers.UserCtrl.login()
 GET         /setting                  controllers.UserCtrl.setting()
 GET         /regist/$phone<[1][345678]\d{9}>            controllers.UserCtrl.regist(phone:String)
 GET         /tickling                 controllers.UserCtrl.tickling()
-GET         /user/reset/passwd        controllers.UserCtrl.resetPasswd()
+GET         /reset/passwd/$phone<[1][345678]\d{9}>      controllers.UserCtrl.resetPasswd(phone:String)
 GET         /coupon                   controllers.UserCtrl.coupon()
 POST        /login/submit             controllers.UserCtrl.loginSubmit()
 GET         /collect                  controllers.UserCtrl.collect()
@@ -21,16 +21,15 @@ GET         /nickname                  controllers.UserCtrl.nickname()
 GET         /mypin                  controllers.UserCtrl.mypin()
 GET         /mypinDetail                 controllers.UserCtrl.mypinDetail()
 
-POST        /regist/verify            controllers.UserCtrl.registVerify()
+POST        /phone/verify            controllers.UserCtrl.phoneVerify()
 
-GET         /register                 controllers.UserCtrl.register()
-GET         /retrieve                 controllers.UserCtrl.retrieve()
+GET         /regist/verify           controllers.UserCtrl.registVerify()
+GET         /retrieve                controllers.UserCtrl.retrieve()
 
 
 POST        /regist/code              controllers.UserCtrl.registCode()
 POST        /regist/submit            controllers.UserCtrl.registSubmit()
-POST        /reset/verify             controllers.UserCtrl.resetVerify()
-POST        /reset/password           controllers.UserCtrl.resetPassword()
+POST        /reset/submit             controllers.UserCtrl.resetPwdSubmit()
 #POST        /user/update              controllers.UserCtrl.userUpdate()
 
 
