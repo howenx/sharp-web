@@ -573,9 +573,10 @@ public class UserCtrl extends Controller {
     }
 
     /**
-     * 用户信息
+     * 个人资料
      * @return views
      */
+    @Security.Authenticated(UserAuth.class)
     public Result means() {
         return ok(views.html.users.means.render());
     }
@@ -585,8 +586,12 @@ public class UserCtrl extends Controller {
      * 用户昵称
      * @return
      */
+    @Security.Authenticated(UserAuth.class)
     public Result nickname() {
-        return ok(views.html.users.nickname.render());
+        String nickname = request().body().asJson().toString();
+        Logger.error(nickname);
+        return ok("success");
+        //return ok(views.html.users.nickname.render(nickname));
     }
 
         public Result mypin() {
