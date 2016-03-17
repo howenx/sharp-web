@@ -1,3 +1,86 @@
 body{
     background-color: #FAFAFA;
 }
+
+.warp{
+   padding:60px 2% 0;
+
+}
+
+.choose-top,.choose-m{
+    background-color: #fff;
+    border-radius:10px;
+    border: 1px solid #ededed;
+    padding:10px 0;
+}
+.choose-top h2{
+    font-size: 16px;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    margin:20px 0 0 0;
+    height:40px;
+    overflow: hidden;
+}
+
+.choose-top img{
+    height: 106px;
+    float: left;
+    margin: 0 10px;
+}
+
+.choose-m{
+    padding: 10px 2%;
+    margin: 20px 0;
+    height: 300px;
+}
+
+.mold{
+    background-color: #E66255;
+    height: 50px;
+    line-height: 50px;
+    color: #fff;
+    padding: 0 0 0 2%;
+
+}
+
+ul li p{
+    padding: 0 40px 0 0;
+}
+
+ul li{
+    height:50px;
+    line-height: 50px;
+    color: #333;
+    border-bottom: 1px solid #ccc;
+    padding: 0 0 0 2%;
+
+}
+ul li b{
+    float: left;
+}
+ul li span{
+    float: left;
+    margin: 0 0 0 5px;
+
+}
+
+ul li i{
+    float: right;
+
+}
+
+ul li.current{
+    color:#E66255;
+    border-bottom: 2px solid #E66255;
+}
+
+.choose-b{
+    height: 60px;
+    line-height: 60px;
+    color: #fff;
+    text-align: center;
+    background-color: #E66255;
+}

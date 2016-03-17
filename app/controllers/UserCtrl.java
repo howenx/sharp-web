@@ -229,18 +229,8 @@ public class UserCtrl extends Controller {
         return ok(views.html.users.login.render(IMAGE_CODE));
     }
 
-    public Result means() {
-        return ok(views.html.users.means.render());
-    }
-
     public Result myView() {
         return ok(views.html.users.my.render());
-    }
-
-
-    public Result regist(String phone) {
-        //String phone = request().body().asJson().toString();
-        return ok(views.html.users.regist.render(phone));
     }
 
     public Result tickling() {
@@ -370,6 +360,15 @@ public class UserCtrl extends Controller {
         }
     }
 
+
+    /**
+     * 快速注册
+     * @return views
+     */
+    public Result registVerify() {
+        return ok(views.html.users.registVerify.render());
+    }
+
     /**
      * 手机号检测
      * @return
@@ -408,13 +407,13 @@ public class UserCtrl extends Controller {
 
 
     /**
-     * 注册请求验证码
+     * 请求手机验证码
      *
      * @return
      */
-    public Promise<Result> registCode() {
+    public Promise<Result> phoneCode() {
         ObjectNode result = newObject();
-        Form<UserRegistCode> userRegistCodeForm = Form.form(UserRegistCode.class).bindFromRequest();
+        Form<UserPhoneCode> userRegistCodeForm = Form.form(UserPhoneCode.class).bindFromRequest();
         Map<String, String> userMap = userRegistCodeForm.data();
         if (userRegistCodeForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
@@ -448,7 +447,17 @@ public class UserCtrl extends Controller {
     }
 
     /**
-     * 用户注册
+     * 注册
+     * @param phone
+     * @return views
+     */
+    public Result regist(String phone) {
+        //String phone = request().body().asJson().toString();
+        return ok(views.html.users.regist.render(phone));
+    }
+
+    /**
+     * 用户注册提交
      * @return
      */
     public Promise<Result> registSubmit() {
@@ -511,7 +520,15 @@ public class UserCtrl extends Controller {
     }
 
     /**
-     * 重置密码
+     * 找回密码
+     * @return views
+     */
+    public Result retrieve() {
+        return ok(views.html.users.retrieve.render(IMAGE_CODE));
+    }
+
+    /**
+     * 密码重置
      * @param phone
      * @return
      */
@@ -519,16 +536,15 @@ public class UserCtrl extends Controller {
         return ok(views.html.users.resetPasswd.render(phone));
     }
 
-
     /**
-     * 密码修改
+     * 密码修改提交
      * @return
      */
     public Promise<Result> resetPwdSubmit() {
         ObjectNode result = newObject();
-        Form<UserRegistCode> userRegistCodeForm = Form.form(UserRegistCode.class).bindFromRequest();
-        Map<String, String> userMap = userRegistCodeForm.data();
-        if (userRegistCodeForm.hasErrors()) {
+        Form<UserRegistInfo> userRegistInfoForm = Form.form(UserRegistInfo.class).bindFromRequest();
+        Map<String, String> userMap = userRegistInfoForm.data();
+        if (userRegistInfoForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
         } else {
@@ -551,28 +567,28 @@ public class UserCtrl extends Controller {
 
             return promiseOfInt.map((Function<JsonNode, Result>) json -> {
                 Message message = Json.fromJson(json.findValue("message"), Message.class);
-                if (Message.ErrorCode.SUCCESS.getIndex()==message.getCode()) {
-
-                }
 //                Logger.error(json.toString()+"-----"+message.toString());
                 return ok(Json.toJson(message));
             });
         }
     }
 
-    //注册
-        public Result registVerify() {
-            return ok(views.html.users.registVerify.render());
-        }
-    //找回密码
-        public Result retrieve() {
-            return ok(views.html.users.retrieve.render(IMAGE_CODE));
-        }
+    /**
+     * 用户信息
+     * @return views
+     */
+    public Result means() {
+        return ok(views.html.users.means.render());
+    }
 
-    //修改昵称
-        public Result nickname() {
-            return ok(views.html.users.nickname.render());
-        }
+
+    /**
+     * 用户昵称
+     * @return
+     */
+    public Result nickname() {
+        return ok(views.html.users.nickname.render());
+    }
 
     //我的拼团
     @Security.Authenticated(UserAuth.class)

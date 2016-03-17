@@ -42,6 +42,7 @@ img{
     margin-top: 10px;background: #fff;
 }
 .up{
+    width: 100%;
     overflow: hidden;border-bottom: 1px solid #ccc;
 }
 .down{
@@ -142,4 +143,18 @@ img{
 }
 .detailcon ul>li .orderstate,.ordermoney{
     color: #E66255;
+}
+/* tabpin */
+.tabpin{
+    width: 100%;overflow: hidden;
+}
+.tabpin>li{
+    float: left;width: 50%;text-align: center;line-height: 36px;
+    background: #fff;
+}
+.tabpin>li.cur{
+    border-bottom: 2px solid #E66255;
+}
+div.myall:nth-of-type(2){
+    display: none;
 }
