@@ -118,7 +118,6 @@ h1 .logo {
 
 .banner{
     margin-bottom: 10px;
-    position: relative;
     padding: 50px 0 0 0;
 }
 
@@ -128,19 +127,22 @@ h1 .logo {
 
 .banner .left,.banner .right{
     position: absolute;
-    width:100px;
+    width:160px;
     height: 40px;
 }
 
 .banner .left{
-    top:30%;
-    left:20%;
+    top:46%;
+    left:36%;
+    transform: translate(-5%,-15%);
 }
 
 
 .banner .right{
-    top:60%;
-    left:30%;
+
+    top:26%;
+    left:51%;
+    transform: translate(-5%,-15%);
 }
 /*雷达动画*/
 @-webkit-keyframes run1 {
@@ -190,16 +192,16 @@ h1 .logo {
 }
 
 .ripple,.ripple-right{
-    width:15px;
-    height:15px;
+    width:10px;
+    height:10px;
     position:absolute;
     top:0;
-    right:0;
+    right:-35px;
 }
 
 .right .ripple-right{
-    top:0;
-    left:0;
+    top:5px;
+    left:-29px;
 }
 
 .cartoon-right{
@@ -213,7 +215,7 @@ h1 .logo {
     background-color:#666;
     border-radius: 50%;
     position: absolute;
-    top:0;
+    top:5px;
     left:0;
 }
 
@@ -653,9 +655,10 @@ h1 .logo {
     line-height: 45px;
     background: url("/assets/images/hmm_klmpintuan.png") no-repeat 5px #F8616A;
     display: inline-block;
-    padding: 0 5px 10px 40px;
+    padding: 0 10px 10px 40px;
     color: #fff;
     font-size: 14px;
+    border-radius: 0 20px 20px 0px;
 }
 
 
@@ -846,7 +849,9 @@ h2 span{
 
 */
 
-
+.big-box{
+    position: relative;
+}
 
 
 

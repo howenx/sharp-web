@@ -11,6 +11,18 @@
     <title>详情页 － 韩秘美</title>
     <link rel="stylesheet" href="/assets/stylesheets/global.css">
     <link rel="stylesheet" href="/assets/stylesheets/opengroup.css">
+    <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+    <script>
+        $(function(){
+            $('ul li').click(function(){
+                $(this).addClass('current').siblings().removeClass('current');
+
+                $(this).parents('.warp').find('.choose-b span').html($(this).find('i').html())
+
+                $(this).parents('.warp').find('.choose-b i').html($(this).find('span').html())
+            })
+        })
+    </script>
 </head>
 <body>
 <header class="head">
@@ -18,9 +30,50 @@
         <i></i>
         <b></b>
     </a>
-    <h1>我的</h1>
+    <h1>选择</h1>
 </header>
 
+<div class="warp">
+    <div class="choose-top clearfix">
+        <img src="http://img.hanmimei.com/ab67632aaecf4009a60bd7e1693167e41451370908369.jpg" alt=""/>
+        <h2>[快来拼团啦]韩迷美保湿面霜韩迷美保湿面霜韩迷美保湿面霜</h2>
+    </div>
+
+    <div class="choose-m">
+        <p class="mold">选择拼购类型</p>
+
+        <ul>
+            <li class="current">
+                <p>
+                    <b>开团人数 : </b>
+                    <span> 7人</span>
+                    <i>￥18</i>
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    <b>开团人数 : </b>
+                    <span> 5人</span>
+                    <i>￥29</i>
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    <b>开团人数 : </b>
+                    <span> 3人</span>
+                    <i>￥39</i>
+                </p>
+            </li>
+        </ul>
+    </div>
+
+    <div class="choose-b">
+        <p><b>立即开团</b> ( <span>39元</span> / <i>3人</i> )</p>
+    </div>
+
+</div>
 
 </body>
 </html>

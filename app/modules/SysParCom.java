@@ -34,7 +34,8 @@ public class SysParCom {
     public static String PHONE_CODE;//发送短信验证码
     public static String REGISTER_PAGE;//用户注册
     public static String RESET_PASSWORD;//密码修改
-    public static String USER_UPDATE;//个人信息修改
+    public static String USER_INFO;//用户信息获取
+    public static String USER_UPDATE;//用户信息修改
 
     public static String ITEM_PAGE;//普通商品,多样化价格商品
     public static String THEME_PAGE;//主题
@@ -91,6 +92,8 @@ public class SysParCom {
         PHONE_CODE = configuration.getString("user.phone.code");
         REGISTER_PAGE = configuration.getString("user.page.register");
         RESET_PASSWORD = configuration.getString("user.reset.password ");
+        //用户信息
+        USER_INFO = configuration.getString("user.get.info");
         USER_UPDATE = configuration.getString("user.page.update");
 
 

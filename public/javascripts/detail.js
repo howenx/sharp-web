@@ -40,6 +40,9 @@ $(function() {
 		if ($(this).hasClass('pic-tex')) {
 			$('body').scrollTop(top-50);
 		}
+		if($(this).hasClass('pin-pic')){
+			$('body').scrollTop($('.sku-measure01').offset().top-60);
+		}
 		if ($(this).hasClass('goods-para')) {
 			$('body').scrollTop($('.sku-measure').offset().top-61);
 		}

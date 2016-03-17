@@ -59,23 +59,23 @@
             var codeReg = new RegExp(/^[0-9a-zA-Z]{4}$/);
 
             $('#js-userinfo-error').hide()
-            $("#btn-reg").css('background', '#C0C0C0');
+            $("#btn-res").css('background', '#C0C0C0');
             //输入手机号格式正确可以点击下一步
             $('#phone').bind('input propertychange', function() {
                 if (phoneReg.test($(this).val())) {
-                    $("#btn-reg").css('background-color', '#E46359');
-                    $("#btn-reg").css('cursor', 'pointer');
-                    $('#btn-reg').attr("disabled",false);
+                    $("#btn-res").css('background-color', '#E46359');
+                    $("#btn-res").css('cursor', 'pointer');
+                    $('#btn-res').attr("disabled",false);
                 }
                 if (!phoneReg.test($(this).val())) {
-                    $("#btn-reg").css('background', '#C0C0C0');
-                    $("#btn-reg").css('cursor', 'default');
-                    $('#btn-reg').attr("disabled",true);
+                    $("#btn-res").css('background', '#C0C0C0');
+                    $("#btn-res").css('cursor', 'default');
+                    $('#btn-res').attr("disabled",true);
                 }
             });
 
             //点击下一步请求图形验证码
-            $(document).on('click', '#btn-reg', function() {
+            $(document).on('click', '#btn-res', function() {
                 getImageCode();
                 $('.shade').show();
             });
@@ -94,12 +94,12 @@
                 if (!codeReg.test(code)) {
                     $('#js-userinfo-error').text('验证码格式不正确').show();
                 }
+                //验证码格式正确检测手机号
                 if (codeReg.test(code)) {
                     $('.shade').hide();
                     $('#js-userinfo-error').text('').hide();
                     $("#code").val("");
                     console.log($('form#cell_verifyForm').append("<input name='code' type='hidden' value='"+code+"'>").serialize());
-                    //请求检测手机号接口
                     $.ajax({
                             url: "/phone/verify",
                             dataType: 'json',
@@ -107,33 +107,50 @@
                             type: 'POST',
                             success: function(data) {
                                 console.log(data);
-                                <!--if(data.code === 200){-->
-                                    <!--$("#msg").attr({"name":"msg"});-->
-                                    <!--setTimeout(function(){-->
-                                        <!--window.location.href='/login';-->
-                                    <!--}, 2000);-->
-                                <!--} else if(data.code === 5002){-->
-                                    <!--$('#js-userinfo-error').text('验证码错误!').show();-->
-                                    <!--setTimeout("$('#js-userinfo-error').hide()", 2000);-->
-                                <!--} else if(data.code === 5001){-->
-                                    <!--$('#js-userinfo-error').text('此手机已经注册!').show();-->
-                                    <!--setTimeout("$('#js-userinfo-error').hide()", 2000);-->
-                                <!--} else{-->
-                                    <!--alert('Server Error.')-->
-                                <!--}-->
+                                if(data.code === 200){
+                                    $("#msg").attr({"name":"msg"});
+                                    //请求手机验证码接口
+                                    $.ajax({
+                                            url: "/phone/code",
+                                            dataType: 'json',
+                                            data: $('form#cell_verifyForm').append("<input name='msg' type='hidden' value='"+msg+"'>").serialize(),
+                                            type: 'POST',
+                                            success: function(data) {
+                                               console.log(data);
+                                               //手机验证码发送成功
+                                               if (data.code === 200) {
+                                                    console.log(JSON.stringify(phone));
+                                                    window.location.href = "/reset/passwd/"+phone;
+                                               }
+                                               if (data.code === 5005) {
+                                                    alert("发送验证码次数过多,请明天再试");
+                                               }
+                                               if (data.code === 5004) {
+                                                    alert("安全校验不通过");
+                                               }
+                                            }
+                                    });
+                                } else if(data.code === 5002){
+                                    $('#js-userinfo-error').text('验证码校验失败').show();
+                                    setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                } else if (data.code === 4003) {
+                                    //用户尚未注册,弹框提示
+                                    $('.shade').show();
+                                } else{
+                                    alert('Server Error.')
+                                }
                             }
                     });
-
-
-
                 }
-
             });
 
+            //弹框取消按钮
             $('.box-q').click(function(){
-                $('.shade').hide();
+                $('.shade-box').hide();
             })
-
+            $('.box-l').click(function(){
+                $('.shade-reg').hide();
+            })
 
             /*删除*/
             $(".delet").click(function () {
@@ -163,7 +180,7 @@
             </form>
 
             <div class="submitBox">
-                <input id="btn-reg" class="registBtn button" type="submit" value="下一步">
+                <input id="btn-res" class="registBtn button" type="submit" value="下一步">
             </div>
         </fieldset>
     </div>
@@ -186,6 +203,17 @@
             </div>
         </div>
     </div>
+
+     <div class="shade shade-reg">
+          <div class="box">
+              <span>该手机号尚未注册</span>
+              <div class="box-a">
+                   <a href="javascript:;" class="box-l">取消</a>
+                   <a href="/regist/verify" class="box-r">立即注册</a>
+              </div>
+          </div>
+     </div>
+
 </div>
 </body>
 </html>
