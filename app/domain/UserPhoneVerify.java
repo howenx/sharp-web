@@ -5,6 +5,7 @@ import play.data.validation.Constraints;
 import java.io.Serializable;
 
 /**
+ * 用户手机号检测
  * Created by Sunny Wu on 16/3/15.
  * kakao china.
  */
@@ -13,7 +14,7 @@ public class UserPhoneVerify implements Serializable {
     @Constraints.MaxLength(11)
     @Constraints.MinLength(11)
     @Constraints.Pattern("[1][345678]\\d{9}")
-    protected String name;
+    protected String phone;
 
     @Constraints.Required
     protected  String code;
@@ -30,25 +31,25 @@ public class UserPhoneVerify implements Serializable {
     public UserPhoneVerify() {
     }
 
-    public UserPhoneVerify(String name, String code) {
-        this.name = name;
+    public UserPhoneVerify(String phone, String code) {
+        this.phone = phone;
         this.code = code;
     }
 
     @Override
     public String toString() {
         return "UserPhoneVerify{" +
-                "name='" + name + '\'' +
+                "phone='" + phone + '\'' +
                 "code='" + code + '\'' +
                 '}';
     }
 
-    public String getName() {
-        return name;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getCode() {
