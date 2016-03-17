@@ -86,10 +86,8 @@ public class UserCtrl extends Controller {
         Form<AddressInfo> addressForm = Form.form(AddressInfo.class).bindFromRequest();
         Logger.info("====addressSave==="+addressForm.data());
         Map<String, String> addressMap = addressForm.data();
-        String idCardNum=addressMap.get("idCardNum");
-        Logger.info("==ComTools.IDCardValidate(idCardNum)=="+ComTools.IDCardValidate(idCardNum));
-        if (addressForm.hasErrors()) { //身份证校验不通过
-            Logger.info("======addressForm.hasErrors()====");
+        String idCardNum=addressMap.get("idCardNum").trim();
+        if (addressForm.hasErrors()||!"".equals(ComTools.IDCardValidate(idCardNum.toLowerCase()))) { //表单错误或者身份证校验不通过
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
         }
@@ -108,11 +106,11 @@ public class UserCtrl extends Controller {
                 cityObject.put("city_code", addressMap.get("city_code"));
                 object.put("deliveryCity", cityObject.toString());
             }
-            object.put("tel", addressMap.get("tel"));
-            object.put("name", addressMap.get("name"));
-            object.put("deliveryDetail", addressMap.get("deliveryDetail"));
+            object.put("tel", addressMap.get("tel").trim());
+            object.put("name", addressMap.get("name").trim());
+            object.put("deliveryDetail", addressMap.get("deliveryDetail").trim());
             object.put("orDefault", "on".equals(addressMap.get("orDefault"))?1:0);
-            object.put("idCardNum", addressMap.get("idCardNum"));
+            object.put("idCardNum", addressMap.get("idCardNum").trim());
 
 
             Promise<Message> promiseOfInt = Promise.promise(() -> {
@@ -133,7 +131,7 @@ public class UserCtrl extends Controller {
 
             return promiseOfInt.map((Function<Message, Result>) pi -> {
                 Logger.error("返回结果" + pi);
-                return ok("PI value computed: " + pi);
+                return ok(toJson(pi));
             });
         }
     }
