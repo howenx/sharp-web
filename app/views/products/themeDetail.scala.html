@@ -22,11 +22,57 @@
 
 
     <div class="banner scope">
-        <a href="javascript:;" class="banner-box">
-            <img src="@themeImg">
-        </a>
+        <div class="big-box">
+            <a href="javascript:;" class="banner-box">
+                <img src="@themeImg">
+            </a>
 
-        @for(tag <- tagList){
+            @for(tag <- tagList){
+            @if(tag(4) == 0){
+            @if(tag(5) == "pin"){
+            <a href="/detail/pin/@tag(1)" class="right"  style="">
+                }
+                @if(tag(5) == "item"){
+                <a href="/detail/item/@tag(1)" class="right"  style="">
+                    }
+                    <div class="cartoon-right">@tag(3)
+                        <i></i>
+
+                        <div class="ripple-right">
+                            <div class="c1"></div>
+                            <div class="c2"></div>
+                            <div class="c3"></div>
+                        </div>
+                    </div>
+
+                </a>
+                }
+                @if(tag(4) == 180){
+                @if(tag(5) == "pin"){
+                <a href="/detail/pin/@tag(1)" class="left"  style="">
+                    }
+                    @if(tag(5) == "item"){
+                    <a href="/detail/item/@tag(1)" class="left"  style="">
+                        }
+                        <div class="cartoon">@tag(3)
+                            <i></i>
+
+                            <div class="ripple">
+                                <div class="c1"></div>
+                                <div class="c2"></div>
+                                <div class="c3"></div>
+                            </div>
+                        </div>
+
+                    </a>
+                    }
+                    }
+
+
+        </div>
+
+
+        <!--@for(tag <- tagList){
             @if(tag(4) == 0){
                 @if(tag(5) == "pin"){
                     <a href="/detail/pin/@tag(1)" class="right"  style="left:@tag(2)%;top:@tag(0)%">
@@ -61,7 +107,7 @@
                         </div>
                     </a>
             }
-        }
+        }-->
 
         <!--<a href="javascript:;" class="left">-->
             <!--<div class="cartoon">兰蔻-->

@@ -274,24 +274,6 @@ div .cycle-overlay {
 }
 
 
-/*拼团玩法*/
-.pay{
-	background-color: #F5F5F5;
-	padding:2% 3%;
-	border-bottom: 1px solid #ededed;
-	border-top: 1px solid #ededed;
-}
-.pay-txt{
-	height:35px;
-}
-.pay span{
-	float: left;
-	font-size:20px;
-}
-.pay a{
-	float: right;
-}
-
 
 
 /*切换tab*/
@@ -900,7 +882,6 @@ div .cycle-overlay {
 		position: fixed;
 		bottom: 0;
 		width: 100%;
-		height:44px;
 		background-color: rgba(255,255,255,0.95);
 		box-shadow: 0 -1px 0 0 rgba(51,51,51,0.15);
 		z-index:1000;
@@ -918,7 +899,6 @@ div .cycle-overlay {
 		position: fixed;
 		bottom: 0;
 		width: 100%;
-		height:44px;
 		background-color: rgba(255,255,255,0.95);
 		box-shadow: 0 -1px 0 0 rgba(51,51,51,0.15);
 		z-index:1000;
@@ -967,6 +947,9 @@ div .cycle-overlay {
 }
 .toup .con .item div{
 	margin-top: 10px;
+	background-color: #E66255;
+	margin-right: 10px;
+	color: #fff;
 }
 .toup .con .item div:nth-of-type(1){
 	border-top-right-radius:14px;
@@ -987,7 +970,7 @@ div .cycle-overlay {
 	font-size: 12px;padding: 0 12px 12px 5px;
 	word-wrap: break-word;
 	white-space:pre-wrap;
-	height: 36px;overflow: hidden;
+	height: 34px;overflow: hidden;
 }
 
 
@@ -1019,4 +1002,138 @@ div .cycle-overlay {
 	visibility: visible;
 	height: auto;
 }
+
+
+/*拼团详情*/
+.txt{
+	padding:0 3%;
+	margin:20px 0;
+}
+
+.txt p{
+	color:#E66255;
+	margin:0 0 10px 0;
+
+}
+
+.diamond{
+	width: 100%;
+
+}
+.diamond a{
+	display: inline-block;
+	width: 49%;
+}
+.diamond a span{
+	display: block;
+	width: 100%;
+	height: 40px;
+	background-color:#E66255 ;
+	text-align: center;
+	line-height: 40px;
+	color: #fff;
+}
+
+.diamond a span:nth-child(2){
+	background-color:#404040 ;
+}
+
+.diamond a span.ed{
+	background-color:#EDEDED;
+	color: #999;
+}
+
+.diamond a span.big{
+	height: 50px;
+	line-height: 50px;
+	font-size:22px;
+}
+
+.pin-hd {
+	background-color: #fff;
+	margin: 20px 0 0 0;
+	border-top: solid 1px #ddd;
+	border-bottom: solid 1px #ddd;
+	padding: 20px 0 0 0;
+}
+
+.pin-title{
+    padding: 0 3%;
+}
+
+.sku-meta h2{
+	height:20px;
+	overflow: hidden;
+	margin: 0 0 5px 0;
+}
+
+.num{
+	text-align: right;
+}
+
+.finish{
+	position: absolute;
+	bottom:-30px;
+	right:0;
+	background-color: #FFEEDE;
+	height: 30px;
+	line-height: 30px;
+	font-size: 14px;
+	color:#E66255 ;
+	padding: 0 5px;
+}
+
+.finish-box{
+	width: 100%;
+	text-align: center;
+	color: #E66255;
+	background-color:#FFEEDE ;
+	height: 50px;
+	line-height: 50px;
+	font-size: 16px;
+}
+
+
+/*拼团玩法*/
+.pay{
+	background-color: #F5F5F5;
+	padding:2% 3%;
+	border-bottom: 1px solid #ededed;
+	border-top: 1px solid #ededed;
+}
+.pay-txt{
+	height:30px;
+}
+.pay span{
+	float: left;
+
+}
+.pay a{
+	float: right;
+	font-size:14px;
+}
+
+.love .pin-love{
+	width:100%;
+	height:44px;
+	float: none;
+}
+
+.buy_box .pin-cart{
+	background-color:#E66255 ;
+}
+
+.buy_box .pin-buy {
+	background-color:#CCCCCC ;
+
+}
+.pin-buy a{
+	color:#666 ;
+}
+
+
+.pin-wrap{
+	padding: 50px 0 0 0;
+}
+
 
