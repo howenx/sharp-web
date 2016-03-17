@@ -1,8 +1,10 @@
 package domain;
 
+import net.spy.memcached.MemcachedClient;
 import play.data.validation.Constraints;
 import play.data.validation.ValidationError;
 
+import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,16 +26,16 @@ public class UserLoginInfo implements Serializable {
     @Constraints.Pattern("^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}")
     protected String password;
 
+    @Inject
+    private MemcachedClient cache;
 
     @Constraints.Required
     protected  String code;
 
-
     public List<ValidationError> validate() {
         List<ValidationError> errors = new ArrayList<>();
-        if (!code.equals("-1")) {
-            errors.add(new ValidationError("code", "This code is wrong"));
-        }
+        if (code.equals("-1") || (cache.get(code.toUpperCase()) != null && cache.get(code.toUpperCase()).equals(code.toUpperCase()))) {
+        }else errors.add(new ValidationError("code", "This code is wrong"));
         return errors.isEmpty() ? null : errors;
     }
 
