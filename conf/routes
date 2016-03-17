@@ -6,31 +6,31 @@ POST        /address/save             controllers.UserCtrl.addressSave()
 POST        /address/del              controllers.UserCtrl.addressDel()
 GET         /address/update/$addId<[0-9]+>           controllers.UserCtrl.addressUpdate(addId:Long)
 GET         /carded                   controllers.UserCtrl.carded()
-GET         /means                    controllers.UserCtrl.means()
 GET         /myView                   controllers.UserCtrl.myView()
 GET         /login                    controllers.UserCtrl.login()
 GET         /setting                  controllers.UserCtrl.setting()
-GET         /regist/$phone<[1][345678]\d{9}>            controllers.UserCtrl.regist(phone:String)
 GET         /tickling                 controllers.UserCtrl.tickling()
-GET         /user/reset/passwd        controllers.UserCtrl.resetPasswd()
 GET         /coupon                   controllers.UserCtrl.coupon()
 POST        /login/submit             controllers.UserCtrl.loginSubmit()
 GET         /collect                  controllers.UserCtrl.collect()
 GET         /collect/del/$collectId<[0-9]+>              controllers.UserCtrl.collectDel(collectId:Long)
-GET         /nickname                  controllers.UserCtrl.nickname()
 GET         /mypin                  controllers.UserCtrl.mypin()
 GET         /mypinDetail                 controllers.UserCtrl.mypinDetail()
 
-POST        /regist/verify            controllers.UserCtrl.registVerify()
 
-GET         /register                 controllers.UserCtrl.register()
-GET         /retrieve                 controllers.UserCtrl.retrieve()
-
-
-POST        /regist/code              controllers.UserCtrl.registCode()
+#注册
+GET         /regist/verify           controllers.UserCtrl.registVerify()
+POST        /phone/verify            controllers.UserCtrl.phoneVerify()
+POST        /phone/code              controllers.UserCtrl.phoneCode()
+GET         /regist/$phone<[1][345678]\d{9}>            controllers.UserCtrl.regist(phone:String)
 POST        /regist/submit            controllers.UserCtrl.registSubmit()
-POST        /reset/verify             controllers.UserCtrl.resetVerify()
-POST        /reset/password           controllers.UserCtrl.resetPassword()
+#密码重置
+GET         /retrieve                controllers.UserCtrl.retrieve()
+GET         /reset/passwd/$phone<[1][345678]\d{9}>      controllers.UserCtrl.resetPasswd(phone:String)
+POST        /reset/submit             controllers.UserCtrl.resetPwdSubmit()
+#用户信息
+GET         /means                    controllers.UserCtrl.means()
+GET         /nickname                  controllers.UserCtrl.nickname()
 #POST        /user/update              controllers.UserCtrl.userUpdate()
 
 

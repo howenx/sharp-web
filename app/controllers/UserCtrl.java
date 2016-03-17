@@ -228,22 +228,8 @@ public class UserCtrl extends Controller {
         return ok(views.html.users.login.render(IMAGE_CODE));
     }
 
-    public Result means() {
-        return ok(views.html.users.means.render());
-    }
-
     public Result myView() {
         return ok(views.html.users.my.render());
-    }
-
-
-    public Result regist(String phone) {
-        //String phone = request().body().asJson().toString();
-        return ok(views.html.users.regist.render(phone));
-    }
-
-    public Result resetPasswd() {
-        return ok(views.html.users.resetPasswd.render());
     }
 
     public Result tickling() {
@@ -373,15 +359,24 @@ public class UserCtrl extends Controller {
         }
     }
 
+
     /**
-     * 用户注册手机号检测
+     * 快速注册
+     * @return views
+     */
+    public Result registVerify() {
+        return ok(views.html.users.registVerify.render());
+    }
+
+    /**
+     * 手机号检测
      * @return
      */
-    public F.Promise<Result> registVerify() {
+    public F.Promise<Result> phoneVerify() {
         ObjectNode result = newObject();
-        Form<UserPhoneVerify> userRegistVerifyForm = Form.form(UserPhoneVerify.class).bindFromRequest();
-        Map<String, String> userMap = userRegistVerifyForm.data();
-        if (userRegistVerifyForm.hasErrors()) {
+        Form<UserPhoneVerify> userPhoneVerifyForm = Form.form(UserPhoneVerify.class).bindFromRequest();
+        Map<String, String> userMap = userPhoneVerifyForm.data();
+        if (userPhoneVerifyForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
         } else {
@@ -411,13 +406,13 @@ public class UserCtrl extends Controller {
 
 
     /**
-     * 注册请求验证码
+     * 请求手机验证码
      *
      * @return
      */
-    public Promise<Result> registCode() {
+    public Promise<Result> phoneCode() {
         ObjectNode result = newObject();
-        Form<UserRegistCode> userRegistCodeForm = Form.form(UserRegistCode.class).bindFromRequest();
+        Form<UserPhoneCode> userRegistCodeForm = Form.form(UserPhoneCode.class).bindFromRequest();
         Map<String, String> userMap = userRegistCodeForm.data();
         if (userRegistCodeForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
@@ -451,7 +446,17 @@ public class UserCtrl extends Controller {
     }
 
     /**
-     * 用户注册
+     * 注册
+     * @param phone
+     * @return views
+     */
+    public Result regist(String phone) {
+        //String phone = request().body().asJson().toString();
+        return ok(views.html.users.regist.render(phone));
+    }
+
+    /**
+     * 用户注册提交
      * @return
      */
     public Promise<Result> registSubmit() {
@@ -513,57 +518,32 @@ public class UserCtrl extends Controller {
 
     }
 
-
     /**
-     * 忘记密码手机号检测
-     * @return
+     * 找回密码
+     * @return views
      */
-    public Promise<Result> resetVerify() {
-        ObjectNode result = newObject();
-        Form<UserRegistCode> userRegistCodeForm = Form.form(UserRegistCode.class).bindFromRequest();
-        Map<String, String> userMap = userRegistCodeForm.data();
-        if (userRegistCodeForm.hasErrors()) {
-            result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
-            return Promise.promise((Function0<Result>) () -> ok(result));
-        } else {
-            Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
-                FormEncodingBuilder feb = new FormEncodingBuilder();
-                userMap.forEach(feb::add);
-                RequestBody formBody = feb.build();
-                Request request = new Request.Builder()
-                        .url(PHONE_VERIFY)
-                        .post(formBody)
-                        .build();
-                client.setConnectTimeout(10, TimeUnit.SECONDS);
-                Response response = client.newCall(request).execute();
-                Logger.error(response.toString());
-                if (response.isSuccessful()) {
-                    JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
-                    return json;
-                } else throw new IOException("Unexpected code" + response);
-            });
-
-            return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-                Message message = Json.fromJson(json.findValue("message"), Message.class);
-                if (Message.ErrorCode.SUCCESS.getIndex()==message.getCode()) {
-
-                }
-//                Logger.error(json.toString()+"-----"+message.toString());
-                return ok(Json.toJson(message));
-            });
-        }
-
+    public Result retrieve() {
+        return ok(views.html.users.retrieve.render(IMAGE_CODE));
     }
 
     /**
-     * 密码修改
+     * 密码重置
+     * @param phone
      * @return
      */
-    public Promise<Result> resetPassword() {
+    public Result resetPasswd(String phone) {
+        return ok(views.html.users.resetPasswd.render(phone));
+    }
+
+    /**
+     * 密码修改提交
+     * @return
+     */
+    public Promise<Result> resetPwdSubmit() {
         ObjectNode result = newObject();
-        Form<UserRegistCode> userRegistCodeForm = Form.form(UserRegistCode.class).bindFromRequest();
-        Map<String, String> userMap = userRegistCodeForm.data();
-        if (userRegistCodeForm.hasErrors()) {
+        Form<UserRegistInfo> userRegistInfoForm = Form.form(UserRegistInfo.class).bindFromRequest();
+        Map<String, String> userMap = userRegistInfoForm.data();
+        if (userRegistInfoForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
         } else {
@@ -586,28 +566,29 @@ public class UserCtrl extends Controller {
 
             return promiseOfInt.map((Function<JsonNode, Result>) json -> {
                 Message message = Json.fromJson(json.findValue("message"), Message.class);
-                if (Message.ErrorCode.SUCCESS.getIndex()==message.getCode()) {
-
-                }
 //                Logger.error(json.toString()+"-----"+message.toString());
                 return ok(Json.toJson(message));
             });
         }
     }
 
-    //注册
-        public Result register() {
-            return ok(views.html.users.register.render());
-        }
-    //找回密码
-        public Result retrieve() {
-            return ok(views.html.users.retrieve.render(IMAGE_CODE));
-        }
+    /**
+     * 用户信息
+     * @return views
+     */
+    public Result means() {
+        return ok(views.html.users.means.render());
+    }
 
-    //修改昵称
-        public Result nickname() {
-            return ok(views.html.users.nickname.render());
-        }
+
+    /**
+     * 用户昵称
+     * @return
+     */
+    public Result nickname() {
+        return ok(views.html.users.nickname.render());
+    }
+
         public Result mypin() {
             return ok(views.html.users.mypin.render());
         }

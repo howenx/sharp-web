@@ -1,3 +1,4 @@
+@(phone:String)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,28 +7,157 @@
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <meta content="telephone=no" name="format-detection">
-    <title>注册 － 韩秘美</title>
+    <title>找回密码</title>
     <link rel="stylesheet" href="/assets/stylesheets/login.css">
     <link rel="stylesheet" href="/assets/stylesheets/regist.css">
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+    <script  src="/assets/javascripts/md5.js"></script>
+    <style type="text/css">
+        input:required:valid, input:focus:invalid {
+        background-image: url('/assets/images/ex.png');
+        background-position: right 13px;
+        background-repeat: no-repeat;
+        -moz-box-shadow: none;
+        }
+        input:required:valid {
+        background-image: url("/assets/images/dui.png");
+        background-position: right 13px;
+        background-repeat: no-repeat;
+        }
+    </style>
     <script>
         $(function(){
 
             setInterval(function () {
-
                $('#js-userinfo-error').hide();
-
             },1000);
 
-            /*删除*/
-            $(".delet-re").click(function () {
-                $("input[name='pow']").val("").focus(); // 清空并获得焦点
+            var phone = $("#phone").val();
+            var msg = hex_md5(phone+"hmm");
+            $("#msg").val(msg);
+
+            $("#phone-send-code").text("已发送验证码至"+phone.substring(0,3)+"*****"+phone.substring(7,11));
+
+
+            //验证码获取倒计时
+            var time = 80;
+            $("#time").html(time+"s");
+            timer = window.setInterval(function() {
+                    $("#time").html(--time+"s");
+                    if (time == 0) {
+                        window.clearInterval(timer);
+                        $("#time").html("");
+                        $("#get-code").css("color", "#E46359");
+                        $("#get-code").css('cursor', 'pointer');
+                    }
+            }, 1000);
+
+            //再次获取验证码
+            $("#get-code").click(function() {
+                    //var msg = hex_md5(phone+"hmm");
+                    $("#password").removeAttr("name");
+                    $("#code").removeAttr("name");
+                    console.log($('form#cell_resForm').serialize());
+                    $.ajax({
+                            url: "/phone/code",
+                            dataType: 'json',
+                            data: $('form#cell_resForm').serialize(),
+                            type: 'POST',
+                            success: function(data) {
+                                    console.log(data);
+                                    //手机验证码发送成功
+                                    //验证码发送次数过多
+                                    if (data.code == 5005) {
+                                       $('#js-userinfo-error').text('验证码发送次数过多,请明天再试!').show();
+                                        setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                    }
+                                    if (data.code === 200) {
+                                               $("#password").attr({"name":"password"});
+                                               $("#code").attr({"name":"code"});
+                                               $('#js-userinfo-error').text('验证码发送成功!').show();
+                                               setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                               $("#get-code").css("color", "#000");
+                                               $("#get-code").css('cursor', 'auto');
+                                               var ctime = 80;
+                                               $("#time").html(ctime+"s");
+                                               timer2 = window.setInterval(function() {
+                                                    $("#time").html(--ctime+"s");
+                                                    if (ctime == 0) {
+                                                        window.clearInterval(timer2);
+                                                        $("#time").html("");
+                                                        $("#get-code").css("color", "#E46359");
+                                                        $("#get-code").css('cursor', 'pointer');
+                                                    }
+                                               }, 1000);
+                                    }
+                            }
+                    });
             });
-            $(".delet-rese").click(function () {
-                $("input[name='powq']").val("").focus();
+
+
+            //修改密码数据提交
+            $(document).on('click', '#btn-res', function() {
+                var codeReg = new RegExp(/^[0-9]{6}$/);
+                var passwordReg = new RegExp(/^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}/);
+
+                if ($('#code').val().length!=6 || !codeReg.test($('#code').val())) {
+                    $('#js-userinfo-error').text('请输入6位验证码').show();
+                    setTimeout("$('#js-userinfo-error').hide()", 2000);
+                }
+                else if ($('#password').val().length<6 || $('#password').val().length>12) {
+                    $('#js-userinfo-error').text('请输入6-12位密码').show();
+                    setTimeout("$('#js-userinfo-error').hide()", 2000);
+                }
+                else if (!passwordReg.test($('#password').val())) {
+                    $('#js-userinfo-error').text('密码必须是字母数字组合').show();
+                    setTimeout("$('#js-userinfo-error').hide()", 2000);
+                }
+                else if ($('#re_password').val()!=$('#password').val()) {
+                    $('#js-userinfo-error').text('两次密码输入的不一致').show();
+                    setTimeout("$('#js-userinfo-error').hide()", 2000);
+                }
+                else {
+                    $("#msg").removeAttr("name");
+                    console.log($('form#cell_resForm').serialize());
+                    $.ajax({
+                            url: "/reset/submit",
+                            dataType: 'json',
+                            data: $('form#cell_resForm').serialize(),
+                            type: 'POST',
+                            success: function(data) {
+                                console.log(data);
+                                if(data.code === 200){
+                                    $("#msg").attr({"name":"msg"});
+                                    $('#js-userinfo-error').text('密码修改成功').show();
+                                    setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                    setTimeout(function(){
+                                        window.location.href='/login';
+                                    }, 1000);
+                                } else if(data.code === 5002){
+                                    $('#js-userinfo-error').text('验证码错误').show();
+                                    setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                } else if(data.code === 4003){
+                                    $('#js-userinfo-error').text('此用户未注册').show();
+                                    setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                } else{
+                                    alert('Server Error.')
+                                }
+                            }
+                    });
+                }
+        });
+
+
+            /*删除*/
+            $(".delet-re").click(function() {
+                $("input[id='password']").val("").focus(); // 清空并获得焦点
+            });
+            $(".delet-rese").click(function() {
+                    $("input[id='re_password']").val("").focus(); // 清空并获得焦点
             });
 
             var of = true;
+            var of2 = true;
             $('.howl-reT').click(function () {
                 $(this).toggleClass('bg2');
                 if (of) {
@@ -41,12 +171,12 @@
 
             $('.howl-reB').click(function () {
                 $(this).toggleClass('bg3');
-                if (of) {
+                if (of2) {
                     $('.input-reseB').attr({'type': 'text'});
-                    of = false;
+                    of2 = false;
                 } else {
                     $('.input-reseB').attr({'type': 'password'});
-                    of = true;
+                    of2 = true;
                 }
             });
         })
@@ -61,36 +191,33 @@
         <!--<a href="/login"><span class="icon-user-title" id="userBtn"></span></a>		-->
     </div>
     <div id="js-userinfo-error" class="cue">验证码发送成功</div>
-    <div class="login">
 
-        <div class="login-t">已经发送验证码至123224353453</div>
+    <div class="login">
+        <div class="login-t" id="phone-send-code"></div>
         <fieldset>
-            <form id="cell_loginForm" method="post" onsubmit="return false" action="" >
+            <form id="cell_resForm" method="post" onsubmit="return false" action="" >
                 <dl class="list list-in">
                     <dd class="dd-padding clearfix dd-one">
-                        <span>验证码</span> <input id="phoneNum" type="text" class="input-rese" placeholder="短信验证码" maxlength="11" name="phone" required pattern="[1][345678]\d{9}"/>
-                        <div class="hq">获取验证码 <i>67s</i></div>
+                        <input type="hidden" id="phone" name="phone" value="@phone">
+                        <input type="hidden" id="msg" name="msg" value="">
+                        <span>验证码</span> <input id="code" name="code" type="text" class="input-rese" placeholder="短信验证码" maxlength="6" required pattern="[0-9]{6}" onkeyup="this.value=this.value.replace(/\D/g,'')"/>
+                        <div class="hq" id="get-code">获取验证码 <i id="time"></i></div>
                     </dd>
-
-
                     <dd class="dd-padding clearfix">
-                        <span>设置密码</span> <input id="phoneNum" type="password" class="input-rese input-reseT" placeholder="6-12位字母/数字组合" maxlength="11" name="pow" required pattern="[1][345678]\d{9}"/>
+                        <span>设置密码</span> <input id="password" name="password" type="password" class="input-rese input-reseT" placeholder="6-12位字母/数字组合" maxlength="12"  required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}"/>
                         <i class="delet delet-re"></i>
                         <i class="howl howl-reT"></i>
                     </dd>
-
                     <dd class="dd-padding clearfix">
-                        <span>确认密码</span> <input id="phoneNum" type="password" class="input-rese input-reseB" placeholder="再次确认密码" maxlength="11" name="powq" required pattern="[1][345678]\d{9}"/>
+                        <span>确认密码</span> <input id="re_password" type="password" class="input-rese input-reseB" placeholder="再次填写密码" maxlength="12" required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}"/>
                         <i class="delet delet-rese"></i>
                         <i class="howl howl-reB"></i>
                     </dd>
                 </dl>
-
-
             </form>
 
             <div class="submitBox">
-                <input id="btn-reg" class="registBtn button" type="submit" value="重置">
+                <input id="btn-res" class="registBtn button" type="submit" value="重置">
             </div>
 
         </fieldset>
