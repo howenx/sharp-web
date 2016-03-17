@@ -174,6 +174,9 @@ public class ShoppingCtrl extends Controller {
     public Result settle() {
         return ok(views.html.shopping.settle.render());
     }
+    public Result pinplay() {
+            return ok(views.html.shopping.pinplay.render());
+        }
 
 
 
