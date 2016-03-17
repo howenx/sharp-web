@@ -49,7 +49,7 @@
         </a>
 
     </div>
-    <div class="urse-photo-box">
+    <div class="urse-photo-box clearfix">
 
              @for(pinUser<-pin.getPinUsers()){
                 <div class="urse-photo-m"><div class="urse-photo"><img src="@pinUser.getUserImg()"></div></div>
@@ -61,12 +61,18 @@
         <div class="fight-txt"><p>还差<span class="color">@(pin.getPersonNum()-pin.getPinUsers().size)人</span>,让小伙伴们都来组团吧!</p></div>
     }
 
+    <div class="txt"> 谢谢大侠的鼎力相助</div>
+
     @for(pinUser<-pin.getPinUsers()){
         @if(pinUser.isOrMaster()==true){
             <div class="fight-timer">
-                <span>团长@pinUser.getUserNm()</span>
+                <div class="fight-photo">
+                    <img src="http://img.hanmimei.com/users/photo/20160229/14567165008891.jpg">
+                </div>
+                <b>团长</b>
                 <i>@pinUser.getJoinAt()开团</i>
             </div>
+
         }
         @if(pinUser.isOrMaster()==false){
             <div class="fight-timer">
@@ -76,15 +82,44 @@
         }
 
     }
-    @if(pin.getStatus()=="Y"&&pin.getPersonNum()-pin.getPinUsers().size>0){
-        <div class="fight-number">
-            <span>还差<i class="color">@(pin.getPersonNum()-pin.getPinUsers().size)人</i>,邀请小伙伴来组团吧</span>
-        </div>
 
-        <div class="btn-box scope">
-            <a href="#" class="btn bg">邀请好友</a>
-        </div>
+
+
+    @for(pinUser<-pin.getPinUsers()){
+        @if(pinUser.isOrMaster()==true){
+            <div class="fight-timer fight-f">
+                <div class="fight-photo">
+                    <img src="http://img.hanmimei.com/users/photo/20160229/14567165008891.jpg">
+                </div>
+                <b class="fight-f-b">小美</b>
+                <i class="fight-f-i">@pinUser.getJoinAt()开团</i>
+            </div>
+
+            }
+            @if(pinUser.isOrMaster()==false){
+            <div class="fight-timer">
+                <span>@pinUser.getUserNm()</span>
+                <i>@pinUser.getJoinAt()参团</i>
+            </div>
+        }
+
     }
+
+
+    @if(pin.getStatus()=="Y"&&pin.getPersonNum()-pin.getPinUsers().size>0){
+
+    }
+
+    <!--<div class="fight-number">
+        <span>还差<i class="color">@(pin.getPersonNum()-pin.getPinUsers().size)人</i>,邀请小伙伴来组团吧</span>
+    </div>-->
+
+    <div class="btn-box scope">
+        <a href="/" class="home">
+            <img src="/assets/images/home.png">
+        </a>
+        <a href="#" class="btn bg">立即下单</a>
+    </div>
 
 </div>
 
