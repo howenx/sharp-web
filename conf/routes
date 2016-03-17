@@ -35,7 +35,7 @@ GET         /reset/passwd/$phone<[1][345678]\d{9}>      controllers.UserCtrl.res
 POST        /reset/submit             controllers.UserCtrl.resetPwdSubmit()
 #用户信息
 GET         /means                    controllers.UserCtrl.means()
-GET         /nickname                  controllers.UserCtrl.nickname()
+POST         /nickname                  controllers.UserCtrl.nickname()
 #POST        /user/update              controllers.UserCtrl.userUpdate()
 
 
@@ -69,6 +69,7 @@ GET         /orders                   controllers.ShoppingCtrl.orders()
 GET         /settle                   controllers.ShoppingCtrl.settle()
 GET         /cart                     controllers.ShoppingCtrl.cart()
 GET         /opengroup                     controllers.ShoppingCtrl.opengroup()
+GET         /pinplay                     controllers.ShoppingCtrl.pinplay()
 GET         /cart/empty               controllers.ShoppingCtrl.emptyCart()
 GET         /order/cancel/$orderId<[0-9]+>     controllers.ShoppingCtrl.cancelOrder(orderId:Long)
 GET         /order/del/$orderId<[0-9]+>        controllers.ShoppingCtrl.delOrder(orderId:Long)

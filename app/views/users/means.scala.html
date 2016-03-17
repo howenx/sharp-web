@@ -26,6 +26,25 @@
             tim = setInterval(function () {
                 $('.mw').hide();
             },3000);*/
+
+            //修改用户昵称
+            $(document).on('click', '#nickname', function() {
+                var nickname = $("#nickname").html();
+                //alert(nickname);
+                $.ajax({
+                        type: 'POST', 
+                        url:  "/nickname", 
+                        data: JSON.stringify(nickname), 
+                        contentType: "application/json; charset=utf-8", 
+                        dataType: 'json',
+                        success: function(data) { 
+                            condole.log(data);
+                        },
+                        error: function() { 
+                            console.log("error!");
+                        }
+                });
+            });
         })
     </script>
 
@@ -63,7 +82,7 @@
     <div class="face-box">
         <a href="javascript:;" class="face ">
             <i>昵称</i>
-            <a href="/nickname"><span>aaimaaf</span></a>
+            <a ><span id="nickname">hmm123</span></a>
         </a>
     </div>
 

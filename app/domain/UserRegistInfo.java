@@ -5,6 +5,7 @@ import play.data.validation.Constraints;
 import java.io.Serializable;
 
 /**
+ * 用户注册/修改密码dto
  * Created by Sunny Wu on 16/3/11.
  * kakao china.
  */
