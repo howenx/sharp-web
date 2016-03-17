@@ -35,8 +35,8 @@ $(function(){
                             dataType: 'json',
                             data: $('form#cell_addressForm').serialize(),
                             success: function(data) {
-                                console.log("data="+data+"==="+data.message.code);
-                                if (data!=""&&data!=null&&data.message.code==200) {
+                                console.log("data="+data+"==="+data.code);
+                                if (data!=""&&data!=null&&data.code==200) {
                                     setTimeout("location.href='/address'", 3000);
                                 }
 

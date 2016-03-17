@@ -16,7 +16,7 @@
         <b></b>
     </a>
     <h1>订单详情</h1>
-    @if(orderList.get(0).getOrder().getOrderStatus()=="C"){
+    @if(orderList.get(0).getOrder().getOrderStatus()=="C"||orderList.get(0).getOrder().getOrderStatus()=="R"){
     <span onclick="delOrder(@orderList.get(0).getOrder().getOrderId(),1)"></span>
     }
 
