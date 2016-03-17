@@ -1,4 +1,4 @@
-@(themeImg:String,tagList:List[Array[Object]],itemList:List[List[Array[Object]]])
+@(path:String,themeImg:String,tagList:List[Array[Object]],itemList:List[List[Array[Object]]])
 @scripts = {
 <link rel="stylesheet" href="/assets/stylesheets/list.css">
 <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
@@ -8,7 +8,7 @@
 @layout(title="韩秘美,专卖韩国正品")(scripts) {
 
     <header class="head">
-        <a href="/" class="back">
+        <a href="@path"  class="back">
             <i></i>
             <b></b>
         </a>
