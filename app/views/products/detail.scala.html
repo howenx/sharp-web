@@ -1,4 +1,4 @@
-@(itemMain:domain.Item,itemFeaturesList:List[Array[Object]],pushList:List[List[Array[Object]]],inventoryList:List[domain.Inventory],stockSize:Int,preImgList:List[List[String]])
+@(itemMain:domain.Item,itemFeaturesList:List[Array[Object]],pushList:List[List[Array[Object]]],inventoryList:List[domain.Inventory],stockSize:Int,preImgList:List[List[String]],publicityList:List[String])
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -98,7 +98,9 @@
 			</ul>
 		</div>
 		<div class="sale">
-			<p>@itemMain.getPublicity()</p>
+			@for(publicity <- publicityList){
+				<p>@publicity</p>
+			}
 		</div>
 	</div>
 
@@ -310,10 +312,6 @@
 		});
 	}
 </script>
-
-
-
-
 </body>
 
 </html>
