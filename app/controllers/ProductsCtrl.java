@@ -2,20 +2,16 @@ package controllers;
 
 
 import com.fasterxml.jackson.databind.JsonNode;
-
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
-
 import domain.*;
 import play.Logger;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
-
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
 import static modules.SysParCom.*;
 /**
  * 首页,主题,产品相关
@@ -24,6 +20,14 @@ import static modules.SysParCom.*;
 public class ProductsCtrl extends Controller {
     //首页
     public Result index() throws Exception {
+        //返回  ------->start
+        String path_index = routes.ProductsCtrl.index().url();
+        if(session().containsKey("path_index")){
+            session("path_index",path_index);
+        }else{
+            session().put("path_index",path_index);
+        }
+        //返回  ------->end
         List<Slider> sliderList = new ArrayList<>();
         List<Theme> themeList = new ArrayList<>();
         Request request = new Request.Builder()
@@ -115,6 +119,15 @@ public class ProductsCtrl extends Controller {
 
     //主题详情页
     public Result themeDetail(String url) throws Exception {
+        //返回  ------->start
+        String path = session().get("path_index");
+        String path_theme = routes.ProductsCtrl.themeDetail(url).url();
+        if(session().containsKey("path_theme")){
+            session("path_theme",path_theme);
+        }else{
+            session().put("path_theme",path_theme);
+        }
+        //返回  ------->end
         String themeImg = "";
         List<Object[]> tagList = new ArrayList<>();
         List<List<Object[]>> itemResultList = new ArrayList<>();
@@ -229,11 +242,14 @@ public class ProductsCtrl extends Controller {
                 }
             }
         }
-        return ok(views.html.products.themeDetail.render(themeImg,tagList,itemResultList));
+        return ok(views.html.products.themeDetail.render(path,themeImg,tagList,itemResultList));
     }
 
     //商品明细
     public Result detail(String type,String url) throws Exception {
+        //返回  ------->start
+        String path = session().get("path_theme");
+        //返回  ------->end
         //普通商品
         if("D".equals(type) || "item".equals(type) || "vary".equals(type) || "customize".equals(type)){
             //商品基本信息
@@ -364,7 +380,7 @@ public class ProductsCtrl extends Controller {
                     }
                 }
             }
-            return ok(views.html.products.detail.render(itemMain,itemFeaturesList,pushResultList,inventoryList,inventoryList.size(),preImgList,publicityList));
+            return ok(views.html.products.detail.render(path,itemMain,itemFeaturesList,pushResultList,inventoryList,inventoryList.size(),preImgList,publicityList));
         }
         //拼购商品
         else{
