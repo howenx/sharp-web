@@ -127,7 +127,6 @@ h1 .logo {
 
 .banner .left,.banner .right{
     position: absolute;
-    width:160px;
     height: 40px;
 }
 
@@ -155,7 +154,6 @@ h1 .logo {
 }
 
 .cartoon,.cartoon-right{
-    position:absolute;
     height: 25px;
     padding:0 5px;
     line-height: 25px;
