@@ -27,7 +27,7 @@
 <div class="scope wap">
     <div id="js-userinfo-error" class="cue"></div>
     <form id="cell_addressForm">
-        <input  id="addId" name="addId" value="@address.getAddId()" hidden/>
+        <input  id="addId" name="addId" value="@address.getAddId()" type="hidden"/>
        <div class="add-s">
            <input  placeholder="请输入收货人" id="name" name="name" value="@address.getName()">
        </div>
@@ -45,12 +45,12 @@
             </div>
         </div>
 
-        <input  id="province" name="province" value="" hidden/>
-        <input  id="city" name="city" value="" hidden/>
-        <input  id="area" name="area" value="" hidden/>
-        <input  id="area_code" name="area_code" value="" hidden/>
-        <input  id="city_code" name="city_code" value="" hidden/>
-        <input  id="province_code" name="province_code" value="BJ" hidden/>
+        <input  type="hidden" id="province" name="province" value="0"/>
+        <input  type="hidden" id="city" name="city" />
+        <input  type="hidden" id="area" name="area" />
+        <input  type="hidden" id="area_code" name="area_code" />
+        <input  type="hidden" id="city_code" name="city_code" />
+        <input  type="hidden" id="province_code" name="province_code" />
 
 
         <div class="add-s">
@@ -70,9 +70,8 @@
             <p>1.海关需要对海外购物查验身份信息，错误信息可能导致无法通关。</p>
             <p>2.身份信息将加密报关，韩秘美将保证您的信息安全。</p>
         </div>
-
-        <button class="plus-add bg" id="addAddressBtn">保存修改</button>
     </form>
+    <button class="plus-add bg" id="addAddressBtn">保存修改</button>
 
 </div>
 
