@@ -100,7 +100,7 @@
                                 @if(order.getOrder().getOrderStatus()=="D"){
                                     <a href="javascript:;" class="right bg">查看物流</a>
                                 }
-                                @if(order.getOrder().getOrderStatus()=="C"){
+                                @if(order.getOrder().getOrderStatus()=="C"||order.getOrder().getOrderStatus()=="R"){
                                 <a href="javascript:;" class="right bg" onclick="delOrder(@order.getOrder().getOrderId(),0)">删除</a>
                                 }
 
