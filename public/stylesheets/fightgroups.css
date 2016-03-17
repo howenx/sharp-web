@@ -72,7 +72,6 @@ span .rmb{
 
 .urse-photo-box{
     width:90%;
-    height:140px;
     padding:20px 0;
     margin: 0 auto;
 }
@@ -147,6 +146,16 @@ span .rmb{
     line-height: 60px;
 }
 
+.fight-timer img{
+    border-radius: 50%;
+    margin:6px 0 0 0;
+}
+.fight-photo{
+    width:46px;
+    height:70px;
+    float: left;
+}
+
 .fight-timer span,.fight-number span{
     width:100px;
     height:50px;
@@ -179,15 +188,15 @@ span .rmb{
     height:70px;
     width: 100%;
     color:#fff;
-    padding:10px 2%;
+    padding: 10px 2% 0 0;
     position: fixed;
     bottom:0;
 }
 
 .btn{
-    width:100%;
+    width:80%;
     height:50px;
-    display: block;
+    float:right;
     border-radius: 5px;
     text-align: center;
     line-height:50px;
@@ -195,6 +204,60 @@ span .rmb{
     color: #fff;
 
 }
+
+
+.fight-f{
+  margin: 20px 0 0 0;
+    background-color: #fff;
+    border-top: 1px solid #ededed;
+    border-bottom: 1px solid #ededed;
+}
+
+.fight-f-i{
+    color: #999;
+}
+
+.fight-timer b{
+    float: left;
+    margin: 0 0 0 10px;
+
+}
+
+.fight-f-b{
+    color: #999;
+}
+
+.txt{
+    width: 100%;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.home{
+    float: left;
+    width:20%;
+    height: 50px;
+}
+
+.home img{
+    margin: 0 auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
