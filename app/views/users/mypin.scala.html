@@ -1,8 +1,8 @@
-<!doctype html>
+@(pinList:List[domain.PinActivityListDTO])
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>我的拼团</title>
     <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport">
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
@@ -25,60 +25,35 @@
         </div>
     </header>
     <div>
-        <div class="con">
-            <div class="up">
-                <div class="pinimg">
-                    <img src="/assets/images/HMM--01_07.jpg" alt="">
+        @for(pin<-pinList){
+            <div class="con">
+                <div class="up">
+                    <div class="pinimg">
+                        <img src="@pin.getPinImg()" alt="">
+                    </div>
+                    <div class="info">
+                        <p>@pin.getPinTitle()</p>
+                        <div>成员价:&nbsp;&nbsp;&nbsp;&nbsp;¥<span>@pin.getPinPrice()</span></div>
+                    </div>
                 </div>
-                <div class="info">
-                    <p>韩国法系sadsa可还是快点好缩放12sd2阿斯顿撒上是的撒上点</p>
-                    <div>成员价:&nbsp;&nbsp;&nbsp;&nbsp;¥<span>75:00</span></div>
-                </div>
-            </div>
-            <div class="down">
-                <div class="tuansuc">团购成功</div>
-                <div>
-                    <input type="button" class="tuan" value="查看团详情">
-                    <button class="order">查看订单详情</button>
-                </div>
-            </div>
-        </div>
-        <div class="con">
-            <div class="up">
-                <div class="pinimg">
-                    <img src="/assets/images/HMM--01_07.jpg" alt="">
-                </div>
-                <div class="info">
-                    <p>韩国法系sadsa可还是快点好缩放12sd2阿斯顿撒上是的撒上点</p>
-                    <div>成员价:&nbsp;&nbsp;&nbsp;&nbsp;¥<span>75:00</span></div>
-                </div>
-            </div>
-            <div class="down">
-                <div class="tuansuc">团购成功</div>
-                <div>
-                    <input type="button" class="tuan" value="查看团详情">
-                    <button class="order">查看订单详情</button>
+                <div class="down">
+                    <div class="tuansuc">
+                        <!--Y-正常， N－取消 ，C－完成 ，F-失败-->
+                        @if(pin.getStatus()=="Y"){拼团中}
+                        @if(pin.getStatus()=="N"){拼团取消}
+                        @if(pin.getStatus()=="C"){拼团成功}
+                        @if(pin.getStatus()=="F"){拼团失败}
+                    </div>
+                    <div>
+                        <input type="button" class="tuan" value="查看团详情" onclick="location.href='/pin/activity/@pin.getPinActiveId()'">
+                        @if(pin.getStatus()=="C"){
+                            <button class="order" onclick="location.href='/pin/order/detail/@pin.getOrderId()'">查看订单详情</button>
+                        }
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="con">
-            <div class="up">
-                <div class="pinimg">
-                    <img src="/assets/images/HMM--01_07.jpg" alt="">
-                </div>
-                <div class="info">
-                    <p>韩国法系sadsa可还是快点好缩放12sd2阿斯顿撒上是的撒上点</p>
-                    <div>成员价:&nbsp;&nbsp;&nbsp;&nbsp;¥<span>75:00</span></div>
-                </div>
-            </div>
-            <div class="down">
-                <div class="tuansuc">团购成功</div>
-                <div>
-                    <input type="button" class="tuan" value="查看团详情">
-                    <button class="order">查看订单详情</button>
-                </div>
-            </div>
-        </div>
+        }
+
     </div>
 
     <div class="imm">

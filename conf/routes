@@ -18,8 +18,12 @@ POST        /login/submit             controllers.UserCtrl.loginSubmit()
 GET         /collect                  controllers.UserCtrl.collect()
 GET         /collect/del/$collectId<[0-9]+>              controllers.UserCtrl.collectDel(collectId:Long)
 GET         /nickname                  controllers.UserCtrl.nickname()
+
+#我的拼购
 GET         /mypin                  controllers.UserCtrl.mypin()
-GET         /mypinDetail                 controllers.UserCtrl.mypinDetail()
+GET         /pin/activity/$pinActivity<[0-9]+>   controllers.UserCtrl.pinActivity(pinActivity:Long)
+GET         /pin/order/detail/$orderId<[0-9]+>         controllers.UserCtrl.pinOrderDetail(orderId:Long)
+
 
 POST        /phone/verify            controllers.UserCtrl.phoneVerify()
 
@@ -57,7 +61,6 @@ GET         /appraise                 controllers.ShoppingCtrl.appraise()
 GET         /assess                   controllers.ShoppingCtrl.assess()
 GET         /delivered                controllers.ShoppingCtrl.delivered()
 GET         /drawback                 controllers.ShoppingCtrl.drawback()
-GET         /fightgroups              controllers.ShoppingCtrl.fightgroups()
 GET         /logistic                 controllers.ShoppingCtrl.logistic()
 GET         /obligati                 controllers.ShoppingCtrl.obligati()
 GET         /orders                   controllers.ShoppingCtrl.orders()
