@@ -6,10 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
-import domain.Inventory;
-import domain.Item;
-import domain.Slider;
-import domain.Theme;
+import domain.*;
 import play.Logger;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -237,19 +234,20 @@ public class ProductsCtrl extends Controller {
 
     //商品明细
     public Result detail(String type,String url) throws Exception {
-        //商品基本信息
-        Item itemMain = new Item();
-        //商品参数
-        List<Object[]> itemFeaturesList = new ArrayList<>();
-        //热卖推荐
-        List<List<Object[]>> pushResultList = new ArrayList<>();
-        //商品Sku
-        List<Inventory> inventoryList = new ArrayList<>();
-        //Sku商品预览图片
-        List<List<String>> preImgList = new ArrayList<>();
-
         //普通商品
         if("D".equals(type) || "item".equals(type) || "vary".equals(type) || "customize".equals(type)){
+            //商品基本信息
+            Item itemMain = new Item();
+            //商品参数
+            List<Object[]> itemFeaturesList = new ArrayList<>();
+            //热卖推荐
+            List<List<Object[]>> pushResultList = new ArrayList<>();
+            //商品Sku
+            List<Inventory> inventoryList = new ArrayList<>();
+            //Sku商品预览图片
+            List<List<String>> preImgList = new ArrayList<>();
+            //优惠信息
+            List<String> publicityList = new ArrayList<>();
             Request request = new Request.Builder()
                     .url(ITEM_PAGE + url)
                     .build();
@@ -289,6 +287,11 @@ public class ProductsCtrl extends Controller {
                         inventoryList.add(inventory);
                     }
 
+                }
+                //优惠信息
+                JsonNode itemPublicity = Json.parse(itemMain.getPublicity());
+                for(JsonNode publicity : itemPublicity){
+                    publicityList.add(Json.fromJson(publicity,String.class));
                 }
                 //热卖推荐
                 if(json.has("push")){
@@ -361,10 +364,22 @@ public class ProductsCtrl extends Controller {
                     }
                 }
             }
-            return ok(views.html.products.detail.render(itemMain,itemFeaturesList,pushResultList,inventoryList,inventoryList.size(),preImgList));
+            return ok(views.html.products.detail.render(itemMain,itemFeaturesList,pushResultList,inventoryList,inventoryList.size(),preImgList,publicityList));
         }
         //拼购商品
         else{
+            //商品基本信息
+            Item itemMain = new Item();
+            //商品参数
+            List<Object[]> itemFeaturesList = new ArrayList<>();
+            //热卖推荐
+            List<List<Object[]>> pushResultList = new ArrayList<>();
+//            //拼购商品
+//            List<Inventory> inventoryList = new ArrayList<>();
+//            //Sku商品预览图片
+//            List<List<String>> preImgList = new ArrayList<>();
+            //优惠信息
+            List<String> publicityList = new ArrayList<>();
             Request request = new Request.Builder()
                     .url(PIN_PAGE + url)
                     .build();
@@ -375,9 +390,11 @@ public class ProductsCtrl extends Controller {
                 if(json.has("main")){
                     JsonNode mainJson = json.get("main");
                     itemMain = Json.fromJson(mainJson,Item.class);
-//                    String itemPublicity = itemMain.getPublicity();
-//                    itemPublicity = itemPublicity.substring(2,itemPublicity.length()-2);
-//                    itemMain.setPublicity(itemPublicity);
+                    //优惠信息
+                    JsonNode itemPublicity = Json.parse(itemMain.getPublicity());
+                    for(JsonNode publicity : itemPublicity){
+                        publicityList.add(Json.fromJson(publicity,String.class));
+                    }
                     //商品参数
                     if(itemMain != null){
                         JsonNode features = Json.parse(itemMain.getItemFeatures());
@@ -389,13 +406,89 @@ public class ProductsCtrl extends Controller {
                             itemFeaturesList.add(featureObj);
                         }
                     }
-                    Logger.error(itemMain.toString());
                 }
                 //拼购商品Sku
-                JsonNode stockJson = json.get("stock");
+                if(json.has("stock")){
+                    JsonNode stockJson = json.get("stock");
+                    Object[] pinSkuObject = new Object[6];
+                    pinSkuObject[0] = Json.fromJson(stockJson.get("pinTitle"),String.class);         //拼购商品Title
+                    JsonNode floorPriceJson = stockJson.get("floorPrice");
+                    pinSkuObject[1] =  Json.fromJson(floorPriceJson.get("price"),BigDecimal.class);  //最低价格
+                    pinSkuObject[2] = Json.fromJson(floorPriceJson.get("person_num"),Integer.class); //最多人数
+                    pinSkuObject[3] = Json.fromJson(stockJson.get("soldAmount"),Integer.class);      //已售件数
+                    JsonNode invImgJson = stockJson.get("invImg");
+                    pinSkuObject[4] = Json.fromJson(invImgJson.get("url"),String.class);             //Sku图片
+                    pinSkuObject[5] = url;                                                           //pinUrl
+                }
+                //热卖推荐
+                if(json.has("push")){
+                    JsonNode pushJson = json.get("push");
+                    List<Object[]> pushList = new ArrayList<>();
+                    for(JsonNode pushTemp : pushJson){
+                        Object[] pushObject = new Object[13];
+                        JsonNode imgJson = pushTemp.get("itemImg");
+                        String imgStr = Json.fromJson(imgJson,String.class);
+                        String imgUrl = Json.fromJson(Json.parse(imgStr).get("url"),String.class);
+                        pushObject[0] = imgUrl;
+                        String itemType  = Json.fromJson(pushTemp.get("itemType"),String.class);
+                        String itemUrl = Json.fromJson(pushTemp.get("itemUrl"),String.class);
+                        if("item".equals(itemType) || "vary".equals(itemType)){
+                            itemUrl = itemUrl.replace(ITEM_PAGE,"");
+                        }
+                        if("pin".equals(itemType)){
+                            itemUrl = itemUrl.replace(PIN_PAGE,"");
+                        }
+                        if("customize".equals(itemType)){
+                            itemUrl = itemUrl.replace(SUBJECT_PAGE,"");
+                        }
+                        pushObject[1] = itemUrl;
+                        pushObject[2] = Json.fromJson(pushTemp.get("itemTitle"),String.class);
+                        pushObject[3] = Json.fromJson(pushTemp.get("itemSrcPrice"),BigDecimal.class);
+                        pushObject[4] = Json.fromJson(pushTemp.get("itemPrice"),BigDecimal.class);
+                        pushObject[5] = Json.fromJson(pushTemp.get("itemDiscount"),Float.class);
+                        pushObject[6] = Json.fromJson(pushTemp.get("itemSoldAmount"),Integer.class);
+                        pushObject[7] = Json.fromJson(pushTemp.get("collectCount"),Integer.class);
+                        pushObject[8] = Json.fromJson(pushTemp.get("state"),String.class);
+                        pushObject[9] = itemType;
+                        pushObject[10] = Json.fromJson(pushTemp.get("startAt"),String.class);
+                        pushObject[11] = Json.fromJson(pushTemp.get("endAt"),String.class);
+                        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        Date now = new Date();
+                        String strNow = sdfDate.format(now);
+                        String endAt = Json.fromJson(pushTemp.get("endAt"),String.class);
+                        Date endAtDate = sdfDate.parse(endAt);
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(endAtDate);
+                        String hour = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
+                        if(calendar.get(Calendar.HOUR_OF_DAY)<10){
+                            hour = "0" + hour;
+                        }
+                        String minute = String.valueOf(calendar.get(Calendar.MINUTE));
+                        if(calendar.get(Calendar.MINUTE)<10){
+                            minute = "0" + minute;
+                        }
+                        String endDate =(calendar.get(Calendar.MONTH)+1) + "月" + calendar.get(Calendar.DAY_OF_MONTH) + "日" + hour +":"+minute;
 
-                //商品推荐
-                JsonNode pushJson = json.get("push");
+                        if(endAt.compareTo(strNow) < 0){
+                            pushObject[12] = "已结束";
+                        }else{
+                            pushObject[12] = "截止" + endDate;
+                        }
+
+                        pushList.add(pushObject);
+                    }
+                    for(int i=0;i<pushList.size()/2;i++){
+                        List<Object[]> rowList = new ArrayList<>();
+                        rowList.add(pushList.get(i*2));
+                        rowList.add(pushList.get(i*2+1));
+                        pushResultList.add(rowList);
+                    }
+                    if(pushList.size()%2 != 0){
+                        List<Object[]> rowList = new ArrayList<>();
+                        rowList.add(pushList.get(pushList.size()-1));
+                        pushResultList.add(rowList);
+                    }
+                }
             }
             return ok(views.html.products.pinDetail.render(itemMain,itemFeaturesList));
         }
