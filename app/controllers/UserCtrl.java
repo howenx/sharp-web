@@ -666,8 +666,32 @@ public class UserCtrl extends Controller {
         );
     }
 
-    public Result pinOrderDetail(Long orderId) {
-        return ok(views.html.users.mypinDetail.render());
+    @Security.Authenticated(UserAuth.class)
+    public F.Promise<Result> pinOrderDetail(Long orderId) {
+        play.libs.F.Promise<JsonNode> promiseOfInt = play.libs.F.Promise.promise(() -> {
+            Request.Builder builder =(Request.Builder)ctx().args.get("request");
+            Request request=builder.url(PIN_ORDER_DETAIL+orderId).get().build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()){
+                return Json.parse(new String(response.body().bytes(), UTF_8));
+            }else  throw new IOException("Unexpected code " + response);
+        });
+        return promiseOfInt.map((play.libs.F.Function<JsonNode , Result>) json -> {
+            Logger.info("===json==" + json);
+            Message message = Json.fromJson(json.get("message"), Message.class);
+            if(null==message||message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+                Logger.error("返回拼购订单数据错误code="+(null!=message?message.getCode():0));
+                return badRequest();
+            }
+            ObjectMapper mapper = new ObjectMapper();
+            List<OrderDTO> orderList = mapper.readValue(json.get("orderList").toString(), new TypeReference<List<OrderDTO>>() {});
+            if(null==orderList||orderList.isEmpty()){
+                return badRequest();
+            }
+           return ok(views.html.users.mypinDetail.render(orderList.get(0)));
+        }
+
+        );
     }
 
 }

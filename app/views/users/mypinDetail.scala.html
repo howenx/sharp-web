@@ -1,4 +1,4 @@
-<!doctype html>
+@(order:domain.OrderDTO)
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -16,7 +16,7 @@
             <i style="display:inline-block;transform: scale(1,2);margin-left: 20px">&lt;</i>
         </div>
         <div>
-            团购订单详情
+            拼购详情
         </div>
     </header>
     <div class="detailcon">
@@ -26,46 +26,61 @@
         <ul>
             <li>
                 <b>订单状态:</b>
-                <span class="orderstate">提交订单</span>
+                <span class="orderstate">
+                    @if(order.getOrder().getOrderStatus()=="I"){待支付}
+                    @if(order.getOrder().getOrderStatus()=="S"){待发货}
+                    @if(order.getOrder().getOrderStatus()=="C"){已取消}
+                    @if(order.getOrder().getOrderStatus()=="F"){失败}
+                    @if(order.getOrder().getOrderStatus()=="R"){已完成}
+                    @if(order.getOrder().getOrderStatus()=="D"){待收货}
+                    @if(order.getOrder().getOrderStatus()=="J"){拒收}
+                    @if(order.getOrder().getOrderStatus()=="N"){已删除}
+                    @if(order.getOrder().getOrderStatus()=="T"){已退款}
+                    @if(order.getOrder().getOrderStatus()=="PI"){拼购未支付}
+                    @if(order.getOrder().getOrderStatus()=="PS"){拼购支付成功}
+                    @if(order.getOrder().getOrderStatus()=="PF"){拼团失败还未成功退款}
+                </span>
             </li>
             <li>
                 <b>总额:</b>
-                <span><i class="ordermoney">19.90</i> (微信支付)</span>
+                <span><i class="ordermoney">@order.getOrder().getPayTotal()</i> (@order.getOrder().getPayMethod())</span>
             </li>
             <li>
                 <b>送至:</b>
-                <span>北京朝阳区望京开发街道利泽中二路203洛娃大厦A座三层东方爱怡斯</span>
+                <span>@order.getAddress().getDeliveryCity()@order.getAddress().getDeliveryDetail()</span>
             </li>
             <li>
                 <b>收货人:</b>
-                <span>赵婷婷 12345678454</span>
+                <span>@order.getAddress().getName() @order.getAddress().getTel()</span>
             </li>
             <li>
                 <b>订单编号:</b>
-                <span>124354654253</span>
+                <span>@order.getOrder().getOrderId()</span>
             </li>
             <li>
                 <b>下单时间:</b>
-                <span>2015-12-13 09:00:42</span>
+                <span>@order.getOrder().getOrderCreateAt()</span>
             </li>
         </ul>
         <div class="good-infos">
             <h2>商品信息</h2>
-            <div>
-                <div class="goodimg">
-                    <img src="/assets/images/HMM--list_03.jpg" alt="">
-                </div>
-                <div class="good-info">
-                    <p>韩国发希fascy陆心媛娃娃护手霜80ml3支深层滋润保湿五件套</p>
-                    <div>
-                        <span>数量: <i>1</i></span>
-                        <span class="oneprice">¥<b>75.00</b>/件</span>
+            @for(sku<-order.getSku()){
+                <div>
+                    <div class="goodimg">
+                        <img src="@sku.getInvImg()" alt="">
+                    </div>
+                    <div class="good-info">
+                        <p>@sku.getSkuTitle()</p>
+                        <div>
+                            <span>数量: <i>@sku.getAmount()</i></span>
+                            <span class="oneprice">¥<b>@sku.getPrice()</b>/件</span>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
         </div>
         <div>
-            <input type="button" class="tuan" value="查看团详情">
+            <input type="button" class="tuan" value="查看团详情(取不到actId)" onclick="location.href='/pin/activity/@order.getOrder().getPinActiveId()'">
         </div>
     </div>
 </body>

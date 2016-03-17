@@ -49,13 +49,16 @@
         </a>
 
     </div>
+    @{var needNum=pin.getPersonNum()-pin.getPinUsers().size}
     <div class="urse-photo-box">
 
              @for(pinUser<-pin.getPinUsers()){
                 <div class="urse-photo-m"><div class="urse-photo"><img src="@pinUser.getUserImg()"></div></div>
              }
-            <div class="urse-photo-m"><div class="urse-photo"><img src="/assets/images/100-2.png"></div></div>
-            <div class="urse-photo-m"><div class="urse-photo"><img src="/assets/images/100-2.png"></div></div>
+            @{var i: Int=0}
+            @for(i <- 1 to pin.getPersonNum()-pin.getPinUsers().size){
+                <div class="urse-photo-m"><div class="urse-photo"><img src="/assets/images/100-2.png"></div></div>
+            }
     </div>
     @if(pin.getStatus()=="Y"&&pin.getPersonNum()-pin.getPinUsers().size>0){
         <div class="fight-txt"><p>还差<span class="color">@(pin.getPersonNum()-pin.getPinUsers().size)人</span>,让小伙伴们都来组团吧!</p></div>
