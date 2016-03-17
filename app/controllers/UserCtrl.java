@@ -244,10 +244,6 @@ public class UserCtrl extends Controller {
         return ok(views.html.users.regist.render(phone));
     }
 
-    public Result resetPasswd() {
-        return ok(views.html.users.resetPasswd.render());
-    }
-
     public Result tickling() {
         return ok(views.html.users.tickling.render());
     }
@@ -376,14 +372,14 @@ public class UserCtrl extends Controller {
     }
 
     /**
-     * 用户注册手机号检测
+     * 手机号检测
      * @return
      */
-    public F.Promise<Result> registVerify() {
+    public F.Promise<Result> phoneVerify() {
         ObjectNode result = newObject();
-        Form<UserPhoneVerify> userRegistVerifyForm = Form.form(UserPhoneVerify.class).bindFromRequest();
-        Map<String, String> userMap = userRegistVerifyForm.data();
-        if (userRegistVerifyForm.hasErrors()) {
+        Form<UserPhoneVerify> userPhoneVerifyForm = Form.form(UserPhoneVerify.class).bindFromRequest();
+        Map<String, String> userMap = userPhoneVerifyForm.data();
+        if (userPhoneVerifyForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
         } else {
@@ -515,53 +511,21 @@ public class UserCtrl extends Controller {
 
     }
 
-
     /**
-     * 忘记密码手机号检测
+     * 重置密码
+     * @param phone
      * @return
      */
-    public Promise<Result> resetVerify() {
-        ObjectNode result = newObject();
-        Form<UserRegistCode> userRegistCodeForm = Form.form(UserRegistCode.class).bindFromRequest();
-        Map<String, String> userMap = userRegistCodeForm.data();
-        if (userRegistCodeForm.hasErrors()) {
-            result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
-            return Promise.promise((Function0<Result>) () -> ok(result));
-        } else {
-            Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
-                FormEncodingBuilder feb = new FormEncodingBuilder();
-                userMap.forEach(feb::add);
-                RequestBody formBody = feb.build();
-                Request request = new Request.Builder()
-                        .url(PHONE_VERIFY)
-                        .post(formBody)
-                        .build();
-                client.setConnectTimeout(10, TimeUnit.SECONDS);
-                Response response = client.newCall(request).execute();
-                Logger.error(response.toString());
-                if (response.isSuccessful()) {
-                    JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
-                    return json;
-                } else throw new IOException("Unexpected code" + response);
-            });
-
-            return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-                Message message = Json.fromJson(json.findValue("message"), Message.class);
-                if (Message.ErrorCode.SUCCESS.getIndex()==message.getCode()) {
-
-                }
-//                Logger.error(json.toString()+"-----"+message.toString());
-                return ok(Json.toJson(message));
-            });
-        }
-
+    public Result resetPasswd(String phone) {
+        return ok(views.html.users.resetPasswd.render(phone));
     }
+
 
     /**
      * 密码修改
      * @return
      */
-    public Promise<Result> resetPassword() {
+    public Promise<Result> resetPwdSubmit() {
         ObjectNode result = newObject();
         Form<UserRegistCode> userRegistCodeForm = Form.form(UserRegistCode.class).bindFromRequest();
         Map<String, String> userMap = userRegistCodeForm.data();
@@ -598,8 +562,8 @@ public class UserCtrl extends Controller {
     }
 
     //注册
-        public Result register() {
-            return ok(views.html.users.register.render());
+        public Result registVerify() {
+            return ok(views.html.users.registVerify.render());
         }
     //找回密码
         public Result retrieve() {
