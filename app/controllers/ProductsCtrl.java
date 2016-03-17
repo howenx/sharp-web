@@ -165,7 +165,6 @@ public class ProductsCtrl extends Controller {
                             tagObject[5] = urlType;
                             tagList.add(tagObject);
                         }
-
                     }
                 }
                 //主题中的商品
@@ -235,7 +234,6 @@ public class ProductsCtrl extends Controller {
         }
         return ok(views.html.products.themeDetail.render(themeImg,tagList,itemResultList));
     }
-
 
     //商品明细
     public Result detail(String type,String url) throws Exception {
