@@ -1,4 +1,4 @@
-@(itemMain:domain.Item,itemFeaturesList:List[Array[Object]],pinSkuObject:Array[Object],pushList:List[List[Array[Object]]],preImgList:List[String])
+@(itemMain:domain.Item,itemFeaturesList:List[Array[Object]],pinSkuObject:Array[Object],pushList:List[List[Array[Object]]],preImgList:List[String],SoldOutPushList:List[Array[Object]],url:String)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,7 +75,12 @@
         <div class="txt">
             <p>支付开团并邀请2人参团,人数不足自动退款,详见下方拼团玩法</p>
             <div class="diamond">
+                @if(pinSkuObject(6) == true){
                 <a href="javascript:;">
+                }
+                @if(pinSkuObject(6) != true){
+                <a href="/pinTieredPrice/@url">
+                }
                     <span class="big">@pinSkuObject(1)元/件</span>
                     <span>@pinSkuObject(2)人成团</span>
                 </a>
@@ -89,7 +94,7 @@
         <div class="pay">
             <div class="pay-txt">
                 <span>拼团玩法</span>
-                <a href="flow.html">查看详情 ></a>
+                <a href="/pinInstruction">查看详情 ></a>
             </div>
             <img src="/assets/images/img9.png"/>
         </div>
@@ -295,22 +300,10 @@
         </div>
 
     </div>
-
-
     <div class="top">
         <img src="/assets/images/top.png">
     </div>
-
-
-
-
 </div>
-
-
-
-
-
-
 <!--该活动已结束-->
 @if(pinSkuObject(6) == true){
 <div class="toup">
@@ -319,80 +312,84 @@
         <h3>该活动已结束，去看看其他拼购吧</h3>
         <div class="conaddr">
             <div>
-                <div class="item">
-                    <div>
-                        <span>拼</span>
-                        <p>截止3月17日下午5:16</p>
-                    </div>
-                    <div>
-                        <img src="/assets/images/banner_03.jpg" alt="">
-                    </div>
-                    <div>
-                        <p>韩秘美 Crystalshop 施fewafewgregrdawrhrefrgewfewf华洛世奇水晶。。。</p>
-                    </div>
-                </div>
-                <div class="item">
-                    <div>
-                        <span>拼</span>
-                        <p>截止3月17日下午5:16</p>
-                    </div>
-                    <div>
-                        <img src="/assets/images/banner_03.jpg" alt="">
-                    </div>
-                    <div>
-                        <p>韩秘美 Crystalshop 施华洛世奇水晶。。施华洛世奇水晶施华洛世奇水晶。</p>
-                    </div>
-                </div>
-                <div class="item">
-                    <div>
-                        <span>拼</span>
-                        <p>截止3月17日下午5:16</p>
-                    </div>
-                    <div>
-                        <img src="/assets/images/banner_03.jpg" alt="">
-                    </div>
-                    <div>
-                        <p>韩秘美 Crystalshop 施华洛世奇水晶。。。</p>
-                    </div>
-                </div>
-                <div class="item">
-                    <div>
-                        <span>拼</span>
-                        <p>截止3月17日下午5:16</p>
-                    </div>
-                    <div>
-                        <img src="/assets/images/banner_03.jpg" alt="">
-                    </div>
-                    <div>
-                        <p>韩秘美 Crystalshop 施华洛世奇水晶dfgd。。。</p>
-                    </div>
-                </div>
+                @for(pinPush <- SoldOutPushList){
+                    <a href="/detail/@pinPush(9)/@pinPush(1)">
+                        <div class="item">
+                            <div>
+                                <span>拼</span>
+                                <p>@pinPush(12)</p>
+                            </div>
+                            <div class="conaddr-p">
+                                <img src="@pinPush(0)" alt="">
+                            </div>
+                            <div>
+                                <p>@pinPush(2)</p>
+                            </div>
+                        </div>
+                    </a>
+                }
+                <!--<div class="item">-->
+                    <!--<div>-->
+                        <!--<span>拼</span>-->
+                        <!--<p>截止3月17日下午5:16</p>-->
+                    <!--</div>-->
+                    <!--<div>-->
+                        <!--<img src="/assets/images/banner_03.jpg" alt="">-->
+                    <!--</div>-->
+                    <!--<div>-->
+                        <!--<p>韩秘美 Crystalshop 施华洛世奇水晶。。施华洛世奇水晶施华洛世奇水晶。</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="item">-->
+                    <!--<div>-->
+                        <!--<span>拼</span>-->
+                        <!--<p>截止3月17日下午5:16</p>-->
+                    <!--</div>-->
+                    <!--<div>-->
+                        <!--<img src="/assets/images/banner_03.jpg" alt="">-->
+                    <!--</div>-->
+                    <!--<div>-->
+                        <!--<p>韩秘美 Crystalshop 施华洛世奇水晶。。。</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="item">-->
+                    <!--<div>-->
+                        <!--<span>拼</span>-->
+                        <!--<p>截止3月17日下午5:16</p>-->
+                    <!--</div>-->
+                    <!--<div>-->
+                        <!--<img src="/assets/images/banner_03.jpg" alt="">-->
+                    <!--</div>-->
+                    <!--<div>-->
+                        <!--<p>韩秘美 Crystalshop 施华洛世奇水晶dfgd。。。</p>-->
+                    <!--</div>-->
+                <!--</div>-->
 
-                <div class="item">
-                    <div>
-                        <span>拼</span>
-                        <p>截止3月17日下午5:16</p>
-                    </div>
-                    <div>
-                        <img src="/assets/images/banner_03.jpg" alt="">
-                    </div>
-                    <div>
-                        <p>韩秘美 Crystalshop 施华洛世奇水晶dfgd。。。</p>
-                    </div>
-                </div>
+                <!--<div class="item">-->
+                    <!--<div>-->
+                        <!--<span>拼</span>-->
+                        <!--<p>截止3月17日下午5:16</p>-->
+                    <!--</div>-->
+                    <!--<div>-->
+                        <!--<img src="/assets/images/banner_03.jpg" alt="">-->
+                    <!--</div>-->
+                    <!--<div>-->
+                        <!--<p>韩秘美 Crystalshop 施华洛世奇水晶dfgd。。。</p>-->
+                    <!--</div>-->
+                <!--</div>-->
 
-                <div class="item">
-                    <div>
-                        <span>拼</span>
-                        <p>截止3月17日下午5:16</p>
-                    </div>
-                    <div>
-                        <img src="/assets/images/banner_03.jpg" alt="">
-                    </div>
-                    <div>
-                        <p>韩秘美 Crystalshop 施华洛世奇水晶dfgd。。。</p>
-                    </div>
-                </div>
+                <!--<div class="item">-->
+                    <!--<div>-->
+                        <!--<span>拼</span>-->
+                        <!--<p>截止3月17日下午5:16</p>-->
+                    <!--</div>-->
+                    <!--<div>-->
+                        <!--<img src="/assets/images/banner_03.jpg" alt="">-->
+                    <!--</div>-->
+                    <!--<div>-->
+                        <!--<p>韩秘美 Crystalshop 施华洛世奇水晶dfgd。。。</p>-->
+                    <!--</div>-->
+                <!--</div>-->
             </div>
         </div>
     </div>

@@ -26,6 +26,7 @@ public class SysParCom {
     public static String ADDRESS_DEL;//地址删除
     public static String ADDRESS_UPDATE;//地址更新
     public static String COUPON_PAGE;//我的优惠券
+    public static String FEEDBACK_PAGE;//意见反馈
     public static String ORDER_PAGE;//我的订单
     public static String ORDER_CANCEL;//取消订单
     public static String ORDER_DEL;//删除订单
@@ -36,6 +37,7 @@ public class SysParCom {
 
 
 
+
     public static String PHONE_VERIFY;//手机号检测
     public static String PHONE_CODE;//发送短信验证码
     public static String REGISTER_PAGE;//用户注册
@@ -43,10 +45,12 @@ public class SysParCom {
     public static String USER_INFO;//用户信息获取
     public static String USER_UPDATE;//用户信息修改
 
-    public static String ITEM_PAGE;//普通商品,多样化价格商品
+
     public static String THEME_PAGE;//主题
     public static String PIN_PAGE;//拼购商品
-    public static String SUBJECT_PAGE;//主题中自定义价格商品
+    public static String ITEM_PAGE;//普通商品,多样化价格商品
+    public static String VARY_PAGE;//多样化价格商品
+    public static String CUSTOMIZE_PAGE;//主题中自定义价格商品
 
 
     public static String IMAGE_CODE;//图形验证码
@@ -88,10 +92,13 @@ public class SysParCom {
 
 
         COUPON_PAGE=configuration.getString("user.coupons");
+        FEEDBACK_PAGE=configuration.getString("user.feedback");
+        //我的订单
         ORDER_PAGE=configuration.getString("user.order.all");
         ORDER_CANCEL=configuration.getString("user.order.cancel");
         ORDER_DEL=configuration.getString("user.order.del");
 
+        //我的拼团
         PIN_LIST=configuration.getString("user.pin.list");
         PIN_ACTIVITY=configuration.getString("user.pin.activity");
         PIN_ORDER_DETAIL=configuration.getString("user.pin.detail");
@@ -106,11 +113,12 @@ public class SysParCom {
         USER_INFO = configuration.getString("user.get.info");
         USER_UPDATE = configuration.getString("user.page.update");
 
-
-        ITEM_PAGE = configuration.getString("products.page.item");
+        //商品信息
         THEME_PAGE = configuration.getString("products.page.theme");
         PIN_PAGE = configuration.getString("products.page.pin");
-        SUBJECT_PAGE = configuration.getString("products.page.subject");
+        ITEM_PAGE = configuration.getString("products.page.item");
+        VARY_PAGE = configuration.getString("products.page.vary");
+        CUSTOMIZE_PAGE = configuration.getString("products.page.customize");
 
         IMAGE_CODE =configuration.getString("user.page.imagecode");
 

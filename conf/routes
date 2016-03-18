@@ -10,11 +10,15 @@ GET         /myView                   controllers.UserCtrl.myView()
 GET         /login                    controllers.UserCtrl.login()
 GET         /setting                  controllers.UserCtrl.setting()
 GET         /tickling                 controllers.UserCtrl.tickling()
+POST        /feedback                 controllers.UserCtrl.feedback()
 GET         /coupon                   controllers.UserCtrl.coupon()
 POST        /login/submit             controllers.UserCtrl.loginSubmit()
 GET         /collect                  controllers.UserCtrl.collect()
 GET         /collect/del/$collectId<[0-9]+>              controllers.UserCtrl.collectDel(collectId:Long)
 GET         /nickname                  controllers.UserCtrl.nickname()
+
+GET         /service                     controllers.UserCtrl.service()
+
 
 #我的拼购
 GET         /mypin                  controllers.UserCtrl.mypin()
@@ -47,6 +51,8 @@ GET          /                         controllers.ProductsCtrl.index()
 POST        /indexAjax                 controllers.ProductsCtrl.loadIndexAjax()
 GET         /themeDetail/*url          controllers.ProductsCtrl.themeDetail(url)
 GET         /detail/:type/*url         controllers.ProductsCtrl.detail(type,url)
+GET         /pinInstruction            controllers.ProductsCtrl.pinInstruction()
+GET         /pinTieredPrice/*url       controllers.ProductsCtrl.pinTieredPrice(url)
 
 
 
@@ -69,8 +75,6 @@ GET         /obligati                 controllers.ShoppingCtrl.obligati()
 GET         /orders                   controllers.ShoppingCtrl.orders()
 GET         /settle                   controllers.ShoppingCtrl.settle()
 GET         /cart                     controllers.ShoppingCtrl.cart()
-GET         /opengroup                     controllers.ShoppingCtrl.opengroup()
-GET         /pinplay                     controllers.ShoppingCtrl.pinplay()
 GET         /cart/empty               controllers.ShoppingCtrl.emptyCart()
 GET         /order/cancel/$orderId<[0-9]+>     controllers.ShoppingCtrl.cancelOrder(orderId:Long)
 GET         /order/del/$orderId<[0-9]+>        controllers.ShoppingCtrl.delOrder(orderId:Long)
