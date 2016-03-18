@@ -213,5 +213,11 @@ $(document).on("click",".feedbackBtn",function(){
     }
 });
 
+$(document).ready(function(){
+     //倒计时
+     var countdown=$("#countdown").val();
+
+});
+
 
 

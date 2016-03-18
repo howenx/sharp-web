@@ -26,6 +26,7 @@ import javax.inject.Inject;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -221,28 +222,36 @@ public class UserCtrl extends Controller {
      * 我的界面
      * @return
      */
-    @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> myView() {
-        Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
-            Request.Builder builder =(Request.Builder)ctx().args.get("request");
-            Request request=builder.url(USER_INFO).get().build();
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()){
-                return Json.parse(new String(response.body().bytes(), UTF_8));
+        Optional<String> header = Optional.ofNullable(request().getHeader("id-token"));
+        Logger.info("======"+header+"===="+header.isPresent());
+        if (header.isPresent()) {
+            Optional<String> token = Optional.ofNullable(cache.get(header.get()).toString());
+            if (token.isPresent()) {
+                Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
+                    Request.Builder builder =(Request.Builder)ctx().args.get("request");
+                    Request request=builder.url(USER_INFO).get().build();
+                    Response response = client.newCall(request).execute();
+                    if (response.isSuccessful()){
+                        return Json.parse(new String(response.body().bytes(), UTF_8));
 
-            }else  throw new IOException("Unexpected code " + response);
-        });
-        return promiseOfInt.map((Function<JsonNode , Result>) json -> {
-            Logger.info("==myView=json==" + json);
-            Message message = Json.fromJson(json.get("message"), Message.class);
-            if(null==message||message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
-                Logger.error("返回收藏数据错误code="+(null!=message?message.getCode():0));
-                return badRequest();
+                    }else  throw new IOException("Unexpected code " + response);
+                });
+                return promiseOfInt.map((Function<JsonNode , Result>) json -> {
+                    Logger.info("==myView=json==" + json);
+                    Message message = Json.fromJson(json.get("message"), Message.class);
+                    if(null==message||message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+                        Logger.error("返回收藏数据错误code="+(null!=message?message.getCode():0));
+                        return badRequest();
+                    }
+                    UserDTO userInfo = Json.fromJson(json.get("userInfo"), UserDTO.class);
+                    //请求用户信息
+                    return ok(views.html.users.my.render(1,userInfo)); //登录了
+                });
+
             }
-            UserDTO userInfo = Json.fromJson(json.get("userInfo"), UserDTO.class);
-            //请求用户信息
-            return ok(views.html.users.my.render(userInfo));
-        });
+        }
+        return Promise.promise((Function0<Result>) () -> ok(views.html.users.my.render(0,new UserDTO()))); //未登录
 
 
     }
