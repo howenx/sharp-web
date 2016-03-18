@@ -1,11 +1,14 @@
 package domain;
 
 import play.data.validation.Constraints;
+import play.data.validation.ValidationError;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * 用户手机号检测
+ * 用户手机号检测(用户注册,找回密码)
  * Created by Sunny Wu on 16/3/15.
  * kakao china.
  */
@@ -20,13 +23,13 @@ public class UserPhoneVerify implements Serializable {
     protected  String code;
 
 
-//    public List<ValidationError> validate() {
-//        List<ValidationError> errors = new ArrayList<>();
-//        if (!code.equals("-1")) {
-//            errors.add(new ValidationError("code", "This code is wrong"));
-//        }
-//        return errors.isEmpty() ? null : errors;
-//    }
+    public List<ValidationError> validate() {
+        String codeReg = "^[0-9a-zA-Z]{4}$";
+        List<ValidationError> errors = new ArrayList<>();
+        if (code.equals("-1") || code.matches(codeReg)) {
+        }else errors.add(new ValidationError("code", "This code is wrong"));
+        return errors.isEmpty() ? null : errors;
+    }
 
     public UserPhoneVerify() {
     }
