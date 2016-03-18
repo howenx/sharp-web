@@ -79,13 +79,13 @@ public class ComCtrl extends Controller {
             }else{
                 request= builder.url(url).post(requestBody).build();
             }
-            Logger.error(url+"======client========"+client);
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
                 return Json.parse(new String(response.body().bytes(), UTF_8));
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
+            Logger.info(url+"返回---->\n"+json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回数据错误json=" + json);

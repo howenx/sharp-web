@@ -117,25 +117,24 @@ public class UserCtrl extends Controller {
             object.put("idCardNum", addressMap.get("idCardNum").trim());
 
 
-            Promise<Message> promiseOfInt = Promise.promise(() -> {
+            Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
                 RequestBody formBody =RequestBody.create(MEDIA_TYPE_JSON,new String(object.toString()));
                 Request.Builder builder = (Request.Builder) ctx().args.get("request");
                 Request request = builder.url(addId>0?ADDRESS_UPDATE:ADDRESS_ADD).post(formBody).build();
                 Response response = client.newCall(request).execute();
                 if (response.isSuccessful()) {
-                    JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
-                    Logger.info("===json==" + json);
-                    Message message = Json.fromJson(json.get("message"), Message.class);
-                    if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
-                        Logger.error("返回创建新的收货地址数据错误code=" + (null != message ? message.getCode() : 0));
-                    }
-                    return message;
+                    return Json.parse(new String(response.body().bytes(), UTF_8));
                 } else throw new IOException("Unexpected code" + response);
             });
 
-            return promiseOfInt.map((Function<Message, Result>) pi -> {
-                Logger.error("返回结果" + pi);
-                return ok(toJson(pi));
+            return promiseOfInt.map((Function<JsonNode, Result>) json -> {
+                Logger.info("===json==" + json);
+                Message message = Json.fromJson(json.get("message"), Message.class);
+                if (null == message) {
+                    Logger.error("返回创建新的收货地址数据错误code=" +json);
+                    return badRequest();
+                }
+                return ok(toJson(message));
             });
         }
     }
@@ -174,25 +173,8 @@ public class UserCtrl extends Controller {
      */
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result>  addressDel(){
-        Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
-            Request.Builder builder = (Request.Builder) ctx().args.get("request");
-            RequestBody formBody =RequestBody.create(MEDIA_TYPE_JSON,new String(request().body().asJson().toString()));
-            Request request = builder.url(ADDRESS_DEL).post(formBody).build();
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                return Json.parse(new String(response.body().bytes(), UTF_8));
-            } else throw new IOException("Unexpected code " + response);
-        });
-
-        return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-            Logger.error("返回---->\n" + json);
-            Message message = Json.fromJson(json.get("message"), Message.class);
-            if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
-                Logger.error("返回地址删除数据错误code=" + (null != message ? message.getCode() : 0));
-                return badRequest();
-            }
-            return ok(toJson(message));
-        });
+        RequestBody formBody =RequestBody.create(MEDIA_TYPE_JSON,new String(request().body().asJson().toString()));
+        return comCtrl.postReqReturnMsg(ADDRESS_DEL,formBody);
     }
 
     //身份认证
@@ -310,24 +292,7 @@ public class UserCtrl extends Controller {
      */
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> collectDel(Long collectId) {
-        Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
-            Request.Builder builder = (Request.Builder) ctx().args.get("request");
-            Request request = builder.url(COLLECT_DEL + collectId).get().build();
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                return Json.parse(new String(response.body().bytes(), UTF_8));
-
-
-            } else throw new IOException("Unexpected code " + response);
-        });
-        return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-            Message message = Json.fromJson(json.get("message"), Message.class);
-            if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
-                Logger.error("返回取消收藏数据错误code=" + (null != message ? message.getCode() : 0));
-                return badRequest();
-            }
-            return ok(toJson(message));
-        } );
+        return comCtrl.getReqReturnMsg(COLLECT_DEL + collectId);
     }
 
 
