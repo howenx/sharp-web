@@ -18,6 +18,7 @@ import play.libs.F.Function;
 import play.libs.F.Function0;
 import play.libs.F.Promise;
 import play.libs.Json;
+import play.libs.openid.UserInfo;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
@@ -212,9 +213,34 @@ public class UserCtrl extends Controller {
         return ok(views.html.users.login.render(IMAGE_CODE));
     }
 
-    public Result myView() {
-        //请求用户信息
-        return ok(views.html.users.my.render());
+    /**
+     * 我的界面
+     * @return
+     */
+    @Security.Authenticated(UserAuth.class)
+    public F.Promise<Result> myView() {
+        Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
+            Request.Builder builder =(Request.Builder)ctx().args.get("request");
+            Request request=builder.url(USER_INFO).get().build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()){
+                return Json.parse(new String(response.body().bytes(), UTF_8));
+
+            }else  throw new IOException("Unexpected code " + response);
+        });
+        return promiseOfInt.map((Function<JsonNode , Result>) json -> {
+            Logger.info("==myView=json==" + json);
+            Message message = Json.fromJson(json.get("message"), Message.class);
+            if(null==message||message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+                Logger.error("返回收藏数据错误code="+(null!=message?message.getCode():0));
+                return badRequest();
+            }
+            UserDTO userInfo = Json.fromJson(json.get("userInfo"), UserDTO.class);
+            //请求用户信息
+            return ok(views.html.users.my.render(userInfo));
+        });
+
+
     }
 
     /**
@@ -634,7 +660,8 @@ public class UserCtrl extends Controller {
             ObjectMapper mapper = new ObjectMapper();
             PinActivityDTO pin = Json.fromJson(json.get("activity"), PinActivityDTO.class);
             pin.setPinImg(comCtrl.getImgUrl(pin.getPinImg()));
-          //  pin.setPinSkuUrl(comCtrl.getSkuDetailUrl());
+            pin.setPinSkuUrl(comCtrl.getDetailUrl(pin.getPinSkuUrl()));
+            Logger.info("===pin.getPinSkuUrl()===="+pin.getPinSkuUrl());
 
 
             return ok(views.html.shopping.fightgroups.render(pin));
@@ -667,6 +694,7 @@ public class UserCtrl extends Controller {
                 for(OrderDTO orderDTO:orderList){
                     for(CartSkuDto sku:orderDTO.getSku()){
                         sku.setInvImg(comCtrl.getImgUrl(sku.getInvImg()));
+                        sku.setInvUrl(comCtrl.getDetailUrl(sku.getInvUrl()));
                     }
                 }
             }
