@@ -395,6 +395,8 @@ public class ProductsCtrl extends Controller {
             List<Object[]> itemFeaturesList = new ArrayList<>();
             //热卖推荐
             List<List<Object[]>> pushResultList = new ArrayList<>();
+            //售罄推荐
+            List<Object[]> pushList = new ArrayList<>();
             //拼购商品
             Object[] pinSkuObject = new Object[8];
             //Sku商品预览图片
@@ -443,7 +445,7 @@ public class ProductsCtrl extends Controller {
                     int restAmount = stockJson.get("restAmount").asInt();
                     boolean isSoldOut = false;
                     if(endAt.compareTo(strNow) < 0 || restAmount == 0){
-                        isSoldOut = false;
+                        isSoldOut = true;
                     }
                     pinSkuObject[6] = isSoldOut;
                     pinSkuObject[7] = Json.fromJson(stockJson.get("invPrice"),BigDecimal.class);
@@ -457,7 +459,6 @@ public class ProductsCtrl extends Controller {
                 //热卖推荐
                 if(json.has("push")){
                     JsonNode pushJson = json.get("push");
-                    List<Object[]> pushList = new ArrayList<>();
                     for(JsonNode pushTemp : pushJson){
                         Object[] pushObject = new Object[13];
                         JsonNode imgJson = pushTemp.get("itemImg");
@@ -521,7 +522,7 @@ public class ProductsCtrl extends Controller {
                     }
                 }
             }
-            return ok(views.html.products.pinDetail.render(itemMain,itemFeaturesList,pinSkuObject,pushResultList,preImgList));
+            return ok(views.html.products.pinDetail.render(itemMain,itemFeaturesList,pinSkuObject,pushResultList,preImgList,pushList));
         }
     }
 }
