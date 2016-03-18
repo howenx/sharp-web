@@ -329,6 +329,10 @@ public class UserCtrl extends Controller {
     }
 
 
+    /**
+     * 用户登录
+     * @return
+     */
     public Promise<Result> loginSubmit() {
 
         ObjectNode result = newObject();
@@ -373,6 +377,7 @@ public class UserCtrl extends Controller {
                             }
                             session("id-token", token);
                         }
+                        Logger.error(json.toString()+"-----"+message.toString());
                         return ok(Json.toJson(message));
                     }
             );

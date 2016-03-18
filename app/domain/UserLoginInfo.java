@@ -33,8 +33,9 @@ public class UserLoginInfo implements Serializable {
     protected  String code;
 
     public List<ValidationError> validate() {
+        String codeReg = "^[0-9a-zA-Z]{4}$";
         List<ValidationError> errors = new ArrayList<>();
-        if (code.equals("-1") || (cache.get(code.toUpperCase()) != null && cache.get(code.toUpperCase()).equals(code.toUpperCase()))) {
+        if (code.equals("-1") || code.matches(codeReg)) {
         }else errors.add(new ValidationError("code", "This code is wrong"));
         return errors.isEmpty() ? null : errors;
     }

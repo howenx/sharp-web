@@ -55,6 +55,8 @@
         $(function(){
             var phoneReg = new RegExp(/^1[345678]\d{9}$/);
             $("#btn-reg").css('background', '#C0C0C0');
+            $('#js-userinfo-error').hide();
+
             //输入手机号格式正确可以点击下一步
             $('#phone').bind('input propertychange', function() {
                 if (phoneReg.test($(this).val())) {
@@ -70,8 +72,8 @@
             });
 
             //弹框取消按钮
-            $('.box-l').click(function(){
-                $('.shade').hide();
+            $('.box-reg').click(function(){
+                $('.shade-reg').hide();
             })
 
             /*删除*/
@@ -86,11 +88,15 @@
                     }
             });
 
+            var phone = $("#phone").val();
+            var msg = hex_md5(phone+"hmm");
+            $("#msg").val(msg);
 
             //用户注册检测手机号
             $(document).on('click', '#btn-reg', function() {
+                $("#msg").removeAttr("name");
                 var phone = $("#phone").val();
-                //console.log($('form#cell_verifyForm').serialize());
+                console.log($('form#cell_verifyForm').serialize());
                 var msg = hex_md5(phone+"hmm");
                 $.ajax({
                         url: "/phone/verify",
@@ -99,30 +105,30 @@
                         type: 'POST',
                         success: function(data) {
                                    console.log(data);
+                                   $("#msg").attr({"name":"msg"});
                                    //用户已经注册,弹框提示
                                    if (data.code === 5001) {
-                                        $('.shade').show();
+                                        $('.shade-reg').show();
                                    }
                                    //用户未注册,请求手机验证码接口
                                    if (data.code === 4003) {
-                                           //console.log($('form#cell_verifyForm').append("<input name='msg' type='hidden' value='"+msg+"'>").serialize());
+                                           $("#code").removeAttr("name");
+                                           console.log($('form#cell_verifyForm').serialize());
                                            $.ajax({
                                                     url: "/phone/code",
                                                     dataType: 'json',
-                                                    data: $('form#cell_verifyForm').append("<input name='msg' type='hidden' value='"+msg+"'>").serialize(),
+                                                    data: $('form#cell_verifyForm').serialize(),
                                                     type: 'POST',
                                                     success: function(data) {
                                                        console.log(data);
+                                                        $("#code").attr({"name":"code"});
                                                        //手机验证码发送成功
                                                        if (data.code === 200) {
-                                                            console.log(JSON.stringify(phone));
                                                             window.location.href = "/regist/"+phone;
                                                        }
-                                                       if (data.code === 5005) {
-                                                            alert("发送验证码次数过多,请明天再试");
-                                                       }
-                                                       if (data.code === 5004) {
-                                                            alert("安全校验不通过");
+                                                       else {
+                                                            $('#js-userinfo-error').text(data.message).show();
+                                                            setTimeout("$('#js-userinfo-error').hide()", 2000);
                                                        }
                                                     }
                                            });
@@ -141,7 +147,7 @@
         <a href="/login"><span class="icon-back" id="backBtn"></span></a>
     </div>
     <div class="login">
-
+        <div id="js-userinfo-error" class="cue"></div>
         <div class="login-t">我们将发送验证码到你的手机 13241179879  18676889842</div>
         <fieldset>
             <form id="cell_verifyForm" method="post" onsubmit="return false" action="" >
@@ -150,6 +156,7 @@
                        <span>手机号</span> <input id="phone" type="text" class="input-rese" name='phone' placeholder="请输入手机号" maxlength="11" required pattern="[1][345678]\d{9}" onkeyup="this.value=this.value.replace(/\D/g,'')"/>
                         <i class="delet delet-box"></i>
                             <input type="hidden" id="code" name="code" value="-1">
+                            <input type="hidden" id="msg" name="msg" value="">
                     </dd>
                 </dl>
             </form>
@@ -161,14 +168,13 @@
     </div>
 
 
-    <div class="shade">
+    <div class="shade shade-reg">
         <div class="box">
             <span>该手机号已经注册</span>
             <div class="box-a">
-                <a href="javascript:;" class="box-l">取消</a>
+                <a href="javascript:;" class="box-l box-reg">取消</a>
                 <a href="/retrieve" class="box-r">找回密码</a>
             </div>
-
         </div>
     </div>
 </div>
