@@ -34,14 +34,18 @@
                 $.ajax({
                         type: 'POST', 
                         url:  "/nickname", 
-                        data: JSON.stringify(nickname), 
                         contentType: "application/json; charset=utf-8", 
+                        data: JSON.stringify(nickname), 
                         dataType: 'json',
                         success: function(data) { 
+                            alert(data);
                             condole.log(data);
+                            window.location.href = '/nickname';
+
                         },
-                        error: function() { 
+                        error: function(request) { 
                             console.log("error!");
+                            console.log(request);
                         }
                 });
             });

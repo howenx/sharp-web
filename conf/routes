@@ -36,6 +36,7 @@ POST        /reset/submit             controllers.UserCtrl.resetPwdSubmit()
 #用户信息
 GET         /means                    controllers.UserCtrl.means()
 POST         /nickname                  controllers.UserCtrl.nickname()
+GET         /nickname                  controllers.UserCtrl.nickname()
 #POST        /user/update              controllers.UserCtrl.userUpdate()
 
 

@@ -230,6 +230,7 @@ public class UserCtrl extends Controller {
     }
 
     public Result myView() {
+        //请求用户信息
         return ok(views.html.users.my.render());
     }
 
@@ -589,10 +590,13 @@ public class UserCtrl extends Controller {
      */
     @Security.Authenticated(UserAuth.class)
     public Result nickname() {
-        String nickname = request().body().asJson().toString();
-        Logger.error(nickname);
-        return ok("success");
-        //return ok(views.html.users.nickname.render(nickname));
+        String nickname = request().body().asJson().asText();
+        Logger.error("昵称:"+nickname);
+        session().put("nickname", nickname);
+        //String nn = request().getQueryString("nickname");
+
+        //return ok("成功");
+        return ok(views.html.users.nickname.render(nickname));
     }
 
     //我的拼团
