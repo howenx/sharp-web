@@ -23,7 +23,11 @@ import static modules.SysParCom.*;
  * Created by howen on 16/3/9.
  */
 public class ProductsCtrl extends Controller {
-    //首页
+    /**
+     * 首页
+     * @return
+     * @throws Exception
+     */
     public Result index() throws Exception {
         //返回  ------->start
         String path_index = routes.ProductsCtrl.index().url();
@@ -90,7 +94,11 @@ public class ProductsCtrl extends Controller {
         return ok(views.html.products.index.render(sliderList,themeList));
     }
 
-    //Ajax加载首页
+    /**
+     * Ajax加载首页
+     * @return
+     * @throws Exception
+     */
     public Result loadIndexAjax() throws Exception{
         String pageCount = request().body().asJson().toString();
         List<Theme> themeList = new ArrayList<>();
@@ -122,7 +130,12 @@ public class ProductsCtrl extends Controller {
 
     }
 
-    //主题详情页
+    /**
+     * 主题详情页
+     * @param url
+     * @return
+     * @throws Exception
+     */
     public Result themeDetail(String url) throws Exception {
         //返回  ------->start
         String path = session().get("path_index");
@@ -258,7 +271,13 @@ public class ProductsCtrl extends Controller {
         return ok(views.html.products.themeDetail.render(path,themeImg,tagList,itemResultList));
     }
 
-    //商品明细
+    /**
+     * 商品明细
+     * @param type
+     * @param url
+     * @return
+     * @throws Exception
+     */
     public Result detail(String type,String url) throws Exception {
         //返回  ------->start
         String path = session().get("path_theme");
@@ -549,4 +568,14 @@ public class ProductsCtrl extends Controller {
             return badRequest(views.html.error500.render());
         }
     }
+
+    /**
+     * 拼购玩法说明
+     * @return
+     */
+    public Result pinInstruction() {
+        return ok(views.html.products.pinInstruction.render());
+    }
+
+
 }

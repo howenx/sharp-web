@@ -1,0 +1,204 @@
+.warp{
+    padding: 50px 2%;
+}
+.detail-box{
+    background-color: #fff;
+    padding: 10px 2%;
+    margin:10px 0 ;
+    border-radius: 10px ;
+}
+
+.commodity{
+    width:100%;
+    height:110px;
+    display: block;
+
+}
+
+.commodity .commodity-rmb {
+    display: block;
+}
+
+
+span .rmb{
+    font-size:20px;
+    margin: 0 10px 0 0 ;
+}
+
+
+.commodity img{
+    width:80px;
+    height:106px;
+    float: left;
+    margin: 0 10px 0 0;
+}
+
+.commodity h2{
+    font-size: 16px;
+    overflow: hidden;
+    display: -webkit-box;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    margin: 0 0 10px 0;
+}
+
+
+.detail-m {
+    border-radius:5px;
+
+}
+
+.detail-m a,.detail-m .num{
+    float: left;
+    width:30px ;
+    height: 30px;
+    line-height: 30px;
+    color: #666;
+    border: 1px solid #ccc;
+    text-align: center;
+    margin: 10px 0;
+}
+.detail-m a{
+    border-radius:5px 0 0 5px;
+    margin-right:-1px;
+}
+
+.detail-m .last{
+    border-radius: 0 5px 5px 0 ;
+    margin-left:-1px;
+}
+
+.p-last{
+    color: #999;
+    font-size: 14px;
+}
+
+.detail-m .detail-m-inp{
+    width: 100%;
+    border: 1px solid #ccc;
+    padding:0px 10px 0 10px;
+    height: 50px;
+    margin: 10px 0 0 0;
+
+}
+
+.picture{
+    display: block;
+    background: url("/assets/images/hmmapp-assess01.jpg") no-repeat;
+    background-size: contain;
+    width: 100%;
+    height: 130px;
+    margin: 20px 0;
+    position: relative;
+    top: 10px;
+}
+
+.face{
+    width: 100%;
+    height: 100px;
+    z-index: 110;
+    filter: alpha(opacity = 0);
+    -moz-opacity: 0;
+    opacity: 0;
+}
+
+.btn{
+    height: 50px;
+    line-height: 50px;
+    width: 100%;
+    background-color: #E66255;
+    text-align: center;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.shade{
+    width: 100%;
+    height: 2000px;
+    position:fixed;
+    top:0;
+    left: 0;
+    background-color: rgba(0,0,0,0.8);
+    z-index: 20;
+   display: none;
+}
+
+.shade .box{
+    width: 80%;
+    background-color:#fff;
+    padding:2% 5%;
+    position: fixed;
+    top:30%;
+    left: 50%;
+    margin-left:-40%;
+
+}
+.box-hd{
+    width:100%;
+    text-align: center;
+    display: block;
+    font-weight: bold;
+    font-size:22px;
+    color: #333;
+
+}
+
+.shade .box ul{
+    width: 100%;
+}
+.shade .box li{
+    width: 100%;
+    text-align: center;
+    border: 1px solid #ccc;
+    margin: 10px 0 10px 0;
+}
+
+ul li span {
+    width: 80px;
+    height: 45px;
+    line-height: 45px;
+}
+
+.input-rese {
+    width: 80%;
+    border: none;
+    margin: 0;
+    font-size: 14px;
+    line-height: 45px;
+    color: #999;
+
+}
+
+.hint{
+    width:20%;
+    height: 45px;
+    line-height: 45px;
+    background-color: #000;
+    border-radius:20px;
+    color: #fff;
+    margin: 20px auto;
+    text-align: center;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
