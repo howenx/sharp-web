@@ -171,7 +171,13 @@ public class ProductsCtrl extends Controller {
                                 urlType = "item";
                             }
                             tagObject[1] = tagUrl;
-                            tagObject[2] = tag.get("left").asDouble() * 100;
+                            int tagAngle = tag.get("angle").asInt();
+                            if(tagAngle == 0){
+                                tagObject[2] = tag.get("left").asDouble() * 100;
+                            }
+                            if(tagAngle == 180){
+                                tagObject[2] = 100 - tag.get("left").asDouble() * 100;
+                            }
                             String tagName = tag.get("name").toString();
                             tagName = tagName.substring(1,tagName.length()-1);
                             tagObject[3] = tagName;
