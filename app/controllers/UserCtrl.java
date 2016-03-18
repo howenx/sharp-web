@@ -610,6 +610,12 @@ public class UserCtrl extends Controller {
         });
     }
 
+    //申请售后
+     public Result service() {
+            //请求用户信息
+            return ok(views.html.users.service.render());
+        }
+
 
     //我的拼团
     @Security.Authenticated(UserAuth.class)
