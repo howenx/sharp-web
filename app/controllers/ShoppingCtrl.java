@@ -16,6 +16,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 
+import javax.inject.Inject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,8 @@ import static play.libs.Json.toJson;
  * Created by howen on 16/3/9.
  */
 public class ShoppingCtrl extends Controller {
+    @Inject
+    ComCtrl comCtrl;
 
     //全部订单
     @Security.Authenticated(UserAuth.class)
@@ -51,8 +54,16 @@ public class ShoppingCtrl extends Controller {
             }
             ObjectMapper mapper = new ObjectMapper();
             List<OrderDTO> orderList = mapper.readValue(json.get("orderList").toString(), new TypeReference<List<OrderDTO>>() {});
+            if(null!=orderList&&!orderList.isEmpty()){
+                for(OrderDTO orderDTO:orderList){
+                    for(CartSkuDto sku:orderDTO.getSku()){
+                        sku.setInvImg(comCtrl.getImgUrl(sku.getInvImg()));
+                    }
+                }
+            }
+
             if (id > 0) {
-                return ok(views.html.shopping.orderpa.render(orderList));
+                return ok(views.html.shopping.orderpa.render(orderList));//订单详情
             }
             return ok(views.html.shopping.all.render(orderList));
         });

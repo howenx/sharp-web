@@ -26,6 +26,7 @@ public class SysParCom {
     public static String ADDRESS_DEL;//地址删除
     public static String ADDRESS_UPDATE;//地址更新
     public static String COUPON_PAGE;//我的优惠券
+    public static String FEEDBACK_PAGE;//意见反馈
     public static String ORDER_PAGE;//我的订单
     public static String ORDER_CANCEL;//取消订单
     public static String ORDER_DEL;//删除订单
@@ -90,10 +91,13 @@ public class SysParCom {
 
 
         COUPON_PAGE=configuration.getString("user.coupons");
+        FEEDBACK_PAGE=configuration.getString("user.feedback");
+        //我的订单
         ORDER_PAGE=configuration.getString("user.order.all");
         ORDER_CANCEL=configuration.getString("user.order.cancel");
         ORDER_DEL=configuration.getString("user.order.del");
 
+        //我的拼团
         PIN_LIST=configuration.getString("user.pin.list");
         PIN_ACTIVITY=configuration.getString("user.pin.activity");
         PIN_ORDER_DETAIL=configuration.getString("user.pin.detail");

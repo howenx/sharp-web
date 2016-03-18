@@ -19,6 +19,7 @@ public class ComTools {
      * @return
      */
     public static String IDCardValidate(String IDStr) {
+        IDStr=IDStr.toLowerCase();
         String errorInfo = "";// 记录错误信息
         String[] ValCodeArr = { "1", "0", "x", "9", "8", "7", "6", "5", "4",
                 "3", "2" };
