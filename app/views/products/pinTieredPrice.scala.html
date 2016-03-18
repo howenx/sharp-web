@@ -1,3 +1,4 @@
+@(pinTitle:String,invImg:String,pinTieredPriceList:List[domain.PinTieredPrice],floorPrice:Array[Object])
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,42 +36,47 @@
 
 <div class="warp">
     <div class="choose-top clearfix">
-        <img src="http://img.hanmimei.com/ab67632aaecf4009a60bd7e1693167e41451370908369.jpg" alt=""/>
-        <h2>[快来拼团啦]韩迷美保湿面霜韩迷美保湿面霜韩迷美保湿面霜</h2>
+        <img src="@invImg" alt=""/>
+        <h2>@pinTitle</h2>
     </div>
 
     <div class="choose-m">
         <p class="mold">选择拼购类型</p>
 
         <ul>
-            <li class="current first">
-                <div>
-                    <b class="b-big">开团人数 : </b>
-                    <span> 7人</span>
-                    <p><b class="sign">￥</b><i>18</i></p>
-                </div>
-            </li>
+            @for((price,index) <- pinTieredPriceList.zipWithIndex){
+                @if(index == 0){
+                    <li class="current first">
+                        <div>
+                            <b class="b-big">开团人数 : </b>
+                            <span> @price.getPeopleNum()人</span>
+                            <p><b class="sign">￥</b><i>@price.getPrice()</i></p>
+                        </div>
+                    </li>
+                }
+                @if(index != 0){
+                    <li>
+                        <div>
+                            <b class="b-big">开团人数 : </b>
+                            <span> @price.getPeopleNum()人</span>
+                            <p><b class="sign">￥</b><i>@price.getPrice()</i></p>
+                        </div>
+                    </li>
+                }
+            }
 
-            <li>
-                <div>
-                    <b class="b-big">开团人数 : </b>
-                    <span> 5人</span>
-                    <p><b class="sign">￥</b><i>29</i></p>
-                </div>
-            </li>
-
-            <li>
-                <div>
-                    <b class="b-big">开团人数 : </b>
-                    <span> 3人</span>
-                    <p><b class="sign">￥</b><i>39</i></p>
-                </div>
-            </li>
+            <!--<li>-->
+                <!--<div>-->
+                    <!--<b class="b-big">开团人数 : </b>-->
+                    <!--<span> 3人</span>-->
+                    <!--<p><b class="sign">￥</b><i>39</i></p>-->
+                <!--</div>-->
+            <!--</li>-->
         </ul>
     </div>
 
     <div class="choose-b">
-        <p><b>立即开团</b> ( <span>39</span><b>元 / </b> <i>3人</i> )</p>
+        <p><b>立即开团</b> ( <span>@floorPrice(1)</span><b>元 / </b> <i>@floorPrice(0)人</i> )</p>
     </div>
 
 </div>

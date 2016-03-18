@@ -52,6 +52,7 @@ POST        /indexAjax                 controllers.ProductsCtrl.loadIndexAjax()
 GET         /themeDetail/*url          controllers.ProductsCtrl.themeDetail(url)
 GET         /detail/:type/*url         controllers.ProductsCtrl.detail(type,url)
 GET         /pinInstruction            controllers.ProductsCtrl.pinInstruction()
+GET         /pinTieredPrice/*url       controllers.ProductsCtrl.pinTieredPrice(url)
 
 
 
@@ -74,7 +75,6 @@ GET         /obligati                 controllers.ShoppingCtrl.obligati()
 GET         /orders                   controllers.ShoppingCtrl.orders()
 GET         /settle                   controllers.ShoppingCtrl.settle()
 GET         /cart                     controllers.ShoppingCtrl.cart()
-GET         /opengroup                controllers.ShoppingCtrl.opengroup()
 GET         /cart/empty               controllers.ShoppingCtrl.emptyCart()
 GET         /order/cancel/$orderId<[0-9]+>     controllers.ShoppingCtrl.cancelOrder(orderId:Long)
 GET         /order/del/$orderId<[0-9]+>        controllers.ShoppingCtrl.delOrder(orderId:Long)

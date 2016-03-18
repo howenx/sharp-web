@@ -1,4 +1,4 @@
-@(itemMain:domain.Item,itemFeaturesList:List[Array[Object]],pinSkuObject:Array[Object],pushList:List[List[Array[Object]]],preImgList:List[String],SoldOutPushList:List[Array[Object]])
+@(itemMain:domain.Item,itemFeaturesList:List[Array[Object]],pinSkuObject:Array[Object],pushList:List[List[Array[Object]]],preImgList:List[String],SoldOutPushList:List[Array[Object]],url:String)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,7 +75,12 @@
         <div class="txt">
             <p>支付开团并邀请2人参团,人数不足自动退款,详见下方拼团玩法</p>
             <div class="diamond">
+                @if(pinSkuObject(6) == true){
                 <a href="javascript:;">
+                }
+                @if(pinSkuObject(6) != true){
+                <a href="/pinTieredPrice/@url">
+                }
                     <span class="big">@pinSkuObject(1)元/件</span>
                     <span>@pinSkuObject(2)人成团</span>
                 </a>

@@ -4,10 +4,7 @@ package controllers;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
-import domain.Inventory;
-import domain.Item;
-import domain.Slider;
-import domain.Theme;
+import domain.*;
 import play.Logger;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -562,7 +559,7 @@ public class ProductsCtrl extends Controller {
                         pushResultList.add(rowList);
                     }
                 }
-                return ok(views.html.products.pinDetail.render(itemMain,itemFeaturesList,pinSkuObject,pushResultList,preImgList,pushList));
+                return ok(views.html.products.pinDetail.render(itemMain,itemFeaturesList,pinSkuObject,pushResultList,preImgList,pushList,url));
             }
         }else{
             return badRequest(views.html.error500.render());
@@ -577,5 +574,51 @@ public class ProductsCtrl extends Controller {
         return ok(views.html.products.pinInstruction.render());
     }
 
+    /**
+     * 拼购商品的价格阶梯
+     * @param url
+     * @return
+     * @throws Exception
+     */
+    public Result pinTieredPrice(String url) throws Exception {
+        String pinTitle = "";
+        String invImg = "";
+        List<PinTieredPrice> pinTieredPriceList = new ArrayList<>();
+        Object[] floorPrice = new Object[2];
 
+        Request request = new Request.Builder()
+                .url(PIN_PAGE + url)
+                .build();
+        Response response = client.newCall(request).execute();
+        if(response.isSuccessful()){
+            JsonNode json = Json.parse(response.body().string());
+            if(json.has("stock")){
+                JsonNode stockJson = json.get("stock");
+                if(stockJson.has("pinTieredPrices")){
+                    JsonNode tieredPriceJson = stockJson.get("pinTieredPrices");
+                    for(JsonNode price:tieredPriceJson){
+                        PinTieredPrice tieredPrice = Json.fromJson(price,PinTieredPrice.class);
+                        pinTieredPriceList.add(tieredPrice);
+                    }
+                    Collections.sort(pinTieredPriceList, new Comparator<PinTieredPrice>() {
+                        @Override
+                        public int compare(PinTieredPrice tieredPrice2, PinTieredPrice tieredPrice1)
+                        {
+                            return  tieredPrice1.getPeopleNum().compareTo(tieredPrice2.getPeopleNum());
+                        }
+                    });
+                }
+                pinTitle = stockJson.get("pinTitle").asText();
+                JsonNode imgJson = Json.parse(Json.fromJson(stockJson.get("invImg"),String.class));
+                invImg = imgJson.get("url").asText();
+                JsonNode floorPriceJson = Json.parse(Json.fromJson(stockJson.get("floorPrice"),String.class));
+                floorPrice[0] = floorPriceJson.get("person_num").asInt();
+                floorPrice[1] = Json.fromJson(floorPriceJson.get("price"),BigDecimal.class);
+
+            }
+            return ok(views.html.products.pinTieredPrice.render(pinTitle,invImg,pinTieredPriceList,floorPrice));
+        }else {
+            return badRequest(views.html.error500.render());
+        }
+    }
 }
