@@ -17,8 +17,8 @@ $(function(){
                 }else if (tel.length!=11 ||!telReg.test(tel)) {
                      $('#js-userinfo-error').text('请填写正确的手机号码').show();
                      setTimeout("$('#js-userinfo-error').hide()", 3000);
-                }else if (deliveryDetail.length>50||deliveryDetail.length<1 ||!zszReg.test(deliveryDetail)) {
-                     $('#js-userinfo-error').text('详细地址只能是50字内的中文/数字/字母').show();
+                }else if (deliveryDetail.length<5||deliveryDetail.length>50||!zszReg.test(deliveryDetail)) {
+                     $('#js-userinfo-error').text('详细地址只能是5~50字内的中文/数字/字母').show();
                      setTimeout("$('#js-userinfo-error').hide()", 3000);
                 }else if(!((idCardNum.length==15&&card15Reg.test(idCardNum))||(idCardNum.length==18&&card18Reg.test(idCardNum)))){
                      $('#js-userinfo-error').text('请填写正确的身份证号码').show();
@@ -183,7 +183,35 @@ $(document).ready(function(){
      }
 });
 
+$(document).on("click",".feedbackBtn",function(){
+    var content=$("#feedback").val();
 
+    if(null==content||""==content||content.length<5||content.length>140){
+       alert("请输入5~140字的反馈意见");
+    }
+    else {
+        var obj=new Object();
+        obj.content=content;
+        $.ajax({
+                type: 'POST',
+                url: "/feedback",
+                contentType: "application/json; charset=utf-8",
+                data : JSON.stringify(obj),
+                error:function(request) {
+                    alert("意见反馈失败");
+                },
+                success: function(data) {
+                    console.log("data="+data+"==="+data.code);
+                    if (data!=""&&data!=null&&data.code==200) {
+                        setTimeout("location.href='/myView'", 3000);
+                    }else{
+                        alert("意见反馈失败");
+                    }
+
+                }
+        });
+    }
+});
 
 
 

@@ -9,7 +9,6 @@ import domain.Address;
 import domain.*;
 import filters.UserAuth;
 import modules.ComTools;
-import modules.SysParCom;
 import net.spy.memcached.MemcachedClient;
 import play.Logger;
 import play.cache.Cache;
@@ -25,7 +24,6 @@ import play.mvc.Security;
 
 import javax.inject.Inject;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -48,6 +46,8 @@ public class UserCtrl extends Controller {
 
     @Inject
     private MemcachedClient cache;
+    @Inject
+    ComCtrl comCtrl;
 
     public static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
 
@@ -117,25 +117,24 @@ public class UserCtrl extends Controller {
             object.put("idCardNum", addressMap.get("idCardNum").trim());
 
 
-            Promise<Message> promiseOfInt = Promise.promise(() -> {
+            Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
                 RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, new String(object.toString()));
                 Request.Builder builder = (Request.Builder) ctx().args.get("request");
                 Request request = builder.url(addId > 0 ? ADDRESS_UPDATE : ADDRESS_ADD).post(formBody).build();
                 Response response = client.newCall(request).execute();
                 if (response.isSuccessful()) {
-                    JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
-                    Logger.info("===json==" + json);
-                    Message message = Json.fromJson(json.get("message"), Message.class);
-                    if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
-                        Logger.error("返回创建新的收货地址数据错误code=" + (null != message ? message.getCode() : 0));
-                    }
-                    return message;
+                    return Json.parse(new String(response.body().bytes(), UTF_8));
                 } else throw new IOException("Unexpected code" + response);
             });
 
-            return promiseOfInt.map((Function<Message, Result>) pi -> {
-                Logger.error("返回结果" + pi);
-                return ok(toJson(pi));
+            return promiseOfInt.map((Function<JsonNode, Result>) json -> {
+                Logger.info("===json==" + json);
+                Message message = Json.fromJson(json.get("message"), Message.class);
+                if (null == message) {
+                    Logger.error("返回创建新的收货地址数据错误code=" + json);
+                    return badRequest();
+                }
+                return ok(toJson(message));
             });
         }
     }
@@ -196,9 +195,13 @@ public class UserCtrl extends Controller {
             }
             return ok(toJson(message));
         });
-    }
+        public F.Promise<Result> addressDel () {
+            RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, new String(request().body().asJson().toString()));
+            return comCtrl.postReqReturnMsg(ADDRESS_DEL, formBody);
+        }
 
-    //身份认证
+        //身份认证
+
     public Result carded() {
         return ok(views.html.users.carded.render());
     }
@@ -235,11 +238,40 @@ public class UserCtrl extends Controller {
     }
 
     public Result myView() {
+        //请求用户信息
         return ok(views.html.users.my.render());
     }
 
+    /**
+     * 意见反馈
+     *
+     * @return
+     */
+    @Security.Authenticated(UserAuth.class)
     public Result tickling() {
         return ok(views.html.users.tickling.render());
+    }
+
+    /**
+     * 意见反馈
+     *
+     * @return
+     */
+    @Security.Authenticated(UserAuth.class)
+    public F.Promise<Result> feedback() {
+        JsonNode rJson = request().body().asJson();
+        String content = "";
+        if (rJson.has("content")) {
+            content = rJson.findValue("content").asText().trim();
+        }
+        if ("".equals(content) || content.length() > 140) {
+            ObjectNode result = Json.newObject();
+            result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
+            return Promise.promise((Function0<Result>) () -> ok(result));
+        }
+        RequestBody requestBody = RequestBody.create(MEDIA_TYPE_JSON, new String(rJson.toString()));
+        return comCtrl.postReqReturnMsg(FEEDBACK_PAGE, requestBody);
+
     }
 
     @Security.Authenticated(UserAuth.class)
@@ -307,6 +339,7 @@ public class UserCtrl extends Controller {
             }
             return ok(toJson(message));
         });
+        return comCtrl.getReqReturnMsg(COLLECT_DEL + collectId);
     }
 
 
@@ -598,10 +631,13 @@ public class UserCtrl extends Controller {
      */
     @Security.Authenticated(UserAuth.class)
     public Result nickname() {
-        String nickname = request().body().asJson().toString();
-        Logger.error(nickname);
-        return ok("success");
-        //return ok(views.html.users.nickname.render(nickname));
+        String nickname = request().body().asJson().asText();
+        Logger.error("昵称:" + nickname);
+        session().put("nickname", nickname);
+        //String nn = request().getQueryString("nickname");
+
+        //return ok("成功");
+        return ok(views.html.users.nickname.render(nickname));
     }
 
     //我的拼团
@@ -616,27 +652,30 @@ public class UserCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((play.libs.F.Function<JsonNode, Result>) json -> {
-            Logger.info("===json==" + json);
-            Message message = Json.fromJson(json.get("message"), Message.class);
-            if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
-                Logger.error("返回拼团数据错误code=" + (null != message ? message.getCode() : 0));
-                return badRequest(views.html.error500.render());
-            }
-            ObjectMapper mapper = new ObjectMapper();
-            List<PinActivityListDTO> pinList = mapper.readValue(json.get("activityList").toString(), new TypeReference<List<PinActivityListDTO>>() {
-            });
-            for (PinActivityListDTO pin : pinList) {
-                if (pin.getPinImg().contains("url")) {
-                    JsonNode jsonNode = Json.parse(pin.getPinImg());
-                    if (jsonNode.has("url")) {
-                        pin.setPinImg(jsonNode.get("url").asText());
+                    Logger.info("===json==" + json);
+                    Message message = Json.fromJson(json.get("message"), Message.class);
+                    if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
+                        Logger.error("返回拼团数据错误code=" + (null != message ? message.getCode() : 0));
+                        return badRequest(views.html.error500.render());
                     }
-                } else
-                    pin.setPinImg(SysParCom.IMAGE_URL + pin.getPinImg());
-            }
+                    ObjectMapper mapper = new ObjectMapper();
+                    List<PinActivityListDTO> pinList = mapper.readValue(json.get("activityList").toString(), new TypeReference<List<PinActivityListDTO>>() {
+                    });
+                    for (PinActivityListDTO pin : pinList) {
+                        if (pin.getPinImg().contains("url")) {
+                            JsonNode jsonNode = Json.parse(pin.getPinImg());
+                            if (jsonNode.has("url")) {
+                                pin.setPinImg(jsonNode.get("url").asText());
+                            }
+                        } else
+                            pin.setPinImg(SysParCom.IMAGE_URL + pin.getPinImg());
+                    }
 
-            return ok(views.html.users.mypin.render(pinList));
-        });
+
+                    return ok(views.html.users.mypin.render(pinList));
+                }
+
+        );
     }
 
 
@@ -652,24 +691,27 @@ public class UserCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((play.libs.F.Function<JsonNode, Result>) json -> {
-            Logger.info("===json==" + json);
-            Message message = Json.fromJson(json.get("message"), Message.class);
-            if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
-                Logger.error("返回拼团数据错误code=" + (null != message ? message.getCode() : 0));
-                return badRequest(views.html.error500.render());
-            }
-            ObjectMapper mapper = new ObjectMapper();
-            PinActivityDTO pin = Json.fromJson(json.get("activity"), PinActivityDTO.class);
-            if (pin.getPinImg().contains("url")) {
-                JsonNode jsonNode = Json.parse(pin.getPinImg());
-                if (jsonNode.has("url")) {
-                    pin.setPinImg(jsonNode.get("url").asText());
-                }
-            } else
-                pin.setPinImg(SysParCom.IMAGE_URL + pin.getPinImg());
+                    Logger.info("===json==" + json);
+                    Message message = Json.fromJson(json.get("message"), Message.class);
+                    if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
+                        Logger.error("返回拼团数据错误code=" + (null != message ? message.getCode() : 0));
+                        return badRequest(views.html.error500.render());
+                    }
+                    ObjectMapper mapper = new ObjectMapper();
+                    PinActivityDTO pin = Json.fromJson(json.get("activity"), PinActivityDTO.class);
+                    if (pin.getPinImg().contains("url")) {
+                        JsonNode jsonNode = Json.parse(pin.getPinImg());
+                        if (jsonNode.has("url")) {
+                            pin.setPinImg(jsonNode.get("url").asText());
+                        }
+                    } else
+                        pin.setPinImg(SysParCom.IMAGE_URL + pin.getPinImg());
 
-            return ok(views.html.shopping.fightgroups.render(pin));
-        });
+
+                    return ok(views.html.shopping.fightgroups.render(pin));
+                }
+
+        );
     }
 
     @Security.Authenticated(UserAuth.class)
@@ -683,20 +725,22 @@ public class UserCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((play.libs.F.Function<JsonNode, Result>) json -> {
-            Logger.info("===json==" + json);
-            Message message = Json.fromJson(json.get("message"), Message.class);
-            if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
-                Logger.error("返回拼购订单数据错误code=" + (null != message ? message.getCode() : 0));
-                return badRequest();
-            }
-            ObjectMapper mapper = new ObjectMapper();
-            List<OrderDTO> orderList = mapper.readValue(json.get("orderList").toString(), new TypeReference<List<OrderDTO>>() {
-            });
-            if (null == orderList || orderList.isEmpty()) {
-                return badRequest();
-            }
-            return ok(views.html.users.mypinDetail.render(orderList.get(0)));
-        });
+                    Logger.info("===json==" + json);
+                    Message message = Json.fromJson(json.get("message"), Message.class);
+                    if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
+                        Logger.error("返回拼购订单数据错误code=" + (null != message ? message.getCode() : 0));
+                        return badRequest();
+                    }
+                    ObjectMapper mapper = new ObjectMapper();
+                    List<OrderDTO> orderList = mapper.readValue(json.get("orderList").toString(), new TypeReference<List<OrderDTO>>() {
+                    });
+                    if (null == orderList || orderList.isEmpty()) {
+                        return badRequest();
+                    }
+                    return ok(views.html.users.mypinDetail.render(orderList.get(0)));
+                }
+
+        );
     }
 
 }
