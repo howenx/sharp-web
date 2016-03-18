@@ -1,3 +1,4 @@
+@(userInfo:domain.UserDTO)
 @scripts = {
 <link rel="stylesheet" href="/assets/stylesheets/global.css">
 <link rel="stylesheet" href="/assets/stylesheets/myhmm.css">
@@ -18,8 +19,8 @@
     <a href="/means" class="fit">设置</a>
     <div class="user bg">
          <a href="/login" class="land">
-             <img src="/assets/images/personal-01.jpg">
-             登录
+             <img src="@userInfo.getPhoto()">
+             @userInfo.getName() @userInfo.getGender()
          </a>
     </div>
 </a>
@@ -74,7 +75,7 @@
         <a href="/coupon" class="list-agio">
             <div class="agio-box">
                 <i>我的优惠券</i>
-                <span>2个</span>
+                <span>@userInfo.getCouponsCount()个</span>
             </div>
         </a>
         <a href="/address" class="list-add">
