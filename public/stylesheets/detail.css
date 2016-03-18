@@ -947,9 +947,7 @@ div .cycle-overlay {
 }
 .toup .con .item div{
 	margin-top: 10px;
-	background-color: #E66255;
 	margin-right: 10px;
-	color: #fff;
 }
 .toup .con .item div:nth-of-type(1){
 	border-top-right-radius:14px;
@@ -958,6 +956,7 @@ div .cycle-overlay {
 	padding: 2px 0 2px 2px;
 	font-size: 12px;
 	margin-right: 10px;
+	color: #fff;
 }
 .toup .con .item div:nth-of-type(1) span{
 	width: 24px;height:24px;text-align: center;line-height: 24px;

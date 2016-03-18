@@ -1,15 +1,8 @@
 package domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.org.apache.xalan.internal.xsltc.compiler.Pattern;
 import play.data.validation.Constraints;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Hashtable;
-import java.util.regex.Matcher;
 
 /**
  * 地址表单

@@ -33,32 +33,29 @@ public class ShoppingCtrl extends Controller {
     //全部订单
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result>  all(Long id) {
-        play.libs.F.Promise<List<OrderDTO> > promiseOfInt = play.libs.F.Promise.promise(() -> {
+        play.libs.F.Promise<JsonNode > promiseOfInt = play.libs.F.Promise.promise(() -> {
             Request.Builder builder =(Request.Builder)ctx().args.get("request");
             Request request=builder.url(ORDER_PAGE+id).get().build();
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()){
-                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
-                Logger.info("===json==" + json);
-                Message message = Json.fromJson(json.get("message"), Message.class);
-                if(null==message||message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
-                    Logger.error("返回收藏数据错误code="+(null!=message?message.getCode():0));
-                    return new ArrayList<OrderDTO>();
-                }
-                ObjectMapper mapper = new ObjectMapper();
-                List<OrderDTO> orderList = mapper.readValue(json.get("orderList").toString(), new TypeReference<List<OrderDTO>>() {});
-                 return orderList;
+                return Json.parse(new String(response.body().bytes(), UTF_8));
             }else  throw new IOException("Unexpected code " + response);
         });
 
-        return promiseOfInt.map((play.libs.F.Function<List<OrderDTO> , Result>) pi -> {
-                    if (id > 0) {
-                        return ok(views.html.shopping.orderpa.render(pi));
-                    }
-                    return ok(views.html.shopping.all.render(pi));
-                }
-
-        );
+        return promiseOfInt.map((play.libs.F.Function<JsonNode , Result>) json -> {
+            Logger.info("===json==" + json);
+            Message message = Json.fromJson(json.get("message"), Message.class);
+            if(null==message||message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+                Logger.error("返回收藏数据错误code="+(null!=message?message.getCode():0));
+                return badRequest();
+            }
+            ObjectMapper mapper = new ObjectMapper();
+            List<OrderDTO> orderList = mapper.readValue(json.get("orderList").toString(), new TypeReference<List<OrderDTO>>() {});
+            if (id > 0) {
+                return ok(views.html.shopping.orderpa.render(orderList));
+            }
+            return ok(views.html.shopping.all.render(orderList));
+        });
     }
 
     //待评价订单
@@ -162,22 +159,22 @@ public class ShoppingCtrl extends Controller {
      */
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result>  cancelOrder(Long id) {
-        play.libs.F.Promise<Message > promiseOfInt = play.libs.F.Promise.promise(() -> {
+        play.libs.F.Promise<JsonNode > promiseOfInt = play.libs.F.Promise.promise(() -> {
             Request.Builder builder =(Request.Builder)ctx().args.get("request");
             Request request=builder.url(ORDER_CANCEL+id).get().build();
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()){
-                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
-                Logger.info("===json==" + json);
-                Message message = Json.fromJson(json.get("message"), Message.class);
-                return message;
+                return Json.parse(new String(response.body().bytes(), UTF_8));
             }else  throw new IOException("Unexpected code " + response);
         });
 
-        return promiseOfInt.map((play.libs.F.Function<Message , Result>) pi -> {
-                    return ok(toJson(pi));
-                }
-        );
+        return promiseOfInt.map((play.libs.F.Function<JsonNode , Result>) json -> {
+                    Message message = Json.fromJson(json.get("message"), Message.class);
+                    if(null==message){
+                        return badRequest();
+                    }
+                    return ok(toJson(message));
+        });
     }
 
     /**
@@ -187,22 +184,21 @@ public class ShoppingCtrl extends Controller {
      */
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result>  delOrder(Long id) {
-        play.libs.F.Promise<Message > promiseOfInt = play.libs.F.Promise.promise(() -> {
+        play.libs.F.Promise<JsonNode > promiseOfInt = play.libs.F.Promise.promise(() -> {
             Request.Builder builder =(Request.Builder)ctx().args.get("request");
             Request request=builder.url(ORDER_DEL+id).get().build();
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()){
-                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
-                Logger.info("===json==" + json);
-                Message message = Json.fromJson(json.get("message"), Message.class);
-                return message;
+                return Json.parse(new String(response.body().bytes(), UTF_8));
             }else  throw new IOException("Unexpected code " + response);
         });
-
-        return promiseOfInt.map((play.libs.F.Function<Message , Result>) pi -> {
-                    return ok(toJson(pi));
-                }
-        );
+        return promiseOfInt.map((play.libs.F.Function<JsonNode , Result>) json -> {
+            Message message = Json.fromJson(json.get("message"), Message.class);
+            if(null==message){
+                return badRequest();
+            }
+            return ok(toJson(message));
+        });
     }
 
 

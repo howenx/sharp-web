@@ -38,7 +38,7 @@ public class ComTools {
         } else if (IDStr.length() == 15) {
             Ai = IDStr.substring(0, 6) + "19" + IDStr.substring(6, 15);
         }
-        if (isNumeric(Ai) == false) {
+        if (!isNumeric(Ai)) {
             errorInfo = "身份证15位号码都应为数字 ; v";
             return errorInfo;
         }
@@ -48,7 +48,7 @@ public class ComTools {
         String strYear = Ai.substring(6, 10);// 年份
         String strMonth = Ai.substring(10, 12);// 月份
         String strDay = Ai.substring(12, 14);// 天
-        if (isDate(strYear + "-" + strMonth + "-" + strDay) == false) {
+        if (!isDate(strYear + "-" + strMonth + "-" + strDay)) {
             errorInfo = "身份证生日无效。";
             return errorInfo;
         }
@@ -61,9 +61,7 @@ public class ComTools {
                 errorInfo = "身份证生日不在有效范围。";
                 return errorInfo;
             }
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        } catch (java.text.ParseException e) {
+        } catch (NumberFormatException | java.text.ParseException e) {
             e.printStackTrace();
         }
         if (Integer.parseInt(strMonth) > 12 || Integer.parseInt(strMonth) == 0) {
@@ -96,7 +94,7 @@ public class ComTools {
         Ai = Ai + strVerifyCode;
 
         if (IDStr.length() == 18) {
-            if (Ai.equals(IDStr) == false) {
+            if (!Ai.equals(IDStr)) {
                 errorInfo = "身份证无效，不是合法的身份证号码";
                 return errorInfo;
             }
@@ -107,12 +105,7 @@ public class ComTools {
         return errorInfo;
     }
 
-    /**
-     * 是否是数字
-     * @param str
-     * @return
-     */
-    public static boolean isNumeric(String str) {
+    private static boolean isNumeric(String str) {
         Pattern pattern = Pattern.compile("[0-9]*");
         Matcher isNum = pattern.matcher(str);
         if (isNum.matches()) {
@@ -121,8 +114,10 @@ public class ComTools {
             return false;
         }
     }
+
     public static boolean isDate(String strDate) {
-        Pattern pattern = Pattern.compile("^((\\d{2}(([02468][048])|([13579][26]))[\\-\\/\\s]?((((0?[13578])|(1[02]))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])))))|(\\d{2}(([02468][1235679])|([13579][01345789]))[\\-\\/\\s]?((((0?[13578])|(1[02]))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-\\/\\s]?((0?[1-9])|(1[0-9])|(2[0-8]))))))(\\s(((0?[0-9])|([1-2][0-3]))\\:([0-5]?[0-9])((\\s)|(\\:([0-5]?[0-9])))))?$");
+        Pattern pattern = Pattern
+                .compile("^((\\d{2}(([02468][048])|([13579][26]))[\\-\\/\\s]?((((0?[13578])|(1[02]))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])))))|(\\d{2}(([02468][1235679])|([13579][01345789]))[\\-\\/\\s]?((((0?[13578])|(1[02]))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-\\/\\s]?((0?[1-9])|(1[0-9])|(2[0-8]))))))(\\s(((0?[0-9])|([1-2][0-3]))\\:([0-5]?[0-9])((\\s)|(\\:([0-5]?[0-9])))))?$");
         Matcher m = pattern.matcher(strDate);
         if (m.matches()) {
             return true;
@@ -132,7 +127,7 @@ public class ComTools {
     }
 
     private static Hashtable GetAreaCode() {
-        Hashtable hashtable = new Hashtable();
+        Hashtable<String, String> hashtable = new Hashtable<String, String>();
         hashtable.put("11", "北京");
         hashtable.put("12", "天津");
         hashtable.put("13", "河北");
