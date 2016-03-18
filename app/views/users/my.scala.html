@@ -1,4 +1,4 @@
-@(userInfo:domain.UserDTO)
+@(loginStatus:java.lang.Integer,userInfo:domain.UserDTO)
 @scripts = {
 <link rel="stylesheet" href="/assets/stylesheets/global.css">
 <link rel="stylesheet" href="/assets/stylesheets/myhmm.css">
@@ -18,10 +18,18 @@
 <a class="wap scope">
     <a href="/means" class="fit">设置</a>
     <div class="user bg">
-         <a href="/login" class="land">
-             <img src="@userInfo.getPhoto()">
-             @userInfo.getName() @userInfo.getGender()
-         </a>
+        @if(loginStatus==1){
+             <a href="/login" class="land">
+                 <img src="@userInfo.getPhoto()">
+                 @userInfo.getName() @userInfo.getGender()
+             </a>
+        }
+        @if(loginStatus!=1){
+            <a href="/login" class="land">
+                <img src="/assets/images/personal-01.jpg">
+                登录
+            </a>
+        }
     </div>
 </a>
     <!--<section class="apply">-->
@@ -75,7 +83,11 @@
         <a href="/coupon" class="list-agio">
             <div class="agio-box">
                 <i>我的优惠券</i>
-                <span>@userInfo.getCouponsCount()个</span>
+                <span>
+                    @if(loginStatus==1){
+                        @userInfo.getCouponsCount()张可用
+                    }
+                </span>
             </div>
         </a>
         <a href="/address" class="list-add">
