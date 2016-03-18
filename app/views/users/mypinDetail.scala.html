@@ -21,7 +21,18 @@
     </header>
     <div class="detailcon">
         <div class="process">
-            <img src="/assets/images/hmm_order_submit.png" alt="">
+            @if(order.getOrder().getOrderStatus()=="S"){
+                <img src="/assets/images/hmm_order_submit.png" alt="">
+            }
+            @if(order.getOrder().getOrderStatus()=="D"){
+            <img src="/assets/images/hmm_ distribution.png" alt="">
+            }
+            @if(order.getOrder().getOrderStatus()=="R"){
+            <img src="/assets/images/hmm_sign.png" alt="">
+            }
+            @if(order.getOrder().getOrderStatus()=="F"){
+            <img src="/assets/images/hmm_order_error.png" alt="">
+            }
         </div>
         <ul>
             <li>

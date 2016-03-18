@@ -9,6 +9,8 @@
     <meta content="telephone=no" name="format-detection">
     <link rel="stylesheet" href="/assets/stylesheets/global.css">
     <link rel="stylesheet" href="/assets/stylesheets/fightgroups.css">
+    <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+    <script src="/assets/javascripts/my.js"></script>
 </head>
 <body>
 <header class="head">
@@ -62,6 +64,11 @@
 
     @if(pin.getStatus()=="Y"&&pin.getPersonNum()-pin.getPinUsers().size>0){
         <div class="fight-txt"><p>还差<span class="color">@(pin.getPersonNum()-pin.getPinUsers().size)人</span>,让小伙伴们都来组团吧!</p></div>
+        <div class="txt"> <input type="hidden" id="countdown" value="@pin.getEndCountDown()"/>
+            <span id="day_show">0天</span>
+            <strong id="hour_show">0时</strong>
+            <strong id="minute_show">0分</strong>
+            <strong id="second_show">0秒</strong></div>
     }
     @if(pin.getStatus()=="C"){
         <div class="txt"> 谢谢大侠的鼎力相助</div>

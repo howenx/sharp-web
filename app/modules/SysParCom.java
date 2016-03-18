@@ -30,6 +30,7 @@ public class SysParCom {
     public static String ORDER_PAGE;//我的订单
     public static String ORDER_CANCEL;//取消订单
     public static String ORDER_DEL;//删除订单
+    public static String ORDER_REFUND;//申请售后
 
     public static String PIN_LIST;//我的拼团
     public static String PIN_ACTIVITY;//拼团详情
@@ -97,6 +98,7 @@ public class SysParCom {
         ORDER_PAGE=configuration.getString("user.order.all");
         ORDER_CANCEL=configuration.getString("user.order.cancel");
         ORDER_DEL=configuration.getString("user.order.del");
+        ORDER_REFUND=configuration.getString("user.order.refund");
 
         //我的拼团
         PIN_LIST=configuration.getString("user.pin.list");

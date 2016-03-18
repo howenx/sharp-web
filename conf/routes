@@ -18,7 +18,7 @@ GET         /collect/del/$collectId<[0-9]+>              controllers.UserCtrl.co
 GET         /nickname                  controllers.UserCtrl.nickname()
 
 GET         /service                     controllers.UserCtrl.service()
-
+POST        /order/apply/refund          controllers.UserCtrl.refundApply()
 
 #我的拼购
 GET         /mypin                  controllers.UserCtrl.mypin()

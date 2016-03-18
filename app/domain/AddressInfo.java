@@ -16,11 +16,11 @@ public class AddressInfo implements Serializable {
     private String tel;//电话
     @Constraints.MaxLength(15)
     @Constraints.MinLength(2)
- //   @Constraints.Pattern("[a-zA-Z0-9\\u4e00-\\u9fa5]")
+    @Constraints.Pattern("[a-zA-Z0-9\\u4e00-\\u9fa5]+")
     private String name;//姓名
     @Constraints.MaxLength(50)
     @Constraints.MinLength(1)
-//    @Constraints.Pattern("[a-zA-Z0-9\\u4e00-\\u9fa5]")
+    @Constraints.Pattern("[a-zA-Z0-9\\u4e00-\\u9fa5]+")
     private String deliveryDetail;//配送详细地址
     private String idCardNum; //身份证
     private Boolean orDefault;//是否默认收获地址
