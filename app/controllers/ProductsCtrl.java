@@ -549,4 +549,9 @@ public class ProductsCtrl extends Controller {
             return badRequest(views.html.error500.render());
         }
     }
+
+    //拼购玩法说明
+    public Result pinInstruction() {
+        return ok(views.html.products.pinInstruction.render());
+    }
 }
