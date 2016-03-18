@@ -18,7 +18,6 @@ import play.libs.F.Function;
 import play.libs.F.Function0;
 import play.libs.F.Promise;
 import play.libs.Json;
-import play.libs.openid.UserInfo;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
@@ -83,25 +82,25 @@ public class UserCtrl extends Controller {
     public Result addressnew() {
         return ok(views.html.users.addressnew.render());
     }
+
     //创建新的收货地址
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> addressSave() {
 
         ObjectNode result = Json.newObject();
         Form<AddressInfo> addressForm = Form.form(AddressInfo.class).bindFromRequest();
-        Logger.info("====addressSave==="+addressForm.data());
+        Logger.info("====addressSave===" + addressForm.data());
         Map<String, String> addressMap = addressForm.data();
-        String idCardNum=addressMap.get("idCardNum").trim();
-        if (addressForm.hasErrors()||!"".equals(ComTools.IDCardValidate(idCardNum.toLowerCase()))) { //表单错误或者身份证校验不通过
+        String idCardNum = addressMap.get("idCardNum").trim();
+        if (addressForm.hasErrors() || !"".equals(ComTools.IDCardValidate(idCardNum.toLowerCase()))) { //表单错误或者身份证校验不通过
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
-        }
-        else {
-            ObjectNode object =Json.newObject();
-            Long addId=Long.valueOf(addressMap.get("addId"));
-            object.put("addId",addId);
-            String province=addressMap.get("province");
-            if(!"0".equals(province)){//未修改省份
+        } else {
+            ObjectNode object = Json.newObject();
+            Long addId = Long.valueOf(addressMap.get("addId"));
+            object.put("addId", addId);
+            String province = addressMap.get("province");
+            if (!"0".equals(province)) {//未修改省份
                 ObjectNode cityObject = Json.newObject();
                 cityObject.put("province", addressMap.get("province"));
                 cityObject.put("city", addressMap.get("city"));
@@ -114,14 +113,14 @@ public class UserCtrl extends Controller {
             object.put("tel", addressMap.get("tel").trim());
             object.put("name", addressMap.get("name").trim());
             object.put("deliveryDetail", addressMap.get("deliveryDetail").trim());
-            object.put("orDefault", "on".equals(addressMap.get("orDefault"))?1:0);
+            object.put("orDefault", "on".equals(addressMap.get("orDefault")) ? 1 : 0);
             object.put("idCardNum", addressMap.get("idCardNum").trim());
 
 
             Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
-                RequestBody formBody =RequestBody.create(MEDIA_TYPE_JSON,new String(object.toString()));
+                RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, new String(object.toString()));
                 Request.Builder builder = (Request.Builder) ctx().args.get("request");
-                Request request = builder.url(addId>0?ADDRESS_UPDATE:ADDRESS_ADD).post(formBody).build();
+                Request request = builder.url(addId > 0 ? ADDRESS_UPDATE : ADDRESS_ADD).post(formBody).build();
                 Response response = client.newCall(request).execute();
                 if (response.isSuccessful()) {
                     return Json.parse(new String(response.body().bytes(), UTF_8));
@@ -132,15 +131,16 @@ public class UserCtrl extends Controller {
                 Logger.info("===json==" + json);
                 Message message = Json.fromJson(json.get("message"), Message.class);
                 if (null == message) {
-                    Logger.error("返回创建新的收货地址数据错误code=" +json);
+                    Logger.error("返回创建新的收货地址数据错误code=" + json);
                     return badRequest();
                 }
                 return ok(toJson(message));
             });
         }
     }
+
     @Security.Authenticated(UserAuth.class)
-    public F.Promise<Result> addressUpdate(Long addId){
+    public F.Promise<Result> addressUpdate(Long addId) {
         Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
             Request request = builder.url(ADDRESS_PAGE).get().build();
@@ -158,9 +158,10 @@ public class UserCtrl extends Controller {
                 return badRequest();
             }
             ObjectMapper mapper = new ObjectMapper();
-            List<Address> addressList = mapper.readValue(json.get("address").toString(), new TypeReference<List<Address>>() {});
-            for(Address address:addressList){
-                if(address.getAddId()==addId.longValue()){
+            List<Address> addressList = mapper.readValue(json.get("address").toString(), new TypeReference<List<Address>>() {
+            });
+            for (Address address : addressList) {
+                if (address.getAddId() == addId.longValue()) {
                     return ok(views.html.users.addressupdate.render(address));
                 }
             }
@@ -170,15 +171,17 @@ public class UserCtrl extends Controller {
 
     /***
      * 地址删除
+     *
      * @return
      */
     @Security.Authenticated(UserAuth.class)
-    public F.Promise<Result>  addressDel(){
-        RequestBody formBody =RequestBody.create(MEDIA_TYPE_JSON,new String(request().body().asJson().toString()));
-        return comCtrl.postReqReturnMsg(ADDRESS_DEL,formBody);
+    public F.Promise<Result> addressDel() {
+            RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, new String(request().body().asJson().toString()));
+            return comCtrl.postReqReturnMsg(ADDRESS_DEL, formBody);
     }
 
-    //身份认证
+        //身份认证
+
     public Result carded() {
         return ok(views.html.users.carded.render());
     }
@@ -187,23 +190,24 @@ public class UserCtrl extends Controller {
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> coupon() {
         Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
-            Request.Builder builder =(Request.Builder)ctx().args.get("request");
-            Request request=builder.url(COUPON_PAGE).get().build();
+            Request.Builder builder = (Request.Builder) ctx().args.get("request");
+            Request request = builder.url(COUPON_PAGE).get().build();
             Response response = client.newCall(request).execute();
-            if (response.isSuccessful()){
+            if (response.isSuccessful()) {
                 return Json.parse(new String(response.body().bytes(), UTF_8));
 
-            }else  throw new IOException("Unexpected code " + response);
+            } else throw new IOException("Unexpected code " + response);
         });
-        return promiseOfInt.map((Function<JsonNode , Result>) json -> {
-                Logger.info("===json==" + json);
-                Message message = Json.fromJson(json.get("message"), Message.class);
-                if(null==message||message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
-                    Logger.error("返回收藏数据错误code="+(null!=message?message.getCode():0));
-                    return badRequest();
-                }
-                ObjectMapper mapper = new ObjectMapper();
-                List<CouponVo> couponList = mapper.readValue(json.get("coupons").toString(), new TypeReference<List<CouponVo>>() {});
+        return promiseOfInt.map((Function<JsonNode, Result>) json -> {
+            Logger.info("===json==" + json);
+            Message message = Json.fromJson(json.get("message"), Message.class);
+            if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
+                Logger.error("返回收藏数据错误code=" + (null != message ? message.getCode() : 0));
+                return badRequest();
+            }
+            ObjectMapper mapper = new ObjectMapper();
+            List<CouponVo> couponList = mapper.readValue(json.get("coupons").toString(), new TypeReference<List<CouponVo>>() {
+            });
             return ok(views.html.users.coupon.render(couponList));
         });
     }
@@ -245,30 +249,33 @@ public class UserCtrl extends Controller {
 
     /**
      * 意见反馈
+     *
      * @return
      */
     @Security.Authenticated(UserAuth.class)
     public Result tickling() {
         return ok(views.html.users.tickling.render());
     }
+
     /**
      * 意见反馈
+     *
      * @return
      */
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> feedback() {
         JsonNode rJson = request().body().asJson();
-        String content="";
-        if(rJson.has("content")){
-            content=rJson.findValue("content").asText().trim();
+        String content = "";
+        if (rJson.has("content")) {
+            content = rJson.findValue("content").asText().trim();
         }
-        if("".equals(content)||content.length()>140){
+        if ("".equals(content) || content.length() > 140) {
             ObjectNode result = Json.newObject();
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
         }
-        RequestBody requestBody =RequestBody.create(MEDIA_TYPE_JSON,new String(rJson.toString()));
-        return comCtrl.postReqReturnMsg(FEEDBACK_PAGE,requestBody);
+        RequestBody requestBody = RequestBody.create(MEDIA_TYPE_JSON, new String(rJson.toString()));
+        return comCtrl.postReqReturnMsg(FEEDBACK_PAGE, requestBody);
 
     }
 
@@ -306,7 +313,8 @@ public class UserCtrl extends Controller {
                 return badRequest();
             }
             ObjectMapper mapper = new ObjectMapper();
-            List<CollectDto> collectList = mapper.readValue(json.get("collectList").toString(), new TypeReference<List<CollectDto>>(){});
+            List<CollectDto> collectList = mapper.readValue(json.get("collectList").toString(), new TypeReference<List<CollectDto>>() {
+            });
             return ok(views.html.users.collect.render(collectList));
         });
     }
@@ -354,15 +362,17 @@ public class UserCtrl extends Controller {
             return promiseOfInt.map((Function<JsonNode, Result>) json -> {
 
                         Message message = Json.fromJson(json.findValue("message"), Message.class);
+                        String token = json.findValue("result").findValue("token").asText();
+                        Integer expired = json.findValue("result").findValue("expired").asInt();
                         if (Message.ErrorCode.SUCCESS.getIndex() == message.getCode()) {
                             if (userMap.get("auto").equals("true")) {
                                 String session_id = UUID.randomUUID().toString().replaceAll("-", "");
-                                Cache.set(session_id, json.findValue("token").asText(), json.findValue("expired").asInt());
+                                Cache.set(session_id, token, expired);
                                 session("session_id", session_id);
-                                response().setCookie("session_id", session_id, json.findValue("expired").asInt());
-                                response().setCookie("user_token", json.findValue("token").asText(), json.findValue("expired").asInt());
+                                response().setCookie("session_id", session_id, expired);
+                                response().setCookie("user_token", token, expired);
                             }
-                            session("id-token", json.findValue("token").asText());
+                            session("id-token", token);
                         }
                         return ok(Json.toJson(message));
                     }
@@ -373,6 +383,7 @@ public class UserCtrl extends Controller {
 
     /**
      * 快速注册
+     *
      * @return views
      */
     public Result registVerify() {
@@ -381,6 +392,7 @@ public class UserCtrl extends Controller {
 
     /**
      * 手机号检测
+     *
      * @return
      */
     public F.Promise<Result> phoneVerify() {
@@ -447,7 +459,7 @@ public class UserCtrl extends Controller {
 
             return promiseOfInt.map((Function<JsonNode, Result>) json -> {
                 Message message = Json.fromJson(json.findValue("message"), Message.class);
-                if (Message.ErrorCode.SUCCESS.getIndex()==message.getCode()) {
+                if (Message.ErrorCode.SUCCESS.getIndex() == message.getCode()) {
                     //Logger.error("验证码发送成功");
                 }
                 //Logger.error(json.toString()+"-----"+message.toString());
@@ -458,6 +470,7 @@ public class UserCtrl extends Controller {
 
     /**
      * 注册
+     *
      * @param phone
      * @return views
      */
@@ -468,6 +481,7 @@ public class UserCtrl extends Controller {
 
     /**
      * 用户注册提交
+     *
      * @return
      */
     public Promise<Result> registSubmit() {
@@ -496,7 +510,7 @@ public class UserCtrl extends Controller {
 
             return promiseOfInt.map((Function<JsonNode, Result>) json -> {
                 Message message = Json.fromJson(json.findValue("message"), Message.class);
-                if (Message.ErrorCode.SUCCESS.getIndex()==message.getCode()) {
+                if (Message.ErrorCode.SUCCESS.getIndex() == message.getCode()) {
                     //注册成功请求登录接口
                     FormEncodingBuilder feb = new FormEncodingBuilder();
                     userMap.forEach(feb::add);
@@ -531,6 +545,7 @@ public class UserCtrl extends Controller {
 
     /**
      * 找回密码
+     *
      * @return views
      */
     public Result retrieve() {
@@ -539,6 +554,7 @@ public class UserCtrl extends Controller {
 
     /**
      * 密码重置
+     *
      * @param phone
      * @return
      */
@@ -548,6 +564,7 @@ public class UserCtrl extends Controller {
 
     /**
      * 密码修改提交
+     *
      * @return
      */
     public Promise<Result> resetPwdSubmit() {
@@ -585,6 +602,7 @@ public class UserCtrl extends Controller {
 
     /**
      * 个人资料
+     *
      * @return views
      */
     @Security.Authenticated(UserAuth.class)
@@ -595,12 +613,13 @@ public class UserCtrl extends Controller {
 
     /**
      * 用户昵称
+     *
      * @return
      */
     @Security.Authenticated(UserAuth.class)
     public Result nickname() {
         String nickname = request().body().asJson().asText();
-        Logger.error("昵称:"+nickname);
+        Logger.error("昵称:" + nickname);
         session().put("nickname", nickname);
         //String nn = request().getQueryString("nickname");
 
@@ -611,59 +630,71 @@ public class UserCtrl extends Controller {
     //我的拼团
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> mypin() {
-        play.libs.F.Promise<JsonNode > promiseOfInt = play.libs.F.Promise.promise(() -> {
-            Request.Builder builder =(Request.Builder)ctx().args.get("request");
-            Request request=builder.url(PIN_LIST).get().build();
+        play.libs.F.Promise<JsonNode> promiseOfInt = play.libs.F.Promise.promise(() -> {
+            Request.Builder builder = (Request.Builder) ctx().args.get("request");
+            Request request = builder.url(PIN_LIST).get().build();
             Response response = client.newCall(request).execute();
-            if (response.isSuccessful()){
+            if (response.isSuccessful()) {
                 return Json.parse(new String(response.body().bytes(), UTF_8));
-            }else  throw new IOException("Unexpected code " + response);
+            } else throw new IOException("Unexpected code " + response);
         });
-        return promiseOfInt.map((play.libs.F.Function<JsonNode , Result>) json -> {
+        return promiseOfInt.map((play.libs.F.Function<JsonNode, Result>) json -> {
                     Logger.info("===json==" + json);
                     Message message = Json.fromJson(json.get("message"), Message.class);
-                    if(null==message||message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
-                        Logger.error("返回拼团数据错误code="+(null!=message?message.getCode():0));
+                    if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
+                        Logger.error("返回拼团数据错误code=" + (null != message ? message.getCode() : 0));
                         return badRequest(views.html.error500.render());
                     }
                     ObjectMapper mapper = new ObjectMapper();
-                    List<PinActivityListDTO> pinList = mapper.readValue(json.get("activityList").toString(), new TypeReference<List<PinActivityListDTO>>(){});
-                    for(PinActivityListDTO pin:pinList){
-                        pin.setPinImg(comCtrl.getImgUrl(pin.getPinImg()));
+                    List<PinActivityListDTO> pinList = mapper.readValue(json.get("activityList").toString(), new TypeReference<List<PinActivityListDTO>>() {
+                    });
+                    for (PinActivityListDTO pin : pinList) {
+                        if (pin.getPinImg().contains("url")) {
+                            JsonNode jsonNode = Json.parse(pin.getPinImg());
+                            if (jsonNode.has("url")) {
+                                pin.setPinImg(jsonNode.get("url").asText());
+                            }
+                        } else
+                            pin.setPinImg(IMAGE_URL + pin.getPinImg());
                     }
 
-            return ok(views.html.users.mypin.render(pinList));
-        });
+
+                    return ok(views.html.users.mypin.render(pinList));
+                }
+
+        );
     }
 
 
     //我的拼团
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> pinActivity(Long pinActivity) {
-        play.libs.F.Promise<JsonNode > promiseOfInt = play.libs.F.Promise.promise(() -> {
-            Request.Builder builder =(Request.Builder)ctx().args.get("request");
-            Request request=builder.url(PIN_ACTIVITY+pinActivity).get().build();
+        play.libs.F.Promise<JsonNode> promiseOfInt = play.libs.F.Promise.promise(() -> {
+            Request.Builder builder = (Request.Builder) ctx().args.get("request");
+            Request request = builder.url(PIN_ACTIVITY + pinActivity).get().build();
             Response response = client.newCall(request).execute();
-            if (response.isSuccessful()){
+            if (response.isSuccessful()) {
                 return Json.parse(new String(response.body().bytes(), UTF_8));
-            }else  throw new IOException("Unexpected code " + response);
+            } else throw new IOException("Unexpected code " + response);
         });
-        return promiseOfInt.map((play.libs.F.Function<JsonNode , Result>) json -> {
+        return promiseOfInt.map((play.libs.F.Function<JsonNode, Result>) json -> {
 
             Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
-            if(null==message||message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
-                Logger.error("返回拼团数据错误code="+(null!=message?message.getCode():0));
+            if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
+                Logger.error("返回拼团数据错误code=" + (null != message ? message.getCode() : 0));
                 return badRequest(views.html.error500.render());
             }
-
             ObjectMapper mapper = new ObjectMapper();
             PinActivityDTO pin = Json.fromJson(json.get("activity"), PinActivityDTO.class);
-            pin.setPinImg(comCtrl.getImgUrl(pin.getPinImg()));
+            if (pin.getPinImg().contains("url")) {
+                JsonNode jsonNode = Json.parse(pin.getPinImg());
+                if (jsonNode.has("url")) {
+                    pin.setPinImg(jsonNode.get("url").asText());
+                }
+            } else
+                pin.setPinImg(IMAGE_URL + pin.getPinImg());
             pin.setPinSkuUrl(comCtrl.getDetailUrl(pin.getPinSkuUrl()));
-            Logger.info("===pin.getPinSkuUrl()===="+pin.getPinSkuUrl());
-
-
             return ok(views.html.shopping.fightgroups.render(pin));
         });
     }
@@ -671,37 +702,38 @@ public class UserCtrl extends Controller {
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> pinOrderDetail(Long orderId) {
         play.libs.F.Promise<JsonNode> promiseOfInt = play.libs.F.Promise.promise(() -> {
-            Request.Builder builder =(Request.Builder)ctx().args.get("request");
-            Request request=builder.url(PIN_ORDER_DETAIL+orderId).get().build();
+            Request.Builder builder = (Request.Builder) ctx().args.get("request");
+            Request request = builder.url(PIN_ORDER_DETAIL + orderId).get().build();
             Response response = client.newCall(request).execute();
-            if (response.isSuccessful()){
+            if (response.isSuccessful()) {
                 return Json.parse(new String(response.body().bytes(), UTF_8));
-            }else  throw new IOException("Unexpected code " + response);
+            } else throw new IOException("Unexpected code " + response);
         });
-        return promiseOfInt.map((play.libs.F.Function<JsonNode , Result>) json -> {
+        return promiseOfInt.map((play.libs.F.Function<JsonNode, Result>) json -> {
             Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
-            if(null==message||message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
-                Logger.error("返回拼购订单数据错误code="+(null!=message?message.getCode():0));
+            if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
+                Logger.error("返回拼购订单数据错误code=" + (null != message ? message.getCode() : 0));
                 return badRequest();
             }
             ObjectMapper mapper = new ObjectMapper();
-            List<OrderDTO> orderList = mapper.readValue(json.get("orderList").toString(), new TypeReference<List<OrderDTO>>() {});
-            if(null==orderList||orderList.isEmpty()){
+            List<OrderDTO> orderList = mapper.readValue(json.get("orderList").toString(), new TypeReference<List<OrderDTO>>() {
+            });
+            if (null == orderList || orderList.isEmpty()) {
                 return badRequest();
             }
-            if(null!=orderList&&!orderList.isEmpty()){
-                for(OrderDTO orderDTO:orderList){
-                    for(CartSkuDto sku:orderDTO.getSku()){
+            if (null != orderList && !orderList.isEmpty()) {
+                for (OrderDTO orderDTO : orderList) {
+                    for (CartSkuDto sku : orderDTO.getSku()) {
                         sku.setInvImg(comCtrl.getImgUrl(sku.getInvImg()));
                         sku.setInvUrl(comCtrl.getDetailUrl(sku.getInvUrl()));
                     }
+
                 }
             }
-           return ok(views.html.users.mypinDetail.render(orderList.get(0)));
+            return ok(views.html.users.mypinDetail.render(orderList.get(0)));
         });
     }
-
 
 }
 
