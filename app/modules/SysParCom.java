@@ -37,6 +37,7 @@ public class SysParCom {
 
 
 
+
     public static String PHONE_VERIFY;//手机号检测
     public static String PHONE_CODE;//发送短信验证码
     public static String REGISTER_PAGE;//用户注册

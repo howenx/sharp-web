@@ -17,7 +17,7 @@ import play.mvc.Security;
 import java.io.IOException;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static modules.SysParCom.client;
+import static modules.SysParCom.*;
 import static play.libs.Json.toJson;
 
 /**
@@ -42,21 +42,26 @@ public class ComCtrl extends Controller {
 
     /**
      * 获取商品详情的URL
-     * @param skuType
-     * @param itemId
-     * @param skuTypeId
+     * @param oldUrl
      * @return
      */
-    public String getSkuDetailUrl(String skuType,Long itemId,Long skuTypeId){
-        StringBuffer sb=new StringBuffer();
-        sb.append("/detail/").append(skuType);
-        if(itemId>0) {
-            sb.append("/").append(itemId);
-        }
-        if(skuTypeId>0){
-            sb.append("/").append(skuTypeId);
-        }
-        return sb.toString();
+    public String getDetailUrl(String oldUrl){
+        Logger.info(oldUrl+"===="+oldUrl.indexOf("/detail/")+"==="+oldUrl.substring(oldUrl.indexOf("/detail/")));
+        return oldUrl.substring(oldUrl.indexOf("/detail/"));
+//        Logger.info(oldUrl+"======="+skuType+"==="+PIN_PAGE);
+//        if("pin".equals(skuType)){
+//            return oldUrl.replace(PIN_PAGE,"");
+//        }
+//        if("item".equals(skuType)){
+//            return oldUrl.replace(ITEM_PAGE,"");
+//        }
+//        if("vary".equals(skuType)){
+//            return oldUrl.replace(VARY_PAGE,"");
+//        }
+//        if("customize".equals(skuType)){
+//            return oldUrl.replace(CUSTOMIZE_PAGE,"");
+//        }
+//       return oldUrl;
     }
 
     @Security.Authenticated(UserAuth.class)
