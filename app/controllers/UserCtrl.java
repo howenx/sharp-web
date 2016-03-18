@@ -224,6 +224,7 @@ public class UserCtrl extends Controller {
      */
     public F.Promise<Result> myView() {
         Optional<String> header = Optional.ofNullable(request().getHeader("id-token"));
+        Logger.info("======"+header+"===="+header.isPresent());
         if (header.isPresent()) {
             Optional<String> token = Optional.ofNullable(cache.get(header.get()).toString());
             if (token.isPresent()) {

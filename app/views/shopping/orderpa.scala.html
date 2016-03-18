@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/assets/stylesheets/orderpage.css">
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
     <script src="/assets/javascripts/my.js"></script>
+
 </head>
 <body>
 
@@ -24,7 +25,7 @@
 </header>
 
 <div class="wap">
-    <div></div>
+    <div><input type="hidden" id="countdown" value="60"/> <p id="time"></p></div>
     <ul>
         @for(order<-orderList){
         <li>
@@ -147,6 +148,40 @@
 
 
 </div>
+<script>
+ var time=document.getElementById('countdown');
+        function clock(time){
 
+            var str = '';
+            var oP = document.getElementById( 'time' );
+
+            //用将来的时间 - 现在的时间，然后再将这个差值换算成我们需要的 天数 时 分 秒的格式。
+
+            var newTime = new Date(2016,9,26,9,30);
+
+            var nowTime = new Date();
+
+            // 将得到的毫秒数转换成天数 时钟数 分钟  秒数( 123000秒 )
+            // 86400 3600 60
+
+           // var time = (newTime - nowTime)/1000;
+
+
+
+            if( time <0 ){
+                clearInterval(iTimer);
+                return;
+            }else{
+                str = '距离活动结束还有' +Math.floor((time/86400)) +'天'+ Math.floor( (time%86400)/3600 ) +'时'+ Math.floor((time%86400%3600)/60) +'分'+ Math.floor(time%86400%3600%60) +'秒';
+
+                oP.innerHTML = str;
+            }
+
+        }
+        clock(time);
+        var iTimer = setInterval( clock,1000 );
+        //alert( newTime - nowTime  );
+
+    </script>
 </body>
 </html>
