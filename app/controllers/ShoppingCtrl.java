@@ -58,6 +58,7 @@ public class ShoppingCtrl extends Controller {
                 for(OrderDTO orderDTO:orderList){
                     for(CartSkuDto sku:orderDTO.getSku()){
                         sku.setInvImg(comCtrl.getImgUrl(sku.getInvImg()));
+                        sku.setInvUrl(comCtrl.getDetailUrl(sku.getInvUrl()));
                     }
                 }
             }

@@ -649,13 +649,8 @@ public class UserCtrl extends Controller {
                     List<PinActivityListDTO> pinList = mapper.readValue(json.get("activityList").toString(), new TypeReference<List<PinActivityListDTO>>() {
                     });
                     for (PinActivityListDTO pin : pinList) {
-                        if (pin.getPinImg().contains("url")) {
-                            JsonNode jsonNode = Json.parse(pin.getPinImg());
-                            if (jsonNode.has("url")) {
-                                pin.setPinImg(jsonNode.get("url").asText());
-                            }
-                        } else
-                            pin.setPinImg(IMAGE_URL + pin.getPinImg());
+                        pin.setPinImg(comCtrl.getImgUrl(pin.getPinImg()));
+                        pin.setPinSkuUrl(comCtrl.getDetailUrl(pin.getPinSkuUrl()));
                     }
 
 
@@ -664,6 +659,12 @@ public class UserCtrl extends Controller {
 
         );
     }
+
+    //申请售后
+     public Result service() {
+            //请求用户信息
+            return ok(views.html.users.service.render());
+        }
 
 
     //我的拼团
@@ -685,15 +686,8 @@ public class UserCtrl extends Controller {
                 Logger.error("返回拼团数据错误code=" + (null != message ? message.getCode() : 0));
                 return badRequest(views.html.error500.render());
             }
-            ObjectMapper mapper = new ObjectMapper();
             PinActivityDTO pin = Json.fromJson(json.get("activity"), PinActivityDTO.class);
-            if (pin.getPinImg().contains("url")) {
-                JsonNode jsonNode = Json.parse(pin.getPinImg());
-                if (jsonNode.has("url")) {
-                    pin.setPinImg(jsonNode.get("url").asText());
-                }
-            } else
-                pin.setPinImg(IMAGE_URL + pin.getPinImg());
+            pin.setPinImg(comCtrl.getImgUrl(pin.getPinImg()));
             pin.setPinSkuUrl(comCtrl.getDetailUrl(pin.getPinSkuUrl()));
             return ok(views.html.shopping.fightgroups.render(pin));
         });
