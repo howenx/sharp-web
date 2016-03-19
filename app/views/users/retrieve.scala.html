@@ -38,7 +38,6 @@
     <link rel="stylesheet" href="/assets/stylesheets/login.css">
     <link rel="stylesheet" href="/assets/stylesheets/regist.css">
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
-    <script  src="/assets/javascripts/md5.js"></script>
     <style type="text/css">
         input:required:valid, input:focus:invalid {
         background-image: url('/assets/images/ex.png');
@@ -99,10 +98,7 @@
                     $("#imgCode").val("");
                     $("#code").val(imgCode);
                     var phone = $("#phone").val();
-                    var msg = hex_md5(phone+"hmm");
                     var phone = $("#phone").val();
-                    $("#msg").val(msg);
-                    $("#msg").removeAttr("name");
                     console.log($('form#cell_verifyForm').serialize());
                     $.ajax({
                             url: "/phone/verify",
@@ -111,7 +107,6 @@
                             type: 'POST',
                             success: function(data) {
                                 console.log(data);
-                                $("#msg").attr({"name":"msg"});
                                 if(data.code === 5001){
                                     //请求手机验证码接口
                                     $("#code").removeAttr("name");
@@ -180,7 +175,6 @@
                         <span>手机号</span> <input id="phone" name="phone" type="text" class="input-rese" maxlength="11" required pattern="[1][345678]\d{9}" onkeyup="this.value=this.value.replace(/\D/g,'')"/>
                         <i class="delet"></i>
                             <input type="hidden" id="code" name="code" value="">
-                            <input type="hidden" id="msg" name="msg" value="">
                     </dd>
                 </dl>
             </form>

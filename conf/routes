@@ -31,7 +31,9 @@ GET         /pin/order/detail/$orderId<[0-9]+>         controllers.UserCtrl.pinO
 GET         /regist/verify           controllers.UserCtrl.registVerify()
 POST        /phone/verify            controllers.UserCtrl.phoneVerify()
 POST        /phone/code              controllers.UserCtrl.phoneCode()
-GET         /regist/$phone<[1][345678]\d{9}>            controllers.UserCtrl.regist(phone:String)
+POST        /regist                  controllers.UserCtrl.regist()
+#GET         /register                controllers.UserCtrl.register(phone:String)
+GET         /register/$phone<[1][345678]\d{9}>            controllers.UserCtrl.register(phone:String)
 POST        /regist/submit            controllers.UserCtrl.registSubmit()
 #密码重置
 GET         /retrieve                controllers.UserCtrl.retrieve()
@@ -47,7 +49,7 @@ GET         /nickname                  controllers.UserCtrl.nickname()
 
 
 #首页,主题,详情页相关
-GET          /                         controllers.ProductsCtrl.index()
+GET         /                          controllers.ProductsCtrl.index()
 POST        /indexAjax                 controllers.ProductsCtrl.loadIndexAjax()
 GET         /themeDetail/*url          controllers.ProductsCtrl.themeDetail(url)
 GET         /detail/:type/*url         controllers.ProductsCtrl.detail(type,url)

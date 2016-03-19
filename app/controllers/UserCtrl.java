@@ -11,6 +11,7 @@ import filters.UserAuth;
 import modules.ComTools;
 import net.spy.memcached.MemcachedClient;
 import play.Logger;
+import play.api.libs.Codecs;
 import play.cache.Cache;
 import play.data.Form;
 import play.libs.F;
@@ -331,6 +332,7 @@ public class UserCtrl extends Controller {
 
     /**
      * 用户登录
+     *
      * @return
      */
     public Promise<Result> loginSubmit() {
@@ -439,9 +441,11 @@ public class UserCtrl extends Controller {
      */
     public Promise<Result> phoneCode() {
         ObjectNode result = newObject();
-        Form<UserPhoneCode> userRegistCodeForm = Form.form(UserPhoneCode.class).bindFromRequest();
-        Map<String, String> userMap = userRegistCodeForm.data();
-        if (userRegistCodeForm.hasErrors()) {
+        Form<UserPhoneCode> userPhoneCodeForm = Form.form(UserPhoneCode.class).bindFromRequest();
+        Map<String, String> userMap = userPhoneCodeForm.data();
+        String phone = userMap.get("phone");
+        userMap.put("msg", Codecs.md5((phone + "hmm").getBytes()));
+        if (userPhoneCodeForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
         } else {
@@ -475,11 +479,19 @@ public class UserCtrl extends Controller {
     /**
      * 注册
      *
-     * @param phone
      * @return views
      */
-    public Result regist(String phone) {
+    public Result regist() {
+        Form<UserPhoneCode> userPhoneCodeForm = Form.form(UserPhoneCode.class).bindFromRequest();
+        Map<String, String> userMap = userPhoneCodeForm.data();
+        String phone = userMap.get("phone");
+        Logger.error("手机:" + phone);
+        return redirect(controllers.routes.UserCtrl.register(phone));
+    }
+
+    public Result register(String phone) {
         //String phone = request().body().asJson().toString();
+        Logger.error("qwqeqwewewqqewqewqq");
         return ok(views.html.users.regist.render(phone));
     }
 
