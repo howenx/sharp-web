@@ -624,6 +624,13 @@ public class ProductsCtrl extends Controller {
                 pinInvDetail.setInvImg(comCtrl.getImgUrl(pinInvDetail.getInvImg()));
                 pinInvDetail.setFloorPricePersonNum(floorPriceJson.get("person_num").asInt());
                 pinInvDetail.setFloorPricePrice(Json.fromJson(floorPriceJson.get("price"), BigDecimal.class));
+                Collections.sort(pinInvDetail.getPinTieredPrices(), new Comparator<PinTieredPrice>() {
+                    @Override
+                    public int compare(PinTieredPrice tieredPrice2, PinTieredPrice tieredPrice1)
+                    {
+                        return  tieredPrice1.getPeopleNum().compareTo(tieredPrice2.getPeopleNum());
+                    }
+                });
                 return ok(views.html.products.pinTieredPrice.render(pinInvDetail));
             }
         }

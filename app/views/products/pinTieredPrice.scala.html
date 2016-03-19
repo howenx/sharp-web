@@ -74,9 +74,13 @@
                 <!--</li>-->
             </ul>
         </div>
+        <!--settle个数,拼购默认1个-->
+        <input type="hidden" name="ype" value="pin">
         <input type="hidden" name="invCustoms" value="@pinDetail.getInvCustoms()">
         <input type="hidden" name="invArea" value="@pinDetail.getInvArea()">
         <input type="hidden" name="invAreaNm" value="@pinDetail.getInvAreaNm()">
+
+
 
         <div class="choose-b" onclick="document.getElementById('settleForm').submit();">
             <p><b>立即开团</b> ( <span>@pinDetail.getFloorPricePersonNum()</span><b>元 / </b> <i>@pinDetail.getFloorPricePrice()人</i> )</p>
