@@ -87,7 +87,7 @@ GET         /order/del/$orderId<[0-9]+>        controllers.ShoppingCtrl.delOrder
 
 
 
-
+GET         /pay/order/get/$orderId<[0-9]+>    controllers.JDCtrl.cashDesk(orderId:Long)
 
 
 

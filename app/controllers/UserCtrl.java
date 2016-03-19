@@ -50,7 +50,7 @@ public class UserCtrl extends Controller {
     @Inject
     ComCtrl comCtrl;
 
-    public static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
+
 
     //收货地址
     @Security.Authenticated(UserAuth.class)
@@ -313,8 +313,14 @@ public class UserCtrl extends Controller {
                 return badRequest();
             }
             ObjectMapper mapper = new ObjectMapper();
-            List<CollectDto> collectList = mapper.readValue(json.get("collectList").toString(), new TypeReference<List<CollectDto>>() {
-            });
+            List<CollectDto> collectList = mapper.readValue(json.get("collectList").toString(), new TypeReference<List<CollectDto>>() {});
+            if(null!=collectList&&!collectList.isEmpty()){
+                for(CollectDto collectDto:collectList){
+                    collectDto.getCartSkuDto().setInvImg(comCtrl.getImgUrl(collectDto.getCartSkuDto().getInvImg()));
+                    collectDto.getCartSkuDto().setInvUrl(comCtrl.getDetailUrl(collectDto.getCartSkuDto().getInvUrl()));
+
+                }
+            }
             return ok(views.html.users.collect.render(collectList));
         });
     }
