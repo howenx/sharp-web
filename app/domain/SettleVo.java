@@ -34,11 +34,9 @@ public class SettleVo implements Serializable {
     @JsonSerialize(using = MoneySerializer.class)
     private BigDecimal factPortalFee;//实际行邮税
 
-    @JsonIgnore
     @JsonSerialize(using = MoneySerializer.class)
     private BigDecimal totalFee;//总费用
 
-    @JsonIgnore
     @JsonSerialize(using = MoneySerializer.class)
     private BigDecimal totalPayFee;//总支付费用
 
@@ -55,7 +53,6 @@ public class SettleVo implements Serializable {
     @JsonIgnore
     private List<String> skuTypeList;//用于保存该笔订单的所有sku的类型
 
-    @JsonIgnore
     @JsonSerialize(using = MoneySerializer.class)
     private BigDecimal discountFee;//优惠券优惠的金额
 

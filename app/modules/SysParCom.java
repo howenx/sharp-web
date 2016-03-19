@@ -72,7 +72,7 @@ public class SysParCom {
 
 
 
-
+    public static  String PAY_ORDER;
 
 
 
@@ -138,7 +138,7 @@ public class SysParCom {
 
 
 
-
+        PAY_ORDER=configuration.getString("user.pay.order");
 
 
 
