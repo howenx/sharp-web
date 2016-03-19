@@ -32,6 +32,9 @@
 			@if(!inventory.getOrMasterInv()){
 				<div class="item">
 			}
+					<input id="skuId" value="@inventory.getId()" style="display:none">
+					<input id="skuType" value="@inventory.getSkuType()"  style="display:none">
+					<input id="skuTypeId" value="@inventory.getSkuTypeId()" style="display:none">
 					<div id="slideBox@index" class="slideBox">
 
 						<div class="bd">

@@ -109,9 +109,9 @@ $(function() {
             }
             //添加收藏
             if(!isCollected){
-                var skuId=$(".now").find("#skuId").val();
-                var skuType=$(".now").find("#skuType").val();
-                var skuTypeId=$(".now").find("#skuTypeId").val();
+                var skuId=$(".item.now").find("#skuId").val();
+                var skuType=$(".item.now").find("#skuType").val();
+                var skuTypeId=$(".item.now").find("#skuTypeId").val();
                 var obj=new Object();
                 obj.skuId=skuId; //sku id
                 obj.skuType=skuType;//商品类型 1.vary,2.item,3.customize,4.pin
