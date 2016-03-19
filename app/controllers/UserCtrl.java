@@ -49,7 +49,7 @@ public class UserCtrl extends Controller {
     @Inject
     ComCtrl comCtrl;
 
-    public static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
+
 
     //收货地址
     @Security.Authenticated(UserAuth.class)
