@@ -1,13 +1,11 @@
 package domain;
 
 import play.data.validation.Constraints;
-import play.data.validation.ValidationError;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
+ * 发送手机验证码
  * Created by Sunny Wu on 16/3/14.
  * kakao china.
  */
@@ -18,17 +16,6 @@ public class UserPhoneCode implements Serializable {
     @Constraints.Pattern("[1][345678]\\d{9}")
     protected String phone;
 
-    @Constraints.Required
-    protected  String msg;
-
-    public List<ValidationError> validate() {
-        List<ValidationError> errors = new ArrayList<>();
-        if ("".equals(msg)) {
-            errors.add(new ValidationError("code", "This code is wrong"));
-        }
-        return errors.isEmpty() ? null : errors;
-    }
-
     public UserPhoneCode() {
     }
 
@@ -36,7 +23,6 @@ public class UserPhoneCode implements Serializable {
     public String toString() {
         return "UserPhoneCode{" +
                 "phone='" + phone + '\'' +
-                ", msg='" + msg + '\'' +
                 '}';
     }
 
@@ -48,17 +34,7 @@ public class UserPhoneCode implements Serializable {
         this.phone = phone;
     }
 
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public UserPhoneCode(String phone, String msg) {
-
+    public UserPhoneCode(String phone) {
         this.phone = phone;
-        this.msg = msg;
     }
 }

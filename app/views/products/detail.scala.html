@@ -246,7 +246,29 @@
 			</div>
 			<!--收藏-->
 			<a href="javascript:;" class="like">
-				<span class="soul"></span>
+
+				@for((inventory) <- inventoryList){
+				<div>
+					@if(inventory.getOrMasterInv()){
+						<input class="collectId" value="@inventory.getCollectId()" style="display:none">
+						@if(inventory.getCollectId() != 0){
+							<span class="soul now min"></span>
+						}
+						@if(inventory.getCollectId() == 0){
+							<span class="soul now"></span>
+						}
+					}
+					@if(!inventory.getOrMasterInv()){
+						<input class="collectId" value="@inventory.getCollectId()" style="display:none">
+						@if(inventory.getCollectId() != 0){
+							<span class="soul min"></span>
+						}
+						@if(inventory.getCollectId() == 0){
+							<span class="soul"></span>
+						}
+					}
+				</div>
+				}
 				<i class="like-s">收藏成功</i>
 				<i class="like-x">取消收藏</i>
 			</a>
