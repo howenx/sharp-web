@@ -510,15 +510,11 @@ public class UserCtrl extends Controller {
      *
      * @return views
      */
-    public Result regist() {
+    public Result register() {
         Form<UserPhoneCode> userPhoneCodeForm = Form.form(UserPhoneCode.class).bindFromRequest();
         Map<String, String> userMap = userPhoneCodeForm.data();
         String phone = userMap.get("phone");
         Logger.error("手机:" + phone);
-        return redirect(controllers.routes.UserCtrl.register(phone));
-    }
-
-    public Result register(String phone) {
         return ok(views.html.users.regist.render(phone));
     }
 
