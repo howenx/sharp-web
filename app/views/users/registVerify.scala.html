@@ -37,7 +37,6 @@
     <link rel="stylesheet" href="/assets/stylesheets/login.css">
     <link rel="stylesheet" href="/assets/stylesheets/regist.css">
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
-    <script  src="/assets/javascripts/md5.js"></script>
     <style type="text/css">
         input:required:valid, input:focus:invalid {
         background-image: url('/assets/images/ex.png');
@@ -53,6 +52,7 @@
     </style>
     <script>
         $(function(){
+
             var phoneReg = new RegExp(/^1[345678]\d{9}$/);
             $("#btn-reg").css('background', '#C0C0C0');
             $('#js-userinfo-error').hide();
@@ -88,16 +88,11 @@
                     }
             });
 
-            var phone = $("#phone").val();
-            var msg = hex_md5(phone+"hmm");
-            $("#msg").val(msg);
 
             //用户注册检测手机号
             $(document).on('click', '#btn-reg', function() {
-                $("#msg").removeAttr("name");
                 var phone = $("#phone").val();
                 console.log($('form#cell_verifyForm').serialize());
-                var msg = hex_md5(phone+"hmm");
                 $.ajax({
                         url: "/phone/verify",
                         dataType: 'json',
@@ -105,7 +100,6 @@
                         type: 'POST',
                         success: function(data) {
                                    console.log(data);
-                                   $("#msg").attr({"name":"msg"});
                                    //用户已经注册,弹框提示
                                    if (data.code === 5001) {
                                         $('.shade-reg').show();
@@ -120,11 +114,23 @@
                                                     data: $('form#cell_verifyForm').serialize(),
                                                     type: 'POST',
                                                     success: function(data) {
-                                                       console.log(data);
+                                                        console.log(data);
                                                         $("#code").attr({"name":"code"});
-                                                       //手机验证码发送成功
-                                                       if (data.code === 200) {
-                                                            window.location.href = "/regist/"+phone;
+                                                        //手机验证码发送成功
+                                                        if (data.code === 200) {
+                                                              <!--$.ajax({-->
+                                                                       <!--type: 'POST', -->
+                                                                       <!--url:  "/regist", -->
+                                                                       <!--data: $('form#cell_verifyForm').serialize(),-->
+                                                                       <!--dataType: 'json',-->
+                                                                       <!--success: function(data) {-->
+                                                                                <!--console.log(data);-->
+                                                                       <!--},-->
+                                                                       <!--error: function(request) {-->
+                                                                                <!--console.log("error");-->
+                                                                       <!--}-->
+                                                              <!--});-->
+                                                            window.location.href = "/register/"+phone;
                                                        }
                                                        else {
                                                             $('#js-userinfo-error').text(data.message).show();
@@ -137,6 +143,7 @@
                 });
             });
         })
+
     </script>
 
 </head>
@@ -148,7 +155,7 @@
     </div>
     <div class="login">
         <div id="js-userinfo-error" class="cue"></div>
-        <div class="login-t">我们将发送验证码到你的手机 13241179879  18676889842</div>
+        <div class="login-t">我们将发送验证码到你的手机</div>
         <fieldset>
             <form id="cell_verifyForm" method="post" onsubmit="return false" action="" >
                 <dl class="list list-in">
@@ -156,7 +163,6 @@
                        <span>手机号</span> <input id="phone" type="text" class="input-rese" name='phone' placeholder="请输入手机号" maxlength="11" required pattern="[1][345678]\d{9}" onkeyup="this.value=this.value.replace(/\D/g,'')"/>
                         <i class="delet delet-box"></i>
                             <input type="hidden" id="code" name="code" value="-1">
-                            <input type="hidden" id="msg" name="msg" value="">
                     </dd>
                 </dl>
             </form>
