@@ -239,7 +239,7 @@ $(document).ready(function(){
      var countdown=$("#countdown").val();
      timer(countdown/1000);
 });
-
+//收藏
 $(document).on("click",".like-s",function(){
         var skuId=$("#skuId").val();
         var skuType=$("#skuType").val();
