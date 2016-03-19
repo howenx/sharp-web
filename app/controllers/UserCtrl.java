@@ -328,6 +328,35 @@ public class UserCtrl extends Controller {
         return comCtrl.getReqReturnMsg(COLLECT_DEL + collectId);
     }
 
+    /**
+     * 收藏
+     * @return
+     */
+    @Security.Authenticated(UserAuth.class)
+    public F.Promise<Result>  submitCollect(){
+        ObjectNode result = newObject();
+        Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
+            RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, new String(request().body().asJson().toString()));
+            Request.Builder builder = (Request.Builder) ctx().args.get("request");
+            Request request = builder.url(COLLECT_SUBMIT).post(formBody).build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                return Json.parse(new String(response.body().bytes(), UTF_8));
+            } else throw new IOException("Unexpected code " + response);
+        });
+        return promiseOfInt.map((Function<JsonNode, Result>) json -> {
+            Logger.info("===json==" + json);
+            Message message = Json.fromJson(json.get("message"), Message.class);
+            if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
+                Logger.error("返回收藏数据错误code=" + (null != message ? message.getCode() : 0));
+                return badRequest();
+            }
+            Integer collectId=json.get("collectId").asInt();
+            result.putPOJO("collectId",collectId);
+            return ok(Json.toJson(result));
+        });
+    }
+
 
     /**
      * 用户登录

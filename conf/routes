@@ -15,6 +15,8 @@ GET         /coupon                   controllers.UserCtrl.coupon()
 POST        /login/submit             controllers.UserCtrl.loginSubmit()
 GET         /collect                  controllers.UserCtrl.collect()
 GET         /collect/del/$collectId<[0-9]+>              controllers.UserCtrl.collectDel(collectId:Long)
+POST        /collect/submit                              controllers.UserCtrl.submitCollect()
+
 GET         /nickname                  controllers.UserCtrl.nickname()
 
 GET         /service                     controllers.UserCtrl.service()

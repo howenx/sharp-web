@@ -49,7 +49,7 @@ $(function(){
 
 });
 
-
+//取消收藏
 $(document).on("click",".cancelColl",function(e){
     e.preventDefault();
     var id=$(this).parents("li").val();
@@ -212,6 +212,7 @@ $(document).on("click",".feedbackBtn",function(){
         });
     }
 });
+//倒计时
 function timer(intDiff){
 	window.setInterval(function(){
 	var day=0,
@@ -237,8 +238,35 @@ $(document).ready(function(){
      //倒计时
      var countdown=$("#countdown").val();
      timer(countdown/1000);
-
 });
 
+$(document).on("click",".like-s",function(){
+        var skuId=$("#skuId").val();
+        var skuType=$("#skuType").val();
+        var skuTypeId=$("#skuTypeId").val();
+        var obj=new Object();
+        obj.skuId=skuId; //sku id
+        obj.skuType=skuType;//商品类型 1.vary,2.item,3.customize,4.pin
+        obj.skuTypeId=skuTypeId;//商品类型所对应的ID
+        $.ajax({
+                type: 'POST',
+                url: "/collect/submit",
+                contentType: "application/json; charset=utf-8",
+                data : JSON.stringify(obj),
+                error:function(request) {
+                    alert("收藏失败");
+                },
+                success: function(data) {
+                    if (data!=""&&data!=null&&data.collectId>0) {
+                        $("#collectId").val(data.collectId);
+                    }else{
+                        alert("收藏失败");
+                    }
+
+                }
+        });
+
+
+});
 
 
