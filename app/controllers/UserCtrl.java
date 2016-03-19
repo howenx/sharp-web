@@ -519,8 +519,6 @@ public class UserCtrl extends Controller {
     }
 
     public Result register(String phone) {
-        //String phone = request().body().asJson().toString();
-        Logger.error("qwqeqwewewqqewqewqq");
         return ok(views.html.users.regist.render(phone));
     }
 
