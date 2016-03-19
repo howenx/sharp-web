@@ -1,5 +1,5 @@
-@(pinTitle:String,invImg:String,pinTieredPriceList:List[domain.PinTieredPrice],floorPrice:Array[Object])
-<!DOCTYPE html>
+
+@(pinDetail:domain.PinInvDetail)
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -36,49 +36,52 @@
 
 <div class="warp">
     <div class="choose-top clearfix">
-        <img src="@invImg" alt=""/>
-        <h2>@pinTitle</h2>
+        <img src="@pinDetail.getInvImg()" alt=""/>
+        <h2>@pinDetail.getPinTitle()</h2>
     </div>
+    <form id="settleForm" action="/settle" method="POST">
+        <div class="choose-m">
+            <p class="mold">选择拼购类型</p>
 
-    <div class="choose-m">
-        <p class="mold">选择拼购类型</p>
-
-        <ul>
-            @for((price,index) <- pinTieredPriceList.zipWithIndex){
-                @if(index == 0){
-                    <li class="current first">
-                        <div>
-                            <b class="b-big">开团人数 : </b>
-                            <span> @price.getPeopleNum()人</span>
-                            <p><b class="sign">￥</b><i>@price.getPrice()</i></p>
-                        </div>
-                    </li>
+            <ul>
+                @for((price,index) <- pinDetail.getPinTieredPrices().zipWithIndex){
+                    @if(index == 0){
+                        <li class="current first">
+                            <div>
+                                <b class="b-big">开团人数 : </b>
+                                <span> @price.getPeopleNum()人</span>
+                                <p><b class="sign">￥</b><i>@price.getPrice()</i></p>
+                            </div>
+                        </li>
+                    }
+                    @if(index != 0){
+                        <li>
+                            <div>
+                                <b class="b-big">开团人数 : </b>
+                                <span> @price.getPeopleNum()人</span>
+                                <p><b class="sign">￥</b><i>@price.getPrice()</i></p>
+                            </div>
+                        </li>
+                    }
                 }
-                @if(index != 0){
-                    <li>
-                        <div>
-                            <b class="b-big">开团人数 : </b>
-                            <span> @price.getPeopleNum()人</span>
-                            <p><b class="sign">￥</b><i>@price.getPrice()</i></p>
-                        </div>
-                    </li>
-                }
-            }
 
-            <!--<li>-->
-                <!--<div>-->
-                    <!--<b class="b-big">开团人数 : </b>-->
-                    <!--<span> 3人</span>-->
-                    <!--<p><b class="sign">￥</b><i>39</i></p>-->
-                <!--</div>-->
-            <!--</li>-->
-        </ul>
-    </div>
+                <!--<li>-->
+                    <!--<div>-->
+                        <!--<b class="b-big">开团人数 : </b>-->
+                        <!--<span> 3人</span>-->
+                        <!--<p><b class="sign">￥</b><i>39</i></p>-->
+                    <!--</div>-->
+                <!--</li>-->
+            </ul>
+        </div>
+        <input type="hidden" name="invCustoms" value="@pinDetail.getInvCustoms()">
+        <input type="hidden" name="invArea" value="@pinDetail.getInvArea()">
+        <input type="hidden" name="invAreaNm" value="@pinDetail.getInvAreaNm()">
 
-    <div class="choose-b">
-        <p><b>立即开团</b> ( <span>@floorPrice(1)</span><b>元 / </b> <i>@floorPrice(0)人</i> )</p>
-    </div>
-
+        <div class="choose-b" onclick="document.getElementById('settleForm').submit();">
+            <p><b>立即开团</b> ( <span>@pinDetail.getFloorPricePersonNum()</span><b>元 / </b> <i>@pinDetail.getFloorPricePrice()人</i> )</p>
+        </div>
+    </form>
 </div>
 
 </body>

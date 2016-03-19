@@ -170,7 +170,7 @@ function delAddress(addId,orDefault){
              });
     }
 }
-
+//我的订单待付款,待收款
 $(document).ready(function(){
      //修改待支付待收货个数
      var waitPayNum=$("#waitPayUl li").length;
@@ -182,7 +182,7 @@ $(document).ready(function(){
         $("#waitGoods").addClass("cart_num").html(waitGoodsNum);
      }
 });
-
+//意见反馈
 $(document).on("click",".feedbackBtn",function(){
     var content=$("#feedback").val();
 
@@ -265,8 +265,8 @@ $(document).on("click",".like-s",function(){
 
                 }
         });
-
-
 });
+
+
 
 

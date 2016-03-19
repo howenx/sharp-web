@@ -68,6 +68,9 @@ public class PinInvDetail {
     private String detail;//商品详情
     private Long collectId; //暂用的收藏ID
 
+    private Integer floorPricePersonNum;
+    private BigDecimal floorPricePrice;
+
     public PinInvDetail() {
     }
 
@@ -369,6 +372,22 @@ public class PinInvDetail {
 
     public void setCollectId(Long collectId) {
         this.collectId = collectId;
+    }
+
+    public Integer getFloorPricePersonNum() {
+        return floorPricePersonNum;
+    }
+
+    public void setFloorPricePersonNum(Integer floorPricePersonNum) {
+        this.floorPricePersonNum = floorPricePersonNum;
+    }
+
+    public BigDecimal getFloorPricePrice() {
+        return floorPricePrice;
+    }
+
+    public void setFloorPricePrice(BigDecimal floorPricePrice) {
+        this.floorPricePrice = floorPricePrice;
     }
 
     @Override

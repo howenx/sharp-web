@@ -10,6 +10,7 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 
+import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -20,6 +21,8 @@ import static modules.SysParCom.*;
  * Created by howen on 16/3/9.
  */
 public class ProductsCtrl extends Controller {
+    @Inject
+    ComCtrl comCtrl;
     /**
      * 首页
      * @return
@@ -590,35 +593,43 @@ public class ProductsCtrl extends Controller {
                 .url(PIN_PAGE + url)
                 .build();
         Response response = client.newCall(request).execute();
-        if(response.isSuccessful()){
+        if(response.isSuccessful()) {
             JsonNode json = Json.parse(response.body().string());
-            if(json.has("stock")){
+            Logger.info("===pinTieredPrice=====" + json);
+            if (json.has("stock")) {
                 JsonNode stockJson = json.get("stock");
-                if(stockJson.has("pinTieredPrices")){
-                    JsonNode tieredPriceJson = stockJson.get("pinTieredPrices");
-                    for(JsonNode price:tieredPriceJson){
-                        PinTieredPrice tieredPrice = Json.fromJson(price,PinTieredPrice.class);
-                        pinTieredPriceList.add(tieredPrice);
-                    }
-                    Collections.sort(pinTieredPriceList, new Comparator<PinTieredPrice>() {
-                        @Override
-                        public int compare(PinTieredPrice tieredPrice2, PinTieredPrice tieredPrice1)
-                        {
-                            return  tieredPrice1.getPeopleNum().compareTo(tieredPrice2.getPeopleNum());
-                        }
-                    });
-                }
-                pinTitle = stockJson.get("pinTitle").asText();
-                JsonNode imgJson = Json.parse(Json.fromJson(stockJson.get("invImg"),String.class));
-                invImg = imgJson.get("url").asText();
-                JsonNode floorPriceJson = Json.parse(Json.fromJson(stockJson.get("floorPrice"),String.class));
-                floorPrice[0] = floorPriceJson.get("person_num").asInt();
-                floorPrice[1] = Json.fromJson(floorPriceJson.get("price"),BigDecimal.class);
+//                if(stockJson.has("pinTieredPrices")){
+//                    JsonNode tieredPriceJson = stockJson.get("pinTieredPrices");
+//                    for(JsonNode price:tieredPriceJson){
+//                        PinTieredPrice tieredPrice = Json.fromJson(price,PinTieredPrice.class);
+//                        pinTieredPriceList.add(tieredPrice);
+//                    }
+//                    Collections.sort(pinTieredPriceList, new Comparator<PinTieredPrice>() {
+//                        @Override
+//                        public int compare(PinTieredPrice tieredPrice2, PinTieredPrice tieredPrice1)
+//                        {
+//                            return  tieredPrice1.getPeopleNum().compareTo(tieredPrice2.getPeopleNum());
+//                        }
+//                    });
+//                }
+//                pinTitle = stockJson.get("pinTitle").asText();
+//                JsonNode imgJson = Json.parse(Json.fromJson(stockJson.get("invImg"),String.class));
+//                invImg = imgJson.get("url").asText();
+//
+                JsonNode floorPriceJson = Json.parse(Json.fromJson(stockJson.get("floorPrice"), String.class));
+//                floorPrice[0] = floorPriceJson.get("person_num").asInt();
+//                floorPrice[1] = Json.fromJson(floorPriceJson.get("price"), BigDecimal.class);
 
+                PinInvDetail pinInvDetail = Json.fromJson(json.get("stock"), PinInvDetail.class);
+                pinInvDetail.setInvImg(comCtrl.getImgUrl(pinInvDetail.getInvImg()));
+                pinInvDetail.setFloorPricePersonNum(floorPriceJson.get("person_num").asInt());
+                pinInvDetail.setFloorPricePrice(Json.fromJson(floorPriceJson.get("price"), BigDecimal.class));
+                return ok(views.html.products.pinTieredPrice.render(pinInvDetail));
             }
-            return ok(views.html.products.pinTieredPrice.render(pinTitle,invImg,pinTieredPriceList,floorPrice));
-        }else {
-            return badRequest(views.html.error500.render());
         }
+           // return ok(views.html.products.pinTieredPrice.render(pinTitle,invImg,pinTieredPriceList,floorPrice));
+        //}else {
+            return badRequest(views.html.error500.render());
+       // }
     }
 }
