@@ -21,6 +21,8 @@
                 $(this).parents('.warp').find('.choose-b span').html($(this).find('i').html())
 
                 $(this).parents('.warp').find('.choose-b i').html($(this).find('span').html())
+
+                $("#pinTieredPriceId").val($(this).find('input').val());
             })
         })
     </script>
@@ -47,6 +49,7 @@
                 @for((price,index) <- pinDetail.getPinTieredPrices().zipWithIndex){
                     @if(index == 0){
                         <li class="current first">
+                            <input type="hidden" value="@price.getId()">
                             <div>
                                 <b class="b-big">开团人数 : </b>
                                 <span> @price.getPeopleNum()人</span>
@@ -56,6 +59,7 @@
                     }
                     @if(index != 0){
                         <li>
+                            <input type="hidden" value="@price.getId()">
                             <div>
                                 <b class="b-big">开团人数 : </b>
                                 <span> @price.getPeopleNum()人</span>
@@ -74,12 +78,21 @@
                 <!--</li>-->
             </ul>
         </div>
-        <!--settle个数,拼购默认1个-->
-        <input type="hidden" name="ype" value="pin">
-        <input type="hidden" name="invCustoms" value="@pinDetail.getInvCustoms()">
-        <input type="hidden" name="invArea" value="@pinDetail.getInvArea()">
-        <input type="hidden" name="invAreaNm" value="@pinDetail.getInvAreaNm()">
 
+
+        <input type="hidden" name="buyNow" value="1"/>
+        <input type="hidden" name="invCustoms" value="@pinDetail.getInvCustoms()"/>
+        <input type="hidden" name="invArea" value="@pinDetail.getInvArea()"/>
+        <input type="hidden" name="invAreaNm" value="@pinDetail.getInvAreaNm()"/>
+        <input type="hidden" name="cartId" value="0"/>
+        <input type="hidden" name="skuId" value="@pinDetail.getId()"/>
+        <input type="hidden" name="skuType" value="@pinDetail.getSkuType()"/>
+        <input type="hidden" name="skuTypeId" value="@pinDetail.getSkuTypeId()"/>
+        <input type="hidden" name="amount" value="1"/>
+        <input type="hidden" name="state" value="@pinDetail.getStatus()"/>
+        <input type="hidden" name="pinTieredPriceId" id="pinTieredPriceId" value="@pinDetail.getPinTieredPrices().get(0).getId()"/>
+        <input type="hidden" name="payMethod" value="JD"/>
+        <input type="hidden" name="pinActiveId" value="224177"/>
 
 
         <div class="choose-b" onclick="document.getElementById('settleForm').submit();">

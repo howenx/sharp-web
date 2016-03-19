@@ -1,5 +1,6 @@
 package modules;
 
+import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import play.Configuration;
 
@@ -12,6 +13,7 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class SysParCom {
+    public static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
     //图片服务器url
     public static String IMAGE_URL;
 
