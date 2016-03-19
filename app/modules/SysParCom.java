@@ -21,6 +21,7 @@ public class SysParCom {
     public static String LOGIN_PAGE;//用户登录
     public static String COLLECT_PAGE;
     public static String COLLECT_DEL; //取消收藏
+    public static String COLLECT_SUBMIT;//收藏
     public static String ADDRESS_PAGE;//地址
     public static String ADDRESS_ADD;//地址新增
     public static String ADDRESS_DEL;//地址删除
@@ -64,6 +65,7 @@ public class SysParCom {
 
     /******** 购物相关 ********/
     public static  String SHOPPING_LIST;//购物车列表
+    public static  String SHOPPING_SETTLE;//结算
 
 
 
@@ -83,8 +85,9 @@ public class SysParCom {
 
         INDEX_PAGE = configuration.getString("products.page.index");
         LOGIN_PAGE = configuration.getString("user.page.login");
-        COLLECT_PAGE=configuration.getString("user.collect");
-        COLLECT_DEL=configuration.getString("user.collectdel");
+        COLLECT_PAGE=configuration.getString("user.collect.list");
+        COLLECT_DEL=configuration.getString("user.collect.del");
+        COLLECT_SUBMIT=configuration.getString("user.collect.submit");
         //地址
         ADDRESS_PAGE=configuration.getString("user.address.list");
         ADDRESS_ADD=configuration.getString("user.address.add");
@@ -129,6 +132,7 @@ public class SysParCom {
 
         /******** 购物相关 ********/
         SHOPPING_LIST = configuration.getString("shopping.page.cart.list");
+        SHOPPING_SETTLE=configuration.getString("shopping.settle");
 
 
 

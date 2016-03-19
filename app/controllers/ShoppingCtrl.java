@@ -10,6 +10,7 @@ import domain.CartListResultVo;
 import domain.Message;
 import filters.UserAuth;
 import play.Logger;
+import play.data.Form;
 import play.libs.F;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -20,6 +21,7 @@ import javax.inject.Inject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static modules.SysParCom.*;
@@ -154,9 +156,20 @@ public class ShoppingCtrl extends Controller {
         return ok(views.html.shopping.orders.render());
     }
 
-
+    /**
+     * 商品结算
+     * @return
+     */
+    @Security.Authenticated(UserAuth.class)
     public Result settle() {
-        return ok(views.html.shopping.settle.render());
+        Logger.info("=对对对=="+Form.form().bindFromRequest());
+        Logger.info("==="+Form.form().bindFromRequest().data());
+        Map<String, String> userMap = Form.form().bindFromRequest().data();
+
+
+
+        return ok(views.html.shopping.settle.render()
+        );
     }
 
 
