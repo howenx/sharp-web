@@ -47,6 +47,9 @@ public class ComCtrl extends Controller {
      */
     public String getDetailUrl(String oldUrl){
 //        Logger.info(oldUrl+"===="+oldUrl.indexOf("/detail/")+"==="+oldUrl.substring(oldUrl.indexOf("/detail/")));
+        if(oldUrl.indexOf("/detail/")<0){
+            return oldUrl;
+        }
         return oldUrl.substring(oldUrl.indexOf("/detail/"));
 //        Logger.info(oldUrl+"======="+skuType+"==="+PIN_PAGE);
 //        if("pin".equals(skuType)){

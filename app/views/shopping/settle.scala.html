@@ -51,18 +51,19 @@
             <input type="hidden" name="invAreaNm@index" value="@settleInfo.getInvAreaNm()"/>
             <input type="hidden" name="cartNum@index" value="@settleInfo.getCartInfos().size()"/>
             @for((cartInfo,cartIndex)<-settleInfo.getCartInfos().zipWithIndex){
+
                 <h2><i class="picture"> <img src="@cartInfo.getSkuInvImg()" alt=""/></i>@cartInfo.getSkuTitle()</h2>
                 <div class="goods">
                     <span class="order color">￥@cartInfo.getSkuPrice()</span>
                     <span class="money">数量 : @cartInfo.getAmount()</span>
                 </div>
-                <input type="hidden" name="cartId@cartIndex" value="@cartInfo.getCartId()"/>
-                <input type="hidden" name="skuId@cartIndex" value="@cartInfo.getSkuId()"/>
-                <input type="hidden" name="amount@cartIndex" value="@cartInfo.getAmount()"/>
-                <input type="hidden" name="skuType@cartIndex" value="@cartInfo.getSkuType()"/>
-                <input type="hidden" name="skuTypeId@cartIndex" value="@cartInfo.getSkuTypeId()"/>
-                <input type="hidden" name="state@cartIndex" value="@cartInfo.getState()"/>
-                <input type="hidden" name="pinTieredPriceId@cartIndex" id="pinTieredPriceId" value="@cartInfo.getPinTieredPriceId()"/>
+                <input type="hidden" name="cartId@index-@cartIndex" value="@cartInfo.getCartId()"/>
+                <input type="hidden" name="skuId@index-@cartIndex" value="@cartInfo.getSkuId()"/>
+                <input type="hidden" name="amount@index-@cartIndex" value="@cartInfo.getAmount()"/>
+                <input type="hidden" name="skuType@index-@cartIndex" value="@cartInfo.getSkuType()"/>
+                <input type="hidden" name="skuTypeId@index-@cartIndex" value="@cartInfo.getSkuTypeId()"/>
+                <input type="hidden" name="state@index-@cartIndex" value="@cartInfo.getState()"/>
+                <input type="hidden" name="pinTieredPriceId@index-@cartIndex" id="pinTieredPriceId" value="@cartInfo.getPinTieredPriceId()"/>
             }
         </div>
     }
