@@ -92,7 +92,7 @@
             //用户注册检测手机号
             $(document).on('click', '#btn-reg', function() {
                 var phone = $("#phone").val();
-                console.log($('form#cell_verifyForm').serialize());
+                //console.log($('form#cell_verifyForm').serialize());
                 $.ajax({
                         url: "/phone/verify",
                         dataType: 'json',
