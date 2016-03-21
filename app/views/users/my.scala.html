@@ -2,6 +2,7 @@
 @scripts = {
 <link rel="stylesheet" href="/assets/stylesheets/global.css">
 <link rel="stylesheet" href="/assets/stylesheets/myhmm.css">
+<script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
 }
 
 @layout(title="韩秘美,专卖韩国正品")(scripts) {
@@ -16,13 +17,21 @@
 </header>-->
 <div>
 <a class="wap scope">
-    <a href="/means" class="fit">设置</a>
+    <a href="/setting" class="fit"></a>
     <div class="user bg">
-         <a href="/login" class="land">
-             <img src="@userInfo.getPhoto()">
-             @userInfo.getName() @userInfo.getGender()
-         </a>
+         <a  href="/means" class="land">
+             <img id="photo" src="@userInfo.getPhoto()">
 
+             <!--@userInfo.getName()
+             @if(userInfo.getGender()=="M") {男}
+             @if(userInfo.getGender()=="") {女}-->
+             <span>熊耶</span>
+             <i class="man"></i>
+             <i class="girl"></i>
+         </a>
+        <!--<input id="gender" type="hidden" value="@userInfo.getGender()">-->
+        <!--<input id="name" type="hidden" value="@userInfo.getName()">-->
+        <!--<input id="phone" type="hidden" value="@userInfo.getPhoneNum()">-->
     </div>
 </a>
     <!--<section class="apply">-->
@@ -87,12 +96,6 @@
                 <span></span>
             </div>
         </a>
-        <a href="/tickling" class="list-advise">
-            <div class="advise-box">
-                <i>意见反馈</i>
-                <span></span>
-            </div>
-        </a>
         <a href="/collect" class="whole-box">
             <div class="whole">
                 <i>我的收藏</i>
@@ -103,4 +106,24 @@
 
 
  </div>
+
+<script>
+    /**
+    $(document).on('click', '.land', function () {
+        var url = '/means';
+        var photo = $("#photo").attr("src");
+        var name = $("#name").val();
+        var gender = $("#gender").val();
+        var phoneNum = $("#phone").val();
+        var form = $('<form action="' + url + '" method="post">' +
+        '<input type="hidden" name="photo" value="' + photo + '" />' +
+        '<input type="hidden" name="name" value="' + name + '" />' +
+        '<input type="hidden" name="gender" value="' + gender + '" />' +
+        '<input type="hidden" name="phoneNum" value="' + phoneNum + '" />' +
+        '</form>');
+        $('body').append(form);
+        form.submit();
+    });
+    **/
+</script>
 }

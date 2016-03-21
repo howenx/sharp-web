@@ -1,3 +1,4 @@
+@(userInfo:domain.UserDTO)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,8 +18,12 @@
                 $('.mw').toggle();
             });
 
+
+
+
             $('.mw span').click(function(){
                 $(this).parents('.wap').find('.mw-box').html($(this).html());
+                $(this).parent('.mw').hide();
             })
 
             /*var tim = null;
@@ -28,26 +33,14 @@
             },3000);*/
 
             //修改用户昵称
-            $(document).on('click', '#nickname', function() {
-                var nickname = $("#nickname").html();
-                //alert(nickname);
-                $.ajax({
-                        type: 'POST', 
-                        url:  "/nickname", 
-                        contentType: "application/json; charset=utf-8", 
-                        data: JSON.stringify(nickname), 
-                        dataType: 'json',
-                        success: function(data) { 
-                            alert(data);
-                            condole.log(data);
-                            window.location.href = '/nickname';
-
-                        },
-                        error: function(request) { 
-                            console.log("error!");
-                            console.log(request);
-                        }
-                });
+            $(document).on('click', '#name', function() {
+                var url = '/nickname';
+                var name = $("#nickname").html();
+                var form = $('<form action="' + url + '" method="post">' +
+                '<input type="hidden" name="name" value="' + name + '" />' +
+                '</form>');
+                $('body').append(form);
+                form.submit();
             });
         })
     </script>
@@ -78,29 +71,32 @@
     </div>
 
     <div class="face-box spot">
-        <a href="javascript:;" class="face ">
+        <a href="javascript:;" class="face">
             <i>修改头像</i>
-            <span></span>
+            <span><img id="photo" src="@userInfo.getPhoto()" width="40" height="40"></span>
         </a>
     </div>
-    <div class="face-box">
-        <a href="javascript:;" class="face ">
+    <div class="face-box" id="name">
+        <a class="face">
             <i>昵称</i>
-            <a ><span id="nickname">hmm123</span></a>
+            <a ><span id="nickname">@userInfo.getName()</span></a>
         </a>
     </div>
 
     <div class="face-box face-mw">
         <a href="javascript:;" class="face">
             <i>性别</i>
-            <span class="mw-box">女</span>
+            <span class="mw-box">
+                @if(userInfo.getGender()=="M") {男}
+                @if(userInfo.getGender()=="F") {女}
+            </span>
         </a>
     </div>
 
     <div class="face-box">
-        <a href="javascript:;" class="face ">
+        <a href="javascript:;" class="face">
             <i>手机号</i>
-            <span>13456677889</span>
+            <span class="none">@userInfo.getPhoneNum().substring(0,3)****@userInfo.getPhoneNum().substring(7,11)</span>
         </a>
     </div>
 

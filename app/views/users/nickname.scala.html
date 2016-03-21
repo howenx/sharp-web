@@ -6,6 +6,13 @@
     <title>Title</title>
     <link rel="stylesheet" href="/assets/stylesheets/global.css">
     <link rel="stylesheet" href="/assets/stylesheets/means.css">
+    <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+    <style>
+        .warn-info {
+            background-color: #E46359;color:#fff;width:50%;
+            display:none;text-align:center;
+        }
+    </style>
 </head>
 <body>
 
@@ -20,22 +27,56 @@
 
 <div class="wap">
     <div class="substance">
-        <input type="text" value="" class="tex" value="@nickname"/>
+        <input type="text" id="nickname" class="tex" value="@nickname"/>
 
-
-
-        <p>1.字符个数应在2-12位之间</p>
+        <p>1.字符个数应在2-15位之间</p>
         <p>2.与韩秘美有冲突的昵称,韩秘美将保留收回的权利</p>
         <p>3.创建或更改昵称,请遵守相关法律法规</p>
 
-
-
-        <input id="bt_login" class="button" type="button" value="保存">
+        <input id="btn_save" class="button" type="button" value="保存">
     </div>
 
+    <div class="warn-info">
 
+    </div>
 
 </div>
 
 </body>
 </html>
+
+<script>
+
+    $(function() {
+        var nameReg = new RegExp(/^[a-zA-Z0-9\u4e00-\u9fa5]$/);//字母数字中文
+
+        $(document).on("click", "#btn_save", function() {
+            var nickname = $("#nickname").val();
+            console.log(nickname);
+            if (nickname.length==0) {
+                $(".warn-info").html("名称不能为空").show();
+                setTimeout("$('.warn-info').hide()", 1000);
+            } else if (nickname.length<2) {
+                $(".warn-info").html("名称不能少于2个字符").show();
+                setTimeout("$('.warn-info').hide()", 1000);
+            } else if (nickname.length>15) {
+                $(".warn-info").html("名称不能多于15个字符").show();
+                setTimeout("$('.warn-info').hide()", 1000);
+            } else if (!nameReg.test(nickname)) {
+                $(".warn-info").html("名称只能是中文 / 数字 / 字母").show();
+                setTimeout("$('.warn-info').hide()", 1000);
+            } else {
+                $.ajax({
+                        url: "/user/update",
+                        dataType: 'json',
+                        data: $('form#cell_regForm').serialize(),
+                        type: 'POST',
+                        success: function(data) {
+
+                        }
+                });
+            }
+        });
+    })
+
+</script>

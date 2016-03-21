@@ -70,7 +70,7 @@ public class SysParCom {
     /******** 购物相关 ********/
     public static  String SHOPPING_LIST;//购物车列表
     public static  String SHOPPING_SETTLE;//结算
-
+    public static  String ORDER_SUBMIT;//提交订单
 
 
 
@@ -139,6 +139,7 @@ public class SysParCom {
         /******** 购物相关 ********/
         SHOPPING_LIST = configuration.getString("shopping.page.cart.list");
         SHOPPING_SETTLE=configuration.getString("shopping.settle");
+        ORDER_SUBMIT=configuration.getString("shopping.order.submit");
 
 
 
