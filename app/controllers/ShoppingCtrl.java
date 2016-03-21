@@ -292,6 +292,15 @@ public class ShoppingCtrl extends Controller {
             return ok(toJson(message));
         });
     }
+    /**
+     * 订单校验
+     * @param orderId
+     * @return
+     */
+    @Security.Authenticated(UserAuth.class)
+    public F.Promise<Result>  verifyOrder(Long orderId) {
+        return comCtrl.getReqReturnMsg(ORDER_VERIFY+orderId);
+    }
 
 
 }

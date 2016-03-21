@@ -33,9 +33,7 @@ GET         /pin/order/detail/$orderId<[0-9]+>         controllers.UserCtrl.pinO
 GET         /regist/verify           controllers.UserCtrl.registVerify()
 POST        /phone/verify            controllers.UserCtrl.phoneVerify()
 POST        /phone/code              controllers.UserCtrl.phoneCode()
-POST        /regist                  controllers.UserCtrl.regist()
-#GET         /register                controllers.UserCtrl.register(phone:String)
-GET         /register/$phone<[1][345678]\d{9}>            controllers.UserCtrl.register(phone:String)
+POST        /register                controllers.UserCtrl.register()
 POST        /regist/submit            controllers.UserCtrl.registSubmit()
 #密码重置
 GET         /retrieve                controllers.UserCtrl.retrieve()
@@ -82,7 +80,7 @@ GET         /cart                     controllers.ShoppingCtrl.cart()
 GET         /cart/empty               controllers.ShoppingCtrl.emptyCart()
 GET         /order/cancel/$orderId<[0-9]+>     controllers.ShoppingCtrl.cancelOrder(orderId:Long)
 GET         /order/del/$orderId<[0-9]+>        controllers.ShoppingCtrl.delOrder(orderId:Long)
-
+GET         /order/verify/$orderId<[0-9]+>     controllers.ShoppingCtrl.verifyOrder(orderId:Long)
 
 
 #

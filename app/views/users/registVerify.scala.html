@@ -118,24 +118,17 @@
                                                         $("#code").attr({"name":"code"});
                                                         //手机验证码发送成功
                                                         if (data.code === 200) {
-                                                              <!--$.ajax({-->
-                                                                       <!--type: 'POST', -->
-                                                                       <!--url:  "/regist", -->
-                                                                       <!--data: $('form#cell_verifyForm').serialize(),-->
-                                                                       <!--dataType: 'json',-->
-                                                                       <!--success: function(data) {-->
-                                                                                <!--console.log(data);-->
-                                                                       <!--},-->
-                                                                       <!--error: function(request) {-->
-                                                                                <!--console.log("error");-->
-                                                                       <!--}-->
-                                                              <!--});-->
-                                                            window.location.href = "/register/"+phone;
-                                                       }
-                                                       else {
-                                                            $('#js-userinfo-error').text(data.message).show();
-                                                            setTimeout("$('#js-userinfo-error').hide()", 2000);
-                                                       }
+                                                                var url = '/register';
+                                                                var form = $('<form action="' + url + '" method="post">' +
+                                                                '<input type="hidden" name="phone" value="' + phone + '" />' +
+                                                                '</form>');
+                                                                $('body').append(form);
+                                                                form.submit();
+                                                        }
+                                                        else {
+                                                                $('#js-userinfo-error').text(data.message).show();
+                                                                setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                                        }
                                                     }
                                            });
                                    }
