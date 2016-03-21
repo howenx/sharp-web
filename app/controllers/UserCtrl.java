@@ -402,9 +402,9 @@ public class UserCtrl extends Controller {
             return promiseOfInt.map((Function<JsonNode, Result>) json -> {
 
                         Message message = Json.fromJson(json.findValue("message"), Message.class);
-                        String token = json.findValue("result").findValue("token").asText();
-                        Integer expired = json.findValue("result").findValue("expired").asInt();
                         if (Message.ErrorCode.SUCCESS.getIndex() == message.getCode()) {
+                            String token = json.findValue("result").findValue("token").asText();
+                            Integer expired = json.findValue("result").findValue("expired").asInt();
                             if (userMap.get("auto").equals("true")) {
                                 String session_id = UUID.randomUUID().toString().replaceAll("-", "");
                                 Cache.set(session_id, token, expired);
