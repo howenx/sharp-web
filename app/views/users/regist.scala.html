@@ -148,7 +148,9 @@ $(function() {
                                         setTimeout("$('#js-userinfo-error').hide()", 2000);
                                         $("#get-code").css("color", "#000");
                                         $("#get-code").css('cursor', 'auto');
+                              
                                         var ctime = 80;
+
                                         $("#time").html(ctime+"s");
                                         timer2 = window.setInterval(function() {
                                                 $("#time").html(--ctime+"s");
