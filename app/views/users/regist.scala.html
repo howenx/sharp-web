@@ -129,6 +129,7 @@ $(function() {
 
         //再次获取验证码
         $("#get-code").click(function() {
+                //$('.hp').disabled = true;
                 $("#password").removeAttr("name");
                 $("#code").removeAttr("name");
                 console.log($('form#cell_regForm').serialize());
@@ -156,6 +157,7 @@ $(function() {
                                                     $("#time").html("");
                                                     $("#get-code").css("color", "#E46359");
                                                     $("#get-code").css('cursor', 'pointer');
+
                                                 }
                                         }, 1000);
                                 } else {

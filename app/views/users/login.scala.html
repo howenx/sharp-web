@@ -71,7 +71,7 @@
                                     }, 1500);
                                 } else if (data.code == 4001) {
                                     //密码输入次数多,请求输入验证码
-                                    $("#code").val("");
+                                    $("#imgCode").val("");
                                     $(".proving-box").show();
                                     var code = $("#code").val();
                                     if (!code_regexp.test(code)) {
@@ -110,9 +110,12 @@
                 });
 
                 /*删除*/
+
+
                 $(".delet").click(function () {
-                    $("input[name='name']").val("").focus(); // 清空并获得焦点
+                    $("input[name='phone']").val("").focus(); // 清空并获得焦点
                 });
+
                 $(".out").click(function () {
                     $("input[name='password']").val("").focus();
                 });
@@ -137,7 +140,7 @@
                 <div id="js-userinfo-error" class="pcue"></div>
                 <fieldset>
                     <form id="account_loginForm" method="post" action="/login/submit">
-                        <dl class="list list-in">
+                        <dl class="list list-in list-regist">
                             <dd class="dd-padding code">
                                 <input id="input_username" class="input-weak" maxlength="11" type="text" placeholder="请输入您的手机号" name="phone" required pattern="[1][345678]\d{9}">
                                 <i class="delet"></i>
@@ -163,7 +166,7 @@
 
                 <div class="loginInfo">
                     <div class="findWord">
-                        <a href="/regist/verify" class="resist">快速注册</a>
+                        <a href="/register" class="resist">快速注册</a>
                         <a href="/retrieve" class="password">忘记密码?</a>
                     </div>
                     <div class="min">

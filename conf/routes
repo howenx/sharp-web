@@ -14,6 +14,7 @@ POST        /feedback                 controllers.UserCtrl.feedback()
 GET         /coupon                   controllers.UserCtrl.coupon()
 POST        /login/submit             controllers.UserCtrl.loginSubmit()
 GET         /collect                  controllers.UserCtrl.collect()
+GET         /aboutus                  controllers.UserCtrl.aboutus()
 GET         /collect/del/$collectId<[0-9]+>              controllers.UserCtrl.collectDel(collectId:Long)
 POST        /collect/submit                              controllers.UserCtrl.submitCollect()
 
@@ -30,20 +31,19 @@ GET         /pin/order/detail/$orderId<[0-9]+>         controllers.UserCtrl.pinO
 
 
 #注册
-GET         /regist/verify           controllers.UserCtrl.registVerify()
+GET         /register                controllers.UserCtrl.registVerify()
 POST        /phone/verify            controllers.UserCtrl.phoneVerify()
 POST        /phone/code              controllers.UserCtrl.phoneCode()
 POST        /register                controllers.UserCtrl.register()
-POST        /regist/submit            controllers.UserCtrl.registSubmit()
+POST        /regist/submit           controllers.UserCtrl.registSubmit()
 #密码重置
 GET         /retrieve                controllers.UserCtrl.retrieve()
-GET         /reset/passwd/$phone<[1][345678]\d{9}>      controllers.UserCtrl.resetPasswd(phone:String)
-POST        /reset/submit             controllers.UserCtrl.resetPwdSubmit()
+POST        /retrieve                controllers.UserCtrl.resetPasswd()
+POST        /reset/submit            controllers.UserCtrl.resetPwdSubmit()
 #用户信息
 GET         /means                    controllers.UserCtrl.means()
-POST         /nickname                  controllers.UserCtrl.nickname()
-GET         /nickname                  controllers.UserCtrl.nickname()
-#POST        /user/update              controllers.UserCtrl.userUpdate()
+POST        /nickname                 controllers.UserCtrl.nickname()
+#POST       /user/update              controllers.UserCtrl.userUpdate()
 
 
 
