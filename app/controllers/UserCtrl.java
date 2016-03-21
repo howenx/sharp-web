@@ -238,7 +238,7 @@ public class UserCtrl extends Controller {
                 Logger.info("==myView=json==" + json);
                 Message message = Json.fromJson(json.get("message"), Message.class);
                 if(null==message||message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
-                    Logger.error("返回收藏数据错误code="+(null!=message?message.getCode():0));
+                    //Logger.error("返回收藏数据错误code="+(null!=message?message.getCode():0));
                     return badRequest();
                 }
                 UserDTO userInfo = Json.fromJson(json.get("userInfo"), UserDTO.class);
@@ -340,7 +340,7 @@ public class UserCtrl extends Controller {
      * @return
      */
     @Security.Authenticated(UserAuth.class)
-    public F.Promise<Result>  submitCollect(){
+    public F.Promise<Result> submitCollect(){
         ObjectNode result = newObject();
         Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
             RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, new String(request().body().asJson().toString()));
@@ -390,7 +390,6 @@ public class UserCtrl extends Controller {
                         .build();
                 client.setConnectTimeout(10, TimeUnit.SECONDS);
                 Response response = client.newCall(request).execute();
-                Logger.error("response:"+response);
                 if (response.isSuccessful()) {
                     return Json.parse(new String(response.body().bytes(), UTF_8));
                 } else throw new IOException("Unexpected code " + response);
@@ -398,7 +397,6 @@ public class UserCtrl extends Controller {
 
             return promiseOfInt.map((Function<JsonNode, Result>) json -> {
                         Message message = Json.fromJson(json.findValue("message"), Message.class);
-                        Logger.error("json:"+json.asText());
                         if (Message.ErrorCode.SUCCESS.getIndex() == message.getCode()) {
                             String token = json.findValue("result").findValue("token").asText();
                             Integer expired = json.findValue("result").findValue("expired").asInt();
@@ -411,7 +409,7 @@ public class UserCtrl extends Controller {
                             }
                             session("id-token", token);
                         }
-                        Logger.error(json.toString()+"-----"+message.toString());
+//                        Logger.error(json.toString()+"-----"+message.toString());
                         return ok(Json.toJson(message));
                     }
             );
@@ -628,7 +626,7 @@ public class UserCtrl extends Controller {
                         .build();
                 client.setConnectTimeout(10, TimeUnit.SECONDS);
                 Response response = client.newCall(request).execute();
-                Logger.error(response.toString());
+//                Logger.error(response.toString());
                 if (response.isSuccessful()) {
                     JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
                     return json;
@@ -663,7 +661,7 @@ public class UserCtrl extends Controller {
         return promiseOfInt.map((Function<JsonNode , Result>) json -> {
             Message message = Json.fromJson(json.get("message"), Message.class);
             if(null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()){
-                Logger.error("返回收藏数据错误code="+(null!=message?message.getCode():0));
+                Logger.error("message="+(null!=message?message.getCode():0));
                 return badRequest();
             }
             UserDTO userInfo = Json.fromJson(json.get("userInfo"), UserDTO.class);
