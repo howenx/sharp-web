@@ -371,17 +371,13 @@ public class UserCtrl extends Controller {
      * @return
      */
     public Promise<Result> loginSubmit() {
-
         ObjectNode result = newObject();
         Form<UserLoginInfo> userForm = Form.form(UserLoginInfo.class).bindFromRequest();
         Map<String, String> userMap = userForm.data();
-
         if (userForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
         } else {
-
-
             Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
                 FormEncodingBuilder feb = new FormEncodingBuilder();
                 userMap.forEach(feb::add);
@@ -394,14 +390,15 @@ public class UserCtrl extends Controller {
                         .build();
                 client.setConnectTimeout(10, TimeUnit.SECONDS);
                 Response response = client.newCall(request).execute();
+                Logger.error("response:"+response);
                 if (response.isSuccessful()) {
                     return Json.parse(new String(response.body().bytes(), UTF_8));
                 } else throw new IOException("Unexpected code " + response);
             });
 
             return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-
                         Message message = Json.fromJson(json.findValue("message"), Message.class);
+                        Logger.error("json:"+json.asText());
                         String token = json.findValue("result").findValue("token").asText();
                         Integer expired = json.findValue("result").findValue("expired").asInt();
                         if (Message.ErrorCode.SUCCESS.getIndex() == message.getCode()) {
