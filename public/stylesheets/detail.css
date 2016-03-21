@@ -750,11 +750,15 @@ div .cycle-overlay {
 	display: block;
 	background: url("/assets/images/detail-shou.png") center center no-repeat;
 	background-size:25px 20px;
-	visibility: hidden;
+	display: none;
 }
+
+
 .soul.now{
-	visibility: visible;
+	display: block;
 }
+
+
 .min{
 	width:100%;
 	height: 25px;
