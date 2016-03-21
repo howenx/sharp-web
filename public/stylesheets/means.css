@@ -67,6 +67,11 @@
     line-height:30px;
     padding:0 22px 0 0;
 }
+
+.face-box .none{
+    background: none;
+    color: #ccc;
+}
 .footer{
     position: fixed;
     bottom:0;

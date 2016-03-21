@@ -18,8 +18,12 @@
                 $('.mw').toggle();
             });
 
+
+
+
             $('.mw span').click(function(){
                 $(this).parents('.wap').find('.mw-box').html($(this).html());
+                $(this).parent('.mw').hide();
             })
 
             /*var tim = null;
@@ -92,7 +96,7 @@
     <div class="face-box">
         <a href="javascript:;" class="face">
             <i>手机号</i>
-            <span>@userInfo.getPhoneNum().substring(0,3)****@userInfo.getPhoneNum().substring(7,11)</span>
+            <span class="none">@userInfo.getPhoneNum().substring(0,3)****@userInfo.getPhoneNum().substring(7,11)</span>
         </a>
     </div>
 
