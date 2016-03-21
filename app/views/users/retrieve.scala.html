@@ -98,7 +98,6 @@
                     $("#imgCode").val("");
                     $("#code").val(imgCode);
                     var phone = $("#phone").val();
-                    var phone = $("#phone").val();
                     console.log($('form#cell_verifyForm').serialize());
                     $.ajax({
                             url: "/phone/verify",
@@ -121,7 +120,12 @@
                                                $("#code").attr({"name":"code"});
                                                //手机验证码发送成功
                                                if (data.code === 200) {
-                                                    window.location.href = "/reset/passwd/"+phone;
+                                                    var url = '/retrieve';
+                                                    var form = $('<form action="' + url + '" method="post">' +
+                                                    '<input type="hidden" name="phone" value="' + phone + '" />' +
+                                                    '</form>');
+                                                    $('body').append(form);
+                                                    form.submit();
                                                }
                                                else {
                                                     $('#js-userinfo-error2').text(data.message).show();
@@ -209,7 +213,7 @@
               <span>该手机号尚未注册</span>
               <div class="box-a">
                    <a href="javascript:;" class="box-l">取消</a>
-                   <a href="/regist/verify" class="box-r">立即注册</a>
+                   <a href="/register" class="box-r">立即注册</a>
               </div>
           </div>
      </div>

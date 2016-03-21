@@ -71,7 +71,7 @@
                                     }, 1500);
                                 } else if (data.code == 4001) {
                                     //密码输入次数多,请求输入验证码
-                                    $("#code").val("");
+                                    $("#imgCode").val("");
                                     $(".proving-box").show();
                                     var code = $("#code").val();
                                     if (!code_regexp.test(code)) {
@@ -166,7 +166,7 @@
 
                 <div class="loginInfo">
                     <div class="findWord">
-                        <a href="/regist/verify" class="resist">快速注册</a>
+                        <a href="/register" class="resist">快速注册</a>
                         <a href="/retrieve" class="password">忘记密码?</a>
                     </div>
                     <div class="min">

@@ -92,7 +92,7 @@
             //用户注册检测手机号
             $(document).on('click', '#btn-reg', function() {
                 var phone = $("#phone").val();
-                console.log($('form#cell_verifyForm').serialize());
+                //console.log($('form#cell_verifyForm').serialize());
                 $.ajax({
                         url: "/phone/verify",
                         dataType: 'json',
@@ -118,17 +118,17 @@
                                                         $("#code").attr({"name":"code"});
                                                         //手机验证码发送成功
                                                         if (data.code === 200) {
-                                                        var url = '/register';
-                                                        var form = $('<form action="' + url + '" method="post">' +
-                                                          '<input type="hidden" name="phone" value="' + phone + '" />' +
-                                                          '</form>');
-                                                        $('body').append(form);
-                                                        form.submit();
-                                                    }
-                                                       else {
-                                                            $('#js-userinfo-error').text(data.message).show();
-                                                            setTimeout("$('#js-userinfo-error').hide()", 2000);
-                                                       }
+                                                                var url = '/register';
+                                                                var form = $('<form action="' + url + '" method="post">' +
+                                                                '<input type="hidden" name="phone" value="' + phone + '" />' +
+                                                                '</form>');
+                                                                $('body').append(form);
+                                                                form.submit();
+                                                        }
+                                                        else {
+                                                                $('#js-userinfo-error').text(data.message).show();
+                                                                setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                                        }
                                                     }
                                            });
                                    }

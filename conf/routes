@@ -30,20 +30,19 @@ GET         /pin/order/detail/$orderId<[0-9]+>         controllers.UserCtrl.pinO
 
 
 #注册
-GET         /regist/verify           controllers.UserCtrl.registVerify()
+GET         /register                controllers.UserCtrl.registVerify()
 POST        /phone/verify            controllers.UserCtrl.phoneVerify()
 POST        /phone/code              controllers.UserCtrl.phoneCode()
 POST        /register                controllers.UserCtrl.register()
-POST        /regist/submit            controllers.UserCtrl.registSubmit()
+POST        /regist/submit           controllers.UserCtrl.registSubmit()
 #密码重置
 GET         /retrieve                controllers.UserCtrl.retrieve()
-GET         /reset/passwd/$phone<[1][345678]\d{9}>      controllers.UserCtrl.resetPasswd(phone:String)
-POST        /reset/submit             controllers.UserCtrl.resetPwdSubmit()
+POST        /retrieve                controllers.UserCtrl.resetPasswd()
+POST        /reset/submit            controllers.UserCtrl.resetPwdSubmit()
 #用户信息
 GET         /means                    controllers.UserCtrl.means()
-POST         /nickname                  controllers.UserCtrl.nickname()
-GET         /nickname                  controllers.UserCtrl.nickname()
-#POST        /user/update              controllers.UserCtrl.userUpdate()
+POST        /nickname                 controllers.UserCtrl.nickname()
+#POST       /user/update              controllers.UserCtrl.userUpdate()
 
 
 
@@ -80,7 +79,7 @@ GET         /cart                     controllers.ShoppingCtrl.cart()
 GET         /cart/empty               controllers.ShoppingCtrl.emptyCart()
 GET         /order/cancel/$orderId<[0-9]+>     controllers.ShoppingCtrl.cancelOrder(orderId:Long)
 GET         /order/del/$orderId<[0-9]+>        controllers.ShoppingCtrl.delOrder(orderId:Long)
-
+GET         /order/verify/$orderId<[0-9]+>     controllers.ShoppingCtrl.verifyOrder(orderId:Long)
 
 
 #

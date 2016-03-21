@@ -224,7 +224,6 @@ public class UserCtrl extends Controller {
      */
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> myView() {
-
             Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
                 Request.Builder builder =(Request.Builder)ctx().args.get("request");
                 Request request=builder.url(USER_INFO).get().build();
@@ -234,6 +233,7 @@ public class UserCtrl extends Controller {
 
                 }else  throw new IOException("Unexpected code " + response);
             });
+
             return promiseOfInt.map((Function<JsonNode , Result>) json -> {
                 Logger.info("==myView=json==" + json);
                 Message message = Json.fromJson(json.get("message"), Message.class);
@@ -371,17 +371,13 @@ public class UserCtrl extends Controller {
      * @return
      */
     public Promise<Result> loginSubmit() {
-
         ObjectNode result = newObject();
         Form<UserLoginInfo> userForm = Form.form(UserLoginInfo.class).bindFromRequest();
         Map<String, String> userMap = userForm.data();
-
         if (userForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
         } else {
-
-
             Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
                 FormEncodingBuilder feb = new FormEncodingBuilder();
                 userMap.forEach(feb::add);
@@ -394,17 +390,18 @@ public class UserCtrl extends Controller {
                         .build();
                 client.setConnectTimeout(10, TimeUnit.SECONDS);
                 Response response = client.newCall(request).execute();
+                Logger.error("response:"+response);
                 if (response.isSuccessful()) {
                     return Json.parse(new String(response.body().bytes(), UTF_8));
                 } else throw new IOException("Unexpected code " + response);
             });
 
             return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-
                         Message message = Json.fromJson(json.findValue("message"), Message.class);
-                        String token = json.findValue("result").findValue("token").asText();
-                        Integer expired = json.findValue("result").findValue("expired").asInt();
+                        Logger.error("json:"+json.asText());
                         if (Message.ErrorCode.SUCCESS.getIndex() == message.getCode()) {
+                            String token = json.findValue("result").findValue("token").asText();
+                            Integer expired = json.findValue("result").findValue("expired").asInt();
                             if (userMap.get("auto").equals("true")) {
                                 String session_id = UUID.randomUUID().toString().replaceAll("-", "");
                                 Cache.set(session_id, token, expired);
@@ -520,7 +517,6 @@ public class UserCtrl extends Controller {
         Form<UserPhoneCode> userPhoneCodeForm = Form.form(UserPhoneCode.class).bindFromRequest();
         Map<String, String> userMap = userPhoneCodeForm.data();
         String phone = userMap.get("phone");
-        Logger.error("手机:" + phone);
         return ok(views.html.users.regist.render(phone));
     }
 
@@ -600,10 +596,12 @@ public class UserCtrl extends Controller {
     /**
      * 密码重置
      *
-     * @param phone
      * @return
      */
-    public Result resetPasswd(String phone) {
+    public Result resetPasswd() {
+        Form<UserPhoneCode> userPhoneCodeForm = Form.form(UserPhoneCode.class).bindFromRequest();
+        Map<String, String> userMap = userPhoneCodeForm.data();
+        String phone = userMap.get("phone");
         return ok(views.html.users.resetPasswd.render(phone));
     }
 
@@ -651,8 +649,35 @@ public class UserCtrl extends Controller {
      * @return views
      */
     @Security.Authenticated(UserAuth.class)
-    public Result means() {
-        return ok(views.html.users.means.render());
+    public F.Promise<Result> means() {
+        Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
+            Request.Builder builder =(Request.Builder)ctx().args.get("request");
+            Request request = builder.url(USER_INFO).get().build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()){
+                return Json.parse(new String(response.body().bytes(), UTF_8));
+
+            }else  throw new IOException("Unexpected code " + response);
+        });
+
+        return promiseOfInt.map((Function<JsonNode , Result>) json -> {
+            Message message = Json.fromJson(json.get("message"), Message.class);
+            if(null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()){
+                Logger.error("返回收藏数据错误code="+(null!=message?message.getCode():0));
+                return badRequest();
+            }
+            UserDTO userInfo = Json.fromJson(json.get("userInfo"), UserDTO.class);
+            //请求用户信息
+            return ok(views.html.users.means.render(userInfo));
+        });
+
+//        Form<UserDTO> userDTOForm = Form.form(UserDTO.class).bindFromRequest();
+//        Map<String, String> userMap = userDTOForm.data();
+//        String photo = userMap.get("photo");
+//        String name = userMap.get("name");
+//        String gender = userMap.get("gender");
+//        String phoneNum = userMap.get("phoneNum");
+//        return ok(views.html.users.means.render(photo, name, gender, phoneNum));
     }
 
 
@@ -663,12 +688,9 @@ public class UserCtrl extends Controller {
      */
     @Security.Authenticated(UserAuth.class)
     public Result nickname() {
-        String nickname = request().body().asJson().asText();
-        Logger.error("昵称:" + nickname);
-        session().put("nickname", nickname);
-        //String nn = request().getQueryString("nickname");
-
-        //return ok("成功");
+        Form<UserDTO> userDTOForm = Form.form(UserDTO.class).bindFromRequest();
+        Map<String, String> userMap = userDTOForm.data();
+        String nickname = userMap.get("name");
         return ok(views.html.users.nickname.render(nickname));
     }
 
