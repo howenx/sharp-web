@@ -109,6 +109,7 @@ $(function() {
 
         //$('#js-userinfo-error').text('验证码发送成功!').show();
         setTimeout("$('#js-userinfo-error').hide()", 1000);
+
         $('.hq').disabled = true;
 
         var phone = $("#phone").val();
@@ -150,13 +151,10 @@ $(function() {
                                         setTimeout("$('#js-userinfo-error').hide()", 2000);
                                         $("#get-code").css("color", "#000");
                                         $("#get-code").css('cursor', 'auto');
-<<<<<<< HEAD
-                              
-                                        var ctime = 80;
 
-=======
-                                        var ctime = 8;
->>>>>>> 978969e457701e6ca75a5f692f0b5a7b6fdad24f
+                              
+                                    var ctime = 8;
+
                                         $("#time").html(ctime+"s");
                                         timer2 = window.setInterval(function() {
                                                 $("#time").html(--ctime+"s");
