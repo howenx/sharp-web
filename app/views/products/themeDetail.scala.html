@@ -1,4 +1,4 @@
-@(path:String,themeImg:String,tagList:List[Array[Object]],itemList:List[List[Array[Object]]])
+@(path:String,themeBasic:domain.ThemeBasic,tagList:List[Array[Object]],itemList:List[List[domain.ThemeItem]])
 @scripts = {
 <link rel="stylesheet" href="/assets/stylesheets/list.css">
 <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
@@ -24,11 +24,11 @@
     <div class="banner scope">
         <div class="big-box">
             <a href="javascript:;" class="banner-box">
-                <img src="@themeImg">
+                <img src="@themeBasic.getThemeImg()">
             </a>
             @for(tag <- tagList){
                 @if(tag(4) == 0){
-                    <a href="/detail/@tag(5)/@tag(1)" class="right"  style="left:@tag(2)%;top:@tag(0)%">
+                    <a href="/detail/@tag(1)" class="right"  style="left:@tag(2)%;top:@tag(0)%">
                         <div class="cartoon-right">
                             @tag(3)
                             <i></i>
@@ -42,7 +42,7 @@
                 }
                 @if(tag(4) == 180){
 
-                <a href="/detail/@tag(5)/@tag(1)" class="left"  style="right:@tag(2)%;top:@tag(0)%">
+                <a href="/detail/@tag(1)" class="left"  style="right:@tag(2)%;top:@tag(0)%">
                     <div class="cartoon">@tag(3)
                         <i></i>
 
@@ -57,44 +57,6 @@
             }
 
       </div>
-
-        <!--@for(tag <- tagList){
-            @if(tag(4) == 0){
-                @if(tag(5) == "pin"){
-                    <a href="/detail/pin/@tag(1)" class="right"  style="left:@tag(2)%;top:@tag(0)%">
-                }
-                @if(tag(5) == "item"){
-                    <a href="/detail/item/@tag(1)" class="right"  style="left:@tag(2)%;top:@tag(0)%">
-                }
-                        <div class="cartoon-right">@tag(3)
-                            <i></i>
-                        </div>
-                        <div class="ripple-right">
-                            <div class="c1"></div>
-                            <div class="c2"></div>
-                            <div class="c3"></div>
-                        </div>
-                    </a>
-            }
-            @if(tag(4) == 180){
-                 @if(tag(5) == "pin"){
-                    <a href="/detail/pin/@tag(1)" class="left"  style="left:@tag(2)%;top:@tag(0)%">
-                 }
-                 @if(tag(5) == "item"){
-                    <a href="/detail/item/@tag(1)" class="left"  style="left:@tag(2)%;top:@tag(0)%">
-                 }
-                        <div class="cartoon">@tag(3)
-                            <i></i>
-                        </div>
-                        <div class="ripple">
-                            <div class="c1"></div>
-                            <div class="c2"></div>
-                            <div class="c3"></div>
-                        </div>
-                    </a>
-            }
-        }-->
-
         <!--<a href="javascript:;" class="left">-->
             <!--<div class="cartoon">兰蔻-->
                 <!--<i></i>-->
@@ -201,35 +163,35 @@
             @for(rowList <- itemList){
             <li class="clearfix">
                 @for(item <- rowList){
-                    @if(item(1) == "item" || item(1) == "vary" || item(1) == "customize"){
-                        <a href="/detail/@item(1)/@item(2)">
+                    @if(item.getItemType == "item" || item.getItemType == "vary" || item.getItemType == "customize"){
+                        <a href="/detail/@item.getItemUrl()">
                             <p class="figure figure-f">
-                                <img src="@item(0)">
+                                <img src="@item.getItemImg()">
                             </p>
-                            <p class="title-hd">@item(3)</p>
+                            <p class="title-hd">@item.getItemTitle()</p>
                             <span class="title-fd">
-                                <i class="naw">￥@item(5)</i>
-                                <i class="agio">￥@item(4)</i>
-                                <b>@item(6)折</b>
+                                <i class="naw">￥@item.getItemSrcPrice()</i>
+                                <i class="agio">￥@item.getItemPrice()</i>
+                                <b>@item.getItemDiscount()折</b>
                             </span>
                         </a>
                     }
-                    @if(item(1) == "pin"){
-                        <a href="/detail/@item(1)/@item(2)">
+                    @if(item.getItemType() == "pin"){
+                        <a href="/detail/@item.getItemUrl()">
                             <p class="product-box">
-                                <span class="product-top">@item(7)</span>
+                                <span class="product-top">@item.getEndAt()</span>
                             </p>
 
                             <p class="figure">
-                                <img src="@item(0)">
+                                <img src="@item.getItemImg()">
                             </p>
 
-                            <p class="title-hd">@item(3)</p>
+                            <p class="title-hd">@item.getItemTitle()</p>
 
                             <span class="title-fd">
-                               <i class="naw">￥@item(5)</i>
-                               <i class="agio">￥@item(4)</i>
-                               <b>@item(6)折</b>
+                               <i class="naw">￥@item.getItemSrcPrice()</i>
+                               <i class="agio">￥@item.getItemPrice()</i>
+                               <b>@item.getItemDiscount()折</b>
                             </span>
                         </a>
                     }
