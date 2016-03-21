@@ -732,6 +732,11 @@ public class UserCtrl extends Controller {
             //请求用户信息
             return ok(views.html.users.service.render());
         }
+    //关于我们
+    public Result aboutus() {
+        //关于我们
+        return ok(views.html.users.aboutus.render());
+    }
 
 
     //我的拼团

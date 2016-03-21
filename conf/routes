@@ -14,6 +14,7 @@ POST        /feedback                 controllers.UserCtrl.feedback()
 GET         /coupon                   controllers.UserCtrl.coupon()
 POST        /login/submit             controllers.UserCtrl.loginSubmit()
 GET         /collect                  controllers.UserCtrl.collect()
+GET         /aboutus                  controllers.UserCtrl.aboutus()
 GET         /collect/del/$collectId<[0-9]+>              controllers.UserCtrl.collectDel(collectId:Long)
 POST        /collect/submit                              controllers.UserCtrl.submitCollect()
 
