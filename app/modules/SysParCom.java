@@ -34,6 +34,7 @@ public class SysParCom {
     public static String ORDER_CANCEL;//取消订单
     public static String ORDER_DEL;//删除订单
     public static String ORDER_REFUND;//申请售后
+    public static String ORDER_VERIFY;//订单校验
 
     public static String PIN_LIST;//我的拼团
     public static String PIN_ACTIVITY;//拼团详情
@@ -87,9 +88,9 @@ public class SysParCom {
 
         INDEX_PAGE = configuration.getString("products.page.index");
         LOGIN_PAGE = configuration.getString("user.page.login");
-        COLLECT_PAGE=configuration.getString("user.collect.list");
-        COLLECT_DEL=configuration.getString("user.collect.del");
-        COLLECT_SUBMIT=configuration.getString("user.collect.submit");
+        COLLECT_PAGE=configuration.getString("shopping.collect.list");
+        COLLECT_DEL=configuration.getString("shopping.collect.del");
+        COLLECT_SUBMIT=configuration.getString("shopping.collect.submit");
         //地址
         ADDRESS_PAGE=configuration.getString("user.address.list");
         ADDRESS_ADD=configuration.getString("user.address.add");
@@ -97,18 +98,19 @@ public class SysParCom {
         ADDRESS_UPDATE=configuration.getString("user.address.update");
 
 
-        COUPON_PAGE=configuration.getString("user.coupons");
-        FEEDBACK_PAGE=configuration.getString("user.feedback");
+        COUPON_PAGE=configuration.getString("shopping.coupons");
+        FEEDBACK_PAGE=configuration.getString("shopping.feedback");
         //我的订单
-        ORDER_PAGE=configuration.getString("user.order.all");
-        ORDER_CANCEL=configuration.getString("user.order.cancel");
-        ORDER_DEL=configuration.getString("user.order.del");
-        ORDER_REFUND=configuration.getString("user.order.refund");
+        ORDER_PAGE=configuration.getString("shopping.order.all");
+        ORDER_CANCEL=configuration.getString("shopping.order.cancel");
+        ORDER_DEL=configuration.getString("shopping.order.del");
+        ORDER_REFUND=configuration.getString("shopping.order.refund");
+        ORDER_VERIFY=configuration.getString("shopping.order.verify");
 
         //我的拼团
-        PIN_LIST=configuration.getString("user.pin.list");
-        PIN_ACTIVITY=configuration.getString("user.pin.activity");
-        PIN_ORDER_DETAIL=configuration.getString("user.pin.detail");
+        PIN_LIST=configuration.getString("promotion.pin.list");
+        PIN_ACTIVITY=configuration.getString("promotion.pin.activity");
+        PIN_ORDER_DETAIL=configuration.getString("shopping.pin.detail");
 
 
         //注册与密码
@@ -138,7 +140,7 @@ public class SysParCom {
 
 
 
-        PAY_ORDER=configuration.getString("user.pay.order");
+        PAY_ORDER=configuration.getString("shopping.pay.order");
 
 
 
