@@ -50,7 +50,7 @@ POST        /nickname                 controllers.UserCtrl.nickname()
 GET         /                          controllers.ProductsCtrl.index()
 POST        /indexAjax                 controllers.ProductsCtrl.loadIndexAjax()
 GET         /themeDetail/*url          controllers.ProductsCtrl.themeDetail(url)
-GET         /detail/:type/*url         controllers.ProductsCtrl.detail(type,url)
+GET         /detail/*url               controllers.ProductsCtrl.detail(url)
 GET         /pinInstruction            controllers.ProductsCtrl.pinInstruction()
 GET         /pinTieredPrice/*url       controllers.ProductsCtrl.pinTieredPrice(url)
 

@@ -1,4 +1,4 @@
-@(path:String,itemMain:domain.Item,itemFeaturesList:List[Array[Object]],pushList:List[List[Array[Object]]],inventoryList:List[domain.Inventory],stockSize:Int,preImgList:List[List[String]],publicityList:List[String])
+@(path:String,itemMain:domain.Item,itemFeaturesList:List[Array[Object]],pushList:List[List[domain.ThemeItem]],inventoryList:List[domain.Inventory],stockSize:Int,preImgList:List[List[String]],publicityList:List[String])
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -158,32 +158,32 @@
 			@for(rowList <- pushList){
 				<li>
 					@for(pushItem <- rowList){
-						@if(pushItem(9) == "item" || pushItem(9) == "vary" || pushItem(9) == "customize"){
-							<a href="/detail/@pushItem(9)/@pushItem(1)">
+						@if(pushItem.getItemType() == "item" || pushItem.getItemType() == "vary" || pushItem.getItemType() == "customize"){
+							<a href="/detail/@pushItem.getItemUrl()">
 								<p class="figure figure-f">
-								   <img src="@pushItem(0)">
+								   <img src="@pushItem.getItemImg()">
 								</p>
-								<p class="title-hd">@pushItem(2)</p>
+								<p class="title-hd">@pushItem.getItemTitle()</p>
 								   <span class="title-fd">
-									   <i class="naw">￥@pushItem(4)</i>
-									   <i class="agio">￥@pushItem(3)</i>
-									   <b>@pushItem(5)折</b>
+									   <i class="naw">￥@pushItem.getItemPrice()</i>
+									   <i class="agio">￥@pushItem.getItemSrcPrice()</i>
+									   <b>@pushItem.getItemDiscount()折</b>
 								   </span>
 							</a>
 						}
-						@if(pushItem(9) == "pin"){
-							<a href="/detail/@pushItem(9)/@pushItem(1)">
+						@if(pushItem.getItemType() == "pin"){
+							<a href="/detail/@pushItem.getItemUrl()">
 								<p class="product-box">
-									<span class="product-top">@pushItem(12)</span>
+									<span class="product-top">@pushItem.getEndAt()</span>
 								</p>
 								<p class="figure figure-f">
-									<img src="@pushItem(0)">
+									<img src="@pushItem.getItemImg()">
 								</p>
-								<p class="title-hd">@pushItem(2)</p>
+								<p class="title-hd">@pushItem.getItemTitle()</p>
 						   <span class="title-fd">
-							   <i class="naw">￥@pushItem(4)</i>
-							   <i class="agio">￥@pushItem(3)</i>
-							   <b>@pushItem(5)折</b>
+							   <i class="naw">￥@pushItem.getItemPrice()</i>
+							   <i class="agio">￥@pushItem.getItemSrcPrice()</i>
+							   <b>@pushItem.getItemDiscount()折</b>
 						   </span>
 							</a>
 						}
