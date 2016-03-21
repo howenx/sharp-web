@@ -14,6 +14,7 @@ POST        /feedback                 controllers.UserCtrl.feedback()
 GET         /coupon                   controllers.UserCtrl.coupon()
 POST        /login/submit             controllers.UserCtrl.loginSubmit()
 GET         /collect                  controllers.UserCtrl.collect()
+GET         /aboutus                  controllers.UserCtrl.aboutus()
 GET         /collect/del/$collectId<[0-9]+>              controllers.UserCtrl.collectDel(collectId:Long)
 POST        /collect/submit                              controllers.UserCtrl.submitCollect()
 
@@ -78,6 +79,7 @@ GET         /cart/empty               controllers.ShoppingCtrl.emptyCart()
 GET         /order/cancel/$orderId<[0-9]+>     controllers.ShoppingCtrl.cancelOrder(orderId:Long)
 GET         /order/del/$orderId<[0-9]+>        controllers.ShoppingCtrl.delOrder(orderId:Long)
 GET         /order/verify/$orderId<[0-9]+>     controllers.ShoppingCtrl.verifyOrder(orderId:Long)
+POST        /order/submit                      controllers.ShoppingCtrl.submitOrder()
 
 
 #

@@ -5,6 +5,7 @@ $(function(){
 
     $('li').click(function(){
         $(this).parents("ul").prev().find(".quick").html($(this).find(".quick").html())
+        $(this).parents("ul").prev().find("input").val($(this).find("input").val())
     })
 
     $('.back').click(function(){
