@@ -18,8 +18,6 @@ GET         /aboutus                  controllers.UserCtrl.aboutus()
 GET         /collect/del/$collectId<[0-9]+>              controllers.UserCtrl.collectDel(collectId:Long)
 POST        /collect/submit                              controllers.UserCtrl.submitCollect()
 
-GET         /nickname                  controllers.UserCtrl.nickname()
-
 GET         /service                     controllers.UserCtrl.service()
 POST        /order/apply/refund          controllers.UserCtrl.refundApply()
 
@@ -43,7 +41,7 @@ POST        /reset/submit            controllers.UserCtrl.resetPwdSubmit()
 #用户信息
 GET         /means                    controllers.UserCtrl.means()
 POST        /nickname                 controllers.UserCtrl.nickname()
-#POST       /user/update              controllers.UserCtrl.userUpdate()
+#POST        /user/update              controllers.UserCtrl.userUpdate()
 
 
 
@@ -81,6 +79,7 @@ GET         /cart/empty               controllers.ShoppingCtrl.emptyCart()
 GET         /order/cancel/$orderId<[0-9]+>     controllers.ShoppingCtrl.cancelOrder(orderId:Long)
 GET         /order/del/$orderId<[0-9]+>        controllers.ShoppingCtrl.delOrder(orderId:Long)
 GET         /order/verify/$orderId<[0-9]+>     controllers.ShoppingCtrl.verifyOrder(orderId:Long)
+POST        /order/submit                      controllers.ShoppingCtrl.submitOrder()
 
 
 #

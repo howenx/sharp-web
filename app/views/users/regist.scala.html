@@ -59,7 +59,7 @@
 <div id='screen_wrap'>
     <div class="nav_ban">
         <h1>账号注册</h1>
-        <a href="/regist/verify"><span class="icon-back" id="backBtn"></span></a>
+        <a href="/register"><span class="icon-back" id="backBtn"></span></a>
         <!--<a href="/login"><span class="icon-user-title" id="userBtn"></span></a>-->
     </div>
     <div id="js-userinfo-error" class="cue">验证码发送成功</div>
@@ -109,6 +109,7 @@ $(function() {
 
         //$('#js-userinfo-error').text('验证码发送成功!').show();
         setTimeout("$('#js-userinfo-error').hide()", 1000);
+        $('.hq').disabled = true;
 
         var phone = $("#phone").val();
 
@@ -124,12 +125,13 @@ $(function() {
                     $("#time").html("");
                     $("#get-code").css("color", "#E46359");
                     $("#get-code").css('cursor', 'pointer');
+                    $('.hq').disabled = false;
                 }
         }, 1000);
 
         //再次获取验证码
         $("#get-code").click(function() {
-                //$('.hp').disabled = true;
+                $('.hq').disabled = true;
                 $("#password").removeAttr("name");
                 $("#code").removeAttr("name");
                 console.log($('form#cell_regForm').serialize());
@@ -148,9 +150,13 @@ $(function() {
                                         setTimeout("$('#js-userinfo-error').hide()", 2000);
                                         $("#get-code").css("color", "#000");
                                         $("#get-code").css('cursor', 'auto');
+<<<<<<< HEAD
                               
                                         var ctime = 80;
 
+=======
+                                        var ctime = 8;
+>>>>>>> 978969e457701e6ca75a5f692f0b5a7b6fdad24f
                                         $("#time").html(ctime+"s");
                                         timer2 = window.setInterval(function() {
                                                 $("#time").html(--ctime+"s");
@@ -159,7 +165,7 @@ $(function() {
                                                     $("#time").html("");
                                                     $("#get-code").css("color", "#E46359");
                                                     $("#get-code").css('cursor', 'pointer');
-
+                                                    $('.hq').disabled = false;
                                                 }
                                         }, 1000);
                                 } else {
