@@ -122,20 +122,19 @@ $(function() {
                         contentType: "application/json; charset=utf-8",
                         data : JSON.stringify(obj),
                         error:function(request) {
-                            alert("收藏失败");
                         },
                         success: function(data) {
                             if (data!=""&&data!=null&&data.collectId>0) {
-                                $("#collectId").val(data.collectId);
-                                $(this).addClass('min');
+                                console.log(data.collectId);
+                                $(".soul.now").parent().find(".collectId").val(data.collectId);
+                                $(".soul.now").addClass('min');
                                 $('.like-s').show();
                                 tim = setInterval(function () {
                                 	$('.like-s').hide();
                                 },1000);
                                 $('.like-x').hide();
-                                alert("收藏成功");
                             }else{
-                                alert("收藏失败");
+
                             }
                         }
                 });
@@ -148,33 +147,24 @@ $(function() {
                      url : "/collect/del/"+collectId,
                      contentType: "application/json; charset=utf-8",
                      error : function(request) {
-                         alert("删除失败!");
                      },
                      success: function(data) {
                         //console.log("data="+data);
                           if(data.code==200){ //取消收藏成功
-                             $(this).removeClass('min');
+                             $(".soul.now").removeClass('min');
                              $('.like-s').hide();
                              $('.like-x').show();
                              tim = setInterval(function () {
                              	$('.like-x').hide();
                              },1000);
                              off =true;
-                             alert("取消成功");
                           }
                           else{
-                             alert("取消失败!");
                           }
                      }
                 });
             }
     });
-
-
-
-
-
-
 
 
 
