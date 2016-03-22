@@ -69,9 +69,10 @@ public class SysParCom {
 
     /******** 购物相关 ********/
     public static  String SHOPPING_LIST;//购物车列表
+    public static  String SHOPPING_ADDTOCART;//加入购物车
     public static  String SHOPPING_SETTLE;//结算
     public static  String ORDER_SUBMIT;//提交订单
-
+    public static  String CART_ADD;//加入购物车
 
 
     public static  String PAY_ORDER;
@@ -138,9 +139,10 @@ public class SysParCom {
 
         /******** 购物相关 ********/
         SHOPPING_LIST = configuration.getString("shopping.page.cart.list");
+        SHOPPING_ADDTOCART = configuration.getString("shopping.page.cart.add");
         SHOPPING_SETTLE=configuration.getString("shopping.settle");
         ORDER_SUBMIT=configuration.getString("shopping.order.submit");
-
+        CART_ADD=configuration.getString("shopping.cart.add");
 
 
         PAY_ORDER=configuration.getString("shopping.pay.order");

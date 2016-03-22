@@ -144,6 +144,14 @@ public class ShoppingCtrl extends Controller {
         return ok(views.html.shopping.cartempty.render(path));
     }
 
+
+    public Result addToCart(){
+
+        return ok("AAA");
+
+    }
+
+
     //待发货
     public Result delivered() {
         return ok(views.html.shopping.delivered.render());
@@ -173,8 +181,8 @@ public class ShoppingCtrl extends Controller {
      */
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> settle() {
-
-        Logger.info("=settle data=="+Form.form().bindFromRequest().data());
+        ObjectNode result = Json.newObject();
+        Logger.info("==settle data="+Form.form().bindFromRequest().data());
         Map<String, String> settleMap = Form.form().bindFromRequest().data();
         Integer buyNow=Integer.valueOf(settleMap.get("buyNow"));//1－立即支付 2-购物车结算
         Map<String,Object> object=new HashMap<>();
@@ -235,6 +243,10 @@ public class ShoppingCtrl extends Controller {
                 CartInfo cartInfo=new CartInfo(cartId,skuId,amount,state,skuType,skuTypeId,pinTieredPriceId,skuTitle,skuInvImg,skuPrice);
                 cartInfos.add(cartInfo);
             }
+            if(cartDtos.size()<=0){
+                Logger.error("商品结算第"+(i+1)+"个保税区无商品"+Json.toJson(settleMap));
+                continue;
+            }
 
             SettleDTO settleDTO=createSettleDTO(invCustoms,invArea,invAreaNm,cartDtos);
             settleDTOs.add(settleDTO);
@@ -244,6 +256,11 @@ public class ShoppingCtrl extends Controller {
             settleInfo.setInvAreaNm(invAreaNm);
             settleInfo.setCartInfos(cartInfos);
             settleInfoList.add(settleInfo);
+        }
+        if(settleDTOs.size()<=0){
+            Logger.error("商品结算无商品"+Json.toJson(settleMap));
+            result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
+            return F.Promise.promise((F.Function0<Result>) () -> ok(result));
         }
 
         object.put("settleDTOs",settleDTOs);
@@ -284,9 +301,6 @@ public class ShoppingCtrl extends Controller {
                 return Json.parse(new String(response.body().bytes(), UTF_8));
             } else throw new IOException("Unexpected code" + response);
         });
-        //下订单
- //       comCtrl.postReqReturnMsg(ORDER_SUBMIT,formBody);
-
         final Long finalPinActiveId = pinActiveId;
         return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
             Logger.info("==settle=json==" + json);
@@ -374,6 +388,7 @@ public class ShoppingCtrl extends Controller {
      */
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result>  submitOrder() {
+        ObjectNode result = Json.newObject();
         Logger.info("==="+Form.form().bindFromRequest().data());
         Map<String, String> settleMap = Form.form().bindFromRequest().data();
         Map<String,Object> object=new HashMap<>();
@@ -397,11 +412,19 @@ public class ShoppingCtrl extends Controller {
                 CartDto cartDTO=new CartDto(cartId,skuId,amount,state,skuType,skuTypeId,pinTieredPriceId);
                 cartDtos.add(cartDTO);
             }
-
+            if(cartDtos.size()<=0){
+                Logger.error("订单提交第"+(i+1)+"个保税区无商品"+Json.toJson(settleMap));
+                continue;
+            }
             SettleDTO settleDTO=createSettleDTO(invCustoms,invArea,invAreaNm,cartDtos);
             settleDTOs.add(settleDTO);
         }
         object.put("settleDTOs",settleDTOs);
+        if(settleDTOs.size()<=0){
+            Logger.error("订单提交无商品"+Json.toJson(settleMap));
+            result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
+            return F.Promise.promise((F.Function0<Result>) () -> ok(result));
+        }
 
         object.put("addressId",Long.valueOf(settleMap.get("addressId")));//地址id
         object.put("couponId",Long.valueOf(settleMap.get("couponId")));//优惠券id
@@ -434,6 +457,17 @@ public class ShoppingCtrl extends Controller {
 
             return ok("success orderId="+orderId);
         });
+    }
+
+    /**
+     * 用户将本地购物车添加到网络购物车中（POST请求）
+     * @return
+     */
+    @Security.Authenticated(UserAuth.class)
+    public F.Promise<Result>  cartAdd(){
+
+        RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, new String(""));
+        return comCtrl.postReqReturnMsg(CART_ADD,formBody);
     }
 
 
