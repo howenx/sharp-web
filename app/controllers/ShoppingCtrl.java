@@ -449,13 +449,13 @@ public class ShoppingCtrl extends Controller {
         return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
             Logger.info("==settle=json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
-            if (null == message||message.getCode()!=200) {
+            if (null == message) {
                 Logger.error("返回商品结算数据错误code=" + json);
                 return badRequest();
             }
             Long orderId=json.get("orderId").asLong();
 
-            return ok("success orderId="+orderId);
+            return ok(json);
         });
     }
 
@@ -470,6 +470,15 @@ public class ShoppingCtrl extends Controller {
         return comCtrl.postReqReturnMsg(CART_ADD,formBody);
     }
 
+    /**
+     * 删除购物车
+     * @param cartId
+     * @return
+     */
+    @Security.Authenticated(UserAuth.class)
+    public F.Promise<Result>  cartDel(Long cartId){
+        return comCtrl.getReqReturnMsg(CART_DEL+cartId);
+    }
 
 }
 

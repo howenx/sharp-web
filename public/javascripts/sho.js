@@ -155,7 +155,29 @@ $(function(){
     }
 
 
-})
+});
+
+//删除购物车
+function delCart(cartId){
+    if (window.confirm("确定删除吗?")) {
+        console.log("cartId="+cartId);
+        $.ajax({
+              type :"GET",
+              url : "/cart/del/"+cartId,
+              contentType: "application/json; charset=utf-8",
+              error : function(request) {
+                  alert("删除失败!");
+              },
+              success: function(data) {
+                 console.log("data="+data);
+                  if (data!=""&&data!=null&&data.code==200){ //删除成功
+                        $("#li"+cartId).remove();
+                   } else alert("删除失败!");
+
+              }
+         });
+    }
+};
 
 
 

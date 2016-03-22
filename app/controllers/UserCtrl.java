@@ -93,14 +93,17 @@ public class UserCtrl extends Controller {
         Form<AddressInfo> addressForm = Form.form(AddressInfo.class).bindFromRequest();
         Logger.info("====addressSave===" + addressForm.data());
         Map<String, String> addressMap = addressForm.data();
-        String idCardNum = addressMap.get("idCardNum").trim();
-        if (addressForm.hasErrors() || !"".equals(ComTools.IDCardValidate(idCardNum.toLowerCase()))) { //表单错误或者身份证校验不通过
+        String idCardNum = addressMap.get("idCardNum").trim().toLowerCase();
+        if (addressForm.hasErrors() || !"".equals(ComTools.IDCardValidate(idCardNum))) { //表单错误或者身份证校验不通过
+            Logger.error("收货地址保存表单错误或者身份证校验不通过"+toJson(addressMap));
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
         } else {
             ObjectNode object = Json.newObject();
             Long addId = Long.valueOf(addressMap.get("addId"));
-            object.put("addId", addId);
+            if(addId>0){
+                object.put("addId", addId);
+            }
             String province = addressMap.get("province");
             if (!"0".equals(province)) {//未修改省份
                 ObjectNode cityObject = Json.newObject();
@@ -116,11 +119,11 @@ public class UserCtrl extends Controller {
             object.put("name", addressMap.get("name").trim());
             object.put("deliveryDetail", addressMap.get("deliveryDetail").trim());
             object.put("orDefault", "on".equals(addressMap.get("orDefault")) ? 1 : 0);
-            object.put("idCardNum", addressMap.get("idCardNum").trim());
+            object.put("idCardNum", idCardNum);
 
 
             Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
-                RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, object.toString());
+                RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, new String(object.toString()));
                 Request.Builder builder = (Request.Builder) ctx().args.get("request");
                 Request request = builder.url(addId > 0 ? ADDRESS_UPDATE : ADDRESS_ADD).post(formBody).build();
                 Response response = client.newCall(request).execute();
@@ -141,6 +144,11 @@ public class UserCtrl extends Controller {
         }
     }
 
+    /**
+     * 更新地址界面
+     * @param addId
+     * @return
+     */
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> addressUpdate(Long addId) {
         Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
