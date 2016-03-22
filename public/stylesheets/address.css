@@ -4,10 +4,33 @@
     padding:65px 2%;
 }
 
-ul li{
-    padding:10px;
-    border-bottom: 1px solid #ccc;
+.wap-box{
+    background-color:#F3F5F4 ;
+}
+
+.dqld_div{
+    width:100%;
+    background-color:#ededed;
+    margin-top: -675px;
+    position: absolute;
+}
+
+.dqld_div ul{
+    width:90%;
+    margin: 0 auto;
+}
+
+
+.dqld_div ul li{
+    height:40px;
     background-color: #ededed;
+    line-height:40px;
+    border-bottom:1px solid #cccccc;
+    padding-left:10px;
+}
+
+ul li{
+    background-color: #fff;
 
 }
 
@@ -15,8 +38,8 @@ ul li a{
     color: #4B4B4B;
 }
 
-.ul-box li{
-    height: 300px;
+.ul-box-li{
+    padding: 10px 10px 50px 10px;
 }
 
 li div{
@@ -66,23 +89,9 @@ li div{
     margin: 10px 0 0 0;
 }
 
-.dqld_div{
-    width:100%;
-    background-color:#fff;
-    margin-top: -618px;
-    position: absolute;
-}
 
-.dqld_div ul{
-    width:90%;
-    margin: 0 auto;
-}
 
-.dqld_div ul li{
-    line-height:20px;
-    border-bottom:1px solid #cccccc;
-    padding-left:10px;
-}
+
 .address_input{
     border-bottom: 1px solid #ccc;
 }
@@ -113,7 +122,7 @@ li div{
 }
 
 .address p span{
-    margin: 0 10px;
+    margin: 0 0 0 2px;
 }
 
 .address .add-icon{
@@ -130,6 +139,12 @@ li div{
     text-align: right;
 }
 
-
-
+.add-l{
+    float: left;
+    width:75px;
+}
+.add-r{
+    width:70%;
+    float: left;
+}
 

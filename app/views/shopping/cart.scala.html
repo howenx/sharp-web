@@ -46,7 +46,7 @@
         </div>
         <ul class="cart-goods-list">
             @for((cartInfo,skuIndex)<-cart.getCarts().zipWithIndex){
-                <li>
+                <li id="li@cartInfo.getCartId()">
                     <div class="item">
                         <div class="check-wrapper">
                             <input type="checkbox" class="check-one check"  name="check_item" />
@@ -74,7 +74,7 @@
                                     <a href="javascript:;" class="quantity-decrease">-</a>
                                     <input type="text" class="quantity" value="@cartInfo.getAmount()"/>
                                     <a href="javascript:;" class="quantity-increase">+</a>
-                                    <i class="cart-del-btn"></i>
+                                    <i class="cart-del-btn" onclick="delCart(@cartInfo.getCartId())"></i>
                                 </div>
                             </div>
 
