@@ -3,20 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/error.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+    <style>
+        .button a{
+            padding: 4px 10px;
+            text-decoration: none;
+            color: #E66255;
+            border: 1px solid #E66255;
+            border-radius: 2px;
+            margin-left: 10px;
+        }
+    </style>
 </head>
-<body>
-<div class="not-bg">
-    <div class="content">
-        <div class="content-left pull-left">
-            <div class="logo"></div>
-            <h3>404.<small>页面不存在</small></h3>
-            <h4>错误信息:<small>......</small></h4>
-            <a href="#">返回首页</a>
-        </div>
-        <div class="content-right pull-right">
-        </div>
+<body style="background: rgb(249,249,249)">
+<div class="error-404">
+    <div>
+        <img src="/assets/images/error404.jpg" alt="" style="width: 80%;margin-left: 10%;margin-top: 100px">
+    </div>
+    <div class="button" style="text-align: center;font-size: 16px;margin-top: 50px">
+        <a href="#">回到首页</a>
+        <a href="#">返回上一层</a>
     </div>
 </div>
 </body>

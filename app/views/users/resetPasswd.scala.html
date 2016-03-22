@@ -31,6 +31,8 @@
                $('#js-userinfo-error').hide();
             },1000);
 
+            var flag = false;
+
             var phone = $("#phone").val();
 
             $("#phone-send-code").text("已发送验证码至"+phone.substring(0,3)+"*****"+phone.substring(7,11));
@@ -46,46 +48,52 @@
                         $("#time").html("");
                         $("#get-code").css("color", "#E46359");
                         $("#get-code").css('cursor', 'pointer');
+                        flag = true;
                     }
             }, 1000);
 
             //再次获取验证码
             $("#get-code").click(function() {
-                $("#password").removeAttr("name");
-                $("#code").removeAttr("name");
-                console.log($('form#cell_resForm').serialize());
-                $.ajax({
-                        url: "/phone/code",
-                        dataType: 'json',
-                        data: $('form#cell_resForm').serialize(),
-                        type: 'POST',
-                        success: function(data) {
-                                console.log(data);
-                                $("#password").attr({"name":"password"});
-                                $("#code").attr({"name":"code"});
-                                //手机验证码发送成功
-                                if (data.code === 200) {
-                                        $('#js-userinfo-error').text('验证码发送成功!').show();
-                                        setTimeout("$('#js-userinfo-error').hide()", 2000);
-                                        $("#get-code").css("color", "#000");
-                                        $("#get-code").css('cursor', 'auto');
-                                        var ctime = 80;
-                                        $("#time").html(ctime+"s");
-                                        timer2 = window.setInterval(function() {
-                                                $("#time").html(--ctime+"s");
-                                                if (ctime == 0) {
-                                                    window.clearInterval(timer2);
-                                                    $("#time").html("");
-                                                    $("#get-code").css("color", "#E46359");
-                                                    $("#get-code").css('cursor', 'pointer');
-                                                }
-                                        }, 1000);
-                                } else {
-                                        $('#js-userinfo-error').text(data.message).show();
-                                        setTimeout("$('#js-userinfo-error').hide()", 2000);
+                if(!flag){
+                   return;
+                } else {
+                        $("#password").removeAttr("name");
+                        $("#code").removeAttr("name");
+                        console.log($('form#cell_resForm').serialize());
+                        $.ajax({
+                                url: "/phone/code",
+                                dataType: 'json',
+                                data: $('form#cell_resForm').serialize(),
+                                type: 'POST',
+                                success: function(data) {
+                                        console.log(data);
+                                        $("#password").attr({"name":"password"});
+                                        $("#code").attr({"name":"code"});
+                                        //手机验证码发送成功
+                                        if (data.code === 200) {
+                                                $('#js-userinfo-error').text('验证码发送成功!').show();
+                                                setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                                $("#get-code").css("color", "#000");
+                                                $("#get-code").css('cursor', 'auto');
+                                                var ctime = 80;
+                                                $("#time").html(ctime+"s");
+                                                timer2 = window.setInterval(function() {
+                                                        $("#time").html(--ctime+"s");
+                                                        if (ctime == 0) {
+                                                            window.clearInterval(timer2);
+                                                            $("#time").html("");
+                                                            $("#get-code").css("color", "#E46359");
+                                                            $("#get-code").css('cursor', 'pointer');
+                                                            flag = true;
+                                                        }
+                                                }, 1000);
+                                        } else {
+                                                $('#js-userinfo-error').text(data.message).show();
+                                                setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                        }
                                 }
-                        }
-                });
+                        });
+                }
             });
 
 
