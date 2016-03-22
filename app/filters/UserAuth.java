@@ -40,6 +40,8 @@ public class UserAuth extends Security.Authenticator {
             builder.addHeader(Http.HeaderNames.X_FORWARDED_FOR,ctx.request().remoteAddress());
             builder.addHeader(Http.HeaderNames.VIA,ctx.request().remoteAddress());
 
+            map.forEach(builder::addHeader);
+            
             if (header.isPresent()) {
                 Optional<String> token = Optional.ofNullable(cache.get(header.get()).toString());
                 if (token.isPresent()) {
