@@ -58,7 +58,7 @@ public class ProductsCtrl extends Controller {
                 JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
                 return json;
             }
-            return null;
+            else throw new IOException("Unexpected code " + response);
         });
         return promise.map((F.Function<JsonNode, Result>) json -> {
                     List<Slider> sliderList = new ArrayList<>();

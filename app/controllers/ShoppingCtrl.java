@@ -131,6 +131,29 @@ public class ShoppingCtrl extends Controller {
     }
 
     /**
+     * 添加商品到购物车
+     * @return
+     */
+    public F.Promise<Result> addToCart(){
+        F.Promise<JsonNode> promise = F.Promise.promise(() -> {
+            Request.Builder builder = (Request.Builder) ctx().args.get("request");
+            Request request = builder.url(SHOPPING_LIST).get().build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
+                Logger.info("===json==\n" + json);
+                return json;
+            } else throw new IOException("Unexpected code " + response);
+        });
+
+        return promise.map((F.Function<JsonNode, Result>) json -> {
+
+                  return null;
+                }
+        );
+    }
+
+    /**
      * 空购物车页面
      *
      * @return page
@@ -142,13 +165,6 @@ public class ShoppingCtrl extends Controller {
             session().replace("path", routes.ShoppingCtrl.emptyCart().url());
         }else session().put("path", routes.ShoppingCtrl.cart().url());
         return ok(views.html.shopping.cartempty.render(path));
-    }
-
-
-    public Result addToCart(){
-
-        return ok("AAA");
-
     }
 
 
