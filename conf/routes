@@ -42,7 +42,7 @@ POST        /reset/submit            controllers.UserCtrl.resetPwdSubmit()
 GET         /means                    controllers.UserCtrl.means()
 POST        /nickname                 controllers.UserCtrl.nickname()
 POST        /user/update              controllers.UserCtrl.userUpdate()
-
+GET         /logout                   controllers.UserCtrl.logout()
 
 
 
