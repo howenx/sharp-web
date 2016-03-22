@@ -7,16 +7,17 @@ import com.squareup.okhttp.Response;
 import domain.*;
 import play.Logger;
 import play.libs.Json;
-import play.mvc.Controller;
-import play.mvc.Http;
-import play.mvc.Result;
+import play.mvc.*;
 
 import javax.inject.Inject;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static modules.SysParCom.*;
+import static util.GZipper.dealToString;
+
 /**
  * 首页,主题,产品相关
  * Created by howen on 16/3/9.
@@ -32,6 +33,7 @@ public class ProductsCtrl extends Controller {
         if (mapString != null) {
             mapString.forEach((k, v) -> params.put(k, v[0]));
         }
+        params.remove("");
         Request.Builder builder = new Request.Builder();
         params.forEach(builder::addHeader);
         if (session.containsKey("id-token")){
@@ -60,38 +62,45 @@ public class ProductsCtrl extends Controller {
         Request request = getBuilder(request(),session())
                 .url(INDEX_PAGE + "1")
                 .build();
+        //数据量过大情况下,可以加上这一句
+        //.addHeader("Accept-Encoding","gzip");
+
         Response response = client.newCall(request).execute();
         if(response.isSuccessful()){
-            JsonNode json = Json.parse(response.body().string());
-            if(json.has("slider")){
-                JsonNode sliderJson = json.get("slider");
-                for(JsonNode sliderTemp : sliderJson){
-                    Slider slider = Json.fromJson(sliderTemp,Slider.class);
-                    JsonNode imgJson = Json.parse(slider.getUrl());
-                    slider.setImg(imgJson.get("url").asText());
-                    if(slider.getItemTarget().contains(GOODS_PAGE)){
-                        slider.setItemTarget(slider.getItemTarget().replace(GOODS_PAGE,""));
+            String result = dealToString(response);
+            if(result!=null){
+                JsonNode json = Json.parse(result);
+                Logger.info("===json==\n" + json);
+                if(json.has("slider")){
+                    JsonNode sliderJson = json.get("slider");
+                    for(JsonNode sliderTemp : sliderJson){
+                        Slider slider = Json.fromJson(sliderTemp,Slider.class);
+                        JsonNode imgJson = Json.parse(slider.getUrl());
+                        slider.setImg(imgJson.get("url").asText());
+                        if(slider.getItemTarget().contains(GOODS_PAGE)){
+                            slider.setItemTarget(slider.getItemTarget().replace(GOODS_PAGE,""));
+                        }
+                        if((slider.getItemTarget().contains(THEME_PAGE)) && Objects.equals(slider.getTargetType(), "T")){
+                            slider.setItemTarget(slider.getItemTarget().replace(THEME_PAGE,""));
+                        }
+                        sliderList.add(slider);
                     }
-                    if((slider.getItemTarget().contains(THEME_PAGE)) && slider.getTargetType() == "T"){
-                        slider.setItemTarget(slider.getItemTarget().replace(THEME_PAGE,""));
-                    }
-                    sliderList.add(slider);
                 }
-            }
-            if(json.has("theme")){
-                JsonNode themeJson = json.get("theme");
-                for(JsonNode themeTemp : themeJson){
-                    Theme theme = Json.fromJson(themeTemp,Theme.class);
-                    JsonNode imgJson = Json.parse(theme.getThemeImg());
-                    theme.setThemeImg(imgJson.get("url").asText());
-                    if(!"h5".equals(theme.getType())){
-                        String themeUrl = theme.getThemeUrl();
-                        themeUrl = themeUrl.replace(THEME_PAGE,"");
-                        theme.setThemeUrl(themeUrl);
+                if(json.has("theme")){
+                    JsonNode themeJson = json.get("theme");
+                    for(JsonNode themeTemp : themeJson){
+                        Theme theme = Json.fromJson(themeTemp,Theme.class);
+                        JsonNode imgJson = Json.parse(theme.getThemeImg());
+                        theme.setThemeImg(imgJson.get("url").asText());
+                        if(!"h5".equals(theme.getType())){
+                            String themeUrl = theme.getThemeUrl();
+                            themeUrl = themeUrl.replace(THEME_PAGE,"");
+                            theme.setThemeUrl(themeUrl);
+                        }
+                        themeList.add(theme);
                     }
-                    themeList.add(theme);
                 }
-            }
+            } else throw new IOException("Unexpected code " + response);
         }
         Logger.error(sliderList.toString());
         return ok(views.html.products.index.render(sliderList,themeList));

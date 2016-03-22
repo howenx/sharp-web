@@ -1,58 +1,58 @@
 
 #用户相关
-GET         /address                  controllers.UserCtrl.address()
-GET         /addressnew               controllers.UserCtrl.addressnew()
-POST        /address/save             controllers.UserCtrl.addressSave()
-POST        /address/del              controllers.UserCtrl.addressDel()
-GET         /address/update/$addId<[0-9]+>           controllers.UserCtrl.addressUpdate(addId:Long)
-GET         /carded                   controllers.UserCtrl.carded()
-GET         /myView                   controllers.UserCtrl.myView()
-GET         /login                    controllers.UserCtrl.login()
-GET         /setting                  controllers.UserCtrl.setting()
-GET         /tickling                 controllers.UserCtrl.tickling()
-POST        /feedback                 controllers.UserCtrl.feedback()
-GET         /coupon                   controllers.UserCtrl.coupon()
-POST        /login/submit             controllers.UserCtrl.loginSubmit()
-GET         /collect                  controllers.UserCtrl.collect()
-GET         /aboutus                  controllers.UserCtrl.aboutus()
-GET         /collect/del/$collectId<[0-9]+>              controllers.UserCtrl.collectDel(collectId:Long)
-POST        /collect/submit                              controllers.UserCtrl.submitCollect()
+GET         /address                                  controllers.UserCtrl.address()
+GET         /addressnew                               controllers.UserCtrl.addressnew()
+POST        /address/save                             controllers.UserCtrl.addressSave()
+POST        /address/del                              controllers.UserCtrl.addressDel()
+GET         /address/update/$addId<[0-9]+>            controllers.UserCtrl.addressUpdate(addId:Long)
+GET         /carded                                   controllers.UserCtrl.carded()
+GET         /myView                                   controllers.UserCtrl.myView()
+GET         /login                                    controllers.UserCtrl.login()
+GET         /setting                                  controllers.UserCtrl.setting()
+GET         /tickling                                 controllers.UserCtrl.tickling()
+POST        /feedback                                 controllers.UserCtrl.feedback()
+GET         /coupon                                   controllers.UserCtrl.coupon()
+POST        /login/submit                             controllers.UserCtrl.loginSubmit()
+GET         /collect                                  controllers.UserCtrl.collect()
+GET         /aboutus                                  controllers.UserCtrl.aboutus()
+GET         /collect/del/$collectId<[0-9]+>           controllers.UserCtrl.collectDel(collectId:Long)
+POST        /collect/submit                           controllers.UserCtrl.submitCollect()
 
-GET         /service                     controllers.UserCtrl.service()
-POST        /order/apply/refund          controllers.UserCtrl.refundApply()
+GET         /service                                  controllers.UserCtrl.service()
+POST        /order/apply/refund                       controllers.UserCtrl.refundApply()
 
 #我的拼购
-GET         /mypin                  controllers.UserCtrl.mypin()
-GET         /pin/activity/$pinActivity<[0-9]+>   controllers.UserCtrl.pinActivity(pinActivity:Long)
-GET         /pin/order/detail/$orderId<[0-9]+>         controllers.UserCtrl.pinOrderDetail(orderId:Long)
+GET         /mypin                                    controllers.UserCtrl.mypin()
+GET         /pin/activity/$pinActivity<[0-9]+>        controllers.UserCtrl.pinActivity(pinActivity:Long)
+GET         /pin/order/detail/$orderId<[0-9]+>        controllers.UserCtrl.pinOrderDetail(orderId:Long)
 
 
 
 #注册
-GET         /register                controllers.UserCtrl.registVerify()
-POST        /phone/verify            controllers.UserCtrl.phoneVerify()
-POST        /phone/code              controllers.UserCtrl.phoneCode()
-POST        /register                controllers.UserCtrl.register()
-POST        /regist/submit           controllers.UserCtrl.registSubmit()
+GET         /register                                 controllers.UserCtrl.registVerify()
+POST        /phone/verify                             controllers.UserCtrl.phoneVerify()
+POST        /phone/code                               controllers.UserCtrl.phoneCode()
+POST        /register                                 controllers.UserCtrl.register()
+POST        /regist/submit                            controllers.UserCtrl.registSubmit()
 #密码重置
-GET         /retrieve                controllers.UserCtrl.retrieve()
-POST        /retrieve                controllers.UserCtrl.resetPasswd()
-POST        /reset/submit            controllers.UserCtrl.resetPwdSubmit()
+GET         /retrieve                                 controllers.UserCtrl.retrieve()
+POST        /retrieve                                 controllers.UserCtrl.resetPasswd()
+POST        /reset/submit                             controllers.UserCtrl.resetPwdSubmit()
 #用户信息
-GET         /means                    controllers.UserCtrl.means()
-POST        /nickname                 controllers.UserCtrl.nickname()
-POST        /user/update              controllers.UserCtrl.userUpdate()
+GET         /means                                    controllers.UserCtrl.means()
+POST        /nickname                                 controllers.UserCtrl.nickname()
+POST        /user/update                              controllers.UserCtrl.userUpdate()
 
 
 
 
 #首页,主题,详情页相关
-GET         /                          controllers.ProductsCtrl.index()
-POST        /indexAjax                 controllers.ProductsCtrl.loadIndexAjax()
-GET         /themeDetail/*url          controllers.ProductsCtrl.themeDetail(url)
-GET         /detail/*url               controllers.ProductsCtrl.detail(url)
-GET         /pinInstruction            controllers.ProductsCtrl.pinInstruction()
-GET         /pinTieredPrice/*url       controllers.ProductsCtrl.pinTieredPrice(url)
+GET         /                                         controllers.ProductsCtrl.index()
+POST        /indexAjax                                controllers.ProductsCtrl.loadIndexAjax()
+GET         /themeDetail/*url                         controllers.ProductsCtrl.themeDetail(url)
+GET         /detail/*url                              controllers.ProductsCtrl.detail(url)
+GET         /pinInstruction                           controllers.ProductsCtrl.pinInstruction()
+GET         /pinTieredPrice/*url                      controllers.ProductsCtrl.pinTieredPrice(url)
 
 
 
@@ -64,29 +64,29 @@ GET         /pinTieredPrice/*url       controllers.ProductsCtrl.pinTieredPrice(u
 
 
 #购物车,结算,订单,拼购相关
-GET         /all                      controllers.ShoppingCtrl.all(orderId: Long ?= 0L)
-GET         /all/$orderId<[0-9]+>     controllers.ShoppingCtrl.all(orderId: Long)
-GET         /appraise                 controllers.ShoppingCtrl.appraise()
-GET         /assess                   controllers.ShoppingCtrl.assess()
-GET         /delivered                controllers.ShoppingCtrl.delivered()
-GET         /drawback                 controllers.ShoppingCtrl.drawback()
-GET         /logistic                 controllers.ShoppingCtrl.logistic()
-GET         /obligati                 controllers.ShoppingCtrl.obligati()
-GET         /orders                   controllers.ShoppingCtrl.orders()
-POST        /settle                   controllers.ShoppingCtrl.settle()
-GET         /cart                     controllers.ShoppingCtrl.cart()
-GET         /cart/empty               controllers.ShoppingCtrl.emptyCart()
-GET         /order/cancel/$orderId<[0-9]+>     controllers.ShoppingCtrl.cancelOrder(orderId:Long)
-GET         /order/del/$orderId<[0-9]+>        controllers.ShoppingCtrl.delOrder(orderId:Long)
-GET         /order/verify/$orderId<[0-9]+>     controllers.ShoppingCtrl.verifyOrder(orderId:Long)
-POST        /order/submit                      controllers.ShoppingCtrl.submitOrder()
+GET         /all                                      controllers.ShoppingCtrl.all(orderId: Long ?= 0L)
+GET         /all/$orderId<[0-9]+>                     controllers.ShoppingCtrl.all(orderId: Long)
+GET         /appraise                                 controllers.ShoppingCtrl.appraise()
+GET         /assess                                   controllers.ShoppingCtrl.assess()
+GET         /delivered                                controllers.ShoppingCtrl.delivered()
+GET         /drawback                                 controllers.ShoppingCtrl.drawback()
+GET         /logistic                                 controllers.ShoppingCtrl.logistic()
+GET         /obligati                                 controllers.ShoppingCtrl.obligati()
+GET         /orders                                   controllers.ShoppingCtrl.orders()
+POST        /settle                                   controllers.ShoppingCtrl.settle()
+GET         /cart                                     controllers.ShoppingCtrl.cart()
+GET         /cart/empty                               controllers.ShoppingCtrl.emptyCart()
+GET         /order/cancel/$orderId<[0-9]+>            controllers.ShoppingCtrl.cancelOrder(orderId:Long)
+GET         /order/del/$orderId<[0-9]+>               controllers.ShoppingCtrl.delOrder(orderId:Long)
+GET         /order/verify/$orderId<[0-9]+>            controllers.ShoppingCtrl.verifyOrder(orderId:Long)
+POST        /order/submit                             controllers.ShoppingCtrl.submitOrder()
 
 
 #
 
 
 
-GET         /pay/order/get/$orderId<[0-9]+>    controllers.JDCtrl.cashDesk(orderId:Long)
+GET         /pay/order/get/$orderId<[0-9]+>           controllers.JDCtrl.cashDesk(orderId:Long)
 
 
 
@@ -96,6 +96,6 @@ GET         /pay/order/get/$orderId<[0-9]+>    controllers.JDCtrl.cashDesk(order
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file             controllers.Assets.versioned(path="/public", file: Asset)
+GET         /assets/*file                             controllers.Assets.versioned(path="/public", file: Asset)
 
 

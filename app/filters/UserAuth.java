@@ -5,6 +5,7 @@ import com.squareup.okhttp.Headers;
 import com.squareup.okhttp.Request;
 import controllers.UserCtrl;
 import net.spy.memcached.MemcachedClient;
+import org.jboss.netty.channel.ChannelHandlerContext;
 import play.Logger;
 import play.api.data.OptionalMapping;
 import play.cache.Cache;
@@ -15,10 +16,7 @@ import play.mvc.Security;
 import scala.Array;
 
 import javax.inject.Inject;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * 用户校验
@@ -36,7 +34,12 @@ public class UserAuth extends Security.Authenticator {
             Map<String, String> map =
                     UserCtrl.mapper.convertValue(scala.collection.JavaConverters.mapAsJavaMapConverter(ctx._requestHeader().headers().toSimpleMap()).asJava(), UserCtrl.mapper.getTypeFactory().constructMapType(Map.class, String.class, String.class));
             Request.Builder builder = new Request.Builder();
+            map.put( "X-Forwarded-For",ctx.request().remoteAddress());
+            map.remove("Accept-Encoding");
             map.forEach(builder::addHeader);
+            builder.addHeader(Http.HeaderNames.X_FORWARDED_FOR,ctx.request().remoteAddress());
+            builder.addHeader(Http.HeaderNames.VIA,ctx.request().remoteAddress());
+
             if (header.isPresent()) {
                 Optional<String> token = Optional.ofNullable(cache.get(header.get()).toString());
                 if (token.isPresent()) {
