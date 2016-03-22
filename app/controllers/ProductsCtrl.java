@@ -33,7 +33,7 @@ public class ProductsCtrl extends Controller {
             mapString.forEach((k, v) -> params.put(k, v[0]));
         }
         Request.Builder builder = new Request.Builder();
-        params.forEach(builder::addHeader);
+     //   params.forEach(builder::addHeader);
         if (session.containsKey("id-token")){
             builder.addHeader("id-token",session.get("id-token"));
         }
@@ -93,7 +93,6 @@ public class ProductsCtrl extends Controller {
                 }
             }
         }
-        Logger.error(sliderList.toString());
         return ok(views.html.products.index.render(sliderList,themeList));
     }
 
@@ -105,7 +104,7 @@ public class ProductsCtrl extends Controller {
     public Result loadIndexAjax() throws Exception{
         String pageCount = request().body().asJson().toString();
         List<Theme> themeList = new ArrayList<>();
-        Request request = new Request.Builder()
+        Request request = getBuilder(request(),session())
                 .url(INDEX_PAGE + pageCount)
                 .build();
         Response response = client.newCall(request).execute();
@@ -152,7 +151,7 @@ public class ProductsCtrl extends Controller {
         List<Object[]> tagList = new ArrayList<>();
         List<List<ThemeItem>> itemResultList = new ArrayList<>();
         ThemeBasic themeBasic = new ThemeBasic();
-        Request request = new Request.Builder()
+        Request request = getBuilder(request(),session())
                 .url(THEME_PAGE + url)
                 .build();
         Response response = client.newCall(request).execute();
@@ -248,7 +247,7 @@ public class ProductsCtrl extends Controller {
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date now = new Date();
         String strNow = sdfDate.format(now);
-        Request request = new Request.Builder()
+        Request request = getBuilder(request(),session())
                 .url(GOODS_PAGE + url)
                 .build();
         Response response = client.newCall(request).execute();
@@ -268,6 +267,7 @@ public class ProductsCtrl extends Controller {
                 //优惠信息
                 List<String> publicityList = new ArrayList<>();
                 JsonNode json = Json.parse(response.body().string());
+                Logger.info("===detail=="+json);
                 //商品基本信息
                 if(json.has("main")){
                     JsonNode mainJson = json.get("main");
@@ -296,6 +296,7 @@ public class ProductsCtrl extends Controller {
                         for(JsonNode previewJson : previewImgJson){
                             preImgSubList.add(Json.fromJson(previewJson.get("url"),String.class));
                         }
+                        Logger.error(String.valueOf(inventory.getCollectId()));
                         preImgList.add(preImgSubList);
                         inventoryList.add(inventory);
                     }
@@ -366,6 +367,7 @@ public class ProductsCtrl extends Controller {
                 //优惠信息
                 List<String> publicityList = new ArrayList<>();
                 JsonNode json = Json.parse(response.body().string());
+                Logger.info("===detail=="+json);
                 //拼购商品基本信息
                 if(json.has("main")){
                     JsonNode mainJson = json.get("main");
@@ -468,7 +470,7 @@ public class ProductsCtrl extends Controller {
      * @throws Exception
      */
     public Result pinTieredPrice(String url) throws Exception {
-        Request request = new Request.Builder()
+        Request request = getBuilder(request(),session())
                 .url(GOODS_PAGE + url)
                 .build();
         Response response = client.newCall(request).execute();
