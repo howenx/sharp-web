@@ -202,7 +202,7 @@ button{
 
 .warn-info {
     width:300px;
-    display:block;
+    display:none;
     line-height:40px;
     height:40px;
     background-color: #E46359;
