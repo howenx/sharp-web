@@ -109,7 +109,11 @@ $(function() {
 
         //$('#js-userinfo-error').text('验证码发送成功!').show();
         setTimeout("$('#js-userinfo-error').hide()", 1000);
+<<<<<<< HEAD
 
+=======
+    var flag = false;
+>>>>>>> d96233678065a3dd9288999cb69cd1dbec1e10b7
 
         var of = true;
         var phone = $("#phone").val();
@@ -127,6 +131,10 @@ $(function() {
                     $("#time").html("");
                     $("#get-code").css("color", "#E46359");
                     $("#get-code").css('cursor', 'pointer');
+<<<<<<< HEAD
+=======
+                    flag = true;
+>>>>>>> d96233678065a3dd9288999cb69cd1dbec1e10b7
                 }
         }, 1000);
 
@@ -134,29 +142,35 @@ $(function() {
 
         //再次获取验证码
         $("#get-code").click(function() {
+<<<<<<< HEAD
 
+=======
+            if(!flag){
+                return;
+            }else {
+>>>>>>> d96233678065a3dd9288999cb69cd1dbec1e10b7
                 $("#password").removeAttr("name");
                 $("#code").removeAttr("name");
                 console.log($('form#cell_regForm').serialize());
                 $.ajax({
-                        url: "/phone/code",
-                        dataType: 'json',
-                        data: $('form#cell_regForm').serialize(),
-                        type: 'POST',
-                        success: function(data) {
-                                console.log(data);
-                                $("#password").attr({"name":"password"});
-                                $("#code").attr({"name":"code"});
-                                //手机验证码发送成功
-                                if (data.code === 200) {
-                                        $('#js-userinfo-error').text('验证码发送成功!').show();
-                                        setTimeout("$('#js-userinfo-error').hide()", 2000);
-                                        $("#get-code").css("color", "#000");
-                                        $("#get-code").css('cursor', 'auto');
+                    url: "/phone/code",
+                    dataType: 'json',
+                    data: $('form#cell_regForm').serialize(),
+                    type: 'POST',
+                    success: function (data) {
+                        flag = false;
+                        console.log(data);
+                        $("#password").attr({"name": "password"});
+                        $("#code").attr({"name": "code"});
+                        //手机验证码发送成功
+                        if (data.code === 200) {
+                            $('#js-userinfo-error').text('验证码发送成功!').show();
+                            setTimeout("$('#js-userinfo-error').hide()", 2000);
+                            $("#get-code").css("color", "#000");
+                            $("#get-code").css('cursor', 'auto');
 
-                              
-                                    var ctime = 8;
 
+<<<<<<< HEAD
                                         $("#time").html(ctime+"s");
                                         timer2 = window.setInterval(function() {
                                                 $("#time").html(--ctime+"s");
@@ -170,9 +184,28 @@ $(function() {
                                 } else {
                                         $('#js-userinfo-error').text(data.message).show();
                                         setTimeout("$('#js-userinfo-error').hide()", 2000);
+=======
+                            var ctime = 8;
+
+                            $("#time").html(ctime + "s");
+                            timer2 = window.setInterval(function () {
+                                $("#time").html(--ctime + "s");
+                                if (ctime == 0) {
+                                    window.clearInterval(timer2);
+                                    $("#time").html("");
+                                    $("#get-code").css("color", "#E46359");
+                                    $("#get-code").css('cursor', 'pointer');
+                                    flag = true;
+>>>>>>> d96233678065a3dd9288999cb69cd1dbec1e10b7
                                 }
+                            }, 1000);
+                        } else {
+                            $('#js-userinfo-error').text(data.message).show();
+                            setTimeout("$('#js-userinfo-error').hide()", 2000);
                         }
+                    }
                 });
+            }
         });
 
 

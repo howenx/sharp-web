@@ -21,6 +21,7 @@ import play.mvc.Security;
 
 import javax.inject.Inject;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -115,6 +116,12 @@ public class ShoppingCtrl extends Controller {
 
                     CartListResultVo resultVo = Json.fromJson(json, CartListResultVo.class);
                     if (resultVo.getMessage().getCode() == Message.ErrorCode.SUCCESS.getIndex()) {
+                        for(CartItemDTO cart:resultVo.getCartList()){
+                            for(CartListDto sku:cart.getCarts()){
+                                sku.setInvImg(comCtrl.getImgUrl(sku.getInvImg()));
+                                sku.setInvUrl(comCtrl.getDetailUrl(sku.getInvUrl()));
+                            }
+                        }
                         return ok(views.html.shopping.cart.render(path, resultVo));
                     } else if (resultVo.getMessage().getCode() == Message.ErrorCode.CART_LIST_NULL_EXCEPTION.getIndex()) {
                         return ok(views.html.shopping.cartempty.render(path));
@@ -173,61 +180,74 @@ public class ShoppingCtrl extends Controller {
         Map<String,Object> object=new HashMap<>();
 
         List<SettleDTO> settleDTOs=new ArrayList<SettleDTO>();
-        List<CartDto>cartDtos=new ArrayList<CartDto>();
 
         List<SettleInfo> settleInfoList=new ArrayList<SettleInfo>();
-        List<CartInfo>cartInfos=new ArrayList<CartInfo>();
 
-        if(buyNow==1){//立即支付
-            Long cartId=0L;
-            if(null!=settleMap.get("cartId")){
-                cartId=Long.valueOf(settleMap.get("cartId")); //购物车ID
+        Integer areaNum=1;
+        if(buyNow==2){
+            areaNum=Integer.valueOf(settleMap.get("areaNum")); //TODO ...做成后缀串的形式
+        }
+        for(int i=0;i<areaNum;i++){
+            if(null==settleMap.get("invCustoms"+i)){
+                Logger.info("第"+(i+1)+"个保税区未选");
+                continue;
             }
-            Long skuId=Long.valueOf(settleMap.get("skuId"));
-            Integer amount=1;
-            if(null!=settleMap.get("amount")){
-                amount=Integer.valueOf(settleMap.get("amount"));//购买的数量
+            String invCustoms=settleMap.get("invCustoms"+i);  //保税区
+            String invArea=settleMap.get("invArea"+i);//保税区
+            String invAreaNm=settleMap.get("invAreaNm"+i);//保税区
+            Integer cartNum=1;
+            if(null!=settleMap.get("cartNum"+i)){
+                cartNum=Integer.valueOf(settleMap.get("cartNum"+i));
+            }
+            List<CartDto>cartDtos=new ArrayList<CartDto>();
+            List<CartInfo>cartInfos=new ArrayList<CartInfo>();
+            for(int j=0;j<cartNum;j++){
+                String suffix=i+"-"+j;
+                if(null==settleMap.get("skuId"+suffix)){
+                    Logger.info("第"+(i+1)+"个保税区下的第"+(j+1)+"个商品未选");
+                    continue;
+                }
+                Long cartId=0L;
+                if(null!=settleMap.get("cartId"+suffix)){
+                    cartId=Long.valueOf(settleMap.get("cartId"+suffix)); //购物车ID
+                }
+                Long skuId=Long.valueOf(settleMap.get("skuId"+suffix));
+                Integer amount=1;
+                if(null!=settleMap.get("amount"+suffix)){
+                    amount=Integer.valueOf(settleMap.get("amount"+suffix));//购买的数量
+                }
+                String state=settleMap.get("state"+suffix); //商品的状态
+                String skuType=settleMap.get("skuType"+suffix);
+                Long skuTypeId=Long.valueOf(settleMap.get("skuTypeId"+suffix));//商品类型的id
+
+                Long pinTieredPriceId=0L;
+                if(null!=settleMap.get("pinTieredPriceId"+suffix)){
+                    pinTieredPriceId=Long.valueOf(settleMap.get("pinTieredPriceId"+suffix));//在提交拼购商品订单时填写阶梯价格的id
+                }
+                String skuTitle=settleMap.get("skuTitle"+suffix);   //商品标题,用于展示
+                String skuInvImg=settleMap.get("skuInvImg"+suffix); //商品图片,用于展示
+                String skuPrice="";
+                if(null!=settleMap.get("skuPrice"+suffix)) {
+                    skuPrice=settleMap.get("skuPrice"+suffix);   //商品价格,用于展示
+                }
+                CartDto cartDTO=new CartDto(cartId,skuId,amount,state,skuType,skuTypeId,pinTieredPriceId);
+                cartDtos.add(cartDTO);
+                CartInfo cartInfo=new CartInfo(cartId,skuId,amount,state,skuType,skuTypeId,pinTieredPriceId,skuTitle,skuInvImg,skuPrice);
+                cartInfos.add(cartInfo);
             }
 
-            String state=settleMap.get("state"); //商品的状态
-            String skuType=settleMap.get("skuType");
-            Long skuTypeId=Long.valueOf(settleMap.get("skuTypeId"));//商品类型的id
-
-            Long pinTieredPriceId=0L;
-            if(null!=settleMap.get("pinTieredPriceId")){
-                pinTieredPriceId=Long.valueOf(settleMap.get("pinTieredPriceId"));//在提交拼购商品订单时填写阶梯价格的id
-            }
-
-
-            String skuTitle=settleMap.get("skuTitle");   //商品标题,用于展示
-            String skuInvImg=settleMap.get("skuInvImg"); //商品图片,用于展示
-            String skuPrice="";
-            if(null!=settleMap.get("skuPrice")) {
-                skuPrice=settleMap.get("skuPrice");   //商品价格,用于展示
-            }
-            CartDto cartDTO=new CartDto(cartId,skuId,amount,state,skuType,skuTypeId,pinTieredPriceId);
-            cartDtos.add(cartDTO);
-
-            CartInfo cartInfo=new CartInfo(cartId,skuId,amount,state,skuType,skuTypeId,pinTieredPriceId,skuTitle,skuInvImg,skuPrice);
-            cartInfos.add(cartInfo);
-
-            String invCustoms=settleMap.get("invCustoms");  //保税区
-            String invArea=settleMap.get("invArea");//保税区
-            String invAreaNm=settleMap.get("invAreaNm");//保税区
             SettleDTO settleDTO=createSettleDTO(invCustoms,invArea,invAreaNm,cartDtos);
             settleDTOs.add(settleDTO);
-            object.put("settleDTOs",settleDTOs);
-
             SettleInfo settleInfo=new SettleInfo();
             settleInfo.setInvCustoms(invCustoms);
             settleInfo.setInvArea(invArea);
             settleInfo.setInvAreaNm(invAreaNm);
             settleInfo.setCartInfos(cartInfos);
             settleInfoList.add(settleInfo);
-        }else{
-
-
         }
+
+        object.put("settleDTOs",settleDTOs);
+
         Long addressId=0L;
         if(null!=settleMap.get("addressId")){
             addressId=Long.valueOf(settleMap.get("addressId"));
@@ -366,13 +386,14 @@ public class ShoppingCtrl extends Controller {
             Integer cartNum=Integer.valueOf(settleMap.get("cartNum"+i));
             List<CartDto>cartDtos=new ArrayList<CartDto>();
             for(int j=0;j<cartNum;j++){
-                Long cartId=Long.valueOf(settleMap.get("cartId"+j));
-                Long skuId=Long.valueOf(settleMap.get("skuId"+j));
-                Integer amount=Integer.valueOf(settleMap.get("amount"+j));//购买的数量
-                String state=settleMap.get("state"+j); //商品的状态
-                String skuType=settleMap.get("skuType"+j);
-                Long skuTypeId=Long.valueOf(settleMap.get("skuTypeId"+j));//商品类型的id
-                Long pinTieredPriceId=Long.valueOf(settleMap.get("pinTieredPriceId"+j));//在提交拼购商品订单时填写阶梯价格的id
+                String suffix=i+"-"+j;
+                Long cartId=Long.valueOf(settleMap.get("cartId"+suffix));
+                Long skuId=Long.valueOf(settleMap.get("skuId"+suffix));
+                Integer amount=Integer.valueOf(settleMap.get("amount"+suffix));//购买的数量
+                String state=settleMap.get("state"+suffix); //商品的状态
+                String skuType=settleMap.get("skuType"+suffix);
+                Long skuTypeId=Long.valueOf(settleMap.get("skuTypeId"+suffix));//商品类型的id
+                Long pinTieredPriceId=Long.valueOf(settleMap.get("pinTieredPriceId"+suffix));//在提交拼购商品订单时填写阶梯价格的id
                 CartDto cartDTO=new CartDto(cartId,skuId,amount,state,skuType,skuTypeId,pinTieredPriceId);
                 cartDtos.add(cartDTO);
             }
@@ -381,7 +402,6 @@ public class ShoppingCtrl extends Controller {
             settleDTOs.add(settleDTO);
         }
         object.put("settleDTOs",settleDTOs);
-
 
         object.put("addressId",Long.valueOf(settleMap.get("addressId")));//地址id
         object.put("couponId",Long.valueOf(settleMap.get("couponId")));//优惠券id

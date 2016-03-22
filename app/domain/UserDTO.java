@@ -14,6 +14,53 @@ public class UserDTO implements Serializable {
     private String gender;//性别
     private String realYn;
 
+    private String photoUrl;//头像字节流
+    private String nickname;//用户昵称
+
+    public UserDTO() {
+    }
+
+    public UserDTO(String name, String photo, String phoneNum, Integer couponsCount, String gender, String realYn, String photoUrl, String nickname) {
+        this.name = name;
+        this.photo = photo;
+        this.phoneNum = phoneNum;
+        this.couponsCount = couponsCount;
+        this.gender = gender;
+        this.realYn = realYn;
+        this.photoUrl = photoUrl;
+        this.nickname = nickname;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "name='" + name + '\'' +
+                ", photo='" + photo + '\'' +
+                ", phoneNum='" + phoneNum + '\'' +
+                ", couponsCount=" + couponsCount +
+                ", gender='" + gender + '\'' +
+                ", realYn='" + realYn + '\'' +
+                ", photoUrl='" + photoUrl + '\'' +
+                ", nickname='" + nickname + '\'' +
+                '}';
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
     public String getName() {
         return name;
     }

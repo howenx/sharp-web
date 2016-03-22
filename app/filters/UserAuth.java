@@ -37,14 +37,13 @@ public class UserAuth extends Security.Authenticator {
                     UserCtrl.mapper.convertValue(scala.collection.JavaConverters.mapAsJavaMapConverter(ctx._requestHeader().headers().toSimpleMap()).asJava(), UserCtrl.mapper.getTypeFactory().constructMapType(Map.class, String.class, String.class));
             Request.Builder builder = new Request.Builder();
             map.forEach(builder::addHeader);
-
             if (header.isPresent()) {
                 Optional<String> token = Optional.ofNullable(cache.get(header.get()).toString());
                 if (token.isPresent()) {
                     ctx.session().put("id-token", header.get());
                     JsonNode userJson = Json.parse(token.get());
                     Long userId = userJson.findValue("id").asLong();
-                    ctx.args.put("request", new Request.Builder().header("User-Agent", ctx.request().getHeader("User-Agent")).addHeader("id-token", header.get()));
+                    ctx.args.put("request", builder.addHeader("id-token", header.get()));
                     return userId.toString();
                 } else return null;
 

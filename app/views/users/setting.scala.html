@@ -7,9 +7,24 @@
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <meta content="telephone=no" name="format-detection">
+
     <link rel="stylesheet" href="/assets/stylesheets/global.css">
     <link rel="stylesheet" href="/assets/stylesheets/means.css">
     <link rel="stylesheet" href="/assets/stylesheets/install.css">
+    <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="/assets/stylesheets/regist.css">
+    <script>
+        $(function() {
+            $(document).on("click", ".tell", function() {
+                $(".shade").show();
+            });
+
+            //弹框取消按钮
+            $('.box-l').click(function(){
+                $('.shade').hide();
+            })
+        });
+    </script>
 
 </head>
 
@@ -40,8 +55,8 @@
             <!--</a>-->
         <!--</div>-->
         <div>
-            <a href="tel:10086" class="install-g">
-                <i>联系我们</i>
+            <a href="/aboutus" class="install-g">
+                <i>关于韩秘美</i>
                 <span></span>
             </a>
         </div>
@@ -51,10 +66,9 @@
                 <span></span>
             </a>
         </div>
-        <!--<p class="color">韩秘美</p>-->
         <div>
-            <a href="javascript:;" class="install-g">
-                <i>关于韩秘美</i>
+            <a class="install-g tell">
+                <i>联系我们</i>
                 <span></span>
             </a>
         </div>
@@ -69,7 +83,15 @@
 
     <button type="button" style="width:90%;margin: 30px 5%;background: #E66255;border-radius: 2px">退出登录</button>
 
-
+    <div class="shade">
+        <div class="box">
+            <span>拨打客服电话400100108888</span>
+            <div class="box-a">
+                <a href="javascript:;" class="box-l">取消</a>
+                <a href="tel:400100108888" class="box-r" style="background-color:#E46359;color:#fff;">拨打</a>
+            </div>
+        </div>
+    </div>
 
 </div>
 
