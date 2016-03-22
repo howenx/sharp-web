@@ -4,8 +4,12 @@ $(function() {
 		var index = $(".classify ul li").index($(this));
 		$(".item").removeClass("now");
 		$(".item").eq(index).addClass("now");
+
 		$(".soul").removeClass("now");
         $(".soul").eq(index).addClass("now");
+
+        $(".hiddenInput").find("input").attr("disabled",true);
+        $(".hiddenInput").eq(index).find("input").attr("disabled",false);
 
 	})
 
