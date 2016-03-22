@@ -71,10 +71,13 @@ public class PinInvDetail {
     private Integer floorPricePersonNum;
     private BigDecimal floorPricePrice;
 
+    private boolean isSoldOut;
+
+
     public PinInvDetail() {
     }
 
-    public PinInvDetail(Long id, String shareUrl, String status, String pinTitle, Timestamp startAt, Timestamp endAt, String pinPriceRule, int restrictAmount, String floorPrice, BigDecimal pinDiscount, List<PinTieredPrice> pinTieredPrices, String pinRedirectUrl, String invArea, Integer restAmount, String itemPreviewImgs, String invWeight, String invCustoms, String postalTaxRate, String postalStandard, String invAreaNm, Integer collectCount, Integer browseCount, Integer soldAmount, String invImg, BigDecimal invPrice, String skuType, Long skuTypeId, Integer orRestrictAmount, String itemDetailImgs, String itemFeatures, String publicity, String detail, Long collectId) {
+    public PinInvDetail(Long id, String shareUrl, String status, String pinTitle, Timestamp startAt, Timestamp endAt, String pinPriceRule, int restrictAmount, String floorPrice, BigDecimal pinDiscount, List<PinTieredPrice> pinTieredPrices, String pinRedirectUrl, String invArea, Integer restAmount, String itemPreviewImgs, String invWeight, String invCustoms, String postalTaxRate, String postalStandard, String invAreaNm, Integer collectCount, Integer browseCount, Integer soldAmount, String invImg, BigDecimal invPrice, String skuType, Long skuTypeId, Integer orRestrictAmount, String itemDetailImgs, String itemFeatures, String publicity, String detail, Long collectId, Integer floorPricePersonNum, BigDecimal floorPricePrice, boolean isSoldOut) {
         this.id = id;
         this.shareUrl = shareUrl;
         this.status = status;
@@ -108,6 +111,9 @@ public class PinInvDetail {
         this.publicity = publicity;
         this.detail = detail;
         this.collectId = collectId;
+        this.floorPricePersonNum = floorPricePersonNum;
+        this.floorPricePrice = floorPricePrice;
+        this.isSoldOut = isSoldOut;
     }
 
     public Long getId() {
@@ -390,6 +396,14 @@ public class PinInvDetail {
         this.floorPricePrice = floorPricePrice;
     }
 
+    public boolean isSoldOut() {
+        return isSoldOut;
+    }
+
+    public void setSoldOut(boolean soldOut) {
+        isSoldOut = soldOut;
+    }
+
     @Override
     public String toString() {
         return "PinInvDetail{" +
@@ -426,6 +440,9 @@ public class PinInvDetail {
                 ", publicity='" + publicity + '\'' +
                 ", detail='" + detail + '\'' +
                 ", collectId=" + collectId +
+                ", floorPricePersonNum=" + floorPricePersonNum +
+                ", floorPricePrice=" + floorPricePrice +
+                ", isSoldOut=" + isSoldOut +
                 '}';
     }
 }

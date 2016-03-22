@@ -92,7 +92,7 @@
             //用户注册检测手机号
             $(document).on('click', '#btn-reg', function() {
                 var phone = $("#phone").val();
-                console.log($('form#cell_verifyForm').serialize());
+                //console.log($('form#cell_verifyForm').serialize());
                 $.ajax({
                         url: "/phone/verify",
                         dataType: 'json',
@@ -118,17 +118,17 @@
                                                         $("#code").attr({"name":"code"});
                                                         //手机验证码发送成功
                                                         if (data.code === 200) {
-                                                        var url = '/register';
-                                                        var form = $('<form action="' + url + '" method="post">' +
-                                                          '<input type="hidden" name="phone" value="' + phone + '" />' +
-                                                          '</form>');
-                                                        $('body').append(form);
-                                                        form.submit();
-                                                    }
-                                                       else {
-                                                            $('#js-userinfo-error').text(data.message).show();
-                                                            setTimeout("$('#js-userinfo-error').hide()", 2000);
-                                                       }
+                                                                var url = '/register';
+                                                                var form = $('<form action="' + url + '" method="post">' +
+                                                                '<input type="hidden" name="phone" value="' + phone + '" />' +
+                                                                '</form>');
+                                                                $('body').append(form);
+                                                                form.submit();
+                                                        }
+                                                        else {
+                                                                $('#js-userinfo-error').text(data.message).show();
+                                                                setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                                        }
                                                     }
                                            });
                                    }
@@ -151,9 +151,9 @@
         <div class="login-t">我们将发送验证码到你的手机</div>
         <fieldset>
             <form id="cell_verifyForm" method="post" onsubmit="return false" action="" >
-                <dl class="list list-in">
+                <dl class="list list-in list-regist">
                     <dd class="dd-padding">
-                       <span>手机号</span> <input id="phone" type="text" class="input-rese" name='phone' placeholder="请输入手机号" maxlength="11" required pattern="[1][345678]\d{9}" onkeyup="this.value=this.value.replace(/\D/g,'')"/>
+                       <label>手机号</label> <input id="phone" type="text" class="input-rese" name='phone' placeholder="请输入手机号" maxlength="11" required pattern="[1][345678]\d{9}" onkeyup="this.value=this.value.replace(/\D/g,'')"/>
                         <i class="delet delet-box"></i>
                             <input type="hidden" id="code" name="code" value="-1">
                     </dd>

@@ -67,27 +67,14 @@ public class ProductsCtrl extends Controller {
                 JsonNode sliderJson = json.get("slider");
                 for(JsonNode sliderTemp : sliderJson){
                     Slider slider = Json.fromJson(sliderTemp,Slider.class);
-                    JsonNode urlJson = Json.parse(slider.getUrl());
-                    String img = urlJson.get("url").toString();
-                    img = img.substring(1,img.length()-1);
-                    slider.setImg(img);
-                    String targetUrl = slider.getItemTarget();
-                    //主题
-                    if("T".equals(slider.getTargetType())){
-                        //targetUrl = targetUrl.replace("http://172.28.3.51:9001/topic/list/","");
-                        targetUrl = targetUrl.replace(THEME_PAGE,"");
+                    JsonNode imgJson = Json.parse(slider.getUrl());
+                    slider.setImg(imgJson.get("url").asText());
+                    if(slider.getItemTarget().contains(GOODS_PAGE)){
+                        slider.setItemTarget(slider.getItemTarget().replace(GOODS_PAGE,""));
                     }
-                    //普通商品
-                    if("D".equals(slider.getTargetType())){
-                        //targetUrl = targetUrl.replace("http://172.28.3.51:9001/comm/detail/","");
-                        targetUrl = targetUrl.replace(ITEM_PAGE,"");
+                    if((slider.getItemTarget().contains(THEME_PAGE)) && slider.getTargetType() == "T"){
+                        slider.setItemTarget(slider.getItemTarget().replace(THEME_PAGE,""));
                     }
-                    //拼购商品
-                    if("P".equals(slider.getTargetType())){
-                        //targetUrl = targetUrl.replace("http://172.28.3.51:9001/comm/pin/detail/","");
-                        targetUrl = targetUrl.replace(PIN_PAGE,"");
-                    }
-                    slider.setItemTarget(targetUrl);
                     sliderList.add(slider);
                 }
             }
@@ -96,12 +83,9 @@ public class ProductsCtrl extends Controller {
                 for(JsonNode themeTemp : themeJson){
                     Theme theme = Json.fromJson(themeTemp,Theme.class);
                     JsonNode imgJson = Json.parse(theme.getThemeImg());
-                    String imgUrl = imgJson.get("url").toString();
-                    imgUrl = imgUrl.substring(1,imgUrl.length()-1);
-                    theme.setThemeImg(imgUrl);
+                    theme.setThemeImg(imgJson.get("url").asText());
                     if(!"h5".equals(theme.getType())){
                         String themeUrl = theme.getThemeUrl();
-                        //themeUrl = themeUrl.replace("http://172.28.3.51:9001/topic/list/","");
                         themeUrl = themeUrl.replace(THEME_PAGE,"");
                         theme.setThemeUrl(themeUrl);
                     }
@@ -109,6 +93,7 @@ public class ProductsCtrl extends Controller {
                 }
             }
         }
+        Logger.error(sliderList.toString());
         return ok(views.html.products.index.render(sliderList,themeList));
     }
 
@@ -136,7 +121,6 @@ public class ProductsCtrl extends Controller {
                     theme.setThemeImg(imgUrl);
                     if(!"h5".equals(theme.getType())){
                         String themeUrl = theme.getThemeUrl();
-                        //themeUrl = themeUrl.replace("http://172.28.3.51:9001/topic/list/","");
                         themeUrl = themeUrl.replace(THEME_PAGE,"");
                         theme.setThemeUrl(themeUrl);
                     }
@@ -166,7 +150,8 @@ public class ProductsCtrl extends Controller {
         //返回  ------->end
         String themeImg = "";
         List<Object[]> tagList = new ArrayList<>();
-        List<List<Object[]>> itemResultList = new ArrayList<>();
+        List<List<ThemeItem>> itemResultList = new ArrayList<>();
+        ThemeBasic themeBasic = new ThemeBasic();
         Request request = new Request.Builder()
                 .url(THEME_PAGE + url)
                 .build();
@@ -174,129 +159,88 @@ public class ProductsCtrl extends Controller {
         if(response.isSuccessful()){
             JsonNode json = Json.parse(response.body().string());
             if(json.has("themeList")){
-                JsonNode themeJson = json.get("themeList");
-                //主题主图
-                if(themeJson.has("themeImg")){
-                    String img = Json.fromJson(themeJson.get("themeImg"),String.class);
-                    JsonNode imgJson = Json.parse(img);
-                    themeImg = imgJson.get("url").toString();
-                    themeImg = themeImg.substring(1,themeImg.length()-1);
-                }
+                themeBasic = Json.fromJson(json.get("themeList"),ThemeBasic.class);
+                JsonNode imgJson = Json.parse(themeBasic.getThemeImg());
+                themeBasic.setThemeImg(imgJson.get("url").asText());
+
                 //主题标签
-                if(themeJson.has("masterItemTag")){
-                    JsonNode tempJson = themeJson.get("masterItemTag");
-                    String tags = Json.fromJson(tempJson,String.class);
-                    if(tags != null){
-                        JsonNode tagJson = Json.parse(tags);
-                        for(JsonNode tag : tagJson){
-                            Object[] tagObject = new Object[6];
-                            tagObject[0] = tag.get("top").asDouble() * 100;
-                            String tagUrl = Json.fromJson(tag.get("url"),String.class);
-                            String urlType = "";
-                            if(tagUrl.contains(PIN_PAGE)){
-                                tagUrl = tagUrl.replace(PIN_PAGE,"");
-                                urlType = "pin";
-                            }
-                            if(tagUrl.contains(ITEM_PAGE)){
-                                tagUrl = tagUrl.replace(ITEM_PAGE,"");
-                                urlType = "item";
-                            }
-                            tagObject[1] = tagUrl;
-                            int tagAngle = tag.get("angle").asInt();
-                            if(tagAngle == 0){
-                                tagObject[2] = tag.get("left").asDouble() * 100;
-                            }
-                            if(tagAngle == 180){
-                                tagObject[2] = 100 - tag.get("left").asDouble() * 100;
-                            }
-                            String tagName = tag.get("name").toString();
-                            tagName = tagName.substring(1,tagName.length()-1);
-                            tagObject[3] = tagName;
-                            tagObject[4] = tag.get("angle").asInt();
-                            tagObject[5] = urlType;
-                            tagList.add(tagObject);
+                if(themeBasic.getMasterItemTag() != null){
+                    JsonNode tagJson = Json.parse(themeBasic.getMasterItemTag());
+                    for(JsonNode tag : tagJson){
+                        Object[] tagObject = new Object[5];
+                        tagObject[0] = tag.get("top").asDouble() * 100;
+                        String tagUrl = Json.fromJson(tag.get("url"),String.class);
+                        String urlType = "";
+                        tagUrl = tagUrl.replace(GOODS_PAGE,"");
+                        tagObject[1] = tagUrl;
+                        int tagAngle = tag.get("angle").asInt();
+                        if(tagAngle == 0){
+                            tagObject[2] = tag.get("left").asDouble() * 100;
                         }
+                        if(tagAngle == 180){
+                            tagObject[2] = 100 - tag.get("left").asDouble() * 100;
+                        }
+                        String tagName = tag.get("name").toString();
+                        tagName = tagName.substring(1,tagName.length()-1);
+                        tagObject[3] = tagName;
+                        tagObject[4] = tag.get("angle").asInt();
+                        tagList.add(tagObject);
                     }
                 }
                 //主题中的商品
-                if(themeJson.has("themeItemList")){
-                    JsonNode itemJson = themeJson.get("themeItemList");
-                    List<Object[]> itemList = new ArrayList<>();
-                    for(JsonNode tempJson : itemJson){
-                        Object[] itemObject = new Object[8];
-                        String itemImg = Json.fromJson(tempJson.get("itemImg"),String.class);
-                        JsonNode itemImgJson = Json.parse(itemImg);
-                        String itemImgUrl = itemImgJson.get("url").toString();
-                        itemImgUrl = itemImgUrl.substring(1,itemImgUrl.length()-1);
-                        itemObject[0] = itemImgUrl;                                         //商品图片
-                        String itemType = Json.fromJson(tempJson.get("itemType"),String.class);
-                        String itemUrl = Json.fromJson(tempJson.get("itemUrl"),String.class);
-                        if("pin".equals(itemType)){
-                            itemUrl = itemUrl.replace(PIN_PAGE,"");
-                        }
-                        if("item".equals(itemType)){
-                            itemUrl = itemUrl.replace(ITEM_PAGE,"");
-                        }
-                        if("vary".equals(itemType)){
-                            itemUrl = itemUrl.replace(VARY_PAGE,"");
-                        }
-                        if("customize".equals(itemType)){
-                            itemUrl = itemUrl.replace(CUSTOMIZE_PAGE,"");
-                        }
-                        itemObject[1] = itemType;                                                   //商品类型
-                        itemObject[2] = itemUrl;                                                    //商品链接
-                        itemObject[3] = Json.fromJson(tempJson.get("itemTitle"),String.class);      //商品Title
-                        itemObject[4] = Json.fromJson(tempJson.get("itemSrcPrice"),String.class);   //商品原价
-                        itemObject[5] = Json.fromJson(tempJson.get("itemPrice"),String.class);      //商品价格
-                        itemObject[6] = Json.fromJson(tempJson.get("itemDiscount"),String.class);   //商品折扣
-                        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        Date now = new Date();
-                        String strNow = sdfDate.format(now);
-                        String endAt = Json.fromJson(tempJson.get("endAt"),String.class);
-                        Date endAtDate = sdfDate.parse(endAt);
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.setTime(endAtDate);
-                        String hour = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
-                        if(calendar.get(Calendar.HOUR_OF_DAY)<10){
-                             hour = "0" + hour;
-                        }
-                        String minute = String.valueOf(calendar.get(Calendar.MINUTE));
-                        if(calendar.get(Calendar.MINUTE)<10){
-                            minute = "0" + minute;
-                        }
-                        String endDate =(calendar.get(Calendar.MONTH)+1) + "月" + calendar.get(Calendar.DAY_OF_MONTH) + "日" + hour +":"+minute;
-                        if(endAt.compareTo(strNow) < 0){
-                            itemObject[7] = "已结束";
-                        }else{
-                            itemObject[7] = "截止" + endDate;
-                        }
-                        itemList.add(itemObject);
+                List<ThemeItem> nItemList = new ArrayList<>();
+                List<ThemeItem> itemList = themeBasic.getThemeItemList();
+                for(ThemeItem themeItem : itemList){
+                    JsonNode itemImgJson = Json.parse(themeItem.getItemImg());
+                    themeItem.setItemImg(itemImgJson.get("url").asText());
+                    themeItem.setItemUrl(themeItem.getItemUrl().replace(GOODS_PAGE,""));
+                    SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    Date now = new Date();
+                    String strNow = sdfDate.format(now);
+                    Date endAtDate = sdfDate.parse(themeItem.getEndAt());
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(endAtDate);
+                    String hour = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
+                    if(calendar.get(Calendar.HOUR_OF_DAY)<10){
+                         hour = "0" + hour;
                     }
-                    for(int i=0;i<itemList.size()/2;i++){
-                        List<Object[]> rowList = new ArrayList<>();
-                        rowList.add(itemList.get(i*2));
-                        rowList.add(itemList.get(i*2+1));
-                        itemResultList.add(rowList);
+                    String minute = String.valueOf(calendar.get(Calendar.MINUTE));
+                    if(calendar.get(Calendar.MINUTE)<10){
+                        minute = "0" + minute;
                     }
-                    if(itemList.size()%2 != 0){
-                        List<Object[]> rowList = new ArrayList<>();
-                        rowList.add(itemList.get(itemList.size()-1));
-                        itemResultList.add(rowList);
+                    String endDate =(calendar.get(Calendar.MONTH)+1) + "月" + calendar.get(Calendar.DAY_OF_MONTH) + "日" + hour +":"+minute;
+                    if(themeItem.getEndAt().compareTo(strNow) < 0){
+                        themeItem.setEndAt("已结束");
+                    }else{
+                        themeItem.setEndAt("截止" + endDate);
                     }
+                    nItemList.add(themeItem);
+                }
+
+                for(int i=0;i<nItemList.size()/2;i++){
+                    List<ThemeItem> rowList = new ArrayList<>();
+                    rowList.add(itemList.get(i*2));
+                    rowList.add(itemList.get(i*2+1));
+                    itemResultList.add(rowList);
+                }
+                if(nItemList.size()%2 != 0){
+                    List<ThemeItem> rowList = new ArrayList<>();
+                    rowList.add(nItemList.get(nItemList.size()-1));
+                    itemResultList.add(rowList);
                 }
             }
         }
-        return ok(views.html.products.themeDetail.render(path,themeImg,tagList,itemResultList));
+        return ok(views.html.products.themeDetail.render(path,themeBasic,tagList,itemResultList));
+
     }
 
     /**
      * 商品明细
-     * @param type
      * @param url
      * @return
      * @throws Exception
      */
-    public Result detail(String type,String url) throws Exception {
+    public Result detail(String url) throws Exception {
         //返回  ------->start
         String path = session().get("path_theme");
         //返回  ------->end
@@ -304,33 +248,19 @@ public class ProductsCtrl extends Controller {
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date now = new Date();
         String strNow = sdfDate.format(now);
-
-        String getDataUrl = "";
-        if("D".equals(type) || "item".equals(type)){
-            getDataUrl = ITEM_PAGE + url;
-        }
-        if("vary".equals(type)){
-            getDataUrl = VARY_PAGE + url;
-        }
-        if("customize".equals(type)){
-            getDataUrl = CUSTOMIZE_PAGE + url;
-        }
-        if("pin".equals(type)){
-            getDataUrl = PIN_PAGE + url;
-        }
         Request request = new Request.Builder()
-                .url(getDataUrl)
+                .url(GOODS_PAGE + url)
                 .build();
         Response response = client.newCall(request).execute();
         if(response.isSuccessful()){
             //普通商品
-            if("D".equals(type) || "item".equals(type) || "vary".equals(type) || "customize".equals(type)){
+            if(!url.contains("pin")){
                 //商品基本信息
                 Item itemMain = new Item();
                 //商品参数
                 List<Object[]> itemFeaturesList = new ArrayList<>();
                 //热卖推荐
-                List<List<Object[]>> pushResultList = new ArrayList<>();
+                List<List<ThemeItem>> pushResultList = new ArrayList<>();
                 //商品Sku
                 List<Inventory> inventoryList = new ArrayList<>();
                 //Sku商品预览图片
@@ -360,8 +290,7 @@ public class ProductsCtrl extends Controller {
                     for(JsonNode stockInv : stockJson){
                         Inventory inventory = Json.fromJson(stockInv,Inventory.class);
                         JsonNode imgJson = Json.parse(inventory.getInvImg());
-                        String imgUrl = Json.fromJson(imgJson.get("url"),String.class);
-                        inventory.setInvImg(imgUrl);
+                        inventory.setInvImg(imgJson.get("url").asText());
                         JsonNode previewImgJson = Json.parse(inventory.getItemPreviewImgs());
                         List<String> preImgSubList = new ArrayList<>();
                         for(JsonNode previewJson : previewImgJson){
@@ -379,40 +308,13 @@ public class ProductsCtrl extends Controller {
                 //热卖推荐
                 if(json.has("push")){
                     JsonNode pushJson = json.get("push");
-                    List<Object[]> pushList = new ArrayList<>();
+                    List<ThemeItem> pushList = new ArrayList<>();
                     for(JsonNode pushTemp : pushJson){
-                        Object[] pushObject = new Object[13];
-                        JsonNode imgJson = pushTemp.get("itemImg");
-                        String imgStr = Json.fromJson(imgJson,String.class);
-                        String imgUrl = Json.fromJson(Json.parse(imgStr).get("url"),String.class);
-                        pushObject[0] = imgUrl;
-                        String itemType  = Json.fromJson(pushTemp.get("itemType"),String.class);
-                        String itemUrl = Json.fromJson(pushTemp.get("itemUrl"),String.class);
-                        if("item".equals(itemType)){
-                            itemUrl = itemUrl.replace(ITEM_PAGE,"");
-                        }
-                        if("vary".equals(itemType)){
-                            itemUrl = itemUrl.replace(VARY_PAGE,"");
-                        }
-                        if("pin".equals(itemType)){
-                            itemUrl = itemUrl.replace(PIN_PAGE,"");
-                        }
-                        if("customize".equals(itemType)){
-                            itemUrl = itemUrl.replace(CUSTOMIZE_PAGE,"");
-                        }
-                        pushObject[1] = itemUrl;
-                        pushObject[2] = Json.fromJson(pushTemp.get("itemTitle"),String.class);
-                        pushObject[3] = Json.fromJson(pushTemp.get("itemSrcPrice"),BigDecimal.class);
-                        pushObject[4] = Json.fromJson(pushTemp.get("itemPrice"),BigDecimal.class);
-                        pushObject[5] = Json.fromJson(pushTemp.get("itemDiscount"),Float.class);
-                        pushObject[6] = Json.fromJson(pushTemp.get("itemSoldAmount"),Integer.class);
-                        pushObject[7] = Json.fromJson(pushTemp.get("collectCount"),Integer.class);
-                        pushObject[8] = Json.fromJson(pushTemp.get("state"),String.class);
-                        pushObject[9] = itemType;
-                        pushObject[10] = Json.fromJson(pushTemp.get("startAt"),String.class);
-                        pushObject[11] = Json.fromJson(pushTemp.get("endAt"),String.class);
-                        String endAt = Json.fromJson(pushTemp.get("endAt"),String.class);
-                        Date endAtDate = sdfDate.parse(endAt);
+                        ThemeItem themeItem = Json.fromJson(pushTemp,ThemeItem.class);
+                        JsonNode imgJson = Json.parse(themeItem.getItemImg());
+                        themeItem.setItemImg(imgJson.get("url").asText());
+                        themeItem.setItemUrl(themeItem.getItemUrl().replace(GOODS_PAGE,""));
+                        Date endAtDate = sdfDate.parse(themeItem.getEndAt());
                         Calendar calendar = Calendar.getInstance();
                         calendar.setTime(endAtDate);
                         String hour = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
@@ -425,23 +327,22 @@ public class ProductsCtrl extends Controller {
                         }
                         String endDate =(calendar.get(Calendar.MONTH)+1) + "月" + calendar.get(Calendar.DAY_OF_MONTH) + "日" + hour +":"+minute;
 
-                        if(endAt.compareTo(strNow) < 0){
-                            pushObject[12] = "已结束";
+                        if(themeItem.getEndAt().compareTo(strNow) < 0){
+                            themeItem.setEndAt("已结束");
                         }else{
-                            pushObject[12] = "截止" + endDate;
+                            themeItem.setEndAt("截止" + endDate);
                         }
 
-                        pushList.add(pushObject);
+                        pushList.add(themeItem);
                     }
-
                     for(int i=0;i<pushList.size()/2;i++){
-                        List<Object[]> rowList = new ArrayList<>();
+                        List<ThemeItem> rowList = new ArrayList<>();
                         rowList.add(pushList.get(i*2));
                         rowList.add(pushList.get(i*2+1));
                         pushResultList.add(rowList);
                     }
                     if(pushList.size()%2 != 0){
-                        List<Object[]> rowList = new ArrayList<>();
+                        List<ThemeItem> rowList = new ArrayList<>();
                         rowList.add(pushList.get(pushList.size()-1));
                         pushResultList.add(rowList);
                     }
@@ -455,11 +356,11 @@ public class ProductsCtrl extends Controller {
                 //商品参数
                 List<Object[]> itemFeaturesList = new ArrayList<>();
                 //热卖推荐
-                List<List<Object[]>> pushResultList = new ArrayList<>();
+                List<List<ThemeItem>> pushResultList = new ArrayList<>();
                 //售罄推荐
-                List<Object[]> pushList = new ArrayList<>();
+                List<ThemeItem> pushList = new ArrayList<>();
                 //拼购商品
-                Object[] pinSkuObject = new Object[8];
+                PinInvDetail pinInvDetail = new PinInvDetail();
                 //Sku商品预览图片
                 List<String> preImgList = new ArrayList<>();
                 //优惠信息
@@ -488,66 +389,31 @@ public class ProductsCtrl extends Controller {
                 }
                 //拼购商品Sku
                 if(json.has("stock")){
-                    JsonNode stockJson = json.get("stock");
-                    pinSkuObject[0] = Json.fromJson(stockJson.get("pinTitle"),String.class);         //拼购商品Title
-                    JsonNode floorPriceJson = Json.parse(Json.fromJson(stockJson.get("floorPrice"),String.class));
-                    pinSkuObject[1] =  Json.fromJson(floorPriceJson.get("price"),BigDecimal.class);  //最低价格
-                    pinSkuObject[2] = floorPriceJson.get("person_num").asInt();                      //最多人数
-                    pinSkuObject[3] =stockJson.get("soldAmount").asInt();                            //已售件数
-                    JsonNode invImgJson = Json.parse(Json.fromJson(stockJson.get("invImg"),String.class));
-                    pinSkuObject[4] = Json.fromJson(invImgJson.get("url"),String.class);             //Sku图片
-                    pinSkuObject[5] = url;                                                           //pinUrl
-                    String endAt = Json.fromJson(stockJson.get("endAt"),String.class);
-                    int restAmount = stockJson.get("restAmount").asInt();
-                    boolean isSoldOut = false;
-                    if(endAt.compareTo(strNow) < 0 || restAmount == 0){
-                        isSoldOut = true;
+                    pinInvDetail = Json.fromJson(json.get("stock"), PinInvDetail.class);
+                    JsonNode floorPriceJson = Json.parse(pinInvDetail.getFloorPrice());
+                    pinInvDetail.setFloorPrice(floorPriceJson.get("price").asText());
+                    pinInvDetail.setFloorPricePersonNum(floorPriceJson.get("person_num").asInt());
+                    JsonNode invImgJson = Json.parse(pinInvDetail.getInvImg());
+                    pinInvDetail.setInvImg(invImgJson.get("url").asText());
+                    String endAt = sdfDate.format(pinInvDetail.getEndAt());
+                    if(endAt.compareTo(strNow) < 0 || pinInvDetail.getRestAmount() == 0){
+                        pinInvDetail.setSoldOut(true);
                     }
-                    pinSkuObject[6] = isSoldOut;
-                    pinSkuObject[7] = Json.fromJson(stockJson.get("invPrice"),BigDecimal.class);
                     //预览图片
-                    JsonNode preImgJson = Json.parse(Json.fromJson(stockJson.get("itemPreviewImgs"),String.class));
+                    JsonNode preImgJson = Json.parse(pinInvDetail.getItemPreviewImgs());
                     for(JsonNode preImg :preImgJson){
-                        String imgUrl = Json.fromJson(preImg.get("url"),String.class);
-                        preImgList.add(imgUrl);
+                        preImgList.add(preImg.get("url").asText());
                     }
                 }
                 //热卖推荐
                 if(json.has("push")){
                     JsonNode pushJson = json.get("push");
                     for(JsonNode pushTemp : pushJson){
-                        Object[] pushObject = new Object[13];
-                        JsonNode imgJson = pushTemp.get("itemImg");
-                        String imgStr = Json.fromJson(imgJson,String.class);
-                        String imgUrl = Json.fromJson(Json.parse(imgStr).get("url"),String.class);
-                        pushObject[0] = imgUrl;
-                        String itemType  = Json.fromJson(pushTemp.get("itemType"),String.class);
-                        String itemUrl = Json.fromJson(pushTemp.get("itemUrl"),String.class);
-                        if("item".equals(itemType)){
-                            itemUrl = itemUrl.replace(ITEM_PAGE,"");
-                        }
-                        if("vary".equals(itemType)){
-                            itemUrl = itemUrl.replace(VARY_PAGE,"");
-                        }
-                        if("pin".equals(itemType)){
-                            itemUrl = itemUrl.replace(PIN_PAGE,"");
-                        }
-                        if("customize".equals(itemType)){
-                            itemUrl = itemUrl.replace(CUSTOMIZE_PAGE,"");
-                        }
-                        pushObject[1] = itemUrl;
-                        pushObject[2] = Json.fromJson(pushTemp.get("itemTitle"),String.class);
-                        pushObject[3] = Json.fromJson(pushTemp.get("itemSrcPrice"),BigDecimal.class);
-                        pushObject[4] = Json.fromJson(pushTemp.get("itemPrice"),BigDecimal.class);
-                        pushObject[5] = Json.fromJson(pushTemp.get("itemDiscount"),Float.class);
-                        pushObject[6] = Json.fromJson(pushTemp.get("itemSoldAmount"),Integer.class);
-                        pushObject[7] = Json.fromJson(pushTemp.get("collectCount"),Integer.class);
-                        pushObject[8] = Json.fromJson(pushTemp.get("state"),String.class);
-                        pushObject[9] = itemType;
-                        pushObject[10] = Json.fromJson(pushTemp.get("startAt"),String.class);
-                        pushObject[11] = Json.fromJson(pushTemp.get("endAt"),String.class);
-                        String endAt = Json.fromJson(pushTemp.get("endAt"),String.class);
-                        Date endAtDate = sdfDate.parse(endAt);
+                        ThemeItem themeItem = Json.fromJson(pushTemp,ThemeItem.class);
+                        JsonNode imgJson = Json.parse(themeItem.getItemImg());
+                        themeItem.setItemImg(imgJson.get("url").asText());
+                        themeItem.setItemUrl(themeItem.getItemUrl().replace(GOODS_PAGE,""));
+                        Date endAtDate = sdfDate.parse(themeItem.getEndAt());
                         Calendar calendar = Calendar.getInstance();
                         calendar.setTime(endAtDate);
                         String hour = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
@@ -560,27 +426,27 @@ public class ProductsCtrl extends Controller {
                         }
                         String endDate =(calendar.get(Calendar.MONTH)+1) + "月" + calendar.get(Calendar.DAY_OF_MONTH) + "日" + hour +":"+minute;
 
-                        if(endAt.compareTo(strNow) < 0){
-                            pushObject[12] = "已结束";
+                        if(themeItem.getEndAt().compareTo(strNow) < 0){
+                            themeItem.setEndAt("已结束");
                         }else{
-                            pushObject[12] = "截止" + endDate;
+                            themeItem.setEndAt("截止" + endDate);
                         }
 
-                        pushList.add(pushObject);
+                        pushList.add(themeItem);
                     }
                     for(int i=0;i<pushList.size()/2;i++){
-                        List<Object[]> rowList = new ArrayList<>();
+                        List<ThemeItem> rowList = new ArrayList<>();
                         rowList.add(pushList.get(i*2));
                         rowList.add(pushList.get(i*2+1));
                         pushResultList.add(rowList);
                     }
                     if(pushList.size()%2 != 0){
-                        List<Object[]> rowList = new ArrayList<>();
+                        List<ThemeItem> rowList = new ArrayList<>();
                         rowList.add(pushList.get(pushList.size()-1));
                         pushResultList.add(rowList);
                     }
                 }
-                return ok(views.html.products.pinDetail.render(itemMain,itemFeaturesList,pinSkuObject,pushResultList,preImgList,pushList,url));
+                return ok(views.html.products.pinDetail.render(itemMain,itemFeaturesList,pinInvDetail,pushResultList,preImgList,pushList,url));
             }
         }else{
             return badRequest(views.html.error500.render());
@@ -602,42 +468,15 @@ public class ProductsCtrl extends Controller {
      * @throws Exception
      */
     public Result pinTieredPrice(String url) throws Exception {
-        String pinTitle = "";
-        String invImg = "";
-        List<PinTieredPrice> pinTieredPriceList = new ArrayList<>();
-        Object[] floorPrice = new Object[2];
-
         Request request = new Request.Builder()
-                .url(PIN_PAGE + url)
+                .url(GOODS_PAGE + url)
                 .build();
         Response response = client.newCall(request).execute();
         if(response.isSuccessful()) {
             JsonNode json = Json.parse(response.body().string());
-            Logger.info("===pinTieredPrice=====" + json);
             if (json.has("stock")) {
                 JsonNode stockJson = json.get("stock");
-//                if(stockJson.has("pinTieredPrices")){
-//                    JsonNode tieredPriceJson = stockJson.get("pinTieredPrices");
-//                    for(JsonNode price:tieredPriceJson){
-//                        PinTieredPrice tieredPrice = Json.fromJson(price,PinTieredPrice.class);
-//                        pinTieredPriceList.add(tieredPrice);
-//                    }
-//                    Collections.sort(pinTieredPriceList, new Comparator<PinTieredPrice>() {
-//                        @Override
-//                        public int compare(PinTieredPrice tieredPrice2, PinTieredPrice tieredPrice1)
-//                        {
-//                            return  tieredPrice1.getPeopleNum().compareTo(tieredPrice2.getPeopleNum());
-//                        }
-//                    });
-//                }
-//                pinTitle = stockJson.get("pinTitle").asText();
-//                JsonNode imgJson = Json.parse(Json.fromJson(stockJson.get("invImg"),String.class));
-//                invImg = imgJson.get("url").asText();
-//
                 JsonNode floorPriceJson = Json.parse(Json.fromJson(stockJson.get("floorPrice"), String.class));
-//                floorPrice[0] = floorPriceJson.get("person_num").asInt();
-//                floorPrice[1] = Json.fromJson(floorPriceJson.get("price"), BigDecimal.class);
-
                 PinInvDetail pinInvDetail = Json.fromJson(json.get("stock"), PinInvDetail.class);
                 pinInvDetail.setInvImg(comCtrl.getImgUrl(pinInvDetail.getInvImg()));
                 pinInvDetail.setFloorPricePersonNum(floorPriceJson.get("person_num").asInt());
@@ -652,9 +491,6 @@ public class ProductsCtrl extends Controller {
                 return ok(views.html.products.pinTieredPrice.render(pinInvDetail));
             }
         }
-           // return ok(views.html.products.pinTieredPrice.render(pinTitle,invImg,pinTieredPriceList,floorPrice));
-        //}else {
-            return badRequest(views.html.error500.render());
-       // }
+        return badRequest(views.html.error500.render());
     }
 }

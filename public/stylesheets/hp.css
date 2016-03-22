@@ -90,7 +90,7 @@ h1 .logo {
 
 /* 本例子css -------------------------------------- */
 .slideBox{ position:relative; overflow:hidden; margin:50px 0 auto; }
-.slideBox .hd{ position:absolute; height:28px; line-height:28px; bottom:0; left:50%; margin:0 0 0 -34px;z-index:1; }
+.slideBox .hd{ position:absolute; height:25px; bottom:0; left:50%; margin:0 0 0 -34px;z-index:1;transform: translate(-50%,0);}
 .slideBox .hd li{ display:inline-block; width:5px; height:5px; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px; background:#333; text-indent:-9999px; overflow:hidden; margin:0 6px;   }
 .slideBox .hd li.on{ background:#fff;  }
 .slideBox .bd{ position:relative; z-index:0; }
@@ -108,7 +108,7 @@ h1 .logo {
 
 #container ul{width:100%;list-style:none;float:left;margin-right:20px;}
 
-#container ul li{margin-bottom:20px;}
+#container ul li{margin-bottom:5px;}
 
 #container ul li img{width:100%;}
 
@@ -612,12 +612,12 @@ li {
 
 .top{
 	position: fixed;
-	bottom:100px;
+	bottom:20px;
 	right:20px;
 }
 .top img{
-	width:50px;
-	height:50px;
+	width:40px;
+	height:40px;
 
 }
 

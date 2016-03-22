@@ -67,6 +67,11 @@
     line-height:30px;
     padding:0 22px 0 0;
 }
+
+.face-box .none{
+    background: none;
+    color: #ccc;
+}
 .footer{
     position: fixed;
     bottom:0;
@@ -189,7 +194,24 @@ button{
     background-color: #E46359;;
 }
 
+.warn-info-box{
+    width: 100%;
+    height:30px;
+    margin: 0 auto;
+}
 
+.warn-info {
+    width:300px;
+    display:none;
+    line-height:40px;
+    height:40px;
+    background-color: #E46359;
+    color:#fff;
+    text-align:center;
+    border-radius:20px;
+    margin: 20px auto;
+    font-size: 14px;
+}
 
 
 

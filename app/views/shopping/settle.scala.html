@@ -1,4 +1,4 @@
-@(settle:domain.SettleVo)
+@(settle:domain.SettleVo,settleInfoList:List[domain.SettleInfo],buyNow:java.lang.Integer,pinActiveId:java.lang.Long)
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -23,10 +23,11 @@
     </a>
     <h1>支付结算</h1>
 </header>
-
+<form id="orderForm" action="/order/submit" method="POST">
 <div class="scope">
     <div class="address">
         <a href="javascript:;">
+            <input type="hidden" name="addressId" value="@settle.getAddress().getAddId()">
             <p><i class="add-icon"></i><span>姓名:</span><span>@settle.getAddress().getName()</span>
                 @if(settle.getAddress().getOrDefault()==true){
                 <span class="color">默认</span>
@@ -41,17 +42,31 @@
     <!--<div class="add">
         <a href="/addressnew" class="bg">添加收货地址</a>
     </div>-->
+    <input type="hidden" name="areaNum" value="@settleInfoList.size()">
+    @for((settleInfo,index)<-settleInfoList.zipWithIndex){
+        <div class="money-box">
+            <div class="text">@settleInfo.getInvAreaNm()</div>
+            <input type="hidden" name="invCustoms@index" value="@settleInfo.getInvCustoms()"/>
+            <input type="hidden" name="invArea@index" value="@settleInfo.getInvArea()"/>
+            <input type="hidden" name="invAreaNm@index" value="@settleInfo.getInvAreaNm()"/>
+            <input type="hidden" name="cartNum@index" value="@settleInfo.getCartInfos().size()"/>
+            @for((cartInfo,cartIndex)<-settleInfo.getCartInfos().zipWithIndex){
 
-
-    <div class="money-box">
-        <div class="text">杭州免税区</div>
-        <h2><i class="picture"></i>冬季甜美风衣女学院风修身</h2>
-        <div class="goods">
-            <span class="order color">￥180.00</span>
-            <span class="money">数量 : 1</span>
+                <h2><i class="picture"> <img src="@cartInfo.getSkuInvImg()" alt=""/></i>@cartInfo.getSkuTitle()</h2>
+                <div class="goods">
+                    <span class="order color">￥@cartInfo.getSkuPrice()</span>
+                    <span class="money">数量 : @cartInfo.getAmount()</span>
+                </div>
+                <input type="hidden" name="cartId@index-@cartIndex" value="@cartInfo.getCartId()"/>
+                <input type="hidden" name="skuId@index-@cartIndex" value="@cartInfo.getSkuId()"/>
+                <input type="hidden" name="amount@index-@cartIndex" value="@cartInfo.getAmount()"/>
+                <input type="hidden" name="skuType@index-@cartIndex" value="@cartInfo.getSkuType()"/>
+                <input type="hidden" name="skuTypeId@index-@cartIndex" value="@cartInfo.getSkuTypeId()"/>
+                <input type="hidden" name="state@index-@cartIndex" value="@cartInfo.getState()"/>
+                <input type="hidden" name="pinTieredPriceId@index-@cartIndex" id="pinTieredPriceId" value="@cartInfo.getPinTieredPriceId()"/>
+            }
         </div>
-    </div>
-
+    }
 
 
     <!--配送方式-->
@@ -61,27 +76,27 @@
             <div class="account-j">
                    <span>发货时间</span>
                     <h2>
-                        <input type="radio" class="pitch pitch-hd" checked>
+                        <input type="radio" class="pitch pitch-hd" checked name="shipTime" value="1">
                         <div class="quick">工作日与双休日与假期均可送货</div>
                     </h2>
                     <ul class="way">
                         <li>
                             <label>
-                                <input type="radio" name="gol" class="pitch" checked>
+                                <input type="radio" name="shipTimeSub" class="pitch" checked value="1">
                                 <div class="quick">工作日与双休日与假期均可送货</div>
                             </label>
                         </li>
 
                         <li>
                             <label>
-                                <input type="radio" name="gol" class="pitch">
+                                <input type="radio" name="shipTimeSub" class="pitch" value="2">
                                 <div class="quick">只工作日送达</div>
                             </label>
                         </li>
 
                         <li>
                             <label>
-                                <input type="radio" name="gol" class="pitch">
+                                <input type="radio" name="shipTimeSub" class="pitch" value="3">
                                 <div class="quick">只休息日与假日送达</div>
                             </label>
 
@@ -98,17 +113,37 @@
                     <ul class="way">
                         <li>
                             <label>
-                                <input type="radio" name="go" class="pitch" checked>
+                                <input type="radio" name="payMethod" value="JD" class="pitch" checked>
                                 <div class="quick">在线支付</div>
                             </label>
                         </li>
-                        <li>
-                            <label>
-                                <input type="radio" name="go" class="pitch">
-                                <div class="quick">京东支付</div>
-                            </label>
-                        </li>
+
                     </ul>
+            </div>
+            <div class="account-j">
+                <span>可使用优惠券</span>
+                <h2>
+                    <input type="radio" class="pitch pitch-hd" checked>
+                    <div class="quick">不使用优惠券</div>
+                </h2>
+                <ul class="way">
+                    <li>
+                        <label>
+                            <input type="radio" name="couponId" class="pitch" value="0" checked>
+                            <div class="quick">不使用优惠券</div>
+                        </label>
+                    </li>
+                    @if(null!=settle.getCoupons()){
+                        @for(coupon<-settle.getCoupons()){
+                            <li>
+                                <label>
+                                    <input type="radio" name="couponId" value="@coupon.getCoupId()" class="pitch" >
+                                    <div class="quick">满@coupon.getLimitQuota()减@coupon.getDenomination()</div>
+                                </label>
+                            </li>
+                        }
+                    }
+                </ul>
             </div>
 
         </div>
@@ -117,7 +152,7 @@
 
     <div class="tariff">
         <ul>
-            <li><span>可使用优惠券</span><i>未选择</i></li>
+            <!--<li><span>可使用优惠券</span><i>未选择</i></li>-->
             <li><span>商品总价</span><i class="color">￥@settle.getTotalFee()</i></li>
             <li><span>优惠金额</span><i>￥@settle.getDiscountFee()</i></li>
             <li><span>行邮税</span><i>￥@settle.getPortalFee()</i></li>
@@ -139,18 +174,16 @@
     </div>
 
 </div>
+    <input type="hidden" name="buyNow" value="@buyNow"/>
+    <input type="hidden" name="pinActiveId" value="@pinActiveId"/>
 
 <div class="refer-box">
     <span class="refer-rmb color">合计:￥@settle.getTotalPayFee()</span>
-    <a href="javascript:;" class="refer bg">提交订单</a>
+    <a href="javascript:;" class="refer bg" onclick="document.getElementById('orderForm').submit();">提交订单</a>
 
 </div>
 
-
-
-
-
-
+</form>
 
 </body>
 </html>

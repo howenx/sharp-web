@@ -1,4 +1,4 @@
-@(itemMain:domain.Item,itemFeaturesList:List[Array[Object]],pinSkuObject:Array[Object],pushList:List[List[Array[Object]]],preImgList:List[String],SoldOutPushList:List[Array[Object]],url:String)
+@(itemMain:domain.Item,itemFeaturesList:List[Array[Object]],pinInvDetail:domain.PinInvDetail,pushList:List[List[domain.ThemeItem]],preImgList:List[String],SoldOutPushList:List[domain.ThemeItem],url:String)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,7 +33,7 @@
                     <i class="message"></i>
                 </a>
             </div>
-                @if(pinSkuObject(6) == true){
+                @if(pinInvDetail.isSoldOut() == true){
                     <span class="finish">该商品已售罄</span>
                 }
 
@@ -54,6 +54,11 @@
              data-cycle-pager-event="mouseover"
         >
             <div class="cycle-pager"></div>
+            <div class="item now">
+                <input id="skuId" value="@pinInvDetail.getId()" style="display:none">
+                <input id="skuType" value="@pinInvDetail.getSkuType()"  style="display:none">
+                <input id="skuTypeId" value="@pinInvDetail.getSkuTypeId()" style="display:none">
+            </div>
             @for(img <- preImgList){
                 <div class='slide-img'>
                     <img src='@img' style='display: block;' width='100%'>
@@ -68,24 +73,24 @@
     <!--标题-->
     <div class="sku-meta pin-hd">
         <div class="sku-title pin-title">
-            <h2>@pinSkuObject(0)</h2>
-            <p class="num">已售: @pinSkuObject(3)件</p>
+            <h2>@pinInvDetail.getPinTitle()</h2>
+            <p class="num">已售: @pinInvDetail.getSoldAmount()件</p>
         </div>
 
         <div class="txt">
             <p>支付开团并邀请2人参团,人数不足自动退款,详见下方拼团玩法</p>
             <div class="diamond">
-                @if(pinSkuObject(6) == true){
+                @if(pinInvDetail.isSoldOut() == true){
                 <a href="javascript:;">
                 }
-                @if(pinSkuObject(6) != true){
+                @if(pinInvDetail.isSoldOut() != true){
                 <a href="/pinTieredPrice/@url">
                 }
-                    <span class="big">@pinSkuObject(1)元/件</span>
-                    <span>@pinSkuObject(2)人成团</span>
+                    <span class="big">@pinInvDetail.getFloorPricePrice()元/件</span>
+                    <span>@pinInvDetail.getFloorPricePersonNum()人成团</span>
                 </a>
                 <a href="javascript:;">
-                    <span class="big ed">@pinSkuObject(7)元/件</span>
+                    <span class="big ed">@pinInvDetail.getInvPrice()元/件</span>
                     <span>单独购买</span>
                 </a>
             </div>
@@ -146,32 +151,32 @@
             @for(rowList <- pushList){
             <li>
                 @for(pushItem <- rowList){
-                @if(pushItem(9) == "item" || pushItem(9) == "vary" || pushItem(9) == "customize"){
-                <a href="/detail/@pushItem(9)/@pushItem(1)">
+                @if(pushItem.getItemType() == "item" || pushItem.getItemType() == "vary" || pushItem.getItemType() == "customize"){
+                <a href="/detail/@pushItem.getItemUrl()">
                     <p class="figure figure-f">
-                        <img src="@pushItem(0)">
+                        <img src="@pushItem.getItemImg()">
                     </p>
-                    <p class="title-hd">@pushItem(2)</p>
+                    <p class="title-hd">@pushItem.getItemTitle()</p>
 								   <span class="title-fd">
-									   <i class="naw">￥@pushItem(4)</i>
-									   <i class="agio">￥@pushItem(3)</i>
-									   <b>@pushItem(5)折</b>
+									   <i class="naw">￥@pushItem.getItemPrice()</i>
+									   <i class="agio">￥@pushItem.getItemSrcPrice()</i>
+									   <b>@pushItem.getItemDiscount()折</b>
 								   </span>
                 </a>
                 }
-                @if(pushItem(9) == "pin"){
-                <a href="/detail/@pushItem(9)/@pushItem(1)">
+                @if(pushItem.getItemType() == "pin"){
+                <a href="/detail/@pushItem.getItemUrl()">
                     <p class="product-box">
-                        <span class="product-top">@pushItem(12)</span>
+                        <span class="product-top">@pushItem.getEndAt()</span>
                     </p>
                     <p class="figure figure-f">
-                        <img src="@pushItem(0)">
+                        <img src="@pushItem.getItemImg()">
                     </p>
-                    <p class="title-hd">@pushItem(2)</p>
+                    <p class="title-hd">@pushItem.getItemTitle()</p>
 						   <span class="title-fd">
-							   <i class="naw">￥@pushItem(4)</i>
-							   <i class="agio">￥@pushItem(3)</i>
-							   <b>@pushItem(5)折</b>
+							   <i class="naw">￥@pushItem.getItemPrice()</i>
+							   <i class="agio">￥@pushItem.getItemSrcPrice()</i>
+							   <b>@pushItem.getItemDiscount()折</b>
 						   </span>
                 </a>
                 }
@@ -264,7 +269,7 @@
 
     <!--加入购物车-->
     <div class="buy_box">
-        @if(pinSkuObject(6) == true){
+        @if(pinInvDetail.isSoldOut() == true){
             <div class="finish-box">
                 该商品已结束去看看其他拼购吧
             </div>
@@ -280,9 +285,17 @@
 
             <!--收藏-->
             <a href="javascript:;" class="like pin-love">
-                <span class="soul"></span>
+                <div>
+                <input class="collectId" value="@pinInvDetail.getCollectId()" style="display:none">
+                @if(pinInvDetail.getCollectId() != 0){
+                    <span class="soul now min"></span>
+                }
+                @if(pinInvDetail.getCollectId() == 0){
+                <span class="soul now"></span>
+                }
                 <i class="like-s">收藏成功</i>
                 <i class="like-x">取消收藏</i>
+                </div>
             </a>
 
         </div>
@@ -305,7 +318,7 @@
     </div>
 </div>
 <!--该活动已结束-->
-@if(pinSkuObject(6) == true){
+@if(pinInvDetail.isSoldOut() == true){
 <div class="toup">
     <div class="bg"></div>
     <div class="con">
@@ -313,17 +326,17 @@
         <div class="conaddr">
             <div>
                 @for(pinPush <- SoldOutPushList){
-                    <a href="/detail/@pinPush(9)/@pinPush(1)">
+                    <a href="/detail/@pinPush.getItemUrl()">
                         <div class="item">
                             <div>
                                 <span>拼</span>
-                                <p>@pinPush(12)</p>
+                                <p>@pinPush.getEndAt()</p>
                             </div>
                             <div class="conaddr-p">
-                                <img src="@pinPush(0)" alt="">
+                                <img src="@pinPush.getItemImg()" alt="">
                             </div>
                             <div>
-                                <p>@pinPush(2)</p>
+                                <p>@pinPush.getItemTitle()</p>
                             </div>
                         </div>
                     </a>

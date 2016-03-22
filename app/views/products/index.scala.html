@@ -39,7 +39,7 @@
 					@for(slider <- sliderList){
 						@if(slider.getTargetType() == "D" || slider.getTargetType() == "P"){
 							<li>
-								<a class="pic" href="/detail/@slider.getTargetType()/@slider.getItemTarget()"><img src="@slider.getImg()" /></a>
+								<a class="pic" href="/detail/@slider.getItemTarget()"><img src="@slider.getImg()" /></a>
 							</li>
 						}
 						@if(slider.getTargetType() == "U"){
