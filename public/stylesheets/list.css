@@ -152,6 +152,14 @@ h1 .logo {
         bottom:-20px;
     }
 }
+@-moz-keyframes run1 {
+    from{
+        bottom:-50px;
+    }
+    to{
+        bottom:-20px;
+    }
+}
 
 .cartoon,.cartoon-right{
     height: 25px;
@@ -227,19 +235,23 @@ h1 .logo {
 .ripple .c2,.ripple-right .c2{
     -webkit-animation: run2 1s linear infinite;
     -moz-animation: run2 1s linear infinite;
+    animation: run2 1s linear infinite;
 }
 .ripple .c3,.ripple-right .c3{
     -webkit-animation: run2 1s linear 0.5s infinite;
     -moz-animation: run2 1s linear 0.5s infinite;
+    animation: run2 1s linear 0.5s infinite;
 }
 
 @-webkit-keyframes run2 {
     from{
-        transform:scale(1);
+        -webkit-transform:scale(1);
+        -moz-transform:scale(1);
         opacity: 1;
     }
     to{
-        transform: scale(2.5);
+        -webkit-transform:scale(2.5);
+        -moz-transform:scale(2.5);
         opacity: 0;
     }
 }
