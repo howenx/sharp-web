@@ -36,15 +36,12 @@ public class UserAuth extends Security.Authenticator {
             Map<String, String> map =
                     UserCtrl.mapper.convertValue(scala.collection.JavaConverters.mapAsJavaMapConverter(ctx._requestHeader().headers().toSimpleMap()).asJava(), UserCtrl.mapper.getTypeFactory().constructMapType(Map.class, String.class, String.class));
             Request.Builder builder = new Request.Builder();
-<<<<<<< HEAD
 
             //map.forEach(builder::addHeader);
 
 //            map.forEach(builder::addHeader);
 
-=======
             //map.forEach(builder::addHeader);
->>>>>>> 8ba76072b85534c29eb5468bab33d4eee511ab00
             if (header.isPresent()) {
                 Optional<String> token = Optional.ofNullable(cache.get(header.get()).toString());
                 if (token.isPresent()) {
