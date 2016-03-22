@@ -43,13 +43,13 @@
     <style type="text/css">
         input:required:valid, input:focus:invalid {
         background-image: url('/assets/images/ex.png');
-        background-position: right 13px;
+        background-position: right 16px;
         background-repeat: no-repeat;
         -moz-box-shadow: none;
         }
         input:required:valid {
         background-image: url("/assets/images/dui.png");
-        background-position: right 13px;
+        background-position: right 16px;
         background-repeat: no-repeat;
         }
     </style>
@@ -82,7 +82,7 @@
                     <dd class="dd-padding clearfix">
                         <span>确认密码</span> <input id="re_password" type="password" class="input-rese input-reseB" placeholder="再次填写密码" maxlength="12" required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}"/>
                         <i class="delet delet-rese"></i>
-                        <i class="howl howl-reB"></i>
+                        <i class="howl howl-reB howl-re"></i>
                     </dd>
                 </dl>
             </form>
@@ -109,11 +109,9 @@ $(function() {
 
         //$('#js-userinfo-error').text('验证码发送成功!').show();
         setTimeout("$('#js-userinfo-error').hide()", 1000);
-<<<<<<< HEAD
 
-=======
     var flag = false;
->>>>>>> d96233678065a3dd9288999cb69cd1dbec1e10b7
+
 
         var of = true;
         var phone = $("#phone").val();
@@ -131,10 +129,9 @@ $(function() {
                     $("#time").html("");
                     $("#get-code").css("color", "#E46359");
                     $("#get-code").css('cursor', 'pointer');
-<<<<<<< HEAD
-=======
+
                     flag = true;
->>>>>>> d96233678065a3dd9288999cb69cd1dbec1e10b7
+
                 }
         }, 1000);
 
@@ -142,13 +139,12 @@ $(function() {
 
         //再次获取验证码
         $("#get-code").click(function() {
-<<<<<<< HEAD
 
-=======
+
+
             if(!flag){
                 return;
             }else {
->>>>>>> d96233678065a3dd9288999cb69cd1dbec1e10b7
                 $("#password").removeAttr("name");
                 $("#code").removeAttr("name");
                 console.log($('form#cell_regForm').serialize());
@@ -170,7 +166,6 @@ $(function() {
                             $("#get-code").css('cursor', 'auto');
 
 
-<<<<<<< HEAD
                                         $("#time").html(ctime+"s");
                                         timer2 = window.setInterval(function() {
                                                 $("#time").html(--ctime+"s");
@@ -184,7 +179,6 @@ $(function() {
                                 } else {
                                         $('#js-userinfo-error').text(data.message).show();
                                         setTimeout("$('#js-userinfo-error').hide()", 2000);
-=======
                             var ctime = 8;
 
                             $("#time").html(ctime + "s");
@@ -196,10 +190,9 @@ $(function() {
                                     $("#get-code").css("color", "#E46359");
                                     $("#get-code").css('cursor', 'pointer');
                                     flag = true;
->>>>>>> d96233678065a3dd9288999cb69cd1dbec1e10b7
                                 }
                             }, 1000);
-                        } else {
+                        }else {
                             $('#js-userinfo-error').text(data.message).show();
                             setTimeout("$('#js-userinfo-error').hide()", 2000);
                         }

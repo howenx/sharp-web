@@ -47,7 +47,7 @@
 
 
 .input-rese{
-    width:80%;
+    width:76%;
     border: none;
     margin: 0;
     font-size: 14px;
@@ -57,6 +57,10 @@
     height: 45px;
 }
 
+.input-r{
+    width:75%;
+    margin: 0 0 0 70px;
+}
 
 /*.back{
     margin:20px 0;
@@ -113,8 +117,8 @@
 
 .delet{
     width: 20px;
-    right: 40px;
-    top:15px;
+    right:10px;
+    top:14px;
 }
 
 .delet-box{
@@ -128,7 +132,7 @@
 }
 
 .delet-rese{
-    top:10px;
+    top:13px;
     right: 70px;
 }
 /*找回密码*/
@@ -197,4 +201,9 @@ input.input-proof{
 .cue{
     background-color:#FFEEDE;
     color: #E66255;
+}
+
+
+.howl-re{
+    top:13px;
 }
