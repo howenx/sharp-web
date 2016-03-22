@@ -18,12 +18,24 @@
                 $('.mw').toggle();
             });
 
-
-
-
+            //修改性别
             $('.mw span').click(function(){
                 $(this).parents('.wap').find('.mw-box').html($(this).html());
                 $(this).parent('.mw').hide();
+                var gender = $(this).html();
+                if (gender=="女") gender = "F";
+                if (gender=="男") gender = "M";
+                $("#gender").val(gender);
+                console.log($('form#cell_genderForm').serialize());
+                $.ajax({
+                        url: "/user/update",
+                        dataType: 'json',
+                        data: $('form#cell_genderForm').serialize(),
+                        type: 'POST',
+                        success: function(data) {
+                            console.log(data);
+                        }
+                });
             })
 
             /*var tim = null;
@@ -42,6 +54,17 @@
                 $('body').append(form);
                 form.submit();
             });
+
+            //修改头像
+            $(document).on("change", ".face", function() {
+                <!--var oScript = document.createElement("script");-->
+                <!--oScript.src = document.getElementById("face").value;-->
+                <!--document.body.appendChild(oScript);-->
+                <!--var txt = txtContent.toString().replace(/([^\/\*]+\/\*)/g,'').replace(/\*\/.+/g,'');-->
+                <!--alert(txt);-->
+            });
+
+
         })
     </script>
 
@@ -64,10 +87,12 @@
     <!--灰层 开始-->
     <div class="grayDiv scope">
         <div class="grayDiv-box">
-            <span>从相册选择新头像<input type="file" class="face"/></span>
+            <span>从相册选择新头像<input id="face" type="file" class="face"/></span>
             <a href="javascript:;" class="closeBtn">取消</a>
         </div>
-
+        <form id="cell_photoForm" method="post" onsubmit="return false" action="" >
+            <input type="hidden" id="photoUrl" name="photoUrl" value="">
+        </form>
     </div>
 
     <div class="face-box spot">
@@ -101,6 +126,9 @@
     </div>
 
     <div class="mw">
+        <form id="cell_genderForm" method="post" onsubmit="return false" action="" >
+            <input type="hidden" id="gender" name="gender" value="">
+        </form>
         <p>请选择您的性别</p>
         <span>男</span><span>女</span>
     </div>

@@ -565,12 +565,14 @@ public class UserCtrl extends Controller {
                         JsonNode json2 = Json.parse(new String(response2.body().bytes(), UTF_8));
                         Message message2 = Json.fromJson(json2.findValue("message"), Message.class);
                         if (Message.ErrorCode.SUCCESS.getIndex() == message2.getCode()) {
+                            String token = json.findValue("result").findValue("token").asText();
+                            Integer expired = json.findValue("result").findValue("expired").asInt();
                             String session_id = UUID.randomUUID().toString().replaceAll("-", "");
-                            Cache.set(session_id, json2.findValue("token").asText(), json2.findValue("expired").asInt());
+                            Cache.set(session_id, token, expired);
                             session("session_id", session_id);
-                            response().setCookie("session_id", session_id, json2.findValue("expired").asInt());
-                            response().setCookie("user_token", json2.findValue("token").asText(), json2.findValue("expired").asInt());
-                            session("id-token", json2.findValue("token").asText());
+                            response().setCookie("session_id", session_id, expired);
+                            response().setCookie("user_token", token, expired);
+                            session("id-token", token);
                         }
                         return ok(Json.toJson(message2));
                     } else throw new IOException("Unexpected code" + response2);
@@ -669,13 +671,6 @@ public class UserCtrl extends Controller {
             return ok(views.html.users.means.render(userInfo));
         });
 
-//        Form<UserDTO> userDTOForm = Form.form(UserDTO.class).bindFromRequest();
-//        Map<String, String> userMap = userDTOForm.data();
-//        String photo = userMap.get("photo");
-//        String name = userMap.get("name");
-//        String gender = userMap.get("gender");
-//        String phoneNum = userMap.get("phoneNum");
-//        return ok(views.html.users.means.render(photo, name, gender, phoneNum));
     }
 
 
@@ -690,6 +685,47 @@ public class UserCtrl extends Controller {
         Map<String, String> userMap = userDTOForm.data();
         String nickname = userMap.get("name");
         return ok(views.html.users.nickname.render(nickname));
+    }
+
+    /**
+     * 用户信息修改
+     *
+     * @return
+     */
+    @Security.Authenticated(UserAuth.class)
+    public F.Promise<Result> userUpdate() {
+        ObjectNode result = newObject();
+        Form<UserDTO> userDTOForm = Form.form(UserDTO.class).bindFromRequest();
+        Map<String, String> userMap = userDTOForm.data();
+        if (userDTOForm.hasErrors()) {
+            result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
+            return Promise.promise((Function0<Result>) () -> ok(result));
+        } else {
+            Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
+                FormEncodingBuilder feb = new FormEncodingBuilder();
+                userMap.forEach(feb::add);
+                RequestBody formBody = feb.build();
+                Request request = new Request.Builder()
+                        .url(USER_UPDATE)
+                        .post(formBody)
+                        .build();
+                Logger.error("request:"+request.header("id-token"));
+                client.setConnectTimeout(10, TimeUnit.SECONDS);
+                Response response = client.newCall(request).execute();
+                Logger.error(response.toString());
+                if (response.isSuccessful()) {
+                    JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
+                    return json;
+                } else throw new IOException("Unexpected code" + response);
+            });
+
+            return promiseOfInt.map((Function<JsonNode, Result>) json -> {
+                Message message = Json.fromJson(json.findValue("message"), Message.class);
+                Logger.error(json.toString()+"-----"+message.toString());
+                return ok(Json.toJson(message));
+            });
+        }
+
     }
 
     //我的拼团

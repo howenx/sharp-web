@@ -26,9 +26,6 @@
              @if(userInfo.getGender()=="M") {<i class="man"></i>}
              @if(userInfo.getGender()=="F") {<i class="girl"></i>}
          </a>
-        <!--<input id="gender" type="hidden" value="@userInfo.getGender()">-->
-        <!--<input id="name" type="hidden" value="@userInfo.getName()">-->
-        <!--<input id="phone" type="hidden" value="@userInfo.getPhoneNum()">-->
     </div>
 </a>
     <!--<section class="apply">-->
@@ -103,24 +100,4 @@
 
 
  </div>
-
-<script>
-    /**
-    $(document).on('click', '.land', function () {
-        var url = '/means';
-        var photo = $("#photo").attr("src");
-        var name = $("#name").val();
-        var gender = $("#gender").val();
-        var phoneNum = $("#phone").val();
-        var form = $('<form action="' + url + '" method="post">' +
-        '<input type="hidden" name="photo" value="' + photo + '" />' +
-        '<input type="hidden" name="name" value="' + name + '" />' +
-        '<input type="hidden" name="gender" value="' + gender + '" />' +
-        '<input type="hidden" name="phoneNum" value="' + phoneNum + '" />' +
-        '</form>');
-        $('body').append(form);
-        form.submit();
-    });
-    **/
-</script>
 }
