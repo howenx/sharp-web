@@ -57,6 +57,10 @@
     height: 45px;
 }
 
+.input-res-t{
+    width:46% ;
+}
+
 .input-r{
     width:75%;
     margin: 0 0 0 70px;
@@ -151,13 +155,13 @@
 }
 
 input.input-proof{
-    width:57%;
+    width:46%;
     float: left;
 
 }
 
 .proof-box div{
-    width:43%;
+    width:52%;
     float: right;
 }
 
@@ -203,3 +207,5 @@ input.input-proof{
 .howl-re{
     top:13px;
 }
+
+
