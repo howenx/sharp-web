@@ -109,8 +109,13 @@ $(function() {
 
         //$('#js-userinfo-error').text('验证码发送成功!').show();
         setTimeout("$('#js-userinfo-error').hide()", 1000);
-    var flag = false;
+<<<<<<< HEAD
 
+=======
+    var flag = false;
+>>>>>>> d96233678065a3dd9288999cb69cd1dbec1e10b7
+
+        var of = true;
         var phone = $("#phone").val();
 
         $("#phone-send-code").text("已发送验证码至"+phone.substring(0,3)+"*****"+phone.substring(7,11));
@@ -120,20 +125,30 @@ $(function() {
         $("#time").html(time+"s");
         timer = window.setInterval(function() {
                 $("#time").html(--time+"s");
+
                 if (time == 0) {
                     window.clearInterval(timer);
                     $("#time").html("");
                     $("#get-code").css("color", "#E46359");
                     $("#get-code").css('cursor', 'pointer');
+<<<<<<< HEAD
+=======
                     flag = true;
+>>>>>>> d96233678065a3dd9288999cb69cd1dbec1e10b7
                 }
         }, 1000);
 
+
+
         //再次获取验证码
         $("#get-code").click(function() {
+<<<<<<< HEAD
+
+=======
             if(!flag){
                 return;
             }else {
+>>>>>>> d96233678065a3dd9288999cb69cd1dbec1e10b7
                 $("#password").removeAttr("name");
                 $("#code").removeAttr("name");
                 console.log($('form#cell_regForm').serialize());
@@ -155,6 +170,21 @@ $(function() {
                             $("#get-code").css('cursor', 'auto');
 
 
+<<<<<<< HEAD
+                                        $("#time").html(ctime+"s");
+                                        timer2 = window.setInterval(function() {
+                                                $("#time").html(--ctime+"s");
+                                                if (ctime == 0) {
+                                                    window.clearInterval(timer2);
+                                                    $("#time").html("");
+                                                    $("#get-code").css("color", "#E46359");
+                                                    $("#get-code").css('cursor', 'pointer');
+                                                }
+                                        }, 1000);
+                                } else {
+                                        $('#js-userinfo-error').text(data.message).show();
+                                        setTimeout("$('#js-userinfo-error').hide()", 2000);
+=======
                             var ctime = 8;
 
                             $("#time").html(ctime + "s");
@@ -166,6 +196,7 @@ $(function() {
                                     $("#get-code").css("color", "#E46359");
                                     $("#get-code").css('cursor', 'pointer');
                                     flag = true;
+>>>>>>> d96233678065a3dd9288999cb69cd1dbec1e10b7
                                 }
                             }, 1000);
                         } else {
@@ -176,6 +207,7 @@ $(function() {
                 });
             }
         });
+
 
 
         //注册提交数据
