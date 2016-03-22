@@ -110,8 +110,8 @@ $(function() {
         //$('#js-userinfo-error').text('验证码发送成功!').show();
         setTimeout("$('#js-userinfo-error').hide()", 1000);
 
-        $('.hq').disabled = true;
 
+        var of = true;
         var phone = $("#phone").val();
 
         $("#phone-send-code").text("已发送验证码至"+phone.substring(0,3)+"*****"+phone.substring(7,11));
@@ -121,18 +121,20 @@ $(function() {
         $("#time").html(time+"s");
         timer = window.setInterval(function() {
                 $("#time").html(--time+"s");
+
                 if (time == 0) {
                     window.clearInterval(timer);
                     $("#time").html("");
                     $("#get-code").css("color", "#E46359");
                     $("#get-code").css('cursor', 'pointer');
-                    $('.hq').disabled = false;
                 }
         }, 1000);
 
+
+
         //再次获取验证码
         $("#get-code").click(function() {
-                $('.hq').disabled = true;
+
                 $("#password").removeAttr("name");
                 $("#code").removeAttr("name");
                 console.log($('form#cell_regForm').serialize());
@@ -163,7 +165,6 @@ $(function() {
                                                     $("#time").html("");
                                                     $("#get-code").css("color", "#E46359");
                                                     $("#get-code").css('cursor', 'pointer');
-                                                    $('.hq').disabled = false;
                                                 }
                                         }, 1000);
                                 } else {
@@ -173,6 +174,7 @@ $(function() {
                         }
                 });
         });
+
 
 
         //注册提交数据
