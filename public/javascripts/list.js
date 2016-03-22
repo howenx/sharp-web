@@ -16,4 +16,9 @@ $(function(){
             $('html,body').stop().animate({'scrollTop':'0'},500);
         });
 
+    $(document).on("click",".redirect-app",function(){
+        var path = $(this).attr("href");
+        appRedirect(path);
+    })
+
 })

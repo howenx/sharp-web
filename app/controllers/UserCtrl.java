@@ -20,6 +20,7 @@ import play.libs.F.Function0;
 import play.libs.F.Promise;
 import play.libs.Json;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
 
@@ -743,6 +744,23 @@ public class UserCtrl extends Controller {
             });
         }
 
+    }
+
+    /**
+     * 登出
+     *
+     * @return
+     */
+    @Security.Authenticated(UserAuth.class)
+    public Result logout() {
+        //清理cache
+        Cache.remove("session_id");
+        //清理session
+        session().remove("id-token");
+        session().remove("session_id");
+        session().clear();
+        //清理cookie
+        return redirect(routes.UserCtrl.login());
     }
 
     //我的拼团

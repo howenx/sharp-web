@@ -19,6 +19,7 @@ public class UserDTO implements Serializable {
     private String gender;//性别
     private String realYn;
 
+    @Constraints.Required
     private String photoUrl;//头像字节流
     @Constraints.MaxLength(15)
     @Constraints.MinLength(2)

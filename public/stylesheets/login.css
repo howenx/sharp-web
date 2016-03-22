@@ -585,11 +585,13 @@ dl.list dd>.btn {
 .howl-reT{
 
     top:15px;
+    right:3px;
 }
 
 .howl-reB{
 
-    top:10px;
+    top:13px;
+    right:3px;
 }
 
 .bg1{
@@ -610,7 +612,7 @@ dl.list dd>.btn {
     height:20px;
     background-size: contain;
     position: absolute;
-    right:40px;
+    right:3px;
 
 }
 
@@ -619,7 +621,7 @@ dl.list dd>.btn {
 
 }
 .bg3{
-    top:10px;
+    top:13px;
 
 }
 
