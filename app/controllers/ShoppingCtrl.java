@@ -8,8 +8,6 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 import domain.*;
-import domain.CartListResultVo;
-import domain.Message;
 import filters.UserAuth;
 import play.Logger;
 import play.data.Form;
@@ -21,7 +19,6 @@ import play.mvc.Security;
 
 import javax.inject.Inject;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,9 +26,8 @@ import java.util.Map;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static modules.SysParCom.*;
-import static play.libs.Json.newObject;
 import static play.libs.Json.toJson;
-
+import static util.GZipper.dealToString;
 /**
  * 购物车,结算相关
  * Created by howen on 16/3/9.
@@ -98,15 +94,22 @@ public class ShoppingCtrl extends Controller {
         F.Promise<JsonNode> promise = F.Promise.promise(() -> {
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
             Request request = builder.url(SHOPPING_LIST).get().build();
+
+            //数据量过大情况下,可以加上这一句
+//            builder.addHeader("Accept-Encoding","gzip");
+
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
-                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
-                Logger.info("===json==\n" + json);
-                return json;
+                String result = dealToString(response);
+                if(result!=null){
+                    JsonNode json = Json.parse(result);
+                    Logger.info("===json==\n" + json);
+                    return json;
+                } else throw new IOException("Unexpected code " + response);
             } else throw new IOException("Unexpected code " + response);
         });
 
-        return promise.map((F.Function<JsonNode, Result>) json -> {
+        return promise.map(json -> {
 
                     String path = routes.ProductsCtrl.index().url();
                     if (session().containsKey("path")) {
@@ -470,6 +473,7 @@ public class ShoppingCtrl extends Controller {
                 return badRequest();
             }
             Long orderId=json.get("orderId").asLong();
+ //           String url=PAY_ORDER+orderId;
 
             return ok(json);
         });
