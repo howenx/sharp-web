@@ -157,7 +157,7 @@ $(function() {
                              tim = setInterval(function () {
                              	$('.like-x').hide();
                              },1000);
-                             off =true;
+                             $(".soul.now").parent().find(".collectId").val(0);
                           }
                           else{
                           }

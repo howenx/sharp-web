@@ -54,6 +54,11 @@
              data-cycle-pager-event="mouseover"
         >
             <div class="cycle-pager"></div>
+            <div class="item now">
+                <input id="skuId" value="@pinInvDetail.getId()" style="display:none">
+                <input id="skuType" value="@pinInvDetail.getSkuType()"  style="display:none">
+                <input id="skuTypeId" value="@pinInvDetail.getSkuTypeId()" style="display:none">
+            </div>
             @for(img <- preImgList){
                 <div class='slide-img'>
                     <img src='@img' style='display: block;' width='100%'>
@@ -280,9 +285,17 @@
 
             <!--收藏-->
             <a href="javascript:;" class="like pin-love">
-                <span class="soul"></span>
+                <div>
+                <input class="collectId" value="@pinInvDetail.getCollectId()" style="display:none">
+                @if(pinInvDetail.getCollectId() != 0){
+                    <span class="soul now min"></span>
+                }
+                @if(pinInvDetail.getCollectId() == 0){
+                <span class="soul now"></span>
+                }
                 <i class="like-s">收藏成功</i>
                 <i class="like-x">取消收藏</i>
+                </div>
             </a>
 
         </div>
