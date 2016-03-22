@@ -109,14 +109,15 @@ $(function() {
 
         //$('#js-userinfo-error').text('验证码发送成功!').show();
         setTimeout("$('#js-userinfo-error').hide()", 1000);
-    var flag = false;
+
+        var flag = false;
 
         var phone = $("#phone").val();
 
         $("#phone-send-code").text("已发送验证码至"+phone.substring(0,3)+"*****"+phone.substring(7,11));
 
         //验证码获取倒计时
-        var time = 8;
+        var time = 80;
         $("#time").html(time+"s");
         timer = window.setInterval(function() {
                 $("#time").html(--time+"s");
@@ -133,7 +134,7 @@ $(function() {
         $("#get-code").click(function() {
             if(!flag){
                 return;
-            }else {
+            } else {
                 $("#password").removeAttr("name");
                 $("#code").removeAttr("name");
                 console.log($('form#cell_regForm').serialize());
@@ -153,10 +154,7 @@ $(function() {
                             setTimeout("$('#js-userinfo-error').hide()", 2000);
                             $("#get-code").css("color", "#000");
                             $("#get-code").css('cursor', 'auto');
-
-
-                            var ctime = 8;
-
+                            var ctime = 80;
                             $("#time").html(ctime + "s");
                             timer2 = window.setInterval(function () {
                                 $("#time").html(--ctime + "s");

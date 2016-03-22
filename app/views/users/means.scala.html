@@ -21,7 +21,6 @@
             //修改性别
             $('.mw span').click(function(){
                 $(this).parents('.wap').find('.mw-box').html($(this).html());
-                $(this).parent('.mw').hide();
                 var gender = $(this).html();
                 if (gender=="女") gender = "F";
                 if (gender=="男") gender = "M";
@@ -34,6 +33,9 @@
                         type: 'POST',
                         success: function(data) {
                             console.log(data);
+                            if (data.code==200) {
+                                 $('.mw').hide();
+                            }
                         }
                 });
             })
@@ -57,12 +59,31 @@
 
             //修改头像
             $(document).on("change", ".face", function() {
+                var files = this.files;
+                for(var i=0; i<files.length;i++) {
+                    upImg(this.files[i]);
+                }
+
+
                 <!--var oScript = document.createElement("script");-->
                 <!--oScript.src = document.getElementById("face").value;-->
                 <!--document.body.appendChild(oScript);-->
                 <!--var txt = txtContent.toString().replace(/([^\/\*]+\/\*)/g,'').replace(/\*\/.+/g,'');-->
                 <!--alert(txt);-->
             });
+
+            function upImg(file) {
+                var imgType = /image.*/
+                if (!file.type.match(imageType)) {
+                    throw "File Type must be an image";
+                }
+
+                var reader = new FileReader();
+                reader.onload = (function(aImg) {
+                    return function
+                })(img);
+
+            }
 
 
         })
