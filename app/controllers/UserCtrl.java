@@ -352,7 +352,7 @@ public class UserCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-            Logger.info("===json==" + json);
+            Logger.info("===返回收藏数据错误json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
                 Logger.error("返回收藏数据错误code=" + (null != message ? message.getCode() : 0));

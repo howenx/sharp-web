@@ -250,6 +250,7 @@ public class ProductsCtrl extends Controller {
                 //优惠信息
                 List<String> publicityList = new ArrayList<>();
                 JsonNode json = Json.parse(response.body().string());
+                Logger.info("====detail==="+json);
                 //商品基本信息
                 if(json.has("main")){
                     JsonNode mainJson = json.get("main");
