@@ -8,6 +8,7 @@ import domain.*;
 import play.Logger;
 import play.libs.Json;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 
 import javax.inject.Inject;
@@ -23,6 +24,22 @@ import static modules.SysParCom.*;
 public class ProductsCtrl extends Controller {
     @Inject
     ComCtrl comCtrl;
+
+
+    public Request.Builder getBuilder(Http.Request request,Http.Session session){
+        Map<String,String[]> mapString = request.headers();
+        Map<String, String> params = new HashMap<>();
+        if (mapString != null) {
+            mapString.forEach((k, v) -> params.put(k, v[0]));
+        }
+        Request.Builder builder = new Request.Builder();
+        params.forEach(builder::addHeader);
+        if (session.containsKey("id-token")){
+            builder.addHeader("id-token",session.get("id-token"));
+        }
+        return builder;
+    }
+
     /**
      * 首页
      * @return
@@ -39,7 +56,8 @@ public class ProductsCtrl extends Controller {
         //返回  ------->end
         List<Slider> sliderList = new ArrayList<>();
         List<Theme> themeList = new ArrayList<>();
-        Request request = new Request.Builder()
+
+        Request request = getBuilder(request(),session())
                 .url(INDEX_PAGE + "1")
                 .build();
         Response response = client.newCall(request).execute();
