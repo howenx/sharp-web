@@ -352,7 +352,7 @@ public class UserCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-            Logger.info("===返回收藏数据错误json==" + json);
+            Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
                 Logger.error("返回收藏数据错误code=" + (null != message ? message.getCode() : 0));
@@ -701,16 +701,25 @@ public class UserCtrl extends Controller {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
         } else {
+            ObjectNode objectNode = Json.newObject();
+            String nickname = null == userMap.get("nickname") ? "" : userMap.get("nickname");
+            String gender = null == userMap.get("gender") ? "" : userMap.get("gender");
+            String photoUrl = null == userMap.get("photoUrl") ? "" : userMap.get("photoUrl");
+            if (!"".equals(nickname)) {
+                objectNode.put("nickname", nickname.trim());
+            }
+            if (!"".equals(gender)) {
+                objectNode.put("gender", gender.trim());
+            }
+            if (!"".equals(photoUrl)) {
+                objectNode.put("photoUrl", photoUrl.trim());
+            }
+            Logger.error("userMap:"+userMap);
+            Logger.error("objectNode:"+objectNode);
             Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
-                FormEncodingBuilder feb = new FormEncodingBuilder();
-                userMap.forEach(feb::add);
-                RequestBody formBody = feb.build();
-                Request request = new Request.Builder()
-                        .url(USER_UPDATE)
-                        .post(formBody)
-                        .build();
-                Logger.error("request:"+request.header("id-token"));
-                client.setConnectTimeout(10, TimeUnit.SECONDS);
+                RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, objectNode.toString());
+                Request.Builder builder = (Request.Builder) ctx().args.get("request");
+                Request request = builder.url(USER_UPDATE).post(formBody).build();
                 Response response = client.newCall(request).execute();
                 Logger.error(response.toString());
                 if (response.isSuccessful()) {

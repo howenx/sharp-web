@@ -144,6 +144,7 @@ public class ShoppingCtrl extends Controller {
         return ok(views.html.shopping.cartempty.render(path));
     }
 
+
     //待发货
     public Result delivered() {
         return ok(views.html.shopping.delivered.render());
@@ -293,9 +294,6 @@ public class ShoppingCtrl extends Controller {
                 return Json.parse(new String(response.body().bytes(), UTF_8));
             } else throw new IOException("Unexpected code" + response);
         });
-        //下订单
- //       comCtrl.postReqReturnMsg(ORDER_SUBMIT,formBody);
-
         final Long finalPinActiveId = pinActiveId;
         return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
             Logger.info("==settle=json==" + json);
@@ -452,6 +450,17 @@ public class ShoppingCtrl extends Controller {
 
             return ok("success orderId="+orderId);
         });
+    }
+
+    /**
+     * 用户将本地购物车添加到网络购物车中（POST请求）
+     * @return
+     */
+    @Security.Authenticated(UserAuth.class)
+    public F.Promise<Result>  cartAdd(){
+
+        RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, new String(""));
+        return comCtrl.postReqReturnMsg(CART_ADD,formBody);
     }
 
 
