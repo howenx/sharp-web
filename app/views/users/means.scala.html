@@ -21,7 +21,6 @@
             //修改性别
             $('.mw span').click(function(){
                 $(this).parents('.wap').find('.mw-box').html($(this).html());
-                $(this).parent('.mw').hide();
                 var gender = $(this).html();
                 if (gender=="女") gender = "F";
                 if (gender=="男") gender = "M";
@@ -34,6 +33,9 @@
                         type: 'POST',
                         success: function(data) {
                             console.log(data);
+                            if (data.code==200) {
+                                 $('.mw').hide();
+                            }
                         }
                 });
             })
@@ -56,14 +58,41 @@
             });
 
             //修改头像
-            $(document).on("change", ".face", function() {
-                <!--var oScript = document.createElement("script");-->
-                <!--oScript.src = document.getElementById("face").value;-->
-                <!--document.body.appendChild(oScript);-->
-                <!--var txt = txtContent.toString().replace(/([^\/\*]+\/\*)/g,'').replace(/\*\/.+/g,'');-->
-                <!--alert(txt);-->
+            $(document).on("change", "#face", function() {
+                encodeImageFileAsURL();
+                //var files = this.files;
             });
 
+            function encodeImageFileAsURL(){
+                var filesSelected = document.getElementById("face").files;
+                if (filesSelected.length > 0)
+                {
+                    var fileToLoad = filesSelected[0];
+
+                    var fileReader = new FileReader();
+
+                    fileReader.onload = function(fileLoadedEvent) {
+                        var srcData = fileLoadedEvent.target.result; // <--- data: base64
+                        $("#photoUrl").val(srcData);
+                        console.log($('form#cell_photoForm').serialize());
+                        //alert($('form#cell_photoForm').serialize());
+                        $.ajax({
+                                url: "/user/update",
+                                dataType: 'json',
+                                data: $('form#cell_photoForm').serialize(),
+                                type: 'POST',
+                                success: function(data) {
+                                    console.log(data);
+                                    if (data.code==200) {
+                                         $('.grayDiv').hide();
+                                         window.location.href = "/means";
+                                    }
+                                }
+                        });
+                    }
+                    fileReader.readAsDataURL(fileToLoad);
+                }
+            }
 
         })
     </script>
@@ -90,9 +119,6 @@
             <span>从相册选择新头像<input id="face" type="file" class="face"/></span>
             <a href="javascript:;" class="closeBtn">取消</a>
         </div>
-        <form id="cell_photoForm" method="post" onsubmit="return false" action="" >
-            <input type="hidden" id="photoUrl" name="photoUrl" value="">
-        </form>
     </div>
 
     <div class="face-box spot">
@@ -100,6 +126,10 @@
             <i>修改头像</i>
             <span><img id="photo" src="@userInfo.getPhoto()" width="40" height="40"></span>
         </a>
+        <form id="cell_photoForm" method="post" onsubmit="return false" action="" >
+            <input type="hidden" id="photoUrl" name="photoUrl" value="">
+            <!--<font style="display:none;" id="photoUrl" name="photoUrl"></font>-->
+        </form>
     </div>
     <div class="face-box" id="name">
         <a class="face">

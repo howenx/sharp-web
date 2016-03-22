@@ -47,7 +47,7 @@
 
 
 .input-rese{
-    width:80%;
+    width:55%;
     border: none;
     margin: 0;
     font-size: 14px;
@@ -57,11 +57,14 @@
     height: 45px;
 }
 
+.input-res-t{
+    width:46% ;
+}
 
-/*.back{
-    margin:20px 0;
-}*/
-
+.input-r{
+    width:75%;
+    margin: 0 0 0 70px;
+}
 
 .shade{
     width: 100%;
@@ -113,8 +116,8 @@
 
 .delet{
     width: 20px;
-    right: 40px;
-    top:15px;
+    right:10px;
+    top:14px;
 }
 
 .delet-box{
@@ -124,12 +127,12 @@
 
 .delet-re{
     top:15px;
-    right:70px;
+    right:24px;
 }
 
 .delet-rese{
-    top:10px;
-    right: 70px;
+    top:13px;
+    right:24px;
 }
 /*找回密码*/
 .box-s{
@@ -152,13 +155,13 @@
 }
 
 input.input-proof{
-    width:57%;
+    width:46%;
     float: left;
 
 }
 
 .proof-box div{
-    width:43%;
+    width:52%;
     float: right;
 }
 
@@ -184,12 +187,13 @@ input.input-proof{
 
 .hq{
     padding:11px 0 ;
-    width:150px;
+    width:110px;
     text-align: center;
     border: 1px solid #ccc;
     position: absolute;
     top:0;
     right:0;
+    font-size: 14px;
 }
 
 
@@ -198,3 +202,10 @@ input.input-proof{
     background-color:#FFEEDE;
     color: #E66255;
 }
+
+
+.howl-re{
+    top:13px;
+}
+
+

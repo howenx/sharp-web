@@ -15,19 +15,22 @@
     <h1>我的</h1>
 
 </header>-->
-<div>
-<a class="wap scope">
+
+<div class="wap">
+    <a href="#"  class="back">
+        <i></i>
+        <b></b>
+    </a>
     <a href="/setting" class="fit"></a>
     <div class="user bg">
          <a  href="/means" class="land">
              <img id="photo" src="@userInfo.getPhoto()">
-
              @userInfo.getName()
              @if(userInfo.getGender()=="M") {<i class="man"></i>}
              @if(userInfo.getGender()=="F") {<i class="girl"></i>}
          </a>
     </div>
-</a>
+
     <!--<section class="apply">-->
         <!--<ul>-->
             <!--<li>-->

@@ -23,6 +23,11 @@
             $('.box-l').click(function(){
                 $('.shade').hide();
             })
+
+            //退出登录
+            $(document).on("click", "#logout-btn", function() {
+                window.location.href = "/logout";
+            });
         });
     </script>
 
@@ -72,16 +77,10 @@
                 <span></span>
             </a>
         </div>
-        <div>
-            <a href="javascript:;" class="install-g">
-                <i>服务与条款</i>
-                <span></span>
-            </a>
-        </div>
 
     </section>
 
-    <button type="button" style="width:90%;margin: 30px 5%;background: #E66255;border-radius: 2px">退出登录</button>
+    <button type="button" id="logout-btn" style="width:90%;margin: 30px 5%;background: #E66255;border-radius: 2px">退出登录</button>
 
     <div class="shade">
         <div class="box">

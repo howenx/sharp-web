@@ -1,5 +1,7 @@
 package domain;
 
+import play.data.validation.Constraints;
+
 import java.io.Serializable;
 
 /**
@@ -11,10 +13,17 @@ public class UserDTO implements Serializable {
     private String photo;//头像地址
     private String phoneNum;//手机号码
     private Integer couponsCount;//优惠券可用数量
+    @Constraints.MaxLength(1)
+    @Constraints.MinLength(1)
+    @Constraints.Pattern("[A-Z]{1}")
     private String gender;//性别
     private String realYn;
 
+    @Constraints.Required
     private String photoUrl;//头像字节流
+    @Constraints.MaxLength(15)
+    @Constraints.MinLength(2)
+    @Constraints.Pattern("[a-zA-Z0-9\\u4e00-\\u9fa5]{2,15}")
     private String nickname;//用户昵称
 
     public UserDTO() {

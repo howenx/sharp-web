@@ -164,7 +164,7 @@
             <li class="clearfix">
                 @for(item <- rowList){
                     @if(item.getItemType == "item" || item.getItemType == "vary" || item.getItemType == "customize"){
-                        <a href="/detail/@item.getItemUrl()">
+                        <a class="redirect-app" href="/detail/@item.getItemUrl()">
                             <p class="figure figure-f">
                                 <img src="@item.getItemImg()">
                             </p>
@@ -177,7 +177,7 @@
                         </a>
                     }
                     @if(item.getItemType() == "pin"){
-                        <a href="/detail/@item.getItemUrl()">
+                        <a class="redirect-app"  href="/detail/@item.getItemUrl()">
                             <p class="product-box">
                                 <span class="product-top">@item.getEndAt()</span>
                             </p>

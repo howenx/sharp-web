@@ -20,6 +20,7 @@ import play.libs.F.Function0;
 import play.libs.F.Promise;
 import play.libs.Json;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
 
@@ -66,16 +67,20 @@ public class UserCtrl extends Controller {
         });
 
         return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-            Logger.error("返回---->\n" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
-            if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
+            if (null == message || (Message.ErrorCode.SUCCESS.getIndex() != message.getCode() && Message.ErrorCode.DATABASE_EXCEPTION.getIndex() != message.getCode())) {
                 Logger.error("返回地址数据错误code=" + (null != message ? message.getCode() : 0));
                 return badRequest();
             }
-            ObjectMapper mapper = new ObjectMapper();
-            List<Address> addressList = mapper.readValue(json.get("address").toString(), new TypeReference<List<Address>>() {
-            });
-            return ok(views.html.users.address.render(addressList));
+            //空地址列表
+            if (Message.ErrorCode.DATABASE_EXCEPTION.getIndex() == message.getCode()) {
+                return ok(views.html.users.addressempty.render());
+            } else if (Message.ErrorCode.SUCCESS.getIndex() == message.getCode()) {
+                ObjectMapper mapper = new ObjectMapper();
+                List<Address> addressList = mapper.readValue(json.get("address").toString(), new TypeReference<List<Address>>() {
+                });
+                return ok(views.html.users.address.render(addressList));
+            } else return badRequest(views.html.error500.render());
         });
     }
 
@@ -92,14 +97,17 @@ public class UserCtrl extends Controller {
         Form<AddressInfo> addressForm = Form.form(AddressInfo.class).bindFromRequest();
         Logger.info("====addressSave===" + addressForm.data());
         Map<String, String> addressMap = addressForm.data();
-        String idCardNum = addressMap.get("idCardNum").trim();
-        if (addressForm.hasErrors() || !"".equals(ComTools.IDCardValidate(idCardNum.toLowerCase()))) { //表单错误或者身份证校验不通过
+        String idCardNum = addressMap.get("idCardNum").trim().toLowerCase();
+        if (addressForm.hasErrors() || !"".equals(ComTools.IDCardValidate(idCardNum))) { //表单错误或者身份证校验不通过
+            Logger.error("收货地址保存表单错误或者身份证校验不通过"+toJson(addressMap));
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
         } else {
             ObjectNode object = Json.newObject();
             Long addId = Long.valueOf(addressMap.get("addId"));
-            object.put("addId", addId);
+            if(addId>0){
+                object.put("addId", addId);
+            }
             String province = addressMap.get("province");
             if (!"0".equals(province)) {//未修改省份
                 ObjectNode cityObject = Json.newObject();
@@ -115,7 +123,7 @@ public class UserCtrl extends Controller {
             object.put("name", addressMap.get("name").trim());
             object.put("deliveryDetail", addressMap.get("deliveryDetail").trim());
             object.put("orDefault", "on".equals(addressMap.get("orDefault")) ? 1 : 0);
-            object.put("idCardNum", addressMap.get("idCardNum").trim());
+            object.put("idCardNum", idCardNum);
 
 
             Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
@@ -140,6 +148,11 @@ public class UserCtrl extends Controller {
         }
     }
 
+    /**
+     * 更新地址界面
+     * @param addId
+     * @return
+     */
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> addressUpdate(Long addId) {
         Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
@@ -177,7 +190,7 @@ public class UserCtrl extends Controller {
      */
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> addressDel() {
-            RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, new String(request().body().asJson().toString()));
+            RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, request().body().asJson().toString());
             return comCtrl.postReqReturnMsg(ADDRESS_DEL, formBody);
     }
 
@@ -274,7 +287,7 @@ public class UserCtrl extends Controller {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
         }
-        RequestBody requestBody = RequestBody.create(MEDIA_TYPE_JSON, new String(rJson.toString()));
+        RequestBody requestBody = RequestBody.create(MEDIA_TYPE_JSON, rJson.toString());
         return comCtrl.postReqReturnMsg(FEEDBACK_PAGE, requestBody);
 
     }
@@ -343,7 +356,7 @@ public class UserCtrl extends Controller {
     public F.Promise<Result> submitCollect(){
         ObjectNode result = newObject();
         Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
-            RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, new String(request().body().asJson().toString()));
+            RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, request().body().asJson().toString());
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
             Request request = builder.url(COLLECT_SUBMIT).post(formBody).build();
             Response response = client.newCall(request).execute();
@@ -701,16 +714,25 @@ public class UserCtrl extends Controller {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
         } else {
+            ObjectNode objectNode = Json.newObject();
+            String nickname = null == userMap.get("nickname") ? "" : userMap.get("nickname");
+            String gender = null == userMap.get("gender") ? "" : userMap.get("gender");
+            String photoUrl = null == userMap.get("photoUrl") ? "" : userMap.get("photoUrl");
+            if (!"".equals(nickname)) {
+                objectNode.put("nickname", nickname.trim());
+            }
+            if (!"".equals(gender)) {
+                objectNode.put("gender", gender.trim());
+            }
+            if (!"".equals(photoUrl)) {
+                objectNode.put("photoUrl", photoUrl.trim());
+            }
+            Logger.error("userMap:"+userMap);
+            Logger.error("objectNode:"+objectNode);
             Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
-                FormEncodingBuilder feb = new FormEncodingBuilder();
-                userMap.forEach(feb::add);
-                RequestBody formBody = feb.build();
-                Request request = new Request.Builder()
-                        .url(USER_UPDATE)
-                        .post(formBody)
-                        .build();
-                Logger.error("request:"+request.header("id-token"));
-                client.setConnectTimeout(10, TimeUnit.SECONDS);
+                RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, objectNode.toString());
+                Request.Builder builder = (Request.Builder) ctx().args.get("request");
+                Request request = builder.url(USER_UPDATE).post(formBody).build();
                 Response response = client.newCall(request).execute();
                 Logger.error(response.toString());
                 if (response.isSuccessful()) {
@@ -726,6 +748,23 @@ public class UserCtrl extends Controller {
             });
         }
 
+    }
+
+    /**
+     * 登出
+     *
+     * @return
+     */
+    @Security.Authenticated(UserAuth.class)
+    public Result logout() {
+        //清理cache
+        Cache.remove("session_id");
+        //清理session
+        session().remove("id-token");
+        session().remove("session_id");
+        session().clear();
+        //清理cookie
+        return redirect(routes.UserCtrl.login());
     }
 
     //我的拼团

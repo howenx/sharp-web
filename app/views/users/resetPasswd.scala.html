@@ -14,13 +14,13 @@
     <style type="text/css">
         input:required:valid, input:focus:invalid {
         background-image: url('/assets/images/ex.png');
-        background-position: right 13px;
+        background-position: right 16px;
         background-repeat: no-repeat;
         -moz-box-shadow: none;
         }
         input:required:valid {
         background-image: url("/assets/images/dui.png");
-        background-position: right 13px;
+        background-position: right 16px;
         background-repeat: no-repeat;
         }
     </style>
@@ -30,6 +30,8 @@
             setInterval(function () {
                $('#js-userinfo-error').hide();
             },1000);
+
+            var flag = false;
 
             var phone = $("#phone").val();
 
@@ -46,46 +48,52 @@
                         $("#time").html("");
                         $("#get-code").css("color", "#E46359");
                         $("#get-code").css('cursor', 'pointer');
+                        flag = true;
                     }
             }, 1000);
 
             //再次获取验证码
             $("#get-code").click(function() {
-                $("#password").removeAttr("name");
-                $("#code").removeAttr("name");
-                console.log($('form#cell_resForm').serialize());
-                $.ajax({
-                        url: "/phone/code",
-                        dataType: 'json',
-                        data: $('form#cell_resForm').serialize(),
-                        type: 'POST',
-                        success: function(data) {
-                                console.log(data);
-                                $("#password").attr({"name":"password"});
-                                $("#code").attr({"name":"code"});
-                                //手机验证码发送成功
-                                if (data.code === 200) {
-                                        $('#js-userinfo-error').text('验证码发送成功!').show();
-                                        setTimeout("$('#js-userinfo-error').hide()", 2000);
-                                        $("#get-code").css("color", "#000");
-                                        $("#get-code").css('cursor', 'auto');
-                                        var ctime = 80;
-                                        $("#time").html(ctime+"s");
-                                        timer2 = window.setInterval(function() {
-                                                $("#time").html(--ctime+"s");
-                                                if (ctime == 0) {
-                                                    window.clearInterval(timer2);
-                                                    $("#time").html("");
-                                                    $("#get-code").css("color", "#E46359");
-                                                    $("#get-code").css('cursor', 'pointer');
-                                                }
-                                        }, 1000);
-                                } else {
-                                        $('#js-userinfo-error').text(data.message).show();
-                                        setTimeout("$('#js-userinfo-error').hide()", 2000);
+                if(!flag){
+                   return;
+                } else {
+                        $("#password").removeAttr("name");
+                        $("#code").removeAttr("name");
+                        console.log($('form#cell_resForm').serialize());
+                        $.ajax({
+                                url: "/phone/code",
+                                dataType: 'json',
+                                data: $('form#cell_resForm').serialize(),
+                                type: 'POST',
+                                success: function(data) {
+                                        console.log(data);
+                                        $("#password").attr({"name":"password"});
+                                        $("#code").attr({"name":"code"});
+                                        //手机验证码发送成功
+                                        if (data.code === 200) {
+                                                $('#js-userinfo-error').text('验证码发送成功!').show();
+                                                setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                                $("#get-code").css("color", "#000");
+                                                $("#get-code").css('cursor', 'auto');
+                                                var ctime = 80;
+                                                $("#time").html(ctime+"s");
+                                                timer2 = window.setInterval(function() {
+                                                        $("#time").html(--ctime+"s");
+                                                        if (ctime == 0) {
+                                                            window.clearInterval(timer2);
+                                                            $("#time").html("");
+                                                            $("#get-code").css("color", "#E46359");
+                                                            $("#get-code").css('cursor', 'pointer');
+                                                            flag = true;
+                                                        }
+                                                }, 1000);
+                                        } else {
+                                                $('#js-userinfo-error').text(data.message).show();
+                                                setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                        }
                                 }
-                        }
-                });
+                        });
+                }
             });
 
 
@@ -186,7 +194,7 @@
                 <dl class="list list-in">
                     <dd class="dd-padding clearfix dd-one">
                         <input type="hidden" id="phone" name="phone" value="@phone">
-                        <span>验证码</span> <input id="code" name="code" type="text" class="input-rese" placeholder="短信验证码" maxlength="6" required pattern="[0-9]{6}" onkeyup="this.value=this.value.replace(/\D/g,'')"/>
+                        <span>验证码</span> <input id="code" name="code" type="text" class="input-rese input-res-t" placeholder="短信验证码" maxlength="6" required pattern="[0-9]{6}" onkeyup="this.value=this.value.replace(/\D/g,'')"/>
                         <div class="hq" id="get-code">获取验证码 <i id="time"></i></div>
                     </dd>
                     <dd class="dd-padding clearfix">
@@ -197,7 +205,7 @@
                     <dd class="dd-padding clearfix">
                         <span>确认密码</span> <input id="re_password" type="password" class="input-rese input-reseB" placeholder="再次填写密码" maxlength="12" required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}"/>
                         <i class="delet delet-rese"></i>
-                        <i class="howl howl-reB"></i>
+                        <i class="howl howl-reB howl-re"></i>
                     </dd>
                 </dl>
             </form>

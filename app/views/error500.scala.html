@@ -3,20 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/error.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+    <style>
+        .button{
+            height: 100px;
+            /*border: 1px solid #ccc;*/
+            /*box-shadow: 0 0 1px #ccc;*/
+            width: 80%;margin-left: 10%;
+            color: #888;
+            margin-top: 30px;
+        }
+        .button a{
+            padding: 4px 10px;
+            text-decoration: none;
+            color: #E66255;
+            border: 1px solid #E66255;
+            border-radius: 2px;
+            margin-left: 10px;
+        }
+    </style>
 </head>
-<body>
-<div class="not-bg">
-    <div class="content">
-        <div class="content-left pull-left">
-            <div class="logo"></div>
-            <h3>500.<small>服务器异常</small></h3>
-            <h4>服务器异常:<small>......</small></h4>
-            <a href="#">返回首页</a>
-        </div>
-        <div class="content-right pull-right">
-        </div>
+<body style="background: url('/assets/images/rep.png');">
+<div class="error-500">
+    <div>
+        <img src="/assets/images/500.png" alt="" style="width: 80%;margin-left: 10%;margin-top: 100px">
+    </div>
+    <div class="button" style="text-align: center;font-size: 16px">
+        <p>对不起,你要访问的页面暂时没有找到!</p>
+        <a href="#">回到首页</a>
+        <a href="#">返回上一层</a>
     </div>
 </div>
 </body>

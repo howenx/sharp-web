@@ -17,6 +17,8 @@
 </head>
 <body>
 <div id='screen_wrap'>
+	<form id="settleForm" action="/settle" method="POST">
+		<input type="hidden" name="buyNow" value="1"/>
 	<div class="nav_ban_detail">
 		<a href="@path" class="back">
 			<i></i>
@@ -28,13 +30,36 @@
 		@for((inventory,index) <- inventoryList.zipWithIndex){
 			@if(inventory.getOrMasterInv()){
 				<div class="item now">
+					<div class="hiddenInput">
+						<input type="hidden" name="invCustoms0" value="@inventory.getInvCustoms()"/>
+						<input type="hidden" name="invArea0" value="@inventory.getInvArea()"/>
+						<input type="hidden" name="invAreaNm0" value="@inventory.getInvAreaNm()"/>
+						<input type="hidden" name="skuId0-0" value="@inventory.getId()"/>
+						<input type="hidden" name="skuType0-0" value="@inventory.getSkuType()"/>
+						<input type="hidden" name="skuTypeId0-0" value="@inventory.getSkuTypeId()"/>
+						<input type="hidden" name="skuTitle0-0" value="@inventory.getInvTitle()"/>
+						<input type="hidden" name="skuInvImg0-0" value="@inventory.getInvImg()"/>
+						<input type="hidden" name="state0-0" value="@inventory.getState()"/>
+						<input type="hidden" name="skuPrice0-0" value="@inventory.getItemPrice()"/>
+					</div>
+
 			}
 			@if(!inventory.getOrMasterInv()){
 				<div class="item">
+					<div class="hiddenInput">
+						<input type="hidden" name="invCustoms0" value="@inventory.getInvCustoms()" disabled="disabled"/>
+						<input type="hidden" name="invArea0" value="@inventory.getInvArea()" disabled="disabled"/>
+						<input type="hidden" name="invAreaNm0" value="@inventory.getInvAreaNm()" disabled="disabled"/>
+						<input type="hidden" name="skuId0-0" value="@inventory.getId()" disabled="disabled"/>
+						<input type="hidden" name="skuType0-0" value="@inventory.getSkuType()" disabled="disabled"/>
+						<input type="hidden" name="skuTypeId0-0" value="@inventory.getSkuTypeId()" disabled="disabled"/>
+						<input type="hidden" name="skuTitle0-0" value="@inventory.getInvTitle()" disabled="disabled"/>
+						<input type="hidden" name="skuInvImg0-0" value="@inventory.getInvImg()" disabled="disabled"/>
+						<input type="hidden" name="state0-0" value="@inventory.getState()" disabled="disabled"/>
+						<input type="hidden" name="skuPrice0-0" value="@inventory.getItemPrice()" disabled="disabled"/>
+					</div>
 			}
-					<input id="skuId" value="@inventory.getId()" style="display:none">
-					<input id="skuType" value="@inventory.getSkuType()"  style="display:none">
-					<input id="skuTypeId" value="@inventory.getSkuTypeId()" style="display:none">
+
 					<div id="slideBox@index" class="slideBox">
 
 						<div class="bd">
@@ -286,7 +311,7 @@
 		</div>
 
 		<div class="buy_btn" data-type="buy">
-			<a href="/settle" class="">
+			<a href="javascript:;" class="" onclick="document.getElementById('settleForm').submit();">
 				立即购买
 			</a>
 		</div>
@@ -301,6 +326,7 @@
 		<img src="/assets/images/top.png">
 	</div>
 </div>
+</form>
 <!--购物车-->
 <script type="text/javascript" src="/assets/javascripts/jquery/jquery.js"></script>
 <!--[if lte IE 8]>
