@@ -44,29 +44,46 @@ $(function(){
     var selectInputs = document.getElementsByClassName('check'); //所有勾选
     var checkAllInputs = document.getElementsByClassName('check-all'); //全勾选
     $(checkAllInputs).click(function(){
+        var hiddenAreaDivs=document.getElementsByClassName('hiddenArea'); //所有保税区
+        var hiddenSkuDivs=document.getElementsByClassName('hiddenSku'); //所有商品
         if($(this).prop("checked")==true){
             $(selectInputs).prop("checked",true);
+            $(hiddenAreaDivs).find("input").attr("disabled",false);
+            $(hiddenSkuDivs).find("input").attr("disabled",false);
         }else{
             $(selectInputs).prop("checked",false);
+            $(hiddenAreaDivs).find("input").attr("disabled",true);
+            $(hiddenSkuDivs).find("input").attr("disabled",true);
         }
         Total();
+
+
     })
 
     /*checkBox 点击*/
     $(selectInputs).change(function(){
         if($(this).hasClass("areac")){
-            if($(this).prop("checked")==true){
+            if($(this).prop("checked")==true){ //保税区
                 $(this).parents(".cart-goods-area").next().find("input[type=checkbox]").prop("checked",true);
                 if($(".cart-goods .check:checked").length==selectInputs.length){
                     $(checkAllInputs).prop("checked",true);
                 }
+
+                //隐藏域
+                $(this).parents(".cart-goods-area").find(".hiddenArea").find("input").attr("disabled",false); //
+                $(this).parents(".cart-goods-area").next().find(".hiddenSku").find("input").attr("disabled",false);
+
             }else{
                 $(checkAllInputs).prop("checked",false);
                 $(this).parents(".cart-goods-area").next().find("input[type=checkbox]").prop("checked",false);
+                //隐藏域
+                $(this).parents(".cart-goods-area").find(".hiddenArea").find("input").attr("disabled",true); //
+                $(this).parents(".cart-goods-area").next().find(".hiddenSku").find("input").attr("disabled",true);
+
             }
         }else if($(this).hasClass("check-one")){
+            var input1 = $(this).parents("ul").find("input[type=checkbox]:checked").length;
             if($(this).prop("checked")==true) {
-                var input1 = $(this).parents("ul").find("input[type=checkbox]:checked").length;
                 var input2 = $(this).parents("ul").find("input[type=checkbox]").length;
                 if (input1 == input2) {
                     $(this).parents("ul").prev().find(".check").prop("checked", true);
@@ -76,9 +93,19 @@ $(function(){
                         $(checkAllInputs).prop("checked", false);
                     }
                 }
+                //隐藏域
+                 $(this).parents("ul").prev().find(".hiddenArea").find("input").attr("disabled",false);
+                 $(this).parents("li").find(".hiddenSku").find("input").attr("disabled",false);
+
             }else {
                 $(checkAllInputs).prop("checked", false);
                 $(this).parents(".cart-goods-list").prev().find(".check").prop("checked",false);
+
+                //隐藏域
+                if(input1<=0){ //保税区内没有选中的
+                    $(this).parents("ul").prev().find(".hiddenArea").find("input").attr("disabled",true);
+                }
+                $(this).parents("li").find(".hiddenSku").find("input").attr("disabled",true);
             }
         }
         Total();

@@ -81,8 +81,7 @@ GET         /order/cancel/$orderId<[0-9]+>     controllers.ShoppingCtrl.cancelOr
 GET         /order/del/$orderId<[0-9]+>        controllers.ShoppingCtrl.delOrder(orderId:Long)
 GET         /order/verify/$orderId<[0-9]+>     controllers.ShoppingCtrl.verifyOrder(orderId:Long)
 POST        /order/submit                      controllers.ShoppingCtrl.submitOrder()
-
-
+POST        /cart/add                          controllers.ShoppingCtrl.cartAdd()
 #
 
 
