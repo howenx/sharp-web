@@ -37,7 +37,7 @@ $(function(){
                             success: function(data) {
                                 console.log("data="+data+"==="+data.code);
                                 if (data!=""&&data!=null&&data.code==200) {
-                                    setTimeout("location.href='/address'", 3000);
+                                    setTimeout("location.href='/address'", 2000);
                                 }
 
                             }
