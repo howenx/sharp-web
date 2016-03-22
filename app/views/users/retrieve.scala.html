@@ -41,13 +41,13 @@
     <style type="text/css">
         input:required:valid, input:focus:invalid {
         background-image: url('/assets/images/ex.png');
-        background-position: right 14px;
+        background-position: 85% 16px;
         background-repeat: no-repeat;
         -moz-box-shadow: none;
         }
         input:required:valid {
         background-image: url("/assets/images/dui.png");
-        background-position: right 14px;
+        background-position:85% 16px;
         background-repeat: no-repeat;
         }
     </style>
@@ -176,7 +176,7 @@
             <form id="cell_verifyForm" method="post" onsubmit="return false" action="" >
                 <dl class="list list-in list-regist">
                     <dd class="dd-padding">
-                        <span>手机号</span> <input id="phone" class="input-rese" placeholder="请输入手机号" name="phone" type="text"  maxlength="11" required pattern="[1][345678]\d{9}" onkeyup="this.value=this.value.replace(/\D/g,'')"/>
+                        <span>手机号</span> <input id="phone" class="input-rese input-r" placeholder="请输入手机号" name="phone" type="text"  maxlength="11" required pattern="[1][345678]\d{9}" onkeyup="this.value=this.value.replace(/\D/g,'')"/>
                         <i class="delet"></i>
                             <input type="hidden" id="code" name="code" value="">
                     </dd>
