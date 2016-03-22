@@ -144,6 +144,12 @@ public class ShoppingCtrl extends Controller {
         return ok(views.html.shopping.cartempty.render(path));
     }
 
+    public Result addToCart(){
+
+        return ok("AAA");
+
+    }
+
     //待发货
     public Result delivered() {
         return ok(views.html.shopping.delivered.render());
