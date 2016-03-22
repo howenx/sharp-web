@@ -47,7 +47,7 @@
 
 
 .input-rese{
-    width:76%;
+    width:55%;
     border: none;
     margin: 0;
     font-size: 14px;
@@ -61,11 +61,6 @@
     width:75%;
     margin: 0 0 0 70px;
 }
-
-/*.back{
-    margin:20px 0;
-}*/
-
 
 .shade{
     width: 100%;
@@ -128,12 +123,12 @@
 
 .delet-re{
     top:15px;
-    right:70px;
+    right:24px;
 }
 
 .delet-rese{
     top:13px;
-    right: 70px;
+    right:24px;
 }
 /*找回密码*/
 .box-s{
@@ -188,12 +183,13 @@ input.input-proof{
 
 .hq{
     padding:11px 0 ;
-    width:150px;
+    width:110px;
     text-align: center;
     border: 1px solid #ccc;
     position: absolute;
     top:0;
     right:0;
+    font-size: 14px;
 }
 
 

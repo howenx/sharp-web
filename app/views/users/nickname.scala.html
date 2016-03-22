@@ -42,7 +42,10 @@
 <script>
 
     $(function() {
-        var nameReg = new RegExp(/^[a-zA-Z0-9\u4e00-\u9fa5]/);//字母数字中文
+        var nameReg = new RegExp(/^[a-zA-Z0-9\u4e00-\u9fa5]{2,15}$/);//字母数字中文
+
+        var codeReg = new RegExp(/^[0-9]{6}$/);
+        var passwordReg = new RegExp(/^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}/);
 
         $(document).on("click", "#btn_save", function() {
             var nickname = $("#nickname").val();
@@ -69,7 +72,9 @@
                         type: 'POST',
                         success: function(data) {
                             console.log(data);
-
+                            if (data.code==200) {
+                                window.location.href = "/means";
+                            }
                         }
                 });
             }

@@ -42,15 +42,15 @@
 
     <style type="text/css">
         input:required:valid, input:focus:invalid {
-        background-image: url('/assets/images/ex.png');
-        background-position: right 16px;
-        background-repeat: no-repeat;
-        -moz-box-shadow: none;
+            background-image: url('/assets/images/ex.png');
+            background-position: right 16px;
+            background-repeat: no-repeat;
+            -moz-box-shadow: none;
         }
         input:required:valid {
-        background-image: url("/assets/images/dui.png");
-        background-position: right 16px;
-        background-repeat: no-repeat;
+            background-image: url("/assets/images/dui.png");
+            background-position: right 16px;
+            background-repeat: no-repeat;
         }
     </style>
 
@@ -71,7 +71,8 @@
                 <dl class="list list-in">
                     <dd class="dd-padding clearfix dd-one">
                         <input type="hidden" id="phone" name="phone" value="@phone">
-                        <span>验证码</span> <input id="code" name="code" type="text" class="input-rese" placeholder="短信验证码" maxlength="6" required pattern="[0-9]{6}" onkeyup="this.value=this.value.replace(/\D/g,'')"/>
+                        <span>验证码</span>
+                        <input id="code" name="code" type="text" class="input-rese" placeholder="短信验证码" maxlength="6" required pattern="[0-9]{6}" onkeyup="this.value=this.value.replace(/\D/g,'')"/>
                         <div class="hq" id="get-code">获取验证码 <i id="time"></i></div>
                     </dd>
                     <dd class="dd-padding clearfix">
@@ -80,9 +81,13 @@
                         <i class="howl howl-reT"></i>
                     </dd>
                     <dd class="dd-padding clearfix">
-                        <span>确认密码</span> <input id="re_password" type="password" class="input-rese input-reseB" placeholder="再次填写密码" maxlength="12" required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}"/>
-                        <i class="delet delet-rese"></i>
-                        <i class="howl howl-reB howl-re"></i>
+                        <span class="dd-t">确认密码</span>
+                        <input id="re_password" type="password" class="input-rese input-reseB" placeholder="再次填写密码" maxlength="12" required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}"/>
+                        <div class="dd-b">
+                            <i class="delet delet-rese"></i>
+                            <i class="howl howl-reB"></i>
+                        </div>
+
                     </dd>
                 </dl>
             </form>
@@ -105,46 +110,36 @@
 
 <script>
 
-$(function() {
+    $(function() {
 
         //$('#js-userinfo-error').text('验证码发送成功!').show();
         setTimeout("$('#js-userinfo-error').hide()", 1000);
 
-    var flag = false;
+        var flag = false;
 
-
-        var of = true;
         var phone = $("#phone").val();
 
         $("#phone-send-code").text("已发送验证码至"+phone.substring(0,3)+"*****"+phone.substring(7,11));
 
         //验证码获取倒计时
-        var time = 8;
+        var time = 80;
         $("#time").html(time+"s");
         timer = window.setInterval(function() {
-                $("#time").html(--time+"s");
-
-                if (time == 0) {
-                    window.clearInterval(timer);
-                    $("#time").html("");
-                    $("#get-code").css("color", "#E46359");
-                    $("#get-code").css('cursor', 'pointer');
-
-                    flag = true;
-
-                }
+            $("#time").html(--time+"s");
+            if (time == 0) {
+                window.clearInterval(timer);
+                $("#time").html("");
+                $("#get-code").css("color", "#E46359");
+                $("#get-code").css('cursor', 'pointer');
+                flag = true;
+            }
         }, 1000);
-
-
 
         //再次获取验证码
         $("#get-code").click(function() {
-
-
-
             if(!flag){
                 return;
-            }else {
+            } else {
                 $("#password").removeAttr("name");
                 $("#code").removeAttr("name");
                 console.log($('form#cell_regForm').serialize());
@@ -164,23 +159,7 @@ $(function() {
                             setTimeout("$('#js-userinfo-error').hide()", 2000);
                             $("#get-code").css("color", "#000");
                             $("#get-code").css('cursor', 'auto');
-
-
-                                        $("#time").html(ctime+"s");
-                                        timer2 = window.setInterval(function() {
-                                                $("#time").html(--ctime+"s");
-                                                if (ctime == 0) {
-                                                    window.clearInterval(timer2);
-                                                    $("#time").html("");
-                                                    $("#get-code").css("color", "#E46359");
-                                                    $("#get-code").css('cursor', 'pointer');
-                                                }
-                                        }, 1000);
-                                } else {
-                                        $('#js-userinfo-error').text(data.message).show();
-                                        setTimeout("$('#js-userinfo-error').hide()", 2000);
-                            var ctime = 8;
-
+                            var ctime = 80;
                             $("#time").html(ctime + "s");
                             timer2 = window.setInterval(function () {
                                 $("#time").html(--ctime + "s");
@@ -192,7 +171,7 @@ $(function() {
                                     flag = true;
                                 }
                             }, 1000);
-                        }else {
+                        } else {
                             $('#js-userinfo-error').text(data.message).show();
                             setTimeout("$('#js-userinfo-error').hide()", 2000);
                         }
@@ -202,86 +181,85 @@ $(function() {
         });
 
 
-
         //注册提交数据
         $(document).on('click', '#btn-reg', function() {
-                var codeReg = new RegExp(/^[0-9]{6}$/);
-                var passwordReg = new RegExp(/^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}/);
+            var codeReg = new RegExp(/^[0-9]{6}$/);
+            var passwordReg = new RegExp(/^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}/);
 
-                if ($('#code').val().length!=6 || !codeReg.test($('#code').val())) {
-                    $('#js-userinfo-error').text('请输入6位验证码').show();
-                    setTimeout("$('#js-userinfo-error').hide()", 2000);
-                }
-                else if ($('#password').val().length<6 || $('#password').val().length>12) {
-                    $('#js-userinfo-error').text('请输入6-12位密码').show();
-                    setTimeout("$('#js-userinfo-error').hide()", 2000);
-                }
-                else if (!passwordReg.test($('#password').val())) {
-                    $('#js-userinfo-error').text('密码必须是字母数字组合').show();
-                    setTimeout("$('#js-userinfo-error').hide()", 2000);
-                }
-                else if ($('#re_password').val()!=$('#password').val()) {
-                    $('#js-userinfo-error').text('两次密码输入的不一致').show();
-                    setTimeout("$('#js-userinfo-error').hide()", 2000);
-                }
-                else if ($("#tip").is(":checked")==false) {
-                     $('#js-userinfo-error').text('请阅读并确定是否接受注册协议!').show();
-                     setTimeout("$('#js-userinfo-error').hide()", 2000);
-                }
-                else {
-                       console.log($('form#cell_regForm').serialize());
-                    $.ajax({
-                            url: "/regist/submit",
-                            dataType: 'json',
-                            data: $('form#cell_regForm').serialize(),
-                            type: 'POST',
-                            success: function(data) {
-                                console.log(data);
-                                if(data.code === 200){
-                                    $('#js-userinfo-error').text("注册并登陆成功!").show();
-                                    setTimeout("$('#js-userinfo-error').hide()", 2000);
-                                    setTimeout(function(){
-                                        window.location.href='/myView';
-                                    }, 1500);
-                                } else {
-                                    $('#js-userinfo-error').text(data.message).show();
-                                    setTimeout("$('#js-userinfo-error').hide()", 2000);
-                                }
-                            }
-                    });
-                }
+            if ($('#code').val().length!=6 || !codeReg.test($('#code').val())) {
+                $('#js-userinfo-error').text('请输入6位验证码').show();
+                setTimeout("$('#js-userinfo-error').hide()", 2000);
+            }
+            else if ($('#password').val().length<6 || $('#password').val().length>12) {
+                $('#js-userinfo-error').text('请输入6-12位密码').show();
+                setTimeout("$('#js-userinfo-error').hide()", 2000);
+            }
+            else if (!passwordReg.test($('#password').val())) {
+                $('#js-userinfo-error').text('密码必须是字母数字组合').show();
+                setTimeout("$('#js-userinfo-error').hide()", 2000);
+            }
+            else if ($('#re_password').val()!=$('#password').val()) {
+                $('#js-userinfo-error').text('两次密码输入的不一致').show();
+                setTimeout("$('#js-userinfo-error').hide()", 2000);
+            }
+            else if ($("#tip").is(":checked")==false) {
+                $('#js-userinfo-error').text('请阅读并确定是否接受注册协议!').show();
+                setTimeout("$('#js-userinfo-error').hide()", 2000);
+            }
+            else {
+                console.log($('form#cell_regForm').serialize());
+                $.ajax({
+                    url: "/regist/submit",
+                    dataType: 'json',
+                    data: $('form#cell_regForm').serialize(),
+                    type: 'POST',
+                    success: function(data) {
+                        console.log(data);
+                        if(data.code === 200){
+                            $('#js-userinfo-error').text("注册并登陆成功!").show();
+                            setTimeout("$('#js-userinfo-error').hide()", 2000);
+                            setTimeout(function(){
+                                window.location.href='/myView';
+                            }, 1500);
+                        } else {
+                            $('#js-userinfo-error').text(data.message).show();
+                            setTimeout("$('#js-userinfo-error').hide()", 2000);
+                        }
+                    }
+                });
+            }
         });
 
         $(".delet-re").click(function() {
-                $("input[id='password']").val("").focus(); // 清空并获得焦点
+            $("input[id='password']").val("").focus(); // 清空并获得焦点
         });
         $(".delet-rese").click(function() {
-                $("input[id='re_password']").val("").focus(); // 清空并获得焦点
+            $("input[id='re_password']").val("").focus(); // 清空并获得焦点
         });
 
         /*显示密码*/
         var of = true;
         var of2 = true;
         $('.howl-reT').click(function(){
-                $(this).toggleClass('bg2');
-                if(of){
-                    $('.input-reseT').attr({'type':'text'});
-                    of = false;
-                }else{
-                    $('.input-reseT').attr({'type':'password'});
-                    of = true;
-                }
+            $(this).toggleClass('bg2');
+            if(of){
+                $('.input-reseT').attr({'type':'text'});
+                of = false;
+            }else{
+                $('.input-reseT').attr({'type':'password'});
+                of = true;
+            }
         });
 
         $('.howl-reB').click(function(){
-                $(this).toggleClass('bg3');
-                if(of2){
-                    $('.input-reseB').attr({'type':'text'});
-                    of2 = false;
-                }else{
-                    $('.input-reseB').attr({'type':'password'});
-                    of2 = true;
-                }
+            $(this).toggleClass('bg3');
+            if(of2){
+                $('.input-reseB').attr({'type':'text'});
+                of2 = false;
+            }else{
+                $('.input-reseB').attr({'type':'password'});
+                of2 = true;
+            }
         });
 
         /*按下回车键事件*/
@@ -291,7 +269,7 @@ $(function() {
             }
         });
 
-});
+    });
 
 </script>
 
