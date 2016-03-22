@@ -173,8 +173,8 @@ public class ShoppingCtrl extends Controller {
      */
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> settle() {
-
-        Logger.info("=settle data=="+Form.form().bindFromRequest().data());
+        ObjectNode result = Json.newObject();
+        Logger.info("==settle data="+Form.form().bindFromRequest().data());
         Map<String, String> settleMap = Form.form().bindFromRequest().data();
         Integer buyNow=Integer.valueOf(settleMap.get("buyNow"));//1－立即支付 2-购物车结算
         Map<String,Object> object=new HashMap<>();
@@ -235,6 +235,10 @@ public class ShoppingCtrl extends Controller {
                 CartInfo cartInfo=new CartInfo(cartId,skuId,amount,state,skuType,skuTypeId,pinTieredPriceId,skuTitle,skuInvImg,skuPrice);
                 cartInfos.add(cartInfo);
             }
+            if(cartDtos.size()<=0){
+                Logger.error("商品结算第"+(i+1)+"个保税区无商品"+Json.toJson(settleMap));
+                continue;
+            }
 
             SettleDTO settleDTO=createSettleDTO(invCustoms,invArea,invAreaNm,cartDtos);
             settleDTOs.add(settleDTO);
@@ -244,6 +248,11 @@ public class ShoppingCtrl extends Controller {
             settleInfo.setInvAreaNm(invAreaNm);
             settleInfo.setCartInfos(cartInfos);
             settleInfoList.add(settleInfo);
+        }
+        if(settleDTOs.size()<=0){
+            Logger.error("商品结算无商品"+Json.toJson(settleMap));
+            result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
+            return F.Promise.promise((F.Function0<Result>) () -> ok(result));
         }
 
         object.put("settleDTOs",settleDTOs);
@@ -374,6 +383,7 @@ public class ShoppingCtrl extends Controller {
      */
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result>  submitOrder() {
+        ObjectNode result = Json.newObject();
         Logger.info("==="+Form.form().bindFromRequest().data());
         Map<String, String> settleMap = Form.form().bindFromRequest().data();
         Map<String,Object> object=new HashMap<>();
@@ -397,11 +407,19 @@ public class ShoppingCtrl extends Controller {
                 CartDto cartDTO=new CartDto(cartId,skuId,amount,state,skuType,skuTypeId,pinTieredPriceId);
                 cartDtos.add(cartDTO);
             }
-
+            if(cartDtos.size()<=0){
+                Logger.error("订单提交第"+(i+1)+"个保税区无商品"+Json.toJson(settleMap));
+                continue;
+            }
             SettleDTO settleDTO=createSettleDTO(invCustoms,invArea,invAreaNm,cartDtos);
             settleDTOs.add(settleDTO);
         }
         object.put("settleDTOs",settleDTOs);
+        if(settleDTOs.size()<=0){
+            Logger.error("订单提交无商品"+Json.toJson(settleMap));
+            result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
+            return F.Promise.promise((F.Function0<Result>) () -> ok(result));
+        }
 
         object.put("addressId",Long.valueOf(settleMap.get("addressId")));//地址id
         object.put("couponId",Long.valueOf(settleMap.get("couponId")));//优惠券id
