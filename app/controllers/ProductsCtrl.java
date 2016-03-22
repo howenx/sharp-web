@@ -33,7 +33,7 @@ public class ProductsCtrl extends Controller {
             mapString.forEach((k, v) -> params.put(k, v[0]));
         }
         Request.Builder builder = new Request.Builder();
-        //params.forEach(builder::addHeader);
+     //   params.forEach(builder::addHeader);
         if (session.containsKey("id-token")){
             builder.addHeader("id-token",session.get("id-token"));
         }
@@ -267,6 +267,7 @@ public class ProductsCtrl extends Controller {
                 //优惠信息
                 List<String> publicityList = new ArrayList<>();
                 JsonNode json = Json.parse(response.body().string());
+                Logger.info("===detail=="+json);
                 //商品基本信息
                 if(json.has("main")){
                     JsonNode mainJson = json.get("main");
@@ -366,6 +367,7 @@ public class ProductsCtrl extends Controller {
                 //优惠信息
                 List<String> publicityList = new ArrayList<>();
                 JsonNode json = Json.parse(response.body().string());
+                Logger.info("===detail=="+json);
                 //拼购商品基本信息
                 if(json.has("main")){
                     JsonNode mainJson = json.get("main");
