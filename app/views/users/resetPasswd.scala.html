@@ -39,7 +39,7 @@
 
 
             //验证码获取倒计时
-            var time = 8;
+            var time = 80;
             $("#time").html(time+"s");
             timer = window.setInterval(function() {
                     $("#time").html(--time+"s");
@@ -75,7 +75,7 @@
                                                 setTimeout("$('#js-userinfo-error').hide()", 2000);
                                                 $("#get-code").css("color", "#000");
                                                 $("#get-code").css('cursor', 'auto');
-                                                var ctime = 8;
+                                                var ctime = 80;
                                                 $("#time").html(ctime+"s");
                                                 timer2 = window.setInterval(function() {
                                                         $("#time").html(--ctime+"s");
