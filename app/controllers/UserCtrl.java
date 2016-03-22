@@ -119,7 +119,7 @@ public class UserCtrl extends Controller {
 
 
             Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
-                RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, new String(object.toString()));
+                RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, object.toString());
                 Request.Builder builder = (Request.Builder) ctx().args.get("request");
                 Request request = builder.url(addId > 0 ? ADDRESS_UPDATE : ADDRESS_ADD).post(formBody).build();
                 Response response = client.newCall(request).execute();
@@ -177,7 +177,7 @@ public class UserCtrl extends Controller {
      */
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> addressDel() {
-            RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, new String(request().body().asJson().toString()));
+            RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, request().body().asJson().toString());
             return comCtrl.postReqReturnMsg(ADDRESS_DEL, formBody);
     }
 
@@ -274,7 +274,7 @@ public class UserCtrl extends Controller {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
         }
-        RequestBody requestBody = RequestBody.create(MEDIA_TYPE_JSON, new String(rJson.toString()));
+        RequestBody requestBody = RequestBody.create(MEDIA_TYPE_JSON, rJson.toString());
         return comCtrl.postReqReturnMsg(FEEDBACK_PAGE, requestBody);
 
     }
@@ -701,16 +701,25 @@ public class UserCtrl extends Controller {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
         } else {
+            ObjectNode objectNode = Json.newObject();
+            String nickname = null == userMap.get("nickname") ? "" : userMap.get("nickname");
+            String gender = null == userMap.get("gender") ? "" : userMap.get("gender");
+            String photoUrl = null == userMap.get("photoUrl") ? "" : userMap.get("photoUrl");
+            if (!"".equals(nickname)) {
+                objectNode.put("nickname", nickname.trim());
+            }
+            if (!"".equals(gender)) {
+                objectNode.put("gender", gender.trim());
+            }
+            if (!"".equals(photoUrl)) {
+                objectNode.put("photoUrl", photoUrl.trim());
+            }
+            Logger.error("userMap:"+userMap);
+            Logger.error("objectNode:"+objectNode);
             Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
-                FormEncodingBuilder feb = new FormEncodingBuilder();
-                userMap.forEach(feb::add);
-                RequestBody formBody = feb.build();
-                Request request = new Request.Builder()
-                        .url(USER_UPDATE)
-                        .post(formBody)
-                        .build();
-                Logger.error("request:"+request.header("id-token"));
-                client.setConnectTimeout(10, TimeUnit.SECONDS);
+                RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, objectNode.toString());
+                Request.Builder builder = (Request.Builder) ctx().args.get("request");
+                Request request = builder.url(USER_UPDATE).post(formBody).build();
                 Response response = client.newCall(request).execute();
                 Logger.error(response.toString());
                 if (response.isSuccessful()) {
