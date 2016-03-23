@@ -1,4 +1,4 @@
-@(userInfo:domain.UserDTO)
+@(path:String, userInfo:domain.UserDTO)
 @scripts = {
 <link rel="stylesheet" href="/assets/stylesheets/global.css">
 <link rel="stylesheet" href="/assets/stylesheets/myhmm.css">
@@ -17,7 +17,7 @@
 </header>-->
 
 <div class="wap">
-    <a href="/"  class="back">
+    <a href="@path"  class="back">
         <i></i>
         <b></b>
     </a>

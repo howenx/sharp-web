@@ -227,9 +227,18 @@ public class UserCtrl extends Controller {
         });
     }
 
-
+    /**
+     * 用户登录
+     *
+     * @return
+     */
     public Result login() {
-        return ok(views.html.users.login.render(IMAGE_CODE));
+        String path = routes.ProductsCtrl.index().url();
+        if (session().containsKey("path")) {
+            //path = session().get("path");
+            session().replace("path", routes.UserCtrl.login().url());
+        }else session().put("path", routes.UserCtrl.login().url());
+        return ok(views.html.users.login.render(path, IMAGE_CODE));
     }
 
     /**
@@ -249,6 +258,11 @@ public class UserCtrl extends Controller {
             });
 
             return promiseOfInt.map((Function<JsonNode , Result>) json -> {
+                String path = routes.ProductsCtrl.index().url();
+                if (session().containsKey("path")) {
+                    //path = session().get("path");
+                    session().replace("path", routes.UserCtrl.myView().url());
+                }else session().put("path", routes.UserCtrl.myView().url());
                 Logger.info("==myView=json==" + json);
                 Message message = Json.fromJson(json.get("message"), Message.class);
                 if(null==message||message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
@@ -257,7 +271,7 @@ public class UserCtrl extends Controller {
                 }
                 UserDTO userInfo = Json.fromJson(json.get("userInfo"), UserDTO.class);
                 //请求用户信息
-                return ok(views.html.users.my.render(userInfo)); //登录了
+                return ok(views.html.users.my.render(path, userInfo)); //登录了
             });
     }
 
@@ -295,13 +309,18 @@ public class UserCtrl extends Controller {
 
     @Security.Authenticated(UserAuth.class)
     public Result setting() {
-        Request.Builder builder = (Request.Builder) ctx().args.get("request");
+        String path = routes.UserCtrl.myView().url();
+        if (session().containsKey("path")) {
+            //path = session().get("path");
+            session().replace("path", routes.UserCtrl.setting().url());
+        }else session().put("path", routes.UserCtrl.setting().url());
 
-        Logger.error("session token----> " + session().get("id-token"));
-        Logger.error("Cache user----> " + cache.get(session().get("id-token")));
-        Logger.error(request().cookie("user_token").value());
+//        Request.Builder builder = (Request.Builder) ctx().args.get("request");
+//        Logger.error("session token----> " + session().get("id-token"));
+//        Logger.error("Cache user----> " + cache.get(session().get("id-token")));
+//        Logger.error(request().cookie("user_token").value());
 
-        return ok(views.html.users.setting.render());
+        return ok(views.html.users.setting.render(path));
     }
 
     /**
@@ -380,7 +399,7 @@ public class UserCtrl extends Controller {
 
 
     /**
-     * 用户登录
+     * 用户登录提交
      *
      * @return
      */
@@ -437,7 +456,12 @@ public class UserCtrl extends Controller {
      * @return views
      */
     public Result registVerify() {
-        return ok(views.html.users.registVerify.render());
+        String path = routes.UserCtrl.login().url();
+        if (session().containsKey("path")) {
+            //path = session().get("path");
+            session().replace("path", routes.UserCtrl.registVerify().url());
+        }else session().put("path", routes.UserCtrl.registVerify().url());
+        return ok(views.html.users.registVerify.render(path));
     }
 
     /**
@@ -526,10 +550,15 @@ public class UserCtrl extends Controller {
      * @return views
      */
     public Result register() {
+        String path = routes.UserCtrl.registVerify().url();
+        if (session().containsKey("path")) {
+//            path = session().get("path");
+            session().replace("path", routes.UserCtrl.register().url());
+        }else session().put("path", routes.UserCtrl.register().url());
         Form<UserPhoneCode> userPhoneCodeForm = Form.form(UserPhoneCode.class).bindFromRequest();
         Map<String, String> userMap = userPhoneCodeForm.data();
         String phone = userMap.get("phone");
-        return ok(views.html.users.regist.render(phone));
+        return ok(views.html.users.regist.render(path, phone));
     }
 
     /**
@@ -604,7 +633,12 @@ public class UserCtrl extends Controller {
      * @return views
      */
     public Result retrieve() {
-        return ok(views.html.users.retrieve.render(IMAGE_CODE));
+        String path = routes.UserCtrl.login().url();
+        if (session().containsKey("path")) {
+            //path = session().get("path");
+            session().replace("path", routes.UserCtrl.retrieve().url());
+        }else session().put("path", routes.UserCtrl.retrieve().url());
+        return ok(views.html.users.retrieve.render(path,IMAGE_CODE));
     }
 
     /**
@@ -613,10 +647,15 @@ public class UserCtrl extends Controller {
      * @return
      */
     public Result resetPasswd() {
+        String path = routes.UserCtrl.retrieve().url();
+        if (session().containsKey("path")) {
+            //path = session().get("path");
+            session().replace("path", routes.UserCtrl.resetPasswd().url());
+        }else session().put("path", routes.UserCtrl.resetPasswd().url());
         Form<UserPhoneCode> userPhoneCodeForm = Form.form(UserPhoneCode.class).bindFromRequest();
         Map<String, String> userMap = userPhoneCodeForm.data();
         String phone = userMap.get("phone");
-        return ok(views.html.users.resetPasswd.render(phone));
+        return ok(views.html.users.resetPasswd.render(path, phone));
     }
 
     /**
@@ -675,6 +714,11 @@ public class UserCtrl extends Controller {
         });
 
         return promiseOfInt.map((Function<JsonNode , Result>) json -> {
+            String path = routes.UserCtrl.myView().url();
+            if (session().containsKey("path")) {
+                //path = session().get("path");
+                session().replace("path", routes.UserCtrl.means().url());
+            }else session().put("path", routes.UserCtrl.means().url());
             Message message = Json.fromJson(json.get("message"), Message.class);
             if(null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()){
                 Logger.error("message="+(null!=message?message.getCode():0));
@@ -682,7 +726,7 @@ public class UserCtrl extends Controller {
             }
             UserDTO userInfo = Json.fromJson(json.get("userInfo"), UserDTO.class);
             //请求用户信息
-            return ok(views.html.users.means.render(userInfo));
+            return ok(views.html.users.means.render(path, userInfo));
         });
 
     }
@@ -695,10 +739,15 @@ public class UserCtrl extends Controller {
      */
     @Security.Authenticated(UserAuth.class)
     public Result nickname() {
+        String path = routes.UserCtrl.means().url();
+        if (session().containsKey("path")) {
+            //path = session().get("path");
+            session().replace("path", routes.UserCtrl.nickname().url());
+        }else session().put("path", routes.UserCtrl.nickname().url());
         Form<UserDTO> userDTOForm = Form.form(UserDTO.class).bindFromRequest();
         Map<String, String> userMap = userDTOForm.data();
         String nickname = userMap.get("name");
-        return ok(views.html.users.nickname.render(nickname));
+        return ok(views.html.users.nickname.render(path, nickname));
     }
 
     /**
@@ -728,12 +777,12 @@ public class UserCtrl extends Controller {
             if (!"".equals(photoUrl)) {
                 objectNode.put("photoUrl", photoUrl.trim());
             }
-            Logger.error("userMap:"+userMap);
-            Logger.error("objectNode:"+objectNode);
             Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
                 RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, objectNode.toString());
                 Request.Builder builder = (Request.Builder) ctx().args.get("request");
                 Request request = builder.url(USER_UPDATE).post(formBody).build();
+                //数据量过大情况下,可以加上这一句
+                builder.addHeader("Accept-Encoding","gzip");
                 Response response = client.newCall(request).execute();
                 Logger.error(response.toString());
                 if (response.isSuccessful()) {
@@ -744,7 +793,7 @@ public class UserCtrl extends Controller {
 
             return promiseOfInt.map((Function<JsonNode, Result>) json -> {
                 Message message = Json.fromJson(json.findValue("message"), Message.class);
-                Logger.error(json.toString()+"-----"+message.toString());
+//                Logger.error(json.toString()+"-----"+message.toString());
                 return ok(Json.toJson(message));
             });
         }
@@ -765,7 +814,7 @@ public class UserCtrl extends Controller {
         session().remove("session_id");
         session().clear();
         //清理cookie
-        return redirect(routes.UserCtrl.login());
+        return redirect(routes.ProductsCtrl.index());
     }
 
     //我的拼团
@@ -806,10 +855,19 @@ public class UserCtrl extends Controller {
             //请求用户信息
             return ok(views.html.users.service.render());
         }
-    //关于我们
+
+    /**
+     * 关于我们
+     *
+     * @return
+     */
     public Result aboutus() {
-        //关于我们
-        return ok(views.html.users.aboutus.render());
+        String path = routes.UserCtrl.setting().url();
+        if (session().containsKey("path")) {
+            //path = session().get("path");
+            session().replace("path", routes.UserCtrl.aboutus().url());
+        }else session().put("path", routes.UserCtrl.aboutus().url());
+        return ok(views.html.users.aboutus.render(path));
     }
 
 
