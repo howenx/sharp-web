@@ -41,6 +41,13 @@ $(document).on("click",".submitOrder",function(){
             url: "/order/submit",
             dataType: 'json',
             data: $('form#orderForm').serialize(),
+//            beforeSend:function(XMLHttpRequest){
+//                $("#loading").html("加载中...");
+//             },
+            error : function(request) {
+                alert("提交订单失败");
+                //   $("#loading").empty();
+             },
             success: function(data) {
                 console.log("data="+data);
                 if (data!=""&&data!=null){
@@ -54,7 +61,7 @@ $(document).on("click",".submitOrder",function(){
                 }else{
                  alert("提交订单失败");
                 }
-
+             //   $("#loading").empty();
             }
         });
     }
