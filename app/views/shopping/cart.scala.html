@@ -32,6 +32,7 @@
 <div class="cart-goods" id="cart-goods">
     <input type="hidden" name="areaNum" value="@resultVo.getCartList().size()">
     @for((cart,index)<-resultVo.getCartList().zipWithIndex){
+    <div class="areaAndSku">
         <div class="cart-goods-area">
             <div class="check-wrapper">
                 <input type="checkbox" class="areac check" name="check_item" />
@@ -96,6 +97,7 @@
                 </li>
             }
         </ul>
+    </div>
     }
 
     <div class="hint">

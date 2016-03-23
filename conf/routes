@@ -105,6 +105,7 @@ GET         /order/verify/$orderId<[0-9]+>            controllers.ShoppingCtrl.v
 POST        /order/submit                             controllers.ShoppingCtrl.submitOrder()
 POST        /cart/add                                 controllers.ShoppingCtrl.cartAdd()
 GET         /cart/del/$cartId<[0-9]+>                 controllers.ShoppingCtrl.cartDel(cartId:Long)
+GET         /cart/amount                              controllers.ShoppingCtrl.cartAmount()
 #
 
 

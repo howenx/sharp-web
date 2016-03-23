@@ -1,5 +1,4 @@
 @(path:String,itemMain:domain.Item,itemFeaturesList:List[Array[Object]],pushList:List[List[domain.ThemeItem]],inventoryList:List[domain.Inventory],stockSize:Int,preImgList:List[List[String]],publicityList:List[String])
-<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -14,6 +13,7 @@
 	<script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
 	<script src="/assets/javascripts/jquery/TouchSlide.1.1.js"></script>
 	<script src="/assets/javascripts/detail.js"></script>
+	<script src="/assets/javascripts/cartAmount.js"></script>
 </head>
 <body>
 <div id='screen_wrap'>
@@ -269,7 +269,7 @@
 			<div id="shopCart">
 				<a href="/cart" class="message_list shopping">
 					<i class="message"></i>
-					<span class="cart_num">0</span>
+					<span class="cart_num" id="cartAmountSpan">0</span>
 				</a>
 			</div>
 
@@ -333,16 +333,18 @@
 <script src="/assets/javascripts/jquery/ieBetter.js"></script>
 <![endif]-->
 <script type="text/javascript" src="/assets/javascripts/jquery/parabola.js"></script>
+<!--
 <script type="text/javascript">
+
 	// 元素以及其他一些变量
 	var eleFlyElement = document.querySelector("#flyItem"), eleShopCart = document.querySelector("#shopCart");
-	var numberItem = 0;
 	// 抛物线运动
 	var myParabola = funParabola(eleFlyElement, eleShopCart, {
 		speed:30, //抛物线速度
 		curvature: 0.0090, //控制抛物线弧度
 		complete: function() {
 			eleFlyElement.style.visibility = "hidden";
+			var numberItem = parseInt($("#cartAmountSpan").html());
 			eleShopCart.querySelector("span").innerHTML = ++numberItem;
 		}
 	});
@@ -365,7 +367,9 @@
 			});
 		});
 	}
+
 </script>
+-->
 </body>
 
 </html>

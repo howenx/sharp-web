@@ -116,16 +116,6 @@ $(function(){
     })
 
 
-
-    /*点击删除按钮删除商品*/
-     $(".cart-del-btn").on("click",function(){
-         var r=confirm(" Do you want to remove the goods")
-         if (r==true)
-         {
-             $(this).parents("li").hide();
-         }
-         else {  }
-     });
     /*选择某一个*/
     var selectInputs = document.getElementsByClassName('check'); //所有勾选
     var checkAllInputs = document.getElementsByClassName('check-all'); //全勾选
@@ -257,7 +247,14 @@ function delCart(cartId){
               success: function(data) {
                  console.log("data="+data);
                   if (data!=""&&data!=null&&data.code==200){ //删除成功
-                        $("#li"+cartId).remove();
+                  var li=$("#li"+cartId);
+                  var ul=li.parents("ul");
+                  li.remove();
+                  if(ul.has("li").length <= 0){
+                        ul.prev().parents(".areaAndSku").remove();
+                      
+                  }
+
                    } else alert("删除失败!");
 
               }
