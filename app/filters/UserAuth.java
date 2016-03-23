@@ -41,7 +41,7 @@ public class UserAuth extends Security.Authenticator {
             builder.addHeader(Http.HeaderNames.VIA,ctx.request().remoteAddress());
 
             map.forEach(builder::addHeader);
-            
+
             if (header.isPresent()) {
                 Optional<String> token = Optional.ofNullable(cache.get(header.get()).toString());
                 if (token.isPresent()) {
@@ -49,6 +49,11 @@ public class UserAuth extends Security.Authenticator {
                     JsonNode userJson = Json.parse(token.get());
                     Long userId = userJson.findValue("id").asLong();
                     ctx.args.put("request", builder.addHeader("id-token", header.get()));
+
+                    String [] header_str = {header.get()};
+
+                    ctx.request().headers().put("id-token", header_str);
+
                     return userId.toString();
                 } else return null;
 

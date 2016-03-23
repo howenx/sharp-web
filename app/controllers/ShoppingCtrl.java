@@ -449,14 +449,14 @@ public class ShoppingCtrl extends Controller {
             } else throw new IOException("Unexpected code" + response);
         });
 
-        return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
-            Logger.info("==settle=json==" + json);
+        return promiseOfInt.map(json -> {
+//            Logger.info("==settle=json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回商品结算数据错误code=" + json);
                 return badRequest();
             }
-            Long orderId=json.get("orderId").asLong();
+//            Long orderId=json.get("orderId").asLong();
  //           String url=PAY_ORDER+orderId;
 
             return ok(json);

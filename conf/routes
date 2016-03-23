@@ -109,7 +109,7 @@ GET         /cart/del/$cartId<[0-9]+>                 controllers.ShoppingCtrl.c
 
 
 
-GET         /pay/order/get/$orderId<[0-9]+>           controllers.JDCtrl.cashDesk(orderId:Long)
+GET         /cash/$orderId<[0-9]+>           controllers.JDCtrl.cashDesk(orderId:Long)
 
 
 
