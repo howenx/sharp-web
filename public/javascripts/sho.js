@@ -247,15 +247,14 @@ function delCart(cartId){
               success: function(data) {
                  console.log("data="+data);
                   if (data!=""&&data!=null&&data.code==200){ //删除成功
-                  var li=$("#li"+cartId);
-                  var ul=li.parents("ul");
-                  li.remove();
-                  if(ul.has("li").length <= 0){
-                        ul.prev().parents(".areaAndSku").remove();
-                      
-                  }
+                      var li=$("#li"+cartId);
+                      var ul=li.parents("ul");
+                      li.remove();
+                      if(ul.has("li").length <= 0){
+                            ul.prev().parents(".areaAndSku").remove();
 
-                   } else alert("删除失败!");
+                      }
+                  } else alert("删除失败!");
 
               }
          });
