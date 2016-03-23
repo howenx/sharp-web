@@ -57,7 +57,7 @@
             <input type="hidden" name="invAreaNm@index" value="@settleInfo.getInvAreaNm()"/>
             <input type="hidden" name="cartNum@index" value="@settleInfo.getCartInfos().size()"/>
             @for((cartInfo,cartIndex)<-settleInfo.getCartInfos().zipWithIndex){
-            <div>
+            <div >
                 <h2><i class="picture"> <img src="@cartInfo.getSkuInvImg()" alt="" height="80"/></i>@cartInfo.getSkuTitle()</h2>
                 <div class="goods">
                     <span class="order color">￥@cartInfo.getSkuPrice()</span>

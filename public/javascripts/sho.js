@@ -5,28 +5,114 @@ $(function(){
     $(".quantity-increase").on("click",function(){
         var t=$(this).parent().find('input[class*=quantity]');
         var aa = parseInt(t.val()) + 1;
-        t.val(aa);
-        var s = $(this).parents("li").find(".price").html();
-        var d = aa * s;
 
-        var ss = $(this).parents("li").find(".subtotal").html(d);
+        var li=$(this).parents("li");
+        var restrictAmount=li.find(".restrictAmount").val();
+        if(aa>restrictAmount){
+            alert("本商品限制购买"+restrictAmount+"件");
+            return;
+        }
 
-        Total();
-    })
+
+        var cartId=li.find(".cartId").val() ;
+        var skuId=li.find(".skuId").val() ;
+        var skuType=li.find(".skuType").val() ;
+        var skuTypeId=li.find(".skuTypeId").val() ;
+        var state=li.find(".state").val() ;
+
+        var obj=new Object();
+        obj.cartId=cartId;
+        obj.skuId=skuId;
+        obj.skuType=skuType;
+        obj.skuTypeId=skuTypeId;
+        obj.state=state;
+        obj.amount=aa;
+        $.ajax({
+            type: 'POST',
+            url: "/cart/add",
+            contentType: "application/json; charset=utf-8",
+            data : JSON.stringify(obj),
+            dataType: 'json',
+            error : function(request) {
+                alert("修改购物车失败");
+             },
+            success: function(data) {
+                console.log("data="+data);
+                if (data!=""&&data!=null){
+                    if(data.code==200) { //成功
+                         //修改数量
+                         t.val(aa);
+                         li.find(".amount").val(aa);
+
+                         var s = li.find(".price").html();
+                         var d = aa * s;
+
+                         var ss = li.find(".subtotal").html(d);
+                         Total();
+
+                    }else{
+                         alert("修改购物车失败code="+data.code+","+data.message);
+                    }
+                }else{
+                 alert("修改购物车失败");
+                }
+            }
+        });
+
+    });
 
     $(".quantity-decrease").on("click",function(){
         var t=$(this).parent().find('input[class*=quantity]');
-        t.val(parseInt(t.val())-1);
-        if(parseInt(t.val())<0){uut
-            t.val(0);
+        var aa = parseInt(t.val()) - 1;
+        if(aa<=0){
+            return;
         }
-        var aa = parseInt(t.val());
-        var s = $(this).parents("li").find(".price").html();
-        var d = aa * s;
 
-        var ss = $(this).parents("li").find(".subtotal").html(d);
+        var li=$(this).parents("li");
+        var cartId=li.find(".cartId").val() ;
+        var skuId=li.find(".skuId").val() ;
+        var skuType=li.find(".skuType").val() ;
+        var skuTypeId=li.find(".skuTypeId").val() ;
+        var state=li.find(".state").val() ;
 
-        Total();
+        var obj=new Object();
+        obj.cartId=cartId;
+        obj.skuId=skuId;
+        obj.skuType=skuType;
+        obj.skuTypeId=skuTypeId;
+        obj.state=state;
+        obj.amount=aa;
+        $.ajax({
+            type: 'POST',
+            url: "/cart/add",
+            contentType: "application/json; charset=utf-8",
+            data : JSON.stringify(obj),
+            dataType: 'json',
+            error : function(request) {
+                alert("修改购物车失败");
+             },
+            success: function(data) {
+                console.log("data="+data);
+                if (data!=""&&data!=null){
+                    if(data.code==200) { //成功
+                         //修改数量
+                         t.val(aa);
+                         li.find(".amount").val(aa);
+
+                         var s = li.find(".price").html();
+                         var d = aa * s;
+
+                         var ss = li.find(".subtotal").html(d);
+                         Total();
+
+                    }else{
+                         alert("修改购物车失败code="+data.code+","+data.message);
+                    }
+                }else{
+                 alert("修改购物车失败");
+                }
+            }
+        });
     })
 
 

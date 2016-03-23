@@ -182,6 +182,46 @@ $(function() {
 		},1000,function(){
 			$(".toup").css("display","none");
 		});
-	})
+	});
 
-})
+});
+//添加购物车
+$(document).on("click",".btnCart",function(){
+    var skuId=$("input[name='skuId0-0']:not(:disabled)").val() ;
+    var skuType=$("input[name='skuType0-0']:not(:disabled)").val() ;
+    var skuTypeId=$("input[name='skuTypeId0-0']:not(:disabled)").val() ;
+    var state=$("input[name='state0-0']:not(:disabled)").val() ;
+
+    var obj=new Object();
+    obj.cartId=0;
+    obj.skuId=skuId;
+    obj.skuType=skuType;
+    obj.skuTypeId=skuTypeId;
+    obj.state="I";
+    obj.amount=1;
+    $.ajax({
+        type: 'POST',
+        url: "/cart/add",
+        contentType: "application/json; charset=utf-8",
+        data : JSON.stringify(obj),
+        dataType: 'json',
+        error : function(request) {
+            alert("加入购物车失败");
+         },
+        success: function(data) {
+            console.log("data="+data);
+            if (data!=""&&data!=null){
+                if(data.code==200) { //成功
+
+                }else{
+                     alert("加入购物车失败code="+data.code+","+data.message);
+                }
+
+            }else{
+             alert("加入购物车失败");
+            }
+        }
+    });
+
+});
+
