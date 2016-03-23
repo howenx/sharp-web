@@ -76,6 +76,7 @@ public class UserCtrl extends Controller {
             if (Message.ErrorCode.DATABASE_EXCEPTION.getIndex() == message.getCode()) {
                 return ok(views.html.users.addressempty.render());
             } else if (Message.ErrorCode.SUCCESS.getIndex() == message.getCode()) {
+                //地址列表
                 ObjectMapper mapper = new ObjectMapper();
                 List<Address> addressList = mapper.readValue(json.get("address").toString(), new TypeReference<List<Address>>() {
                 });
