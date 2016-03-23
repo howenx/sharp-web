@@ -1,4 +1,4 @@
-@(phone:String)
+@(path:String, phone:String)
 <!DOCTYPE HTML>
 <html xmlns:filter="http://www.w3.org/1999/xhtml">
 <head>
@@ -59,7 +59,7 @@
 <div id='screen_wrap'>
     <div class="nav_ban">
         <h1>账号注册</h1>
-        <a href="/register"><span class="icon-back" id="backBtn"></span></a>
+        <a href="@path"><span class="icon-back" id="backBtn"></span></a>
         <!--<a href="/login"><span class="icon-user-title" id="userBtn"></span></a>-->
     </div>
     <div id="js-userinfo-error" class="cue">验证码发送成功</div>
