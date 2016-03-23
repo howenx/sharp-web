@@ -485,8 +485,12 @@ public class ShoppingCtrl extends Controller {
      */
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result>  cartAdd(){
-
-        RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, new String(""));
+        JsonNode json = request().body().asJson();
+        Logger.info("==json==="+json);
+        List<CartAddInfo> cartAddInfoList=new ArrayList<CartAddInfo>();
+        CartAddInfo cartAddInfo=Json.fromJson(json,CartAddInfo.class);
+        cartAddInfoList.add(cartAddInfo);
+        RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, toJson(cartAddInfoList).toString());
         return comCtrl.postReqReturnMsg(CART_ADD,formBody);
     }
 
