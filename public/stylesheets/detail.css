@@ -583,6 +583,7 @@ div .cycle-overlay {
 	padding:10px 10px 10px 40px;
 	color: #fff;
 	font-size: 14px;
+	height: 40px;
 }
 
 
@@ -1096,7 +1097,7 @@ div .cycle-overlay {
 
 .figure {
 	width: 100%;
-	height:200px;
+	height:140px;
 	overflow: hidden;
 }
 
@@ -1124,9 +1125,11 @@ div .cycle-overlay {
 .toup .con .conaddr{
 	width: 100%;overflow: scroll;
 }
+
 .toup .con .conaddr>div{
-	width: 300%;
+	width: 1000%;
 }
+
 .toup .con .item{
 	width: 180px;float: left;
 }
@@ -1167,18 +1170,6 @@ div .cycle-overlay {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 /*玩法 页面*/
 .footer{
 	position: fixed;
@@ -1215,8 +1206,6 @@ div .cycle-overlay {
 
 
 .flow{
-	padding:50px 0 0 0;
+	padding:44px 0 0 0;
 	margin:0 0 100px 0;
-
-
 }
