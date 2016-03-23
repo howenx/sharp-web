@@ -1,22 +1,28 @@
 package controllers;
 
 
+import akka.actor.ActorSystem;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import domain.*;
 import play.Logger;
-import play.libs.F;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
+import scala.concurrent.ExecutionContextExecutor;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static modules.SysParCom.*;
@@ -26,25 +32,23 @@ import static util.GZipper.dealToString;
  * 首页,主题,产品相关
  * Created by howen on 16/3/9.
  */
+@Singleton
 public class ProductsCtrl extends Controller {
     @Inject
     ComCtrl comCtrl;
 
+    private final ActorSystem actorSystem;
+    private final ExecutionContextExecutor exec;
 
-    public Request.Builder getBuilder(Http.Request request, Http.Session session) {
-        Map<String, String[]> mapString = request.headers();
-        Map<String, String> params = new HashMap<>();
-        if (mapString != null) {
-            mapString.forEach((k, v) -> params.put(k, v[0]));
-        }
-        params.remove("Accept-Encoding");
-        Request.Builder builder = new Request.Builder();
-        params.forEach(builder::addHeader);
-        if (session.containsKey("id-token")) {
-            builder.addHeader("id-token", session.get("id-token"));
-        }
-        return builder;
+    @Inject
+    public ProductsCtrl(ActorSystem actorSystem, ExecutionContextExecutor exec) {
+        this.actorSystem = actorSystem;
+        this.exec = exec;
     }
+
+
+
+
 
     /**
      * 首页
@@ -53,21 +57,29 @@ public class ProductsCtrl extends Controller {
      * @throws Exception
      */
 
-    public F.Promise<Result> index() throws Exception {
-        F.Promise<JsonNode> promise = F.Promise.promise(() -> {
-            Request request = getBuilder(request(), session())
-                    .url(INDEX_PAGE + "1")
-                    .build();
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                String result = dealToString(response);
-                if (result != null) {
-                    return Json.parse(result);
-                } else throw new IOException("Unexpected code" + response);
-            } else throw new IOException("Unexpected code" + response);
-        });
-        return promise.map(json -> {
+    public CompletionStage<Result> index() {
 
+        Request request = getBuilder(request(), session())
+                .url(INDEX_PAGE + "1")
+                .build();
+
+        return CompletableFuture.supplyAsync(()-> {
+
+            try {
+                Response response = client.newCall(request).execute();
+                if (response.isSuccessful()) {
+                    String result = dealToString(response);
+                    Logger.error("测试------->"+result);
+                    if (result != null) {
+                        return Json.parse(result);
+                    } else throw new IOException("Unexpected code" + response);
+                } else throw new IOException("Unexpected code" + response);
+            } catch (IOException e) {
+                Logger.error("index error---->"+e.getMessage());
+                e.printStackTrace();
+                return null;
+            }
+        }).thenApply(json -> {
                     List<Slider> sliderList = new ArrayList<>();
                     List<Theme> themeList = new ArrayList<>();
                     if (json.has("slider")) {
@@ -104,26 +116,35 @@ public class ProductsCtrl extends Controller {
         );
     }
 
+
+
     /**
      * Ajax加载首页
      *
      * @return
      * @throws Exception
      */
-    public F.Promise<Result> loadIndexAjax() throws Exception {
-        F.Promise<JsonNode> promise = F.Promise.promise(() -> {
-            String pageCount = request().body().asJson().toString();
-            Request request = getBuilder(request(), session())
-                    .url(INDEX_PAGE + pageCount)
-                    .build();
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
-                return json;
+    public CompletionStage<Result> loadIndexAjax() throws Exception {
+        String pageCount = request().body().asJson().toString();
+        Request request = getBuilder(request(), session())
+                .url(INDEX_PAGE + pageCount)
+                .build();
+
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                Response response = client.newCall(request).execute();
+                if (response.isSuccessful()) {
+                    String result = dealToString(response);
+                    Logger.error("测试------->"+result);
+                    if (result != null) {
+                        return Json.parse(result);
+                    } else throw new IOException("Unexpected code" + response);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
             return null;
-        });
-        return promise.map((F.Function<JsonNode, Result>) json -> {
+        }).thenApply(json -> {
             List<Theme> themeList = new ArrayList<>();
             if (json.has("theme")) {
                 JsonNode themeJson = json.get("theme");
@@ -153,19 +174,22 @@ public class ProductsCtrl extends Controller {
      * @return
      * @throws Exception
      */
-    public F.Promise<Result> themeDetail(String url) throws Exception {
-        F.Promise<JsonNode> promise = F.Promise.promise(() -> {
+    public CompletionStage<Result> themeDetail(String url) throws Exception {
+        CompletionStage<JsonNode> promise = CompletableFuture.supplyAsync(() -> {
             Request request = getBuilder(request(), session())
                     .url(THEME_PAGE + url)
                     .build();
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
-                return json;
+            try {
+                Response response  = client.newCall(request).execute();
+                if (response.isSuccessful()) {
+                    return Json.parse(new String(response.body().bytes(), UTF_8));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
             return null;
         });
-        return promise.map((F.Function<JsonNode, Result>) json -> {
+        return promise.thenApply(json -> {
             //返回  ------->start
             String path = session().get("path_index");
             String path_theme = routes.ProductsCtrl.themeDetail(url).url();
@@ -218,18 +242,19 @@ public class ProductsCtrl extends Controller {
                     SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     Date now = new Date();
                     String strNow = sdfDate.format(now);
-                    Date endAtDate = sdfDate.parse(themeItem.getEndAt());
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTime(endAtDate);
-                    String hour = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
-                    if (calendar.get(Calendar.HOUR_OF_DAY) < 10) {
+                    LocalDateTime endAtDate = LocalDateTime.parse(themeItem.getEndAt());
+
+                    String hour = String.valueOf(endAtDate.getHour());
+                    if (endAtDate.getHour() < 10) {
                         hour = "0" + hour;
                     }
-                    String minute = String.valueOf(calendar.get(Calendar.MINUTE));
-                    if (calendar.get(Calendar.MINUTE) < 10) {
+                    String minute = String.valueOf(endAtDate.getMinute());
+                    if (endAtDate.getMinute() < 10) {
                         minute = "0" + minute;
                     }
-                    String endDate = (calendar.get(Calendar.MONTH) + 1) + "月" + calendar.get(Calendar.DAY_OF_MONTH) + "日" + hour + ":" + minute;
+                    String endDate = (endAtDate.getMonthValue()) + "月" + endAtDate.getDayOfMonth() + "日" + hour + ":" + minute;
+
+
                     if (themeItem.getEndAt().compareTo(strNow) < 0) {
                         themeItem.setEndAt("已结束");
                     } else {
@@ -261,19 +286,23 @@ public class ProductsCtrl extends Controller {
      * @return
      * @throws Exception
      */
-    public F.Promise<Result> detail(String url) throws Exception {
-        F.Promise<JsonNode> promise = F.Promise.promise(() -> {
+    public CompletionStage<Result> detail(String url) throws Exception {
+        CompletableFuture<JsonNode> promise = CompletableFuture.supplyAsync(() -> {
             Request request = getBuilder(request(), session())
                     .url(GOODS_PAGE + url)
                     .build();
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
-                return json;
+            try {
+                Response response = client.newCall(request).execute();
+
+                if (response.isSuccessful()) {
+                    return Json.parse(new String(response.body().bytes(), UTF_8));
+                } else throw new IOException("Unexpected code" + response);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return Json.toJson("error");
             }
-            return null;
-        });
-        return promise.map((F.Function<JsonNode, Result>) json -> {
+        },exec);
+        return promise.thenApply(json -> {
             //返回  ------->start
             String path = session().get("path_theme");
             //返回  ------->end
@@ -343,18 +372,16 @@ public class ProductsCtrl extends Controller {
                         JsonNode imgJson = Json.parse(themeItem.getItemImg());
                         themeItem.setItemImg(imgJson.get("url").asText());
                         themeItem.setItemUrl(themeItem.getItemUrl().replace(GOODS_PAGE, ""));
-                        Date endAtDate = sdfDate.parse(themeItem.getEndAt());
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.setTime(endAtDate);
-                        String hour = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
-                        if (calendar.get(Calendar.HOUR_OF_DAY) < 10) {
+                        LocalDateTime endAtDate = LocalDateTime.parse(themeItem.getEndAt());
+                        String hour = String.valueOf(endAtDate.getHour());
+                        if (endAtDate.getHour() < 10) {
                             hour = "0" + hour;
                         }
-                        String minute = String.valueOf(calendar.get(Calendar.MINUTE));
-                        if (calendar.get(Calendar.MINUTE) < 10) {
+                        String minute = String.valueOf(endAtDate.getMinute());
+                        if (endAtDate.getMinute() < 10) {
                             minute = "0" + minute;
                         }
-                        String endDate = (calendar.get(Calendar.MONTH) + 1) + "月" + calendar.get(Calendar.DAY_OF_MONTH) + "日" + hour + ":" + minute;
+                        String endDate = (endAtDate.getMonthValue()) + "月" + endAtDate.getDayOfMonth() + "日" + hour + ":" + minute;
 
                         if (themeItem.getEndAt().compareTo(strNow) < 0) {
                             themeItem.setEndAt("已结束");
@@ -442,7 +469,12 @@ public class ProductsCtrl extends Controller {
                         JsonNode imgJson = Json.parse(themeItem.getItemImg());
                         themeItem.setItemImg(imgJson.get("url").asText());
                         themeItem.setItemUrl(themeItem.getItemUrl().replace(GOODS_PAGE, ""));
-                        Date endAtDate = sdfDate.parse(themeItem.getEndAt());
+                        Date endAtDate = null;
+                        try {
+                            endAtDate = sdfDate.parse(themeItem.getEndAt());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                         Calendar calendar = Calendar.getInstance();
                         calendar.setTime(endAtDate);
                         String hour = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
@@ -496,19 +528,24 @@ public class ProductsCtrl extends Controller {
      * @return
      * @throws Exception
      */
-    public F.Promise<Result> pinTieredPrice(String url) throws Exception {
-        F.Promise<JsonNode> promise = F.Promise.promise(() -> {
+    public CompletionStage<Result> pinTieredPrice(String url) throws Exception {
+        CompletionStage<JsonNode> promise;
+        promise = CompletableFuture.supplyAsync(() -> {
             Request request = getBuilder(request(), session())
                     .url(GOODS_PAGE + url)
                     .build();
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
-                return json;
+            try {
+                Response response = client.newCall(request).execute();
+
+                if (response.isSuccessful()) {
+                    return Json.parse(new String(response.body().bytes(), UTF_8));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
             return null;
         });
-        return promise.map((F.Function<JsonNode, Result>) json -> {
+        return promise.thenApply(json -> {
             if (json.has("stock")) {
                 JsonNode stockJson = json.get("stock");
                 JsonNode floorPriceJson = Json.parse(Json.fromJson(stockJson.get("floorPrice"), String.class));
@@ -516,12 +553,7 @@ public class ProductsCtrl extends Controller {
                 pinInvDetail.setInvImg(comCtrl.getImgUrl(pinInvDetail.getInvImg()));
                 pinInvDetail.setFloorPricePersonNum(floorPriceJson.get("person_num").asInt());
                 pinInvDetail.setFloorPricePrice(Json.fromJson(floorPriceJson.get("price"), BigDecimal.class));
-                Collections.sort(pinInvDetail.getPinTieredPrices(), new Comparator<PinTieredPrice>() {
-                    @Override
-                    public int compare(PinTieredPrice tieredPrice2, PinTieredPrice tieredPrice1) {
-                        return tieredPrice1.getPeopleNum().compareTo(tieredPrice2.getPeopleNum());
-                    }
-                });
+                Collections.sort(pinInvDetail.getPinTieredPrices(), (tieredPrice2, tieredPrice1) -> tieredPrice1.getPeopleNum().compareTo(tieredPrice2.getPeopleNum()));
                 return ok(views.html.products.pinTieredPrice.render(pinInvDetail));
             }
             return badRequest(views.html.error500.render());

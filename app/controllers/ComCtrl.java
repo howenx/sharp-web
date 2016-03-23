@@ -5,32 +5,35 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 import domain.Message;
-import filters.UserAuth;
 import modules.SysParCom;
 import play.Logger;
-import play.libs.F;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
-import play.mvc.Security;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
+import java.util.concurrent.TimeUnit;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
-import static modules.SysParCom.*;
-import static play.libs.Json.toJson;
+import static modules.SysParCom.client;
+import static util.GZipper.dealToString;
 
 /**
+ * 公共调用
  * Created by sibyl.sun on 16/3/18.
  */
 public class ComCtrl extends Controller {
 
     /**
      * 图片json串转图片url
-     * @param imgJson
-     * @return
+     *
+     * @param imgJson imgJson
+     * @return String
      */
-    public String getImgUrl(String imgJson){
+    public String getImgUrl(String imgJson) {
         if (imgJson.contains("url")) {
             JsonNode jsonNode = Json.parse(imgJson);
             if (jsonNode.has("url")) {
@@ -42,65 +45,127 @@ public class ComCtrl extends Controller {
 
     /**
      * 获取商品详情的URL
-     * @param oldUrl
-     * @return
+     *
+     * @param oldUrl oldUrl
+     * @return String
      */
-    public String getDetailUrl(String oldUrl){
-//        Logger.info(oldUrl+"===="+oldUrl.indexOf("/detail/")+"==="+oldUrl.substring(oldUrl.indexOf("/detail/")));
-        if(oldUrl.indexOf("/detail/")<0){
+    public String getDetailUrl(String oldUrl) {
+        if (!oldUrl.contains("/detail/")) {
             return oldUrl;
         }
         return oldUrl.substring(oldUrl.indexOf("/detail/"));
-//        Logger.info(oldUrl+"======="+skuType+"==="+PIN_PAGE);
-//        if("pin".equals(skuType)){
-//            return oldUrl.replace(PIN_PAGE,"");
-//        }
-//        if("item".equals(skuType)){
-//            return oldUrl.replace(ITEM_PAGE,"");
-//        }
-//        if("vary".equals(skuType)){
-//            return oldUrl.replace(VARY_PAGE,"");
-//        }
-//        if("customize".equals(skuType)){
-//            return oldUrl.replace(CUSTOMIZE_PAGE,"");
-//        }
-//       return oldUrl;
     }
 
-    @Security.Authenticated(UserAuth.class)
-    public F.Promise<Result> getReqReturnMsg(String url){
-        return sendReq(url,null);
+    /**
+     * get请求返回JsonNode方便处理
+     * @see controllers.UserCtrl#collect 调用参考
+     * @param gzip 是否使用gzip压缩数据传输方式
+     * @param auth 是否需要校验用户有未登录
+     * @param url 请求地址
+     * @return JsonNode
+     */
+    public CompletionStage<JsonNode> getReqReturnMsg(Boolean gzip, Boolean auth, String url) {
+        return sendReq(gzip, auth, url, null);
 
     }
-    @Security.Authenticated(UserAuth.class)
-    public F.Promise<Result> postReqReturnMsg(String url,RequestBody requestBody){
-        return sendReq(url,requestBody);
+
+    /**
+     * post请求返回JsonNode方便处理
+     * @see controllers.UserCtrl#loginSubmit 调用参考
+     * @param gzip 是否使用gzip压缩数据传输方式
+     * @param auth 是否需要校验用户有未登录
+     * @param url 请求地址
+     * @param requestBody 需要提交表单的数据
+     * @return JsonNode
+     */
+    public CompletionStage<JsonNode> postReqReturnMsg(Boolean gzip, Boolean auth, String url, RequestBody requestBody) {
+        return sendReq(gzip, auth, url, requestBody);
 
     }
-    @Security.Authenticated(UserAuth.class)
-    private F.Promise<Result> sendReq(String url,RequestBody requestBody){
-        F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
-            Request.Builder builder = (Request.Builder) ctx().args.get("request");
-            Request request =null;
-            if(null==requestBody){
-                request= builder.url(url).get().build();
-            }else{
-                request= builder.url(url).post(requestBody).build();
-            }
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                return Json.parse(new String(response.body().bytes(), UTF_8));
-            } else throw new IOException("Unexpected code " + response);
-        });
-        return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
-            Logger.info(url+"返回---->\n"+json);
+
+    /**
+     * get请求直接返回result,在API接口只返回Message时使用,此时对返回数据不做其它处理时使用
+     * @see controllers.UserCtrl#collectDel 调用参考
+     * @param gzip 是否使用gzip压缩数据传输方式
+     * @param auth 是否需要校验用户有未登录
+     * @param url 请求地址
+     * @return Result
+     */
+    public CompletionStage<Result> getMessageResult(Boolean gzip, Boolean auth, String url){
+        return getReqReturnMsg(gzip,auth,url).thenApply(json -> {
             Message message = Json.fromJson(json.get("message"), Message.class);
-            if (null == message) {
-                Logger.error("返回数据错误json=" + json);
+            if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
+                Logger.error("返回收藏数据错误code=" + (null != message ? message.getCode() : 0));
                 return badRequest();
             }
-            return ok(toJson(message));
-        } );
+            return ok(json);
+        });
+    }
+
+    /**
+     * post请求直接返回result,在API接口只返回Message时使用,此时对返回数据不做其它处理时使用
+     * @see controllers.UserCtrl#addressSave 调用参考
+     * @param gzip 是否使用gzip压缩数据传输方式
+     * @param auth 是否需要校验用户有未登录
+     * @param url 请求地址
+     * @param requestBody 需要提交表单的数据
+     * @return Result
+     */
+    public CompletionStage<Result> postMessageResult(Boolean gzip, Boolean auth, String url, RequestBody requestBody){
+        return postReqReturnMsg(gzip,auth,url, requestBody).thenApply(json -> {
+            Message message = Json.fromJson(json.get("message"), Message.class);
+            if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
+                Logger.error("返回收藏数据错误code=" + (null != message ? message.getCode() : 0));
+                return badRequest();
+            }
+            return ok(json);
+        });
+    }
+
+    private Request.Builder getBuilder(Boolean auth) {
+        if (auth) {
+            return (Request.Builder) ctx().args.get("request");
+        } else {
+            Map<String, String[]> mapString = request().headers();
+            Map<String, String> params = new HashMap<>();
+            if (mapString != null) {
+                mapString.forEach((k, v) -> params.put(k, v[0]));
+            }
+            params.remove("Accept-Encoding");
+            Request.Builder builder = new Request.Builder();
+            params.forEach(builder::addHeader);
+            if (session().containsKey("id-token")) {
+                builder.addHeader("id-token", session().get("id-token"));
+            }
+            return builder;
+        }
+    }
+
+    private CompletionStage<JsonNode> sendReq(Boolean gzip, Boolean auth, String url, RequestBody requestBody) {
+        Request.Builder builder = getBuilder(auth);
+        if (gzip) builder.addHeader("Accept-Encoding", "gzip");
+        return CompletableFuture.supplyAsync(() -> {
+            Request request = null;
+            if (null == requestBody) {
+                request = builder.url(url).get().build();
+            } else {
+                request = builder.url(url).post(requestBody).build();
+            }
+            try {
+                Response response  = client.newCall(request).execute();
+                client.setConnectTimeout(10, TimeUnit.SECONDS);
+                if (response.isSuccessful()) {
+                    String result = dealToString(response);
+                    Logger.debug("打印返回结果数据------->" + result);
+                    if (result != null) {
+                        return Json.parse(result);
+                    } else throw new IOException("Unexpected code" + response);
+                } else throw new IOException("Unexpected code " + response);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+        });
     }
 
 }

@@ -10,8 +10,6 @@ import com.squareup.okhttp.Response;
 import domain.*;
 import filters.UserAuth;
 import play.Logger;
-import play.data.Form;
-import play.libs.F;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -23,6 +21,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static modules.SysParCom.*;
@@ -36,19 +36,27 @@ public class ShoppingCtrl extends Controller {
     @Inject
     ComCtrl comCtrl;
 
+    @Inject
+    play.data.FormFactory formFactory;
+
     //全部订单
     @Security.Authenticated(UserAuth.class)
-    public F.Promise<Result>  all(Long id) {
-        play.libs.F.Promise<JsonNode > promiseOfInt = play.libs.F.Promise.promise(() -> {
+    public CompletionStage<Result> all(Long id) {
+        CompletionStage<JsonNode> promiseOfInt = CompletableFuture.supplyAsync(() -> {
             Request.Builder builder =(Request.Builder)ctx().args.get("request");
             Request request=builder.url(ORDER_PAGE+id).get().build();
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()){
-                return Json.parse(new String(response.body().bytes(), UTF_8));
-            }else  throw new IOException("Unexpected code " + response);
+            try {
+                Response response =  client.newCall(request).execute();
+                if (response.isSuccessful()){
+                    return Json.parse(new String(response.body().bytes(), UTF_8));
+                }else  throw new IOException("Unexpected code " + response);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
         });
 
-        return promiseOfInt.map((play.libs.F.Function<JsonNode , Result>) json -> {
+        return promiseOfInt.thenApply(json -> {
             Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if(null==message||message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
@@ -56,7 +64,12 @@ public class ShoppingCtrl extends Controller {
                 return badRequest();
             }
             ObjectMapper mapper = new ObjectMapper();
-            List<OrderDTO> orderList = mapper.readValue(json.get("orderList").toString(), new TypeReference<List<OrderDTO>>() {});
+            List<OrderDTO> orderList = null;
+            try {
+                orderList = mapper.readValue(json.get("orderList").toString(), new TypeReference<List<OrderDTO>>() {});
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             if(null!=orderList&&!orderList.isEmpty()){
                 for(OrderDTO orderDTO:orderList){
                     for(CartSkuDto sku:orderDTO.getSku()){
@@ -89,27 +102,32 @@ public class ShoppingCtrl extends Controller {
      * @return page
      */
     @Security.Authenticated(UserAuth.class)
-    public F.Promise<Result> cart() {
+    public CompletionStage<Result> cart() {
 
-        F.Promise<JsonNode> promise = F.Promise.promise(() -> {
+        CompletionStage<JsonNode> promise = CompletableFuture.supplyAsync(() -> {
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
             Request request = builder.url(SHOPPING_LIST).get().build();
 
             //数据量过大情况下,可以加上这一句
 //            builder.addHeader("Accept-Encoding","gzip");
 
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                String result = dealToString(response);
-                if(result!=null){
-                    JsonNode json = Json.parse(result);
-                    Logger.info("===json==\n" + json);
-                    return json;
+            try {
+                Response response   = client.newCall(request).execute();
+                if (response.isSuccessful()) {
+                    String result = dealToString(response);
+                    if(result!=null){
+                        JsonNode json = Json.parse(result);
+                        Logger.info("===json==\n" + json);
+                        return json;
+                    } else throw new IOException("Unexpected code " + response);
                 } else throw new IOException("Unexpected code " + response);
-            } else throw new IOException("Unexpected code " + response);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
         });
 
-        return promise.map(json -> {
+        return promise.thenApply(json -> {
 
                     String path = routes.ProductsCtrl.index().url();
                     if (session().containsKey("path")) {
@@ -134,6 +152,32 @@ public class ShoppingCtrl extends Controller {
     }
 
     /**
+     * 添加商品到购物车
+     * @return
+     */
+    public CompletionStage<Result> addToCart(){
+        CompletionStage<JsonNode> promise = CompletableFuture.supplyAsync(() -> {
+            Request.Builder builder = (Request.Builder) ctx().args.get("request");
+            Request request = builder.url(SHOPPING_LIST).get().build();
+            try {
+                Response response = client.newCall(request).execute();
+                if (response.isSuccessful()) {
+                    JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
+                    Logger.info("===json==\n" + json);
+                    return json;
+                } else throw new IOException("Unexpected code " + response);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+
+        });
+
+        return promise.thenApply( json -> null
+        );
+    }
+
+    /**
      * 空购物车页面
      *
      * @return page
@@ -145,13 +189,6 @@ public class ShoppingCtrl extends Controller {
             session().replace("path", routes.ShoppingCtrl.emptyCart().url());
         }else session().put("path", routes.ShoppingCtrl.cart().url());
         return ok(views.html.shopping.cartempty.render(path));
-    }
-
-
-    public Result addToCart(){
-
-        return ok("AAA");
-
     }
 
 
@@ -183,10 +220,10 @@ public class ShoppingCtrl extends Controller {
      * @return
      */
     @Security.Authenticated(UserAuth.class)
-    public F.Promise<Result> settle() {
+    public CompletionStage<Result> settle() {
         ObjectNode result = Json.newObject();
-        Logger.info("==settle data="+Form.form().bindFromRequest().data());
-        Map<String, String> settleMap = Form.form().bindFromRequest().data();
+        Logger.info("==settle data="+formFactory.form().bindFromRequest().data());
+        Map<String, String> settleMap = formFactory.form().bindFromRequest().data();
         Integer buyNow=Integer.valueOf(settleMap.get("buyNow"));//1－立即支付 2-购物车结算
         Map<String,Object> object=new HashMap<>();
 
@@ -263,7 +300,7 @@ public class ShoppingCtrl extends Controller {
         if(settleDTOs.size()<=0){
             Logger.error("商品结算无商品"+Json.toJson(settleMap));
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
-            return F.Promise.promise((F.Function0<Result>) () -> ok(result));
+            return CompletableFuture.supplyAsync( () -> ok(result));
         }
 
         object.put("settleDTOs",settleDTOs);
@@ -296,16 +333,22 @@ public class ShoppingCtrl extends Controller {
 
 
         RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, toJson(object).toString());
-        F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
+        CompletionStage<JsonNode> promiseOfInt = CompletableFuture.supplyAsync(() -> {
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
             Request request = builder.url(SHOPPING_SETTLE).post(formBody).build();
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                return Json.parse(new String(response.body().bytes(), UTF_8));
-            } else throw new IOException("Unexpected code" + response);
+            try {
+                Response response  = client.newCall(request).execute();
+                if (response.isSuccessful()) {
+                    return Json.parse(new String(response.body().bytes(), UTF_8));
+                } else throw new IOException("Unexpected code" + response);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+
         });
         final Long finalPinActiveId = pinActiveId;
-        return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
+        return promiseOfInt.thenApply(json -> {
             Logger.info("==settle=json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message||message.getCode()!=200) {
@@ -333,17 +376,24 @@ public class ShoppingCtrl extends Controller {
      * @return
      */
     @Security.Authenticated(UserAuth.class)
-    public F.Promise<Result>  cancelOrder(Long id) {
-        play.libs.F.Promise<JsonNode > promiseOfInt = play.libs.F.Promise.promise(() -> {
+    public CompletionStage<Result>  cancelOrder(Long id) {
+        CompletionStage<JsonNode> promiseOfInt = CompletableFuture.supplyAsync(() -> {
             Request.Builder builder =(Request.Builder)ctx().args.get("request");
             Request request=builder.url(ORDER_CANCEL+id).get().build();
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()){
-                return Json.parse(new String(response.body().bytes(), UTF_8));
-            }else  throw new IOException("Unexpected code " + response);
+            Response response = null;
+            try {
+                response = client.newCall(request).execute();
+                if (response.isSuccessful()){
+                    return Json.parse(new String(response.body().bytes(), UTF_8));
+                }else  throw new IOException("Unexpected code " + response);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+
         });
 
-        return promiseOfInt.map((play.libs.F.Function<JsonNode , Result>) json -> {
+        return promiseOfInt.thenApply( json -> {
                     Message message = Json.fromJson(json.get("message"), Message.class);
                     if(null==message){
                         return badRequest();
@@ -358,16 +408,21 @@ public class ShoppingCtrl extends Controller {
      * @return
      */
     @Security.Authenticated(UserAuth.class)
-    public F.Promise<Result>  delOrder(Long id) {
-        play.libs.F.Promise<JsonNode > promiseOfInt = play.libs.F.Promise.promise(() -> {
+    public CompletionStage<Result>  delOrder(Long id) {
+        CompletionStage<JsonNode> promiseOfInt = CompletableFuture.supplyAsync(() -> {
             Request.Builder builder =(Request.Builder)ctx().args.get("request");
             Request request=builder.url(ORDER_DEL+id).get().build();
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()){
-                return Json.parse(new String(response.body().bytes(), UTF_8));
-            }else  throw new IOException("Unexpected code " + response);
+            try {
+                Response response = client.newCall(request).execute();
+                if (response.isSuccessful()){
+                    return Json.parse(new String(response.body().bytes(), UTF_8));
+                }else  throw new IOException("Unexpected code " + response);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
         });
-        return promiseOfInt.map((play.libs.F.Function<JsonNode , Result>) json -> {
+        return promiseOfInt.thenApply( json -> {
             Message message = Json.fromJson(json.get("message"), Message.class);
             if(null==message){
                 return badRequest();
@@ -381,7 +436,7 @@ public class ShoppingCtrl extends Controller {
      * @return
      */
     @Security.Authenticated(UserAuth.class)
-    public F.Promise<Result>  verifyOrder(Long orderId) {
+    public CompletionStage<Result>  verifyOrder(Long orderId) {
         return comCtrl.getReqReturnMsg(ORDER_VERIFY+orderId);
     }
 
@@ -390,10 +445,10 @@ public class ShoppingCtrl extends Controller {
      * @return
      */
     @Security.Authenticated(UserAuth.class)
-    public F.Promise<Result>  submitOrder() {
+    public CompletionStage<Result>  submitOrder() {
         ObjectNode result = Json.newObject();
-        Logger.info("==="+Form.form().bindFromRequest().data());
-        Map<String, String> settleMap = Form.form().bindFromRequest().data();
+        Logger.info("==="+formFactory.form().bindFromRequest().data());
+        Map<String, String> settleMap = formFactory.form().bindFromRequest().data();
         Map<String,Object> object=new HashMap<>();
         List<SettleDTO> settleDTOs=new ArrayList<SettleDTO>();
         Integer areaNum=Integer.valueOf(settleMap.get("areaNum"));
@@ -426,7 +481,7 @@ public class ShoppingCtrl extends Controller {
         if(settleDTOs.size()<=0){
             Logger.error("订单提交无商品"+Json.toJson(settleMap));
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
-            return F.Promise.promise((F.Function0<Result>) () -> ok(result));
+            return CompletableFuture.supplyAsync( () -> ok(result));
         }
 
         object.put("addressId",Long.valueOf(settleMap.get("addressId")));//地址id
@@ -439,17 +494,22 @@ public class ShoppingCtrl extends Controller {
         Long pinActiveId=Long.valueOf(settleMap.get("pinActiveId"));
         object.put("pinActiveId",pinActiveId); //拼购活动id
 
-        F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
+        CompletionStage<JsonNode> promiseOfInt = CompletableFuture.supplyAsync(() -> {
             RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, toJson(object).toString());
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
             Request request = builder.url(ORDER_SUBMIT).post(formBody).build();
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                return Json.parse(new String(response.body().bytes(), UTF_8));
-            } else throw new IOException("Unexpected code" + response);
+            try {
+                Response response = client.newCall(request).execute();
+                if (response.isSuccessful()) {
+                    return Json.parse(new String(response.body().bytes(), UTF_8));
+                } else throw new IOException("Unexpected code" + response);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
         });
 
-        return promiseOfInt.map(json -> {
+        return promiseOfInt.thenApply(json -> {
 //            Logger.info("==settle=json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
@@ -468,7 +528,7 @@ public class ShoppingCtrl extends Controller {
      * @return
      */
     @Security.Authenticated(UserAuth.class)
-    public F.Promise<Result>  cartAdd(){
+    public CompletionStage<Result>  cartAdd(){
 
         RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, new String(""));
         return comCtrl.postReqReturnMsg(CART_ADD,formBody);
@@ -480,7 +540,7 @@ public class ShoppingCtrl extends Controller {
      * @return
      */
     @Security.Authenticated(UserAuth.class)
-    public F.Promise<Result>  cartDel(Long cartId){
+    public CompletionStage<Result>  cartDel(Long cartId){
         return comCtrl.getReqReturnMsg(CART_DEL+cartId);
     }
 

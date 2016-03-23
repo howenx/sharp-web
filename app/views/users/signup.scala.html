@@ -35,7 +35,7 @@
     <meta name="msapplication-tap-highlight" content="no">
     <title>注册</title>
     <link rel="stylesheet" href="/assets/stylesheets/login.css">
-    <link rel="stylesheet" href="/assets/stylesheets/regist.css">
+    <link rel="stylesheet" href="/assets/stylesheets/signup.css">
     <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
 
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
@@ -209,7 +209,7 @@
             else {
                 console.log($('form#cell_regForm').serialize());
                 $.ajax({
-                    url: "/regist/submit",
+                    url: "/signup/submit",
                     dataType: 'json',
                     data: $('form#cell_regForm').serialize(),
                     type: 'POST',

@@ -43,9 +43,7 @@ GET         /means                                    controllers.UserCtrl.means
 POST        /nickname                                 controllers.UserCtrl.nickname()
 POST        /user/update                              controllers.UserCtrl.userUpdate()
 
-GET         /means                                    controllers.UserCtrl.means()
-POST        /nickname                                 controllers.UserCtrl.nickname()
-POST        /user/update                              controllers.UserCtrl.userUpdate()
+
 GET         /logout                                   controllers.UserCtrl.logout()
 
 
@@ -59,6 +57,9 @@ GET         /pinInstruction                           controllers.ProductsCtrl.p
 GET         /pinTieredPrice/*url                      controllers.ProductsCtrl.pinTieredPrice(url)
 
 
+#test
+GET         /message                                  controllers.UserCtrl.message
+
 
 
 
@@ -68,22 +69,6 @@ GET         /pinTieredPrice/*url                      controllers.ProductsCtrl.p
 
 
 #购物车,结算,订单,拼购相关
-GET         /all                                      controllers.ShoppingCtrl.all(orderId: Long ?= 0L)
-GET         /all/$orderId<[0-9]+>                     controllers.ShoppingCtrl.all(orderId: Long)
-GET         /appraise                                 controllers.ShoppingCtrl.appraise()
-GET         /assess                                   controllers.ShoppingCtrl.assess()
-GET         /delivered                                controllers.ShoppingCtrl.delivered()
-GET         /drawback                                 controllers.ShoppingCtrl.drawback()
-GET         /logistic                                 controllers.ShoppingCtrl.logistic()
-GET         /obligati                                 controllers.ShoppingCtrl.obligati()
-GET         /orders                                   controllers.ShoppingCtrl.orders()
-POST        /settle                                   controllers.ShoppingCtrl.settle()
-GET         /cart                                     controllers.ShoppingCtrl.cart()
-GET         /cart/empty                               controllers.ShoppingCtrl.emptyCart()
-GET         /order/cancel/$orderId<[0-9]+>            controllers.ShoppingCtrl.cancelOrder(orderId:Long)
-GET         /order/del/$orderId<[0-9]+>               controllers.ShoppingCtrl.delOrder(orderId:Long)
-GET         /order/verify/$orderId<[0-9]+>            controllers.ShoppingCtrl.verifyOrder(orderId:Long)
-POST        /order/submit                             controllers.ShoppingCtrl.submitOrder()
 
 
 GET         /all                                      controllers.ShoppingCtrl.all(orderId: Long ?= 0L)
@@ -98,7 +83,6 @@ GET         /orders                                   controllers.ShoppingCtrl.o
 POST        /settle                                   controllers.ShoppingCtrl.settle()
 GET         /cart                                     controllers.ShoppingCtrl.cart()
 GET         /cart/empty                               controllers.ShoppingCtrl.emptyCart()
-POST        /cart/add                                 controllers.ShoppingCtrl.addToCart()
 GET         /order/cancel/$orderId<[0-9]+>            controllers.ShoppingCtrl.cancelOrder(orderId:Long)
 GET         /order/del/$orderId<[0-9]+>               controllers.ShoppingCtrl.delOrder(orderId:Long)
 GET         /order/verify/$orderId<[0-9]+>            controllers.ShoppingCtrl.verifyOrder(orderId:Long)
@@ -109,7 +93,7 @@ GET         /cart/del/$cartId<[0-9]+>                 controllers.ShoppingCtrl.c
 
 
 
-GET         /cash/$orderId<[0-9]+>           controllers.JDCtrl.cashDesk(orderId:Long)
+GET         /cash/$orderId<[0-9]+>                    controllers.JDCtrl.cashDesk(orderId:Long)
 
 
 

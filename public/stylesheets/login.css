@@ -363,14 +363,14 @@ input[type=checkbox]{
 .user-login-box .panel-forms .controls {
     margin-left: 45px;
 }
-.panel-forms .uneditable-input, .panel-forms input[type=color], .panel-forms input[type=date], .panel-forms input[type=datetime-local], .panel-forms input[type=datetime], .panel-forms input[type=email], .panel-forms input[type=month], .panel-forms input[type=number], .panel-forms input[type=resetPasswd], .panel-forms input[type=search], .panel-forms input[type=tel], .panel-forms input[type=text], .panel-forms input[type=time], .panel-forms input[type=url], .panel-forms input[type=week], .panel-forms select, .panel-forms textarea {
+.panel-forms .uneditable-input, .panel-forms input[type=color], .panel-forms input[type=date], .panel-forms input[type=datetime-local], .panel-forms input[type=datetime], .panel-forms input[type=email], .panel-forms input[type=month], .panel-forms input[type=number], .panel-forms input[type=resetpassword], .panel-forms input[type=search], .panel-forms input[type=tel], .panel-forms input[type=text], .panel-forms input[type=time], .panel-forms input[type=url], .panel-forms input[type=week], .panel-forms select, .panel-forms textarea {
     width: 100%;
     border: none;
     box-shadow: none;
     -moz-box-shadow: none;
     background: 0 0;
 }
-.form .uneditable-input, .form input[type=color], .form input[type=date], .form input[type=datetime-local], .form input[type=datetime], .form input[type=email], .form input[type=month], .form input[type=number], .form input[type=resetPasswd], .form input[type=search], .form input[type=tel], .form input[type=text], .form input[type=time], .form input[type=url], .form input[type=week], .form select, .form textarea {
+.form .uneditable-input, .form input[type=color], .form input[type=date], .form input[type=datetime-local], .form input[type=datetime], .form input[type=email], .form input[type=month], .form input[type=number], .form input[type=resetpassword], .form input[type=search], .form input[type=tel], .form input[type=text], .form input[type=time], .form input[type=url], .form input[type=week], .form select, .form textarea {
     display: inline-block;
     height: 20px;
     padding: 4px 6px;

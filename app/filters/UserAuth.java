@@ -1,22 +1,20 @@
 package filters;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.squareup.okhttp.Headers;
 import com.squareup.okhttp.Request;
 import controllers.UserCtrl;
 import net.spy.memcached.MemcachedClient;
-import org.jboss.netty.channel.ChannelHandlerContext;
 import play.Logger;
-import play.api.data.OptionalMapping;
-import play.cache.Cache;
+import play.cache.CacheApi;
 import play.libs.Json;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
-import scala.Array;
 
 import javax.inject.Inject;
-import java.util.*;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
 
 /**
  * 用户校验
@@ -26,6 +24,8 @@ public class UserAuth extends Security.Authenticator {
 
     @Inject
     private MemcachedClient cache;
+
+    @Inject private CacheApi cacheApi;
 
     @Override
     public String getUsername(Http.Context ctx) {
@@ -61,16 +61,15 @@ public class UserAuth extends Security.Authenticator {
                 Optional<String> user_token = Optional.ofNullable(ctx.request().cookies().get("user_token").value());
                 Optional<String> session_id = Optional.ofNullable(ctx.request().cookies().get("session_id").value());
                 if (user_token.isPresent() && session_id.isPresent()) {
-                    Optional<String> cache_session_id = Optional.ofNullable(Cache.get(session_id.get()).toString());
+                    Optional<String> cache_session_id = Optional.ofNullable(cacheApi.get(session_id.get()).toString());
                     if (cache_session_id.isPresent() && cache_session_id.get().equals(user_token.get())) {
                         Optional<String> token = Optional.ofNullable(cache.get(user_token.get()).toString());
                         if (token.isPresent()) {
                             String session_id_new = UUID.randomUUID().toString().replaceAll("-", "");
-                            Cache.remove(session_id.get());
-                            Cache.set(session_id_new, token.get(), 7 * 24 * 60 * 60);
+                            cacheApi.remove(session_id.get());
+                            cacheApi.set(session_id_new, token.get(), 7 * 24 * 60 * 60);
                             ctx.response().discardCookie("session_id");
-                            ctx.response().setCookie("session_id", session_id_new, 7 * 24 * 60 * 60);
-
+                            ctx.response().setCookie(Http.Cookie.builder("session_id", session_id_new).withMaxAge(7 * 24 * 60 * 60).build());
                             JsonNode userJson = Json.parse(token.get());
                             Long userId = userJson.findValue("id").asLong();
                             ctx.session().put("id-token", token.get());
