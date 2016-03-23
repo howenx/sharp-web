@@ -67,16 +67,21 @@ public class UserCtrl extends Controller {
         });
 
         return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-            Logger.error("返回---->\n" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
-            if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
+            if (null == message || (Message.ErrorCode.SUCCESS.getIndex() != message.getCode() && Message.ErrorCode.DATABASE_EXCEPTION.getIndex() != message.getCode())) {
                 Logger.error("返回地址数据错误code=" + (null != message ? message.getCode() : 0));
                 return badRequest();
             }
-            ObjectMapper mapper = new ObjectMapper();
-            List<Address> addressList = mapper.readValue(json.get("address").toString(), new TypeReference<List<Address>>() {
-            });
-            return ok(views.html.users.address.render(addressList));
+            //空地址列表
+            if (Message.ErrorCode.DATABASE_EXCEPTION.getIndex() == message.getCode()) {
+                return ok(views.html.users.addressempty.render());
+            } else if (Message.ErrorCode.SUCCESS.getIndex() == message.getCode()) {
+                //地址列表
+                ObjectMapper mapper = new ObjectMapper();
+                List<Address> addressList = mapper.readValue(json.get("address").toString(), new TypeReference<List<Address>>() {
+                });
+                return ok(views.html.users.address.render(addressList));
+            } else return badRequest(views.html.error500.render());
         });
     }
 
@@ -352,7 +357,7 @@ public class UserCtrl extends Controller {
     public F.Promise<Result> submitCollect(){
         ObjectNode result = newObject();
         Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
-            RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, new String(request().body().asJson().toString()));
+            RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, request().body().asJson().toString());
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
             Request request = builder.url(COLLECT_SUBMIT).post(formBody).build();
             Response response = client.newCall(request).execute();
