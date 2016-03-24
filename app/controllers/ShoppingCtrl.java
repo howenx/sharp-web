@@ -203,6 +203,7 @@ public class ShoppingCtrl extends Controller {
         ObjectNode result = Json.newObject();
         Logger.info("==settle data="+Form.form().bindFromRequest().data());
         Map<String, String> settleMap = Form.form().bindFromRequest().data();
+        Logger.error(settleMap.toString());
         Integer buyNow=Integer.valueOf(settleMap.get("buyNow"));//1－立即支付 2-购物车结算
         Map<String,Object> object=new HashMap<>();
 

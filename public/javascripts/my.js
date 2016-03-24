@@ -10,6 +10,7 @@ $(function(){
                 var idCardNum=$("#idCardNum").val(); //
                 var deliveryDetail=$("#deliveryDetail").val();
                 var province=$("#province").val();
+                var selId = $("#selId").val();
 
                 if (name.length>15||name.length<2 ||!zszReg.test(name)) {
                     $('#js-userinfo-error').text('姓名只能是中文/数字/字母').show();
@@ -37,7 +38,13 @@ $(function(){
                             success: function(data) {
                                 console.log("data="+data+"==="+data.code);
                                 if (data!=""&&data!=null&&data.code==200) {
-                                    setTimeout("location.href='/address'", 2000);
+                                    setTimeout("location.href='/address/"+Number(selId)+"'", 1000);
+//                                    var url = '/address';
+//                                    var form = $('<form action="' + url + '" method="post">' +
+//                                    '<input type="hidden" name="selId" value="'+selId+''" />' +
+//                                    '</form>');
+//                                    $('body').append(form);
+//                                    form.submit();
                                 }
 
                             }
@@ -161,11 +168,10 @@ function delAddress(addId,orDefault){
                       alert("删除失败!");
                   },
                   success: function(data) {
-                     console.log("data="+data);
+                     console.log(data);
                          if (data!=""&&data!=null&&data.code==200){ //删除地址成功
                           $("#li"+addId).remove();
                        } else alert("删除失败!");
-
                   }
              });
     }

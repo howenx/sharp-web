@@ -55,7 +55,12 @@ public class UserCtrl extends Controller {
 
     //收货地址
     @Security.Authenticated(UserAuth.class)
-    public F.Promise<Result> address() {
+    public F.Promise<Result> address(Long selId) {
+//        Form<Address> addressForm = Form.form(Address.class).bindFromRequest();
+//        Map<String, String> addMap = addressForm.data();
+//        Long selId = Long.parseLong(addMap.get("selId"));
+//        Logger.error("selId:"+selId);
+
         Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
             Request request = builder.url(ADDRESS_PAGE).get().build();
@@ -67,6 +72,12 @@ public class UserCtrl extends Controller {
         });
 
         return promiseOfInt.map((Function<JsonNode, Result>) json -> {
+            String path = routes.UserCtrl.myView().url();
+            if (session().containsKey("path")) {
+                //path = session().get("path");
+                session().replace("path", routes.UserCtrl.address(selId).url());
+            }else session().put("path", routes.UserCtrl.address(selId).url());
+
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message || (Message.ErrorCode.SUCCESS.getIndex() != message.getCode() && Message.ErrorCode.DATABASE_EXCEPTION.getIndex() != message.getCode())) {
                 Logger.error("返回地址数据错误code=" + (null != message ? message.getCode() : 0));
@@ -74,20 +85,30 @@ public class UserCtrl extends Controller {
             }
             //空地址列表
             if (Message.ErrorCode.DATABASE_EXCEPTION.getIndex() == message.getCode()) {
-                return ok(views.html.users.addressempty.render());
+                return ok(views.html.users.addressempty.render(path));
             } else if (Message.ErrorCode.SUCCESS.getIndex() == message.getCode()) {
                 //地址列表
                 ObjectMapper mapper = new ObjectMapper();
                 List<Address> addressList = mapper.readValue(json.get("address").toString(), new TypeReference<List<Address>>() {
                 });
-                return ok(views.html.users.address.render(addressList));
+                return ok(views.html.users.address.render(path,addressList,selId));
             } else return badRequest(views.html.error500.render());
         });
     }
 
-    //创建新的收货地址
-    public Result addressnew() {
-        return ok(views.html.users.addressnew.render());
+
+    /**
+     * 创建新的收货地址
+     *
+     * @return
+     */
+    public Result addressnew(Long selId) {
+        String path = routes.UserCtrl.address(selId).url();
+        if (session().containsKey("path")) {
+            //path = session().get("path");
+            session().replace("path", routes.UserCtrl.addressnew(selId).url());
+        }else session().put("path", routes.UserCtrl.addressnew(selId).url());
+        return ok(views.html.users.addressnew.render(path, selId));
     }
 
     //创建新的收货地址
@@ -128,7 +149,7 @@ public class UserCtrl extends Controller {
 
 
             Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
-                RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, new String(object.toString()));
+                RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, object.toString());
                 Request.Builder builder = (Request.Builder) ctx().args.get("request");
                 Request request = builder.url(addId > 0 ? ADDRESS_UPDATE : ADDRESS_ADD).post(formBody).build();
                 Response response = client.newCall(request).execute();
@@ -155,7 +176,8 @@ public class UserCtrl extends Controller {
      * @return
      */
     @Security.Authenticated(UserAuth.class)
-    public F.Promise<Result> addressUpdate(Long addId) {
+    public F.Promise<Result> addressUpdate(Long addId, Long selId) {
+
         Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
             Request request = builder.url(ADDRESS_PAGE).get().build();
@@ -166,6 +188,12 @@ public class UserCtrl extends Controller {
         });
 
         return promiseOfInt.map((Function<JsonNode, Result>) json -> {
+            String path = routes.UserCtrl.address(addId).url();
+            if (session().containsKey("path")) {
+                //path = session().get("path");
+                session().replace("path", routes.UserCtrl.addressUpdate(addId, selId).url());
+            }else session().put("path", routes.UserCtrl.addressUpdate(addId, selId).url());
+
             Logger.error("返回---->\n" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
@@ -177,7 +205,7 @@ public class UserCtrl extends Controller {
             });
             for (Address address : addressList) {
                 if (address.getAddId() == addId.longValue()) {
-                    return ok(views.html.users.addressupdate.render(address));
+                    return ok(views.html.users.addressupdate.render(path,address,selId));
                 }
             }
             return badRequest();
