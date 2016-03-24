@@ -261,5 +261,18 @@ function delCart(cartId){
     }
 };
 
+//去结算
+$(document).on("click",".settleBtn",function(){
+
+     if($("input:checkbox[name=check_item]:checked").length<=0){
+        alert("请选择商品");
+        return;
+     }
+
+    //提交表单
+    $("#settleForm").submit();
+
+});
+
 
 

@@ -26,6 +26,7 @@ import java.util.Map;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static modules.SysParCom.*;
+import static play.libs.Json.fromJson;
 import static play.libs.Json.toJson;
 import static util.GZipper.dealToString;
 /**
@@ -474,10 +475,17 @@ public class ShoppingCtrl extends Controller {
                 Logger.error("返回商品结算数据错误code=" + json);
                 return badRequest();
             }
-            Long orderId=json.get("orderId").asLong();
- //           String url=PAY_ORDER+orderId;
+   //         Long orderId=json.get("orderId").asLong();
+ ///          String url=PAY_ORDER+orderId;
+            ObjectNode objectNode = Json.newObject();
+            objectNode.put("id-token",session().get("id-token")); //TODO...
+            objectNode.putPOJO("message",message);
+            if(json.has("orderId")){
+                objectNode.put("orderId",json.get("orderId").asLong());
+            }
+            Logger.error("===提交订单===="+toJson(objectNode));
 
-            return ok(json);
+            return ok(toJson(objectNode));
         });
     }
 

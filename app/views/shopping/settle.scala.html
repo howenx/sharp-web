@@ -191,5 +191,10 @@
 
 <input type="hidden" id="tempTotal" value="@settle.getTotalPayFee()"/>
 
+<form id="payForm" action="//pay/order/get" method="POST">
+    <input type="hidden" id="orderId" value="0"/>
+    <input type="hidden" id="id-token" value=""/>
+</form>
+
 </body>
 </html>
