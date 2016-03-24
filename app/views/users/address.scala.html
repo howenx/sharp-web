@@ -1,4 +1,4 @@
-@(addressList:List[domain.Address])
+@(path:String, addressList:List[domain.Address], selId:Long)
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -15,7 +15,7 @@
 
 <body>
 <header class="head">
-    <a href="/myView" class="back">
+    <a href="@path" class="back">
         <i></i>
         <b></b>
     </a>
@@ -27,6 +27,9 @@
         @for(address<-addressList){
         <li id="li@address.getAddId()" class="ul-box-li clearfix">
             <div class="address">
+                @if(selId!=1 && selId==address.getAddId()) {
+                <input type="radio" checked="checked">
+                }
                 <a href="javascript:;">
                     <p><i class="add-icon"></i><span>姓名:</span><span>@address.getName()</span>
                         @if(address.getOrDefault()==true){
@@ -39,21 +42,64 @@
                 </a>
 
                 <div class="alter clearfix">
+                    @if(selId==1) {
                     <a href="javascript:;" class="alter-btn color" onclick="delAddress(@address.getAddId(),@address.getOrDefault())">删除</a>
-                    <a href="/address/update/@address.getAddId()" class="color">修改</a>
+                    }
+                    <a id="@address.getAddId()" href="/address/update/@address.getAddId()/@selId" class="color addup">修改</a>
                 </div>
             </div>
         </li>
         }
     </ul>
+    <input type="hidden" id="selId" value="@selId">
+    <a href="/addressnew/@selId" id="addressnew" class="plus-add bg">新增收货地址</a>
+
 
 
     <a href="/addressnew" class="plus-add bg">新增收货地址</a>
 
-
 </div>
-
-
-
 </body>
 </html>
+
+
+<script>
+
+    var selId = $("#selId");
+
+    //新增收货地址
+    <!--$(document).on("click", "#addressnew", function() {-->
+        <!--var url = '/addressnew';-->
+        <!--var form = $('<form action="' + url + '" method="post">' +-->
+        <!--'<input type="hidden" name="selId" value="'+selId+'" />' +-->
+        <!--'</form>');-->
+        <!--$('body').append(form);-->
+        <!--form.submit();-->
+    <!--});-->
+
+    //修改收货地址
+    <!--$(document).on("click", ".addup", function() {-->
+        <!--var addId = $(this).attr("id");-->
+        <!--var url = '/address/update/'+addId;-->
+        <!--var form = $('<form action="' + url + '" method="post">' +-->
+        <!--'<input type="hidden" name="selId" value="'+selId+'" />' +-->
+        <!--'</form>');-->
+        <!--$('body').append(form);-->
+        <!--form.submit();-->
+    <!--});-->
+
+    //地址可被点击选择
+    $(document).on("click", ".ul-box-li", function() {
+        if (selId!=1) {
+            var liId = $(this).attr("id");
+            var addId = liId.substring(2,liId.length);
+
+        }
+    });
+
+
+
+
+
+
+</script>

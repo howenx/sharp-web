@@ -1,4 +1,4 @@
-
+@(path:String, selId:Long)
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,7 +17,7 @@
 </head>
 <body>
 <header class="head">
-    <a href="/address" class="back">
+    <a href="@path" class="back">
         <i></i>
         <b></b>
     </a>
@@ -68,6 +68,7 @@
         </div>
 
     </form>
+    <input type="hidden" id="selId" value="@selId">
     <button class="plus-add bg" id="addAddressBtn">添加</button>
 
 </div>

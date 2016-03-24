@@ -170,6 +170,42 @@ $(function() {
             }
     });
 
+    //加入购物车
+    $(document).on("click",".add_cart_large",function(){
+        var cartId = 0;
+        var amount = 1;
+        var state = $(".item.now").find("#skuId").val();
+        var skuId=$(".item.now").find("#skuId").val();
+        var skuType=$(".item.now").find("#skuType").val();
+        var skuTypeId=$(".item.now").find("#skuTypeId").val();
+        var obj=new Object();
+        obj.skuId=skuId; //sku id
+        obj.skuType=skuType;//商品类型 1.vary,2.item,3.customize,4.pin
+        obj.skuTypeId=skuTypeId;//商品类型所对应的ID
+
+        $.ajax({
+                type: 'POST',
+                url: "/cart/add",
+                contentType: "application/json; charset=utf-8",
+                data : JSON.stringify(obj),
+                error:function(request) {
+                },
+                success: function(data) {
+                    if (data!=""&&data!=null&&data.collectId>0) {
+                        console.log(data.collectId);
+                    }else{
+                    }
+                }
+        });
+
+    })
+
+
+
+
+
+
+
 
 
 //    弹出
@@ -212,7 +248,7 @@ $(document).on("click",".btnCart",function(){
             console.log("data="+data);
             if (data!=""&&data!=null){
                 if(data.code==200) { //成功
-
+                    addCartEffect(); //加入购物车特效
                 }else{
                      alert("加入购物车失败code="+data.code+","+data.message);
                 }
@@ -224,4 +260,32 @@ $(document).on("click",".btnCart",function(){
     });
 
 });
+//加入购物车效果
+function addCartEffect(){
+// 元素以及其他一些变量
+	var eleFlyElement = document.querySelector("#flyItem"), eleShopCart = document.querySelector("#shopCart");
+	// 抛物线运动
+	var myParabola = funParabola(eleFlyElement, eleShopCart, {
+		speed:30, //抛物线速度
+		curvature: 0.0090, //控制抛物线弧度
+		complete: function() {
+			eleFlyElement.style.visibility = "hidden";
+			var numberItem = parseInt($("#cartAmountSpan").html());
+			eleShopCart.querySelector("span").innerHTML = ++numberItem;
+		}
+	});
+
+	var src = $(this).parents(".cycle-slideshow").find('.slide-img').find("img").attr("src");
+    $("#flyItem").find("img").attr("src", src);
+    // 滚动大小
+    var scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft || 0,
+            scrollTop = document.documentElement.scrollTop || document.body.scrollTop || 0;
+    //eleFlyElement.style.left = event.clientX + scrollLeft + "px";
+    //eleFlyElement.style.top = event.clientY + scrollTop + "px";
+    eleFlyElement.style.visibility = "visible";
+    // 需要重定位
+    myParabola.position().move();
+}
+
+
 

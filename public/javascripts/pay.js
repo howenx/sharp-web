@@ -33,8 +33,11 @@ $(function(){
 
 $(document).on("click",".submitOrder",function(){
     var addressId=$("input[name='addressId']").val() ;
+    var orderId=$("#orderId").val();
     if(addressId<=0){
         alert("请填写地址");
+    }else if(orderId>0){
+        alert("请勿重复提交订单");
     }else{
         $.ajax({
             type: 'POST',
@@ -52,8 +55,13 @@ $(document).on("click",".submitOrder",function(){
                 console.log("data="+data);
                 if (data!=""&&data!=null){
                     if(data.message.code==200) {
-                         var url='/pay/order/get/'+data.orderId;
-                         setTimeout("location.href=\'"+url+"\'", 3000);
+                        $("#orderId").val(data.orderId);
+                        $("#id-token").val(data.id-token);
+
+                        // var url='/pay/order/get/'+data.orderId;
+                        // setTimeout("location.href=\'"+url+"\'", 3000);
+                        $("#payForm").submit();
+
                     }else{
                          alert("提交订单失败code="+data.message.code+","+data.message.message);
                     }

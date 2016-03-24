@@ -137,21 +137,23 @@ public class ShoppingCtrl extends Controller {
      * 添加商品到购物车
      * @return
      */
+    @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> addToCart(){
         F.Promise<JsonNode> promise = F.Promise.promise(() -> {
+            RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, request().body().asJson().toString());
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
-            Request request = builder.url(SHOPPING_LIST).get().build();
+            Request request = builder.url(SHOPPING_ADDTOCART).post(formBody).build();
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
-                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
-                Logger.info("===json==\n" + json);
-                return json;
-            } else throw new IOException("Unexpected code " + response);
+                String result = dealToString(response);
+                if (result != null) {
+                    return Json.parse(result);
+                } else throw new IOException("Unexpected code" + response);
+            } else throw new IOException("Unexpected code" + response);
         });
-
         return promise.map((F.Function<JsonNode, Result>) json -> {
-
-                  return null;
+                    Logger.error(json.toString());
+                    return ok("AAAA");
                 }
         );
     }
@@ -203,6 +205,7 @@ public class ShoppingCtrl extends Controller {
         ObjectNode result = Json.newObject();
         Logger.info("==settle data="+Form.form().bindFromRequest().data());
         Map<String, String> settleMap = Form.form().bindFromRequest().data();
+        Logger.error(settleMap.toString());
         Integer buyNow=Integer.valueOf(settleMap.get("buyNow"));//1－立即支付 2-购物车结算
         Map<String,Object> object=new HashMap<>();
 
@@ -472,10 +475,17 @@ public class ShoppingCtrl extends Controller {
                 Logger.error("返回商品结算数据错误code=" + json);
                 return badRequest();
             }
-            Long orderId=json.get("orderId").asLong();
- //           String url=PAY_ORDER+orderId;
+   //         Long orderId=json.get("orderId").asLong();
+ ///          String url=PAY_ORDER+orderId;
+            ObjectNode objectNode = Json.newObject();
+            objectNode.put("id-token",session().get("id-token")); //TODO...
+            objectNode.putPOJO("message",message);
+            if(json.has("orderId")){
+                objectNode.put("orderId",json.get("orderId").asLong());
+            }
+            Logger.error("===提交订单===="+toJson(objectNode));
 
-            return ok(json);
+            return ok(toJson(objectNode));
         });
     }
 
@@ -502,6 +512,32 @@ public class ShoppingCtrl extends Controller {
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result>  cartDel(Long cartId){
         return comCtrl.getReqReturnMsg(CART_DEL+cartId);
+    }
+
+    /**
+     * 购物车数量
+     * @return
+     */
+    @Security.Authenticated(UserAuth.class)
+    public F.Promise<Result>  cartAmount(){
+        F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
+            Request.Builder builder = (Request.Builder) ctx().args.get("request");
+            Request request = builder.url(CART_AMOUNT).get().build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                return Json.parse(new String(response.body().bytes(), UTF_8));
+            } else throw new IOException("Unexpected code" + response);
+        });
+
+        return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
+            Logger.info("==settle=json==" + json);
+            Message message = Json.fromJson(json.get("message"), Message.class);
+            if (null == message) {
+                Logger.error("返回商品结算数据错误code=" + json);
+                return badRequest();
+            }
+            return ok(json);
+        });
     }
 
 }

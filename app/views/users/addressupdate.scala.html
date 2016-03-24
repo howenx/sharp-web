@@ -1,4 +1,4 @@
-@(address:domain.Address)
+@(path:String, address:domain.Address, selId:Long)
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,7 +17,7 @@
 </head>
 <body>
 <header class="head">
-    <a href="/address" class="back">
+    <a href="@path" class="back">
         <i></i>
         <b></b>
     </a>
@@ -71,6 +71,7 @@
             <p>2.身份信息将加密报关，韩秘美将保证您的信息安全。</p>
         </div>
     </form>
+    <input type="hidden" id="selId" value="@selId">
     <button class="plus-add bg" id="addAddressBtn">保存修改</button>
 
 </div>
