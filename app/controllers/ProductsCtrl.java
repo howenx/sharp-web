@@ -32,14 +32,11 @@ public class ProductsCtrl extends Controller {
 
 
     public Request.Builder getBuilder(Http.Request request, Http.Session session) {
-        Map<String, String[]> mapString = request.headers();
-        Map<String, String> params = new HashMap<>();
-        if (mapString != null) {
-            mapString.forEach((k, v) -> params.put(k, v[0]));
-        }
-        params.remove("Accept-Encoding");
+
         Request.Builder builder = new Request.Builder();
-        params.forEach(builder::addHeader);
+        builder.addHeader(Http.HeaderNames.X_FORWARDED_FOR,request.remoteAddress());
+        builder.addHeader(Http.HeaderNames.VIA,request.remoteAddress());
+        builder.addHeader("User-Agent",request.getHeader("User-Agent"));
         if (session.containsKey("id-token")) {
             builder.addHeader("id-token", session.get("id-token"));
         }

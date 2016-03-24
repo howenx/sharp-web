@@ -31,17 +31,11 @@ public class UserAuth extends Security.Authenticator {
     public String getUsername(Http.Context ctx) {
         try {
             Optional<String> header = Optional.ofNullable(ctx.session().get("id-token"));
-            Map<String, String> map =
-                    UserCtrl.mapper.convertValue(scala.collection.JavaConverters.mapAsJavaMapConverter(ctx._requestHeader().headers().toSimpleMap()).asJava(), UserCtrl.mapper.getTypeFactory().constructMapType(Map.class, String.class, String.class));
             Request.Builder builder = new Request.Builder();
-            map.put( "X-Forwarded-For",ctx.request().remoteAddress());
-            map.remove("Accept-Encoding");
-            map.forEach(builder::addHeader);
             builder.addHeader(Http.HeaderNames.X_FORWARDED_FOR,ctx.request().remoteAddress());
             builder.addHeader(Http.HeaderNames.VIA,ctx.request().remoteAddress());
+            builder.addHeader("User-Agent",ctx.request().getHeader("User-Agent"));
 
-            map.forEach(builder::addHeader);
-            
             if (header.isPresent()) {
                 Optional<String> token = Optional.ofNullable(cache.get(header.get()).toString());
                 if (token.isPresent()) {
