@@ -56,8 +56,8 @@ $(document).on("click",".submitOrder",function(){
                 if (data!=""&&data!=null){
                     if(data.message.code==200) {
                         $("#orderId").val(data.orderId);
-                        $("#id-token").val(data.id-token);
-
+                        $("#token").val(data.token);
+                        $("#securityCode").val(data.securityCode);
                         // var url='/pay/order/get/'+data.orderId;
                         // setTimeout("location.href=\'"+url+"\'", 3000);
                         $("#payForm").submit();
