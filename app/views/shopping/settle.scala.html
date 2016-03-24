@@ -57,7 +57,7 @@
             <input type="hidden" name="invAreaNm@index" value="@settleInfo.getInvAreaNm()"/>
             <input type="hidden" name="cartNum@index" value="@settleInfo.getCartInfos().size()"/>
             @for((cartInfo,cartIndex)<-settleInfo.getCartInfos().zipWithIndex){
-            <div>
+            <div class="clearfix one">
                 <h2><i class="picture"> <img src="@cartInfo.getSkuInvImg()" alt="" height="80"/></i>@cartInfo.getSkuTitle()</h2>
                 <div class="goods">
                     <span class="order color">￥@cartInfo.getSkuPrice()</span>
@@ -74,8 +74,7 @@
             }
         </div>
     }
-
-
+    
     <!--配送方式-->
     <div class="fashion">
         <div class="fashion-hd">
@@ -183,7 +182,6 @@
 </div>
     <input type="hidden" name="buyNow" value="@buyNow"/>
     <input type="hidden" name="pinActiveId" value="@pinActiveId"/>
-
 <div class="refer-box">
     <span class="refer-rmb color">合计:￥<span id="totalPaySpan">@settle.getTotalPayFee()</span></span>
     <a href="javascript:;" class="refer bg submitOrder1" onclick="document.getElementById('orderForm').submit();">提交订单</a>
@@ -192,6 +190,11 @@
 </form>
 
 <input type="hidden" id="tempTotal" value="@settle.getTotalPayFee()"/>
+
+<form id="payForm" action="//pay/order/get" method="POST">
+    <input type="hidden" id="orderId" value="0"/>
+    <input type="hidden" id="id-token" value=""/>
+</form>
 
 </body>
 </html>

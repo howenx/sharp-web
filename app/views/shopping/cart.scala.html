@@ -32,6 +32,7 @@
 <div class="cart-goods" id="cart-goods">
     <input type="hidden" name="areaNum" value="@resultVo.getCartList().size()">
     @for((cart,index)<-resultVo.getCartList().zipWithIndex){
+    <div class="areaAndSku">
         <div class="cart-goods-area">
             <div class="check-wrapper">
                 <input type="checkbox" class="areac check" name="check_item" />
@@ -76,16 +77,17 @@
                                     <a href="javascript:;" class="quantity-increase">+</a>
                                     <i class="cart-del-btn" onclick="delCart(@cartInfo.getCartId())"></i>
                                 </div>
+                                <input type="hidden" class="restrictAmount" value="@cartInfo.getRestrictAmount"/>
                             </div>
 
                         </div>
                         <div id="hiddenSku@index-@skuIndex" class="hiddenSku">
-                            <input type="hidden" name="cartId@index-@skuIndex" value="@cartInfo.getCartId()" disabled="disabled"/>
-                            <input type="hidden" name="skuId@index-@skuIndex" value="@cartInfo.getSkuId()" disabled="disabled"/>
-                            <input type="hidden" name="amount@index-@skuIndex" value="@cartInfo.getAmount()" disabled="disabled"/>
-                            <input type="hidden" name="skuType@index-@skuIndex" value="@cartInfo.getSkuType()" disabled="disabled"/>
-                            <input type="hidden" name="skuTypeId@index-@skuIndex" value="@cartInfo.getSkuTypeId()" disabled="disabled"/>
-                            <input type="hidden" name="state@index-@skuIndex" value="@cartInfo.getState()" disabled="disabled"/>
+                            <input type="hidden" name="cartId@index-@skuIndex" value="@cartInfo.getCartId()" disabled="disabled" class="cartId"/>
+                            <input type="hidden" name="skuId@index-@skuIndex" value="@cartInfo.getSkuId()" disabled="disabled" class="skuId"/>
+                            <input type="hidden" name="amount@index-@skuIndex" value="@cartInfo.getAmount()" disabled="disabled" class="amount"/>
+                            <input type="hidden" name="skuType@index-@skuIndex" value="@cartInfo.getSkuType()" disabled="disabled" class="skuType"/>
+                            <input type="hidden" name="skuTypeId@index-@skuIndex" value="@cartInfo.getSkuTypeId()" disabled="disabled" class="skuTypeId"/>
+                            <input type="hidden" name="state@index-@skuIndex" value="@cartInfo.getState()" disabled="disabled" class="state"/>
                             <input type="hidden" name="pinTieredPriceId@index-@skuIndex" value="0" disabled="disabled"/>
                             <input type="hidden" name="skuTitle@index-@skuIndex" value="@cartInfo.getInvTitle()" disabled="disabled"/>
                             <input type="hidden" name="skuInvImg@index-@skuIndex" value="@cartInfo.getInvImg()" disabled="disabled"/>
@@ -95,6 +97,7 @@
                 </li>
             }
         </ul>
+    </div>
     }
 
     <div class="hint">
@@ -117,7 +120,7 @@
                 合计:￥<span class="total" id="total">0.00</span>
             </div>
         </div>
-        <div class="footer-r" id="selected" onclick="document.getElementById('settleForm').submit();">去结算(<span id="selectedTotal">0</span>)</div>
+        <div class="footer-r settleBtn" id="selected">去结算(<span id="selectedTotal">0</span>)</div>
     </div>
 </div>
     <input type="hidden" name="buyNow" value="2"/>
