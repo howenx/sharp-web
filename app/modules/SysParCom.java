@@ -74,6 +74,7 @@ public class SysParCom {
     public static  String ORDER_SUBMIT;//提交订单
     public static  String CART_ADD;//加入购物车
     public static  String CART_DEL;//删除购物车
+    public static  String CART_AMOUNT;//购物车数量
 
     public static  String PAY_ORDER;
 
@@ -144,6 +145,7 @@ public class SysParCom {
         ORDER_SUBMIT=configuration.getString("shopping.order.submit");
         CART_ADD=configuration.getString("shopping.cart.add");
         CART_DEL=configuration.getString("shopping.cart.del");
+        CART_AMOUNT=configuration.getString("services.cart.amount");
 
 
         PAY_ORDER=configuration.getString("shopping.pay.order");

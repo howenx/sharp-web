@@ -99,13 +99,14 @@ GET         /orders                                   controllers.ShoppingCtrl.o
 POST        /settle                                   controllers.ShoppingCtrl.settle()
 GET         /cart                                     controllers.ShoppingCtrl.cart()
 GET         /cart/empty                               controllers.ShoppingCtrl.emptyCart()
-POST        /cart/add                                 controllers.ShoppingCtrl.addToCart()
+#POST        /cart/add                                 controllers.ShoppingCtrl.addToCart()
 GET         /order/cancel/$orderId<[0-9]+>            controllers.ShoppingCtrl.cancelOrder(orderId:Long)
 GET         /order/del/$orderId<[0-9]+>               controllers.ShoppingCtrl.delOrder(orderId:Long)
 GET         /order/verify/$orderId<[0-9]+>            controllers.ShoppingCtrl.verifyOrder(orderId:Long)
 POST        /order/submit                             controllers.ShoppingCtrl.submitOrder()
 POST        /cart/add                                 controllers.ShoppingCtrl.cartAdd()
 GET         /cart/del/$cartId<[0-9]+>                 controllers.ShoppingCtrl.cartDel(cartId:Long)
+GET         /cart/amount                              controllers.ShoppingCtrl.cartAmount()
 #
 
 

@@ -1,4 +1,4 @@
-@(imageCode:String)
+@(path:String, imageCode:String)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -167,7 +167,7 @@
 <div id='screen_wrap'>
     <div class="nav_ban">
         <h1>找回密码</h1>
-        <a href="/login"><span class="icon-back" id="backBtn"></span></a>
+        <a href="@path"><span class="icon-back" id="backBtn"></span></a>
     </div>
     <div class="login">
             <div id="js-userinfo-error2" class="cue"></div>

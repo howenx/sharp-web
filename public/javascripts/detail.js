@@ -218,6 +218,74 @@ $(function() {
 		},1000,function(){
 			$(".toup").css("display","none");
 		});
-	})
+	});
 
-})
+});
+//添加购物车
+$(document).on("click",".btnCart",function(){
+    var skuId=$("input[name='skuId0-0']:not(:disabled)").val() ;
+    var skuType=$("input[name='skuType0-0']:not(:disabled)").val() ;
+    var skuTypeId=$("input[name='skuTypeId0-0']:not(:disabled)").val() ;
+    var state=$("input[name='state0-0']:not(:disabled)").val() ;
+
+    var obj=new Object();
+    obj.cartId=0;
+    obj.skuId=skuId;
+    obj.skuType=skuType;
+    obj.skuTypeId=skuTypeId;
+    obj.state="I";
+    obj.amount=1;
+    $.ajax({
+        type: 'POST',
+        url: "/cart/add",
+        contentType: "application/json; charset=utf-8",
+        data : JSON.stringify(obj),
+        dataType: 'json',
+        error : function(request) {
+            alert("加入购物车失败");
+         },
+        success: function(data) {
+            console.log("data="+data);
+            if (data!=""&&data!=null){
+                if(data.code==200) { //成功
+                    addCartEffect(); //加入购物车特效
+                }else{
+                     alert("加入购物车失败code="+data.code+","+data.message);
+                }
+
+            }else{
+             alert("加入购物车失败");
+            }
+        }
+    });
+
+});
+//加入购物车效果
+function addCartEffect(){
+// 元素以及其他一些变量
+	var eleFlyElement = document.querySelector("#flyItem"), eleShopCart = document.querySelector("#shopCart");
+	// 抛物线运动
+	var myParabola = funParabola(eleFlyElement, eleShopCart, {
+		speed:30, //抛物线速度
+		curvature: 0.0090, //控制抛物线弧度
+		complete: function() {
+			eleFlyElement.style.visibility = "hidden";
+			var numberItem = parseInt($("#cartAmountSpan").html());
+			eleShopCart.querySelector("span").innerHTML = ++numberItem;
+		}
+	});
+
+	var src = $(this).parents(".cycle-slideshow").find('.slide-img').find("img").attr("src");
+    $("#flyItem").find("img").attr("src", src);
+    // 滚动大小
+    var scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft || 0,
+            scrollTop = document.documentElement.scrollTop || document.body.scrollTop || 0;
+    //eleFlyElement.style.left = event.clientX + scrollLeft + "px";
+    //eleFlyElement.style.top = event.clientY + scrollTop + "px";
+    eleFlyElement.style.visibility = "visible";
+    // 需要重定位
+    myParabola.position().move();
+}
+
+
+

@@ -487,8 +487,12 @@ public class ShoppingCtrl extends Controller {
      */
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result>  cartAdd(){
-
-        RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, new String(""));
+        JsonNode json = request().body().asJson();
+        Logger.info("==json==="+json);
+        List<CartAddInfo> cartAddInfoList=new ArrayList<CartAddInfo>();
+        CartAddInfo cartAddInfo=Json.fromJson(json,CartAddInfo.class);
+        cartAddInfoList.add(cartAddInfo);
+        RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, toJson(cartAddInfoList).toString());
         return comCtrl.postReqReturnMsg(CART_ADD,formBody);
     }
 
@@ -500,6 +504,32 @@ public class ShoppingCtrl extends Controller {
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result>  cartDel(Long cartId){
         return comCtrl.getReqReturnMsg(CART_DEL+cartId);
+    }
+
+    /**
+     * 购物车数量
+     * @return
+     */
+    @Security.Authenticated(UserAuth.class)
+    public F.Promise<Result>  cartAmount(){
+        F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
+            Request.Builder builder = (Request.Builder) ctx().args.get("request");
+            Request request = builder.url(CART_AMOUNT).get().build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                return Json.parse(new String(response.body().bytes(), UTF_8));
+            } else throw new IOException("Unexpected code" + response);
+        });
+
+        return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
+            Logger.info("==settle=json==" + json);
+            Message message = Json.fromJson(json.get("message"), Message.class);
+            if (null == message) {
+                Logger.error("返回商品结算数据错误code=" + json);
+                return badRequest();
+            }
+            return ok(json);
+        });
     }
 
 }
