@@ -199,10 +199,11 @@
 
 <input type="hidden" id="tempTotal" value="@settle.getTotalPayFee()"/>
 
-<form id="payForm" action="http://172.28.3.51:9003/client/redirect/cash" method="POST">
+<form id="payForm" action="http://172.28.3.51:9003/client/redirect/cash" method="POST" accept-charset="utf-8">
     <input type="hidden" id="orderId" name="orderId" value="0"/>
     <input type="hidden" id="token" name="token" value=""/>
     <input type="hidden" id="securityCode" name="securityCode" value=""/>
+    <input type="hidden" id="testZh" name="testZh" value="中文"/>
 </form>
 
 </body>
