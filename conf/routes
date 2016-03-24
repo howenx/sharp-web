@@ -1,10 +1,11 @@
 
 #用户相关
-GET         /address                                  controllers.UserCtrl.address()
-GET         /addressnew                               controllers.UserCtrl.addressnew()
+GET         /address/$selId<[0-9]+>                   controllers.UserCtrl.address(selId:Long)
+#POST       /address                                  controllers.UserCtrl.address()
+GET         /addressnew/$selId<[0-9]+>                controllers.UserCtrl.addressnew(selId:Long)
 POST        /address/save                             controllers.UserCtrl.addressSave()
 POST        /address/del                              controllers.UserCtrl.addressDel()
-GET         /address/update/$addId<[0-9]+>            controllers.UserCtrl.addressUpdate(addId:Long)
+GET         /address/update/$addId<[0-9]+>/$selId<[0-9]+> controllers.UserCtrl.addressUpdate(addId:Long, selId:Long)
 GET         /carded                                   controllers.UserCtrl.carded()
 GET         /myView                                   controllers.UserCtrl.myView()
 GET         /login                                    controllers.UserCtrl.login()
@@ -42,10 +43,7 @@ POST        /reset/submit                             controllers.UserCtrl.reset
 GET         /means                                    controllers.UserCtrl.means()
 POST        /nickname                                 controllers.UserCtrl.nickname()
 POST        /user/update                              controllers.UserCtrl.userUpdate()
-
-GET         /means                                    controllers.UserCtrl.means()
-POST        /nickname                                 controllers.UserCtrl.nickname()
-POST        /user/update                              controllers.UserCtrl.userUpdate()
+#登出
 GET         /logout                                   controllers.UserCtrl.logout()
 
 
