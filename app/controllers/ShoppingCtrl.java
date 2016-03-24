@@ -16,13 +16,11 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
+import util.Crypto;
 
 import javax.inject.Inject;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static modules.SysParCom.*;
@@ -477,11 +475,19 @@ public class ShoppingCtrl extends Controller {
             }
    //         Long orderId=json.get("orderId").asLong();
  ///          String url=PAY_ORDER+orderId;
+
+
+
             ObjectNode objectNode = Json.newObject();
-            objectNode.put("id-token",session().get("id-token")); //TODO...
             objectNode.putPOJO("message",message);
-            if(json.has("orderId")){
+            if(message.getCode()==200&&json.has("orderId")){
+                Map<String,String> map = new TreeMap<>();
+                map.put("orderId",json.get("orderId").asText());
+                map.put("token",session().get("id-token"));
+                String securityCode= Crypto.getSignature(map,"HMM");
+                objectNode.put("token",session().get("id-token"));
                 objectNode.put("orderId",json.get("orderId").asLong());
+                objectNode.put("securityCode",securityCode);
             }
             Logger.error("===提交订单===="+toJson(objectNode));
 
