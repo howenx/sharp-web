@@ -110,9 +110,9 @@ public class ProductsCtrl extends Controller {
      * @return
      * @throws Exception
      */
-    public F.Promise<Result> loadIndexAjax(){
+    public F.Promise<Result> loadIndexAjax(String pageCount){
         F.Promise<JsonNode> promise = F.Promise.promise(() -> {
-            String pageCount = request().body().asJson().toString();
+            //String pageCount = request().body().asJson().toString();
             Request request = getBuilder(request(), session())
                     .url(INDEX_PAGE + pageCount)
                     .build();

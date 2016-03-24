@@ -50,7 +50,7 @@ GET         /logout                                   controllers.UserCtrl.logou
 
 #首页,主题,详情页相关
 GET         /                                         controllers.ProductsCtrl.index()
-POST        /indexAjax                                controllers.ProductsCtrl.loadIndexAjax()
+GET         /indexAjax/:pageCount                     controllers.ProductsCtrl.loadIndexAjax(pageCount:String)
 GET         /themeDetail/*url                         controllers.ProductsCtrl.themeDetail(url)
 GET         /detail/*url                              controllers.ProductsCtrl.detail(url)
 GET         /pinInstruction                           controllers.ProductsCtrl.pinInstruction()

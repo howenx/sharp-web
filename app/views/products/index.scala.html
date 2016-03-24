@@ -100,12 +100,12 @@
 
 				//url data function dataType
 				function loadMeinv(){
-					var url = "/indexAjax";
+					var url = "/indexAjax/" + pageCount;
 					if(!ajaxStop){
 						$.ajax({
-							type: 'POST', 
+							type: 'GET', 
 							url:  url, 
-							data: JSON.stringify(pageCount), 
+							//data: JSON.stringify(pageCount), 
 							contentType: "application/json; charset=utf-8", 
 							dataType: 'json',
 							success: function(data) { 
