@@ -137,21 +137,23 @@ public class ShoppingCtrl extends Controller {
      * 添加商品到购物车
      * @return
      */
+    @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> addToCart(){
         F.Promise<JsonNode> promise = F.Promise.promise(() -> {
+            RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, request().body().asJson().toString());
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
-            Request request = builder.url(SHOPPING_LIST).get().build();
+            Request request = builder.url(SHOPPING_ADDTOCART).post(formBody).build();
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
-                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
-                Logger.info("===json==\n" + json);
-                return json;
-            } else throw new IOException("Unexpected code " + response);
+                String result = dealToString(response);
+                if (result != null) {
+                    return Json.parse(result);
+                } else throw new IOException("Unexpected code" + response);
+            } else throw new IOException("Unexpected code" + response);
         });
-
         return promise.map((F.Function<JsonNode, Result>) json -> {
-
-                  return null;
+                    Logger.error(json.toString());
+                    return ok("AAAA");
                 }
         );
     }

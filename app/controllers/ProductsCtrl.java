@@ -18,7 +18,7 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
+
 import static modules.SysParCom.*;
 import static util.GZipper.dealToString;
 
@@ -110,7 +110,7 @@ public class ProductsCtrl extends Controller {
      * @return
      * @throws Exception
      */
-    public F.Promise<Result> loadIndexAjax() throws Exception {
+    public F.Promise<Result> loadIndexAjax(){
         F.Promise<JsonNode> promise = F.Promise.promise(() -> {
             String pageCount = request().body().asJson().toString();
             Request request = getBuilder(request(), session())
@@ -118,10 +118,11 @@ public class ProductsCtrl extends Controller {
                     .build();
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
-                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
-                return json;
-            }
-            return null;
+                String result = dealToString(response);
+                if (result != null) {
+                    return Json.parse(result);
+                } else throw new IOException("Unexpected code" + response);
+            } else throw new IOException("Unexpected code" + response);
         });
         return promise.map((F.Function<JsonNode, Result>) json -> {
             List<Theme> themeList = new ArrayList<>();
@@ -153,17 +154,18 @@ public class ProductsCtrl extends Controller {
      * @return
      * @throws Exception
      */
-    public F.Promise<Result> themeDetail(String url) throws Exception {
+    public F.Promise<Result> themeDetail(String url){
         F.Promise<JsonNode> promise = F.Promise.promise(() -> {
             Request request = getBuilder(request(), session())
                     .url(THEME_PAGE + url)
                     .build();
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
-                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
-                return json;
-            }
-            return null;
+                String result = dealToString(response);
+                if (result != null) {
+                    return Json.parse(result);
+                } else throw new IOException("Unexpected code" + response);
+            } else throw new IOException("Unexpected code" + response);
         });
         return promise.map((F.Function<JsonNode, Result>) json -> {
             //返回  ------->start
@@ -261,17 +263,18 @@ public class ProductsCtrl extends Controller {
      * @return
      * @throws Exception
      */
-    public F.Promise<Result> detail(String url) throws Exception {
+    public F.Promise<Result> detail(String url){
         F.Promise<JsonNode> promise = F.Promise.promise(() -> {
             Request request = getBuilder(request(), session())
                     .url(GOODS_PAGE + url)
                     .build();
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
-                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
-                return json;
-            }
-            return null;
+                String result = dealToString(response);
+                if (result != null) {
+                    return Json.parse(result);
+                } else throw new IOException("Unexpected code" + response);
+            } else throw new IOException("Unexpected code" + response);
         });
         return promise.map((F.Function<JsonNode, Result>) json -> {
             //返回  ------->start
@@ -496,17 +499,18 @@ public class ProductsCtrl extends Controller {
      * @return
      * @throws Exception
      */
-    public F.Promise<Result> pinTieredPrice(String url) throws Exception {
+    public F.Promise<Result> pinTieredPrice(String url){
         F.Promise<JsonNode> promise = F.Promise.promise(() -> {
             Request request = getBuilder(request(), session())
                     .url(GOODS_PAGE + url)
                     .build();
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
-                JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
-                return json;
-            }
-            return null;
+                String result = dealToString(response);
+                if (result != null) {
+                    return Json.parse(result);
+                } else throw new IOException("Unexpected code" + response);
+            } else throw new IOException("Unexpected code" + response);
         });
         return promise.map((F.Function<JsonNode, Result>) json -> {
             if (json.has("stock")) {
