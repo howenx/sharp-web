@@ -184,16 +184,17 @@
     <input type="hidden" name="pinActiveId" value="@pinActiveId"/>
 <div class="refer-box">
     <span class="refer-rmb color">合计:￥<span id="totalPaySpan">@settle.getTotalPayFee()</span></span>
-    <a href="javascript:;" class="refer bg submitOrder1" onclick="document.getElementById('orderForm').submit();">提交订单</a>
+    <a href="javascript:;" class="refer bg submitOrder">提交订单</a>
 
 </div>
 </form>
 
 <input type="hidden" id="tempTotal" value="@settle.getTotalPayFee()"/>
 
-<form id="payForm" action="//pay/order/get" method="POST">
-    <input type="hidden" id="orderId" value="0"/>
-    <input type="hidden" id="id-token" value=""/>
+<form id="payForm" action="http://172.28.3.51:9003/client/redirect/cash" method="POST">
+    <input type="hidden" id="orderId" name="orderId" value="0"/>
+    <input type="hidden" id="token" name="token" value=""/>
+    <input type="hidden" id="securityCode" name="securityCode" value=""/>
 </form>
 
 </body>
