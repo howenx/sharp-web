@@ -169,36 +169,36 @@ $(function() {
                 });
             }
     });
-
-    //加入购物车
-    $(document).on("click",".add_cart_large",function(){
-        var cartId = 0;
-        var amount = 1;
-        var state = $(".item.now").find("#skuId").val();
-        var skuId=$(".item.now").find("#skuId").val();
-        var skuType=$(".item.now").find("#skuType").val();
-        var skuTypeId=$(".item.now").find("#skuTypeId").val();
-        var obj=new Object();
-        obj.skuId=skuId; //sku id
-        obj.skuType=skuType;//商品类型 1.vary,2.item,3.customize,4.pin
-        obj.skuTypeId=skuTypeId;//商品类型所对应的ID
-
-        $.ajax({
-                type: 'POST',
-                url: "/cart/add",
-                contentType: "application/json; charset=utf-8",
-                data : JSON.stringify(obj),
-                error:function(request) {
-                },
-                success: function(data) {
-                    if (data!=""&&data!=null&&data.collectId>0) {
-                        console.log(data.collectId);
-                    }else{
-                    }
-                }
-        });
-
-    })
+//
+//    //加入购物车
+//    $(document).on("click",".add_cart_large",function(){
+//        var cartId = 0;
+//        var amount = 1;
+//        var state = $(".item.now").find("#skuId").val();
+//        var skuId=$(".item.now").find("#skuId").val();
+//        var skuType=$(".item.now").find("#skuType").val();
+//        var skuTypeId=$(".item.now").find("#skuTypeId").val();
+//        var obj=new Object();
+//        obj.skuId=skuId; //sku id
+//        obj.skuType=skuType;//商品类型 1.vary,2.item,3.customize,4.pin
+//        obj.skuTypeId=skuTypeId;//商品类型所对应的ID
+//
+//        $.ajax({
+//                type: 'POST',
+//                url: "/cart/add",
+//                contentType: "application/json; charset=utf-8",
+//                data : JSON.stringify(obj),
+//                error:function(request) {
+//                },
+//                success: function(data) {
+//                    if (data!=""&&data!=null&&data.collectId>0) {
+//                        console.log(data.collectId);
+//                    }else{
+//                    }
+//                }
+//        });
+//
+//    })
 
 
 
