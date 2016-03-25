@@ -4,15 +4,13 @@ body{
 .wrap{
     padding:50px 0;
     background-color:#F4F4F4 ;
-    height:1000px;
 }
 .con{
     width:100%;
     background-color:#fff;
-    padding:10px 20px 60px 20px;
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
-    margin:20px 0 10px 0;
+    margin:10px 0 10px 0;
 
 
 }
@@ -23,14 +21,12 @@ h2{
 }
 .commodity{
     width:100%;
-    height:100px;
     display: block;
-    padding:10px 0;
-    margin:10px 0 0 0;
-
+    padding: 10px 0 0 10px;
 }
 
 .commodity h2{
+    height: 40px;
     overflow: hidden;
     -webkit-line-clamp: 2;
     display: -webkit-box;
@@ -41,7 +37,7 @@ h2{
 
 .commodity .commodity-rmb{
     display: block;
-    margin:50px 0 20px 0;
+    margin:40px 0 10px 0;
     height:20px;
 
 }
@@ -71,24 +67,22 @@ span .rmb{
 
 
 .urse-photo-box{
-    width:90%;
-    padding:20px 0;
-    margin: 0 auto;
+    width:100%;
+    margin: 10px;
 }
 
 .urse-photo-m{
-    width:21%;
-    height:70px;
     float: left;
-    margin: 0 4% 0 0;
+    margin: 0 2% 0 0;
 }
 .urse-photo{
     width:60px;
-    height:100px;
     margin:0 auto;
 }
 
 .urse-photo-box img{
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
 }
 
@@ -100,8 +94,6 @@ span .rmb{
 
 .fight-hd{
     width:100%;
-    height:100px;
-
 }
 
 .fight-hd span,.fight-hd i{
@@ -111,7 +103,7 @@ span .rmb{
 .fight-hd span{
     width:160px;
     height:40px;
-    margin: 20px auto;
+    margin:10px auto;
     line-height: 50px;
     background: url("/assets/images/hmmapp-p.jpg") no-repeat;
     background-size:contain;
@@ -151,8 +143,8 @@ span .rmb{
     margin:6px 0 0 0;
 }
 .fight-photo{
-    width:46px;
-    height:70px;
+    width:50px;
+    height:50px;
     float: left;
 }
 
@@ -230,7 +222,8 @@ span .rmb{
 .txt{
     width: 100%;
     text-align: center;
-    margin: 10px 0;
+    color: #999;
+    margin: 0 0 -10px 0;
 }
 
 .home{
@@ -243,6 +236,13 @@ span .rmb{
     margin: 0 auto;
 }
 
+.triangle{
+    width: 0;
+    border-width: 10px;
+    border-color:transparent transparent #4B4B4B transparent;
+    border-style: solid dashed dashed dashed;
+    margin: 0 auto;
+}
 
 
 
