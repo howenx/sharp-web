@@ -237,6 +237,10 @@ input[type=checkbox]{
 .min{
     font-size: 14px;
 }
+.lonin-dd{
+    border:1px solid #DFDFDD;
+    margin:0 0 20px 0;
+}
 .dd-padding{
     width: 100%;
     background-color:#fff;
@@ -415,9 +419,8 @@ input[type=checkbox]{
 }
 
 .list dd>.input-weak {
-    width:100%;
-    border:1px solid #DFDFDD;
-    margin:0 0 20px 0;
+    width:80%;
+
 }
 
 
@@ -425,10 +428,10 @@ input.input-weak, textarea.input-weak {
     font-size: 1rem;
     color: #ccc;
     border: 0;
-    line-height: 45px;
     width: 86%;
     padding-left: 7px;
 	vertical-align: middle;
+    margin: 12px 0 0 0;
 }
 .btn:disabled, .btn.btn-disabled {
     background-color: #dcdcdc;

@@ -12,6 +12,7 @@
     background-color:#ededed;
     margin-top: -675px;
     position: absolute;
+    z-index: 100;
 }
 
 .dqld_div ul{

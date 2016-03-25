@@ -247,6 +247,7 @@ input[type=radio]:checked::after {
 .add-shade,.xnew-add-shade{
     display: block;
     background-color:#F4F4F4 ;
+    display: none;
 }
 
 .shade .box{
@@ -291,8 +292,20 @@ input[type=radio]:checked::after {
     margin: 0 0 20px 0;
 }
 
-.ul-box{
+.amputate{
+    margin: -5px 0 0 0;
+}
+.amputate span,.amput span{
+
     margin:50px 0 0 0;
+    width:20px;
+    height:20px;
+    line-height:20px;
+    background-color: #ed145b;
+    border-radius: 50px;
+    color: #fff;
+    text-align: center;
+    float: right;
 }
 
 .ul-box-li{
