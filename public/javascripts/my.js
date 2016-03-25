@@ -152,7 +152,7 @@ function delOrder(id,position){
     }
 };
 
-
+//删除地址
 function delAddress(addId,orDefault){
     if (window.confirm("确定删除该地址吗?")) {
         var obj=new Object();
@@ -273,6 +273,15 @@ $(document).on("click",".like-s",function(){
         });
 });
 
+
+//申请售后
+$(document).on("click", ".apply", function() {
+    var orderId = Number($("#orderId").text());
+
+});
+
+
+
 //提示
 function tip(tipContent){
     $("#tip").html(tipContent).show();
@@ -280,6 +289,7 @@ function tip(tipContent){
     $("#tip").hide();
     },3000);
 }
+
 
 
 
