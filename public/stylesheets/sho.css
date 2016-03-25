@@ -340,12 +340,12 @@ input:password {
 
 /*提示信息*/
 .hint{
-    width:200px;
     height: 40px;
     line-height: 40px;
-    background-color:rgba(0,0,0,0.5);
     text-align: center;
     border-radius: 20px;
     margin: 0 auto;
-    color: #fff;
+    color:#E46359;
+    padding: 10px;
+    text-align: center;
 }
