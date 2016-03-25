@@ -147,3 +147,6 @@ li div{
     float: left;
 }
 
+.add-sett input{
+    width: 100%;
+}
