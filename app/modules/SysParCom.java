@@ -78,6 +78,7 @@ public class SysParCom {
 
     public static  String PAY_ORDER;
 
+    public static  String PAY_URL;//去支付
 
 
 
@@ -149,6 +150,7 @@ public class SysParCom {
 
 
         PAY_ORDER=configuration.getString("shopping.pay.order");
+        PAY_URL=configuration.getString("shopping.pay.url");
 
 
 

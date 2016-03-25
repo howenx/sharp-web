@@ -19,314 +19,315 @@
 <div id='screen_wrap'>
 	<form id="settleForm" action="/settle" method="POST">
 		<input type="hidden" name="buyNow" value="1"/>
-	<div class="nav_ban_detail">
-		<a href="@path" class="back">
-			<i></i>
-			<b></b>
-		</a>
-		<h1>商品详情</h1>
-	</div>
-	<div class="picture_wrap">
-		@for((inventory,index) <- inventoryList.zipWithIndex){
-			@if(inventory.getOrMasterInv()){
-				<div class="item now">
-					<div class="hiddenInput">
-						<input type="hidden" name="invCustoms0" value="@inventory.getInvCustoms()"/>
-						<input type="hidden" name="invArea0" value="@inventory.getInvArea()"/>
-						<input type="hidden" name="invAreaNm0" value="@inventory.getInvAreaNm()"/>
-						<input type="hidden" name="skuId0-0" value="@inventory.getId()"/>
-						<input type="hidden" name="skuType0-0" value="@inventory.getSkuType()"/>
-						<input type="hidden" name="skuTypeId0-0" value="@inventory.getSkuTypeId()"/>
-						<input type="hidden" name="skuTitle0-0" value="@inventory.getInvTitle()"/>
-						<input type="hidden" name="skuInvImg0-0" value="@inventory.getInvImg()"/>
-						<input type="hidden" name="state0-0" value="@inventory.getState()"/>
-						<input type="hidden" name="skuPrice0-0" value="@inventory.getItemPrice()"/>
-					</div>
-
-			}
-			@if(!inventory.getOrMasterInv()){
-				<div class="item">
-					<div class="hiddenInput">
-						<input type="hidden" name="invCustoms0" value="@inventory.getInvCustoms()"/>
-						<input type="hidden" name="invArea0" value="@inventory.getInvArea()" />
-						<input type="hidden" name="invAreaNm0" value="@inventory.getInvAreaNm()" />
-						<input type="hidden" name="skuId0-0" value="@inventory.getId()"/>
-						<input type="hidden" name="skuType0-0" value="@inventory.getSkuType()"/>
-						<input type="hidden" name="skuTypeId0-0" value="@inventory.getSkuTypeId()"/>
-						<input type="hidden" name="skuTitle0-0" value="@inventory.getInvTitle()"/>
-						<input type="hidden" name="skuInvImg0-0" value="@inventory.getInvImg()"/>
-						<input type="hidden" name="state0-0" value="@inventory.getState()"/>
-						<input type="hidden" name="skuPrice0-0" value="@inventory.getItemPrice()"/>
-					</div>
-			}
-
-					<div id="slideBox@index" class="slideBox">
-
-						<div class="bd">
-							<ul>
-								@for(imgUrl <- preImgList.get(index)){
-									<li>
-										<a class="pic" href="#"><img src="@imgUrl"/></a>
-
-									</li>
-								}
-							</ul>
+		<div class="nav_ban_detail">
+			<a href="@path" class="back">
+				<i></i>
+				<b></b>
+			</a>
+			<h1>商品详情</h1>
+		</div>
+		<div class="picture_wrap">
+			@for((inventory,index) <- inventoryList.zipWithIndex){
+				@if(inventory.getOrMasterInv()){
+					<div class="item now">
+						<div class="hiddenInput">
+							<input type="hidden" name="invCustoms0" value="@inventory.getInvCustoms()"/>
+							<input type="hidden" name="invArea0" value="@inventory.getInvArea()"/>
+							<input type="hidden" name="invAreaNm0" value="@inventory.getInvAreaNm()"/>
+							<input type="hidden" name="skuId0-0" value="@inventory.getId()"/>
+							<input type="hidden" name="skuType0-0" value="@inventory.getSkuType()"/>
+							<input type="hidden" name="skuTypeId0-0" value="@inventory.getSkuTypeId()"/>
+							<input type="hidden" name="skuTitle0-0" value="@inventory.getInvTitle()"/>
+							<input type="hidden" name="skuInvImg0-0" value="@inventory.getInvImg()"/>
+							<input type="hidden" name="state0-0" value="@inventory.getState()"/>
+							<input type="hidden" name="skuPrice0-0" value="@inventory.getItemPrice()"/>
 						</div>
-
-						<div class="hd">
-							<ul></ul>
-						</div>
-					</div>
-					<div class="sku-meta box">
-						<div class="sku-title">@inventory.getInvTitle()</div>
-						<p class="u-detail-pricebox clearfix">
-							<span class="u-detail-price"><i>¥</i>@inventory.getItemPrice()</span>
-							<span class="u-detail-mprice">¥@inventory.getItemSrcPrice()</span>
-							<span class="u-detail-discount">@inventory.getItemDiscount()折</span>
-							<span class="three">@inventory.getInvAreaNm()</span>
-						</p>
-						<section class="thw-detail-other" style="margin-bottom: 2px;">
-							<span class="one">
-								<span class="xian">限</span>
-								<span>@inventory.getRestrictAmount()件</span>
-							</span>
-							<span class="three" style="text-decoration: underline">行邮税  @inventory.getPostalTaxRate()%</span>
-						</section>
-					</div>
-				</div>
-		}
-		<script type="text/javascript">
-			for(var i=0;i<@stockSize;i++){
-				var sliderName = "#slideBox" + i;
-				TouchSlide({
-					slideCell:sliderName,
-					titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
-					mainCell:".bd ul",
-					effect:"leftLoop",
-					autoPage:true //自动分页
-				});
-			}
-		</script>
-	</div>
-	<!--标题-->
-	<div class="sku-meta">
-		<!--正品保障-->
-		<div class="classify">
-			<span>规格</span>
-			<ul>
-				@for(inventory <- inventoryList){
-					@if(inventory.getOrMasterInv()){
-						<li class="current">@inventory.getItemColor()</li>
-					}
-					@if(!inventory.getOrMasterInv()){
-					<li>@inventory.getItemColor()</li>
-					}
 
 				}
-			</ul>
-		</div>
-		<div class="sale">
-			@for(publicity <- publicityList){
-				<p>@publicity</p>
+				@if(!inventory.getOrMasterInv()){
+					<div class="item">
+						<div class="hiddenInput">
+							<input type="hidden" name="invCustoms0" value="@inventory.getInvCustoms()"/>
+							<input type="hidden" name="invArea0" value="@inventory.getInvArea()" />
+							<input type="hidden" name="invAreaNm0" value="@inventory.getInvAreaNm()" />
+							<input type="hidden" name="skuId0-0" value="@inventory.getId()"/>
+							<input type="hidden" name="skuType0-0" value="@inventory.getSkuType()"/>
+							<input type="hidden" name="skuTypeId0-0" value="@inventory.getSkuTypeId()"/>
+							<input type="hidden" name="skuTitle0-0" value="@inventory.getInvTitle()"/>
+							<input type="hidden" name="skuInvImg0-0" value="@inventory.getInvImg()"/>
+							<input type="hidden" name="state0-0" value="@inventory.getState()"/>
+							<input type="hidden" name="skuPrice0-0" value="@inventory.getItemPrice()"/>
+						</div>
+				}
+
+						<div id="slideBox@index" class="slideBox">
+
+							<div class="bd">
+								<ul>
+									@for(imgUrl <- preImgList.get(index)){
+										<li>
+											<a class="pic" href="#"><img src="@imgUrl"/></a>
+
+										</li>
+									}
+								</ul>
+							</div>
+
+							<div class="hd">
+								<ul></ul>
+							</div>
+						</div>
+						<div class="sku-meta box">
+							<div class="sku-title">@inventory.getInvTitle()</div>
+							<p class="u-detail-pricebox clearfix">
+								<span class="u-detail-price"><i>¥</i>@inventory.getItemPrice()</span>
+								<span class="u-detail-mprice">¥@inventory.getItemSrcPrice()</span>
+								<span class="u-detail-discount">@inventory.getItemDiscount()折</span>
+								<span class="three">@inventory.getInvAreaNm()</span>
+							</p>
+							<section class="thw-detail-other" style="margin-bottom: 2px;">
+								<span class="one">
+									<span class="xian">限</span>
+									<span>@inventory.getRestrictAmount()件</span>
+								</span>
+								<span class="three" style="text-decoration: underline">行邮税  @inventory.getPostalTaxRate()%</span>
+							</section>
+						</div>
+					</div>
 			}
+			<script type="text/javascript">
+				for(var i=0;i<@stockSize;i++){
+					var sliderName = "#slideBox" + i;
+					TouchSlide({
+						slideCell:sliderName,
+						titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+						mainCell:".bd ul",
+						effect:"leftLoop",
+						autoPage:true //自动分页
+					});
+				}
+			</script>
 		</div>
-	</div>
-
-	<!-- 切换tab -->
-	<div class="detail-tabpanel">
-		<div class="tabpanel-occupying" id="TabpanelOccupying">
-			<!-- 标签 -->
-			<nav class="tabpanel-tabs center">
+		<!--标题-->
+		<div class="sku-meta">
+			<!--正品保障-->
+			<div class="classify">
+				<span>规格</span>
 				<ul>
-					<li class="tab-item active pic-tex current"> <span class='tab-span'>图文详情</span> <i></i> </li>
-					<li class="tab-item goods-para"> <span class='tab-span'>商品参数</span> <i></i> </li>
-					<li class="tab-item hot-sale"> <span>热卖推荐</span> <i></i> </li>
-				</ul>
-			</nav>
-		</div>
-	</div>
+					@for(inventory <- inventoryList){
+						@if(inventory.getOrMasterInv()){
+							<li class="current">@inventory.getItemColor()</li>
+						}
+						@if(!inventory.getOrMasterInv()){
+						<li>@inventory.getItemColor()</li>
+						}
 
-	<!-- 详情图片 -->
-	<div class="conner">
-		@Html(itemMain.getItemDetailImgs())
-	</div>
-
-	<div class="sku-measure01">
-		<!--<img src="/assets/images/img3.png"/>-->
-		<!--<img src="/assets/images/img4.png"/>-->
-		<!--<img src="/assets/images/img5.png"/>-->
-		<!--<img src="/assets/images/img6.png"/>-->
-		<!--<img src="/assets/images/img7.png"/>-->
-		<!--<img src="/assets/images/img8.png"/>-->
-	</div>
-
-	<div class='sku-measure'>
-		<div class="parameter-wrap">
-			<p class="dc_tit" id="J_proParam_scroll">商品参数<!--<i class="far">Detail</i>--></p>
-
-			<!-- 参数 -->
-			<div class="param-list">
-				<ul>
-					@for(feature <- itemFeaturesList){
-						<li>
-							<span class="param-name">@feature(0)</span>
-							<p class="param-info">@feature(1)</p>
-						</li>
 					}
 				</ul>
 			</div>
+			<div class="sale">
+				@for(publicity <- publicityList){
+					<p>@publicity</p>
+				}
+			</div>
 		</div>
-	</div>
-	<div class="hot">
-		<p class="hot-hd">热卖商品</p>
-		<ul class="product">
-			@for(rowList <- pushList){
-				<li>
-					@for(pushItem <- rowList){
-						@if(pushItem.getItemType() == "item" || pushItem.getItemType() == "vary" || pushItem.getItemType() == "customize"){
-							<a href="/detail/@pushItem.getItemUrl()">
-								<p class="figure figure-f">
-								   <img src="@pushItem.getItemImg()">
-								</p>
-								<p class="title-hd">@pushItem.getItemTitle()</p>
-								   <span class="title-fd">
-									   <i class="naw">￥@pushItem.getItemPrice()</i>
-									   <i class="agio">￥@pushItem.getItemSrcPrice()</i>
-									   <b>@pushItem.getItemDiscount()折</b>
-								   </span>
-							</a>
+
+		<!-- 切换tab -->
+		<div class="detail-tabpanel">
+			<div class="tabpanel-occupying" id="TabpanelOccupying">
+				<!-- 标签 -->
+				<nav class="tabpanel-tabs center">
+					<ul>
+						<li class="tab-item active pic-tex current"> <span class='tab-span'>图文详情</span> <i></i> </li>
+						<li class="tab-item goods-para"> <span class='tab-span'>商品参数</span> <i></i> </li>
+						<li class="tab-item hot-sale"> <span>热卖推荐</span> <i></i> </li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+
+		<!-- 详情图片 -->
+		<div class="conner">
+			@Html(itemMain.getItemDetailImgs())
+		</div>
+
+		<div class="sku-measure01">
+			<!--<img src="/assets/images/img3.png"/>-->
+			<!--<img src="/assets/images/img4.png"/>-->
+			<!--<img src="/assets/images/img5.png"/>-->
+			<!--<img src="/assets/images/img6.png"/>-->
+			<!--<img src="/assets/images/img7.png"/>-->
+			<!--<img src="/assets/images/img8.png"/>-->
+		</div>
+
+		<div class='sku-measure'>
+			<div class="parameter-wrap">
+				<p class="dc_tit" id="J_proParam_scroll">商品参数<!--<i class="far">Detail</i>--></p>
+
+				<!-- 参数 -->
+				<div class="param-list">
+					<ul>
+						@for(feature <- itemFeaturesList){
+							<li>
+								<span class="param-name">@feature(0)</span>
+								<p class="param-info">@feature(1)</p>
+							</li>
 						}
-						@if(pushItem.getItemType() == "pin"){
-							<a href="/detail/@pushItem.getItemUrl()">
-								<p class="product-box">
-									<span class="product-top">@pushItem.getEndAt()</span>
-								</p>
-								<p class="figure figure-f">
-									<img src="@pushItem.getItemImg()">
-								</p>
-								<p class="title-hd">@pushItem.getItemTitle()</p>
-						   <span class="title-fd">
-							   <i class="naw">￥@pushItem.getItemPrice()</i>
-							   <i class="agio">￥@pushItem.getItemSrcPrice()</i>
-							   <b>@pushItem.getItemDiscount()折</b>
-						   </span>
-							</a>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="hot">
+			<p class="hot-hd">热卖商品</p>
+			<ul class="product">
+				@for(rowList <- pushList){
+					<li>
+						@for(pushItem <- rowList){
+							@if(pushItem.getItemType() == "item" || pushItem.getItemType() == "vary" || pushItem.getItemType() == "customize"){
+								<a href="/detail/@pushItem.getItemUrl()">
+									<p class="figure figure-f">
+									   <img src="@pushItem.getItemImg()">
+									</p>
+									<p class="title-hd">@pushItem.getItemTitle()</p>
+									   <span class="title-fd">
+										   <i class="naw">￥@pushItem.getItemPrice()</i>
+										   <i class="agio">￥@pushItem.getItemSrcPrice()</i>
+										   <b>@pushItem.getItemDiscount()折</b>
+									   </span>
+								</a>
+							}
+							@if(pushItem.getItemType() == "pin"){
+								<a href="/detail/@pushItem.getItemUrl()">
+									<p class="product-box">
+										<span class="product-top">@pushItem.getEndAt()</span>
+									</p>
+									<p class="figure figure-f">
+										<img src="@pushItem.getItemImg()">
+									</p>
+									<p class="title-hd">@pushItem.getItemTitle()</p>
+							   <span class="title-fd">
+								   <i class="naw">￥@pushItem.getItemPrice()</i>
+								   <i class="agio">￥@pushItem.getItemSrcPrice()</i>
+								   <b>@pushItem.getItemDiscount()折</b>
+							   </span>
+								</a>
+							}
 						}
+					</li>
+				}
+
+				<!--<li>-->
+					<!--<a href="/detail">-->
+						<!--<p class="product-box">-->
+							<!--<span class="product-top">已结束</span>-->
+						<!--</p>-->
+						<!--<img src="/assets/images/HMM&#45;&#45;list_01.jpg">-->
+						<!--<p class="title-hd">德国原产 深层修护经典护手霜100ml</p>-->
+					   <!--<span class="title-fd">-->
+						   <!--<i class="naw">￥75.00</i>-->
+						   <!--<i class="agio">￥125.00</i>-->
+						   <!--<b>5.6折</b>-->
+					   <!--</span>-->
+					<!--</a>-->
+					<!--<a href="javascript:;">-->
+						<!--<p class="product-box">-->
+							<!--<span class="product-top">截止7月14日下午14:00</span>-->
+						<!--</p>-->
+						<!--<img src="/assets/images/HMM&#45;&#45;list_01.jpg">-->
+						<!--<p class="title-hd">德国原产 深层修护经典护手霜100ml</p>-->
+					   <!--<span class="title-fd">-->
+						   <!--<i class="naw">￥75.00</i>-->
+						   <!--<i class="agio">￥125.00</i>-->
+						   <!--<b>5.6折</b>-->
+					   <!--</span>-->
+					<!--</a>-->
+				<!--</li>-->
+
+				<!--<li>-->
+					<!--<a href="/detail"><img src="/assets/images/HMM&#45;&#45;list_01.jpg">-->
+						<!--<p class="title-hd">德国原产 深层修护经典护手霜100ml</p>-->
+					   <!--<span class="title-fd">-->
+						   <!--<i class="naw">￥75.00</i>-->
+						   <!--<i class="agio">￥125.00</i>-->
+						   <!--<b>5.6折</b>-->
+					   <!--</span>-->
+					<!--</a>-->
+					<!--<a href="javascript:;"><img src="/assets/images/HMM&#45;&#45;list_01.jpg">-->
+						<!--<p class="title-hd">德国原产 深层修护经典护手霜100ml</p>-->
+					   <!--<span class="title-fd">-->
+						   <!--<i class="naw">￥75.00</i>-->
+						   <!--<i class="agio">￥125.00</i>-->
+						   <!--<b>5.6折</b>-->
+					   <!--</span>-->
+					<!--</a>-->
+				<!--</li>-->
+			</ul>
+		</div>
+		<!--加入购物车-->
+		<div class="buy_box">
+			<div class="love">
+				<div id="shopCart">
+					<a href="/cart" class="message_list shopping">
+						<i class="message"></i>
+						<span class="cart_num" id="cartAmountSpan">0</span>
+					</a>
+				</div>
+
+				<!--收藏-->
+				<a href="javascript:;" class="like">
+
+					@for((inventory) <- inventoryList){
+					<div>
+						@if(inventory.getOrMasterInv()){
+							<input class="collectId" value="@inventory.getCollectId()" style="display:none">
+							@if(inventory.getCollectId() != 0){
+								<span class="soul now min"></span>
+							}
+							@if(inventory.getCollectId() == 0){
+								<span class="soul now"></span>
+							}
+						}
+						@if(!inventory.getOrMasterInv()){
+							<input class="collectId" value="@inventory.getCollectId()" style="display:none">
+							@if(inventory.getCollectId() != 0){
+								<span class="soul min"></span>
+							}
+							@if(inventory.getCollectId() == 0){
+								<span class="soul"></span>
+							}
+						}
+					</div>
 					}
-				</li>
-			}
+					<i class="like-s">收藏成功</i>
+					<i class="like-x">取消收藏</i>
+				</a>
 
-			<!--<li>-->
-				<!--<a href="/detail">-->
-					<!--<p class="product-box">-->
-						<!--<span class="product-top">已结束</span>-->
-					<!--</p>-->
-					<!--<img src="/assets/images/HMM&#45;&#45;list_01.jpg">-->
-					<!--<p class="title-hd">德国原产 深层修护经典护手霜100ml</p>-->
-                   <!--<span class="title-fd">-->
-                       <!--<i class="naw">￥75.00</i>-->
-                       <!--<i class="agio">￥125.00</i>-->
-                       <!--<b>5.6折</b>-->
-                   <!--</span>-->
-				<!--</a>-->
-				<!--<a href="javascript:;">-->
-					<!--<p class="product-box">-->
-						<!--<span class="product-top">截止7月14日下午14:00</span>-->
-					<!--</p>-->
-					<!--<img src="/assets/images/HMM&#45;&#45;list_01.jpg">-->
-					<!--<p class="title-hd">德国原产 深层修护经典护手霜100ml</p>-->
-                   <!--<span class="title-fd">-->
-                       <!--<i class="naw">￥75.00</i>-->
-                       <!--<i class="agio">￥125.00</i>-->
-                       <!--<b>5.6折</b>-->
-                   <!--</span>-->
-				<!--</a>-->
-			<!--</li>-->
+			</div>
 
-			<!--<li>-->
-				<!--<a href="/detail"><img src="/assets/images/HMM&#45;&#45;list_01.jpg">-->
-					<!--<p class="title-hd">德国原产 深层修护经典护手霜100ml</p>-->
-                   <!--<span class="title-fd">-->
-                       <!--<i class="naw">￥75.00</i>-->
-                       <!--<i class="agio">￥125.00</i>-->
-                       <!--<b>5.6折</b>-->
-                   <!--</span>-->
-				<!--</a>-->
-				<!--<a href="javascript:;"><img src="/assets/images/HMM&#45;&#45;list_01.jpg">-->
-					<!--<p class="title-hd">德国原产 深层修护经典护手霜100ml</p>-->
-                   <!--<span class="title-fd">-->
-                       <!--<i class="naw">￥75.00</i>-->
-                       <!--<i class="agio">￥125.00</i>-->
-                       <!--<b>5.6折</b>-->
-                   <!--</span>-->
-				<!--</a>-->
-			<!--</li>-->
-		</ul>
-	</div>
-	<!--加入购物车-->
-	<div class="buy_box">
-		<div class="love">
-			<div id="shopCart">
-				<a href="/cart" class="message_list shopping">
-					<i class="message"></i>
-					<span class="cart_num" id="cartAmountSpan">0</span>
+			<div class="add_cart btns" data-type="cart">
+				<a href="javascript:;" class="btnCart add_cart_large">
+					加入购物车
 				</a>
 			</div>
 
-			<!--收藏-->
-			<a href="javascript:;" class="like">
+			<div class="buy_btn" data-type="buy">
+				<a href="javascript:;" class="" onclick="document.getElementById('settleForm').submit();">
+					立即购买
+				</a>
+			</div>
 
-				@for((inventory) <- inventoryList){
-				<div>
-					@if(inventory.getOrMasterInv()){
-						<input class="collectId" value="@inventory.getCollectId()" style="display:none">
-						@if(inventory.getCollectId() != 0){
-							<span class="soul now min"></span>
-						}
-						@if(inventory.getCollectId() == 0){
-							<span class="soul now"></span>
-						}
-					}
-					@if(!inventory.getOrMasterInv()){
-						<input class="collectId" value="@inventory.getCollectId()" style="display:none">
-						@if(inventory.getCollectId() != 0){
-							<span class="soul min"></span>
-						}
-						@if(inventory.getCollectId() == 0){
-							<span class="soul"></span>
-						}
-					}
-				</div>
-				}
-				<i class="like-s">收藏成功</i>
-				<i class="like-x">取消收藏</i>
-			</a>
-
+			<div id="flyItem" class="fly_item">
+				<img src="/assets/images/gouwu.jpg" width="25" height="25"/>
+			</div>
 		</div>
+		<!--加入购物车 end-->
 
-		<div class="add_cart btns" data-type="cart">
-			<a href="javascript:;" class="btnCart add_cart_large">
-				加入购物车
-			</a>
-		</div>
-
-		<div class="buy_btn" data-type="buy">
-			<a href="javascript:;" class="" onclick="document.getElementById('settleForm').submit();">
-				立即购买
-			</a>
-		</div>
-
-		<div id="flyItem" class="fly_item">
-			<img src="/assets/images/gouwu.jpg" width="25" height="25"/>
+		<div class="top">
+			<img src="/assets/images/top.png">
 		</div>
 	</div>
-	<!--加入购物车 end-->
-
-	<div class="top">
-		<img src="/assets/images/top.png">
-	</div>
+	</form>
 </div>
-</form>
 <!--购物车-->
 <script type="text/javascript" src="/assets/javascripts/jquery/jquery.js"></script>
 <!--[if lte IE 8]>
