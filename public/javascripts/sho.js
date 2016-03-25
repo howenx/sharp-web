@@ -132,7 +132,8 @@ $(function(){
             $(hiddenSkuDivs).find("input").attr("disabled",true);
         }
         Total();
-
+        //检测商品总额限制
+        checkPostalLimit();
 
     })
 
@@ -185,6 +186,8 @@ $(function(){
             }
         }
         Total();
+        //检测商品总额限制
+        checkPostalLimit();
     })
 
     /*金额小计*/
@@ -227,6 +230,36 @@ $(function(){
         });
         $("#selectedTotal").html(v);
         /*计算购物车的数量*/
+
+    }
+
+    //检测商品总额限制
+    function checkPostalLimit(){
+       var limitFlag=false;
+       $(".areaAndSku").each(function(){
+         var total =0.00;
+         var postalLimit=$(this).find(".postalLimit").val();
+         var ckeckedSku=$(this).find("ul").find("input[type=checkbox]:checked");
+         ckeckedSku.each(function(){
+            var ts = $(this).parents("li").find(".subtotal").html();
+            total+=parseFloat(ts);
+         });
+         if(total>postalLimit){
+            $("#hint-hd").html($(this).find(".area").html()+"直邮商品总额超过¥"+postalLimit);
+            limitFlag=true;
+            return false;
+         }
+       });
+       if(limitFlag==false){
+            $("#hint-hd").html("友情提示 : 同一保税区商品总额有限制");
+            if($("#selected").hasClass("settleBtn")==false){
+                $("#selected").addClass("settleBtn");
+            }
+       } else{
+            //超出限制结算按钮不可用 //TODO...添加变灰式样
+            $("#selected").removeClass("settleBtn");
+
+       }
 
     }
 
