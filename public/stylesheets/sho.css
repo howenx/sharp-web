@@ -56,7 +56,7 @@ input:password {
 
 /*购买产品部分开始*/
 .cart-goods{
-    margin-top: 70px;
+    margin-top:50px;
     width: 100%;
     background-color: #fff;
     overflow: hidden;
@@ -338,16 +338,25 @@ input:password {
 
 }
 
+.hint-hd{
+    background-color: #FFEEDE;
+    color:#E66255 ;
+    padding: 5px;
+}
+
 /*提示信息*/
 .hint{
-    background-color:#E46359 ;
     position: fixed;
     top:50%;
     left: 50%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
     border-radius: 20px;
     margin: 0 auto;
-    color:#fff;
+    color:#E46359;
     padding: 10px;
+    text-align: center;
     -webkit-transform: translate(-50%,0);
     -moz-transform: translate(-50%,0);
 }

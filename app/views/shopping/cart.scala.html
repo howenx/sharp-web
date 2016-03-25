@@ -24,12 +24,15 @@
         <h1 class="header-title">购物车</h1>
     </div>
     <a href="@routes.ProductsCtrl.index()"><span class="icon-user-title" id="userBtn"></span></a>
-    <div class="hint-hd">友情提示 : 同一保税区商品总额有限制</div>
+
 </header>
+
 <!--头部结束-->
 <!--购买产品部分开始-->
 <form id="settleForm" action="/settle" method="POST">
 <div class="cart-goods" id="cart-goods">
+    <div class="hint-hd">友情提示 : 同一保税区商品总额有限制</div>
+
     <input type="hidden" name="areaNum" value="@resultVo.getCartList().size()">
     @for((cart,index)<-resultVo.getCartList().zipWithIndex){
     <div class="areaAndSku">
@@ -38,6 +41,8 @@
                 <input type="checkbox" class="areac check" name="check_item" />
             </div>
             <span class="area">@cart.getInvAreaNm()</span>
+
+            <input type="hidden" class="postalLimit" value="@cart.getPostalLimit()"/>
             <div id="hiddenArea@index" class="hiddenArea">
                 <input type="hidden" name="invCustoms@index" value="@cart.getInvCustoms()" disabled="disabled"/>
                 <input type="hidden" name="invArea@index" value="@cart.getInvArea()" disabled="disabled"/>
@@ -99,12 +104,8 @@
         </ul>
     </div>
     }
-
-    <div class="hint">
-        本商品限购10件
-    </div>
-
 </div>
+<div class="hint" id="tip" style="display:none"></div>
 <!--购买产品部分结束-->
 <!--footer部分开始-->
 

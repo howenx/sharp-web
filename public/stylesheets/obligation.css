@@ -283,8 +283,14 @@ span .number{
 
 }
 /*收藏*/
-.coll ul{
-    padding-top: 50px;
+.coll{
+    padding-top:44px;
+
+}
+.coll p{
+    background-color: #FEEEDF;
+    color:#E66255 ;
+    padding:5px 5px;
 }
 .coll ul .con{
     border: 0;margin: 0;padding: 0;

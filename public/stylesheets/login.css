@@ -242,6 +242,7 @@ input[type=checkbox]{
     background-color:#fff;
     position: relative;
     height: 45px;
+    margin: 0 0 10px 0;
 }
 
 .dd-padding .proving{

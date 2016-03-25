@@ -9,7 +9,7 @@ $(function(){
         var li=$(this).parents("li");
         var restrictAmount=li.find(".restrictAmount").val();
         if(aa>restrictAmount){
-            alert("本商品限制购买"+restrictAmount+"件");
+            tip("本商品限制购买"+restrictAmount+"件");
             return;
         }
 
@@ -34,7 +34,7 @@ $(function(){
             data : JSON.stringify(obj),
             dataType: 'json',
             error : function(request) {
-                alert("修改购物车失败");
+                tip("修改购物车失败");
              },
             success: function(data) {
                 console.log("data="+data);
@@ -51,10 +51,10 @@ $(function(){
                          Total();
 
                     }else{
-                         alert("修改购物车失败code="+data.code+","+data.message);
+                         tip("修改购物车失败code="+data.code+","+data.message);
                     }
                 }else{
-                 alert("修改购物车失败");
+                 tip("修改购物车失败");
                 }
             }
         });
@@ -89,7 +89,7 @@ $(function(){
             data : JSON.stringify(obj),
             dataType: 'json',
             error : function(request) {
-                alert("修改购物车失败");
+                tip("修改购物车失败");
              },
             success: function(data) {
                 console.log("data="+data);
@@ -106,10 +106,10 @@ $(function(){
                          Total();
 
                     }else{
-                         alert("修改购物车失败code="+data.code+","+data.message);
+                         tip("修改购物车失败code="+data.code+","+data.message);
                     }
                 }else{
-                 alert("修改购物车失败");
+                 tip("修改购物车失败");
                 }
             }
         });
@@ -132,7 +132,8 @@ $(function(){
             $(hiddenSkuDivs).find("input").attr("disabled",true);
         }
         Total();
-
+        //检测商品总额限制
+        checkPostalLimit();
 
     })
 
@@ -185,6 +186,8 @@ $(function(){
             }
         }
         Total();
+        //检测商品总额限制
+        checkPostalLimit();
     })
 
     /*金额小计*/
@@ -230,6 +233,37 @@ $(function(){
 
     }
 
+    //检测商品总额限制
+    function checkPostalLimit(){
+       var limitFlag=false;
+       $(".areaAndSku").each(function(){
+         var total =0.00;
+         var postalLimit=$(this).find(".postalLimit").val();
+         var ckeckedSku=$(this).find("ul").find("input[type=checkbox]:checked");
+         ckeckedSku.each(function(){
+            var ts = $(this).parents("li").find(".subtotal").html();
+            total+=parseFloat(ts);
+         });
+         if(total>postalLimit){
+            $("#hint-hd").html($(this).find(".area").html()+"直邮商品总额超过¥"+postalLimit);
+            limitFlag=true;
+            return false;
+         }
+       });
+       if(limitFlag==false){
+            $("#hint-hd").html("友情提示 : 同一保税区商品总额有限制");
+            if($("#selected").hasClass("settleBtn")==false){
+                $("#selected").addClass("settleBtn");
+            }
+       } else{
+            //超出限制结算按钮不可用 //TODO...添加变灰式样
+            $("#selected").removeClass("settleBtn");
+
+       }
+
+    }
+
+
 
 });
 
@@ -242,7 +276,7 @@ function delCart(cartId){
               url : "/cart/del/"+cartId,
               contentType: "application/json; charset=utf-8",
               error : function(request) {
-                  alert("删除失败!");
+                  tip("删除失败!");
               },
               success: function(data) {
                  console.log("data="+data);
@@ -254,7 +288,7 @@ function delCart(cartId){
                             ul.prev().parents(".areaAndSku").remove();
 
                       }
-                  } else alert("删除失败!");
+                  } else tip("删除失败!");
 
               }
          });
@@ -265,7 +299,7 @@ function delCart(cartId){
 $(document).on("click",".settleBtn",function(){
 
      if($("input:checkbox[name=check_item]:checked").length<=0){
-        alert("请选择商品");
+        tip("请选择商品");
         return;
      }
 
@@ -273,6 +307,14 @@ $(document).on("click",".settleBtn",function(){
     $("#settleForm").submit();
 
 });
+
+//提示
+function tip(tipContent){
+    $("#tip").html(tipContent).show();
+    setTimeout(function(){
+    $("#tip").hide();
+    },3000);
+}
 
 
 
