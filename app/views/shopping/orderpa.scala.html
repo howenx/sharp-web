@@ -39,7 +39,7 @@
         <li>
             <p class="first">
                 <span>订单号 :</span>
-                <i>@order.getOrder().getOrderId()</i>
+                <i id="orderId">@order.getOrder().getOrderId()</i>
             </p>
 
             <p>
@@ -61,7 +61,11 @@
 
             <p>
                 <span>支付方式 :</span>
-                <i>@order.getOrder().getPayMethod()</i>
+                <i>
+                    @if(order.getOrder().getPayMethod()=="JD"){京东}
+                    @if(order.getOrder().getPayMethod()=="APAY"){支付宝}
+                    @if(order.getOrder().getPayMethod()=="WEIXIN"){微信}
+                </i>
             </p>
 
             <p>
@@ -83,7 +87,7 @@
                         <h2>@sku.getSkuTitle()</h2>
                         <span class="commodity-rmb">￥@sku.getPrice()<i class="rmb color"></i><i class="number">数量:@sku.getAmount()</i></span>
                     </a>
-                    <a href="/service" class="right bg">申请售后</a>
+                    <a href="/service" class="right bg apply">申请售后</a>
                     @if(order.getOrder().getOrderStatus()=="R"){
                     <a href="/service" class="right bg">申请售后</a>
                     }
