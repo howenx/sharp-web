@@ -250,6 +250,11 @@ input[type=radio]:checked::after {
     display: none;
 }
 
+.xnew-add-shade{
+    padding-left:2%;
+    background-color: #fff;
+}
+
 .shade .box{
     width: 80%;
     background-color:#fff;
