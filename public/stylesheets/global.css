@@ -83,7 +83,7 @@ h1 {
 
 .back{
     position: absolute;
-    top:10px;
+    top:12px;
     left:0;
     width:40px;
     height:40px;
@@ -95,7 +95,7 @@ h1 {
     left:0;
     width:0;
     height:0;
-    border-width:12px;
+    border-width:10px;
     border-style:dashed solid dashed dashed ;
     border-color:transparent #fff transparent transparent ;
 }
