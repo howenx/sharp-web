@@ -245,7 +245,7 @@ $(function(){
             total+=parseFloat(ts);
          });
          if(total>postalLimit){
-            $("#hint-hd").html($(this).find(".area").html()+"直邮商品总额超过¥"+postalLimit);
+            $("#hint-hd").html("友情提示 : "+$(this).find(".area").html()+"直邮商品总额超过¥"+postalLimit);
             limitFlag=true;
             return false;
          }
