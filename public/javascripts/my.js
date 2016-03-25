@@ -67,14 +67,14 @@ $(document).on("click",".cancelColl",function(e){
           url : "/collect/del/"+id,
           contentType: "application/json; charset=utf-8",
           error : function(request) {
-              alert("删除失败!");
+              tip("删除失败!");
           },
           success: function(data) {
              console.log("data="+data);
 
                if(data.code==200){ //取消收藏成功
                   li.remove();
-               } else alert("删除失败!");
+               } else tip("删除失败!");
 
           }
      });
@@ -89,14 +89,14 @@ $(document).on("click",".cancelOrder",function(e){
           url : "/order/cancel/"+id,
           contentType: "application/json; charset=utf-8",
           error : function(request) {
-              alert("取消订单失败!");
+              tip("取消订单失败!");
           },
           success: function(data) {
              console.log("data="+data);
 
                if(data.code==200){ //取消订单成功
                  setTimeout("location.href='/all'", 3000);
-               } else alert("取消订单失败!");
+               } else tip("取消订单失败!");
 
           }
      });
@@ -112,14 +112,14 @@ $(document).on("click",".delOrder",function(e){
           url : "/order/del/"+id,
           contentType: "application/json; charset=utf-8",
           error : function(request) {
-              alert("删除失败!");
+              tip("删除失败!");
           },
           success: function(data) {
              console.log("data="+data);
 
                if(data.code==200){ //删除订单成功
                   li.remove();
-               } else alert("删除失败!");
+               } else tip("删除失败!");
 
           }
      });
@@ -133,7 +133,7 @@ function delOrder(id,position){
               url : "/order/del/"+id,
               contentType: "application/json; charset=utf-8",
               error : function(request) {
-                  alert("删除失败!");
+                  tip("删除失败!");
               },
               success: function(data) {
                  console.log("data="+data);
@@ -145,7 +145,7 @@ function delOrder(id,position){
                        setTimeout("location.href='/all'", 2000);
                       }
 
-                   } else alert("删除失败!");
+                   } else tip("删除失败!");
 
               }
          });
@@ -165,13 +165,13 @@ function delAddress(addId,orDefault){
                   dataType:"json",
                   data : JSON.stringify(obj),
                   error : function(request) {
-                      alert("删除失败!");
+                      tip("删除失败!");
                   },
                   success: function(data) {
                      console.log(data);
                          if (data!=""&&data!=null&&data.code==200){ //删除地址成功
                           $("#li"+addId).remove();
-                       } else alert("删除失败!");
+                       } else tip("删除失败!");
                   }
              });
     }
@@ -193,7 +193,7 @@ $(document).on("click",".feedbackBtn",function(){
     var content=$("#feedback").val();
 
     if(null==content||""==content||content.length<5||content.length>140){
-       alert("请输入5~140字的反馈意见");
+       tip("请输入5~140字的反馈意见");
     }
     else {
         var obj=new Object();
@@ -204,14 +204,14 @@ $(document).on("click",".feedbackBtn",function(){
                 contentType: "application/json; charset=utf-8",
                 data : JSON.stringify(obj),
                 error:function(request) {
-                    alert("意见反馈失败");
+                    tip("意见反馈失败");
                 },
                 success: function(data) {
                     console.log("data="+data+"==="+data.code);
                     if (data!=""&&data!=null&&data.code==200) {
                         setTimeout("location.href='/myView'", 3000);
                     }else{
-                        alert("意见反馈失败");
+                        tip("意见反馈失败");
                     }
 
                 }
@@ -260,18 +260,19 @@ $(document).on("click",".like-s",function(){
                 contentType: "application/json; charset=utf-8",
                 data : JSON.stringify(obj),
                 error:function(request) {
-                    alert("收藏失败");
+                    tip("收藏失败");
                 },
                 success: function(data) {
                     if (data!=""&&data!=null&&data.collectId>0) {
                         $("#collectId").val(data.collectId);
                     }else{
-                        alert("收藏失败");
+                        tip("收藏失败");
                     }
 
                 }
         });
 });
+
 
 //申请售后
 $(document).on("click", ".apply", function() {
@@ -279,6 +280,15 @@ $(document).on("click", ".apply", function() {
 
 });
 
+
+
+//提示
+function tip(tipContent){
+    $("#tip").html(tipContent).show();
+    setTimeout(function(){
+    $("#tip").hide();
+    },3000);
+}
 
 
 

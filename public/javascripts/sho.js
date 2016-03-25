@@ -9,7 +9,7 @@ $(function(){
         var li=$(this).parents("li");
         var restrictAmount=li.find(".restrictAmount").val();
         if(aa>restrictAmount){
-            alert("本商品限制购买"+restrictAmount+"件");
+            tip("本商品限制购买"+restrictAmount+"件");
             return;
         }
 
@@ -34,7 +34,7 @@ $(function(){
             data : JSON.stringify(obj),
             dataType: 'json',
             error : function(request) {
-                alert("修改购物车失败");
+                tip("修改购物车失败");
              },
             success: function(data) {
                 console.log("data="+data);
@@ -51,10 +51,10 @@ $(function(){
                          Total();
 
                     }else{
-                         alert("修改购物车失败code="+data.code+","+data.message);
+                         tip("修改购物车失败code="+data.code+","+data.message);
                     }
                 }else{
-                 alert("修改购物车失败");
+                 tip("修改购物车失败");
                 }
             }
         });
@@ -89,7 +89,7 @@ $(function(){
             data : JSON.stringify(obj),
             dataType: 'json',
             error : function(request) {
-                alert("修改购物车失败");
+                tip("修改购物车失败");
              },
             success: function(data) {
                 console.log("data="+data);
@@ -106,10 +106,10 @@ $(function(){
                          Total();
 
                     }else{
-                         alert("修改购物车失败code="+data.code+","+data.message);
+                         tip("修改购物车失败code="+data.code+","+data.message);
                     }
                 }else{
-                 alert("修改购物车失败");
+                 tip("修改购物车失败");
                 }
             }
         });
@@ -231,6 +231,7 @@ $(function(){
     }
 
 
+
 });
 
 //删除购物车
@@ -242,7 +243,7 @@ function delCart(cartId){
               url : "/cart/del/"+cartId,
               contentType: "application/json; charset=utf-8",
               error : function(request) {
-                  alert("删除失败!");
+                  tip("删除失败!");
               },
               success: function(data) {
                  console.log("data="+data);
@@ -254,7 +255,7 @@ function delCart(cartId){
                             ul.prev().parents(".areaAndSku").remove();
 
                       }
-                  } else alert("删除失败!");
+                  } else tip("删除失败!");
 
               }
          });
@@ -265,7 +266,7 @@ function delCart(cartId){
 $(document).on("click",".settleBtn",function(){
 
      if($("input:checkbox[name=check_item]:checked").length<=0){
-        alert("请选择商品");
+        tip("请选择商品");
         return;
      }
 
@@ -273,6 +274,14 @@ $(document).on("click",".settleBtn",function(){
     $("#settleForm").submit();
 
 });
+
+//提示
+function tip(tipContent){
+    $("#tip").html(tipContent).show();
+    setTimeout(function(){
+    $("#tip").hide();
+    },3000);
+}
 
 
 
