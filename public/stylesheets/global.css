@@ -70,7 +70,7 @@ input:password {
     width: 100%;
     height:44px;
     line-height:44px;
-    background:＃ff5359;
+    background-color:#E66255;
     z-index: 998;
 }
 
@@ -102,7 +102,6 @@ h1 {
 .back b{
     border-color:transparent #E66255 transparent transparent ;
     left:2px;
-
 }
 
 
