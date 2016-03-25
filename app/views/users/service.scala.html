@@ -1,3 +1,4 @@
+@(path:String, sku:domain.CartSkuDto, orderId:Long)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,22 +10,23 @@
     <link rel="stylesheet" href="/assets/stylesheets/global.css"/>
     <link rel="stylesheet" href="/assets/stylesheets/service.css"/>
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+    <script src="/assets/javascripts/my.js"></script>
     <script>
-        $(function(){
-            $('.next').click(function(){
-                $('.shade').show();
-            })
+        <!--$(function(){-->
+            <!--$('.next').click(function(){-->
+                <!--$('.shade').show();-->
+            <!--})-->
 
-            $('.box-btn').click(function(){
-                $('.shade').hide();
-            })
-        })
+            <!--$('.box-btn').click(function(){-->
+                <!--$('.shade').hide();-->
+            <!--})-->
+        <!--})-->
     </script>
 </head>
 <body>
 
 <header class="head">
-    <a href="javascript:;" class="back">
+    <a href="@path" class="back">
         <i></i>
         <b></b>
     </a>
@@ -32,13 +34,13 @@
 </header>
 
 <div class="warp">
-
+    <form id="cell_refForm" method="post" onsubmit="return false" action="" >
     <div class="detail-box">
         <div>
-            <a href="http://127.0.0.1:9001/comm/detail/pin/889604/112472" class="commodity">
-                <img src="http://img.hanmimei.com/item/photo/20160315/b3730fc560ab471a9faa38bd19535d981458023469090.jpg" alt="">
-                <h2>拼购拼购商品标题</h2>
-                <span class="commodity-rmb">￥30<i class="rmb color"></i><i class="number">数量:1</i></span>
+            <a class="commodity">
+                <img src="@sku.getInvImg()" alt="">
+                <h2>@sku.getSkuTitle()</h2>
+                <span class="commodity-rmb">￥@sku.getPrice()<i class="rmb color"></i>数量:<i class="number">@sku.getAmount()</i></span>
             </a>
         </div>
 
@@ -48,18 +50,18 @@
     <div class="detail-box clearfix">
         <p>申请数量</p>
         <div class="detail-m clearfix">
-            <a href="javascript:;">-</a>
-            <span class="num">1</span>
-            <a href="javascript:;" class="last">+</a>
+            <a href="javascript:;" id="cut">-</a>
+            <span class="num">@sku.getAmount()</span>
+            <a href="javascript:;" class="last" id="add">+</a>
         </div>
-        <p class="p-last">您最多可提供数量为1个</p>
+        <p class="p-last">您最多可提供数量为@sku.getAmount()个</p>
 
     </div>
 
     <div class="detail-box">
         <p>问题描述</p>
         <div class="detail-m">
-            <input class="detail-m-inp" type="text" value="请您在此描述详细问题" maxlength="20" name="reason"/>
+            <input class="detail-m-inp" type="text"  placeholder="请您在此描述详细问题" id="reason" name="reason"/>
         </div>
 
     </div>
@@ -76,18 +78,16 @@
 
     <div class="next btn">下一步</div>
 
-
-
     <div class="shade">
         <div class="box">
             <span class="box-hd">联系人信息</span>
             <ul>
                 <li>
                     <span class="">联系人:</span>
-                    <input type="text" class="input-rese" /></li>
+                    <input type="text" class="input-rese" name="contactName" id="contactName"/></li>
                 <li>
                     <span>联系人电话:</span>
-                    <input type="text" class="input-rese"  maxlength="11" />
+                    <input type="text" class="input-rese"  maxlength="11" id="contactTel" name="contactTel"/>
                 </li>
             </ul>
 
@@ -96,11 +96,14 @@
             <div class="hint">最多输入</div>
         </div>
 
-
-
-
     </div>
 
+        <input type="hidden" id="orderId" name="orderId" value="@orderId">
+        <input type="hidden" id="skuId" name="skuId" value="@sku.getSkuId()">
+        <input type="hidden" id="amount" name="amount" value="@sku.getAmount()">
+    </form>
+
+    <div class="hint" id="tip" style="display:none"></div>
 </div>
 </body>
 </html>

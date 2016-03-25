@@ -19,7 +19,7 @@ GET         /aboutus                                  controllers.UserCtrl.about
 GET         /collect/del/$collectId<[0-9]+>           controllers.UserCtrl.collectDel(collectId:Long)
 POST        /collect/submit                           controllers.UserCtrl.submitCollect()
 
-GET         /service                                  controllers.UserCtrl.service()
+POST        /service                                  controllers.UserCtrl.service()
 POST        /order/apply/refund                       controllers.UserCtrl.refundApply()
 
 #我的拼购
