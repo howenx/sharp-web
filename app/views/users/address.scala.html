@@ -28,7 +28,7 @@
         <li id="li@address.getAddId()" class="ul-box-li clearfix">
             <div class="address">
                 <a href="javascript:;" class="sel_add">
-                    @if(selId!=1 && selId==address.getAddId()) {
+                    @if(selId!=0 && selId==address.getAddId()) {
                     <input id="sel_rad" type="radio" checked="checked">
                     }
                     <p><i class="add-icon"></i><span>姓名:</span><span>@address.getName()</span>
@@ -42,7 +42,7 @@
                 </a>
 
                 <div class="alter clearfix">
-                    @if(selId==1) {
+                    @if(selId==0) {
                     <a href="javascript:;" class="alter-btn color" onclick="delAddress(@address.getAddId(),@address.getOrDefault())">删除</a>
                     }
                     <a id="@address.getAddId()" href="/address/update/@address.getAddId()/@selId" class="color addup">修改</a>
@@ -56,13 +56,15 @@
 
 </div>
 
+<div class="hint" id="tip" style="display:none"></div>
+
 </body>
 </html>
 
 
 <script>
 
-    var selId = $("#selId");
+    var selId = $("#selId").val();
 
     //新增收货地址
     <!--$(document).on("click", "#addressnew", function() {-->
@@ -87,7 +89,7 @@
 
     //地址可被点击选择
     $(document).on("click", ".sel_add", function() {
-        if (selId!=1) {
+        if (selId!=0) {
             var liId = $(this).parent().parent().attr("id");
             var addId = liId.substring(2,liId.length);
             $("#sel_rad").remove();

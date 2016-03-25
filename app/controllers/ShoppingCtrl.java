@@ -65,9 +65,9 @@ public class ShoppingCtrl extends Controller {
             }
 
             if (id > 0) {
-                return ok(views.html.shopping.orderpa.render(orderList));//订单详情
+                return ok(views.html.shopping.orderpa.render(orderList,PAY_URL));//订单详情
             }
-            return ok(views.html.shopping.all.render(orderList));
+            return ok(views.html.shopping.all.render(orderList,PAY_URL));
         });
     }
 
@@ -331,7 +331,7 @@ public class ShoppingCtrl extends Controller {
             }
             SettleVo settleVo=Json.fromJson(json.get("settle"), SettleVo.class);
 
-            return ok(views.html.shopping.settle.render(settleVo,settleInfoList,buyNow, finalPinActiveId));
+            return ok(views.html.shopping.settle.render(settleVo,settleInfoList,buyNow, finalPinActiveId,PAY_URL));
         });
     }
     private SettleDTO createSettleDTO(String invCustoms,String invArea, String invAreaNm,List<CartDto> cartDtos){
