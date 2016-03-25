@@ -256,7 +256,7 @@ $(function(){
                 $("#selected").addClass("settleBtn").removeClass("discolour");
             }
        } else{
-            //超出限制结算按钮不可用 //TODO...添加变灰式样
+            //超出限制结算按钮不可用 
             $("#selected").removeClass("settleBtn").addClass("discolour");
 
        }
