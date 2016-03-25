@@ -230,7 +230,6 @@ $(function(){
 
     }
 
-    function check
 
 
 });

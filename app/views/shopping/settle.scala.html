@@ -57,7 +57,17 @@
                 <input type="hidden" name="invAreaNm@index" value="@settleInfo.getInvAreaNm()"/>
                 <input type="hidden" name="cartNum@index" value="@settleInfo.getCartInfos().size()"/>
                 @for((cartInfo,cartIndex)<-settleInfo.getCartInfos().zipWithIndex){
+<<<<<<< HEAD
                 <div class="clearfix one">
+=======
+
+
+                <div class="clearfix one"></div>
+
+
+                <div class="clearfix one">
+
+>>>>>>> 2f6d41fa1280d2d46e8a61d1d88eb777d03a697c
                     <h2><i class="picture"> <img src="@cartInfo.getSkuInvImg()" alt="" height="80"/></i>@cartInfo.getSkuTitle()</h2>
                     <div class="goods">
                         <span class="order color">￥@cartInfo.getSkuPrice()</span>
@@ -163,22 +173,32 @@
                 <li><span>优惠金额</span><i>￥@if(null==settle.getDiscountFee()){0} @if(null!=settle.getDiscountFee()){settle.getDiscountFee()}</i></li>
                 <li><span>行邮税</span><i>￥@settle.getPortalFee()</i></li>
                 <li><span>运费</span><i>￥@settle.getShipFee()</i></li>
+<<<<<<< HEAD
 
             </ul>
         </div>
+=======
+>>>>>>> 2f6d41fa1280d2d46e8a61d1d88eb777d03a697c
 
+            </ul>
+        </div>
 
 
         <div class="shade">
             <div class="box">
                 <span>便宜不等人,请三思而行</span>
                 <div>
+<<<<<<< HEAD
                     <a href="/" class="last">去意已决</a>
+=======
+                    <a href="/detail/*type/*url" class="last">去意已决</a>
+>>>>>>> 2f6d41fa1280d2d46e8a61d1d88eb777d03a697c
                     <a href="javascript:;" class="first">我在想想</a>
                 </div>
             </div>
         </div>
 
+<<<<<<< HEAD
     </div>
         <input type="hidden" name="buyNow" value="@buyNow"/>
         <input type="hidden" name="pinActiveId" value="@pinActiveId"/>
@@ -188,17 +208,45 @@
 
     </div>
 
+=======
+    </div>
+
+        <input type="hidden" name="buyNow" value="@buyNow"/>
+        <input type="hidden" name="pinActiveId" value="@pinActiveId"/>
+        <div class="refer-box">
+            <span class="refer-rmb color">合计:￥<span id="totalPaySpan">@settle.getTotalPayFee()</span></span>
+            <a href="javascript:;" class="refer bg submitOrder">提交订单</a>
+
+        </div>
+>>>>>>> 2f6d41fa1280d2d46e8a61d1d88eb777d03a697c
 
 </form>
 
-<input type="hidden" id="tempTotal" value="@settle.getTotalPayFee()"/>
+    <input type="hidden" id="tempTotal" value="@settle.getTotalPayFee()"/>
 
+<<<<<<< HEAD
+    <form id="payForm" action="http://172.28.3.51:9003/client/redirect/cash" method="POST">
+        <input type="hidden" id="orderId" name="orderId" value="0"/>
+        <input type="hidden" id="token" name="token" value=""/>
+        <input type="hidden" id="securityCode" name="securityCode" value=""/>
+    </form>
+
+
+    <div class="hint">
+        本商品限购10件
+    </div>
+=======
 <form id="payForm" action="http://172.28.3.51:9003/client/redirect/cash" method="POST" accept-charset="utf-8">
     <input type="hidden" id="orderId" name="orderId" value="0"/>
     <input type="hidden" id="token" name="token" value=""/>
     <input type="hidden" id="securityCode" name="securityCode" value=""/>
     <input type="hidden" id="testZh" name="testZh" value="中文"/>
 </form>
+<<<<<<< HEAD
 <div class="hint" id="tip"></div>
+=======
+>>>>>>> f7e80bff05b96abbe0230efb5f5cb779d31634e1
+
+>>>>>>> 2f6d41fa1280d2d46e8a61d1d88eb777d03a697c
 </body>
 </html>

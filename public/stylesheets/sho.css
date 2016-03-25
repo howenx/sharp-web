@@ -340,6 +340,9 @@ input:password {
 
 /*提示信息*/
 .hint{
+    position: fixed;
+    top:50%;
+    left: 50%;
     height: 40px;
     line-height: 40px;
     text-align: center;
@@ -348,4 +351,6 @@ input:password {
     color:#E46359;
     padding: 10px;
     text-align: center;
+    -webkit-transform: translate(-50%,0);
+    -moz-transform: translate(-50%,0);
 }
