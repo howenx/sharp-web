@@ -253,11 +253,11 @@ $(function(){
        if(limitFlag==false){
             $("#hint-hd").html("友情提示 : 同一保税区商品总额有限制");
             if($("#selected").hasClass("settleBtn")==false){
-                $("#selected").addClass("settleBtn");
+                $("#selected").addClass("settleBtn").removeClass("discolour");
             }
        } else{
             //超出限制结算按钮不可用 //TODO...添加变灰式样
-            $("#selected").removeClass("settleBtn");
+            $("#selected").removeClass("settleBtn").addClass("discolour");
 
        }
 

@@ -166,12 +166,17 @@
 .footer-r{
     width: 32%;
     height: 44px;
-    background-color:#969696;
+    background-color:#E66255;
     float: left;
     text-align: center;
     font-size:18px;
     cursor: pointer;
 }
+.discolour{
+    background-color: #969696;
+}
+
+
 /*footer-hd部分结束*/
 
 /*input样式*/

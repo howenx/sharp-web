@@ -368,9 +368,9 @@ div .cycle-overlay {
 	text-align: center;
 	color: #fff;
 	background-color:#E46359;
-	margin:17px 0 0 10px;
-	line-height:25px;
-	width:60px;
+	margin:22px 0 0 10px;
+	line-height:20px;
+	padding: 0px 5px;
 }
 .thw-detail-other {
 	color: #565555;
@@ -470,7 +470,7 @@ div .cycle-overlay {
 	border: 1px solid #e1e1e1;
 	border-radius: 5px;
 	cursor: pointer;
-
+    margin: 0 5px 0 0;
 }
 .sale{
 	margin: 2% 0 0 0;
@@ -719,13 +719,14 @@ div .cycle-overlay {
 	height: 20px;
 	position: absolute;
 	top: 2px;
-	left: 10px;
+	left:45%;
 	background: #ed145b;
 	line-height: 20px;
 	cursor: pointer;
 	color: #fff;
 	border-radius: 50%;
 	text-align: center;
+	font-size: 12px;
 }
 
 .love{
