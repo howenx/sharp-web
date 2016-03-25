@@ -198,6 +198,7 @@
 
     <input type="hidden" id="tempTotal" value="@settle.getTotalPayFee()"/>
 
+<<<<<<< HEAD
     <form id="payForm" action="http://172.28.3.51:9003/client/redirect/cash" method="POST">
         <input type="hidden" id="orderId" name="orderId" value="0"/>
         <input type="hidden" id="token" name="token" value=""/>
@@ -208,6 +209,14 @@
     <div class="hint">
         本商品限购10件
     </div>
+=======
+<form id="payForm" action="http://172.28.3.51:9003/client/redirect/cash" method="POST" accept-charset="utf-8">
+    <input type="hidden" id="orderId" name="orderId" value="0"/>
+    <input type="hidden" id="token" name="token" value=""/>
+    <input type="hidden" id="securityCode" name="securityCode" value=""/>
+    <input type="hidden" id="testZh" name="testZh" value="中文"/>
+</form>
+>>>>>>> f7e80bff05b96abbe0230efb5f5cb779d31634e1
 
 </body>
 </html>

@@ -131,30 +131,30 @@ public class ShoppingCtrl extends Controller {
         );
     }
 
-    /**
-     * 添加商品到购物车
-     * @return
-     */
-    @Security.Authenticated(UserAuth.class)
-    public F.Promise<Result> addToCart(){
-        F.Promise<JsonNode> promise = F.Promise.promise(() -> {
-            RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, request().body().asJson().toString());
-            Request.Builder builder = (Request.Builder) ctx().args.get("request");
-            Request request = builder.url(SHOPPING_ADDTOCART).post(formBody).build();
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                String result = dealToString(response);
-                if (result != null) {
-                    return Json.parse(result);
-                } else throw new IOException("Unexpected code" + response);
-            } else throw new IOException("Unexpected code" + response);
-        });
-        return promise.map((F.Function<JsonNode, Result>) json -> {
-                    Logger.error(json.toString());
-                    return ok("AAAA");
-                }
-        );
-    }
+//    /**
+//     * 添加商品到购物车
+//     * @return
+//     */
+//    @Security.Authenticated(UserAuth.class)
+//    public F.Promise<Result> addToCart(){
+//        F.Promise<JsonNode> promise = F.Promise.promise(() -> {
+//            RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, request().body().asJson().toString());
+//            Request.Builder builder = (Request.Builder) ctx().args.get("request");
+//            Request request = builder.url(SHOPPING_ADDTOCART).post(formBody).build();
+//            Response response = client.newCall(request).execute();
+//            if (response.isSuccessful()) {
+//                String result = dealToString(response);
+//                if (result != null) {
+//                    return Json.parse(result);
+//                } else throw new IOException("Unexpected code" + response);
+//            } else throw new IOException("Unexpected code" + response);
+//        });
+//        return promise.map((F.Function<JsonNode, Result>) json -> {
+//                    Logger.error(json.toString());
+//                    return ok("AAAA");
+//                }
+//        );
+//    }
 
     /**
      * 空购物车页面

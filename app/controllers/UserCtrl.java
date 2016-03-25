@@ -117,7 +117,7 @@ public class UserCtrl extends Controller {
 
         ObjectNode result = Json.newObject();
         Form<AddressInfo> addressForm = Form.form(AddressInfo.class).bindFromRequest();
-        Logger.info("====addressSave===" + addressForm.data());
+        Logger.info("====addressSave===\n" + addressForm.data());
         Map<String, String> addressMap = addressForm.data();
         String idCardNum = addressMap.get("idCardNum").trim().toLowerCase();
         if (addressForm.hasErrors() || !"".equals(ComTools.IDCardValidate(idCardNum))) { //表单错误或者身份证校验不通过

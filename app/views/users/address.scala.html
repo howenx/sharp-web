@@ -27,10 +27,10 @@
         @for(address<-addressList){
         <li id="li@address.getAddId()" class="ul-box-li clearfix">
             <div class="address">
-                @if(selId!=1 && selId==address.getAddId()) {
-                <input type="radio" checked="checked">
-                }
-                <a href="javascript:;">
+                <a href="javascript:;" class="sel_add">
+                    @if(selId!=1 && selId==address.getAddId()) {
+                    <input id="sel_rad" type="radio" checked="checked">
+                    }
                     <p><i class="add-icon"></i><span>姓名:</span><span>@address.getName()</span>
                         @if(address.getOrDefault()==true){
                              <span class="color">默认</span>
@@ -53,10 +53,6 @@
     </ul>
     <input type="hidden" id="selId" value="@selId">
     <a href="/addressnew/@selId" id="addressnew" class="plus-add bg">新增收货地址</a>
-
-
-
-    <a href="/addressnew" class="plus-add bg">新增收货地址</a>
 
 </div>
 </body>
@@ -89,17 +85,15 @@
     <!--});-->
 
     //地址可被点击选择
-    $(document).on("click", ".ul-box-li", function() {
+    $(document).on("click", ".sel_add", function() {
         if (selId!=1) {
-            var liId = $(this).attr("id");
+            var liId = $(this).parent().parent().attr("id");
             var addId = liId.substring(2,liId.length);
-
+            $("#sel_rad").remove();
+            $(this).prepend("<input type='radio' id='sel_rad' checked='checked'>");
+            window.history.back() ;
         }
     });
-
-
-
-
 
 
 </script>
