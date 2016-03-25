@@ -1209,3 +1209,20 @@ div .cycle-overlay {
 	padding:44px 0 0 0;
 	margin:0 0 100px 0;
 }
+
+/*提示信息*/
+.hint{
+    position: fixed;
+    top:50%;
+    left: 50%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 20px;
+    margin: 0 auto;
+    color:#E46359;
+    padding: 10px;
+    text-align: center;
+    -webkit-transform: translate(-50%,0);
+    -moz-transform: translate(-50%,0);
+}

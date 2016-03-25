@@ -242,7 +242,7 @@ $(document).on("click",".btnCart",function(){
         data : JSON.stringify(obj),
         dataType: 'json',
         error : function(request) {
-            alert("加入购物车失败");
+            tip("加入购物车失败");
          },
         success: function(data) {
             console.log("data="+data);
@@ -250,11 +250,11 @@ $(document).on("click",".btnCart",function(){
                 if(data.code==200) { //成功
                     addCartEffect(); //加入购物车特效
                 }else{
-                     alert("加入购物车失败code="+data.code+","+data.message);
+                     tip(data.message);
                 }
 
             }else{
-             alert("加入购物车失败");
+             tip("加入购物车失败");
             }
         }
     });
@@ -285,6 +285,14 @@ function addCartEffect(){
     eleFlyElement.style.visibility = "visible";
     // 需要重定位
     myParabola.position().move();
+}
+
+//提示
+function tip(tipContent){
+    $("#tip").html(tipContent).show();
+    setTimeout(function(){
+    $("#tip").hide();
+    },3000);
 }
 
 

@@ -14,6 +14,7 @@ import play.data.Form;
 import play.libs.F;
 import play.libs.Json;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
 import util.Crypto;
@@ -524,26 +525,38 @@ public class ShoppingCtrl extends Controller {
      * 购物车数量
      * @return
      */
-    @Security.Authenticated(UserAuth.class)
     public F.Promise<Result>  cartAmount(){
-        F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
-            Request.Builder builder = (Request.Builder) ctx().args.get("request");
-            Request request = builder.url(CART_AMOUNT).get().build();
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                return Json.parse(new String(response.body().bytes(), UTF_8));
-            } else throw new IOException("Unexpected code" + response);
-        });
+        Optional<String> header = Optional.ofNullable(ctx().session().get("id-token"));
+        if (header.isPresent()) {
+                F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
+                    Request.Builder builder = new Request.Builder();
+                    builder.addHeader(Http.HeaderNames.X_FORWARDED_FOR,ctx().request().remoteAddress());
+                    builder.addHeader(Http.HeaderNames.VIA,ctx().request().remoteAddress());
+                    builder.addHeader("User-Agent",ctx().request().getHeader("User-Agent"));
+                    builder.addHeader("id-token", header.get());
 
-        return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
-            Logger.info("==settle=json==" + json);
-            Message message = Json.fromJson(json.get("message"), Message.class);
-            if (null == message) {
-                Logger.error("返回商品结算数据错误code=" + json);
-                return badRequest();
-            }
-            return ok(json);
-        });
+                    Logger.info("===="+header.get()+"===="+header.isPresent()+"==builder=="+builder);
+                    Request request = builder.url(CART_AMOUNT).get().build();
+                    Response response = client.newCall(request).execute();
+                    if (response.isSuccessful()) {
+                        return Json.parse(new String(response.body().bytes(), UTF_8));
+                    } else throw new IOException("Unexpected code" + response);
+                });
+
+                return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
+                    Logger.info("==settle=json==" + json);
+                    Message message = Json.fromJson(json.get("message"), Message.class);
+                    if (null == message) {
+                        Logger.error("返回商品结算数据错误code=" + json);
+                        return badRequest();
+                    }
+                    return ok(json);
+                });
+
+        }
+        ObjectNode result = Json.newObject();
+        result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.FAILURE.getIndex()), Message.ErrorCode.FAILURE.getIndex())));
+        return F.Promise.promise((F.Function0<Result>) () -> ok(result));
     }
 
 }
