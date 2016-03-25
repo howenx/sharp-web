@@ -12,8 +12,6 @@
 .scope{min-width:320px; max-width:750px; margin: 0 auto;}
 
 .wap{
-
-    height:900px;
     background-color: #F4F4F4;
 }
 .user{
@@ -101,49 +99,68 @@
 
 .list div{
     width:100%;
-    height:60px;
+    height:50px;
     padding:0 2%;
-    line-height: 60px;
+    line-height: 50px;
     margin: 0 0 10px 0;
     background-color: #fff;
 }
 
-.whole i,.buy-box i,.agio-box i,.add-box i,.advise-box i{
+.whole .icon,.buy-box .icon,.agio-box .icon,.add-box .icon,.advise-box .icon{
+    width: 25px;
+    height: 25px;
     background: url("/assets/images/personal-07.jpg") left center no-repeat;
+    background-size: contain;
     float: left;
-    padding:0 0 0 45px;
+    padding:0 0 0 35px;
+    margin: 12px 0 0 0;
 
 }
 .whole span,.buy-box span,.agio-box span,.add-box span,.advise-box span{
     float: right;
     background: url("/assets/images/right-arrow.png") right center no-repeat;
-    background-size:10px 20px;
+    background-size:9px 14px;
     padding:0 20px 0 0;
-
 }
-.buy-box i{
-    background: url("/assets/images/personal-08.jpg") left center no-repeat;
+
+.icon-txt{
+    color:#696969;
+}
+.buy-box .icon{
+    width:25px;
+    height:25px;
+    background: url("/assets/images/personal-08.jpg") no-repeat;
+    background-size: contain;
 
 }
 .buy-box span,.add-box span,.advise-box span{
     width:20px;
     height:30px;
     background: url("/assets/images/right-arrow.png") right center no-repeat;
-    background-size:10px 20px;
+    background-size:9px 14px;
     margin: 15px 0 0 0;
 }
 
-.agio-box i{
-    background: url("/assets/images/personal-09.jpg") left center no-repeat;
+.agio-box .icon{
+    width: 25px;
+    height: 25px;
+    background: url("/assets/images/personal-09.jpg") no-repeat;
+    background-size: contain;
 
 }
 
-.add-box i{
-    background: url("/assets/images/personal-10.jpg") left center no-repeat;
+.add-box .icon{
+    width: 25px;
+    height: 25px;
+    background: url("/assets/images/personal-10.jpg") no-repeat;
+    background-size: contain;
 }
 
-.advise-box i{
-    background: url("/assets/images/personal-12.jpg") left center no-repeat;
+.advise-box .icon{
+    width: 25px;
+    height: 25px;
+    background: url("/assets/images/personal-12.jpg") no-repeat;
+    background-size: contain;
 }
 
 

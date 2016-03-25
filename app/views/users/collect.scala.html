@@ -26,9 +26,9 @@
 <div class="scope wap">
 
     <div class="coll">
-
+        <p>暂无收藏的商品</p>
         <ul>
-            @if(null==collectList||collectList.size()<=0){暂无收藏的商品}
+            <!--@if(null==collectList||collectList.size()<=0){暂无收藏的商品}-->
             @for(collect<-collectList){
             <li value="@collect.getCollectId()">
                 <div class="con">
@@ -115,8 +115,8 @@
     </div>
 </div>
 
-<div class="hint">
-    本商品限购10件本商品限购
+<div class="hint" style="display: none">
+    本商品限购10件
 </div>
 
 
