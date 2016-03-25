@@ -54,6 +54,8 @@ public class Order implements Serializable {
     @JsonIgnore
     private Long                pinActiveId;       //拼购活动ID
 
+    private String securityCode;
+
     public Order() {
     }
 
@@ -283,6 +285,14 @@ public class Order implements Serializable {
 
     public void setPinActiveId(Long pinActiveId) {
         this.pinActiveId = pinActiveId;
+    }
+
+    public String getSecurityCode() {
+        return securityCode;
+    }
+
+    public void setSecurityCode(String securityCode) {
+        this.securityCode = securityCode;
     }
 
     @Override

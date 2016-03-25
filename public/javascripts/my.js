@@ -290,6 +290,38 @@ function tip(tipContent){
     },3000);
 }
 
+function pay(url,orderId,token,securityCode){
+    $.ajax({
+          type :"GET",
+          url : "/order/verify/"+orderId,
+          contentType: "application/json; charset=utf-8",
+          error : function(request) {
+              tip("请求失败!");
+          },
+          success: function(data) {
+             console.log("data="+data);
+              if (data!=""&&data!=null){
+
+                  if(data.code==200){ //校验订单成功
+                        //去支付
+                        var form = $('<form action="' + url + '" method="post">' +
+                                    '<input type="hidden" name="orderId" value="'+orderId+'"/>' +
+                                    '<input type="hidden" name="token" value="'+token+'"/>' +
+                                    '<input type="hidden" name="securityCode" value="'+securityCode+'"/>' +
+                                    '</form>');
+                         form.submit();
+
+                   }else {
+                       tip(data.message);
+                        setTimeout("location.href='/all'", 3000);
+                   }
+              }
+              else tip("请求失败!");
+
+          }
+     });
+}
+
 
 
 

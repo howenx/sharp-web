@@ -13,8 +13,11 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
+import util.Crypto;
 
 import java.io.IOException;
+import java.util.Map;
+import java.util.TreeMap;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static modules.SysParCom.*;
@@ -101,6 +104,24 @@ public class ComCtrl extends Controller {
             }
             return ok(toJson(message));
         } );
+    }
+
+    /**
+     * 订单加密
+     * @param orderId
+     * @param token
+     * @return
+     */
+    public String orderSecurityCode(String orderId,String token){
+        Map<String,String> map = new TreeMap<>();
+        map.put("orderId",orderId);
+        map.put("token",token);
+        try {
+            return Crypto.getSignature(map,"HMM");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
 }

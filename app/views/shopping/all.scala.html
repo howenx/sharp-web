@@ -1,4 +1,4 @@
-@(orderList:List[domain.OrderDTO],payUrl:String)
+@(orderList:List[domain.OrderDTO],payUrl:String,token:String)
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -95,7 +95,7 @@
                             <div class="payment">
                                 @if(order.getOrder().getOrderStatus()=="I"||order.getOrder().getOrderStatus()=="F"){
                                     <a href="javascript:;" class="left cancelOrder">取消订单</a>
-                                    <a href="javascript:;" class="right bg">去支付</a>
+                                    <a href="javascript:;" class="right bg" onclick="pay('@payUrl','@order.getOrder().getOrderId()','@token','@order.getOrder().getSecurityCode()')">去支付</a>
                                     <a href="javascript:;" class="right mi">应付金额:￥@order.getOrder().getPayTotal()</a>
                                 }
                                 @if(order.getOrder().getOrderStatus()=="D"){
@@ -141,7 +141,7 @@
                                     }
                                     <div class="payment">
                                         <a href="javascript:;" class="left cancelOrder">取消订单</a>
-                                        <a href="javascript:;" class="right bg">去支付</a>
+                                        <a href="javascript:;" class="right bg"  onclick="pay('@payUrl','@order.getOrder().getOrderId()','@token','@order.getOrder().getSecurityCode()')">去支付</a>
                                         <a href="javascript:;" class="right mi">应付金额:￥@order.getOrder().getPayTotal()</a>
                                     </div>
                                 </div>

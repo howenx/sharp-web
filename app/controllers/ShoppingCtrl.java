@@ -47,6 +47,7 @@ public class ShoppingCtrl extends Controller {
             }else  throw new IOException("Unexpected code " + response);
         });
 
+        String token=session().get("id-token");
         return promiseOfInt.map((play.libs.F.Function<JsonNode , Result>) json -> {
             Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
@@ -62,13 +63,14 @@ public class ShoppingCtrl extends Controller {
                         sku.setInvImg(comCtrl.getImgUrl(sku.getInvImg()));
                         sku.setInvUrl(comCtrl.getDetailUrl(sku.getInvUrl()));
                     }
+                    orderDTO.getOrder().setSecurityCode(comCtrl.orderSecurityCode(orderDTO.getOrder().getOrderId()+"",token));
                 }
             }
 
             if (id > 0) {
-                return ok(views.html.shopping.orderpa.render(orderList,PAY_URL));//订单详情
+                return ok(views.html.shopping.orderpa.render(orderList,PAY_URL,token));//订单详情
             }
-            return ok(views.html.shopping.all.render(orderList,PAY_URL));
+            return ok(views.html.shopping.all.render(orderList,PAY_URL,token));
         });
     }
 
@@ -482,16 +484,11 @@ public class ShoppingCtrl extends Controller {
             ObjectNode objectNode = Json.newObject();
             objectNode.putPOJO("message",message);
             if(message.getCode()==200&&json.has("orderId")){
-                Map<String,String> map = new TreeMap<>();
-                map.put("orderId",json.get("orderId").asText());
-                map.put("token",session().get("id-token"));
-                String securityCode= Crypto.getSignature(map,"HMM");
+                String securityCode= comCtrl.orderSecurityCode(json.get("orderId").asText(),session().get("id-token"));
                 objectNode.put("token",session().get("id-token"));
                 objectNode.put("orderId",json.get("orderId").asLong());
                 objectNode.put("securityCode",securityCode);
             }
-            Logger.error("===提交订单===="+toJson(objectNode));
-
             return ok(toJson(objectNode));
         });
     }
