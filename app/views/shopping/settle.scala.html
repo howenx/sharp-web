@@ -16,6 +16,27 @@
     <link rel="stylesheet" href="/assets/stylesheets/global.css"/>
     <link rel="stylesheet" href="/assets/stylesheets/pay.css"/>
     <script src="/assets/javascripts/pay.js"></script>
+    <script>
+        $(function(){
+            $('.other').click(function(){
+                $('.add-shade').show();
+            })
+
+            $('.addup').click(function(){
+                $('.xnew-add-shade').show();
+            });
+
+            $('.amputate span').click(function(){
+                $('.add-shade').hide();
+            });
+
+            $('.amput span').click(function(){
+                $('.xnew-add-shade').hide();
+            });
+
+
+        })
+    </script>
 </head>
 <body>
 <!--头部开始-->
@@ -44,7 +65,8 @@
                 <p><span>联系电话:</span><span>@settle.getAddress().getTel()</span></p>
                 <p><span>身份证号:</span><span>@settle.getAddress().getIdCardNum()</span></p>
                 <p><span>收货地址:</span><span>@settle.getAddress().getDeliveryCity() @settle.getAddress().getDeliveryDetail()</span></p>
-                <i><a href="/address/@settle.getAddress().getAddId()">其它地址 ></a></i>
+              <!--  <i><a href="/address/@settle.getAddress().getAddId()" class="other">其它地址 ></a></i>-->
+                <i><a href="javascript:;" class="other">其它地址 ></a></i>
             </a>
             }
         </div>
@@ -199,8 +221,13 @@
 
 <div class="hint" id="tip" style="display:none"></div>
 
-<div class="add-shade" style="display: none">
+<div class="add-shade">
+
     <ul class="ul-box clearfix">
+
+        <li class="amputate clearfix">
+            <span> × </span>
+        </li>
 
         <li id="li700351" class="ul-box-li clearfix">
             <div class="address clearfix">
@@ -220,7 +247,8 @@
 
                     <a href="javascript:;" class="alter-btn color" onclick="delAddress(700351,true)">删除</a>
 
-                    <a id="700351" href="/address/update/700351/0" class="color addup">修改</a>
+                    <!--<a id="700351" href="/address/update/700351/0" class="color addup">修改</a>-->
+                    <a id="700351" href="javascript:;" class="color addup">修改</a>
                 </div>
             </div>
         </li>
@@ -251,9 +279,12 @@
     </ul>
 </div>
 
-<div class="xnew-add-shade" style="display:none;">
+<div class="xnew-add-shade" style="display: block">
 
     <div id="js-userinfo-error" class="cue"></div>
+        <div class="amput clearfix">
+            <span> × </span>
+        </div>
     <form id="cell_addressForm">
         <input id="addId" name="addId" value="700351" type="hidden">
         <div class="add-s">
