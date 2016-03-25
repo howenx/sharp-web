@@ -26,6 +26,7 @@ import play.mvc.Security;
 
 import javax.inject.Inject;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -878,11 +879,30 @@ public class UserCtrl extends Controller {
         );
     }
 
-    //申请售后
+    /**
+     * 申请售后
+     *
+     * @return
+     */
      public Result service() {
-            //请求用户信息
-            return ok(views.html.users.service.render());
-        }
+         Form<CartDto> cartDtoForm = Form.form(CartDto.class).bindFromRequest();
+         Map<String, String> map = cartDtoForm.data();
+         Long orderId = Long.parseLong(map.get("orderId"));
+         CartSkuDto cartSkuDto = new CartSkuDto();
+         cartSkuDto.setInvImg(map.get("invImg"));
+         cartSkuDto.setSkuTitle(map.get("skuTitle"));
+         cartSkuDto.setPrice(new BigDecimal(map.get("price")));
+         cartSkuDto.setAmount(Integer.parseInt(map.get("amount")));
+         cartSkuDto.setSkuId(Long.parseLong(map.get("skuId")));
+
+         String path = routes.ShoppingCtrl.all(orderId).url();
+         if (session().containsKey("path")) {
+             //path = session().get("path");
+             session().replace("path", routes.UserCtrl.service().url());
+         } else session().put("path", routes.UserCtrl.service().url());
+
+        return ok(views.html.users.service.render(path,cartSkuDto, orderId));
+    }
 
     /**
      * 关于我们

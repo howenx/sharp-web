@@ -273,15 +273,6 @@ $(document).on("click",".like-s",function(){
         });
 });
 
-
-//申请售后
-$(document).on("click", ".apply", function() {
-    var orderId = Number($("#orderId").text());
-
-});
-
-
-
 //提示
 function tip(tipContent){
     $("#tip").html(tipContent).show();
@@ -291,5 +282,59 @@ function tip(tipContent){
 }
 
 
+//申请售后
+$(document).on("click", ".apply", function() {
+    var orderId = $("#orderId").text();
+    var img = $(this).parent().children().children();
+    var invImg = img.attr("src");
+    var skuTitle = img.next().html();
+    var price = img.next().next().find(".price").html();
+    var amount = img.next().next().find(".number").html();
+    var skuId = $(this).next().val();
+    var url = '/service';
+    var form = $('<form action="' + url + '" method="post">' +
+    '<input type="hidden" name="orderId" value="' + orderId + '" />' +
+    '<input type="hidden" name="invImg" value="' + invImg + '" />' +
+    '<input type="hidden" name="skuTitle" value="' + skuTitle + '" />' +
+    '<input type="hidden" name="price" value="' + price + '" />' +
+    '<input type="hidden" name="amount" value="' + amount + '" />' +
+    '<input type="hidden" name="skuId" value="' + skuId + '" />' +
+    '</form>');
+    $('body').append(form);
+    form.submit();
+});
+
+//申请数量加减
+$(document).on("click", "#cut", function() {
+    var num = Number($(".num").html());
+    if (num>1) {
+        $(".num").html(num-1);
+    }
+});
+$(document).on("click", "#add", function() {
+    var num = Number($(".num").html());
+    var amount = Number($(".number").html());
+    if (num<amount) {
+        $(".num").html(num+1);
+    }
+});
+
+//申请售后下一步
+$(document).on("click", ".next", function() {
+    var num = Number($(".num").html());
+    var amount = Number($(".number").html());
+    if (num<1 || num>amount) {
+        tip("申请数量不正确");
+    } else if ($("#reason").val()=="") {
+        tip("请输入退款原因");
+    }
+
+});
+
+//申请退款提交
+$(document).on("click", ".box-btn", function() {
+
+
+});
 
 
