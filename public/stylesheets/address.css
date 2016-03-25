@@ -1,5 +1,4 @@
 .wap{
-    height:1000px;
     background-color: #fff;
     padding:65px 2%;
 }
@@ -39,7 +38,9 @@ ul li a{
 }
 
 .ul-box-li{
-    padding: 10px 10px 50px 10px;
+    padding: 10px 10px 0px 10px;
+    height:260px;
+    margin: 0 0 10px 0;
 }
 
 li div{
@@ -53,6 +54,7 @@ li div{
 
 .alter{
     text-align: right;
+    height: 30px;
 }
 
 .alter a:nth-child(1){
@@ -119,10 +121,6 @@ li div{
 
 .address p{
     margin:0 0 20px 0;
-}
-
-.address p span{
-    margin: 0 0 0 2px;
 }
 
 .address .add-icon{
