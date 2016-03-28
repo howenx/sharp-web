@@ -960,9 +960,11 @@ public class UserCtrl extends Controller {
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> pinActivity(Long activityId, Integer pay, Integer userPayType) {
         play.libs.F.Promise<JsonNode> promiseOfInt = play.libs.F.Promise.promise(() -> {
-            String url=PIN_ACTIVITY + activityId;
+            String url="";
             if(userPayType>0){
-                url=url+"/"+userPayType;
+                url=PIN_ACTIVITY_PAY+activityId+"/"+userPayType;
+            }else{
+                url=PIN_ACTIVITY + activityId;
             }
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
             Request request = builder.url(url).get().build();
@@ -973,7 +975,7 @@ public class UserCtrl extends Controller {
         });
         return promiseOfInt.map((play.libs.F.Function<JsonNode, Result>) json -> {
 
-       //     Logger.info("===json==" + json);
+            Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回数据错误code=" + json);

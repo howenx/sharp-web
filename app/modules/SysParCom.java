@@ -37,7 +37,8 @@ public class SysParCom {
     public static String ORDER_VERIFY;//订单校验
 
     public static String PIN_LIST;//我的拼团
-    public static String PIN_ACTIVITY;//拼团详情
+    public static String PIN_ACTIVITY;//拼团活动
+    public static String PIN_ACTIVITY_PAY;//拼团活动支付
     public static String PIN_ORDER_DETAIL;//拼团详情
 
 
@@ -117,6 +118,7 @@ public class SysParCom {
         //我的拼团
         PIN_LIST=configuration.getString("promotion.pin.list");
         PIN_ACTIVITY=configuration.getString("promotion.pin.activity");
+        PIN_ACTIVITY_PAY=configuration.getString("promotion.pin.activitypay");
         PIN_ORDER_DETAIL=configuration.getString("shopping.pin.detail");
 
 
