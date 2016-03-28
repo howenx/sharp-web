@@ -113,9 +113,12 @@ $(function() {
             }
             //添加收藏
             if(!isCollected){
-                var skuId=$(".item.now").find("#skuId").val();
-                var skuType=$(".item.now").find("#skuType").val();
-                var skuTypeId=$(".item.now").find("#skuTypeId").val();
+//                var skuId=$(".item.now").find("#skuId").val();
+//                var skuType=$(".item.now").find("#skuType").val();
+//                var skuTypeId=$(".item.now").find("#skuTypeId").val();
+                  var skuId=$("input[name='skuId0-0']:not(:disabled)").val() ;
+                  var skuType=$("input[name='skuType0-0']:not(:disabled)").val() ;
+                  var skuTypeId=$("input[name='skuTypeId0-0']:not(:disabled)").val() ;
                 var obj=new Object();
                 obj.skuId=skuId; //sku id
                 obj.skuType=skuType;//商品类型 1.vary,2.item,3.customize,4.pin

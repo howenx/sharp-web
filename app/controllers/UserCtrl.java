@@ -923,8 +923,12 @@ public class UserCtrl extends Controller {
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> pinActivity(Long activityId, Integer pay, Integer userPayType) {
         play.libs.F.Promise<JsonNode> promiseOfInt = play.libs.F.Promise.promise(() -> {
+            String url=PIN_ACTIVITY + activityId;
+            if(userPayType>0){
+                url=url+"/"+userPayType;
+            }
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
-            Request request = builder.url(PIN_ACTIVITY + activityId).get().build();
+            Request request = builder.url(url).get().build();
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
                 return Json.parse(new String(response.body().bytes(), UTF_8));

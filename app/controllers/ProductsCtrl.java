@@ -295,7 +295,7 @@ public class ProductsCtrl extends Controller {
                 List<List<String>> preImgList = new ArrayList<>();
                 //优惠信息
                 List<String> publicityList = new ArrayList<>();
-             //   Logger.info("===detail==" + json);
+                Logger.info("===detail==" + json);
                 //商品基本信息
                 if (json.has("main")) {
                     JsonNode mainJson = json.get("main");
