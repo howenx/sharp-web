@@ -19,7 +19,9 @@
     <script>
         $(function(){
             $('.other').click(function(){
-                $('.add-shade').show();
+                $('.add-shade').animate({
+                    bottom:0
+                },"slow");
             })
 
             $('.addup').click(function(){
@@ -27,7 +29,9 @@
             });
 
             $('.amputate span').click(function(){
-                $('.add-shade').hide();
+                $('.add-shade').animate({
+                    bottom:"-100%"
+                },"slow");
             });
 
             $('.amput span').click(function(){

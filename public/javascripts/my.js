@@ -333,6 +333,7 @@ $(document).on("click", ".next", function() {
 
 //申请退款提交
 $(document).on("click", ".box-btn", function() {
+});
 
 function pay(url,orderId,token,securityCode){
     $.ajax({
@@ -365,8 +366,5 @@ function pay(url,orderId,token,securityCode){
           }
      });
 }
-
-
-});
 
 

@@ -111,7 +111,7 @@ public class UserCtrl extends Controller {
 
         ObjectNode result = Json.newObject();
         Form<AddressInfo> addressForm = Form.form(AddressInfo.class).bindFromRequest();
-        Logger.info("====addressSave===\n" + addressForm.data());
+//        Logger.info("====addressSave===\n" + addressForm.data());
         Map<String, String> addressMap = addressForm.data();
         String idCardNum = addressMap.get("idCardNum").trim().toLowerCase();
         if (addressForm.hasErrors() || !"".equals(ComTools.IDCardValidate(idCardNum))) { //表单错误或者身份证校验不通过
@@ -153,7 +153,7 @@ public class UserCtrl extends Controller {
             });
 
             return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-                Logger.info("===json==" + json);
+ //               Logger.info("===json==" + json);
                 Message message = Json.fromJson(json.get("message"), Message.class);
                 if (null == message) {
                     Logger.error("返回创建新的收货地址数据错误code=" + json);
@@ -236,7 +236,7 @@ public class UserCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-            Logger.info("===json==" + json);
+   //         Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
                 Logger.error("返回收藏数据错误code=" + (null != message ? message.getCode() : 0));
@@ -285,7 +285,7 @@ public class UserCtrl extends Controller {
                     //path = session().get("path");
                     session().replace("path", routes.UserCtrl.myView().url());
                 }else session().put("path", routes.UserCtrl.myView().url());
-                Logger.info("==myView=json==" + json);
+     //           Logger.info("==myView=json==" + json);
                 Message message = Json.fromJson(json.get("message"), Message.class);
                 if(null==message||message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
                     //Logger.error("返回收藏数据错误code="+(null!=message?message.getCode():0));
@@ -361,7 +361,7 @@ public class UserCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-            Logger.info("===json==" + json);
+        //    Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
                 Logger.error("返回收藏数据错误code=" + (null != message ? message.getCode() : 0));
@@ -407,7 +407,7 @@ public class UserCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-            Logger.info("===json==" + json);
+        //    Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
                 Logger.error("返回收藏数据错误code=" + (null != message ? message.getCode() : 0));
@@ -870,7 +870,7 @@ public class UserCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((play.libs.F.Function<JsonNode, Result>) json -> {
-                    Logger.info("===json==" + json);
+         //           Logger.info("===json==" + json);
                     Message message = Json.fromJson(json.get("message"), Message.class);
                     if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
                         Logger.error("返回拼团数据错误code=" + (null != message ? message.getCode() : 0));
@@ -942,10 +942,14 @@ public class UserCtrl extends Controller {
 
     //我的拼团
     @Security.Authenticated(UserAuth.class)
-    public F.Promise<Result> pinActivity(Long pinActivity) {
+    public F.Promise<Result> pinActivity(Long activityId, Integer pay, Integer userPayType) {
         play.libs.F.Promise<JsonNode> promiseOfInt = play.libs.F.Promise.promise(() -> {
+            String url=PIN_ACTIVITY + activityId;
+            if(userPayType>0){
+                url=url+"/"+userPayType;
+            }
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
-            Request request = builder.url(PIN_ACTIVITY + pinActivity).get().build();
+            Request request = builder.url(url).get().build();
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
                 return Json.parse(new String(response.body().bytes(), UTF_8));
@@ -953,7 +957,7 @@ public class UserCtrl extends Controller {
         });
         return promiseOfInt.map((play.libs.F.Function<JsonNode, Result>) json -> {
 
-            Logger.info("===json==" + json);
+       //     Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
                 Logger.error("返回拼团数据错误code=" + (null != message ? message.getCode() : 0));
@@ -977,7 +981,7 @@ public class UserCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((play.libs.F.Function<JsonNode, Result>) json -> {
-            Logger.info("===json==" + json);
+         //   Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
                 Logger.error("返回拼购订单数据错误code=" + (null != message ? message.getCode() : 0));
