@@ -19,10 +19,7 @@ import play.libs.F.Function;
 import play.libs.F.Function0;
 import play.libs.F.Promise;
 import play.libs.Json;
-import play.mvc.Controller;
-import play.mvc.Http;
-import play.mvc.Result;
-import play.mvc.Security;
+import play.mvc.*;
 
 import javax.inject.Inject;
 import java.io.IOException;
@@ -57,10 +54,6 @@ public class UserCtrl extends Controller {
     //收货地址
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> address(Long selId) {
-//        Form<Address> addressForm = Form.form(Address.class).bindFromRequest();
-//        Map<String, String> addMap = addressForm.data();
-//        Long selId = Long.parseLong(addMap.get("selId"));
-//        Logger.error("selId:"+selId);
 
         Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
@@ -86,7 +79,7 @@ public class UserCtrl extends Controller {
             }
             //空地址列表
             if (Message.ErrorCode.DATABASE_EXCEPTION.getIndex() == message.getCode()) {
-                return ok(views.html.users.addressempty.render(path));
+                return ok(views.html.users.addressempty.render(path, selId));
             } else if (Message.ErrorCode.SUCCESS.getIndex() == message.getCode()) {
                 //地址列表
                 ObjectMapper mapper = new ObjectMapper();
@@ -195,7 +188,7 @@ public class UserCtrl extends Controller {
                 session().replace("path", routes.UserCtrl.addressUpdate(addId, selId).url());
             }else session().put("path", routes.UserCtrl.addressUpdate(addId, selId).url());
 
-            Logger.error("返回---->\n" + json);
+//            Logger.error("返回---->\n" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回数据错误code=" + json);
@@ -607,6 +600,23 @@ public class UserCtrl extends Controller {
     }
 
     /**
+     * 服务条款
+     * @return views
+     */
+    public Result agreement() throws IOException {
+
+        Request request = new Request.Builder()
+                .url(VIEWS_AGREEMENT)
+                .build();
+        Response response = client.newCall(request).execute();
+        String str = new String(response.body().bytes(), UTF_8);
+        Logger.error("str:"+str);
+        if (response.isSuccessful()) {
+            return ok(views.html.users.agreement.render(str));
+        } else throw new IOException("Unexpected code " + response);
+    }
+
+    /**
      * 用户注册提交
      *
      * @return
@@ -752,6 +762,8 @@ public class UserCtrl extends Controller {
             Request.Builder builder =(Request.Builder)ctx().args.get("request");
             Request request = builder.url(USER_INFO).get().build();
             Response response = client.newCall(request).execute();
+            Logger.error(response.toString());
+            Logger.error((new String(response.body().bytes(), UTF_8)));
             if (response.isSuccessful()){
                 return Json.parse(new String(response.body().bytes(), UTF_8));
 
@@ -925,13 +937,22 @@ public class UserCtrl extends Controller {
      *
      * @return
      */
-    public Result aboutus() {
+    public Result aboutus() throws IOException {
         String path = routes.UserCtrl.setting().url();
         if (session().containsKey("path")) {
             //path = session().get("path");
             session().replace("path", routes.UserCtrl.aboutus().url());
         }else session().put("path", routes.UserCtrl.aboutus().url());
-        return ok(views.html.users.aboutus.render(path));
+
+        Request request = new Request.Builder()
+                .url(VIEWS_ABOUT)
+                .build();
+        Response response = client.newCall(request).execute();
+        String str = new String(response.body().bytes(), UTF_8);
+        Logger.error("str:"+str);
+        if (response.isSuccessful()) {
+            return ok(views.html.users.aboutus.render(path,str));
+        } else throw new IOException("Unexpected code " + response);
     }
 
 
