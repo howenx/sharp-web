@@ -118,7 +118,7 @@ public class UserCtrl extends Controller {
 
         ObjectNode result = Json.newObject();
         Form<AddressInfo> addressForm = Form.form(AddressInfo.class).bindFromRequest();
-        Logger.info("====addressSave===\n" + addressForm.data());
+//        Logger.info("====addressSave===\n" + addressForm.data());
         Map<String, String> addressMap = addressForm.data();
         String idCardNum = addressMap.get("idCardNum").trim().toLowerCase();
         if (addressForm.hasErrors() || !"".equals(ComTools.IDCardValidate(idCardNum))) { //表单错误或者身份证校验不通过
@@ -160,7 +160,7 @@ public class UserCtrl extends Controller {
             });
 
             return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-                Logger.info("===json==" + json);
+ //               Logger.info("===json==" + json);
                 Message message = Json.fromJson(json.get("message"), Message.class);
                 if (null == message) {
                     Logger.error("返回创建新的收货地址数据错误code=" + json);
@@ -243,7 +243,7 @@ public class UserCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-            Logger.info("===json==" + json);
+   //         Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
                 Logger.error("返回收藏数据错误code=" + (null != message ? message.getCode() : 0));
@@ -292,7 +292,7 @@ public class UserCtrl extends Controller {
                     //path = session().get("path");
                     session().replace("path", routes.UserCtrl.myView().url());
                 }else session().put("path", routes.UserCtrl.myView().url());
-                Logger.info("==myView=json==" + json);
+     //           Logger.info("==myView=json==" + json);
                 Message message = Json.fromJson(json.get("message"), Message.class);
                 if(null==message||message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
                     //Logger.error("返回收藏数据错误code="+(null!=message?message.getCode():0));
@@ -368,7 +368,7 @@ public class UserCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-            Logger.info("===json==" + json);
+        //    Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
                 Logger.error("返回收藏数据错误code=" + (null != message ? message.getCode() : 0));
@@ -414,7 +414,7 @@ public class UserCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-            Logger.info("===json==" + json);
+        //    Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
                 Logger.error("返回收藏数据错误code=" + (null != message ? message.getCode() : 0));
@@ -858,7 +858,7 @@ public class UserCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((play.libs.F.Function<JsonNode, Result>) json -> {
-                    Logger.info("===json==" + json);
+         //           Logger.info("===json==" + json);
                     Message message = Json.fromJson(json.get("message"), Message.class);
                     if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
                         Logger.error("返回拼团数据错误code=" + (null != message ? message.getCode() : 0));
@@ -932,7 +932,7 @@ public class UserCtrl extends Controller {
         });
         return promiseOfInt.map((play.libs.F.Function<JsonNode, Result>) json -> {
 
-            Logger.info("===json==" + json);
+       //     Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
                 Logger.error("返回拼团数据错误code=" + (null != message ? message.getCode() : 0));
@@ -956,7 +956,7 @@ public class UserCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((play.libs.F.Function<JsonNode, Result>) json -> {
-            Logger.info("===json==" + json);
+         //   Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
                 Logger.error("返回拼购订单数据错误code=" + (null != message ? message.getCode() : 0));
