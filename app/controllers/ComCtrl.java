@@ -96,7 +96,7 @@ public class ComCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
-            Logger.info(url+"返回结果---->\n"+json);
+         //   Logger.info(url+"返回结果---->\n"+json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回数据错误json=" + json);

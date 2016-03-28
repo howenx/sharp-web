@@ -222,7 +222,7 @@ $(function() {
 
 });
 //添加购物车
-$(document).on("click",".btnCart",function(){
+$(document).on("click",".cartAdd",function(){
     var skuId=$("input[name='skuId0-0']:not(:disabled)").val() ;
     var skuType=$("input[name='skuType0-0']:not(:disabled)").val() ;
     var skuTypeId=$("input[name='skuTypeId0-0']:not(:disabled)").val() ;
