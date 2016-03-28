@@ -1,4 +1,4 @@
-@(sliderList:List[domain.Slider],themeList:List[domain.Theme])
+@(sliderList:List[domain.Slider],themeList:List[domain.Theme],pageCount:Int)
 @scripts = {
 <link rel="stylesheet" href="/assets/stylesheets/hp.css">
 <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
@@ -94,45 +94,37 @@
 		<script type="text/javascript">
 
 			$(function(){
-				var pageCount = 2;
-				var ajaxStop = false;
-
+				var currentPageCount = 2;
 
 				//url data function dataType
-				function loadMeinv(){
-					var url = "/indexAjax/" + pageCount;
-					if(!ajaxStop){
-						$.ajax({
-							type: 'GET', 
-							url:  url, 
-							//data: JSON.stringify(pageCount), 
-							contentType: "application/json; charset=utf-8", 
-							dataType: 'json',
-							success: function(data) { 
-								if(data.length != 0){
-									for(var i=0;i<data.length;i++){
-										if(data[i].type == "ordinary"){
-											var html = '<li><a href="/themeDetail/'+ data[i].themeUrl+ '"><img src="' + data[i].themeImg + '"/></a></li>'; 
-											$minUl = getMinUl(); 
-											$minUl.append(html); 
-										}
-										if(data[i].type == "h5"){
-											var html = '<li><a href='+ data[i].themeUrl+ '"><img src="' + data[i].themeImg + '"/></a></li>'; 
-											$minUl = getMinUl(); 
-											$minUl.append(html); 
-										}
+				function loadMeinv(count){
+					var url = "/indexAjax/" + count;
+					$.ajax({
+						type: 'GET', 
+						url:  url, 
+						//data: JSON.stringify(pageCount), 
+						contentType: "application/json; charset=utf-8", 
+						dataType: 'json',
+						success: function(data) { 
+							if(data.length != 0){
+								for(var i=0;i<data.length;i++){
+									if(data[i].type == "ordinary"){
+										var html = '<li><a href="/themeDetail/'+ data[i].themeUrl+ '"><img src="' + data[i].themeImg + '"/></a></li>'; 
+										$minUl = getMinUl(); 
+										$minUl.append(html); 
 									}
-									pageCount = pageCount + 1;
+									if(data[i].type == "h5"){
+										var html = '<li><a href='+ data[i].themeUrl+ '"><img src="' + data[i].themeImg + '"/></a></li>'; 
+										$minUl = getMinUl(); 
+										$minUl.append(html); 
+									}
 								}
-								else{
-									ajaxStop = true;
-								}
-							}, 
-							error: function() { 
-							console.log("ajax get data fail!");
 							}
-						});
-					}
+						}, 
+						error: function() { 
+						console.log("ajax get data fail!");
+						}
+					});
 					<!--var data = 0;-->
 					<!--for(var i=0;i<4;i++){//每次加载时模拟随机加载图片-->
 						<!--data = parseInt(Math.random()*4);-->
@@ -147,10 +139,14 @@
 				//loadMeinv();
 
 				$(window).on("scroll",function(){
-					$minUl = getMinUl();
-					if($minUl.height() <= $(window).scrollTop()+$(window).height()){
-						//当最短的ul的高度比窗口滚出去的高度+浏览器高度大时加载新图片
-						loadMeinv();
+					var pageCount = @pageCount;
+					if(currentPageCount <= pageCount){
+						$minUl = getMinUl();
+						if($minUl.height() <= $(window).scrollTop()+$(window).height()){
+							//当最短的ul的高度比窗口滚出去的高度+浏览器高度大时加载新图片
+							loadMeinv(currentPageCount);
+						}
+						currentPageCount = currentPageCount + 1;
 					}
 				})
 
@@ -159,6 +155,7 @@
 					var $minUl =$arrUl.eq(0);
 					$arrUl.each(function(index,elem){
 						if($(elem).height()<$minUl.height()){
+						console.log($(elem));
 							$minUl = $(elem);
 						}
 					});
