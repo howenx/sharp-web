@@ -197,9 +197,13 @@ public class UserCtrl extends Controller {
 
             Logger.error("返回---->\n" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
-            if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
-                Logger.error("返回地址数据错误code=" + (null != message ? message.getCode() : 0));
-                return badRequest();
+            if (null == message) {
+                Logger.error("返回数据错误code=" + json);
+                return badRequest(views.html.error500.render());
+            }
+            if(message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+                Logger.error("返回数据code=" + json);
+                return badRequest(views.html.error.render(message.getMessage()));
             }
             ObjectMapper mapper = new ObjectMapper();
             List<Address> addressList = mapper.readValue(json.get("address").toString(), new TypeReference<List<Address>>() {
@@ -245,9 +249,13 @@ public class UserCtrl extends Controller {
         return promiseOfInt.map((Function<JsonNode, Result>) json -> {
    //         Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
-            if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
-                Logger.error("返回收藏数据错误code=" + (null != message ? message.getCode() : 0));
-                return badRequest();
+            if (null == message) {
+                Logger.error("返回数据错误code=" + json);
+                return badRequest(views.html.error500.render());
+            }
+            if(message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+                Logger.error("返回数据code=" + json);
+                return badRequest(views.html.error.render(message.getMessage()));
             }
             ObjectMapper mapper = new ObjectMapper();
             List<CouponVo> couponList = mapper.readValue(json.get("coupons").toString(), new TypeReference<List<CouponVo>>() {
@@ -294,9 +302,13 @@ public class UserCtrl extends Controller {
                 }else session().put("path", routes.UserCtrl.myView().url());
      //           Logger.info("==myView=json==" + json);
                 Message message = Json.fromJson(json.get("message"), Message.class);
-                if(null==message||message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
-                    //Logger.error("返回收藏数据错误code="+(null!=message?message.getCode():0));
-                    return badRequest();
+                if (null == message) {
+                    Logger.error("返回数据错误code=" + json);
+                    return badRequest(views.html.error500.render());
+                }
+                if(message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+                    Logger.error("返回数据code=" + json);
+                    return badRequest(views.html.error.render(message.getMessage()));
                 }
                 UserDTO userInfo = Json.fromJson(json.get("userInfo"), UserDTO.class);
                 //请求用户信息
@@ -416,9 +428,13 @@ public class UserCtrl extends Controller {
         return promiseOfInt.map((Function<JsonNode, Result>) json -> {
         //    Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
-            if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
-                Logger.error("返回收藏数据错误code=" + (null != message ? message.getCode() : 0));
-                return badRequest();
+            if (null == message) {
+                Logger.error("返回数据错误code=" + json);
+                return badRequest(views.html.error500.render());
+            }
+            if(message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+                Logger.error("返回数据code=" + json);
+                return badRequest(views.html.error.render(message.getMessage()));
             }
             Integer collectId=json.get("collectId").asInt();
             result.putPOJO("collectId",collectId);
@@ -938,9 +954,13 @@ public class UserCtrl extends Controller {
 
        //     Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
-            if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
-                Logger.error("返回拼团数据错误code=" + (null != message ? message.getCode() : 0));
+            if (null == message) {
+                Logger.error("返回数据错误code=" + json);
                 return badRequest(views.html.error500.render());
+            }
+            if(message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+                 Logger.info("返回数据code=" + json);
+                return badRequest(views.html.error.render(message.getMessage()));
             }
             PinActivityDTO pin = Json.fromJson(json.get("activity"), PinActivityDTO.class);
             pin.setPinImg(comCtrl.getImgUrl(pin.getPinImg()));
@@ -962,9 +982,13 @@ public class UserCtrl extends Controller {
         return promiseOfInt.map((play.libs.F.Function<JsonNode, Result>) json -> {
          //   Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
-            if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
-                Logger.error("返回拼购订单数据错误code=" + (null != message ? message.getCode() : 0));
-                return badRequest();
+            if (null == message) {
+                Logger.error("返回数据错误code=" + json);
+                return badRequest(views.html.error500.render());
+            }
+            if(message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+                Logger.info("返回数据code=" + json);
+                return badRequest(views.html.error.render(message.getMessage()));
             }
             ObjectMapper mapper = new ObjectMapper();
             List<OrderDTO> orderList = mapper.readValue(json.get("orderList").toString(), new TypeReference<List<OrderDTO>>() {
