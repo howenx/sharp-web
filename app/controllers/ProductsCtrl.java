@@ -67,6 +67,7 @@ public class ProductsCtrl extends Controller {
 
                     List<Slider> sliderList = new ArrayList<>();
                     List<Theme> themeList = new ArrayList<>();
+                    int pageCount = json.get("page_count").asInt();
                     if (json.has("slider")) {
                         JsonNode sliderJson = json.get("slider");
                         for (JsonNode sliderTemp : sliderJson) {
@@ -96,7 +97,7 @@ public class ProductsCtrl extends Controller {
                             themeList.add(theme);
                         }
                     }
-                    return ok(views.html.products.index.render(sliderList, themeList));
+                    return ok(views.html.products.index.render(sliderList, themeList,pageCount));
                 }
         );
     }
