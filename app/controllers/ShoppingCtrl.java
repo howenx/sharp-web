@@ -248,7 +248,11 @@ public class ShoppingCtrl extends Controller {
                     amount=Integer.valueOf(settleMap.get("amount"+suffix));//购买的数量
                 }
                 String state=settleMap.get("state"+suffix); //商品的状态
+
                 String skuType=settleMap.get("skuType"+suffix);
+                if(buyNow==1&&"pin".equals(skuType)){ //拼购下的单独购买skuType为item
+                    skuType="item";
+                }
                 Long skuTypeId=Long.valueOf(settleMap.get("skuTypeId"+suffix));//商品类型的id
 
                 Long pinTieredPriceId=0L;
