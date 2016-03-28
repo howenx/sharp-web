@@ -140,8 +140,6 @@
 
 				$(window).on("scroll",function(){
 					var pageCount = @pageCount;
-					console.log("pageCount为:" + pageCount);
-					console.log("当前获取页:" + pageCount);
 					if(currentPageCount <= pageCount){
 						$minUl = getMinUl();
 						if($minUl.height() <= $(window).scrollTop()+$(window).height()){
