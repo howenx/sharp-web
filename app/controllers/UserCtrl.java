@@ -921,10 +921,10 @@ public class UserCtrl extends Controller {
 
     //我的拼团
     @Security.Authenticated(UserAuth.class)
-    public F.Promise<Result> pinActivity(Long pinActivity) {
+    public F.Promise<Result> pinActivity(Long activityId, Integer pay, Integer userPayType) {
         play.libs.F.Promise<JsonNode> promiseOfInt = play.libs.F.Promise.promise(() -> {
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
-            Request request = builder.url(PIN_ACTIVITY + pinActivity).get().build();
+            Request request = builder.url(PIN_ACTIVITY + activityId).get().build();
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
                 return Json.parse(new String(response.body().bytes(), UTF_8));

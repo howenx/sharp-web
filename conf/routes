@@ -24,8 +24,9 @@ POST        /order/apply/refund                       controllers.UserCtrl.refun
 
 #我的拼购
 GET         /mypin                                    controllers.UserCtrl.mypin()
-GET         /pin/activity/$pinActivity<[0-9]+>        controllers.UserCtrl.pinActivity(pinActivity:Long)
 GET         /pin/order/detail/$orderId<[0-9]+>        controllers.UserCtrl.pinOrderDetail(orderId:Long)
+GET         /pin/activity/$pinActivity<[0-9]+>                                 controllers.UserCtrl.pinActivity(pinActivity:Long,pay: Integer ?= 1,userPayType: Integer ?=0)
+GET         /pin/activity/pay/$pinActivity<[0-9]+>/$userPayType<[0-9]+>        controllers.UserCtrl.pinActivity(pinActivity:Long,pay: Integer ?= 2,userPayType: Integer)
 
 
 
@@ -108,7 +109,6 @@ GET         /cart/amount                              controllers.ShoppingCtrl.c
 
 
 GET         /pay/order/get/$orderId<[0-9]+>           controllers.JDCtrl.cashDesk(orderId:Long)
-
 
 
 
