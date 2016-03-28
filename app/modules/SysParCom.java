@@ -49,6 +49,9 @@ public class SysParCom {
     public static String RESET_PASSWORD;//密码修改
     public static String USER_INFO;//用户信息获取
     public static String USER_UPDATE;//用户信息修改
+    public static String VIEWS_AGREEMENT;//服务条款
+    public static String VIEWS_ABOUT;//关于我们
+    public static String VIEWS_PRIVACY;//隐私权政策
 
 
     public static String THEME_PAGE;//主题
@@ -122,6 +125,10 @@ public class SysParCom {
         PHONE_CODE = configuration.getString("user.phone.code");
         REGISTER_PAGE = configuration.getString("user.page.register");
         RESET_PASSWORD = configuration.getString("user.reset.password ");
+        VIEWS_AGREEMENT = configuration.getString("services.views.agreement");
+        VIEWS_ABOUT = configuration.getString("services.views.about");
+        VIEWS_PRIVACY = configuration.getString("services.views.privacy");
+
         //用户信息
         USER_INFO = configuration.getString("user.get.info");
         USER_UPDATE = configuration.getString("user.page.update");

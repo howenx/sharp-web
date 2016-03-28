@@ -34,6 +34,7 @@ GET         /register                                 controllers.UserCtrl.regis
 POST        /phone/verify                             controllers.UserCtrl.phoneVerify()
 POST        /phone/code                               controllers.UserCtrl.phoneCode()
 POST        /register                                 controllers.UserCtrl.register()
+GET         /agreement                                controllers.UserCtrl.agreement()
 POST        /regist/submit                            controllers.UserCtrl.registSubmit()
 #密码重置
 GET         /retrieve                                 controllers.UserCtrl.retrieve()

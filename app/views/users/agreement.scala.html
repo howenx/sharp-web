@@ -1,23 +1,24 @@
-@(path:String, str:String)
+@(str:String)
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-    <title>关于韩秘美</title>
+    <title>韩秘美服务条款</title>
 </head>
 <link rel="stylesheet" href="/assets/stylesheets/global.css">
-<body>
+
 <header class="head">
-    <a href="@path" class="back">
+    <a href="javascript:history.back(-1)" class="back">
         <i></i>
         <b></b>
     </a>
-    <h1>关于韩秘美</h1>
+    <h1>韩秘美服务条款</h1>
 </header>
 
-</body>
-</html>
+<body>
 <div>
     @Html(str)
 </div>
+</body>
+</html>
