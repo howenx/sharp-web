@@ -763,7 +763,6 @@ public class UserCtrl extends Controller {
             Request request = builder.url(USER_INFO).get().build();
             Response response = client.newCall(request).execute();
             Logger.error(response.toString());
-            Logger.error((new String(response.body().bytes(), UTF_8)));
             if (response.isSuccessful()){
                 return Json.parse(new String(response.body().bytes(), UTF_8));
 
