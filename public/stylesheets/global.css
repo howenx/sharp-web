@@ -209,8 +209,10 @@ h1 {
     -webkit-transform: translate(-50%,0);
     -moz-transform: translate(-50%,0);
 }
-
-
+/**灰色*/
+.discolour{
+    background-color: #969696;
+}
 
 
 

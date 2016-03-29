@@ -63,12 +63,18 @@ section.current{
     float: left;
 }
 
+.day-l span,.day-l i{
+    color:#333;
+}
+
 .day-l .date{
    display: block;
     font-size: 14px;
+    color:#999;
 }
 .day-r{
     float: right;
+    color:#333;
 }
 
 h2{
@@ -82,13 +88,11 @@ h2{
     padding:20px 0;
     border-top:1px solid #ccc;
     border-bottom:1px dashed #ccc;
-    margin:10px 0 0 0;
-
 }
 
 .commodity .commodity-rmb{
     display: block;
-    margin:50px 0 20px 0;
+    margin:30px 0 20px 0;
     height:20px;
 
 }
@@ -103,13 +107,18 @@ span .number{
     float: right;
 }
 
-.commodity img{
-    width:80px;
-    height:106px;
+
+.commodity .photo-img{
+    width:100px;
+    height:100px;
     float: left;
     margin: 0 20px 0 0;
+    border: 1px solid #ededed;
 }
 
+.commodity .photo-img img{
+    width: 100%;
+}
 .commodity h2{
     font-size: 16px;
     overflow: hidden;
@@ -117,7 +126,7 @@ span .number{
     display: -webkit-box;
     word-break: break-all;
     -webkit-box-orient: vertical;
-
+    margin: 0 0 5px 0;
 }
 
 .havenot{
@@ -344,7 +353,7 @@ span .number{
     height:21px;
     position: absolute;
     top:-12px;
-    left:42px;
+    left:40px;
     background:#ed145b;
     line-height: 21px;
     cursor: pointer;

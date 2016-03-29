@@ -4,8 +4,8 @@
 body{
     background: rgb(243,244,245);
 }
-header{
-    /*background: #E66255;*/
+/*header{
+    !*background: #E66255;*!
     color: #666;
     overflow: hidden;
     height: 42px;
@@ -40,9 +40,10 @@ header div:nth-of-type(3) i{
     margin-top: 20px;
 }
 .logo{
-    background: url("/assets/images/logo.png") no-repeat center;
-    background-size: 60px;
-}
+    color: #fff;
+}*/
+
+
 img{
     width: 100%;
 }
@@ -57,7 +58,18 @@ img{
     overflow: hidden;padding: 8px;
 }
 .up .pinimg{
-    width: 25%;padding: 8px;
+  padding: 8px;
+}
+
+.pinimg-photo{
+    width:80px;
+    height: 80px;
+
+}
+
+.pinimg-photo img{
+    width: 100%;
+    height: auto;
 }
 .up .info{
     width: 75%;font-size: 12px;padding: 8px;
@@ -102,6 +114,8 @@ img{
     float: right;width: 82%;height: 40px;
     border-radius: 2px;color: #fff;font-size: 16px;
 }
+
+
 /*detail*/
 .detailcon .process{
     padding: 20px 40px;border-bottom: 1px solid #ccc;
