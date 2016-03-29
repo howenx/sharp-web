@@ -339,9 +339,12 @@ input:password {
 }
 
 .hint-hd{
+    position: fixed;
     background-color: #FFEEDE;
-    color:#E66255 ;
+    color: #E66255;
     padding: 5px;
+    z-index: 10;
+    width: 100%;
 }
 
 /*提示信息*/
