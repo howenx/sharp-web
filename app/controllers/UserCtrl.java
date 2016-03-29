@@ -85,6 +85,9 @@ public class UserCtrl extends Controller {
                 Logger.error("返回地址数据错误code=" + (null != message ? message.getCode() : 0));
                 return badRequest();
             }
+            if(selId==1){
+                return ok(json);
+            }
             //空地址列表
             if (Message.ErrorCode.DATABASE_EXCEPTION.getIndex() == message.getCode()) {
                 return ok(views.html.users.addressempty.render(path, selId));

@@ -236,6 +236,7 @@ $(function(){
     //检测商品总额限制
     function checkPostalLimit(){
        var limitFlag=false;
+       var selectAreaNum=0;
        $(".areaAndSku").each(function(){
          var total =0.00;
          var postalLimit=$(this).find(".postalLimit").val();
@@ -244,13 +245,20 @@ $(function(){
             var ts = $(this).parents("li").find(".subtotal").html();
             total+=parseFloat(ts);
          });
-         if(total>postalLimit){
+         if(!limitFlag&&total>postalLimit){
             $("#hint-hd").html("友情提示 : "+$(this).find(".area").html()+"直邮商品总额超过¥"+postalLimit);
             limitFlag=true;
-            return false;
+         }
+         if(ckeckedSku.length>0){
+             selectAreaNum++;
+             if(selectAreaNum>=2){
+                $("#hint-hd").html("友情提示 : 单次购买,只能购买同一保税区的商品");
+                return false;
+             }
          }
        });
-       if(limitFlag==false){
+
+       if(limitFlag==false&&selectAreaNum<2){
             $("#hint-hd").html("友情提示 : 同一保税区商品总额有限制");
             if($("#selected").hasClass("settleBtn")==false){
                 $("#selected").addClass("settleBtn").removeClass("discolour");
