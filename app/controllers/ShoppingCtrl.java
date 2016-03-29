@@ -51,9 +51,13 @@ public class ShoppingCtrl extends Controller {
         return promiseOfInt.map((play.libs.F.Function<JsonNode , Result>) json -> {
         //    Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
-            if(null==message||message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
-                Logger.error("返回收藏数据错误code="+(null!=message?message.getCode():0));
-                return badRequest();
+            if (null == message) {
+                Logger.error("返回数据错误code=" + json);
+                return badRequest(views.html.error500.render());
+            }
+            if(message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+                Logger.info("返回数据code=" + json);
+                return badRequest(views.html.error.render(message.getMessage()));
             }
             ObjectMapper mapper = new ObjectMapper();
             List<OrderDTO> orderList = mapper.readValue(json.get("orderList").toString(), new TypeReference<List<OrderDTO>>() {});
@@ -213,10 +217,17 @@ public class ShoppingCtrl extends Controller {
         List<SettleDTO> settleDTOs=new ArrayList<SettleDTO>();
 
         List<SettleInfo> settleInfoList=new ArrayList<SettleInfo>();
-
+        boolean isPin=false;//是否是拼团
+        boolean isPinCheck=false;//是否是拼团校验
+        if(null!=settleMap.get("isPinCheck")){
+            isPin=true;
+            if(1==Integer.valueOf(settleMap.get("isPinCheck"))){
+                isPinCheck=true;
+            }
+        }
         Integer areaNum=1;
         if(buyNow==2){
-            areaNum=Integer.valueOf(settleMap.get("areaNum")); //TODO ...做成后缀串的形式
+            areaNum=Integer.valueOf(settleMap.get("areaNum"));
         }
         for(int i=0;i<areaNum;i++){
             if(null==settleMap.get("invCustoms"+i)){
@@ -248,7 +259,12 @@ public class ShoppingCtrl extends Controller {
                     amount=Integer.valueOf(settleMap.get("amount"+suffix));//购买的数量
                 }
                 String state=settleMap.get("state"+suffix); //商品的状态
+
                 String skuType=settleMap.get("skuType"+suffix);
+
+                if(buyNow==1&&!isPin&&"pin".equals(skuType)){ //拼购下的单独购买skuType为item
+                    skuType="item";
+                }
                 Long skuTypeId=Long.valueOf(settleMap.get("skuTypeId"+suffix));//商品类型的id
 
                 Long pinTieredPriceId=0L;
@@ -325,16 +341,25 @@ public class ShoppingCtrl extends Controller {
             } else throw new IOException("Unexpected code" + response);
         });
         final Long finalPinActiveId = pinActiveId;
+        final Integer buyNowTemp=buyNow;
+        final boolean finalIsPinCheck = isPinCheck;
         return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
          //   Logger.info("==settle=json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
-            if (null == message||message.getCode()!=200) {
+            if (null == message) {
                 Logger.error("返回商品结算数据错误code=" + json);
-                return badRequest();
+                return badRequest(views.html.error500.render());
+            }
+            if(finalIsPinCheck){
+                return ok(Json.toJson(message));
+            }
+            if(message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+                Logger.info("返回数据code=" + json);
+                return badRequest(views.html.error.render(message.getMessage()));
             }
             SettleVo settleVo=Json.fromJson(json.get("settle"), SettleVo.class);
 
-            return ok(views.html.shopping.settle.render(settleVo,settleInfoList,buyNow, finalPinActiveId,PAY_URL));
+            return ok(views.html.shopping.settle.render(settleVo,settleInfoList,buyNowTemp, finalPinActiveId,PAY_URL));
         });
     }
     private SettleDTO createSettleDTO(String invCustoms,String invArea, String invAreaNm,List<CartDto> cartDtos){
@@ -412,7 +437,7 @@ public class ShoppingCtrl extends Controller {
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result>  submitOrder() {
         ObjectNode result = Json.newObject();
-     //   Logger.info("==="+Form.form().bindFromRequest().data());
+        Logger.info("==submitOrder=\n"+Form.form().bindFromRequest().data());
         Map<String, String> settleMap = Form.form().bindFromRequest().data();
         Map<String,Object> object=new HashMap<>();
         List<SettleDTO> settleDTOs=new ArrayList<SettleDTO>();
@@ -470,20 +495,16 @@ public class ShoppingCtrl extends Controller {
         });
 
         return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
-       //     Logger.info("==settle=json==" + json);
+           Logger.info("==submitOrder=json=" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回商品结算数据错误code=" + json);
                 return badRequest();
             }
-   //         Long orderId=json.get("orderId").asLong();
- ///          String url=PAY_ORDER+orderId;
-
-
 
             ObjectNode objectNode = Json.newObject();
             objectNode.putPOJO("message",message);
-            if(message.getCode()==200&&json.has("orderId")){
+            if(message.getCode()==Message.ErrorCode.SUCCESS.getIndex()&&json.has("orderId")){
                 String securityCode= comCtrl.orderSecurityCode(json.get("orderId").asText(),session().get("id-token"));
                 objectNode.put("token",session().get("id-token"));
                 objectNode.put("orderId",json.get("orderId").asLong());

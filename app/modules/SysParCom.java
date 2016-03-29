@@ -37,7 +37,8 @@ public class SysParCom {
     public static String ORDER_VERIFY;//订单校验
 
     public static String PIN_LIST;//我的拼团
-    public static String PIN_ACTIVITY;//拼团详情
+    public static String PIN_ACTIVITY;//拼团活动
+    public static String PIN_ACTIVITY_PAY;//拼团活动支付
     public static String PIN_ORDER_DETAIL;//拼团详情
 
 
@@ -49,6 +50,9 @@ public class SysParCom {
     public static String RESET_PASSWORD;//密码修改
     public static String USER_INFO;//用户信息获取
     public static String USER_UPDATE;//用户信息修改
+    public static String VIEWS_AGREEMENT;//服务条款
+    public static String VIEWS_ABOUT;//关于我们
+    public static String VIEWS_PRIVACY;//隐私权政策
 
 
     public static String THEME_PAGE;//主题
@@ -117,6 +121,7 @@ public class SysParCom {
         //我的拼团
         PIN_LIST=configuration.getString("promotion.pin.list");
         PIN_ACTIVITY=configuration.getString("promotion.pin.activity");
+        PIN_ACTIVITY_PAY=configuration.getString("promotion.pin.activitypay");
         PIN_ORDER_DETAIL=configuration.getString("shopping.pin.detail");
 
 
@@ -125,6 +130,10 @@ public class SysParCom {
         PHONE_CODE = configuration.getString("user.phone.code");
         REGISTER_PAGE = configuration.getString("user.page.register");
         RESET_PASSWORD = configuration.getString("user.reset.password ");
+        VIEWS_AGREEMENT = configuration.getString("services.views.agreement");
+        VIEWS_ABOUT = configuration.getString("services.views.about");
+        VIEWS_PRIVACY = configuration.getString("services.views.privacy");
+
         //用户信息
         USER_INFO = configuration.getString("user.get.info");
         USER_UPDATE = configuration.getString("user.page.update");

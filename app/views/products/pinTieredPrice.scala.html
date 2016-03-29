@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/assets/stylesheets/global.css">
     <link rel="stylesheet" href="/assets/stylesheets/opengroup.css">
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+    <script src="/assets/javascripts/pay.js"></script>
     <script>
         $(function(){
             $('ul li').click(function(){
@@ -30,7 +31,7 @@
 </head>
 <body>
 <header class="head">
-    <a href="/pin/list" class="back">
+    <a href="javascript:window.history.back()" class="back">
         <i></i>
         <b></b>
     </a>
@@ -83,6 +84,7 @@
         </div>
 
         <!--命名不可改动-->
+        <input type="hidden" name="isPinCheck" id="isPinCheck" value="1"/>
         <input type="hidden" name="buyNow" value="1"/>
         <input type="hidden" name="invCustoms0" value="@pinDetail.getInvCustoms()"/>
         <input type="hidden" name="invArea0" value="@pinDetail.getInvArea()"/>
@@ -97,11 +99,11 @@
         <input type="hidden" name="skuPrice0-0" id="skuPrice" value="@pinDetail.getPinTieredPrices().get(0).getPrice()"/>
         <input type="hidden" name="pinTieredPriceId0-0" id="pinTieredPriceId" value="@pinDetail.getPinTieredPrices().get(0).getId()"/>
         }
-        <div class="choose-b" onclick="document.getElementById('settleForm').submit();">
+        <div class="choose-b pinSubmitBtn">
             <p><b>立即开团</b> ( <span>@pinDetail.getFloorPricePersonNum()</span><b>元 / </b> <i>@pinDetail.getFloorPricePrice()人</i> )</p>
         </div>
     </form>
 </div>
-
+<div class="hint" id="tip" style="display:none"></div>
 </body>
 </html>
