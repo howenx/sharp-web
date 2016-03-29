@@ -45,6 +45,7 @@ POST        /reset/submit                             controllers.UserCtrl.reset
 GET         /means                                    controllers.UserCtrl.means()
 POST        /nickname                                 controllers.UserCtrl.nickname()
 POST        /user/update                              controllers.UserCtrl.userUpdate()
+POST        /user/photo                               controllers.UserCtrl.userPhoto()
 #登出
 GET         /logout                                   controllers.UserCtrl.logout()
 

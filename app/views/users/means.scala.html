@@ -57,11 +57,47 @@
                 form.submit();
             });
 
+
             //修改头像
-            $(document).on("change", "#face", function() {
-                setImagePreview();
-                encodeImageFileAsURL();
+            var files;
+            <!--$(document).on("change", "#face", function() {-->
+                <!--//setImagePreview();-->
+                <!--//encodeImageFileAsURL();-->
+                <!--//uploadFiles(event);-->
+                <!--var file = this.files[0];-->
+                <!--name = file.name;-->
+                <!--size = file.size;-->
+                <!--type = file.type;-->
+                <!--if (file.name.length < 1) {-->
+                <!--}-->
+                <!--else if (file.size > 1000000) {-->
+                         <!--alert("File is to big");-->
+                <!--}-->
+                <!--else if (file.type !='image/png' && file.type != 'image/jpg' && file.type != 'image/gif' && file.type != 'image/jpeg' ) {-->
+                    <!--alert("File doesn't match png, jpg or gif");-->
+                <!--} else {-->
+                    <!--//uploadFiles();-->
+                <!--}-->
+            <!--});-->
+
+
+        function uploadFiles()
+        {
+            var formdata = new FormData();
+            formdata.append("photoUrl", file);
+            $.ajax({
+                url: "/user/update",
+                data: formdata,
+                cache: false,
+                contentType: false,
+                processData: false,
+                type: 'POST',
+                success: function(data) {
+                    console.log(data);
+                }
             });
+        }
+
 
             function encodeImageFileAsURL(){
                 var filesSelected = document.getElementById("face").files;
@@ -72,20 +108,20 @@
                     fileReader.onload = function(fileLoadedEvent) {
                         var srcData = fileLoadedEvent.target.result; // <--- data: base64
                         $("#photoUrl").val(srcData);
-                        //console.log($('form#cell_photoForm').serialize());
-                        $.ajax({
-                                url: "/user/update",
-                                dataType: 'json',
-                                data: $('form#cell_photoForm').serialize(),
-                                type: 'POST',
-                                success: function(data) {
-                                    console.log(data);
-                                    if (data.code==200) {
-                                         $('.grayDiv').hide();
-                                         //window.location.href = "/means";
-                                    }
-                                }
-                        });
+                        console.log($('form#cell_photoForm').serialize());
+                        <!--$.ajax({-->
+                                <!--url: "/user/update",-->
+                                <!--dataType: 'json',-->
+                                <!--data: $('form#cell_photoForm').serialize(),-->
+                                <!--type: 'POST',-->
+                                <!--success: function(data) {-->
+                                    <!--console.log(data);-->
+                                    <!--if (data.code==200) {-->
+                                         <!--$('.grayDiv').hide();-->
+                                         <!--//window.location.href = "/means";-->
+                                    <!--}-->
+                                <!--}-->
+                        <!--});-->
                     }
                     fileReader.readAsDataURL(fileToLoad);
                 }
@@ -126,6 +162,48 @@
                 return true;
             }
 
+
+
+            $(document).on('change','#face',function() {
+                var file = $(this);
+                var files = this.files;
+                previewImage(this.files[0]);
+            });
+
+            function previewImage(file) {
+                var imageType = /image.*/;
+                if (!file.type.match(imageType)) {
+                    throw "File Type must be an image";
+                }
+                var img = document.getElementById("photo");
+                upload(file);
+                // Using FileReader to display the image content
+                var reader = new FileReader();
+                reader.onload = (function(aImg) {
+                    return function(e) {
+                        aImg.src = e.target.result;
+                    }
+                })(img);
+                reader.readAsDataURL(file);
+            }
+
+            function upload(file) {
+                var formdata = new FormData();
+                formdata.append("photo", file);
+                console.log(formdata);
+                var http = new XMLHttpRequest();
+                var url = "/user/photo";
+                http.open("POST", url, true);
+
+                http.onreadystatechange = function() {
+                    if (http.readyState == 4 && http.status == 200) {
+                        var data = JSON.parse(http.responseText);
+
+                    }
+                }
+                http.send(formdata);
+            }
+
         })
     </script>
 
@@ -148,8 +226,11 @@
     <!--灰层 开始-->
     <div class="grayDiv scope">
         <div class="grayDiv-box">
-            <span>从相册选择新头像<input id="face" type="file" class="face"/></span>
-            <a href="javascript:;" class="closeBtn">取消</a>
+            <form id="cell_photoForm" method="post" onsubmit="return false" action="" enctype="multipart/form-data">
+                <span>从相册选择新头像<input id="face" type="file" name="photoUrl" class="face"/></span>
+                <input type="hidden" id="photoUrl"  value="">
+                <a href="javascript:;" class="closeBtn">取消</a>
+            </form>
         </div>
     </div>
 
@@ -158,10 +239,7 @@
             <i>修改头像</i>
             <span id="localImag"><img id="photo" src="@userInfo.getPhoto()" width="40" height="40"></span>
         </a>
-        <form id="cell_photoForm" method="post" onsubmit="return false" action="" >
-            <input type="hidden" id="photoUrl" name="photoUrl" value="">
-            <!--<font style="display:none;" id="photoUrl" name="photoUrl"></font>-->
-        </form>
+
     </div>
     <div class="face-box" id="name">
         <a class="face">
