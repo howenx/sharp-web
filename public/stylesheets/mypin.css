@@ -58,7 +58,18 @@ img{
     overflow: hidden;padding: 8px;
 }
 .up .pinimg{
-    width: 25%;padding: 8px;
+  padding: 8px;
+}
+
+.pinimg-photo{
+    width:80px;
+    height: 80px;
+
+}
+
+.pinimg-photo img{
+    width: 100%;
+    height: auto;
 }
 .up .info{
     width: 75%;font-size: 12px;padding: 8px;
