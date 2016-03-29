@@ -56,6 +56,10 @@
     /*border-bottom: 1px solid #ededed;*/
 }
 
+.address a{
+    color: #666;
+}
+
 .address p{
     margin:0 0 20px 0;
 }
@@ -234,7 +238,7 @@ input[type=radio]:checked::after {
 }
 
 
-.shade,.add-shade,.xnew-add-shade{
+.shade,.add-shade{
     width: 100%;
     height: 100%;
     position:fixed;
@@ -243,22 +247,21 @@ input[type=radio]:checked::after {
     background-color: rgba(0,0,0,0.8);
     z-index: 20;
     display: none;
-}
-.add-shade{
-    display: block;
-}
-.xnew-add-shade{
-    z-index: 21;
-    bottom: 0;
-}
-.add-shade,.xnew-add-shade{
     background-color:#F4F4F4 ;
-    /*display: none;*/
 }
 
 .xnew-add-shade{
+    width: 100%;
+    position:fixed;
+    top:0;
+    left: 0;
     padding-left:2%;
     background-color: #fff;
+    z-index:100;
+    display: none;
+}
+.add-shade{
+    display: block;
 }
 
 .shade .box{
@@ -304,14 +307,13 @@ input[type=radio]:checked::after {
 }
 
 .amputate{
-    margin: -5px 0 0 0;
+    margin: -45px 0 0 0;
 }
 .amputate span,.amput span{
-
-    margin:50px 0 0 0;
-    width:20px;
-    height:20px;
-    line-height:20px;
+    margin: 50px 0 0 0;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
     background-color: #ed145b;
     border-radius: 50px;
     color: #fff;
@@ -328,4 +330,18 @@ input[type=radio]:checked::after {
 .alter{
     text-align: right;
     height: 30px;
+}
+
+.de-add{
+    margin:5px 0 0 0;
+}
+
+.amput{
+    padding: 0 2% 0 0;
+}
+
+.plus-add-x{
+    margin: 10px 0 0 0;
+    height:40px;
+    line-height: 40px;
 }

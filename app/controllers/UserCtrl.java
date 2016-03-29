@@ -83,6 +83,9 @@ public class UserCtrl extends Controller {
                 Logger.error("返回地址数据错误code=" + (null != message ? message.getCode() : 0));
                 return badRequest();
             }
+            if(selId==1){
+                return ok(json);
+            }
             //空地址列表
             if (Message.ErrorCode.DATABASE_EXCEPTION.getIndex() == message.getCode()) {
                 return ok(views.html.users.addressempty.render(path, selId));
@@ -1006,7 +1009,7 @@ public class UserCtrl extends Controller {
     }
 
     //我的拼团
-    @Security.Authenticated(UserAuth.class)
+ //   @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> pinActivity(Long activityId, Integer pay, Integer userPayType) {
         play.libs.F.Promise<JsonNode> promiseOfInt = play.libs.F.Promise.promise(() -> {
             String url="";
@@ -1015,7 +1018,8 @@ public class UserCtrl extends Controller {
             }else{
                 url=PIN_ACTIVITY + activityId;
             }
-            Request.Builder builder = (Request.Builder) ctx().args.get("request");
+           // Request.Builder builder = (Request.Builder) ctx().args.get("request");
+            Request.Builder builder =comCtrl.getBuilder(request(), session());
             Request request = builder.url(url).get().build();
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {

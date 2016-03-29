@@ -11,6 +11,7 @@ import play.Logger;
 import play.libs.F;
 import play.libs.Json;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
 import util.Crypto;
@@ -124,4 +125,15 @@ public class ComCtrl extends Controller {
         return "";
     }
 
+    public Request.Builder getBuilder(Http.Request request, Http.Session session) {
+
+        Request.Builder builder = new Request.Builder();
+        builder.addHeader(Http.HeaderNames.X_FORWARDED_FOR,request.remoteAddress());
+        builder.addHeader(Http.HeaderNames.VIA,request.remoteAddress());
+        builder.addHeader("User-Agent",request.getHeader("User-Agent"));
+        if (session.containsKey("id-token")) {
+            builder.addHeader("id-token", session.get("id-token"));
+        }
+        return builder;
+    }
 }

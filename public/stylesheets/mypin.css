@@ -72,7 +72,7 @@ img{
     height: auto;
 }
 .up .info{
-    width: 75%;font-size: 12px;padding: 8px;
+    width: 70%;font-size: 12px;padding: 8px;
 }
 .up .info div{
     height: 36px;
@@ -179,4 +179,9 @@ img{
 }
 div.myall:nth-of-type(2){
     display: none;
+}
+
+.p-txt{
+   height: 40px;
+    overflow: hidden;
 }
