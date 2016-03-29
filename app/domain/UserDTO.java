@@ -2,6 +2,7 @@ package domain;
 
 import play.data.validation.Constraints;
 
+import java.io.File;
 import java.io.Serializable;
 
 /**
@@ -19,7 +20,7 @@ public class UserDTO implements Serializable {
     private String gender;//性别
     private String realYn;
 
-    private String photoUrl;//头像字节流
+    private File photoUrl;//头像字节流
     @Constraints.MaxLength(15)
     @Constraints.MinLength(2)
     @Constraints.Pattern("[a-zA-Z0-9\\u4e00-\\u9fa5]{2,15}")
@@ -28,7 +29,7 @@ public class UserDTO implements Serializable {
     public UserDTO() {
     }
 
-    public UserDTO(String name, String photo, String phoneNum, Integer couponsCount, String gender, String realYn, String photoUrl, String nickname) {
+    public UserDTO(String name, String photo, String phoneNum, Integer couponsCount, String gender, String realYn, File photoUrl, String nickname) {
         this.name = name;
         this.photo = photo;
         this.phoneNum = phoneNum;
@@ -53,11 +54,11 @@ public class UserDTO implements Serializable {
                 '}';
     }
 
-    public String getPhotoUrl() {
+    public File getPhotoUrl() {
         return photoUrl;
     }
 
-    public void setPhotoUrl(String photoUrl) {
+    public void setPhotoUrl(File photoUrl) {
         this.photoUrl = photoUrl;
     }
 
