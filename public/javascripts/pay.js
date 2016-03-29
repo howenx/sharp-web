@@ -63,7 +63,7 @@ $(document).on("click",".submitOrder",function(){
                         $("#payForm").submit();
 
                     }else{
-                         tip("提交订单失败code="+data.message.code+","+data.message.message);
+                         tip(data.message.message);
                     }
 
                 }else{
@@ -76,6 +76,41 @@ $(document).on("click",".submitOrder",function(){
 
 
 });
+
+
+//立即开团
+$(document).on("click",".pinSubmitBtn",function(){
+        var tipContent=$("#tip").html().trim();
+        if(""!=tipContent&&tipContent.length>1){
+           tip(tipContent);
+           return ;
+        }
+        $.ajax({
+            type: 'POST',
+            url: "/settle",
+            dataType: 'json',
+            data: $('form#settleForm').serialize(),
+            error : function(request) {
+                tip("立即开团失败");
+            },
+            success: function(data) {
+                console.log("data="+data);
+                if (data!=""&&data!=null){
+                    if(data.code==200) {
+                        $("#isPinCheck").val(0);
+                        $("#settleForm").submit();
+                    }else{
+                         tip(data.message);
+                    }
+                }else{
+                 tip("立即开团失败");
+                }
+            }
+        });
+
+});
+
+
 
 //提示
 function tip(tipContent){
