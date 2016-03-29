@@ -24,11 +24,14 @@
                 $('.add-shade').animate({
                     bottom:0
                 },"slow");
+
             })
 
             $('.addup').click(function(){
                 $('.xnew-add-shade').show();
+
             });
+
 
             $('.amputate span').click(function(){
                 $('.add-shade').animate({
@@ -38,7 +41,12 @@
 
             $('.amput span').click(function(){
                 $('.xnew-add-shade').hide();
+
             });
+
+            $('.plus-add').click(function(){
+                $('.xnew-add-shade').show();
+            })
 
 
         })
@@ -54,6 +62,7 @@
     <h1>支付结算</h1>
 </header>
 <form id="orderForm" action="/order/submit" method="POST">
+  <div class="big">
     <div class="scope">
         <div class="address">
             @if(null==settle.getAddress()){
@@ -215,7 +224,7 @@
         <a href="javascript:;" class="refer bg submitOrder">提交订单</a>
 
     </div>
-
+</div>
 </form>
 
 <input type="hidden" id="tempTotal" value="@settle.getTotalPayFee()"/>
@@ -229,7 +238,7 @@
 
 <div id="addressArea" class="add-shade" style="height: 100%;overflow: scroll">
 
-    <ul class="ul-box clearfix">
+    <ul class="ul-box clearfix scope">
 
         <li class="amputate clearfix">
             <span> × </span>
@@ -261,7 +270,9 @@
 
 
     </ul>
+    <a href="javascript:;" id="addressnew" class="plus-add bg de-add">新增收货地址</a>
 </div>
+
 
 <div class="xnew-add-shade" >
 
@@ -315,7 +326,7 @@
         </div>
     </form>
     <input type="hidden" id="selId" value="0">
-    <button class="plus-add bg" id="addAddressBtn">保存修改</button>
+    <button class="plus-add bg plus-add-x" id="addAddressBtn">保存修改</button>
 
 </div>
 

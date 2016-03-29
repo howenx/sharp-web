@@ -101,14 +101,18 @@
                             <div class="payment">
                                 @if(order.getOrder().getOrderStatus()=="I"||order.getOrder().getOrderStatus()=="F"){
                                     <a href="javascript:;" class="left cancelOrder">取消订单</a>
-                                    <a href="javascript:;" class="right bg" onclick="pay('@payUrl','@order.getOrder().getOrderId()','@token','@order.getOrder().getSecurityCode()')">去支付</a>
+                                    <a href="javascript:;" class="right bg right-r" onclick="pay('@payUrl','@order.getOrder().getOrderId()','@token','@order.getOrder().getSecurityCode()')">去支付</a>
                                     <a href="javascript:;" class="right mi">应付金额:￥@order.getOrder().getPayTotal()</a>
                                 }
                                 @if(order.getOrder().getOrderStatus()=="D"){
                                     <a href="javascript:;" class="right bg">查看物流</a>
                                 }
                                 @if(order.getOrder().getOrderStatus()=="C"||order.getOrder().getOrderStatus()=="R"){
+
+                                <a href="javascript:;" class="right bg right-r" onclick="delOrder(@order.getOrder().getOrderId(),0)">删除</a>
+
                                 <a href="javascript:;" class="right bg discolour" onclick="delOrder(@order.getOrder().getOrderId(),0)">删除</a>
+
                                 }
 
                             </div>
@@ -151,7 +155,7 @@
                                     }
                                     <div class="payment">
                                         <a href="javascript:;" class="left cancelOrder">取消订单</a>
-                                        <a href="javascript:;" class="right bg"  onclick="pay('@payUrl','@order.getOrder().getOrderId()','@token','@order.getOrder().getSecurityCode()')">去支付</a>
+                                        <a href="javascript:;" class="right bg right-r"  onclick="pay('@payUrl','@order.getOrder().getOrderId()','@token','@order.getOrder().getSecurityCode()')">去支付</a>
                                         <a href="javascript:;" class="right mi">应付金额:￥@order.getOrder().getPayTotal()</a>
                                     </div>
                                 </div>

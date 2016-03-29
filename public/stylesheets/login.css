@@ -419,7 +419,7 @@ input[type=checkbox]{
 }
 
 .list dd>.input-weak {
-    width:80%;
+    width:100%;
 
 }
 
