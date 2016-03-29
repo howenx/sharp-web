@@ -217,7 +217,14 @@ public class ShoppingCtrl extends Controller {
         List<SettleDTO> settleDTOs=new ArrayList<SettleDTO>();
 
         List<SettleInfo> settleInfoList=new ArrayList<SettleInfo>();
-
+        boolean isPin=false;//是否是拼团
+        boolean isPinCheck=false;//是否是拼团校验
+        if(null!=settleMap.get("isPinCheck")){
+            isPin=true;
+            if(1==Integer.valueOf(settleMap.get("isPinCheck"))){
+                isPinCheck=true;
+            }
+        }
         Integer areaNum=1;
         if(buyNow==2){
             areaNum=Integer.valueOf(settleMap.get("areaNum"));
@@ -255,7 +262,7 @@ public class ShoppingCtrl extends Controller {
 
                 String skuType=settleMap.get("skuType"+suffix);
 
-                if(buyNow==1&&"pin".equals(skuType)){ //拼购下的单独购买skuType为item
+                if(buyNow==1&&!isPin&&"pin".equals(skuType)){ //拼购下的单独购买skuType为item
                     skuType="item";
                 }
                 Long skuTypeId=Long.valueOf(settleMap.get("skuTypeId"+suffix));//商品类型的id
@@ -315,9 +322,6 @@ public class ShoppingCtrl extends Controller {
             payMethod=settleMap.get("payMethod");
         }
         object.put("payMethod",payMethod);
-        if(buyNow==-1){ //开团传的标志-1修正为1
-            buyNow=1;
-        }
         object.put("buyNow",buyNow);//1－立即支付 2-购物车结算
         Long pinActiveId=0L;
         if(null!=settleMap.get("pinActiveId")){
@@ -338,12 +342,16 @@ public class ShoppingCtrl extends Controller {
         });
         final Long finalPinActiveId = pinActiveId;
         final Integer buyNowTemp=buyNow;
+        final boolean finalIsPinCheck = isPinCheck;
         return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
          //   Logger.info("==settle=json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回商品结算数据错误code=" + json);
                 return badRequest(views.html.error500.render());
+            }
+            if(finalIsPinCheck){
+                return ok(Json.toJson(message));
             }
             if(message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
                 Logger.info("返回数据code=" + json);
