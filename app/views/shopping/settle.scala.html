@@ -22,10 +22,12 @@
                 $('.add-shade').animate({
                     bottom:0
                 },"slow");
+
             })
 
             $('.addup').click(function(){
                 $('.xnew-add-shade').show();
+
             });
 
 
@@ -37,6 +39,7 @@
 
             $('.amput span').click(function(){
                 $('.xnew-add-shade').hide();
+
             });
 
             $('.plus-add').click(function(){
@@ -57,6 +60,7 @@
     <h1>支付结算</h1>
 </header>
 <form id="orderForm" action="/order/submit" method="POST">
+  <div class="big">
     <div class="scope">
         <div class="address">
             @if(null==settle.getAddress()){
@@ -218,7 +222,7 @@
         <a href="javascript:;" class="refer bg submitOrder">提交订单</a>
 
     </div>
-
+</div>
 </form>
 
 <input type="hidden" id="tempTotal" value="@settle.getTotalPayFee()"/>
@@ -230,9 +234,9 @@
 
 <div class="hint" id="tip" style="display:none"></div>
 
-<div class="add-shade">
+<div class="add-shade" style="height: 100%;overflow: scroll">
 
-    <ul class="ul-box clearfix">
+    <ul class="ul-box clearfix scope">
 
         <li class="amputate clearfix">
             <span> × </span>
@@ -262,6 +266,28 @@
             </div>
         </li>
 
+        <li id="li700351" class="ul-box-li clearfix">
+            <div class="address">
+                <a href="javascript:;" class="sel_add">
+
+                    <p><i class="add-icon"></i><span>姓名:</span><span>发奖金</span>
+
+                        <span class="color">默认</span>
+
+                    </p>
+                    <p><span>联系电话:</span><span>18392861591</span></p>
+                    <p><span>身份证号:</span><span>610124198903167511</span></p>
+                    <p class="clearfix"><span class="add-l">收货地址:</span><span class="add-r">北京市 北京市 朝阳区积点口德都看到</span></p>
+                </a>
+
+                <div class="alter clearfix">
+
+                    <a href="javascript:;" class="alter-btn color" onclick="delAddress(700351,true)">删除</a>
+
+                    <a id="700351" href="/address/update/700351/0" class="color addup">修改</a>
+                </div>
+            </div>
+        </li>
         <li id="li700351" class="ul-box-li clearfix">
             <div class="address">
                 <a href="javascript:;" class="sel_add">
@@ -342,7 +368,7 @@
         </div>
     </form>
     <input type="hidden" id="selId" value="0">
-    <button class="plus-add bg" id="addAddressBtn">保存修改</button>
+    <button class="plus-add bg plus-add-x" id="addAddressBtn">保存修改</button>
 
 </div>
 
