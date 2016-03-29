@@ -10,6 +10,7 @@ $(function() {
 
         $(".hiddenInput").find("input").attr("disabled",true);
         $(".hiddenInput").eq(index).find("input").attr("disabled",false);
+       // $("#flyImgId").attr("src",$(".item.now").find("input[name='skuInvImg0-0']").val());
 
 	})
 
@@ -278,7 +279,8 @@ function addCartEffect(){
 		}
 	});
 
-	var src = $(this).parents(".cycle-slideshow").find('.slide-img').find("img").attr("src");
+//	var src = $(this).parents(".cycle-slideshow").find('.slide-img').find("img").attr("src");
+    var src=$(".item.now").find("input[name='skuInvImg0-0']").val();
     $("#flyItem").find("img").attr("src", src);
     // 滚动大小
     var scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft || 0,
