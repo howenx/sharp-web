@@ -19,7 +19,7 @@
 <body>
 <!--头部开始-->
 <header class="header">
-    <a href="@path" class="home_link"></a>
+    <a href="/" class="home_link"></a>
     <div class="header-text">
         <h1 class="header-title">购物车</h1>
     </div>
@@ -31,7 +31,7 @@
 <!--购买产品部分开始-->
 <form id="settleForm" action="/settle" method="POST">
 <div class="cart-goods" id="cart-goods">
-    <div class="hint-hd">友情提示 : 同一保税区商品总额有限制</div>
+    <div class="hint-hd" id="hint-hd">友情提示 : 同一保税区商品总额有限制</div>
 
     <input type="hidden" name="areaNum" value="@resultVo.getCartList().size()">
     @for((cart,index)<-resultVo.getCartList().zipWithIndex){

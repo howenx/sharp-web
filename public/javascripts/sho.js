@@ -245,7 +245,7 @@ $(function(){
             total+=parseFloat(ts);
          });
          if(total>postalLimit){
-            $("#hint-hd").html($(this).find(".area").html()+"直邮商品总额超过¥"+postalLimit);
+            $("#hint-hd").html("友情提示 : "+$(this).find(".area").html()+"直邮商品总额超过¥"+postalLimit);
             limitFlag=true;
             return false;
          }
@@ -253,11 +253,11 @@ $(function(){
        if(limitFlag==false){
             $("#hint-hd").html("友情提示 : 同一保税区商品总额有限制");
             if($("#selected").hasClass("settleBtn")==false){
-                $("#selected").addClass("settleBtn");
+                $("#selected").addClass("settleBtn").removeClass("discolour");
             }
        } else{
-            //超出限制结算按钮不可用 //TODO...添加变灰式样
-            $("#selected").removeClass("settleBtn");
+            //超出限制结算按钮不可用
+            $("#selected").removeClass("settleBtn").addClass("discolour");
 
        }
 

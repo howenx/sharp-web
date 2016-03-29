@@ -113,9 +113,12 @@ $(function() {
             }
             //添加收藏
             if(!isCollected){
-                var skuId=$(".item.now").find("#skuId").val();
-                var skuType=$(".item.now").find("#skuType").val();
-                var skuTypeId=$(".item.now").find("#skuTypeId").val();
+//                var skuId=$(".item.now").find("#skuId").val();
+//                var skuType=$(".item.now").find("#skuType").val();
+//                var skuTypeId=$(".item.now").find("#skuTypeId").val();
+                  var skuId=$("input[name='skuId0-0']:not(:disabled)").val() ;
+                  var skuType=$("input[name='skuType0-0']:not(:disabled)").val() ;
+                  var skuTypeId=$("input[name='skuTypeId0-0']:not(:disabled)").val() ;
                 var obj=new Object();
                 obj.skuId=skuId; //sku id
                 obj.skuType=skuType;//商品类型 1.vary,2.item,3.customize,4.pin
@@ -222,7 +225,7 @@ $(function() {
 
 });
 //添加购物车
-$(document).on("click",".btnCart",function(){
+$(document).on("click",".cartAdd",function(){
     var skuId=$("input[name='skuId0-0']:not(:disabled)").val() ;
     var skuType=$("input[name='skuType0-0']:not(:disabled)").val() ;
     var skuTypeId=$("input[name='skuTypeId0-0']:not(:disabled)").val() ;
@@ -242,7 +245,7 @@ $(document).on("click",".btnCart",function(){
         data : JSON.stringify(obj),
         dataType: 'json',
         error : function(request) {
-            alert("加入购物车失败");
+            tip("加入购物车失败");
          },
         success: function(data) {
             console.log("data="+data);
@@ -250,11 +253,11 @@ $(document).on("click",".btnCart",function(){
                 if(data.code==200) { //成功
                     addCartEffect(); //加入购物车特效
                 }else{
-                     alert("加入购物车失败code="+data.code+","+data.message);
+                     tip(data.message);
                 }
 
             }else{
-             alert("加入购物车失败");
+             tip("加入购物车失败");
             }
         }
     });
@@ -285,6 +288,14 @@ function addCartEffect(){
     eleFlyElement.style.visibility = "visible";
     // 需要重定位
     myParabola.position().move();
+}
+
+//提示
+function tip(tipContent){
+    $("#tip").html(tipContent).show();
+    setTimeout(function(){
+    $("#tip").hide();
+    },3000);
 }
 
 

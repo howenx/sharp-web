@@ -110,6 +110,16 @@ span .rmb{
     padding:0 0 0 50px ;
     font-size:20px;
 }
+.fight-hd.fight-er span{
+    width:130px;
+    height:100px;
+    margin:10px auto;
+    line-height: 50px;
+    background: url("/assets/images/hmm_pingou_fail.png") no-repeat;
+    background-size:contain;
+    padding:0 0 0 50px ;
+    font-size:20px;
+}
 .fight-hd i{
     width: 100%;
     text-align: center;
