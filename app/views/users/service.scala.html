@@ -11,17 +11,6 @@
     <link rel="stylesheet" href="/assets/stylesheets/service.css"/>
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
     <script src="/assets/javascripts/my.js"></script>
-    <script>
-        <!--$(function(){-->
-            <!--$('.next').click(function(){-->
-                <!--$('.shade').show();-->
-            <!--})-->
-
-            <!--$('.box-btn').click(function(){-->
-                <!--$('.shade').hide();-->
-            <!--})-->
-        <!--})-->
-    </script>
 </head>
 <body>
 
@@ -34,7 +23,7 @@
 </header>
 
 <div class="warp">
-    <form id="cell_refForm" method="post" onsubmit="return false" action="" enctype="multipart/form-data" >
+    <form id="cell_refForm" action="/order/apply/refund" method="post" enctype="multipart/form-data" >
     <div class="detail-box">
         <div>
             <a class="commodity">
@@ -84,16 +73,16 @@
             <ul>
                 <li>
                     <span class="">联系人:</span>
-                    <input type="text" class="input-rese" name="contactName" id="contactName"/></li>
+                    <input type="text" class="input-rese" id="contactName" name="contactName"  required/></li>
                 <li>
                     <span>联系人电话:</span>
-                    <input type="text" class="input-rese"  maxlength="11" id="contactTel" name="contactTel"/>
+                    <input type="text" class="input-rese" id="contactTel" name="contactTel" maxlength="11" required pattern="[1][345678]\d{9}"/>
                 </li>
             </ul>
 
             <div class="box-btn btn">提交</div>
 
-            <div class="hint">最多输入</div>
+            <div class="hint" id="warn" style="display:none"></div>
         </div>
 
     </div>
