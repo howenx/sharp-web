@@ -284,11 +284,11 @@ function tip(tipContent){
 //申请售后
 $(document).on("click", ".apply", function() {
     var orderId = $("#orderId").text();
-    var img = $(this).parent().children().children();
+    var img = $(this).parent().children().children().children();
     var invImg = img.attr("src");
-    var skuTitle = img.next().html();
-    var price = img.next().next().find(".price").html();
-    var amount = img.next().next().find(".number").html();
+    var skuTitle = img.parent().next().html();
+    var price = img.parent().next().next().find(".price").html();
+    var amount = img.parent().next().next().find(".number").html();
     var skuId = $(this).next().val();
     var url = '/service';
     var form = $('<form action="' + url + '" method="post">' +
