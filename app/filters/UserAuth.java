@@ -4,12 +4,14 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.squareup.okhttp.Headers;
 import com.squareup.okhttp.Request;
 import controllers.UserCtrl;
+import modules.SysParCom;
 import net.spy.memcached.MemcachedClient;
 import org.jboss.netty.channel.ChannelHandlerContext;
 import play.Logger;
 import play.api.data.OptionalMapping;
 import play.cache.Cache;
 import play.libs.Json;
+import play.libs.ws.WSClient;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
@@ -26,6 +28,9 @@ public class UserAuth extends Security.Authenticator {
 
     @Inject
     private MemcachedClient cache;
+
+    @Inject
+    private WSClient wsClient;
 
     @Override
     public String getUsername(Http.Context ctx) {
@@ -74,6 +79,17 @@ public class UserAuth extends Security.Authenticator {
             return null;
         }
     }
+
+
+    private void weixin(Http.Context ctx){
+
+        if (ctx.request().getHeader("User-Agent").contains("MicroMessenger")){
+            wsClient.url(SysParCom.WEIXIN_CODE_URL).execute();
+            Logger.error("微信用户");
+        }
+
+    }
+
 
     @Override
     public Result onUnauthorized(Http.Context ctx) {

@@ -10,11 +10,13 @@ import modules.SysParCom;
 import play.Logger;
 import play.libs.F;
 import play.libs.Json;
+import play.libs.ws.WSClient;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 import util.Crypto;
 
+import javax.inject.Inject;
 import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
@@ -28,6 +30,8 @@ import static play.libs.Json.toJson;
  */
 public class ComCtrl extends Controller {
 
+    @Inject
+    WSClient ws;
     /**
      * 图片json串转图片url
      * @param imgJson
@@ -122,6 +126,20 @@ public class ComCtrl extends Controller {
             e.printStackTrace();
         }
         return "";
+    }
+
+
+    public Result redirectWeixin(String code,String state){
+
+        ws.url(SysParCom.WEIXIN_ACCESS+"appid="+WEIXIN_APPID+"&secret="+WEIXIN_SECRET+"&code="+code+"&grant_type=authorization_code").get().map(wsResponse -> {
+            JsonNode response = wsResponse.asJson();
+
+            Logger.info("微信换取Access_token返回的数据JSON: " + response.toString());
+
+            ws.url(SysParCom.WEIXIN_ACCESS+"appid="+WEIXIN_APPID+"&secret="+WEIXIN_SECRET+"&code="+code+"&grant_type=authorization_code");
+            return null;
+        });
+        return null;
     }
 
 }

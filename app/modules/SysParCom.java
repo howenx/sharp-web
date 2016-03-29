@@ -80,7 +80,10 @@ public class SysParCom {
 
     public static  String PAY_URL;//去支付
 
-
+    public static  String WEIXIN_CODE_URL;
+    public static String WEIXIN_APPID;
+    public static String WEIXIN_SECRET;
+    public static String WEIXIN_ACCESS;
 
 
 
@@ -152,8 +155,10 @@ public class SysParCom {
         PAY_ORDER=configuration.getString("shopping.pay.order");
         PAY_URL=configuration.getString("shopping.pay.url");
 
-
-
+        WEIXIN_CODE_URL = configuration.getString("weixin.code.url");
+        WEIXIN_APPID = configuration.getString("weixin.appid");
+        WEIXIN_SECRET=configuration.getString("weixin.secret");
+        WEIXIN_ACCESS = configuration.getString("weixin.access.url");
 
 
 
