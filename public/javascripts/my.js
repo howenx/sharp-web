@@ -345,13 +345,17 @@ $(document).on("click", ".box-btn", function() {
         setTimeout(function(){$("#warn").hide();},2000);
     } else {
 //        alert("yes");
-//        $.ajax({
-//            type: "POST",
-//            url: "/order/apply/refund",
-//
-//        });
-     $("#cell_refForm").submit();
+        $.ajax({
+            type: "POST",
+            url: "/order/apply/refund",
+            dataType: 'json',
+            data: $('form#cell_refForm').serialize(),
+            success: function(data) {
+                console.log(data);
+            }
 
+        });
+//     $("#cell_refForm").submit();
 
     }
 });
