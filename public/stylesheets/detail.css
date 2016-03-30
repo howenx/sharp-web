@@ -540,7 +540,7 @@ div .cycle-overlay {
 .hot{
 	background-color: #fff;
 	width: 100%;
-	margin: 0 0 90px 0;
+	margin: 0 0 50px 0;
 	padding: 0 0 2% 0;
 
 }
@@ -578,11 +578,12 @@ div .cycle-overlay {
 
 .product-top{
 	border-radius: 0 20px 20px 0px;
-	background: url("/assets/images/hmm_klmpintuan.png") no-repeat 5px #F8616A;
+	background: url("/assets/images/hmm_klmpintuan.png") no-repeat 5px #ff5359;
+	background-size: 25px;
 	display: inline-block;
-	padding:10px 10px 10px 40px;
+	padding: 10px 10px 10px 35px;
 	color: #fff;
-	font-size: 14px;
+	font-size: 12px;
 	height: 40px;
 }
 
@@ -979,6 +980,7 @@ div .cycle-overlay {
 .pay a{
 	float: right;
 	font-size:14px;
+	color:#ff5359 ;
 }
 
 .love .pin-love{
@@ -1049,9 +1051,9 @@ div .cycle-overlay {
 }
 
 .diamond a span.big{
-	height: 50px;
-	line-height: 50px;
-	font-size:22px;
+	height:40px;
+	line-height:40px;
+	font-size:20px;
 }
 
 .pin-hd {
@@ -1147,7 +1149,6 @@ div .cycle-overlay {
 	background: #ff5359;
 	padding: 2px 0 2px 2px;
 	font-size: 12px;
-	margin-right: 10px;
 	color: #fff;
 }
 .toup .con .item div:nth-of-type(1) span{
@@ -1178,23 +1179,22 @@ div .cycle-overlay {
 }
 
 .txt-box-title{
-	background-color:#ff5359;
 	width: 100%;
 	display: block;
 	padding: 5px;
-
+	border-top:1px solid #ededed;
 }
 .box-title-naw{
-	color: #fff;
+	color: #ff5359;
 }
 .box-title-agio{
 	font-size: 12px;
 	text-decoration: line-through;
-	color:#ededed;
+	color:#999;
 }
 .txt-box-title b{
-	font-size: 14px;
-	color: #fff;
+	font-size: 12px;
+	color:#999;
 	float: right;
 }
 

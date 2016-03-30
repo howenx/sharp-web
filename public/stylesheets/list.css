@@ -653,19 +653,19 @@ h1 .logo {
 }
 
 .product-box{
-    height:65px;
-
-    padding: 10px 0 10px;
+    height: 55px;
+    padding: 10px 0 0 0;
 }
 
 .product-top{
-    height: 40px;
-    line-height: 40px;
+    height: 35px;
+    line-height: 35px;
     background: url("/assets/images/hmm_klmpintuan.png") no-repeat 5px #ff5359;
     display: inline-block;
-    padding: 0 10px 10px 40px;
+    padding: 0 10px 0px 35px;
     color: #fff;
-    font-size: 14px;
+    background-size: 25px;
+    font-size: 10px;
     border-radius: 0 20px 20px 0px;
 }
 

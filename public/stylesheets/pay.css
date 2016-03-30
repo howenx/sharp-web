@@ -293,7 +293,7 @@ input[type=radio]:checked::after {
 
 }
 .box .first{
-    background-color:#E66255;
+    background-color:#ff5359;
     color:#fff
 }
 
