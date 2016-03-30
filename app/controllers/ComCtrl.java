@@ -5,9 +5,12 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 import domain.Message;
+import domain.WechatVo;
 import filters.UserAuth;
 import modules.SysParCom;
+import net.spy.memcached.MemcachedClient;
 import play.Logger;
+import play.cache.Cache;
 import play.libs.F;
 import play.libs.Json;
 import play.libs.ws.WSClient;
@@ -19,20 +22,25 @@ import util.Crypto;
 
 import javax.inject.Inject;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.UUID;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static modules.SysParCom.*;
 import static play.libs.Json.toJson;
 
 /**
+ * 公共
  * Created by sibyl.sun on 16/3/18.
  */
 public class ComCtrl extends Controller {
 
     @Inject
     WSClient ws;
+    @Inject
+    private MemcachedClient cache;
     /**
      * 图片json串转图片url
      * @param imgJson
@@ -130,17 +138,63 @@ public class ComCtrl extends Controller {
     }
 
 
-    public Result redirectWeixin(String code,String state){
+    public F.Promise<Result> wechatUserinfo(String code,String state){
 
-        ws.url(SysParCom.WEIXIN_ACCESS+"appid="+WEIXIN_APPID+"&secret="+WEIXIN_SECRET+"&code="+code+"&grant_type=authorization_code").get().map(wsResponse -> {
+       return ws.url(SysParCom.WEIXIN_ACCESS+"appid="+WEIXIN_APPID+"&secret="+WEIXIN_SECRET+"&code="+code+"&grant_type=authorization_code").get().map(wsResponse -> {
             JsonNode response = wsResponse.asJson();
 
-            Logger.info("微信换取Access_token返回的数据JSON: " + response.toString());
+            Logger.info("微信scope userinfo返回的数据JSON: " + response.toString());
 
-            ws.url(SysParCom.WEIXIN_ACCESS+"appid="+WEIXIN_APPID+"&secret="+WEIXIN_SECRET+"&code="+code+"&grant_type=authorization_code");
-            return null;
+            if (response.findValue("errcode")==null && response.findValue("refresh_token")!=null){
+                F.Promise<Result> t =  ws.url(SysParCom.WEIXIN_REFRESH+"appid="+WEIXIN_APPID+"&grant_type=refresh_token&refresh_token="+response.findValue("refresh_token")).get().map(wsr -> {
+                    JsonNode refreshToken = wsr.asJson();
+                    cache.add(refreshToken.findValue("openid").asText(),refreshToken.findValue("expires_in").asInt(),new WechatVo(refreshToken.findValue("openid").asText(),refreshToken.findValue("access_token").asText()));
+                    ctx().response().setCookie("openId",refreshToken.findValue("openid").asText());
+                    ctx().response().setCookie("accessToken",refreshToken.findValue("access_token").asText());
+                    ctx().session().put("openId",refreshToken.findValue("openid").asText());
+                    ctx().session().put("accessToken",refreshToken.findValue("access_token").asText());
+                    return redirect("/register?"+state);
+                });
+                return t.get(10);
+            }
+           return badRequest(views.html.error500.render());
         });
-        return null;
+    }
+
+    public F.Promise<Result> wechatBase(String code, String state){
+       return ws.url(SysParCom.WEIXIN_ACCESS+"appid="+WEIXIN_APPID+"&secret="+WEIXIN_SECRET+"&code="+code+"&grant_type=authorization_code").get().map(wsResponse -> {
+            JsonNode response = wsResponse.asJson();
+
+            Logger.info("微信scope base返回的数据JSON: " + response.toString());
+
+           F.Promise<Result> t = ws.url(WEIXIN_VERIFY+response.findValue("openid").asText()).get().map(wr->{
+                JsonNode json  = wr.asJson();
+                Message message = Json.fromJson(json.get("message"), Message.class);
+                if (null == message) {
+                    Logger.error("返回数据错误code=" + json);
+                    return badRequest(views.html.error500.render());
+                }
+                if(message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+                    Logger.error("返回数据code=" + json);
+                    //此openId不存在时发起授权请求
+                    redirect(SysParCom.WEIXIN_CODE_URL+"appid="+WEIXIN_APPID+"&&redirect_uri="+ URLEncoder.encode(M_HTTP+"/wechat/userinfo","utf-8")+"&response_type=code&scope=snsapi_userinfo&state="+state+"#wechat_redirect");
+                }
+
+               //此openId存在则自动登录
+                String token = json.findValue("result").findValue("token").asText();
+                Integer expired = json.findValue("result").findValue("expired").asInt();
+                String session_id = UUID.randomUUID().toString().replaceAll("-", "");
+                Cache.set(session_id, token, expired);
+                session("session_id", session_id);
+                response().setCookie("session_id", session_id, expired);
+                response().setCookie("user_token", token, expired);
+
+                session("id-token", token);
+                return redirect(cache.get(state).toString());
+            });
+           return t.get(10);
+        });
+
     }
 
     public Request.Builder getBuilder(Http.Request request, Http.Session session) {

@@ -24,7 +24,6 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
-import sun.misc.BASE64Encoder;
 
 import javax.inject.Inject;
 import java.io.File;
@@ -896,8 +895,7 @@ public class UserCtrl extends Controller {
             e.printStackTrace();
         }
         //对字节数组Base64编码
-        BASE64Encoder encoder = new BASE64Encoder();
-        String photoUrl = encoder.encode(data);//返回Base64编码过的字节数组字符串
+        String photoUrl = org.apache.commons.codec.binary.Base64.encodeBase64String(data);//返回Base64编码过的字节数组字符串
         Logger.error("photoUrl:"+photoUrl);
 
         ObjectNode objectNode = Json.newObject();

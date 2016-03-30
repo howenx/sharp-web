@@ -87,22 +87,7 @@ GET         /order/verify/$orderId<[0-9]+>            controllers.ShoppingCtrl.v
 POST        /order/submit                             controllers.ShoppingCtrl.submitOrder()
 
 
-GET         /all                                      controllers.ShoppingCtrl.all(orderId: Long ?= 0L)
-GET         /all/$orderId<[0-9]+>                     controllers.ShoppingCtrl.all(orderId: Long)
-GET         /appraise                                 controllers.ShoppingCtrl.appraise()
-GET         /assess                                   controllers.ShoppingCtrl.assess()
-GET         /delivered                                controllers.ShoppingCtrl.delivered()
-GET         /drawback                                 controllers.ShoppingCtrl.drawback()
-GET         /logistic                                 controllers.ShoppingCtrl.logistic()
-GET         /obligati                                 controllers.ShoppingCtrl.obligati()
-GET         /orders                                   controllers.ShoppingCtrl.orders()
-POST        /settle                                   controllers.ShoppingCtrl.settle()
-GET         /cart                                     controllers.ShoppingCtrl.cart()
-GET         /cart/empty                               controllers.ShoppingCtrl.emptyCart()
-GET         /order/cancel/$orderId<[0-9]+>            controllers.ShoppingCtrl.cancelOrder(orderId:Long)
-GET         /order/del/$orderId<[0-9]+>               controllers.ShoppingCtrl.delOrder(orderId:Long)
-GET         /order/verify/$orderId<[0-9]+>            controllers.ShoppingCtrl.verifyOrder(orderId:Long)
-POST        /order/submit                             controllers.ShoppingCtrl.submitOrder()
+
 POST        /cart/add                                 controllers.ShoppingCtrl.cartAdd()
 GET         /cart/del/$cartId<[0-9]+>                 controllers.ShoppingCtrl.cartDel(cartId:Long)
 GET         /cart/amount                              controllers.ShoppingCtrl.cartAmount()
@@ -112,9 +97,9 @@ GET         /cart/amount                              controllers.ShoppingCtrl.c
 
 GET         /pay/order/get/$orderId<[0-9]+>           controllers.JDCtrl.cashDesk(orderId:Long)
 
+GET         /wechat/base                              controllers.ComCtrl.wechatBase(code: String,state:String)
 
-
-
+GET         /wechat/userinfo                          controllers.ComCtrl.wechatUserinfo(code: String,state:String)
 
 
 
