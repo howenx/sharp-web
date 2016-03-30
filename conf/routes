@@ -2,10 +2,10 @@
 #用户相关
 GET         /address/$selId<[0-9]+>                   controllers.UserCtrl.address(selId:Long)
 #POST       /address                                  controllers.UserCtrl.address()
-GET         /addressnew/$selId<[0-9]+>                controllers.UserCtrl.addressnew(selId:Long)
+GET         /addressnew                               controllers.UserCtrl.addressnew()
 POST        /address/save                             controllers.UserCtrl.addressSave()
 POST        /address/del                              controllers.UserCtrl.addressDel()
-GET         /address/update/$addId<[0-9]+>/$selId<[0-9]+> controllers.UserCtrl.addressUpdate(addId:Long, selId:Long)
+GET         /address/update/$addId<[0-9]+>/$selId<[0-9]+> controllers.UserCtrl.addressUpdate(addId:Long,selId:Long)
 GET         /carded                                   controllers.UserCtrl.carded()
 GET         /myView                                   controllers.UserCtrl.myView()
 GET         /login                                    controllers.UserCtrl.login()
