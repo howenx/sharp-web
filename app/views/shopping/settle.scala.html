@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="/assets/stylesheets/global.css"/>
     <link rel="stylesheet" href="/assets/stylesheets/pay.css"/>
     <script src="/assets/javascripts/pay.js"></script>
-    <script src="/assets/javascripts/my.js"></script>
     <script src="/assets/javascripts/getAddress.js"></script>
     <script>
         $(function(){
@@ -38,11 +37,6 @@
                     bottom:"-100%"
                 },"slow");
             });
-
-            <!--$('.amput span').click(function(){-->
-                <!--$('.xnew-add-shade').hide();-->
-
-            <!--});-->
 
         })
     </script>
@@ -279,59 +273,10 @@
 </div>
 
 <!--添加地址-->
-<div class="xnew-add-shade clearfix" id="newAddressDiv">
-    <!--
-     <div class="amput clearfix">
-         <span> × </span>
-     </div>
-
-     <form id="cell_addressForm">
-         <input  id="addId" name="addId" value="0" type="hidden"/>
-         <div class="add-s">
-             <input  placeholder="请输入收货人" id="name" name="name">
-         </div>
-
-         <div class="add-s">
-             <input placeholder="请输入联系电话" id="tel" name="tel">
-         </div>
-         <div class="add-s">
-             <input placeholder="身份证" id="idCardNum" name="idCardNum">
-         </div>
-
-         <div id="addAddress">
-             <div class="address_input">
-                 <input class="address_input1" type="text" placeholder="请选择省市" id="shengshi" onClick="getProvinceBuy()" readonly="readonly">
-             </div>
-         </div>
-
-         <input  type="hidden" id="province" name="province"/>
-         <input  type="hidden" id="city" name="city" />
-         <input  type="hidden" id="area" name="area" />
-         <input  type="hidden" id="area_code" name="area_code" />
-         <input  type="hidden" id="city_code" name="city_code" />
-         <input  type="hidden" id="province_code" name="province_code" />
-
-
-         <div class="add-s">
-             <input placeholder="输入详细地址" id="deliveryDetail" name="deliveryDetail">
-         </div>
-
-         <div class="add-m">
-             <span><input type="checkbox" id="orDefault" name="orDefault"/>设为默认</span>
-         </div>
-
-         <div class="cue">
-             <p class="color">提示:</p>
-             <p>1.海关需要对海外购物查验身份信息，错误信息可能导致无法通关。</p>
-             <p>2.身份信息将加密报关，韩秘美将保证您的信息安全。</p>
-         </div>
-         <input type="hidden" id="selId" name="selId" value="1">
-     </form>
-     <button class="plus-add bg addAddressBtn">添加</button>
-  -->
+<div class="xnew-add-shade" id="newAddressDiv">
 </div>
 <!--更新地址-->
-<div class="xnew-add-shade clearfix" id="updateAddressDiv">
+<div class="xnew-add-shade" id="updateAddressDiv">
 </div>
 
 </body>
