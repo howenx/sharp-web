@@ -1,7 +1,5 @@
 //添加修改地址
 $(document).on("click",".addAddressBtn",function(){
-        alert(1223);
-        console.log("==添加修改地址=="+$(this).text());
         var zszReg = new RegExp(/^[a-zA-Z0-9\u4e00-\u9fa5]/); //字母数字中文
         var telReg=new RegExp(/^[1][345678]\d{9}/);
         var card15Reg=new RegExp(/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$/);
