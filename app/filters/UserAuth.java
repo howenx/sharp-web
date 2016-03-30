@@ -4,19 +4,30 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.squareup.okhttp.Headers;
 import com.squareup.okhttp.Request;
 import controllers.UserCtrl;
+import domain.Message;
+import domain.WechatVo;
+import modules.SysParCom;
 import net.spy.memcached.MemcachedClient;
 import org.jboss.netty.channel.ChannelHandlerContext;
 import play.Logger;
 import play.api.data.OptionalMapping;
 import play.cache.Cache;
+import play.libs.F;
 import play.libs.Json;
+import play.libs.ws.WSClient;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
 import scala.Array;
 
 import javax.inject.Inject;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.*;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static modules.SysParCom.*;
 
 /**
  * 用户校验
@@ -27,14 +38,19 @@ public class UserAuth extends Security.Authenticator {
     @Inject
     private MemcachedClient cache;
 
+    @Inject
+    private WSClient ws;
+
+    private String uri;
+
     @Override
     public String getUsername(Http.Context ctx) {
         try {
             Optional<String> header = Optional.ofNullable(ctx.session().get("id-token"));
             Request.Builder builder = new Request.Builder();
-            builder.addHeader(Http.HeaderNames.X_FORWARDED_FOR,ctx.request().remoteAddress());
-            builder.addHeader(Http.HeaderNames.VIA,ctx.request().remoteAddress());
-            builder.addHeader("User-Agent",ctx.request().getHeader("User-Agent"));
+            builder.addHeader(Http.HeaderNames.X_FORWARDED_FOR, ctx.request().remoteAddress());
+            builder.addHeader(Http.HeaderNames.VIA, ctx.request().remoteAddress());
+            builder.addHeader("User-Agent", ctx.request().getHeader("User-Agent"));
 
             if (header.isPresent()) {
                 Optional<String> token = Optional.ofNullable(cache.get(header.get()).toString());
@@ -67,7 +83,7 @@ public class UserAuth extends Security.Authenticator {
                             return userId.toString();
                         } else return null;
                     } else return null;
-                } else return null;
+                } else return weixin(ctx);
             }
         } catch (Exception ex) {
             Logger.info("userAuth:" + ex.getMessage());
@@ -75,9 +91,64 @@ public class UserAuth extends Security.Authenticator {
         }
     }
 
+
+    private String weixin(Http.Context ctx) throws UnsupportedEncodingException {
+
+        Logger.error("微信用户");
+        String state = UUID.randomUUID().toString().replaceAll("-", "");
+        cache.set(state, 60 * 60, ctx.request().uri());
+
+        if (ctx.request().getHeader("User-Agent").contains("MicroMessenger")) {
+            if (ctx.session().get("openId")!=null && ctx.session().get("accessToken")!=null){
+                return ws.url(WEIXIN_VERIFY+ ctx.session().get("openid")).get().map(wr->{
+                    JsonNode json  = wr.asJson();
+                    Message message = Json.fromJson(json.get("message"), Message.class);
+                    if (null == message) {
+                        Logger.error("返回数据错误code=" + json);
+                        return badRequest(views.html.error500.render());
+                    }
+                    if(message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+                        Logger.error("返回数据code=" + json);
+                        //此openId不存在时发起授权请求
+                        this.uri = state;
+                        return "state_userinfo";
+                    }
+
+                    //此openId存在则自动登录
+                    String token = json.findValue("result").findValue("token").asText();
+                    Integer expired = json.findValue("result").findValue("expired").asInt();
+                    String session_id = UUID.randomUUID().toString().replaceAll("-", "");
+                    Cache.set(session_id, token, expired);
+                    ctx.session().put("session_id", session_id);
+                    ctx.response().setCookie("session_id", session_id, expired);
+                    ctx.response().setCookie("user_token", token, expired);
+                    ctx.session().put("id-token", token);
+                    this.uri = state;
+                    return "success";
+                }).get(10).toString();
+            }else return "state_base";
+        }else return null;
+    }
+
+
     @Override
     public Result onUnauthorized(Http.Context ctx) {
-        return redirect("/login");
+
+        if (getUsername(ctx).equals("state_base")){
+            try {
+                return  redirect(SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/base", "UTF-8") + "&response_type=code&scope=snsapi_base&state=" + cache.get(uri).toString() + "#wechat_redirect");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+                return redirect("/login?"+uri);
+            }
+        }else if (getUsername(ctx).equals("state_userinfo")){
+            try {
+                return  redirect(SysParCom.WEIXIN_CODE_URL+"appid="+WEIXIN_APPID+"&&redirect_uri="+ URLEncoder.encode(M_HTTP+"/wechat/userinfo","UTF-8")+"&response_type=code&scope=snsapi_userinfo&state="+cache.get(uri).toString() +"#wechat_redirect");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+                return redirect("/login?"+uri);
+            }
+        }else return redirect("/login?"+uri);
     }
 }
 
