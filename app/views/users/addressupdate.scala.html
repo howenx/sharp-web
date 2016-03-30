@@ -1,4 +1,4 @@
-@(path:String, address:domain.Address, selId:Long)
+@(address:domain.Address)
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,7 +17,7 @@
 </head>
 <body>
 <header class="head">
-    <a href="@path" class="back">
+    <a href="/address/0" class="back">
         <i></i>
         <b></b>
     </a>
@@ -25,7 +25,6 @@
 </header>
 
 <div class="scope wap">
-    <div id="js-userinfo-error" class="cue"></div>
     <form id="cell_addressForm">
         <input  id="addId" name="addId" value="@address.getAddId()" type="hidden"/>
        <div class="add-s">
@@ -70,9 +69,10 @@
             <p>1.海关需要对海外购物查验身份信息，错误信息可能导致无法通关。</p>
             <p>2.身份信息将加密报关，韩秘美将保证您的信息安全。</p>
         </div>
+        <input type="hidden" id="selId" name="selId" value="0">
     </form>
-    <input type="hidden" id="selId" value="@selId">
-    <button class="plus-add bg" id="addAddressBtn">保存修改</button>
+
+    <button class="plus-add bg addAddressBtn">保存修改</button>
 
 </div>
 <div class="hint" id="tip" style="display:none"></div>

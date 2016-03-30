@@ -27,10 +27,10 @@
 
             })
 
-            $('.addup').click(function(){
-                $('.xnew-add-shade').show();
+            <!--$('.addup').click(function(){-->
+                <!--$('.xnew-add-shade').show();-->
 
-            });
+            <!--});-->
 
 
             $('.amputate span').click(function(){
@@ -39,15 +39,10 @@
                 },"slow");
             });
 
-            $('.amput span').click(function(){
-                $('.xnew-add-shade').hide();
+            <!--$('.amput span').click(function(){-->
+                <!--$('.xnew-add-shade').hide();-->
 
-            });
-
-            $('.plus-add').click(function(){
-                $('.xnew-add-shade').show();
-            })
-
+            <!--});-->
 
         })
     </script>
@@ -66,23 +61,33 @@
     <div class="scope">
         <div class="address">
             @if(null==settle.getAddress()){
-                <a href="/addressnew/@settle.getAddress().getAddId()" class="plus-add bg">新增收货地址</a>
                 <input type="hidden" name="addressId" value="0">
+                <div class="settleAddressDiv">
+                    <a href="javascript:;" class="plus-add bg de-add addressnew">新增收货地址</a>
+                </div>
+                <div class="alter clearfix otherAddressDiv" style="display:none;">
+                    <a href="javascript:;" class="other">其它地址 ></a>
+                </div>
+
             }
             @if(null!=settle.getAddress()){
-            <a href="javascript:;">
                 <input type="hidden" id="addressId" name="addressId" value="@settle.getAddress().getAddId()">
-                <p><i class="add-icon"></i><span>姓名:</span><span>@settle.getAddress().getName()</span>
-                    @if(settle.getAddress().getOrDefault()==true){
-                    <span class="color">默认</span>
-                    }
-                </p>
-                <p><span>联系电话:</span><span>@settle.getAddress().getTel()</span></p>
-                <p><span>身份证号:</span><span>@settle.getAddress().getIdCardNum()</span></p>
-                <p><span>收货地址:</span><span>@settle.getAddress().getDeliveryCity() @settle.getAddress().getDeliveryDetail()</span></p>
-              <!--  <i><a href="/address/@settle.getAddress().getAddId()" class="other">其它地址 ></a></i>-->
-                <i><a href="javascript:;" class="other">其它地址 ></a></i>
-            </a>
+                <div class="settleAddressDiv">
+                    <a href="javascript:;">
+                        <p><i class="add-icon"></i><span>姓名:</span><span>@settle.getAddress().getName()</span>
+                            @if(settle.getAddress().getOrDefault()==true){
+                            <span class="color">默认</span>
+                            }
+                        </p>
+                        <p><span>联系电话:</span><span>@settle.getAddress().getTel()</span></p>
+                        <p><span>身份证号:</span><span>@settle.getAddress().getIdCardNum()</span></p>
+                        <p><span>收货地址:</span><span>@settle.getAddress().getDeliveryCity() @settle.getAddress().getDeliveryDetail()</span></p>
+                    </a>
+                </div>
+                <div class="alter clearfix otherAddressDiv">
+                    <a href="javascript:;" class="other">其它地址 ></a>
+                </div>
+
             }
         </div>
         <!--<div class="add">
@@ -270,64 +275,63 @@
 
 
     </ul>
-    <a href="javascript:;" id="addressnew" class="plus-add bg de-add">新增收货地址</a>
+    <a href="javascript:;" class="plus-add bg de-add addressnew">新增收货地址</a>
 </div>
 
+<!--添加地址-->
+<div class="xnew-add-shade clearfix" id="newAddressDiv">
+    <!--
+     <div class="amput clearfix">
+         <span> × </span>
+     </div>
 
-<div class="xnew-add-shade" >
+     <form id="cell_addressForm">
+         <input  id="addId" name="addId" value="0" type="hidden"/>
+         <div class="add-s">
+             <input  placeholder="请输入收货人" id="name" name="name">
+         </div>
 
-    <div id="js-userinfo-error" class="cue"></div>
-        <div class="amput clearfix">
-            <span> × </span>
-        </div>
-    <form id="cell_addressForm">
-        <input id="addId" name="addId" value="700351" type="hidden">
-        <div class="add-s add-sett">
-            <input placeholder="请输入收货人" id="name" name="name" value="发奖金">
-        </div>
+         <div class="add-s">
+             <input placeholder="请输入联系电话" id="tel" name="tel">
+         </div>
+         <div class="add-s">
+             <input placeholder="身份证" id="idCardNum" name="idCardNum">
+         </div>
 
-        <div class="add-s add-sett">
-            <input placeholder="请输入联系电话" id="tel" name="tel" value="18392861591">
-        </div>
-        <div class="add-s add-sett">
-            <input placeholder="身份证" id="idCardNum" name="idCardNum" value="610124198903167511">
-        </div>
+         <div id="addAddress">
+             <div class="address_input">
+                 <input class="address_input1" type="text" placeholder="请选择省市" id="shengshi" onClick="getProvinceBuy()" readonly="readonly">
+             </div>
+         </div>
 
-        <div id="addAddress ">
-            <div class="address_input add-sett">
-                <input class="address_input1" type="text" placeholder="请选择省市" id="shengshi" onclick="getProvinceBuy()" readonly="readonly" value="北京市 北京市 朝阳区">
-            </div>
-        </div>
-
-        <input type="hidden" id="province" name="province" value="0">
-        <input type="hidden" id="city" name="city">
-        <input type="hidden" id="area" name="area">
-        <input type="hidden" id="area_code" name="area_code">
-        <input type="hidden" id="city_code" name="city_code">
-        <input type="hidden" id="province_code" name="province_code">
+         <input  type="hidden" id="province" name="province"/>
+         <input  type="hidden" id="city" name="city" />
+         <input  type="hidden" id="area" name="area" />
+         <input  type="hidden" id="area_code" name="area_code" />
+         <input  type="hidden" id="city_code" name="city_code" />
+         <input  type="hidden" id="province_code" name="province_code" />
 
 
-        <div class="add-s add-sett">
-            <input placeholder="输入详细地址" id="deliveryDetail" name="deliveryDetail" value="积点口德都看到">
-        </div>
+         <div class="add-s">
+             <input placeholder="输入详细地址" id="deliveryDetail" name="deliveryDetail">
+         </div>
 
-        <div class="add-m">
-            <span>
-                <input type="checkbox" name="orDefault" checked="">
+         <div class="add-m">
+             <span><input type="checkbox" id="orDefault" name="orDefault"/>设为默认</span>
+         </div>
 
-                设为默认
-            </span>
-        </div>
-
-        <div class="cue">
-            <p class="color">提示:</p>
-            <p>1.海关需要对海外购物查验身份信息，错误信息可能导致无法通关。</p>
-            <p>2.身份信息将加密报关，韩秘美将保证您的信息安全。</p>
-        </div>
-    </form>
-    <input type="hidden" id="selId" value="0">
-    <button class="plus-add bg plus-add-x" id="addAddressBtn">保存修改</button>
-
+         <div class="cue">
+             <p class="color">提示:</p>
+             <p>1.海关需要对海外购物查验身份信息，错误信息可能导致无法通关。</p>
+             <p>2.身份信息将加密报关，韩秘美将保证您的信息安全。</p>
+         </div>
+         <input type="hidden" id="selId" name="selId" value="1">
+     </form>
+     <button class="plus-add bg addAddressBtn">添加</button>
+  -->
+</div>
+<!--更新地址-->
+<div class="xnew-add-shade clearfix" id="updateAddressDiv">
 </div>
 
 </body>

@@ -31,6 +31,7 @@ public class AddressInfo implements Serializable {
     private String area_code;
     private String city_code;
     private String province_code;
+    private Integer selId;
 
     public Long getAddId() {
         return addId;
@@ -128,6 +129,15 @@ public class AddressInfo implements Serializable {
     public void setProvince_code(String province_code) {
         this.province_code = province_code;
     }
+
+    public Integer getSelId() {
+        return selId;
+    }
+
+    public void setSelId(Integer selId) {
+        this.selId = selId;
+    }
+
     @Override
     public String toString() {
         return "AddressInfo{" +
