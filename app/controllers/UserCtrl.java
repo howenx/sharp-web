@@ -1140,30 +1140,26 @@ public class UserCtrl extends Controller {
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> refundApply(){
         ObjectNode result = Json.newObject();
-        Form<RefundInfo> refundForm = Form.form(RefundInfo.class).bindFromRequest();
-
-        Http.MultipartFormData body = request().body().asMultipartFormData();
-        Logger.info("==request().body()==="+body);
-        Map<String, String[]> stringMap = body.asFormUrlEncoded();
-        Map<String, String> map = new HashMap<>();
-        stringMap.forEach((k, v) -> map.put(k, v[0]));
-        Optional<JsonNode> json = Optional.ofNullable(Json.toJson(map));
-        Logger.info("==json=="+json);
-
-//        Logger.error("====refundApply===" + refundForm.data());
-//        Map<String, String> addressMap = refundForm.data();
-//        if (refundForm.hasErrors()) { //表单错误
-//            result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
-//            return Promise.promise((Function0<Result>) () -> ok(result));
-//        } else {
-//            //TODO ...
+//        Form<RefundInfo> refundForm = Form.form(RefundInfo.class).bindFromRequest();
 //
-//        }
+////        Http.MultipartFormData body = request().body().asMultipartFormData();
+////        Logger.info("==request().body()==="+body);
+////        Map<String, String[]> stringMap = body.asFormUrlEncoded();
+////        Map<String, String> map = new HashMap<>();
+////        stringMap.forEach((k, v) -> map.put(k, v[0]));
+////        Optional<JsonNode> json = Optional.ofNullable(Json.toJson(map));
+////        Logger.info("==json=="+json);
 
-        RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON,json.toString() );
-        return comCtrl.postReqReturnMsg(ORDER_REFUND,formBody);
-
+        Form<RefundInfo> refundForm = Form.form(RefundInfo.class).bindFromRequest();
+        Map<String, String> refundMap = refundForm.data();
+        Logger.error("map:"+refundMap.toString());
+        if (refundForm.hasErrors()) {
+            result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
+            return Promise.promise((Function0<Result>) () -> ok(result));
+        } else {
+            RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON,refundMap.toString() );
+            return comCtrl.postReqReturnMsg(ORDER_REFUND,formBody);
+        }
     }
 
 }
-
