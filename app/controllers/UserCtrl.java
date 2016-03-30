@@ -22,6 +22,7 @@ import play.libs.F.Function0;
 import play.libs.F.Promise;
 import play.libs.Json;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
 
@@ -29,11 +30,8 @@ import javax.inject.Inject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -95,7 +93,7 @@ public class UserCtrl extends Controller {
                 ObjectMapper mapper = new ObjectMapper();
                 List<Address> addressList = mapper.readValue(json.get("address").toString(), new TypeReference<List<Address>>() {
                 });
-                return ok(views.html.users.address.render(path,addressList,selId));
+                return ok(views.html.users.address.render(addressList));
             } else return badRequest(views.html.error500.render());
         });
     }
@@ -106,13 +104,13 @@ public class UserCtrl extends Controller {
      *
      * @return
      */
-    public Result addressnew(Long selId) {
-        String path = routes.UserCtrl.address(selId).url();
-        if (session().containsKey("path")) {
-            //path = session().get("path");
-            session().replace("path", routes.UserCtrl.addressnew(selId).url());
-        }else session().put("path", routes.UserCtrl.addressnew(selId).url());
-        return ok(views.html.users.addressnew.render(path, selId));
+    public Result addressnew() {
+//        String path = routes.UserCtrl.address(selId).url();
+//        if (session().containsKey("path")) {
+//            //path = session().get("path");
+//            session().replace("path", routes.UserCtrl.addressnew(selId).url());
+//        }else session().put("path", routes.UserCtrl.addressnew(selId).url());
+        return ok(views.html.users.addressnew.render());
     }
 
     //创建新的收货地址
@@ -123,6 +121,7 @@ public class UserCtrl extends Controller {
         Form<AddressInfo> addressForm = Form.form(AddressInfo.class).bindFromRequest();
 //        Logger.info("====addressSave===\n" + addressForm.data());
         Map<String, String> addressMap = addressForm.data();
+        Integer selId=Integer.valueOf(addressMap.get("selId"));
         String idCardNum = addressMap.get("idCardNum").trim().toLowerCase();
         if (addressForm.hasErrors() || !"".equals(ComTools.IDCardValidate(idCardNum))) { //表单错误或者身份证校验不通过
             Logger.error("收货地址保存表单错误或者身份证校验不通过"+toJson(addressMap));
@@ -163,11 +162,30 @@ public class UserCtrl extends Controller {
             });
 
             return promiseOfInt.map((Function<JsonNode, Result>) json -> {
- //               Logger.info("===json==" + json);
+                Logger.info("===json==" + json);
                 Message message = Json.fromJson(json.get("message"), Message.class);
                 if (null == message) {
                     Logger.error("返回创建新的收货地址数据错误code=" + json);
                     return badRequest();
+                }
+                if(selId!=0){   //0-普通添加更新跳全部地址界面  1-结算结算添加 2-结算界面更新
+                    result.putPOJO("message",message);
+                    if(message.getCode()==Message.ErrorCode.SUCCESS.getIndex()){
+                        if(json.has("address")){
+                            Address address=Json.fromJson(json.get("address"), Address.class);
+                            JsonNode jsonNode =Json.parse(address.getDeliveryCity());
+                            String add=jsonNode.findValue("province").asText();
+                            if(jsonNode.has("city")){
+                                add+=" "+jsonNode.findValue("city").asText();
+                            }
+                            if(jsonNode.has("area")){
+                                add+=" "+jsonNode.findValue("area").asText();
+                            }
+                            address.setDeliveryCity(add);
+                            result.putPOJO("address",address);
+                        }
+                    }
+                    return ok(toJson(result));
                 }
                 return ok(toJson(message));
             });
@@ -180,7 +198,7 @@ public class UserCtrl extends Controller {
      * @return
      */
     @Security.Authenticated(UserAuth.class)
-    public F.Promise<Result> addressUpdate(Long addId, Long selId) {
+    public F.Promise<Result> addressUpdate(Long addId,Long selId) {
 
         Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
@@ -192,11 +210,11 @@ public class UserCtrl extends Controller {
         });
 
         return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-            String path = routes.UserCtrl.address(addId).url();
-            if (session().containsKey("path")) {
-                //path = session().get("path");
-                session().replace("path", routes.UserCtrl.addressUpdate(addId, selId).url());
-            }else session().put("path", routes.UserCtrl.addressUpdate(addId, selId).url());
+//            String path = routes.UserCtrl.address(addId).url();
+//            if (session().containsKey("path")) {
+//                //path = session().get("path");
+//                session().replace("path", routes.UserCtrl.addressUpdate(addId, selId).url());
+//            }else session().put("path", routes.UserCtrl.addressUpdate(addId, selId).url());
 
 //            Logger.error("返回---->\n" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
@@ -213,7 +231,10 @@ public class UserCtrl extends Controller {
             });
             for (Address address : addressList) {
                 if (address.getAddId() == addId.longValue()) {
-                    return ok(views.html.users.addressupdate.render(path,address,selId));
+                    if(selId==1){
+                        return ok(toJson(address));
+                    }
+                    return ok(views.html.users.addressupdate.render(address));
                 }
             }
             return badRequest();
@@ -291,6 +312,7 @@ public class UserCtrl extends Controller {
                 Request.Builder builder =(Request.Builder)ctx().args.get("request");
                 Request request=builder.url(USER_INFO).get().build();
                 Response response = client.newCall(request).execute();
+                Logger.error("3r24"+response.toString());
                 if (response.isSuccessful()){
                     return Json.parse(new String(response.body().bytes(), UTF_8));
 
@@ -863,6 +885,11 @@ public class UserCtrl extends Controller {
 
     }
 
+    /**
+     * 用户头像修改
+     *
+     * @return
+     */
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> userPhoto() {
         play.mvc.Http.MultipartFormData body = request().body().asMultipartFormData();
@@ -873,19 +900,25 @@ public class UserCtrl extends Controller {
             fileName = picture.getFilename();
             String contentType = picture.getContentType();
             file  = picture.getFile();
-
         } else {
             flash("error", "Missing file");
         }
+//        try {
+//            file.createNewFile();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        //
+//        String str = "";
 
         //将图片文件转化为字节数组字符串，并对其进行Base64编码处理
 //        String imgFile = "d:\\111.jpg";//待处理的图片
-        InputStream in = null;
+        FileInputStream in = null;
         byte[] data = null;
         //读取图片字节数组
         try
         {
-            in = new FileInputStream(fileName);
+            in = new FileInputStream(file);
             data = new byte[in.available()];
             int read = in.read(data);
             in.close();
@@ -1105,22 +1138,26 @@ public class UserCtrl extends Controller {
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> refundApply(){
         ObjectNode result = Json.newObject();
+//        Form<RefundInfo> refundForm = Form.form(RefundInfo.class).bindFromRequest();
+//
+////        Http.MultipartFormData body = request().body().asMultipartFormData();
+////        Logger.info("==request().body()==="+body);
+////        Map<String, String[]> stringMap = body.asFormUrlEncoded();
+////        Map<String, String> map = new HashMap<>();
+////        stringMap.forEach((k, v) -> map.put(k, v[0]));
+////        Optional<JsonNode> json = Optional.ofNullable(Json.toJson(map));
+////        Logger.info("==json=="+json);
+
         Form<RefundInfo> refundForm = Form.form(RefundInfo.class).bindFromRequest();
-        Logger.info("====refundApply===" + refundForm.data());
-        Map<String, String> addressMap = refundForm.data();
-        if (refundForm.hasErrors()) { //表单错误
+        Map<String, String> refundMap = refundForm.data();
+        Logger.error("map:"+refundMap.toString());
+        if (refundForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
         } else {
-            //TODO ...
-
+            RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON,refundMap.toString() );
+            return comCtrl.postReqReturnMsg(ORDER_REFUND,formBody);
         }
-
-        RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, new String(""));
-        return comCtrl.postReqReturnMsg(ORDER_REFUND,formBody);
-
-
     }
 
 }
-

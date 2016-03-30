@@ -1,4 +1,4 @@
-@(path:String, addressList:List[domain.Address], selId:Long)
+@(addressList:List[domain.Address])
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -15,7 +15,7 @@
 
 <body>
 <header class="head">
-    <a href="@path" class="back">
+    <a href="/myView" class="back">
         <i></i>
         <b></b>
     </a>
@@ -24,35 +24,35 @@
 
 <div class="scope wap wap-box ">
     <ul class="ul-box clearfix">
-        @for(address<-addressList){
-        <li id="li@address.getAddId()" class="ul-box-li clearfix">
-            <div class="address clearfix">
-                <a href="javascript:;" class="sel_add clearfix">
-                    @if(selId!=0 && selId==address.getAddId()) {
-                    <input id="sel_rad" type="radio" checked="checked">
-                    }
-                    <p><i class="add-icon"></i><span>姓名:</span><span>@address.getName()</span>
-                        @if(address.getOrDefault()==true){
-                             <span class="color">默认</span>
-                        }
-                    </p>
-                    <p><span>联系电话:</span><span>@address.getTel()</span></p>
-                    <p><span>身份证号:</span><span>@address.getIdCardNum()</span></p>
-                    <p class="clearfix"><span class="add-l">收货地址:</span><span class="add-r">@address.getDeliveryCity()@address.getDeliveryDetail()</span></p>
-                </a>
 
-                <div class="alter clearfix">
-                    @if(selId==0) {
-                    <a href="javascript:;" class="alter-btn color" onclick="delAddress(@address.getAddId(),@address.getOrDefault())">删除</a>
-                    }
-                    <a id="@address.getAddId()" href="/address/update/@address.getAddId()/@selId" class="color addup">修改</a>
+
+        @if(null!=addressList&&addressList.size()>0){
+            @for(address<-addressList){
+            <li id="li@address.getAddId()" class="ul-box-li clearfix">
+                <div class="address clearfix">
+                    <a href="javascript:;" class="sel_add clearfix">
+                        <p><i class="add-icon"></i><span>姓名:</span><span>@address.getName()</span>
+                            @if(address.getOrDefault()==true){
+                                 <span class="color">默认</span>
+                            }
+                        </p>
+                        <p><span>联系电话:</span><span>@address.getTel()</span></p>
+                        <p><span>身份证号:</span><span>@address.getIdCardNum()</span></p>
+                        <p class="clearfix"><span class="add-l">收货地址:</span><span class="add-r">@address.getDeliveryCity()@address.getDeliveryDetail()</span></p>
+                    </a>
+
+
+                    <div class="alter clearfix">
+                        <a href="javascript:;" class="alter-btn color" onclick="delAddress(@address.getAddId(),@address.getOrDefault())">删除</a>
+                        <a id="@address.getAddId()" href="/address/update/@address.getAddId()/0" class="color addup">修改</a>
+                    </div>
                 </div>
-            </div>
-        </li>
+            </li>
+            }
         }
     </ul>
-    <input type="hidden" id="selId" value="@selId">
-    <a href="/addressnew/@selId" id="addressnew" class="plus-add bg">新增收货地址</a>
+    <input type="hidden" id="selId" value="0">
+    <a href="/addressnew" id="addressnew" class="plus-add bg">新增收货地址</a>
 
 </div>
 
@@ -97,6 +97,4 @@
             window.history.back() ;
         }
     });
-
-
 </script>

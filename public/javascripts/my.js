@@ -1,60 +1,81 @@
-$(function(){
+//添加修改地址
+$(document).on("click",".addAddressBtn",function(){
+        var zszReg = new RegExp(/^[a-zA-Z0-9\u4e00-\u9fa5]/); //字母数字中文
+        var telReg=new RegExp(/^[1][345678]\d{9}/);
+        var card15Reg=new RegExp(/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$/);
+        var card18Reg=new RegExp(/^(\d{6})(18|19|20)?(\d{2})([01]\d)([0123]\d)(\d{3})(\d|X|x)?$/);
+        var addId=$("#addId").val();
+        var name=$("#name").val();
+        var tel=$("#tel").val();
+        var idCardNum=$("#idCardNum").val(); //
+        var deliveryDetail=$("#deliveryDetail").val();
+        var province=$("#province").val();
+        var selId = $("#selId").val();
+        var orDefault=$("input[name='orDefault']").is(':checked');
+        var shengshi=$("#shengshi").val();
 
-    $("#addAddressBtn").click(function(){
-                var zszReg = new RegExp(/^[a-zA-Z0-9\u4e00-\u9fa5]/); //字母数字中文
-                var telReg=new RegExp(/^[1][345678]\d{9}/);
-                var card15Reg=new RegExp(/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$/);
-                var card18Reg=new RegExp(/^(\d{6})(18|19|20)?(\d{2})([01]\d)([0123]\d)(\d{3})(\d|X|x)?$/);
-                var name=$("#name").val();
-                var tel=$("#tel").val();
-                var idCardNum=$("#idCardNum").val(); //
-                var deliveryDetail=$("#deliveryDetail").val();
-                var province=$("#province").val();
-                var selId = $("#selId").val();
 
-                if (name.length>15||name.length<2 ||!zszReg.test(name)) {
-                    $('#js-userinfo-error').text('姓名只能是中文/数字/字母').show();
-                    setTimeout("$('#js-userinfo-error').hide()", 3000);
-                }else if (tel.length!=11 ||!telReg.test(tel)) {
-                     $('#js-userinfo-error').text('请填写正确的手机号码').show();
-                     setTimeout("$('#js-userinfo-error').hide()", 3000);
-                }else if (deliveryDetail.length<5||deliveryDetail.length>50||!zszReg.test(deliveryDetail)) {
-                     $('#js-userinfo-error').text('详细地址只能是5~50字内的中文/数字/字母').show();
-                     setTimeout("$('#js-userinfo-error').hide()", 3000);
-                }else if(!((idCardNum.length==15&&card15Reg.test(idCardNum))||(idCardNum.length==18&&card18Reg.test(idCardNum)))){
-                     $('#js-userinfo-error').text('请填写正确的身份证号码').show();
-                     setTimeout("$('#js-userinfo-error').hide()", 3000);
-                }else if(null==province||""==province){
-                      $('#js-userinfo-error').text('请填写正确的地址').show();
-                      setTimeout("$('#js-userinfo-error').hide()", 3000);
-                }
-                else {
+        if (name.length>15||name.length<2 ||!zszReg.test(name)) {
+            tip('姓名只能是中文/数字/字母');
+        }else if (tel.length!=11 ||!telReg.test(tel)) {
+             tip('请填写正确的手机号码');
+        }else if (deliveryDetail.length<5||deliveryDetail.length>50||!zszReg.test(deliveryDetail)) {
+             tip('详细地址只能是5~50字内的中文/数字/字母');
+        }else if(!((idCardNum.length==15&&card15Reg.test(idCardNum))||(idCardNum.length==18&&card18Reg.test(idCardNum)))){
+             tip('请填写正确的身份证号码');
+        }else if(null==province||""==province){
+             tip('请填写正确的地址');
+        }
+        else {
 
-                    $.ajax({
-                            type: 'POST',
-                            url: "/address/save",
-                            dataType: 'json',
-                            data: $('form#cell_addressForm').serialize(),
-                            success: function(data) {
-                                console.log("data="+data+"==="+data.code);
-                                if (data!=""&&data!=null&&data.code==200) {
-                                    setTimeout("location.href='/address/"+Number(selId)+"'", 1000);
-//                                    var url = '/address';
-//                                    var form = $('<form action="' + url + '" method="post">' +
-//                                    '<input type="hidden" name="selId" value="'+selId+''" />' +
-//                                    '</form>');
-//                                    $('body').append(form);
-//                                    form.submit();
+            $.ajax({
+                    type: 'POST',
+                    url: "/address/save",
+                    dataType: 'json',
+                    data: $('form#cell_addressForm').serialize(),
+                    success: function(data) {
+                        console.log("data="+data);
+                        if (data!=""&&data!=null){
+                            if(selId!=0){ //0-普通添加更新跳全部地址界面  1-结算结算添加 2-结算界面更新
+                                if(data.message.code==200) {
+
+                                    if(selId==1){
+                                        //结算界面添加地址
+                                        paintAddressLi(data.address);
+                                    }
+                                    if(selId==2){
+                                        //结算界面更新地址
+                                        var li=$("#li"+addId);
+                                        li.find(".nameSpan").html(name);
+                                        li.find(".telSpan").html(tel);
+                                        li.find(".idCardNumSpan").html(idCardNum);
+                                        li.find(".deliverSpan").html(shengshi+" "+deliveryDetail);
+                                        if(orDefault==true){
+                                            li.find(".orDestroySpan").show();
+                                        }else{
+                                            li.find(".orDestroySpan").hide();
+                                        }
+
+                                    }
+
+                                    $('.xnew-add-shade').html("");
+                                    $('.xnew-add-shade').hide();
+
                                 }
-
+                            }else{
+                                if(data.code==200) {
+                                     setTimeout("location.href='/address/"+Number(selId)+"'", 1000);
+                                }
                             }
-                    });
-                }
+                        }
 
-        });
+                    }
+            });
+        }
+ });
 
 
-});
+
 
 //取消收藏
 $(document).on("click",".cancelColl",function(e){
@@ -218,33 +239,6 @@ $(document).on("click",".feedbackBtn",function(){
         });
     }
 });
-//倒计时
-function timer(intDiff){
-	window.setInterval(function(){
-	var day=0,
-		hour=0,
-		minute=0,
-		second=0;//时间默认值
-	if(intDiff > 0){
-		day = Math.floor(intDiff / (60 * 60 * 24));
-		hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
-		minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
-		second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
-	}
-	if (minute <= 9) minute = '0' + minute;
-	if (second <= 9) second = '0' + second;
-	$('#day_show').html(day+"天");
-	$('#hour_show').html('<s id="h"></s>'+hour+'时');
-	$('#minute_show').html('<s></s>'+minute+'分');
-	$('#second_show').html('<s></s>'+second+'秒');
-	intDiff--;
-	}, 1000);
-}
-$(document).ready(function(){
-     //倒计时
-     var countdown=$("#countdown").val();
-     timer(countdown/1000);
-});
 //收藏
 $(document).on("click",".like-s",function(){
         var skuId=$("#skuId").val();
@@ -281,15 +275,14 @@ function tip(tipContent){
     },3000);
 }
 
-
 //申请售后
 $(document).on("click", ".apply", function() {
     var orderId = $("#orderId").text();
-    var img = $(this).parent().children().children();
+    var img = $(this).parent().children().children().children();
     var invImg = img.attr("src");
-    var skuTitle = img.next().html();
-    var price = img.next().next().find(".price").html();
-    var amount = img.next().next().find(".number").html();
+    var skuTitle = img.parent().next().html();
+    var price = img.parent().next().next().find(".price").html();
+    var amount = img.parent().next().next().find(".number").html();
     var skuId = $(this).next().val();
     var url = '/service';
     var form = $('<form action="' + url + '" method="post">' +
@@ -326,13 +319,39 @@ $(document).on("click", ".next", function() {
     if (num<1 || num>amount) {
         tip("申请数量不正确");
     } else if ($("#reason").val()=="") {
-        tip("请输入退款原因");
+        tip("请填写问题描述");
+    } else {
+        $('.shade').show();
     }
-
 });
 
 //申请退款提交
 $(document).on("click", ".box-btn", function() {
+    var phoneReg = new RegExp(/^1[345678]\d{9}$/);
+    if ($("#contactName").val()=="") {
+         $("#warn").html("请填写联系人姓名").show()
+         setTimeout(function(){$("#warn").hide();},2000);
+    } else if ($("#contactTel").val()=="") {
+        $("#warn").html("请填写联系方式").show()
+        etTimeout(function(){$("#warn").hide();},2000);
+    } else if (!phoneReg.test($("#contactTel").val())) {
+        $("#warn").html("请填写正确的联系方式").show()
+        setTimeout(function(){$("#warn").hide();},2000);
+    } else {
+//        alert("yes");
+        $.ajax({
+            type: "POST",
+            url: "/order/apply/refund",
+            dataType: 'json',
+            data: $('form#cell_refForm').serialize(),
+            success: function(data) {
+                console.log(data);
+            }
+
+        });
+//     $("#cell_refForm").submit();
+
+    }
 });
 
 function pay(url,orderId,token,securityCode){

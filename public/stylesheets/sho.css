@@ -32,8 +32,8 @@ em,i{font-style:normal;}
 strong{font-weight: normal;}
 .clearfix:after{content:""; display:block; visibility:hidden; height:0; clear:both;}
 .clearfix{zoom:1;}
-a{text-decoration:none; color:#969696; font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self;}
-a:hover{color:#969696; text-decoration:none;}
+a{text-decoration:none; color:#999; font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self;}
+a:hover{text-decoration:none;}
 ul,ol,li{list-style:none;}
 h1, h2, h3, h4, h5, h6{ font-size:100%; font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self;}
 fieldset,img{border: none;}
@@ -55,17 +55,17 @@ input:password {
 
 
 /*购买产品部分开始*/
-.cart-goods{
-    margin-top:50px;
+.cart-goods {
+    margin-top: 44px;
     width: 100%;
     background-color: #fff;
     overflow: hidden;
-    margin-bottom: 58px;
 }
 .cart-goods-area{
     border-bottom: 1px solid #ccc;
     position: relative;
     height: 40px;
+    margin: 22px 0 0 0;
 }
 .cart-goods-area .check-wrapper{
     left: 20px;
@@ -132,7 +132,7 @@ input:password {
 }
 .cart-product-name a span{
     font-size: 16px;
-    color: #727171;
+    color: #333;
 }
 
 .cart-product-price{
@@ -143,9 +143,15 @@ input:password {
 }
 .cart-product-price-l{
     float: left;
+    color: #ff5359;
+}
+.spec{
+    color: #9FA0A0;
+    font-size: 12px;
 }
 .cart-product-price-r{
     float: right;
+    color:#ff5359 ;
 }
 .cart-product-number{
     height: 24px;
@@ -160,16 +166,17 @@ input:password {
     -webkit-border-radius: 2px 0 0 2px;
     border: 1px solid #ccc;
     overflow: hidden;
-    background-color: #eee;
     float: left;
     font-size:29px;
+    font-size: 14px;
+
 }
 .quantity{
     display: block;
     line-height: 20px;
     height: 20px;
     width: 35px;
-    color: #999;
+    color: #666;
     border: 1px solid #ccc;
     border-width: 1px 0 1px 0;
     overflow: hidden;
@@ -183,8 +190,8 @@ input:password {
 }
 
 .cart-del-btn {
-    width: 20px;
-    height: 20px;
+    width:15px;
+    height:15px;
     background: url("/assets/images/icon_delete_hui.png") no-repeat;
     background-size: contain;
     padding: 0 10px;
@@ -341,10 +348,11 @@ input:password {
 .hint-hd{
     position: fixed;
     background-color: #FFEEDE;
-    color: #E66255;
+    color:#ff5359;
     padding: 5px;
     z-index: 10;
     width: 100%;
+    font-size: 12px;
 }
 
 /*提示信息*/
