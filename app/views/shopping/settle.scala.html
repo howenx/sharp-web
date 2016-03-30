@@ -20,31 +20,32 @@
     <script>
         $(function(){
             $('.other').click(function(){
-                $('.add-shade').animate({
-                    bottom:0
-                },"slow");
+                $('.add-shade').show();
+                $('.big').hide();
 
             })
 
-            $('.addup').click(function(){
-                $('.xnew-add-shade').show();
-
+            $('.amputate span').click(function(){
+                $('.add-shade').hide();
+                $('.big').show();
             });
 
+            $('.addup').click(function(){
+                $('.xnew-add-shade').show();
+                $('.add-shade').hide();
 
-            $('.amputate span').click(function(){
-                $('.add-shade').animate({
-                    bottom:"-100%"
-                },"slow");
             });
 
             $('.amput span').click(function(){
                 $('.xnew-add-shade').hide();
+                $('.add-shade').show();
 
             });
 
             $('.plus-add').click(function(){
                 $('.xnew-add-shade').show();
+                $('.add-shade').hide();
+                $('.big').hide();
             })
 
 
@@ -235,7 +236,7 @@
 
 <div class="hint" id="tip" style="display:none"></div>
 
-<div class="add-shade" style="height: 100%;overflow: scroll">
+<div class="add-shade">
 
     <ul class="ul-box clearfix scope">
 

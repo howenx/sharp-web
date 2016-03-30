@@ -56,7 +56,7 @@ input:password {
 .scope{min-width:320px; max-width:750px; margin: 0 auto;}
 
 .bg{
-    background-color: #E46359;
+    background-color:#ff5359;
 }
 .color{
     color:#E46359;
@@ -70,7 +70,7 @@ input:password {
     width: 100%;
     height:44px;
     line-height:44px;
-    background-color:#E66255;
+    background-color:#ff5359;
     z-index: 998;
 }
 
@@ -100,7 +100,7 @@ h1 {
     border-color:transparent #fff transparent transparent ;
 }
 .back b{
-    border-color:transparent #E66255 transparent transparent ;
+    border-color:transparent #ff5359 transparent transparent ;
     left:2px;
 }
 
