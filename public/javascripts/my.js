@@ -281,15 +281,14 @@ function tip(tipContent){
     },3000);
 }
 
-
 //申请售后
 $(document).on("click", ".apply", function() {
     var orderId = $("#orderId").text();
-    var img = $(this).parent().children().children();
+    var img = $(this).parent().children().children().children();
     var invImg = img.attr("src");
-    var skuTitle = img.next().html();
-    var price = img.next().next().find(".price").html();
-    var amount = img.next().next().find(".number").html();
+    var skuTitle = img.parent().next().html();
+    var price = img.parent().next().next().find(".price").html();
+    var amount = img.parent().next().next().find(".number").html();
     var skuId = $(this).next().val();
     var url = '/service';
     var form = $('<form action="' + url + '" method="post">' +
@@ -326,13 +325,35 @@ $(document).on("click", ".next", function() {
     if (num<1 || num>amount) {
         tip("申请数量不正确");
     } else if ($("#reason").val()=="") {
-        tip("请输入退款原因");
+        tip("请填写问题描述");
+    } else {
+        $('.shade').show();
     }
-
 });
 
 //申请退款提交
 $(document).on("click", ".box-btn", function() {
+    var phoneReg = new RegExp(/^1[345678]\d{9}$/);
+    if ($("#contactName").val()=="") {
+         $("#warn").html("请填写联系人姓名").show()
+         setTimeout(function(){$("#warn").hide();},2000);
+    } else if ($("#contactTel").val()=="") {
+        $("#warn").html("请填写联系方式").show()
+        etTimeout(function(){$("#warn").hide();},2000);
+    } else if (!phoneReg.test($("#contactTel").val())) {
+        $("#warn").html("请填写正确的联系方式").show()
+        setTimeout(function(){$("#warn").hide();},2000);
+    } else {
+//        alert("yes");
+//        $.ajax({
+//            type: "POST",
+//            url: "/order/apply/refund",
+//
+//        });
+     $("#cell_refForm").submit();
+
+
+    }
 });
 
 function pay(url,orderId,token,securityCode){

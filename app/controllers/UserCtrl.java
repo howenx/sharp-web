@@ -22,6 +22,7 @@ import play.libs.F.Function0;
 import play.libs.F.Promise;
 import play.libs.Json;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
 import sun.misc.BASE64Encoder;
@@ -30,11 +31,8 @@ import javax.inject.Inject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -292,6 +290,7 @@ public class UserCtrl extends Controller {
                 Request.Builder builder =(Request.Builder)ctx().args.get("request");
                 Request request=builder.url(USER_INFO).get().build();
                 Response response = client.newCall(request).execute();
+                Logger.error("3r24"+response.toString());
                 if (response.isSuccessful()){
                     return Json.parse(new String(response.body().bytes(), UTF_8));
 
@@ -864,6 +863,11 @@ public class UserCtrl extends Controller {
 
     }
 
+    /**
+     * 用户头像修改
+     *
+     * @return
+     */
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> userPhoto() {
         play.mvc.Http.MultipartFormData body = request().body().asMultipartFormData();
@@ -874,19 +878,25 @@ public class UserCtrl extends Controller {
             fileName = picture.getFilename();
             String contentType = picture.getContentType();
             file  = picture.getFile();
-
         } else {
             flash("error", "Missing file");
         }
+//        try {
+//            file.createNewFile();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        //
+//        String str = "";
 
         //将图片文件转化为字节数组字符串，并对其进行Base64编码处理
 //        String imgFile = "d:\\111.jpg";//待处理的图片
-        InputStream in = null;
+        FileInputStream in = null;
         byte[] data = null;
         //读取图片字节数组
         try
         {
-            in = new FileInputStream(fileName);
+            in = new FileInputStream(file);
             data = new byte[in.available()];
             int read = in.read(data);
             in.close();
@@ -1108,19 +1118,27 @@ public class UserCtrl extends Controller {
     public F.Promise<Result> refundApply(){
         ObjectNode result = Json.newObject();
         Form<RefundInfo> refundForm = Form.form(RefundInfo.class).bindFromRequest();
-        Logger.info("====refundApply===" + refundForm.data());
-        Map<String, String> addressMap = refundForm.data();
-        if (refundForm.hasErrors()) { //表单错误
-            result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
-            return Promise.promise((Function0<Result>) () -> ok(result));
-        } else {
-            //TODO ...
 
-        }
+        Http.MultipartFormData body = request().body().asMultipartFormData();
+        Logger.info("==request().body()==="+body);
+        Map<String, String[]> stringMap = body.asFormUrlEncoded();
+        Map<String, String> map = new HashMap<>();
+        stringMap.forEach((k, v) -> map.put(k, v[0]));
+        Optional<JsonNode> json = Optional.ofNullable(Json.toJson(map));
+        Logger.info("==json=="+json);
 
-        RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, new String(""));
+//        Logger.error("====refundApply===" + refundForm.data());
+//        Map<String, String> addressMap = refundForm.data();
+//        if (refundForm.hasErrors()) { //表单错误
+//            result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
+//            return Promise.promise((Function0<Result>) () -> ok(result));
+//        } else {
+//            //TODO ...
+//
+//        }
+
+        RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON,json.toString() );
         return comCtrl.postReqReturnMsg(ORDER_REFUND,formBody);
-
 
     }
 

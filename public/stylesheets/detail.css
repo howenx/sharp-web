@@ -77,7 +77,7 @@ input:password {
 
 .nav_ban_detail .back{
 	position: absolute;
-	top:10px;
+	top:12px;
 	left:0;
 	width:40px;
 	height:40px;
@@ -89,7 +89,7 @@ input:password {
 	left:0;
 	width:0;
 	height:0;
-	border-width:12px;
+	border-width:10px;
 	border-style:dashed solid dashed dashed ;
 	border-color:transparent #fff transparent transparent ;
 }
@@ -349,7 +349,7 @@ div .cycle-overlay {
 .u-detail-price {
 	float: left;
 	font-weight:bold;
-	color:#E46359;
+	color:#ff5359;
 	font-size:34px ;
 }
 
@@ -367,7 +367,7 @@ div .cycle-overlay {
 	float: left;
 	text-align: center;
 	color: #fff;
-	background-color:#E46359;
+	background-color:#ff5359;
 	margin:22px 0 0 10px;
 	line-height:20px;
 	padding: 0px 5px;
@@ -599,7 +599,7 @@ div .cycle-overlay {
 
 .naw{
 	font-size:24px;
-	color:#EF2628;
+	color:#ff5359;
 }
 .agio{
 	font-size:16px;
@@ -612,7 +612,7 @@ div .cycle-overlay {
 	line-height:25px;
 	text-align: center;
 	border: 1px solid #e33a39;
-	color: #e56254;
+	color: #ff5359;
 	font-weight: normal;
 	margin: 10px 0 0 0;
 }
@@ -828,7 +828,7 @@ div .cycle-overlay {
 	line-height:44px;
 	text-align: center;
 	color: #fff;
-	background-color: #f66;
+	background-color: #ff5359;
 	word-wrap: normal;
 	white-space: nowrap;
 }
@@ -930,19 +930,19 @@ div .cycle-overlay {
 /*返回顶部*/
 .top{
 	position: fixed;
-	bottom:100px;
+	bottom:80px;
 	right:20px;
 	display: none;
 }
 .top img{
-	width:50px;
-	height:50px;
+	width:40px;
+	height:40px;
 
 }
 
 /*ffqwfewafegargsdgga*/
 .thw-detail-other .xian{
-	background: #E66255;
+	background:#ff5359;
 	color: #fff;
 	padding: 2px 4px;
 	border-radius: 3px;
@@ -1033,7 +1033,7 @@ div .cycle-overlay {
 	display: block;
 	width: 100%;
 	height: 40px;
-	background-color:#E66255 ;
+	background-color:#ff5359;
 	text-align: center;
 	line-height: 40px;
 	color: #fff;
@@ -1078,24 +1078,24 @@ div .cycle-overlay {
 
 .finish{
 	position: absolute;
-	bottom:-30px;
-	right:0;
+	bottom: -25px;
+	right: 0;
 	background-color: #FFEEDE;
-	height: 30px;
-	line-height: 30px;
-	font-size: 14px;
-	color:#E66255 ;
+	height: 25px;
+	line-height: 25px;
+	font-size: 12px;
+	color: #E66255;
 	padding: 0 5px;
 }
 
 .finish-box{
 	width: 100%;
 	text-align: center;
-	color: #E66255;
-	background-color:#FFEEDE ;
-	height: 50px;
-	line-height: 50px;
-	font-size: 16px;
+	color:#ff5359;
+	background-color: #FFEEDE;
+	height: 35px;
+	line-height: 35px;
+	font-size: 14px;
 }
 
 
@@ -1123,7 +1123,7 @@ div .cycle-overlay {
 	background: #fff;z-index: 1001;
 }
 .toup .con h3{
-	background: #E66255;color: #fff;text-align: center;
+	background:#ff5359;color: #fff;text-align: center;
 	padding-top: 10px;padding-bottom: 10px;
 }
 .toup .con .conaddr{
@@ -1144,7 +1144,7 @@ div .cycle-overlay {
 .toup .con .item div:nth-of-type(1){
 	border-top-right-radius:14px;
 	border-bottom-right-radius:14px;
-	background: #E66255;
+	background: #ff5359;
 	padding: 2px 0 2px 2px;
 	font-size: 12px;
 	margin-right: 10px;
@@ -1157,21 +1157,46 @@ div .cycle-overlay {
 .toup .con .item div:nth-of-type(1) p{
 	display: inline;color: #fff;
 }
+
 .toup .con .item div:nth-of-type(3) p{
 	font-size: 12px;padding: 0 12px 12px 5px;
 	word-wrap: break-word;
 	white-space:pre-wrap;
-	height:50px;overflow: hidden;
+	height:32px;overflow: hidden;
 	margin: 0 0 5px 0;
-	background-color: #E66255;
-	color: #fff;
+	color: #333;
+	line-height:15px;
+	padding: 5px;
+}
+
+.txt-box{
+	height:80px;
 }
 
 .conaddr-p{
 	height:125px;
 }
 
+.txt-box-title{
+	background-color:#ff5359;
+	width: 100%;
+	display: block;
+	padding: 5px;
 
+}
+.box-title-naw{
+	color: #fff;
+}
+.box-title-agio{
+	font-size: 12px;
+	text-decoration: line-through;
+	color:#ededed;
+}
+.txt-box-title b{
+	font-size: 14px;
+	color: #fff;
+	float: right;
+}
 
 
 /*玩法 页面*/
