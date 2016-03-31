@@ -307,5 +307,9 @@ function tip(tipContent){
     },3000);
 }
 
+$(document).on("click",".pinSoldOutCss",function(){
+    tip("该商品已结束去看看其他拼购吧");
+});
+
 
 
