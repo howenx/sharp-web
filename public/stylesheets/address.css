@@ -16,7 +16,7 @@
 }
 
 .dqld_div ul{
-    width:90%;
+    width:100%;
     margin: 0 auto;
 }
 
@@ -90,6 +90,7 @@ li div{
 
 .cue{
     margin: 10px 0 0 0;
+    color: #999;
 }
 
 
@@ -149,4 +150,15 @@ li div{
 
 .add-sett input{
     width: 100%;
+}
+input{
+    color: #666666;
+}
+
+.shut{
+    position: absolute;
+    top:50px;
+    right:5%;
+    z-index:1000;
+    display: none;
 }

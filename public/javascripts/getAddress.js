@@ -206,5 +206,3 @@ $(document).on("click",".other",function(){
 $(document).on("click",".amputate span",function(){
     $('.add-shade').hide();
 });
-
-

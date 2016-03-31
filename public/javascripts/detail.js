@@ -1,4 +1,8 @@
 $(function() {
+    $('.finish-box').click(function(){
+        $('.con').show();
+    })
+
 	$('.classify ul li').click(function(){
 		$(this).addClass('current').siblings().removeClass('current');
 		var index = $(".classify ul li").index($(this));
