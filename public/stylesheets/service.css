@@ -10,9 +10,8 @@
 
 .commodity{
     width:100%;
-    height:110px;
     display: block;
-
+    padding: 10px 0;
 }
 
 .commodity .commodity-rmb {
@@ -26,20 +25,24 @@ span .rmb{
 }
 
 
-.commodity img{
-    width:80px;
-    height:106px;
+.se-back{
+    width: 80px;
+    height:80px;
     float: left;
     margin: 0 10px 0 0;
 }
 
+.commodity img{
+    width:100%;
+}
+
 .commodity h2{
-    font-size: 16px;
     overflow: hidden;
     display: -webkit-box;
     word-break: break-all;
     -webkit-box-orient: vertical;
     margin: 0 0 10px 0;
+    color: #666;
 }
 
 
@@ -87,8 +90,8 @@ span .rmb{
     background: url("/assets/images/hmmapp-assess01.jpg") no-repeat;
     background-size: contain;
     width: 100%;
-    height: 130px;
-    margin: 20px 0;
+    height: 100px;
+    margin: 0 0 20px 0;
     position: relative;
     top: 10px;
 }
@@ -103,8 +106,8 @@ span .rmb{
 }
 
 .btn{
-    height: 50px;
-    line-height: 50px;
+    height:40px;
+    line-height:40px;
     width: 100%;
     background-color: #E66255;
     text-align: center;
@@ -180,7 +183,6 @@ ul li span {
     text-align: center;
 
 }
-
 
 
 
