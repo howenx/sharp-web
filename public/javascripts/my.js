@@ -38,7 +38,9 @@ $(document).on("click",".addAddressBtn",function(){
                         if (data!=""&&data!=null){
                             if(selId!=0){ //0-普通添加更新跳全部地址界面  1-结算结算添加 2-结算界面更新
                                 if(data.message.code==200) {
-
+                                    if(orDefault==true){ // 先全部去掉默认
+                                      $(".orDefaultSpan").hide();
+                                    }
                                     if(selId==1){
                                         //结算界面添加地址
                                         paintAddressLi(data.address);
@@ -52,10 +54,7 @@ $(document).on("click",".addAddressBtn",function(){
                                         li.find(".idCardNumSpan").html(idCardNum);
                                         li.find(".deliverSpan").html(shengshi+" "+deliveryDetail);
                                         if(orDefault==true){
-                                            $(".orDefaultSpan").hide();
                                             li.find(".orDefaultSpan").show();
-                                        }else{
-                                            li.find(".orDefaultSpan").hide();
                                         }
 
                                         $('.add-shade').show(); //打开其他地址界面
