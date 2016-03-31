@@ -224,6 +224,13 @@ $(function() {
 		});
 	});
 
+    $(".finish-box").click(function () {
+        $(".toup").css("display","block");
+        $(".toup .con").animate({
+            bottom:0,
+        },1000);
+    })
+
 });
 //添加购物车
 $(document).on("click",".cartAdd",function(){
