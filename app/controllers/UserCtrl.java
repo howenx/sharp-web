@@ -299,12 +299,12 @@ public class UserCtrl extends Controller {
     public Result login(String state) {
         String path = routes.ProductsCtrl.index().url();
 
-        if (null!=ctx().request().cookies().get("path").value()) {
-            path = ctx().request().cookies().get("path").value();
-            ctx().response().setCookie("path", path);
-            Logger.error("cookie path"+path);
-        }
-        ctx().response().setCookie("path", routes.ProductsCtrl.index().url());
+//        if (null!=ctx().request().cookies().get("path").value()) {
+//            path = ctx().request().cookies().get("path").value();
+//            ctx().response().setCookie("path", path);
+//            Logger.error("cookie path"+path);
+//        }
+//        ctx().response().setCookie("path", routes.ProductsCtrl.index().url());
 
         return ok(views.html.users.login.render(path, IMAGE_CODE, cache.get(state).toString(), "?state=" + state));
 
@@ -491,11 +491,12 @@ public class UserCtrl extends Controller {
 
         String openId = ctx().response().cookie("openId").toString();
         String accessToken = ctx().response().cookie("accessToken").toString();
-        if (null != openId && null != accessToken) {
-            userMap.put("openId", session().get("openId"));
-            userMap.put("accessToken", session().get("accessToken"));
+        if (null!=openId && null!= accessToken) {
+            userMap.put("openId", openId);
+            userMap.put("accessToken", accessToken);
         }
         Logger.error("userMap:" + userMap);
+
         if (userForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise(() -> ok(result));
@@ -556,11 +557,11 @@ public class UserCtrl extends Controller {
     public Result registVerify(String state) {
         String path = routes.UserCtrl.login(state).url();
 
-        if (null!=ctx().request().cookies().get("path").value()) {
-            path = ctx().request().cookies().get("path").value();
-            ctx().response().setCookie("path", path);
-            Logger.error("cookie path"+path);
-        } else ctx().response().setCookie("path", routes.UserCtrl.login(state).url());
+//        if (null!=ctx().request().cookies().get("path").value()) {
+//            path = ctx().request().cookies().get("path").value();
+//            ctx().response().setCookie("path", path);
+//            Logger.error("cookie path"+path);
+//        } else ctx().response().setCookie("path", routes.UserCtrl.login(state).url());
 
         return ok(views.html.users.registVerify.render(path, "?state=" + state));
 
@@ -651,11 +652,11 @@ public class UserCtrl extends Controller {
      */
     public Result register(String state) {
         String path = routes.UserCtrl.registVerify(state).url();
-        if (null!=ctx().request().cookies().get("path").value()) {
-            path = ctx().request().cookies().get("path").value();
-            ctx().response().setCookie("path", path);
-            Logger.error("cookie path"+path);
-        } else ctx().response().setCookie("path", routes.UserCtrl.registVerify(state).url());
+//        if (null!=ctx().request().cookies().get("path").value()) {
+//            path = ctx().request().cookies().get("path").value();
+//            ctx().response().setCookie("path", path);
+//            Logger.error("cookie path"+path);
+//        } else ctx().response().setCookie("path", routes.UserCtrl.registVerify(state).url());
 
         Form<UserPhoneCode> userPhoneCodeForm = Form.form(UserPhoneCode.class).bindFromRequest();
         Map<String, String> userMap = userPhoneCodeForm.data();
@@ -682,7 +683,7 @@ public class UserCtrl extends Controller {
     }
 
     /**
-     * 用户注册提交
+     * 用户注册提交并登录
      *
      * @return
      */
@@ -690,13 +691,15 @@ public class UserCtrl extends Controller {
         ObjectNode result = newObject();
         Form<UserRegistInfo> userRegistInfoForm = Form.form(UserRegistInfo.class).bindFromRequest();
         Map<String, String> userMap = userRegistInfoForm.data();
+
         String openId = ctx().response().cookie("openId").toString();
         String accessToken = ctx().response().cookie("accessToken").toString();
         if (null!=openId && null!= accessToken) {
-            userMap.put("openId", session().get("openId"));
-            userMap.put("accessToken", session().get("accessToken"));
+            userMap.put("openId", openId);
+            userMap.put("accessToken", accessToken);
         }
         Logger.error("userMap:" + userMap);
+
         if (userRegistInfoForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
@@ -779,10 +782,11 @@ public class UserCtrl extends Controller {
         String openId = ctx().response().cookie("openId").toString();
         String accessToken = ctx().response().cookie("accessToken").toString();
         if (null!=openId && null!= accessToken) {
-            userMap.put("openId", session().get("openId"));
-            userMap.put("accessToken", session().get("accessToken"));
+            userMap.put("openId", openId);
+            userMap.put("accessToken", accessToken);
         }
         Logger.error("userMap:" + userMap);
+
         if (userRegistInfoForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
