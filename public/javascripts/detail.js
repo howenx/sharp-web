@@ -1,4 +1,8 @@
 $(function() {
+    $('.finish-box').click(function(){
+        $('.con').show();
+    })
+
 	$('.classify ul li').click(function(){
 		$(this).addClass('current').siblings().removeClass('current');
 		var index = $(".classify ul li").index($(this));
@@ -306,6 +310,10 @@ function tip(tipContent){
     $("#tip").hide();
     },3000);
 }
+
+$(document).on("click",".pinSoldOutCss",function(){
+    tip("该商品已结束去看看其他拼购吧");
+});
 
 
 

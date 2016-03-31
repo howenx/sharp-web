@@ -344,7 +344,7 @@ public class ShoppingCtrl extends Controller {
         final Integer buyNowTemp=buyNow;
         final boolean finalIsPinCheck = isPinCheck;
         return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
-            Logger.info("==settle=json==" + json);
+         //   Logger.info("==settle=json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回商品结算数据错误code=" + json);

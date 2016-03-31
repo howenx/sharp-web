@@ -304,7 +304,7 @@
 
             @if(pinInvDetail.isSoldOut() == true){
                  <div class="add_cart btns" data-type="cart">
-                    <a href="javascript:;" class="btnCart add_cart_large pin-cart" style="background-color: #969696;">
+                    <a href="javascript:;" class="btnCart add_cart_large pin-cart pinSoldOutCss" style="background-color: #969696;">
                         立即开团
                     </a>
                  </div>
@@ -346,7 +346,7 @@
 
     </div>
     <div class="top">
-        <img src="/assets/images/top.png">
+        <img src="/assets/images/backtop.png">
     </div>
 </div>
 </form>
@@ -444,6 +444,10 @@
             </div>
         </div>
     </div>
+
+    <div class="top">
+        <img src="/assets/images/backtop.png">
+    </div>
 </div>
 }
 <!-- <div class="footer">
@@ -453,7 +457,7 @@
   </span>
   <a href="javascript:;" class="bg">立即下载</a>
 </div> -->
-
+<div class="hint" id="tip" style="display:none"></div>
 </body>
 
 </html>

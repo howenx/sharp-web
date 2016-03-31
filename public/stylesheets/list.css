@@ -643,13 +643,14 @@ h1 .logo {
 }
 
 .title-hd{
-    color:#4B4B4B;
+    color: #666;
     height: 50px;
-    background-color:#fff;
-    padding:10px 5%;
+    background-color: #fff;
+    padding: 10px 5%;
     overflow: hidden;
     margin-bottom: 10px;
-    overflow : hidden;
+    overflow: hidden;
+    font-size: 14px;
 }
 
 .product-box{
@@ -682,7 +683,7 @@ h1 .logo {
 }
 
 .figure-f{
-    height:185px;
+    height:175px;
 }
 
 .content .title-fd{
@@ -697,8 +698,9 @@ h1 .logo {
 }
 
 .naw{
-    font-size:24px;
-    color:#ff5359;
+    font-size:28px;
+    color:#EF2528;
+
 }
 .agio{
    font-size:16px;
@@ -785,7 +787,7 @@ h2 span{
 
     }
     .naw{
-        font-size:14px;
+        font-size:18px;
 
     }
     .agio{

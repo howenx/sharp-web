@@ -1,4 +1,4 @@
-@(path:String, imageCode:String)
+@(path:String, imageCode:String, state:String)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -120,7 +120,7 @@
                                                $("#code").attr({"name":"code"});
                                                //手机验证码发送成功
                                                if (data.code === 200) {
-                                                    var url = '/retrieve';
+                                                    var url = '/retrieve'+$("#state").val();
                                                     var form = $('<form action="' + url + '" method="post">' +
                                                     '<input type="hidden" name="phone" value="' + phone + '" />' +
                                                     '</form>');
@@ -144,6 +144,36 @@
                     });
                 }
             });
+
+            //立即注册
+            $(document).on('click', '.box-r', function() {
+                $("#code").removeAttr("name");
+                var phone = $("#phone").val();
+                $.ajax({
+                    url: "/phone/code",
+                    dataType: 'json',
+                    data: $('form#cell_verifyForm').serialize(),
+                    type: 'POST',
+                    success: function(data) {
+                        console.log(data);
+                        $("#code").attr({"name":"code"});
+                        //手机验证码发送成功
+                        if (data.code === 200) {
+                                var url = '/register'+$("#state").val();
+                                var form = $('<form action="' + url + '" method="post">' +
+                                '<input type="hidden" name="phone" value="' + phone + '" />' +
+                                '</form>');
+                                $('body').append(form);
+                                form.submit();
+                        }
+                        else {
+                                $('#js-userinfo-error').text(data.message).show();
+                                setTimeout("$('#js-userinfo-error').hide()", 2000);
+                        }
+                    }
+                });
+            });
+
 
             //弹框取消按钮
             $('.box-q').click(function(){
@@ -169,6 +199,7 @@
     <div class="nav_ban">
         <h1>找回密码</h1>
         <a href="@path"><span class="icon-back" id="backBtn"></span></a>
+        <input type="hidden" id="state" value="@state">
     </div>
     <div class="login">
             <div id="js-userinfo-error2" class="cue"></div>
@@ -213,7 +244,7 @@
               <span>该手机号尚未注册</span>
               <div class="box-a">
                    <a href="javascript:;" class="box-l">取消</a>
-                   <a href="/register" class="box-r">立即注册</a>
+                   <a class="box-r">立即注册</a>
               </div>
           </div>
      </div>

@@ -294,13 +294,13 @@ public class UserCtrl extends Controller {
      *
      * @return
      */
-    public Result login() {
+    public Result login(String state) {
         String path = routes.ProductsCtrl.index().url();
         if (session().containsKey("path")) {
             //path = session().get("path");
-            session().replace("path", routes.UserCtrl.login().url());
-        }else session().put("path", routes.UserCtrl.login().url());
-        return ok(views.html.users.login.render(path, IMAGE_CODE));
+            session().replace("path", routes.UserCtrl.login(state).url());
+        }else session().put("path", routes.UserCtrl.login(state).url());
+        return ok(views.html.users.login.render(path, IMAGE_CODE, cache.get(state).toString(), "?state="+state));
     }
 
     /**
@@ -478,6 +478,13 @@ public class UserCtrl extends Controller {
         ObjectNode result = newObject();
         Form<UserLoginInfo> userForm = Form.form(UserLoginInfo.class).bindFromRequest();
         Map<String, String> userMap = userForm.data();
+        String openId = session().get("openId");
+        String accessToken = session().get("accessToken");
+        if (null!=openId && null!= accessToken) {
+            userMap.put("openId", session().get("openId"));
+            userMap.put("accessToken", session().get("accessToken"));
+        }
+        Logger.error("userMap:"+userMap);
         if (userForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
@@ -486,7 +493,6 @@ public class UserCtrl extends Controller {
                 FormEncodingBuilder feb = new FormEncodingBuilder();
                 userMap.forEach(feb::add);
                 RequestBody formBody = feb.build();
-
                 Request request = new Request.Builder()
                         .header("User-Agent", request().getHeader("User-Agent"))
                         .url(LOGIN_PAGE)
@@ -513,8 +519,9 @@ public class UserCtrl extends Controller {
                             }
                             session("id-token", token);
                         }
-//                        Logger.error(json.toString()+"-----"+message.toString());
+                        Logger.error(json.toString()+"-----"+message.toString());
                         return ok(Json.toJson(message));
+
                     }
             );
         }
@@ -535,13 +542,13 @@ public class UserCtrl extends Controller {
      *
      * @return views
      */
-    public Result registVerify() {
-        String path = routes.UserCtrl.login().url();
+    public Result registVerify(String state) {
+        String path = routes.UserCtrl.login(state).url();
         if (session().containsKey("path")) {
             //path = session().get("path");
-            session().replace("path", routes.UserCtrl.registVerify().url());
-        }else session().put("path", routes.UserCtrl.registVerify().url());
-        return ok(views.html.users.registVerify.render(path));
+            session().replace("path", routes.UserCtrl.registVerify(state).url());
+        }else session().put("path", routes.UserCtrl.registVerify(state).url());
+        return ok(views.html.users.registVerify.render(path,"?state="+state));
     }
 
     /**
@@ -568,14 +575,13 @@ public class UserCtrl extends Controller {
                 client.setConnectTimeout(10, TimeUnit.SECONDS);
                 Response response = client.newCall(request).execute();
                 if (response.isSuccessful()) {
-                    JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
-                    return json;
+                    return Json.parse(new String(response.body().bytes(), UTF_8));
                 } else throw new IOException("Unexpected code" + response);
             });
 
             return promiseOfInt.map((Function<JsonNode, Result>) json -> {
                 Message message = Json.fromJson(json.findValue("message"), Message.class);
-                //Logger.error(json.toString()+"-----"+message.toString());
+                Logger.error(json.toString()+"-----"+message.toString());
                 return ok(Json.toJson(message));
             });
         }
@@ -608,8 +614,7 @@ public class UserCtrl extends Controller {
                 client.setConnectTimeout(10, TimeUnit.SECONDS);
                 Response response = client.newCall(request).execute();
                 if (response.isSuccessful()) {
-                    JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
-                    return json;
+                    return Json.parse(new String(response.body().bytes(), UTF_8));
                 } else throw new IOException("Unexpected code" + response);
             });
 
@@ -629,16 +634,16 @@ public class UserCtrl extends Controller {
      *
      * @return views
      */
-    public Result register() {
-        String path = routes.UserCtrl.registVerify().url();
+    public Result register(String state) {
+        String path = routes.UserCtrl.registVerify(state).url();
         if (session().containsKey("path")) {
 //            path = session().get("path");
-            session().replace("path", routes.UserCtrl.register().url());
-        }else session().put("path", routes.UserCtrl.register().url());
+            session().replace("path", routes.UserCtrl.register(state).url());
+        }else session().put("path", routes.UserCtrl.register(state).url());
         Form<UserPhoneCode> userPhoneCodeForm = Form.form(UserPhoneCode.class).bindFromRequest();
         Map<String, String> userMap = userPhoneCodeForm.data();
         String phone = userMap.get("phone");
-        return ok(views.html.users.regist.render(path, phone));
+        return ok(views.html.users.regist.render(path, phone, cache.get(state).toString()));
     }
 
     /**
@@ -667,6 +672,13 @@ public class UserCtrl extends Controller {
         ObjectNode result = newObject();
         Form<UserRegistInfo> userRegistInfoForm = Form.form(UserRegistInfo.class).bindFromRequest();
         Map<String, String> userMap = userRegistInfoForm.data();
+        String openId = session().get("openId");
+        String accessToken = session().get("accessToken");
+        if (null!=openId && null!= accessToken) {
+            userMap.put("openId", session().get("openId"));
+            userMap.put("accessToken", session().get("accessToken"));
+        }
+        Logger.error("userMap:"+userMap);
         if (userRegistInfoForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
@@ -710,13 +722,13 @@ public class UserCtrl extends Controller {
      *
      * @return views
      */
-    public Result retrieve() {
-        String path = routes.UserCtrl.login().url();
+    public Result retrieve(String state) {
+        String path = routes.UserCtrl.login(state).url();
         if (session().containsKey("path")) {
             //path = session().get("path");
-            session().replace("path", routes.UserCtrl.retrieve().url());
-        }else session().put("path", routes.UserCtrl.retrieve().url());
-        return ok(views.html.users.retrieve.render(path,IMAGE_CODE));
+            session().replace("path", routes.UserCtrl.retrieve(state).url());
+        }else session().put("path", routes.UserCtrl.retrieve(state).url());
+        return ok(views.html.users.retrieve.render(path,IMAGE_CODE, "?state="+state));
     }
 
     /**
@@ -724,16 +736,16 @@ public class UserCtrl extends Controller {
      *
      * @return
      */
-    public Result resetPasswd() {
-        String path = routes.UserCtrl.retrieve().url();
+    public Result resetPasswd(String state) {
+        String path = routes.UserCtrl.retrieve(state).url();
         if (session().containsKey("path")) {
             //path = session().get("path");
-            session().replace("path", routes.UserCtrl.resetPasswd().url());
-        }else session().put("path", routes.UserCtrl.resetPasswd().url());
+            session().replace("path", routes.UserCtrl.resetPasswd(state).url());
+        }else session().put("path", routes.UserCtrl.resetPasswd(state).url());
         Form<UserPhoneCode> userPhoneCodeForm = Form.form(UserPhoneCode.class).bindFromRequest();
         Map<String, String> userMap = userPhoneCodeForm.data();
         String phone = userMap.get("phone");
-        return ok(views.html.users.resetPasswd.render(path, phone));
+        return ok(views.html.users.resetPasswd.render(path, phone, cache.get(state).toString()));
     }
 
     /**
@@ -745,6 +757,13 @@ public class UserCtrl extends Controller {
         ObjectNode result = newObject();
         Form<UserRegistInfo> userRegistInfoForm = Form.form(UserRegistInfo.class).bindFromRequest();
         Map<String, String> userMap = userRegistInfoForm.data();
+        String openId = session().get("openId");
+        String accessToken = session().get("accessToken");
+        if (null!=openId && null!= accessToken) {
+            userMap.put("openId", session().get("openId"));
+            userMap.put("accessToken", session().get("accessToken"));
+        }
+        Logger.error("userMap:"+userMap);
         if (userRegistInfoForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
@@ -759,10 +778,8 @@ public class UserCtrl extends Controller {
                         .build();
                 client.setConnectTimeout(10, TimeUnit.SECONDS);
                 Response response = client.newCall(request).execute();
-                if (response.isSuccessful()) {
-                    JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
-                    return json;
-                } else throw new IOException("Unexpected code" + response);
+                if (response.isSuccessful()) return Json.parse(new String(response.body().bytes(), UTF_8));
+                else throw new IOException("Unexpected code" + response);
             });
 
             return promiseOfInt.map((Function<JsonNode, Result>) json -> {

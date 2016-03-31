@@ -1,4 +1,4 @@
-@(path:String, phone:String)
+@(path:String, phone:String, uri:String)
 <!DOCTYPE HTML>
 <html xmlns:filter="http://www.w3.org/1999/xhtml">
 <head>
@@ -60,7 +60,7 @@
     <div class="nav_ban">
         <h1>账号注册</h1>
         <a href="@path"><span class="icon-back" id="backBtn"></span></a>
-        <!--<a href="/login"><span class="icon-user-title" id="userBtn"></span></a>-->
+        <input type="hidden" id="uri" value="@uri">
     </div>
     <div id="js-userinfo-error" class="cue">验证码发送成功</div>
 
@@ -219,7 +219,7 @@
                             $('#js-userinfo-error').text("注册并登录成功!").show();
                             setTimeout("$('#js-userinfo-error').hide()", 2000);
                             setTimeout(function(){
-                                window.location.href='/myView';
+                                window.location.href = $("#uri").val();
                             }, 1500);
                         } else {
                             $('#js-userinfo-error').text(data.message).show();
