@@ -106,64 +106,79 @@
     background-color: #fff;
 }
 
-.whole .icon,.buy-box .icon,.agio-box .icon,.add-box .icon,.advise-box .icon{
-    width: 25px;
-    height: 25px;
-    background: url("/assets/images/personal-07.jpg") left center no-repeat;
+.whole .icon,.buy-box .icon,.agio-box .icon,.add-box .icon,.advise-box .icon,.house .icon{
+    width: 20px;
+    height: 20px;
+    background: url("/assets/images/oorder.png") left center no-repeat;
     background-size: contain;
     float: left;
     padding:0 0 0 35px;
-    margin: 12px 0 0 0;
+    margin: 15px 0 0 0;
 
 }
+
+.whole span{
+    width:20px;
+    height:20px;
+    margin: 15px 0 0 0;
+}
+
 .whole span,.buy-box span,.agio-box span,.add-box span,.advise-box span{
+
     float: right;
     background: url("/assets/images/right-arrow.png") right center no-repeat;
     background-size:9px 14px;
     padding:0 20px 0 0;
+    color: #EF2528;
+    font-size: 14px;
 }
 
 .icon-txt{
     color:#333;
 }
 .buy-box .icon{
-    width:25px;
-    height:25px;
+    width:20px;
+    height:20px;
     background: url("/assets/images/personal-08.jpg") no-repeat;
     background-size: contain;
 
 }
 .buy-box span,.add-box span,.advise-box span{
     width:20px;
-    height:30px;
+    height:20px;
     background: url("/assets/images/right-arrow.png") right center no-repeat;
     background-size:9px 14px;
     margin: 15px 0 0 0;
 }
 
 .agio-box .icon{
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     background: url("/assets/images/personal-09.jpg") no-repeat;
     background-size: contain;
 
 }
 
 .add-box .icon{
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     background: url("/assets/images/personal-10.jpg") no-repeat;
     background-size: contain;
 }
 
 .advise-box .icon{
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     background: url("/assets/images/personal-12.jpg") no-repeat;
     background-size: contain;
 }
 
-
+.house .icon{
+    width: 20px;
+    height: 20px;
+    background: url("/assets/images/personal-12.jpg") no-repeat;
+    background-size: contain;
+}
 
 
 

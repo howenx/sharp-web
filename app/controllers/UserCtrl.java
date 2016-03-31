@@ -53,9 +53,9 @@ public class UserCtrl extends Controller {
 
     @Inject
     private MemcachedClient cache;
+
     @Inject
     ComCtrl comCtrl;
-
 
 
     //收货地址
@@ -77,14 +77,14 @@ public class UserCtrl extends Controller {
             if (session().containsKey("path")) {
                 //path = session().get("path");
                 session().replace("path", routes.UserCtrl.address(selId).url());
-            }else session().put("path", routes.UserCtrl.address(selId).url());
+            } else session().put("path", routes.UserCtrl.address(selId).url());
 
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message || (Message.ErrorCode.SUCCESS.getIndex() != message.getCode() && Message.ErrorCode.DATABASE_EXCEPTION.getIndex() != message.getCode())) {
                 Logger.error("返回地址数据错误code=" + (null != message ? message.getCode() : 0));
                 return badRequest();
             }
-            if(selId==1){
+            if (selId == 1) {
                 return ok(json);
             }
             //空地址列表
@@ -123,16 +123,16 @@ public class UserCtrl extends Controller {
         Form<AddressInfo> addressForm = Form.form(AddressInfo.class).bindFromRequest();
 //        Logger.info("====addressSave===\n" + addressForm.data());
         Map<String, String> addressMap = addressForm.data();
-        Integer selId=Integer.valueOf(addressMap.get("selId"));
+        Integer selId = Integer.valueOf(addressMap.get("selId"));
         String idCardNum = addressMap.get("idCardNum").trim().toLowerCase();
         if (addressForm.hasErrors() || !"".equals(ComTools.IDCardValidate(idCardNum))) { //表单错误或者身份证校验不通过
-            Logger.error("收货地址保存表单错误或者身份证校验不通过"+toJson(addressMap));
+            Logger.error("收货地址保存表单错误或者身份证校验不通过" + toJson(addressMap));
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
         } else {
             ObjectNode object = Json.newObject();
             Long addId = Long.valueOf(addressMap.get("addId"));
-            if(addId>0){
+            if (addId > 0) {
                 object.put("addId", addId);
             }
             String province = addressMap.get("province");
@@ -170,21 +170,21 @@ public class UserCtrl extends Controller {
                     Logger.error("返回创建新的收货地址数据错误code=" + json);
                     return badRequest();
                 }
-                if(selId!=0){   //0-普通添加更新跳全部地址界面  1-结算结算添加 2-结算界面更新
-                    result.putPOJO("message",message);
-                    if(message.getCode()==Message.ErrorCode.SUCCESS.getIndex()){
-                        if(json.has("address")){
-                            Address address=Json.fromJson(json.get("address"), Address.class);
-                            JsonNode jsonNode =Json.parse(address.getDeliveryCity());
-                            String add=jsonNode.findValue("province").asText();
-                            if(jsonNode.has("city")){
-                                add+=" "+jsonNode.findValue("city").asText();
+                if (selId != 0) {   //0-普通添加更新跳全部地址界面  1-结算结算添加 2-结算界面更新
+                    result.putPOJO("message", message);
+                    if (message.getCode() == Message.ErrorCode.SUCCESS.getIndex()) {
+                        if (json.has("address")) {
+                            Address address = Json.fromJson(json.get("address"), Address.class);
+                            JsonNode jsonNode = Json.parse(address.getDeliveryCity());
+                            String add = jsonNode.findValue("province").asText();
+                            if (jsonNode.has("city")) {
+                                add += " " + jsonNode.findValue("city").asText();
                             }
-                            if(jsonNode.has("area")){
-                                add+=" "+jsonNode.findValue("area").asText();
+                            if (jsonNode.has("area")) {
+                                add += " " + jsonNode.findValue("area").asText();
                             }
                             address.setDeliveryCity(add);
-                            result.putPOJO("address",address);
+                            result.putPOJO("address", address);
                         }
                     }
                     return ok(toJson(result));
@@ -196,11 +196,12 @@ public class UserCtrl extends Controller {
 
     /**
      * 更新地址界面
+     *
      * @param addId
      * @return
      */
     @Security.Authenticated(UserAuth.class)
-    public F.Promise<Result> addressUpdate(Long addId,Long selId) {
+    public F.Promise<Result> addressUpdate(Long addId, Long selId) {
 
         Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
@@ -224,7 +225,7 @@ public class UserCtrl extends Controller {
                 Logger.error("返回数据错误code=" + json);
                 return badRequest(views.html.error500.render());
             }
-            if(message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+            if (message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
                 Logger.error("返回数据code=" + json);
                 return badRequest(views.html.error.render(message.getMessage()));
             }
@@ -233,7 +234,7 @@ public class UserCtrl extends Controller {
             });
             for (Address address : addressList) {
                 if (address.getAddId() == addId.longValue()) {
-                    if(selId==1){
+                    if (selId == 1) {
                         return ok(toJson(address));
                     }
                     return ok(views.html.users.addressupdate.render(address));
@@ -250,11 +251,11 @@ public class UserCtrl extends Controller {
      */
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> addressDel() {
-            RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, request().body().asJson().toString());
-            return comCtrl.postReqReturnMsg(ADDRESS_DEL, formBody);
+        RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, request().body().asJson().toString());
+        return comCtrl.postReqReturnMsg(ADDRESS_DEL, formBody);
     }
 
-        //身份认证
+    //身份认证
 
     public Result carded() {
         return ok(views.html.users.carded.render());
@@ -273,13 +274,13 @@ public class UserCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-   //         Logger.info("===json==" + json);
+            //         Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回数据错误code=" + json);
                 return badRequest(views.html.error500.render());
             }
-            if(message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+            if (message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
                 Logger.error("返回数据code=" + json);
                 return badRequest(views.html.error.render(message.getMessage()));
             }
@@ -297,52 +298,56 @@ public class UserCtrl extends Controller {
      */
     public Result login(String state) {
         String path = routes.ProductsCtrl.index().url();
+
         if (null!=ctx().request().cookies().get("path").value()) {
             path = ctx().request().cookies().get("path").value();
             ctx().response().setCookie("path", path);
             Logger.error("cookie path"+path);
         }
         ctx().response().setCookie("path", routes.ProductsCtrl.index().url());
-        return ok(views.html.users.login.render(path, IMAGE_CODE, cache.get(state).toString(), "?state="+state));
+
+        return ok(views.html.users.login.render(path, IMAGE_CODE, cache.get(state).toString(), "?state=" + state));
+
     }
 
     /**
      * 我的界面
+     *
      * @return
      */
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> myView() {
-            Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
-                Request.Builder builder =(Request.Builder)ctx().args.get("request");
-                Request request=builder.url(USER_INFO).get().build();
-                Response response = client.newCall(request).execute();
-                Logger.error("3r24"+response.toString());
-                if (response.isSuccessful()){
-                    return Json.parse(new String(response.body().bytes(), UTF_8));
+        Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
+            Request.Builder builder = (Request.Builder) ctx().args.get("request");
+            Request request = builder.url(USER_INFO).get().build();
+            Response response = client.newCall(request).execute();
+            Logger.error("3r24" + response.toString());
+            if (response.isSuccessful()) {
+                return Json.parse(new String(response.body().bytes(), UTF_8));
 
-                }else  throw new IOException("Unexpected code " + response);
-            });
+            } else throw new IOException("Unexpected code " + response);
+        });
 
-            return promiseOfInt.map((Function<JsonNode , Result>) json -> {
-                String path = routes.ProductsCtrl.index().url();
-                if (session().containsKey("path")) {
-                    //path = session().get("path");
-                    session().replace("path", routes.UserCtrl.myView().url());
-                }else session().put("path", routes.UserCtrl.myView().url());
-     //           Logger.info("==myView=json==" + json);
-                Message message = Json.fromJson(json.get("message"), Message.class);
-                if (null == message) {
-                    Logger.error("返回数据错误code=" + json);
-                    return badRequest(views.html.error500.render());
-                }
-                if(message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
-                    Logger.error("返回数据code=" + json);
-                    return badRequest(views.html.error.render(message.getMessage()));
-                }
-                UserDTO userInfo = Json.fromJson(json.get("userInfo"), UserDTO.class);
-                //请求用户信息
-                return ok(views.html.users.my.render(path, userInfo)); //登录了
-            });
+        return promiseOfInt.map(json -> {
+            String path = routes.ProductsCtrl.index().url();
+            if (session().containsKey("path")) {
+                //path = session().get("path");
+                session().replace("path", routes.UserCtrl.myView().url());
+            } else session().put("path", routes.UserCtrl.myView().url());
+            //           Logger.info("==myView=json==" + json);
+            Message message = Json.fromJson(json.get("message"), Message.class);
+            if (null == message) {
+                Logger.error("返回数据错误code=" + json);
+                return badRequest(views.html.error500.render());
+            }
+            if (message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
+                Logger.error("返回数据code=" + json);
+                return badRequest(views.html.error.render(message.getMessage()));
+            }
+            UserDTO userInfo = Json.fromJson(json.get("userInfo"), UserDTO.class);
+            //请求用户信息
+            return ok(views.html.users.my.render(path, userInfo)); //登录了
+        });
     }
 
     /**
@@ -383,7 +388,7 @@ public class UserCtrl extends Controller {
         if (session().containsKey("path")) {
             //path = session().get("path");
             session().replace("path", routes.UserCtrl.setting().url());
-        }else session().put("path", routes.UserCtrl.setting().url());
+        } else session().put("path", routes.UserCtrl.setting().url());
 
 //        Request.Builder builder = (Request.Builder) ctx().args.get("request");
 //        Logger.error("session token----> " + session().get("id-token"));
@@ -409,16 +414,17 @@ public class UserCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-        //    Logger.info("===json==" + json);
+            //    Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
                 Logger.error("返回收藏数据错误code=" + (null != message ? message.getCode() : 0));
                 return badRequest();
             }
             ObjectMapper mapper = new ObjectMapper();
-            List<CollectDto> collectList = mapper.readValue(json.get("collectList").toString(), new TypeReference<List<CollectDto>>() {});
-            if(null!=collectList&&!collectList.isEmpty()){
-                for(CollectDto collectDto:collectList){
+            List<CollectDto> collectList = mapper.readValue(json.get("collectList").toString(), new TypeReference<List<CollectDto>>() {
+            });
+            if (null != collectList && !collectList.isEmpty()) {
+                for (CollectDto collectDto : collectList) {
                     collectDto.getCartSkuDto().setInvImg(comCtrl.getImgUrl(collectDto.getCartSkuDto().getInvImg()));
                     collectDto.getCartSkuDto().setInvUrl(comCtrl.getDetailUrl(collectDto.getCartSkuDto().getInvUrl()));
 
@@ -440,10 +446,11 @@ public class UserCtrl extends Controller {
 
     /**
      * 收藏
+     *
      * @return
      */
     @Security.Authenticated(UserAuth.class)
-    public F.Promise<Result> submitCollect(){
+    public F.Promise<Result> submitCollect() {
         ObjectNode result = newObject();
         Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
             RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, request().body().asJson().toString());
@@ -455,18 +462,18 @@ public class UserCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-        //    Logger.info("===json==" + json);
+            //    Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回数据错误code=" + json);
                 return badRequest(views.html.error500.render());
             }
-            if(message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+            if (message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
                 Logger.error("返回数据code=" + json);
                 return badRequest(views.html.error.render(message.getMessage()));
             }
-            Integer collectId=json.get("collectId").asInt();
-            result.putPOJO("collectId",collectId);
+            Integer collectId = json.get("collectId").asInt();
+            result.putPOJO("collectId", collectId);
             return ok(Json.toJson(result));
         });
     }
@@ -481,16 +488,17 @@ public class UserCtrl extends Controller {
         ObjectNode result = newObject();
         Form<UserLoginInfo> userForm = Form.form(UserLoginInfo.class).bindFromRequest();
         Map<String, String> userMap = userForm.data();
+
         String openId = ctx().response().cookie("openId").toString();
         String accessToken = ctx().response().cookie("accessToken").toString();
-        if (null!=openId && null!= accessToken) {
+        if (null != openId && null != accessToken) {
             userMap.put("openId", session().get("openId"));
             userMap.put("accessToken", session().get("accessToken"));
         }
-        Logger.error("userMap:"+userMap);
+        Logger.error("userMap:" + userMap);
         if (userForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
-            return Promise.promise((Function0<Result>) () -> ok(result));
+            return Promise.promise(() -> ok(result));
         } else {
             Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
                 FormEncodingBuilder feb = new FormEncodingBuilder();
@@ -501,30 +509,30 @@ public class UserCtrl extends Controller {
                         .url(LOGIN_PAGE)
                         .post(formBody)
                         .build();
-                client.setConnectTimeout(10, TimeUnit.SECONDS);
+
                 Response response = client.newCall(request).execute();
                 if (response.isSuccessful()) {
                     return Json.parse(new String(response.body().bytes(), UTF_8));
                 } else throw new IOException("Unexpected code " + response);
             });
 
-            return promiseOfInt.map((Function<JsonNode, Result>) json -> {
+            return promiseOfInt.map(json -> {
                         Message message = Json.fromJson(json.findValue("message"), Message.class);
                         if (Message.ErrorCode.SUCCESS.getIndex() == message.getCode()) {
                             String token = json.findValue("result").findValue("token").asText();
                             Integer expired = json.findValue("result").findValue("expired").asInt();
+                            String session_id = UUID.randomUUID().toString().replaceAll("-", "");
+                            cache.set(session_id, expired, token);
                             if (userMap.get("auto").equals("true")) {
-                                String session_id = UUID.randomUUID().toString().replaceAll("-", "");
-                                Cache.set(session_id, token, expired);
-                                session("session_id", session_id);
                                 response().setCookie("session_id", session_id, expired);
                                 response().setCookie("user_token", token, expired);
+                            } else {
+                                response().setCookie("session_id", session_id, SESSION_TIMEOUT);
+                                response().setCookie("user_token", token, SESSION_TIMEOUT);
                             }
-                            session("id-token", token);
                         }
-                        Logger.error(json.toString()+"-----"+message.toString());
+                        Logger.error(json.toString() + "-----" + message.toString());
                         return ok(Json.toJson(message));
-
                     }
             );
         }
@@ -547,12 +555,15 @@ public class UserCtrl extends Controller {
      */
     public Result registVerify(String state) {
         String path = routes.UserCtrl.login(state).url();
+
         if (null!=ctx().request().cookies().get("path").value()) {
             path = ctx().request().cookies().get("path").value();
             ctx().response().setCookie("path", path);
             Logger.error("cookie path"+path);
         } else ctx().response().setCookie("path", routes.UserCtrl.login(state).url());
-        return ok(views.html.users.registVerify.render(path,"?state="+state));
+
+        return ok(views.html.users.registVerify.render(path, "?state=" + state));
+
     }
 
     /**
@@ -585,7 +596,7 @@ public class UserCtrl extends Controller {
 
             return promiseOfInt.map((Function<JsonNode, Result>) json -> {
                 Message message = Json.fromJson(json.findValue("message"), Message.class);
-                Logger.error(json.toString()+"-----"+message.toString());
+                Logger.error(json.toString() + "-----" + message.toString());
                 return ok(Json.toJson(message));
             });
         }
@@ -644,7 +655,7 @@ public class UserCtrl extends Controller {
             path = ctx().request().cookies().get("path").value();
             ctx().response().setCookie("path", path);
             Logger.error("cookie path"+path);
-        }else ctx().response().setCookie("path", routes.UserCtrl.registVerify(state).url());
+        } else ctx().response().setCookie("path", routes.UserCtrl.registVerify(state).url());
 
         Form<UserPhoneCode> userPhoneCodeForm = Form.form(UserPhoneCode.class).bindFromRequest();
         Map<String, String> userMap = userPhoneCodeForm.data();
@@ -654,6 +665,7 @@ public class UserCtrl extends Controller {
 
     /**
      * 服务条款
+     *
      * @return views
      */
     public Result agreement() throws IOException {
@@ -663,7 +675,7 @@ public class UserCtrl extends Controller {
                 .build();
         Response response = client.newCall(request).execute();
         String str = new String(response.body().bytes(), UTF_8);
-        Logger.error("str:"+str);
+        Logger.error("str:" + str);
         if (response.isSuccessful()) {
             return ok(views.html.users.agreement.render(str));
         } else throw new IOException("Unexpected code " + response);
@@ -684,7 +696,7 @@ public class UserCtrl extends Controller {
             userMap.put("openId", session().get("openId"));
             userMap.put("accessToken", session().get("accessToken"));
         }
-        Logger.error("userMap:"+userMap);
+        Logger.error("userMap:" + userMap);
         if (userRegistInfoForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
@@ -733,8 +745,8 @@ public class UserCtrl extends Controller {
         if (session().containsKey("path")) {
             //path = session().get("path");
             session().replace("path", routes.UserCtrl.retrieve(state).url());
-        }else session().put("path", routes.UserCtrl.retrieve(state).url());
-        return ok(views.html.users.retrieve.render(path,IMAGE_CODE, "?state="+state));
+        } else session().put("path", routes.UserCtrl.retrieve(state).url());
+        return ok(views.html.users.retrieve.render(path, IMAGE_CODE, "?state=" + state));
     }
 
     /**
@@ -747,7 +759,7 @@ public class UserCtrl extends Controller {
         if (session().containsKey("path")) {
             //path = session().get("path");
             session().replace("path", routes.UserCtrl.resetPasswd(state).url());
-        }else session().put("path", routes.UserCtrl.resetPasswd(state).url());
+        } else session().put("path", routes.UserCtrl.resetPasswd(state).url());
         Form<UserPhoneCode> userPhoneCodeForm = Form.form(UserPhoneCode.class).bindFromRequest();
         Map<String, String> userMap = userPhoneCodeForm.data();
         String phone = userMap.get("phone");
@@ -763,13 +775,14 @@ public class UserCtrl extends Controller {
         ObjectNode result = newObject();
         Form<UserRegistInfo> userRegistInfoForm = Form.form(UserRegistInfo.class).bindFromRequest();
         Map<String, String> userMap = userRegistInfoForm.data();
+
         String openId = ctx().response().cookie("openId").toString();
         String accessToken = ctx().response().cookie("accessToken").toString();
         if (null!=openId && null!= accessToken) {
             userMap.put("openId", session().get("openId"));
             userMap.put("accessToken", session().get("accessToken"));
         }
-        Logger.error("userMap:"+userMap);
+        Logger.error("userMap:" + userMap);
         if (userRegistInfoForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
@@ -813,24 +826,24 @@ public class UserCtrl extends Controller {
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> means() {
         Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
-            Request.Builder builder =(Request.Builder)ctx().args.get("request");
+            Request.Builder builder = (Request.Builder) ctx().args.get("request");
             Request request = builder.url(USER_INFO).get().build();
             Response response = client.newCall(request).execute();
-            if (response.isSuccessful()){
+            if (response.isSuccessful()) {
                 return Json.parse(new String(response.body().bytes(), UTF_8));
 
-            }else  throw new IOException("Unexpected code " + response);
+            } else throw new IOException("Unexpected code " + response);
         });
 
-        return promiseOfInt.map((Function<JsonNode , Result>) json -> {
+        return promiseOfInt.map((Function<JsonNode, Result>) json -> {
             String path = routes.UserCtrl.myView().url();
             if (session().containsKey("path")) {
                 //path = session().get("path");
                 session().replace("path", routes.UserCtrl.means().url());
-            }else session().put("path", routes.UserCtrl.means().url());
+            } else session().put("path", routes.UserCtrl.means().url());
             Message message = Json.fromJson(json.get("message"), Message.class);
-            if(null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()){
-                Logger.error("message="+(null!=message?message.getCode():0));
+            if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
+                Logger.error("message=" + (null != message ? message.getCode() : 0));
                 return badRequest();
             }
             UserDTO userInfo = Json.fromJson(json.get("userInfo"), UserDTO.class);
@@ -852,7 +865,7 @@ public class UserCtrl extends Controller {
         if (session().containsKey("path")) {
             //path = session().get("path");
             session().replace("path", routes.UserCtrl.nickname().url());
-        }else session().put("path", routes.UserCtrl.nickname().url());
+        } else session().put("path", routes.UserCtrl.nickname().url());
         Form<UserDTO> userDTOForm = Form.form(UserDTO.class).bindFromRequest();
         Map<String, String> userMap = userDTOForm.data();
         String nickname = userMap.get("name");
@@ -921,7 +934,7 @@ public class UserCtrl extends Controller {
         if (picture != null) {
             fileName = picture.getFilename();
             String contentType = picture.getContentType();
-            file  = picture.getFile();
+            file = picture.getFile();
         } else {
             flash("error", "Missing file");
         }
@@ -938,20 +951,17 @@ public class UserCtrl extends Controller {
         FileInputStream in = null;
         byte[] data = null;
         //读取图片字节数组
-        try
-        {
+        try {
             in = new FileInputStream(file);
             data = new byte[in.available()];
             int read = in.read(data);
             in.close();
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         //对字节数组Base64编码
         String photoUrl = org.apache.commons.codec.binary.Base64.encodeBase64String(data);//返回Base64编码过的字节数组字符串
-        Logger.error("photoUrl:"+photoUrl);
+        Logger.error("photoUrl:" + photoUrl);
 
         ObjectNode objectNode = Json.newObject();
         objectNode.put("photoUrl", photoUrl);
@@ -960,7 +970,7 @@ public class UserCtrl extends Controller {
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
             Request request = builder.url(USER_UPDATE).post(formBody).build();
             //数据量过大情况下,可以加上这一句
-            builder.addHeader("Accept-Encoding","gzip");
+            builder.addHeader("Accept-Encoding", "gzip");
             Response response = client.newCall(request).execute();
             Logger.error(response.toString());
             if (response.isSuccessful()) {
@@ -972,7 +982,7 @@ public class UserCtrl extends Controller {
 
         return promiseOfInt.map((Function<JsonNode, Result>) json -> {
             Message message = Json.fromJson(json.findValue("message"), Message.class);
-                Logger.error(json.toString()+"-----"+message.toString());
+            Logger.error(json.toString() + "-----" + message.toString());
             return ok(Json.toJson(message));
         });
 
@@ -985,13 +995,16 @@ public class UserCtrl extends Controller {
      */
     @Security.Authenticated(UserAuth.class)
     public Result logout() {
-        //清理cache
-        Cache.remove("session_id");
-        //清理session
-        session().remove("id-token");
-        session().remove("session_id");
-        session().clear();
-        //清理cookie
+        String session_id = request().cookie("session_id").toString();
+        String token = request().cookies().get("user_token").value();
+        if (session_id != null && token != null) {
+
+            cache.delete(session_id);
+            cache.delete(token);
+            //清理cookie
+            response().discardCookie("user_token");
+            response().discardCookie("session_id");
+        }
         return redirect(routes.ProductsCtrl.index());
     }
 
@@ -1005,16 +1018,16 @@ public class UserCtrl extends Controller {
         if (session().containsKey("path")) {
             //path = session().get("path");
             session().replace("path", routes.UserCtrl.aboutus().url());
-        }else session().put("path", routes.UserCtrl.aboutus().url());
+        } else session().put("path", routes.UserCtrl.aboutus().url());
 
         Request request = new Request.Builder()
                 .url(VIEWS_ABOUT)
                 .build();
         Response response = client.newCall(request).execute();
         String str = new String(response.body().bytes(), UTF_8);
-        Logger.error("str:"+str);
+        Logger.error("str:" + str);
         if (response.isSuccessful()) {
-            return ok(views.html.users.aboutus.render(path,str));
+            return ok(views.html.users.aboutus.render(path, str));
         } else throw new IOException("Unexpected code " + response);
     }
 
@@ -1030,7 +1043,7 @@ public class UserCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((play.libs.F.Function<JsonNode, Result>) json -> {
-         //           Logger.info("===json==" + json);
+                    //           Logger.info("===json==" + json);
                     Message message = Json.fromJson(json.get("message"), Message.class);
                     if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
                         Logger.error("返回拼团数据错误code=" + (null != message ? message.getCode() : 0));
@@ -1052,17 +1065,17 @@ public class UserCtrl extends Controller {
     }
 
     //我的拼团
- //   @Security.Authenticated(UserAuth.class)
+    //   @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> pinActivity(Long activityId, Integer pay, Integer userPayType) {
         play.libs.F.Promise<JsonNode> promiseOfInt = play.libs.F.Promise.promise(() -> {
-            String url="";
-            if(userPayType>0){
-                url=PIN_ACTIVITY_PAY+activityId+"/"+userPayType;
-            }else{
-                url=PIN_ACTIVITY + activityId;
+            String url = "";
+            if (userPayType > 0) {
+                url = PIN_ACTIVITY_PAY + activityId + "/" + userPayType;
+            } else {
+                url = PIN_ACTIVITY + activityId;
             }
-           // Request.Builder builder = (Request.Builder) ctx().args.get("request");
-            Request.Builder builder =comCtrl.getBuilder(request(), session());
+            // Request.Builder builder = (Request.Builder) ctx().args.get("request");
+            Request.Builder builder = comCtrl.getBuilder(request(), session());
             Request request = builder.url(url).get().build();
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
@@ -1077,8 +1090,8 @@ public class UserCtrl extends Controller {
                 Logger.error("返回数据错误code=" + json);
                 return badRequest(views.html.error500.render());
             }
-            if(message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
-                 Logger.info("返回数据code=" + json);
+            if (message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
+                Logger.info("返回数据code=" + json);
                 return badRequest(views.html.error.render(message.getMessage()));
             }
             PinActivityDTO pin = Json.fromJson(json.get("activity"), PinActivityDTO.class);
@@ -1099,13 +1112,13 @@ public class UserCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((play.libs.F.Function<JsonNode, Result>) json -> {
-         //   Logger.info("===json==" + json);
+            //   Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回数据错误code=" + json);
                 return badRequest(views.html.error500.render());
             }
-            if(message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+            if (message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
                 Logger.info("返回数据code=" + json);
                 return badRequest(views.html.error.render(message.getMessage()));
             }
@@ -1150,15 +1163,16 @@ public class UserCtrl extends Controller {
             session().replace("path", routes.UserCtrl.service().url());
         } else session().put("path", routes.UserCtrl.service().url());
 
-        return ok(views.html.users.service.render(path,cartSkuDto, orderId));
+        return ok(views.html.users.service.render(path, cartSkuDto, orderId));
     }
 
     /**
      * 售后申请
+     *
      * @return
      */
     @Security.Authenticated(UserAuth.class)
-    public F.Promise<Result> refundApply(){
+    public F.Promise<Result> refundApply() {
         ObjectNode result = Json.newObject();
 //        Form<RefundInfo> refundForm = Form.form(RefundInfo.class).bindFromRequest();
 //
@@ -1172,13 +1186,13 @@ public class UserCtrl extends Controller {
 
         Form<RefundInfo> refundForm = Form.form(RefundInfo.class).bindFromRequest();
         Map<String, String> refundMap = refundForm.data();
-        Logger.error("map:"+refundMap.toString());
+        Logger.error("map:" + refundMap.toString());
         if (refundForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
         } else {
-            RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON,refundMap.toString() );
-            return comCtrl.postReqReturnMsg(ORDER_REFUND,formBody);
+            RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, refundMap.toString());
+            return comCtrl.postReqReturnMsg(ORDER_REFUND, formBody);
         }
     }
 

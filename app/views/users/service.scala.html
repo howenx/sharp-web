@@ -27,7 +27,10 @@
     <div class="detail-box">
         <div>
             <a class="commodity">
-                <img src="@sku.getInvImg()" alt="">
+                <div class="se-back">
+                    <img src="@sku.getInvImg()" alt="">
+                </div>
+
                 <h2>@sku.getSkuTitle()</h2>
                 <span class="commodity-rmb">￥@sku.getPrice()<i class="rmb color"></i>数量:<i class="number">@sku.getAmount()</i></span>
             </a>

@@ -90,11 +90,11 @@
                         </div>
 
                         <h2>@sku.getSkuTitle()</h2>
-                        <span class="commodity-rmb">￥<i class="price">@sku.getPrice()</i><i class="rmb color"></i>数量:<i class="number">@sku.getAmount()</i></span>
+                        <span class="commodity-rmb"><b>￥</b><i class="price">@sku.getPrice()</i><i class="rmb color"></i>数量:<i class="number">@sku.getAmount()</i></span>
                     </a>
-                    <a  class="right bg apply">申请售后</a>
+                    <a  class="right apply">申请售后</a>
                     @if(order.getOrder().getOrderStatus()=="R"){
-                    <a href="/service" class="right bg">申请售后</a>
+                    <a href="/service" class="right">申请售后</a>
                     }
                     <input type="hidden" value="@sku.getSkuId()">
                 </div>

@@ -11,5 +11,4 @@ class Filters @Inject()(log: LoggingFilter,
                         gzip: play.filters.gzip.GzipFilter
                        ) extends HttpFilters {
   var filters = Seq(log, gzip)
-
 }
