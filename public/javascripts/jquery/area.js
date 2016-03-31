@@ -19,7 +19,7 @@ function getCityBuy(val){
 	var city=eval(province[val].ITEMS);
 	var newStr=new Array();
 	newStr.push("<div class=\"dqld_div\"><ul>");
-	newStr.push("<li onclick=\"getProvinceBuy()\" style=\"background-color:#808080;\">"+province[val].NAME+"</li>");
+	newStr.push("<li onclick=\"getProvinceBuy()\" style=\"background-color:#CCCCCC;\">"+province[val].NAME+"</li>");
 	for(var j=0,csize=city.length;j<csize;j++){
 		newStr.push("<li onclick=\"getAreaBuy("+j+","+val+")\"  style=\"padding-left:20px;\">"+city[j].NAME+"</li>");
 	}
@@ -34,8 +34,8 @@ function getAreaBuy(val,val1){
 	var area=eval(city[val].ITEMS);
 	var newStr=new Array();
 	newStr.push("<div class=\"dqld_div\"><ul>");
-	newStr.push("<li onclick=\"getProvinceBuy()\" style=\"background-color:#999999;\">"+province[val1].NAME+"</li>");
-	newStr.push("<li onclick=\"getCityBuy("+val1+")\" style=\"background-color:#ccc;padding-left:10px;\">"+city[val].NAME+"</li>");
+	newStr.push("<li onclick=\"getProvinceBuy()\" style=\"background-color:#CCCCCC;\">"+province[val1].NAME+"</li>");
+	newStr.push("<li onclick=\"getCityBuy("+val1+")\" style=\"background-color:#e5e5e5;padding-left:10px;\">"+city[val].NAME+"</li>");
 	for(var t=0,asize=area.length;t<asize;t++){
 		area[t].NAME;
 		newStr.push("<li  style=\"padding-left:25px;\" onclick=\"getallArea("+val1+","+val+","+t+")\">"+area[t].NAME+"</li>");

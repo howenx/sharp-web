@@ -577,10 +577,10 @@ div .cycle-overlay {
 	background: url("/assets/images/hmm_klmpintuan.png") no-repeat 5px #ff5359;
 	background-size: 25px;
 	display: inline-block;
-	padding: 10px 10px 10px 35px;
+	padding: 5px 10px 0px 35px;
 	color: #fff;
 	font-size: 12px;
-	height: 40px;
+	height: 35px;
 }
 
 
@@ -596,7 +596,7 @@ div .cycle-overlay {
 
 .naw{
 	font-size:24px;
-	color:#ff5359;
+	color:#EF2528;
 }
 .agio{
 	font-size:16px;
@@ -661,7 +661,7 @@ div .cycle-overlay {
 
 	}
 	.naw{
-		font-size:14px;
+		font-size:18px;
 
 	}
 	.agio{
@@ -934,14 +934,16 @@ div .cycle-overlay {
 /*返回顶部*/
 .top{
 	position: fixed;
-	bottom:80px;
-	right:20px;
+	bottom: 85px;
+	right: 15px;
 	display: none;
 }
 .top img{
-	width:40px;
-	height:40px;
-
+	width:35px;
+	height:35px;
+}
+.top-b{
+	bottom:60px
 }
 
 /*ffqwfewafegargsdgga*/
@@ -1159,8 +1161,14 @@ div .cycle-overlay {
 	color: #fff;
 }
 .toup .con .item div:nth-of-type(1) span{
-	width: 24px;height:24px;text-align: center;line-height: 24px;
-	display: inline-block;color: #E66255;background: #fff;border-radius: 50%;
+	width: 19px;
+	height: 19px;
+	text-align: center;
+	line-height: 19px;
+	display: inline-block;
+	color: #E66255;
+	background: #fff;
+	border-radius: 50%;
 }
 .toup .con .item div:nth-of-type(1) p{
 	display: inline;color: #fff;
@@ -1170,7 +1178,7 @@ div .cycle-overlay {
 	font-size: 12px;padding: 0 12px 12px 5px;
 	word-wrap: break-word;
 	white-space:pre-wrap;
-	height:32px;overflow: hidden;
+	height:35px;overflow: hidden;
 	margin: 0 0 5px 0;
 	color: #333;
 	line-height:15px;
@@ -1203,6 +1211,7 @@ div .cycle-overlay {
 	font-size: 12px;
 	color:#999;
 	float: right;
+	margin:2px 0 0 0;
 }
 
 
