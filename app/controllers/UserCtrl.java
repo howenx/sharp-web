@@ -22,17 +22,17 @@ import play.libs.F.Function0;
 import play.libs.F.Promise;
 import play.libs.Json;
 import play.mvc.Controller;
-import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
-import sun.misc.BASE64Encoder;
 
 import javax.inject.Inject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -927,8 +927,7 @@ public class UserCtrl extends Controller {
             e.printStackTrace();
         }
         //对字节数组Base64编码
-        BASE64Encoder encoder = new BASE64Encoder();
-        String photoUrl = encoder.encode(data);//返回Base64编码过的字节数组字符串
+        String photoUrl = org.apache.commons.codec.binary.Base64.encodeBase64String(data);//返回Base64编码过的字节数组字符串
         Logger.error("photoUrl:"+photoUrl);
 
         ObjectNode objectNode = Json.newObject();

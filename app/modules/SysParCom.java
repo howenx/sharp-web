@@ -84,9 +84,15 @@ public class SysParCom {
 
     public static  String PAY_URL;//去支付
 
+    public static  String WEIXIN_CODE_URL;
+    public static String WEIXIN_APPID;
+    public static String WEIXIN_SECRET;
+    public static String WEIXIN_ACCESS;
+    public static String WEIXIN_REFRESH;
 
+    public static String WEIXIN_VERIFY;
 
-
+    public static String M_HTTP;
 
     @Inject
     public SysParCom(Configuration configuration) {
@@ -161,11 +167,13 @@ public class SysParCom {
         PAY_ORDER=configuration.getString("shopping.pay.order");
         PAY_URL=configuration.getString("shopping.pay.url");
 
+        WEIXIN_CODE_URL = configuration.getString("weixin.code.url");
+        WEIXIN_APPID = configuration.getString("weixin.appid");
+        WEIXIN_SECRET=configuration.getString("weixin.secret");
+        WEIXIN_ACCESS = configuration.getString("weixin.access.url");
+        WEIXIN_REFRESH = configuration.getString("weixin.refresh.url");
+        WEIXIN_VERIFY = configuration.getString("user.wechat.verify");
 
-
-
-
-
-
+        M_HTTP = configuration.getString("m.http.prefix");
     }
 }

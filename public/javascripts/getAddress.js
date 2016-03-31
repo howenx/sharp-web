@@ -131,7 +131,10 @@ $(document).on("click",".addressUpdate",function(){
               },
               success: function(data) {
                  console.log("data="+data);
-                 var str='<form id="cell_addressForm">'+
+                 var str='<div class="amput clearfix">'+
+                               '<span> × </span>'+
+                               '</div>'+
+                               '<form id="cell_addressForm">'+
                                  '<input  id="addId" name="addId" value="'+data.addId+'" type="hidden"/>'+
                                  '<div class="add-s">'+
                                      '<input  placeholder="请输入收货人" id="name" name="name" value="'+data.name+'">'+
@@ -187,6 +190,10 @@ $(document).on("click",".addressUpdate",function(){
 
               }
          });
+});
+//隐藏添加修改地址模块
+$(document).on("click",".amput",function(){
+    $('.xnew-add-shade').hide();
 });
 
 

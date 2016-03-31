@@ -2,12 +2,12 @@
 /*头部开始*/
 .header{
     width: 100%;
-    height:50px;
+    height:44px;
     position: fixed;
     left: 0;
     top: 0;
-    line-height: 50px;
-    background-color:#E66255;
+    line-height:44px;
+    background-color:#ff5359;
     z-index: 999;
 }
 .header-text{
@@ -139,9 +139,10 @@
 .footer-l{
     width: 68%;
     height: 44px;
-    background-color: #717070;
+    background-color: #fff;
     float: left;
     font-size: 16px;
+    border-top:1px solid #ededed;
 }
 .footer-l-left{
     float: left;
@@ -162,14 +163,14 @@
 .footer-l-right{
     float: right;
     margin-right: 15px;
+    color: #ff5359;
 }
 .footer-r{
     width: 32%;
     height: 44px;
-    background-color:#E66255;
+    background-color:#ff5359;
     float: left;
     text-align: center;
-    font-size:18px;
     cursor: pointer;
 }
 .discolour{
@@ -183,11 +184,11 @@
 input[type=checkbox]{
     -webkit-appearance: none;
     appearance: none;
-    width: 20px;
-    height: 20px;
+    width:18px;
+    height:18px;
     cursor: pointer;
     vertical-align: bottom;
-    border: 2px solid #9FA0A0;
+    border:1px solid #666;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
@@ -212,12 +213,12 @@ input[type=checkbox]:checked{
 input[type=checkbox]:checked::after {
     content: url("/assets/images/icon3.png");
     display: block;
-    width: 20px;
-    height: 20px;
-    -webkit-transform: scale(0.55,0.55);
+    width: 18px;
+    height: 18px;
+    -webkit-transform: scale(0.49,0.49);
     -moz-transform: scale(0.55,0.55);
     position: absolute;
-    top: -9px;
+    top: -8px;
     left: -8px;
 }
 
