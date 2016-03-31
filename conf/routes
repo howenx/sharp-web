@@ -48,7 +48,8 @@ POST        /user/update                              controllers.UserCtrl.userU
 POST        /user/photo                               controllers.UserCtrl.userPhoto()
 #登出
 GET         /logout                                   controllers.UserCtrl.logout()
-
+#绑定手机号
+GET         /bind                                     controllers.UserCtrl.bindPhone()
 
 
 #首页,主题,详情页相关

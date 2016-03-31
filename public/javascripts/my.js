@@ -51,9 +51,10 @@ $(document).on("click",".addAddressBtn",function(){
                                         li.find(".idCardNumSpan").html(idCardNum);
                                         li.find(".deliverSpan").html(shengshi+" "+deliveryDetail);
                                         if(orDefault==true){
-                                            li.find(".orDestroySpan").show();
+                                            $(".orDefaultSpan").hide();
+                                            li.find(".orDefaultSpan").show();
                                         }else{
-                                            li.find(".orDestroySpan").hide();
+                                            li.find(".orDefaultSpan").hide();
                                         }
 
                                     }
