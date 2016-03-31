@@ -14,6 +14,7 @@ import modules.ComTools;
 import net.spy.memcached.MemcachedClient;
 import play.Logger;
 import play.api.libs.Codecs;
+import play.api.mvc.Cookie;
 import play.cache.Cache;
 import play.data.Form;
 import play.libs.F;
@@ -296,10 +297,12 @@ public class UserCtrl extends Controller {
      */
     public Result login(String state) {
         String path = routes.ProductsCtrl.index().url();
-        if (session().containsKey("path")) {
-            //path = session().get("path");
-            session().replace("path", routes.UserCtrl.login(state).url());
-        }else session().put("path", routes.UserCtrl.login(state).url());
+        if (null!=ctx().request().cookies().get("path").value()) {
+            path = ctx().request().cookies().get("path").value();
+            ctx().response().setCookie("path", path);
+            Logger.error("cookie path"+path);
+        }
+        ctx().response().setCookie("path", routes.ProductsCtrl.index().url());
         return ok(views.html.users.login.render(path, IMAGE_CODE, cache.get(state).toString(), "?state="+state));
     }
 
@@ -478,8 +481,8 @@ public class UserCtrl extends Controller {
         ObjectNode result = newObject();
         Form<UserLoginInfo> userForm = Form.form(UserLoginInfo.class).bindFromRequest();
         Map<String, String> userMap = userForm.data();
-        String openId = session().get("openId");
-        String accessToken = session().get("accessToken");
+        String openId = ctx().response().cookie("openId").toString();
+        String accessToken = ctx().response().cookie("accessToken").toString();
         if (null!=openId && null!= accessToken) {
             userMap.put("openId", session().get("openId"));
             userMap.put("accessToken", session().get("accessToken"));
@@ -544,10 +547,11 @@ public class UserCtrl extends Controller {
      */
     public Result registVerify(String state) {
         String path = routes.UserCtrl.login(state).url();
-        if (session().containsKey("path")) {
-            //path = session().get("path");
-            session().replace("path", routes.UserCtrl.registVerify(state).url());
-        }else session().put("path", routes.UserCtrl.registVerify(state).url());
+        if (null!=ctx().request().cookies().get("path").value()) {
+            path = ctx().request().cookies().get("path").value();
+            ctx().response().setCookie("path", path);
+            Logger.error("cookie path"+path);
+        } else ctx().response().setCookie("path", routes.UserCtrl.login(state).url());
         return ok(views.html.users.registVerify.render(path,"?state="+state));
     }
 
@@ -636,10 +640,12 @@ public class UserCtrl extends Controller {
      */
     public Result register(String state) {
         String path = routes.UserCtrl.registVerify(state).url();
-        if (session().containsKey("path")) {
-//            path = session().get("path");
-            session().replace("path", routes.UserCtrl.register(state).url());
-        }else session().put("path", routes.UserCtrl.register(state).url());
+        if (null!=ctx().request().cookies().get("path").value()) {
+            path = ctx().request().cookies().get("path").value();
+            ctx().response().setCookie("path", path);
+            Logger.error("cookie path"+path);
+        }else ctx().response().setCookie("path", routes.UserCtrl.registVerify(state).url());
+
         Form<UserPhoneCode> userPhoneCodeForm = Form.form(UserPhoneCode.class).bindFromRequest();
         Map<String, String> userMap = userPhoneCodeForm.data();
         String phone = userMap.get("phone");
@@ -672,8 +678,8 @@ public class UserCtrl extends Controller {
         ObjectNode result = newObject();
         Form<UserRegistInfo> userRegistInfoForm = Form.form(UserRegistInfo.class).bindFromRequest();
         Map<String, String> userMap = userRegistInfoForm.data();
-        String openId = session().get("openId");
-        String accessToken = session().get("accessToken");
+        String openId = ctx().response().cookie("openId").toString();
+        String accessToken = ctx().response().cookie("accessToken").toString();
         if (null!=openId && null!= accessToken) {
             userMap.put("openId", session().get("openId"));
             userMap.put("accessToken", session().get("accessToken"));
@@ -757,8 +763,8 @@ public class UserCtrl extends Controller {
         ObjectNode result = newObject();
         Form<UserRegistInfo> userRegistInfoForm = Form.form(UserRegistInfo.class).bindFromRequest();
         Map<String, String> userMap = userRegistInfoForm.data();
-        String openId = session().get("openId");
-        String accessToken = session().get("accessToken");
+        String openId = ctx().response().cookie("openId").toString();
+        String accessToken = ctx().response().cookie("accessToken").toString();
         if (null!=openId && null!= accessToken) {
             userMap.put("openId", session().get("openId"));
             userMap.put("accessToken", session().get("accessToken"));
