@@ -295,13 +295,12 @@ public class UserCtrl extends Controller {
      * @return
      */
     public Result login(String state) {
-        Logger.error("uri:"+cache.get(state).toString());
         String path = routes.ProductsCtrl.index().url();
         if (session().containsKey("path")) {
             //path = session().get("path");
             session().replace("path", routes.UserCtrl.login(state).url());
         }else session().put("path", routes.UserCtrl.login(state).url());
-        return ok(views.html.users.login.render(path, IMAGE_CODE, cache.get(state).toString()));
+        return ok(views.html.users.login.render(path, IMAGE_CODE, cache.get(state).toString(), "?state="+state));
     }
 
     /**
@@ -543,13 +542,13 @@ public class UserCtrl extends Controller {
      *
      * @return views
      */
-    public Result registVerify() {
-        String path = routes.UserCtrl.login("").url();
+    public Result registVerify(String state) {
+        String path = routes.UserCtrl.login(state).url();
         if (session().containsKey("path")) {
             //path = session().get("path");
-            session().replace("path", routes.UserCtrl.registVerify().url());
-        }else session().put("path", routes.UserCtrl.registVerify().url());
-        return ok(views.html.users.registVerify.render(path));
+            session().replace("path", routes.UserCtrl.registVerify(state).url());
+        }else session().put("path", routes.UserCtrl.registVerify(state).url());
+        return ok(views.html.users.registVerify.render(path,"?state="+state));
     }
 
     /**
@@ -635,16 +634,16 @@ public class UserCtrl extends Controller {
      *
      * @return views
      */
-    public Result register() {
-        String path = routes.UserCtrl.registVerify().url();
+    public Result register(String state) {
+        String path = routes.UserCtrl.registVerify(state).url();
         if (session().containsKey("path")) {
 //            path = session().get("path");
-            session().replace("path", routes.UserCtrl.register().url());
-        }else session().put("path", routes.UserCtrl.register().url());
+            session().replace("path", routes.UserCtrl.register(state).url());
+        }else session().put("path", routes.UserCtrl.register(state).url());
         Form<UserPhoneCode> userPhoneCodeForm = Form.form(UserPhoneCode.class).bindFromRequest();
         Map<String, String> userMap = userPhoneCodeForm.data();
         String phone = userMap.get("phone");
-        return ok(views.html.users.regist.render(path, phone));
+        return ok(views.html.users.regist.render(path, phone, cache.get(state).toString()));
     }
 
     /**
@@ -723,13 +722,13 @@ public class UserCtrl extends Controller {
      *
      * @return views
      */
-    public Result retrieve() {
-        String path = routes.UserCtrl.login("").url();
+    public Result retrieve(String state) {
+        String path = routes.UserCtrl.login(state).url();
         if (session().containsKey("path")) {
             //path = session().get("path");
-            session().replace("path", routes.UserCtrl.retrieve().url());
-        }else session().put("path", routes.UserCtrl.retrieve().url());
-        return ok(views.html.users.retrieve.render(path,IMAGE_CODE));
+            session().replace("path", routes.UserCtrl.retrieve(state).url());
+        }else session().put("path", routes.UserCtrl.retrieve(state).url());
+        return ok(views.html.users.retrieve.render(path,IMAGE_CODE, "?state="+state));
     }
 
     /**
@@ -737,16 +736,16 @@ public class UserCtrl extends Controller {
      *
      * @return
      */
-    public Result resetPasswd() {
-        String path = routes.UserCtrl.retrieve().url();
+    public Result resetPasswd(String state) {
+        String path = routes.UserCtrl.retrieve(state).url();
         if (session().containsKey("path")) {
             //path = session().get("path");
-            session().replace("path", routes.UserCtrl.resetPasswd().url());
-        }else session().put("path", routes.UserCtrl.resetPasswd().url());
+            session().replace("path", routes.UserCtrl.resetPasswd(state).url());
+        }else session().put("path", routes.UserCtrl.resetPasswd(state).url());
         Form<UserPhoneCode> userPhoneCodeForm = Form.form(UserPhoneCode.class).bindFromRequest();
         Map<String, String> userMap = userPhoneCodeForm.data();
         String phone = userMap.get("phone");
-        return ok(views.html.users.resetPasswd.render(path, phone));
+        return ok(views.html.users.resetPasswd.render(path, phone, cache.get(state).toString()));
     }
 
     /**

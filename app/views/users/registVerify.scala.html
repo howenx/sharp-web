@@ -1,4 +1,4 @@
-@(path:String)
+@(path:String, state:String)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -119,7 +119,7 @@
                                                     $("#code").attr({"name":"code"});
                                                     //手机验证码发送成功
                                                     if (data.code === 200) {
-                                                            var url = '/register';
+                                                            var url = '/register'+$("#state").val();
                                                             var form = $('<form action="' + url + '" method="post">' +
                                                             '<input type="hidden" name="phone" value="' + phone + '" />' +
                                                             '</form>');
@@ -152,7 +152,7 @@
                            $("#code").attr({"name":"code"});
                            //手机验证码发送成功
                            if (data.code === 200) {
-                                var url = '/retrieve';
+                                var url = '/retrieve'+$("#state").val();;
                                 var form = $('<form action="' + url + '" method="post">' +
                                 '<input type="hidden" name="phone" value="' + phone + '" />' +
                                 '</form>');
@@ -178,6 +178,7 @@
     <div class="nav_ban">
         <h1>手机注册</h1>
         <a href="@path"><span class="icon-back" id="backBtn"></span></a>
+        <input type="hidden" id="state" value="@state">
     </div>
     <div class="login">
         <div id="js-userinfo-error" class="cue"></div>

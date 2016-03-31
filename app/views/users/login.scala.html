@@ -1,4 +1,4 @@
-@(path:String, imageCode:String, uri:String)
+@(path:String, imageCode:String, uri:String, state:String)
 <!DOCTYPE HTML>
 <html>
     <head>
@@ -82,7 +82,7 @@
                                     $('#js-userinfo-error').removeClass("pcue").text(data.message).addClass("cue");
                                     setTimeout("$('#js-userinfo-error').removeClass('cue').addClass('pcue')", 1000);
                                     setTimeout(function(){
-                                        window.location.href='/login';
+                                        window.location.href='/login?state=';
                                     }, 1200);
                                 }
                             }
@@ -136,6 +136,7 @@
                 <h1>登录</h1>
                 <a href="@path"><span class="icon-back" id="backBtn"></span></a>
                 <input type="hidden" id="uri" value="@uri">
+                <input type="hidden" id="state" value="@state">
             </div>
             <div class="login">
                 <div id="js-userinfo-error" class="pcue"></div>
@@ -167,8 +168,8 @@
 
                 <div class="loginInfo">
                     <div class="findWord">
-                        <a href="/register" class="resist">快速注册</a>
-                        <a href="/retrieve" class="password">忘记密码?</a>
+                        <a href="/register@state" class="resist">快速注册</a>
+                        <a href="/retrieve@state" class="password">忘记密码?</a>
                     </div>
                     <div class="min">
                         <label>

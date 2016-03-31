@@ -8,7 +8,7 @@ POST        /address/del                              controllers.UserCtrl.addre
 GET         /address/update/$addId<[0-9]+>/$selId<[0-9]+> controllers.UserCtrl.addressUpdate(addId:Long,selId:Long)
 GET         /carded                                   controllers.UserCtrl.carded()
 GET         /myView                                   controllers.UserCtrl.myView()
-GET         /login                  controllers.UserCtrl.login(state:String)
+GET         /login                                    controllers.UserCtrl.login(state:String)
 GET         /setting                                  controllers.UserCtrl.setting()
 GET         /tickling                                 controllers.UserCtrl.tickling()
 POST        /feedback                                 controllers.UserCtrl.feedback()
@@ -31,15 +31,15 @@ GET         /pin/activity/pay/$pinActivity<[0-9]+>/$userPayType<[0-9]+>        c
 
 
 #注册
-GET         /register                                 controllers.UserCtrl.registVerify()
+GET         /register                                 controllers.UserCtrl.registVerify(state:String)
 POST        /phone/verify                             controllers.UserCtrl.phoneVerify()
 POST        /phone/code                               controllers.UserCtrl.phoneCode()
-POST        /register                                 controllers.UserCtrl.register()
+POST        /register                                 controllers.UserCtrl.register(state:String)
 GET         /agreement                                controllers.UserCtrl.agreement()
 POST        /regist/submit                            controllers.UserCtrl.registSubmit()
 #密码重置
-GET         /retrieve                                 controllers.UserCtrl.retrieve()
-POST        /retrieve                                 controllers.UserCtrl.resetPasswd()
+GET         /retrieve                                 controllers.UserCtrl.retrieve(state:String)
+POST        /retrieve                                 controllers.UserCtrl.resetPasswd(state:String)
 POST        /reset/submit                             controllers.UserCtrl.resetPwdSubmit()
 #用户信息
 GET         /means                                    controllers.UserCtrl.means()
