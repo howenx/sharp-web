@@ -1,4 +1,4 @@
-@(path:String, phone:String)
+@(path:String, phone:String, uri:String)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -131,7 +131,7 @@
                                     $('#js-userinfo-error').text('密码修改并登录成功').show();
                                     setTimeout("$('#js-userinfo-error').hide()", 2000);
                                     setTimeout(function(){
-                                        window.location.href='/myView';
+                                        window.location.href = $("#uri").val();
                                     }, 1000);
                                 } else{
                                     $('#js-userinfo-error').text(data.message).show();
@@ -183,7 +183,7 @@
     <div class="nav_ban">
         <h1>找回密码</h1>
         <a href="@path"><span class="icon-back" id="backBtn"></span></a>
-        <!--<a href="/login"><span class="icon-user-title" id="userBtn"></span></a>		-->
+        <input type="hidden" id="uri" value="@uri">
     </div>
     <div id="js-userinfo-error" class="cue">验证码发送成功</div>
 

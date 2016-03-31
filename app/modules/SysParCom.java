@@ -6,6 +6,7 @@ import play.Configuration;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 查询参数表中的参数项
@@ -94,8 +95,12 @@ public class SysParCom {
 
     public static String M_HTTP;
 
+    public static Integer SESSION_TIMEOUT;
+
     @Inject
     public SysParCom(Configuration configuration) {
+
+        client.setConnectTimeout(50, TimeUnit.SECONDS);
 
         IMAGE_URL = configuration.getString("image.server.url");
 
@@ -175,5 +180,7 @@ public class SysParCom {
         WEIXIN_VERIFY = configuration.getString("user.wechat.verify");
 
         M_HTTP = configuration.getString("m.http.prefix");
+
+        SESSION_TIMEOUT = configuration.getInt("session.timeout");
     }
 }

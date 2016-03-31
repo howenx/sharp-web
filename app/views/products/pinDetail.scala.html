@@ -90,7 +90,7 @@
                     <span class="big">@pinInvDetail.getFloorPrice()元/件</span>
                     <span>@pinInvDetail.getFloorPricePersonNum()人成团</span>
                 </a>
-                <a href="javascript:;">
+                <a href="javascript:;" onclick="document.getElementById('settleForm').submit();">
                     <span class="big ed">@pinInvDetail.getInvPrice()元/件</span>
                     <span>单独购买</span>
                 </a>
@@ -301,31 +301,17 @@
 
         </div>
 
+        <div class="add_cart btns" data-type="cart">
+            <a href="/pinTieredPrice/@url" class="btnCart add_cart_large pin-cart">
+                立即开团
+            </a>
+        </div>
+        <div class="buy_btn pin-buy" data-type="buy">
+            <a href="javascript:;" class="" onclick="document.getElementById('settleForm').submit();">
+                单独购买
+            </a>
+        </div>
 
-            @if(pinInvDetail.isSoldOut() == true){
-                 <div class="add_cart btns" data-type="cart">
-                    <a href="javascript:;" class="btnCart add_cart_large pin-cart" style="background-color: #969696;">
-                        立即开团
-                    </a>
-                 </div>
-                <div class="buy_btn" data-type="buy" style="background-color: #ff5359;">
-                    <a href="javascript:;" class="" onclick="document.getElementById('settleForm').submit();">
-                        单独购买
-                    </a>
-                </div>
-            }
-            @if(pinInvDetail.isSoldOut() == false){
-                <div class="add_cart btns" data-type="cart">
-                    <a href="/pinTieredPrice/@url" class="btnCart add_cart_large pin-cart">
-                        立即开团
-                    </a>
-                </div>
-                <div class="buy_btn pin-buy" data-type="buy">
-                    <a href="javascript:;" class="" onclick="document.getElementById('settleForm').submit();">
-                        单独购买
-                    </a>
-                </div>
-            }
 
 
         <input type="hidden" name="buyNow" value="1"/>
@@ -457,7 +443,7 @@
   </span>
   <a href="javascript:;" class="bg">立即下载</a>
 </div> -->
-
+<div class="hint" id="tip" style="display:none"></div>
 </body>
 
 </html>
