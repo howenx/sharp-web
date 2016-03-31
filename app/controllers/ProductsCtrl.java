@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 
 import static modules.SysParCom.*;
@@ -55,6 +56,7 @@ public class ProductsCtrl extends Controller {
             Request request = getBuilder(request(), session())
                     .url(INDEX_PAGE + "1")
                     .build();
+            client.setConnectTimeout(15, TimeUnit.SECONDS);
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
                 String result = dealToString(response);
@@ -114,6 +116,7 @@ public class ProductsCtrl extends Controller {
             Request request = getBuilder(request(), session())
                     .url(INDEX_PAGE + pageCount)
                     .build();
+            client.setConnectTimeout(15, TimeUnit.SECONDS);
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
                 String result = dealToString(response);
@@ -157,6 +160,7 @@ public class ProductsCtrl extends Controller {
             Request request = getBuilder(request(), session())
                     .url(THEME_PAGE + url)
                     .build();
+            client.setConnectTimeout(15, TimeUnit.SECONDS);
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
                 String result = dealToString(response);
@@ -266,6 +270,7 @@ public class ProductsCtrl extends Controller {
             Request request = getBuilder(request(), session())
                     .url(GOODS_PAGE + url)
                     .build();
+            client.setConnectTimeout(15, TimeUnit.SECONDS);
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
                 String result = dealToString(response);
@@ -502,6 +507,7 @@ public class ProductsCtrl extends Controller {
             Request request = getBuilder(request(), session())
                     .url(GOODS_PAGE + url)
                     .build();
+            client.setConnectTimeout(15, TimeUnit.SECONDS);
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
                 String result = dealToString(response);
