@@ -34,7 +34,8 @@ $(".settleAddressDiv").html('<a href="javascript:;">'+$(this).html()+"</a>");
 
 $(".otherAddressDiv").show();
 
-$('.add-shade').animate({bottom:"-100%"},"slow");
+$('.add-shade').hide();
+//$('.add-shade').animate({bottom:"-100%"},"slow");
 
 });
 //绘制地址
@@ -43,10 +44,10 @@ function paintAddressLi(address){
        '<div class="address clearfix">'+
            '<a href="javascript:;" class="sel_add clearfix addressAreaA">'+
                 '<p><i class="add-icon"></i><span>姓名:</span><span class="nameSpan">'+address.name+'</span>';
-                if(address.orDestroy==true){
-                    str+='<span class="color orDestroySpan">默认</span>';
+                if(address.orDefault==1){
+                    str+='<span class="color orDefaultSpan">默认</span>';
                 }else{
-                    str+='<span class="color orDestroySpan" style="display:none">默认</span>';
+                    str+='<span class="color orDefaultSpan" style="display:none">默认</span>';
                 }
                 str+='</p>'+
                 '<p><span>联系电话:</span><span class="telSpan">'+address.tel+'</span></p>'+
@@ -193,8 +194,16 @@ $(document).on("click",".addressUpdate",function(){
 });
 //隐藏添加修改地址模块
 $(document).on("click",".amput",function(){
+    $('.xnew-add-shade').html("");
     $('.xnew-add-shade').hide();
 });
-
+//其他地址界面
+$(document).on("click",".other",function(){
+    $('.add-shade').show();
+ });
+//关闭其他地址界面
+$(document).on("click",".amputate span",function(){
+    $('.add-shade').hide();
+});
 
 
