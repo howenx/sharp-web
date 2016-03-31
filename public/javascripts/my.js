@@ -42,6 +42,7 @@ $(document).on("click",".addAddressBtn",function(){
                                     if(selId==1){
                                         //结算界面添加地址
                                         paintAddressLi(data.address);
+                                        addNewViewClose();
                                     }
                                     if(selId==2){
                                         //结算界面更新地址
@@ -56,6 +57,8 @@ $(document).on("click",".addAddressBtn",function(){
                                         }else{
                                             li.find(".orDefaultSpan").hide();
                                         }
+
+                                        $('.add-shade').show(); //打开其他地址界面
 
                                     }
 

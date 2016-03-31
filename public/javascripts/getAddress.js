@@ -26,16 +26,48 @@ $(document).ready(function() {
      });
 });
 
+//隐藏添加地址模块
+$(document).on("click",".closeAddNew",function(){
+    $('.xnew-add-shade').html("");
+    $('.xnew-add-shade').hide();
+    addNewViewClose();
+});
+//隐藏修改地址模块
+$(document).on("click",".closeAddUpdate",function(){
+    $('.xnew-add-shade').html("");
+    $('.xnew-add-shade').hide();
+    $('.add-shade').show();
+});
+//其他地址界面
+$(document).on("click",".other",function(){
+    $('.add-shade').show();
+    $(".big").hide();
+ });
+//关闭其他地址界面
+$(document).on("click",".amputate span",function(){
+    $('.add-shade').hide();
+    $(".big").show();
+});
+//新增地址界面保存或者关闭的时候
+function addNewViewClose(){
+    if($("#addressArea").find("ul").find("li").size()>2){//说明是从地址列表界面新增
+        $('.add-shade').show();//打开其他地址界面
+    }else{
+         $(".big").show(); //结算界面
+    }
+
+}
+
+//点击选择地址
 $(document).on("click",".addressAreaA",function(){
-var addId=$(this).parents("li").val();
-$(".address").find("input[name='addressId']").val(addId);
+    var addId=$(this).parents("li").val();
+    $(".address").find("input[name='addressId']").val(addId);
 
-$(".settleAddressDiv").html('<a href="javascript:;">'+$(this).html()+"</a>");
+    $(".settleAddressDiv").html('<a href="javascript:;">'+$(this).html()+"</a>");
 
-$(".otherAddressDiv").show();
+    $(".otherAddressDiv").show();
 
-$('.add-shade').hide();
-//$('.add-shade').animate({bottom:"-100%"},"slow");
+    $(".amputate span").trigger("click"); //关闭其他地址界面
 
 });
 //绘制地址
@@ -69,7 +101,7 @@ function paintAddressLi(address){
 
 //添加地址弹出层
 $(document).on("click",".addressnew",function(){
-     var str='<div class="amput clearfix">'+
+     var str='<div class="amput clearfix closeAddNew">'+
                        '<span> × </span>'+
                    '</div>'+
                    '<form id="cell_addressForm">'+
@@ -119,6 +151,11 @@ $(document).on("click",".addressnew",function(){
                   $("#newAddressDiv").prepend(str);
                   $("#newAddressDiv").show();
 
+
+                  $('.add-shade').hide(); //关闭其他地址界面
+                  $('.big').hide(); //关闭结算界面
+
+
 });
 
 //更新地址弹出层
@@ -132,7 +169,7 @@ $(document).on("click",".addressUpdate",function(){
               },
               success: function(data) {
                  console.log("data="+data);
-                 var str='<div class="amput clearfix">'+
+                 var str='<div class="amput clearfix closeAddUpdate">'+
                                '<span> × </span>'+
                                '</div>'+
                                '<form id="cell_addressForm">'+
@@ -189,21 +226,10 @@ $(document).on("click",".addressUpdate",function(){
                               $("#updateAddressDiv").prepend(str);
                               $("#updateAddressDiv").show();
 
+                              $('.add-shade').hide(); //关闭其他地址界面
+
               }
          });
-});
-//隐藏添加修改地址模块
-$(document).on("click",".amput",function(){
-    $('.xnew-add-shade').html("");
-    $('.xnew-add-shade').hide();
-});
-//其他地址界面
-$(document).on("click",".other",function(){
-    $('.add-shade').show();
- });
-//关闭其他地址界面
-$(document).on("click",".amputate span",function(){
-    $('.add-shade').hide();
 });
 
 
