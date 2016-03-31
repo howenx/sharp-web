@@ -64,10 +64,14 @@ $(document).on("click",".addAddressBtn",function(){
                                     $('.xnew-add-shade').html("");
                                     $('.xnew-add-shade').hide();
 
+                                }else{
+                                    tip(data.message.message);
                                 }
                             }else{
-                                if(data.code==200) {
+                                if(data.message.code==200) {
                                      setTimeout("location.href='/address/"+Number(selId)+"'", 1000);
+                                }else{
+                                    tip(data.message.message);
                                 }
                             }
                         }
