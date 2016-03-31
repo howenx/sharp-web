@@ -49,6 +49,8 @@ $(function(){
 
                          var ss = li.find(".subtotal").html(d);
                          Total();
+                         //检测商品总额限制
+                         checkPostalLimit();
 
                     }else{
                          tip("修改购物车失败code="+data.code+","+data.message);
@@ -58,6 +60,7 @@ $(function(){
                 }
             }
         });
+
 
     });
 
@@ -104,6 +107,8 @@ $(function(){
 
                          var ss = li.find(".subtotal").html(d);
                          Total();
+                         //检测商品总额限制
+                          checkPostalLimit();
 
                     }else{
                          tip("修改购物车失败code="+data.code+","+data.message);
