@@ -82,7 +82,8 @@ body{
 }
 .wap ul p{
     width: 100%;
-    margin: 0 0 20px 0;
+    margin: 0 0 10px 0;
+    font-size: 14px;
 }
 
 
@@ -91,7 +92,9 @@ body{
     padding:0 0 2% 0 ;
 }
 
-
+.first span{
+   color: #999;
+}
 .commodity{
     width:100%;
     display: block;
@@ -100,8 +103,11 @@ body{
 
 .commodity .commodity-rmb {
     display: block;
-}
 
+}
+.price,.commodity-rmb b{
+    color:#EF2528 ;
+}
 
 span .rmb{
     font-size:20px;
@@ -110,8 +116,7 @@ span .rmb{
 
 
 .commodity .photo-img{
-    width:100px;
-    height:100px;
+    width: 80px;
     float: left;
     margin: 0 10px 0 0;
 }
@@ -121,12 +126,12 @@ span .rmb{
 }
 
 .commodity h2{
-    font-size: 16px;
     overflow: hidden;
     display: -webkit-box;
     word-break: break-all;
     -webkit-box-orient: vertical;
     margin: 0 0 10px 0;
+    color: #666;
 }
 
 .wap .btn{
@@ -147,9 +152,11 @@ span .rmb{
 }
 
 .apply{
-    color: #fff;
     padding: 5px;
     float: right;
+    border: 1px solid #ededed;
+    font-size: 14px;
+    border-radius: 5px;
 }
 
 .time-item{

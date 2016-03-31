@@ -58,11 +58,11 @@
                 <ul>
                     @for(order<-orderList){
                     <li value="@order.getOrder().getOrderId()" id="li@order.getOrder().getOrderId()">
-                        <div class="con">
+                        <div class="con-stay clearfix">
                             <a href="/all/@order.getOrder().getOrderId()" class="clearfix">
                                 <div class="day clearfix">
-                                    <div class="day-l">
-                                        <span >订单号: </span><i>@order.getOrder().getOrderId()</i>
+                                    <div class="day-l clearfix">
+                                        <span>订单号: </span><i>@order.getOrder().getOrderId()</i>
                                         <span class="date">@order.getOrder().getOrderCreateAt()</span>
                                     </div>
 
@@ -86,15 +86,18 @@
                                 </div>
                             </a>
                             @for(sku<-order.getSku()){
-                            <a href="@sku.getInvUrl()" class="commodity">
-                                <div class="photo-img">
-                                    <img src="@sku.getInvImg()" alt=""/>
+                            <a href="@sku.getInvUrl()" class="commodity clearfix">
+                                <div class="clearfix">
+                                    <div class="photo-img">
+                                        <img src="@sku.getInvImg()" alt=""/>
+                                    </div>
+
+                                    <h2>@sku.getSkuTitle()</h2>
+
+                                    <div class="size"><span>@sku.getItemColor()</span><span>@sku.getItemSize()</span></div>
                                 </div>
 
-                                <h2>@sku.getSkuTitle()</h2>
-
-                                <div class="size"><span>@sku.getItemColor()</span><span>@sku.getItemSize()</span></div>
-                                <span class="commodity-rmb"><i class="rmb color">￥@sku.getPrice()</i><i class="number">数量: @sku.getAmount()</i></span>
+                                <span class="commodity-rmb clearfix"><i class="rmb">￥@sku.getPrice()</i><i class="number"> ×@sku.getAmount()</i></span>
 
                             </a>
                             }
@@ -146,7 +149,7 @@
                                         </div>
                                         <h2>@sku.getSkuTitle()</h2>
                                         <div class="size"><span>@sku.getItemColor()</span><span>@sku.getItemSize()</span></div>
-                                        <span class="commodity-rmb"><i class="rmb color">￥@sku.getPrice()</i><i class="number">数量: @sku.getAmount()</i></span>
+                                        <span class="commodity-rmb"><i class="rmb">￥@sku.getPrice()</i><i class="number">数量: @sku.getAmount()</i></span>
 
                                     </a>
                                     }
@@ -189,7 +192,7 @@
                                         </div>
                                         <h2>@sku.getSkuTitle()</h2>
                                         <div class="size"><span>@sku.getItemColor()</span><span>@sku.getItemSize()</span></div>
-                                        <span class="commodity-rmb"><i class="rmb color">￥@sku.getPrice()</i><i class="number">数量: @sku.getAmount()</i></span>
+                                        <span class="commodity-rmb"><i class="rmb">￥@sku.getPrice()</i><i class="number">数量: @sku.getAmount()</i></span>
 
                                     </a>
                                     }
