@@ -8,7 +8,7 @@ POST        /address/del                              controllers.UserCtrl.addre
 GET         /address/update/$addId<[0-9]+>/$selId<[0-9]+> controllers.UserCtrl.addressUpdate(addId:Long,selId:Long)
 GET         /carded                                   controllers.UserCtrl.carded()
 GET         /myView                                   controllers.UserCtrl.myView()
-GET         /login                                    controllers.UserCtrl.login()
+GET         /login                  controllers.UserCtrl.login(state:String)
 GET         /setting                                  controllers.UserCtrl.setting()
 GET         /tickling                                 controllers.UserCtrl.tickling()
 POST        /feedback                                 controllers.UserCtrl.feedback()

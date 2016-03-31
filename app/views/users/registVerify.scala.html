@@ -84,9 +84,9 @@
 
             /*按下回车键事件*/
             $(document).keydown(function (event) {
-                    if (event.keyCode == 13) {
-                        $('#btn-reg').click();
-                    }
+                if (event.keyCode == 13) {
+                    $('#btn-reg').click();
+                }
             });
 
 
@@ -100,42 +100,74 @@
                         data: $('form#cell_verifyForm').serialize(),
                         type: 'POST',
                         success: function(data) {
-                                   console.log(data);
-                                   //用户已经注册,弹框提示
-                                   if (data.code === 5001) {
-                                        $('.shade-reg').show();
-                                   }
-                                   //用户未注册,请求手机验证码接口
-                                   if (data.code === 4003) {
-                                           $("#code").removeAttr("name");
-                                           console.log($('form#cell_verifyForm').serialize());
-                                           $.ajax({
-                                                    url: "/phone/code",
-                                                    dataType: 'json',
-                                                    data: $('form#cell_verifyForm').serialize(),
-                                                    type: 'POST',
-                                                    success: function(data) {
-                                                        console.log(data);
-                                                        $("#code").attr({"name":"code"});
-                                                        //手机验证码发送成功
-                                                        if (data.code === 200) {
-                                                                var url = '/register';
-                                                                var form = $('<form action="' + url + '" method="post">' +
-                                                                '<input type="hidden" name="phone" value="' + phone + '" />' +
-                                                                '</form>');
-                                                                $('body').append(form);
-                                                                form.submit();
-                                                        }
-                                                        else {
-                                                                $('#js-userinfo-error').text(data.message).show();
-                                                                setTimeout("$('#js-userinfo-error').hide()", 2000);
-                                                        }
+                               console.log(data);
+                               //用户已经注册,弹框提示
+                               if (data.code === 5001) {
+                                    $('.shade-reg').show();
+                               }
+                               //用户未注册,请求手机验证码接口
+                               if (data.code === 4003) {
+                                       $("#code").removeAttr("name");
+                                       console.log($('form#cell_verifyForm').serialize());
+                                       $.ajax({
+                                                url: "/phone/code",
+                                                dataType: 'json',
+                                                data: $('form#cell_verifyForm').serialize(),
+                                                type: 'POST',
+                                                success: function(data) {
+                                                    console.log(data);
+                                                    $("#code").attr({"name":"code"});
+                                                    //手机验证码发送成功
+                                                    if (data.code === 200) {
+                                                            var url = '/register';
+                                                            var form = $('<form action="' + url + '" method="post">' +
+                                                            '<input type="hidden" name="phone" value="' + phone + '" />' +
+                                                            '</form>');
+                                                            $('body').append(form);
+                                                            form.submit();
                                                     }
-                                           });
-                                   }
+                                                    else {
+                                                            $('#js-userinfo-error').text(data.message).show();
+                                                            setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                                    }
+                                                }
+                                       });
+                               }
                         }
                 });
             });
+
+            //找回密码
+            $(document).on('click', '.box-r', function() {
+                $("#code").removeAttr("name");
+                var phone = $("#phone").val();
+                //请求手机验证码
+                $.ajax({
+                        url: "/phone/code",
+                        dataType: 'json',
+                        data: $('form#cell_verifyForm').serialize(),
+                        type: 'POST',
+                        success: function(data) {
+                           console.log(data);
+                           $("#code").attr({"name":"code"});
+                           //手机验证码发送成功
+                           if (data.code === 200) {
+                                var url = '/retrieve';
+                                var form = $('<form action="' + url + '" method="post">' +
+                                '<input type="hidden" name="phone" value="' + phone + '" />' +
+                                '</form>');
+                                $('body').append(form);
+                                form.submit();
+                           }
+                           else {
+                                $('#js-userinfo-error').text(data.message).show();
+                                setTimeout("$('#js-userinfo-error').hide()", 2000);
+                           }
+                        }
+                });
+            });
+
+
         })
 
     </script>
@@ -173,7 +205,7 @@
             <span>该手机号已经注册</span>
             <div class="box-a">
                 <a href="javascript:;" class="box-l box-reg">取消</a>
-                <a href="/retrieve" class="box-r">找回密码</a>
+                <a class="box-r">找回密码</a>
             </div>
         </div>
     </div>
