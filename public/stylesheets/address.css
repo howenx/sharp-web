@@ -10,8 +10,8 @@
 .dqld_div{
     width:100%;
     background-color:#ededed;
-    margin-top: -675px;
     position: absolute;
+    top:44px;
     z-index: 100;
 }
 

@@ -200,6 +200,7 @@ $(document).on("click",".amput",function(){
 //其他地址界面
 $(document).on("click",".other",function(){
     $('.add-shade').show();
+    $('.big').hide()
  });
 //关闭其他地址界面
 $(document).on("click",".amputate span",function(){
