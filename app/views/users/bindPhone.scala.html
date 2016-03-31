@@ -114,6 +114,8 @@
 
             //绑定下一步检测手机号
             $(document).on('click', '#btn-bind', function() {
+                $("#pwd").removeAttr("name");
+                $("#auto").removeAttr("name");
                 var phone = $("#phone").val();
                 console.log($('form#cell_bindForm').serialize());
                 $.ajax({
@@ -123,6 +125,8 @@
                         type: 'POST',
                         success: function(data) {
                                console.log(data);
+                               $("#pwd").attr({"name":"password"});
+                               $("#auto").attr({"name":"auto"});
                                //用户已经注册,弹框输入密码
                                if (data.code === 5001) {
                                     $('.shade-box').show();
@@ -172,6 +176,39 @@
                 }
             });
 
+            //立即注册
+            $(document).on('click', '.box-r', function() {
+                $("#code").removeAttr("name");
+                $("#pwd").removeAttr("name");
+                $("#auto").removeAttr("name");
+                var phone = $("#phone").val();
+                $.ajax({
+                    url: "/phone/code",
+                    dataType: 'json',
+                    data: $('form#cell_bindForm').serialize(),
+                    type: 'POST',
+                    success: function(data) {
+                        console.log(data);
+                        $("#code").attr({"name":"code"});
+                        $("#pwd").attr({"name":"password"});
+                        $("#auto").attr({"name":"auto"});
+                        //手机验证码发送成功
+                        if (data.code === 200) {
+                                var url = '/register';
+                                var form = $('<form action="' + url + '" method="post">' +
+                                '<input type="hidden" name="phone" value="' + phone + '" />' +
+                                '</form>');
+                                $('body').append(form);
+                                form.submit();
+                        }
+                        else {
+                                $('#js-userinfo-error').text(data.message).show();
+                                setTimeout("$('#js-userinfo-error').hide()", 2000);
+                        }
+                    }
+                });
+            });
+
 
         })
 
@@ -194,7 +231,7 @@
                         <i class="delet delet-box"></i>
                         <input type="hidden" value="" id="pwd" name="password">
                         <input type="hidden" id="code" name="code" value="-1">
-                        <input type="hidden" id="auto" name="auto" value="false">
+                        <input type="hidden" id="auto" name="auto" value="true">
                     </dd>
                 </dl>
             </form>
@@ -225,7 +262,7 @@
             <span>该手机号尚未注册</span>
             <div class="box-a">
                 <a href="javascript:;" class="box-l">取消</a>
-                <a href="/register" class="box-r">立即注册</a>
+                <a class="box-r">立即注册</a>
             </div>
         </div>
     </div>

@@ -18,7 +18,7 @@ public class UserDTO implements Serializable {
     @Constraints.MinLength(1)
     @Constraints.Pattern("[A-Z]{1}")
     private String gender;//性别
-    private String realYn;
+    private String orReal;
 
     private File photoUrl;//头像字节流
     @Constraints.MaxLength(15)
@@ -29,13 +29,13 @@ public class UserDTO implements Serializable {
     public UserDTO() {
     }
 
-    public UserDTO(String name, String photo, String phoneNum, Integer couponsCount, String gender, String realYn, File photoUrl, String nickname) {
+    public UserDTO(String name, String photo, String phoneNum, Integer couponsCount, String gender, String orReal, File photoUrl, String nickname) {
         this.name = name;
         this.photo = photo;
         this.phoneNum = phoneNum;
         this.couponsCount = couponsCount;
         this.gender = gender;
-        this.realYn = realYn;
+        this.orReal = orReal;
         this.photoUrl = photoUrl;
         this.nickname = nickname;
     }
@@ -48,7 +48,7 @@ public class UserDTO implements Serializable {
                 ", phoneNum='" + phoneNum + '\'' +
                 ", couponsCount=" + couponsCount +
                 ", gender='" + gender + '\'' +
-                ", realYn='" + realYn + '\'' +
+                ", orReal='" + orReal + '\'' +
                 ", photoUrl='" + photoUrl + '\'' +
                 ", nickname='" + nickname + '\'' +
                 '}';
@@ -110,11 +110,11 @@ public class UserDTO implements Serializable {
         this.gender = gender;
     }
 
-    public String getRealYn() {
-        return realYn;
+    public String getOrReal() {
+        return orReal;
     }
 
-    public void setRealYn(String realYn) {
-        this.realYn = realYn;
+    public void setOrReal(String realYn) {
+        this.orReal = orReal;
     }
 }
