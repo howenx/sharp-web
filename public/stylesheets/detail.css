@@ -305,7 +305,7 @@ div .cycle-overlay {
 
 }
 .classify .current{
-	border: 1px solid #E46359;
+	border: 1px solid #F9616A;
 }
 .current{
 	border-bottom: 2px solid #f69;
@@ -328,8 +328,7 @@ div .cycle-overlay {
 	background-color: #fff;
 }
 .sku-title {
-	color: #000;
-	display: block;
+	color: #666;
 	font-family: 'Helvetica Neue', Helvetica, 'microsoft yahei', Arial, sans-serif;
 	font-size: 16px;
 	font-weight: normal;
@@ -338,39 +337,34 @@ div .cycle-overlay {
 	word-break: normal;
 	word-wrap: break-word;
 	text-align: left;
-	padding: 10px 0px 5px 10px;
-
+	padding: 10px 5px 2%;
 }
 .u-detail-pricebox {
-	padding-left: 12px;
-	line-height: 60px;
-
+	padding:0 2%;
+	line-height: 50px;
 }
 .u-detail-price {
 	float: left;
 	font-weight:bold;
-	color:#ff5359;
-	font-size:34px ;
+	color:#EF2528;
+	font-size:28px ;
 }
 
 .u-detail-price i{
 	font-size:26px ;
 }
 .u-detail-mprice {
-	float: left;
-	margin-left: 10px;
-	color:#BEBEBE;
+	display: inline-block;
+	margin:5px 0 0 5px;
+	color: #BEBEBE;
 	text-decoration: line-through;
-	font-size:18px ;
+	font-size: 16px;
 }
 .u-detail-discount {
 	float: left;
 	text-align: center;
-	color: #fff;
-	background-color:#ff5359;
-	margin:22px 0 0 10px;
-	line-height:20px;
-	padding: 0px 5px;
+	color:#EF2528;
+;
 }
 .thw-detail-other {
 	color: #565555;
@@ -449,10 +443,9 @@ div .cycle-overlay {
 
 /*分类*/
 .classify{
-	margin: 20px 0 0 0;
+	margin:10px 0 0 0;
 	width:100%;
-	height:90px;
-	padding:0 2%;
+	padding: 5px 2% 10px;
 	background-color: #fff;
 }
 .classify span{
@@ -471,6 +464,7 @@ div .cycle-overlay {
 	border-radius: 5px;
 	cursor: pointer;
     margin: 0 5px 0 0;
+	color: #ff5359
 }
 .sale{
 	margin: 2% 0 0 0;
@@ -481,7 +475,7 @@ div .cycle-overlay {
 }
 .sale p{
 	line-height: 30px;
-	color:#ed145b ;
+	color:#FF8308;
 }
 
 
@@ -564,12 +558,14 @@ div .cycle-overlay {
 }
 
 .title-hd{
-	height: 60px;
-	color:#4B4B4B;
-	background-color:#fff;
-	border-bottom:1px solid #ececec;
-	padding:10px 5%;
+	height: 45px;
+	color: #4B4B4B;
+	background-color: #fff;
+	border-bottom: 1px solid #ececec;
+	padding: 10px 5%;
 	overflow: hidden;
+	line-height: 16px;
+
 }
 
 .product-box{
@@ -917,9 +913,16 @@ div .cycle-overlay {
 
 /* 本例子css -------------------------------------- */
 .slideBox{ position:relative; width:100%;  height:auto; overflow:hidden; margin:10px auto; }
-.slideBox .hd{ position:absolute; height:auto; line-height:28px; bottom:0; right:0; z-index:1; }
+.slideBox .hd{ position: absolute;
+	height: auto;
+	line-height: 28px;
+	bottom: 5px;
+	left: 50%;
+	webkit-transform: translate(-50%,0);
+	-moz-transform: translate(-50%,0);
+	z-index: 1; }
 .slideBox .hd li{ display:inline-block; width:8px; height:8px; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px; background:#333; text-indent:-9999px; overflow:hidden; margin:0 6px;   }
-.slideBox .hd li.on{ background:#E66255;  }
+.slideBox .hd li.on{ background:#FF5359;  }
 .slideBox .bd{ position:relative; z-index:0; }
 .slideBox .bd li{ position:relative;  }
 .slideBox .bd li img{ width:100%;  height:auto; display:block;   }
@@ -943,9 +946,13 @@ div .cycle-overlay {
 
 /*ffqwfewafegargsdgga*/
 .thw-detail-other .xian{
-	background:#ff5359;
+	background: #E56254;
 	color: #fff;
-	padding: 2px 4px;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	line-height: 20px;
+	display: inline-block;
 	border-radius: 3px;
 	font-size: 12px;
 }

@@ -79,11 +79,14 @@
 							</div>
 						</div>
 						<div class="sku-meta box">
-							<div class="sku-title">@inventory.getInvTitle()</div>
+							<div class="sku-title">
+								<span class="u-detail-discount">[ @inventory.getItemDiscount()折 ]</span>
+								<span>@inventory.getInvTitle()</span>
+							</div>
 							<p class="u-detail-pricebox clearfix">
 								<span class="u-detail-price"><i>¥</i>@inventory.getItemPrice()</span>
 								<span class="u-detail-mprice">¥@inventory.getItemSrcPrice()</span>
-								<span class="u-detail-discount">@inventory.getItemDiscount()折</span>
+
 								<span class="three">@inventory.getInvAreaNm()</span>
 							</p>
 							<section class="thw-detail-other" style="margin-bottom: 2px;">
@@ -112,7 +115,7 @@
 		<!--标题-->
 		<div class="sku-meta">
 			<!--正品保障-->
-			<div class="classify">
+			<div class="classify clearfix">
 				<span>规格</span>
 				<ul>
 					@for(inventory <- inventoryList){
