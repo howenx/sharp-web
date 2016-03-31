@@ -82,7 +82,7 @@
                                     $('#js-userinfo-error').removeClass("pcue").text(data.message).addClass("cue");
                                     setTimeout("$('#js-userinfo-error').removeClass('cue').addClass('pcue')", 1000);
                                     setTimeout(function(){
-                                        window.location.href='/login?state=';
+                                        window.location.href='/login'+$("#state").val();
                                     }, 1200);
                                 }
                             }
