@@ -216,7 +216,7 @@
                     success: function(data) {
                         console.log(data);
                         if(data.code === 200){
-                            $('#js-userinfo-error').text("注册并登陆成功!").show();
+                            $('#js-userinfo-error').text("注册并登录成功!").show();
                             setTimeout("$('#js-userinfo-error').hide()", 2000);
                             setTimeout(function(){
                                 window.location.href='/myView';

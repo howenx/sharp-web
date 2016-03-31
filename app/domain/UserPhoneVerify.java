@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 用户手机号检测(用户注册,找回密码)
+ * 用户手机号检测(用户注册,找回密码,绑定手机号)
  * Created by Sunny Wu on 16/3/15.
  * kakao china.
  */
