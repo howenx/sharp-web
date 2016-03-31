@@ -520,6 +520,15 @@ public class UserCtrl extends Controller {
         }
     }
 
+    /**
+     * 绑定手机号
+     *
+     * @return
+     */
+    public Result bindPhone() {
+        return ok(views.html.users.bindPhone.render());
+    }
+
 
     /**
      * 快速注册
@@ -681,34 +690,15 @@ public class UserCtrl extends Controller {
             return promiseOfInt.map((Function<JsonNode, Result>) json -> {
                 Message message = Json.fromJson(json.findValue("message"), Message.class);
                 if (Message.ErrorCode.SUCCESS.getIndex() == message.getCode()) {
-                    //注册成功请求登录接口
-                    FormEncodingBuilder feb = new FormEncodingBuilder();
-                    userMap.forEach(feb::add);
-                    RequestBody formBody = feb.build();
-                    Request request2 = new Request.Builder()
-                            .header("User-Agent", request().getHeader("User-Agent"))
-                            .url(LOGIN_PAGE)
-                            .post(formBody)
-                            .build();
-                    client.setConnectTimeout(10, TimeUnit.SECONDS);
-                    Response response2 = client.newCall(request2).execute();
-                    if (response2.isSuccessful()) {
-                        JsonNode json2 = Json.parse(new String(response2.body().bytes(), UTF_8));
-                        Message message2 = Json.fromJson(json2.findValue("message"), Message.class);
-                        if (Message.ErrorCode.SUCCESS.getIndex() == message2.getCode()) {
-                            String token = json.findValue("result").findValue("token").asText();
-                            Integer expired = json.findValue("result").findValue("expired").asInt();
-                            String session_id = UUID.randomUUID().toString().replaceAll("-", "");
-                            Cache.set(session_id, token, expired);
-                            session("session_id", session_id);
-                            response().setCookie("session_id", session_id, expired);
-                            response().setCookie("user_token", token, expired);
-                            session("id-token", token);
-                        }
-                        return ok(Json.toJson(message2));
-                    } else throw new IOException("Unexpected code" + response2);
+                    String token = json.findValue("result").findValue("token").asText();
+                    Integer expired = json.findValue("result").findValue("expired").asInt();
+                    String session_id = UUID.randomUUID().toString().replaceAll("-", "");
+                    Cache.set(session_id, token, expired);
+                    session("session_id", session_id);
+                    response().setCookie("session_id", session_id, expired);
+                    response().setCookie("user_token", token, expired);
+                    session("id-token", token);
                 }
-                //Logger.error(json.toString()+"-----"+message.toString());
                 return ok(Json.toJson(message));
             });
         }
@@ -747,7 +737,7 @@ public class UserCtrl extends Controller {
     }
 
     /**
-     * 密码修改提交
+     * 密码修改提交并登录
      *
      * @return
      */
@@ -769,7 +759,6 @@ public class UserCtrl extends Controller {
                         .build();
                 client.setConnectTimeout(10, TimeUnit.SECONDS);
                 Response response = client.newCall(request).execute();
-//                Logger.error(response.toString());
                 if (response.isSuccessful()) {
                     JsonNode json = Json.parse(new String(response.body().bytes(), UTF_8));
                     return json;
@@ -778,7 +767,16 @@ public class UserCtrl extends Controller {
 
             return promiseOfInt.map((Function<JsonNode, Result>) json -> {
                 Message message = Json.fromJson(json.findValue("message"), Message.class);
-//                Logger.error(json.toString()+"-----"+message.toString());
+                if (Message.ErrorCode.SUCCESS.getIndex() == message.getCode()) {
+                    String token = json.findValue("result").findValue("token").asText();
+                    Integer expired = json.findValue("result").findValue("expired").asInt();
+                    String session_id = UUID.randomUUID().toString().replaceAll("-", "");
+                    Cache.set(session_id, token, expired);
+                    session("session_id", session_id);
+                    response().setCookie("session_id", session_id, expired);
+                    response().setCookie("user_token", token, expired);
+                    session("id-token", token);
+                }
                 return ok(Json.toJson(message));
             });
         }

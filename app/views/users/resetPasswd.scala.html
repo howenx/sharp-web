@@ -128,10 +128,10 @@
                             success: function(data) {
                                 console.log(data);
                                 if(data.code === 200){
-                                    $('#js-userinfo-error').text('密码修改成功').show();
+                                    $('#js-userinfo-error').text('密码修改并登录成功').show();
                                     setTimeout("$('#js-userinfo-error').hide()", 2000);
                                     setTimeout(function(){
-                                        window.location.href='/login';
+                                        window.location.href='/myView';
                                     }, 1000);
                                 } else{
                                     $('#js-userinfo-error').text(data.message).show();
