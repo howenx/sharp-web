@@ -1,4 +1,13 @@
 $(function() {
+
+    $('.diamond a').click(function(){
+        $('.hd-js').show();
+
+        setInterval(function(){
+            $('.hd-js').hide();
+        },2000)
+    });
+
     $('.finish-box').click(function(){
         $('.con').show();
     })
