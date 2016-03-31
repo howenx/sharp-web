@@ -234,7 +234,7 @@ public class ProductsCtrl extends Controller {
                         minute = "0" + minute;
                     }
                     String endDate = (calendar.get(Calendar.MONTH) + 1) + "月" + calendar.get(Calendar.DAY_OF_MONTH) + "日" + hour + ":" + minute;
-                    if (themeItem.getEndAt().compareTo(strNow) < 0) {
+                    if (themeItem.getEndAt().compareTo(strNow) < 0 || themeItem.getState() == "D" || themeItem.getState() == "N" || themeItem.getState() == "K") {
                         themeItem.setEndAt("已结束");
                     } else {
                         themeItem.setEndAt("截止" + endDate);
@@ -431,7 +431,7 @@ public class ProductsCtrl extends Controller {
                     JsonNode invImgJson = Json.parse(pinInvDetail.getInvImg());
                     pinInvDetail.setInvImg(invImgJson.get("url").asText());
                     String endAt = sdfDate.format(pinInvDetail.getEndAt());
-                    if (endAt.compareTo(strNow) < 0 || pinInvDetail.getRestAmount() == 0) {
+                    if (endAt.compareTo(strNow) < 0 || pinInvDetail.getRestAmount() == 0 || pinInvDetail.getStatus()== "D" || pinInvDetail.getStatus()== "N" || pinInvDetail.getStatus()== "K") {
                         pinInvDetail.setSoldOut(true);
                     }
                     //预览图片
@@ -461,7 +461,7 @@ public class ProductsCtrl extends Controller {
                         }
                         String endDate = (calendar.get(Calendar.MONTH) + 1) + "月" + calendar.get(Calendar.DAY_OF_MONTH) + "日" + hour + ":" + minute;
 
-                        if (themeItem.getEndAt().compareTo(strNow) < 0) {
+                        if (themeItem.getEndAt().compareTo(strNow) < 0 || themeItem.getState() == "D" || themeItem.getState() == "N" || themeItem.getState() == "K") {
                             themeItem.setEndAt("已结束");
                         } else {
                             themeItem.setEndAt("截止" + endDate);
