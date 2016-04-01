@@ -340,6 +340,10 @@ function previewImage(file) {
     div.appendChild(img);
     gallery.appendChild(div);
     gallery.appendChild(div);
+    //图片最多为3张
+    if (gallery.getElementsByTagName("div").length==3) {
+        $(".picture").css("display","none");
+    }
 
     //upload(file);
     // Using FileReader to display the image content
