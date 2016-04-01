@@ -188,6 +188,7 @@ $(function() {
                 obj.skuId=skuId; //sku id
                 obj.skuType=skuType;//商品类型 1.vary,2.item,3.customize,4.pin
                 obj.skuTypeId=skuTypeId;//商品类型所对应的ID
+                obj.url=window.location.href;
                 $.ajax({
                         type: 'POST',
                         url: "/collect/submit",
@@ -205,6 +206,10 @@ $(function() {
                                 	$('.like-s').hide();
                                 },1000);
                                 $('.like-x').hide();
+                            }else if(null!=data.message&&null!=data.message.code&&data.message.code==5006) { //您还未登录,请先登录
+
+                                 setTimeout("location.href='/login?state="+data.state+"'", 2000);
+
                             }else{
 
                             }
