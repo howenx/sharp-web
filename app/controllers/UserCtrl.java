@@ -533,7 +533,7 @@ public class UserCtrl extends Controller {
                                 response().setCookie("user_token", token, SESSION_TIMEOUT);
                             }
                         }
-                        Logger.error(json.toString() + "-----" + message.toString());
+//                        Logger.error(json.toString() + "-----" + message.toString());
                         return ok(Json.toJson(message));
                     }
             );
@@ -545,8 +545,8 @@ public class UserCtrl extends Controller {
      *
      * @return
      */
-    public Result bindPhone() {
-        return ok(views.html.users.bindPhone.render());
+    public Result bindPhone(String state) {
+        return ok(views.html.users.bindPhone.render(cache.get(state).toString(), "?state="+state));
     }
 
 
@@ -598,7 +598,7 @@ public class UserCtrl extends Controller {
 
             return promiseOfInt.map((Function<JsonNode, Result>) json -> {
                 Message message = Json.fromJson(json.findValue("message"), Message.class);
-                Logger.error(json.toString() + "-----" + message.toString());
+//                Logger.error(json.toString() + "-----" + message.toString());
                 return ok(Json.toJson(message));
             });
         }
@@ -677,7 +677,6 @@ public class UserCtrl extends Controller {
                 .build();
         Response response = client.newCall(request).execute();
         String str = new String(response.body().bytes(), UTF_8);
-        Logger.error("str:" + str);
         if (response.isSuccessful()) {
             return ok(views.html.users.agreement.render(str));
         } else throw new IOException("Unexpected code " + response);
@@ -847,7 +846,7 @@ public class UserCtrl extends Controller {
             } else session().put("path", routes.UserCtrl.means().url());
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
-                Logger.error("message=" + (null != message ? message.getCode() : 0));
+//                Logger.error("message=" + (null != message ? message.getCode() : 0));
                 return badRequest();
             }
             UserDTO userInfo = Json.fromJson(json.get("userInfo"), UserDTO.class);
@@ -965,7 +964,7 @@ public class UserCtrl extends Controller {
         }
         //对字节数组Base64编码
         String photoUrl = org.apache.commons.codec.binary.Base64.encodeBase64String(data);//返回Base64编码过的字节数组字符串
-        Logger.error("photoUrl:" + photoUrl);
+//        Logger.error("photoUrl:" + photoUrl);
 
         ObjectNode objectNode = Json.newObject();
         objectNode.put("photoUrl", photoUrl);
@@ -976,7 +975,7 @@ public class UserCtrl extends Controller {
             //数据量过大情况下,可以加上这一句
             builder.addHeader("Accept-Encoding", "gzip");
             Response response = client.newCall(request).execute();
-            Logger.error(response.toString());
+//            Logger.error(response.toString());
             if (response.isSuccessful()) {
                 JsonNode json;
                 json = Json.parse(new String(response.body().bytes(), UTF_8));
@@ -986,7 +985,7 @@ public class UserCtrl extends Controller {
 
         return promiseOfInt.map((Function<JsonNode, Result>) json -> {
             Message message = Json.fromJson(json.findValue("message"), Message.class);
-            Logger.error(json.toString() + "-----" + message.toString());
+//            Logger.error(json.toString() + "-----" + message.toString());
             return ok(Json.toJson(message));
         });
 
@@ -1029,7 +1028,6 @@ public class UserCtrl extends Controller {
                 .build();
         Response response = client.newCall(request).execute();
         String str = new String(response.body().bytes(), UTF_8);
-        Logger.error("str:" + str);
         if (response.isSuccessful()) {
             return ok(views.html.users.aboutus.render(path, str));
         } else throw new IOException("Unexpected code " + response);
