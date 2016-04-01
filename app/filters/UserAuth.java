@@ -46,12 +46,12 @@ public class UserAuth extends Security.Authenticator {
             Optional<String> session_id = Optional.ofNullable(ctx.request().cookies().get("session_id").value());
             if (user_token.isPresent() && session_id.isPresent()) {
                 Optional<String> cache_session_id = Optional.ofNullable(cache.get(session_id.get()).toString());
-                if (cache_session_id.isPresent() && cache_session_id.get().equals(user_token.get())) {
+                if (cache_session_id.isPresent() && user_token.get().equals(cache_session_id.get())) {
                     Optional<String> token = Optional.ofNullable(cache.get(user_token.get()).toString());
                     if (token.isPresent()) {
                         String session_id_new = UUID.randomUUID().toString().replaceAll("-", "");
                         cache.delete(session_id.get());
-                        cache.set(session_id_new, 7 * 24 * 60 * 60, token.get());
+                        cache.set(session_id_new, 7 * 24 * 60 * 60, cache_session_id.get());
 
                         ctx.response().discardCookie("session_id");
                         ctx.response().setCookie("session_id", session_id_new, 7 * 24 * 60 * 60);

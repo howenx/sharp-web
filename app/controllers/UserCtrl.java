@@ -489,8 +489,9 @@ public class UserCtrl extends Controller {
         Form<UserLoginInfo> userForm = Form.form(UserLoginInfo.class).bindFromRequest();
         Map<String, String> userMap = userForm.data();
 
-        String openId = ctx().response().cookie("openId").toString();
-        String accessToken = ctx().response().cookie("accessToken").toString();
+        String openId = ctx().session().get("openId");
+        String accessToken = ctx().session().get("accessToken");
+        Logger.error("openId:"+openId+" , "+"accessToken:"+accessToken);
         if (null!=openId && null!= accessToken) {
             userMap.put("openId", openId);
             userMap.put("accessToken", accessToken);
@@ -692,8 +693,9 @@ public class UserCtrl extends Controller {
         Form<UserRegistInfo> userRegistInfoForm = Form.form(UserRegistInfo.class).bindFromRequest();
         Map<String, String> userMap = userRegistInfoForm.data();
 
-        String openId = ctx().response().cookie("openId").toString();
-        String accessToken = ctx().response().cookie("accessToken").toString();
+        String openId = ctx().session().get("openId");
+        String accessToken = ctx().session().get("accessToken");
+        Logger.error("openId:"+openId+" , "+"accessToken:"+accessToken);
         if (null!=openId && null!= accessToken) {
             userMap.put("openId", openId);
             userMap.put("accessToken", accessToken);
@@ -726,11 +728,9 @@ public class UserCtrl extends Controller {
                     String token = json.findValue("result").findValue("token").asText();
                     Integer expired = json.findValue("result").findValue("expired").asInt();
                     String session_id = UUID.randomUUID().toString().replaceAll("-", "");
-                    Cache.set(session_id, token, expired);
-                    session("session_id", session_id);
-                    response().setCookie("session_id", session_id, expired);
-                    response().setCookie("user_token", token, expired);
-                    session("id-token", token);
+                    cache.set(session_id, expired, token);
+                    response().setCookie("session_id", session_id, SESSION_TIMEOUT);
+                    response().setCookie("user_token", token, SESSION_TIMEOUT);
                 }
                 return ok(Json.toJson(message));
             });
@@ -779,8 +779,9 @@ public class UserCtrl extends Controller {
         Form<UserRegistInfo> userRegistInfoForm = Form.form(UserRegistInfo.class).bindFromRequest();
         Map<String, String> userMap = userRegistInfoForm.data();
 
-        String openId = ctx().response().cookie("openId").toString();
-        String accessToken = ctx().response().cookie("accessToken").toString();
+        String openId = ctx().session().get("openId");
+        String accessToken = ctx().session().get("accessToken");
+        Logger.error("openId:"+openId+" , "+"accessToken:"+accessToken);
         if (null!=openId && null!= accessToken) {
             userMap.put("openId", openId);
             userMap.put("accessToken", accessToken);
@@ -811,11 +812,10 @@ public class UserCtrl extends Controller {
                     String token = json.findValue("result").findValue("token").asText();
                     Integer expired = json.findValue("result").findValue("expired").asInt();
                     String session_id = UUID.randomUUID().toString().replaceAll("-", "");
-                    Cache.set(session_id, token, expired);
-                    session("session_id", session_id);
-                    response().setCookie("session_id", session_id, expired);
-                    response().setCookie("user_token", token, expired);
-                    session("id-token", token);
+                    cache.set(session_id, expired, token);
+                    response().setCookie("session_id", session_id, SESSION_TIMEOUT);
+                    response().setCookie("user_token", token, SESSION_TIMEOUT);
+
                 }
                 return ok(Json.toJson(message));
             });
