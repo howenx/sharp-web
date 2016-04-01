@@ -36,11 +36,12 @@ $(function() {
                     var timeOutDateTime = new Date();
                 console.log(timeOutDateTime - loadDateTime);
                     if (timeOutDateTime - loadDateTime < 5000) {
-                        window.location = "https://www.baidu.com/";
+                        // window.location = "https://www.baidu.com/";
+                        document.getElementById('settleForm').submit();
                     }
                 },
                 1000);
-            window.location = "https://www.hao123.com/";
+            window.location = "https://24114.com/";
         } else if (navigator.userAgent.match(/android/i)) {
             var state = null;
             try {
