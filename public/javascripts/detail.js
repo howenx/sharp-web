@@ -30,29 +30,37 @@ $(function() {
     })
 
     $(".mabuy").click(function () {
-        if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
-            var loadDateTime = new Date();
-            window.setTimeout(function() {
-                    var timeOutDateTime = new Date();
-                console.log(timeOutDateTime - loadDateTime);
-                    if (timeOutDateTime - loadDateTime < 5000) {
-                        // window.location = "https://www.baidu.com/";
-                        document.getElementById('settleForm').submit();
-                    }
-                },
-                1000);
-            window.location = "https://24114.com/";
-        } else if (navigator.userAgent.match(/android/i)) {
-            var state = null;
-            try {
-                var url= window.location.href;
-                state = window.open("app://hanmimei/"+window.urlParam);
-            } catch(e) {}
-            if (state) {
-                window.close();
-            } else {
-                document.getElementById('settleForm').submit()
-            }
+        // if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
+        //     var loadDateTime = new Date();
+        //     window.setTimeout(function() {
+        //             var timeOutDateTime = new Date();
+        //         console.log(timeOutDateTime - loadDateTime);
+        //             if (timeOutDateTime - loadDateTime < 5000) {
+        //                 // window.location = "https://www.baidu.com/";
+        //                 document.getElementById('settleForm').submit();
+        //             }
+        //         },
+        //         1000);
+        //     window.location = "https://24114.com/";
+        // } else if (navigator.userAgent.match(/android/i)) {
+        //     var state = null;
+        //     var url= window.location.href;
+        //     state = window.open("app://hanmimei/"+window.urlParam);
+        //     window.close();
+        //     document.getElementById('settleForm').submit()
+        // }
+            // 通过iframe的方式试图打开APP，如果能正常打开，会直接切换到APP，并自动阻止a标签的默认行为
+            // 否则打开a标签的href链接
+        if (navigator.userAgent.match(/MicroMessenger/i)) {
+            return;
+        }else{
+            var ifr = document.createElement('iframe');
+            ifr.src = 'hmmapp://aa.bb:80/hanmimei?state = C';
+            ifr.style.display = 'none';
+            document.body.appendChild(ifr);
+            window.setTimeout(function(){
+                document.body.removeChild(ifr);
+            },3000)
         }
     })
 
