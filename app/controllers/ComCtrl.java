@@ -87,19 +87,16 @@ public class ComCtrl extends Controller {
 //       return oldUrl;
     }
 
-    @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> getReqReturnMsg(String url) {
         return sendReq(url, null);
 
     }
 
-    @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> postReqReturnMsg(String url, RequestBody requestBody) {
         return sendReq(url, requestBody);
 
     }
 
-    @Security.Authenticated(UserAuth.class)
     private F.Promise<Result> sendReq(String url, RequestBody requestBody) {
         F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
             Request.Builder builder = (Request.Builder) ctx().args.get("request");

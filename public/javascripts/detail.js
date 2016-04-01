@@ -303,6 +303,7 @@ $(document).on("click",".cartAdd",function(){
     obj.skuTypeId=skuTypeId;
     obj.state="I";
     obj.amount=1;
+    obj.url=window.location.href;
     $.ajax({
         type: 'POST',
         url: "/cart/add",
@@ -310,13 +311,17 @@ $(document).on("click",".cartAdd",function(){
         data : JSON.stringify(obj),
         dataType: 'json',
         error : function(request) {
-            tip("加入购物车失败");
+            console.log("request.responseText="+request.responseText);
+            tip("加入购物车失败,请检测是否已登录");
          },
         success: function(data) {
             console.log("data="+data);
             if (data!=""&&data!=null){
                 if(data.code==200) { //成功
                     addCartEffect(); //加入购物车特效
+                }else if(null!=data.message&&null!=data.message.code&&data.message.code==5006) { //您还未登录,请先登录
+                     setTimeout("location.href='/login?state="+data.state+"'", 2000);
+
                 }else{
                      tip(data.message);
                 }

@@ -9,6 +9,7 @@ import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 import domain.*;
 import filters.UserAuth;
+import net.spy.memcached.MemcachedClient;
 import play.Logger;
 import play.data.Form;
 import play.libs.F;
@@ -33,6 +34,8 @@ import static util.GZipper.dealToString;
 public class ShoppingCtrl extends Controller {
     @Inject
     ComCtrl comCtrl;
+    @Inject
+    private MemcachedClient cache;
 
     //全部订单
     @Security.Authenticated(UserAuth.class)
@@ -518,15 +521,57 @@ public class ShoppingCtrl extends Controller {
      * 用户将本地购物车添加到网络购物车中（POST请求）
      * @return
      */
-    @Security.Authenticated(UserAuth.class)
+   // @Security.Authenticated(UserAuth.class)
     public F.Promise<Result>  cartAdd(){
-        JsonNode json = request().body().asJson();
+        Optional<Http.Cookie> user_token = Optional.ofNullable(ctx().request().cookies().get("user_token"));
+        Optional<Http.Cookie> session_id = Optional.ofNullable(ctx().request().cookies().get("session_id"));
+        Logger.info(user_token+"===="+session_id);
+        JsonNode rjson = request().body().asJson();
+        CartAddTempInfo cartAddTempInfo=Json.fromJson(rjson,CartAddTempInfo.class);
+        if (user_token.isPresent() && session_id.isPresent()) {
+
 //        Logger.info("==json==="+json);
-        List<CartAddInfo> cartAddInfoList=new ArrayList<CartAddInfo>();
-        CartAddInfo cartAddInfo=Json.fromJson(json,CartAddInfo.class);
-        cartAddInfoList.add(cartAddInfo);
-        RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, toJson(cartAddInfoList).toString());
-        return comCtrl.postReqReturnMsg(CART_ADD,formBody);
+            List<CartAddInfo> cartAddInfoList=new ArrayList<CartAddInfo>();
+            CartAddInfo cartAddInfo=new CartAddInfo();
+            cartAddInfo.setCartId(cartAddTempInfo.getCartId());
+            cartAddInfo.setSkuId(cartAddTempInfo.getSkuId());
+            cartAddInfo.setSkuType(cartAddTempInfo.getSkuType());
+            cartAddInfo.setSkuTypeId(cartAddTempInfo.getSkuTypeId());
+            cartAddInfo.setAmount(cartAddTempInfo.getAmount());
+            cartAddInfo.setState(cartAddTempInfo.getState());
+
+            cartAddInfoList.add(cartAddInfo);
+            RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, toJson(cartAddInfoList).toString());
+            //return comCtrl.postReqReturnMsg(CART_ADD,formBody);
+
+            F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
+            Request.Builder builder = comCtrl.getBuilder(ctx());
+            Request request = builder.url(CART_ADD).post(formBody).build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                return Json.parse(new String(response.body().bytes(), UTF_8));
+            }
+            else throw new IOException("Unexpected code " + response);
+        });
+        return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
+            //   Logger.info(url+"返回结果---->\n"+json);
+            Message message = Json.fromJson(json.get("message"), Message.class);
+            if (null == message) {
+                Logger.error("返回数据错误json=" + json);
+                return badRequest();
+            }
+            return ok(toJson(message));
+        });
+
+
+        }
+        ObjectNode result = Json.newObject();
+        result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.USER_NOT_LOGIN.getIndex()), Message.ErrorCode.USER_NOT_LOGIN.getIndex())));
+        String state = UUID.randomUUID().toString().replaceAll("-", "");
+        cache.set(state, 60 * 60, cartAddTempInfo.getUrl());
+        result.put("state",state);
+        return F.Promise.promise((F.Function0<Result>) () -> ok(result));
+
     }
 
     /**
