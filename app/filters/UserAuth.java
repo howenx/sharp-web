@@ -32,7 +32,6 @@ public class UserAuth extends Security.Authenticator {
     @Inject
     private WSClient ws;
 
-    private String uri;
 
     @Override
     public String getUsername(Http.Context ctx) {
@@ -46,12 +45,12 @@ public class UserAuth extends Security.Authenticator {
             Optional<String> session_id = Optional.ofNullable(ctx.request().cookies().get("session_id").value());
             if (user_token.isPresent() && session_id.isPresent()) {
                 Optional<String> cache_session_id = Optional.ofNullable(cache.get(session_id.get()).toString());
-                if (cache_session_id.isPresent() && cache_session_id.get().equals(user_token.get())) {
+                if (cache_session_id.isPresent() && user_token.get().equals(cache_session_id.get())) {
                     Optional<String> token = Optional.ofNullable(cache.get(user_token.get()).toString());
                     if (token.isPresent()) {
                         String session_id_new = UUID.randomUUID().toString().replaceAll("-", "");
                         cache.delete(session_id.get());
-                        cache.set(session_id_new, 7 * 24 * 60 * 60, token.get());
+                        cache.set(session_id_new, 7 * 24 * 60 * 60, cache_session_id.get());
 
                         ctx.response().discardCookie("session_id");
                         ctx.response().setCookie("session_id", session_id_new, 7 * 24 * 60 * 60);
@@ -74,13 +73,14 @@ public class UserAuth extends Security.Authenticator {
 
     private String weixin(Http.Context ctx) throws UnsupportedEncodingException {
 
-        Logger.error("微信用户");
-        String state = UUID.randomUUID().toString().replaceAll("-", "");
-        cache.set(state, 60 * 60, ctx.request().uri());
-
         if (ctx.request().getHeader("User-Agent").contains("MicroMessenger")) {
-            if (ctx.session().get("openId") != null && ctx.session().get("accessToken") != null) {
-                return ws.url(WEIXIN_VERIFY + ctx.session().get("openid")).get().map(wr -> {
+            Logger.error("微信用户");
+
+            Optional<String> openId = Optional.ofNullable(ctx.request().cookie("openId").value());
+            Optional<String> accessToken = Optional.ofNullable(ctx.request().cookie("accessToken").value());
+
+            if (openId.isPresent() && accessToken.isPresent()) {
+                return ws.url(WEIXIN_VERIFY + openId.get()).get().map(wr -> {
                     JsonNode json = wr.asJson();
                     Message message = Json.fromJson(json.get("message"), Message.class);
                     if (null == message) {
@@ -90,7 +90,6 @@ public class UserAuth extends Security.Authenticator {
                     if (message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
                         Logger.error("返回数据code=" + json);
                         //此openId不存在时发起授权请求
-                        this.uri = state;
                         return "state_userinfo";
                     }
 
@@ -101,7 +100,6 @@ public class UserAuth extends Security.Authenticator {
                     cache.set(session_id, expired, token);
                     ctx.response().setCookie("session_id", session_id, expired);
                     ctx.response().setCookie("user_token", token, expired);
-                    this.uri = state;
                     return "success";
                 }).get(10).toString();
             } else return "state_base";
@@ -112,28 +110,29 @@ public class UserAuth extends Security.Authenticator {
     @Override
     public Result onUnauthorized(Http.Context ctx) {
 
-        Logger.error("当前的---->"+ctx.request().uri());
         String state = UUID.randomUUID().toString().replaceAll("-", "");
 
-        if (ctx.request().method().equals("GET")){
+        if (ctx.request().method().equals("GET")) {
             cache.set(state, 60 * 60, ctx.request().uri());
-        }else cache.set(state, 60 * 60, "/");
+        } else cache.set(state, 60 * 60, "/");
 
-
-        uri = state;
         if (getUsername(ctx) != null && getUsername(ctx).equals("state_base")) {
             try {
-                return redirect(SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/base", "UTF-8") + "&response_type=code&scope=snsapi_base&state=" + cache.get(uri).toString() + "#wechat_redirect");
+                return redirect(SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/base", "UTF-8") + "&response_type=code&scope=snsapi_base&state=" + state + "#wechat_redirect");
             } catch (UnsupportedEncodingException e) {
-                return redirect("/login?state=" + uri);
+                return redirect("/login?state=" + state);
             }
         } else if (getUsername(ctx) != null && getUsername(ctx).equals("state_userinfo")) {
             try {
-                return redirect(SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/userinfo", "UTF-8") + "&response_type=code&scope=snsapi_userinfo&state=" + cache.get(uri).toString() + "#wechat_redirect");
+                return redirect(SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/userinfo", "UTF-8") + "&response_type=code&scope=snsapi_userinfo&state=" + state + "#wechat_redirect");
             } catch (UnsupportedEncodingException e) {
-                return redirect("/login?state=" + uri);
+                return redirect("/login?state=" + state);
             }
-        } else return redirect("/login?state=" + uri);
+        } else if (getUsername(ctx) != null && getUsername(ctx).equals("success")) {
+            String uri = cache.get(state).toString();
+            if (uri == null) uri = "/";
+            return redirect(uri);
+        } else return redirect("/login?state=" + state);
     }
 }
 

@@ -1,3 +1,4 @@
+@(uri:String, state:String)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -165,7 +166,7 @@
                                     $('#js-userinfo-error').text('绑定并登录成功').show();
                                     setTimeout("$('#js-userinfo-error').hide()", 2000);
                                     setTimeout(function(){
-                                        window.location.href='/myView';
+                                        window.location.href=$("#uri").val();
                                     }, 1000);
                                 } else{
                                     $('#js-userinfo-error').text(data.message).show();
@@ -194,7 +195,7 @@
                         $("#auto").attr({"name":"auto"});
                         //手机验证码发送成功
                         if (data.code === 200) {
-                                var url = '/register';
+                                var url = '/register'+$("#state").val();;
                                 var form = $('<form action="' + url + '" method="post">' +
                                 '<input type="hidden" name="phone" value="' + phone + '" />' +
                                 '</form>');
@@ -220,6 +221,8 @@
     <div class="nav_ban">
         <h1>绑定手机号</h1>
         <a href=""><span class="icon-back" id="backBtn"></span></a>
+        <input type="hidden" id="uri" value="@uri">
+        <input type="hidden" id="state" value="@state">
     </div>
     <div class="login">
         <div id="js-userinfo-error" class="cue"></div>

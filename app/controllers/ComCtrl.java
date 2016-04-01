@@ -40,7 +40,7 @@ public class ComCtrl extends Controller {
     WSClient ws;
 
     @Inject
-    private MemcachedClient cacheApi;
+    private MemcachedClient cache;
 
     /**
      * 图片json串转图片url
@@ -154,10 +154,10 @@ public class ComCtrl extends Controller {
             if (response.findValue("errcode") == null && response.findValue("refresh_token") != null) {
                 F.Promise<Result> t = ws.url(SysParCom.WEIXIN_REFRESH + "appid=" + WEIXIN_APPID + "&grant_type=refresh_token&refresh_token=" + response.findValue("refresh_token")).get().map(wsr -> {
                     JsonNode refreshToken = wsr.asJson();
-                    cacheApi.set(refreshToken.findValue("openid").asText(), refreshToken.findValue("expires_in").asInt(), new WechatVo(refreshToken.findValue("openid").asText(), refreshToken.findValue("access_token").asText()));
-                    ctx().response().setCookie("openId", refreshToken.findValue("openid").asText());
-                    ctx().response().setCookie("accessToken", refreshToken.findValue("access_token").asText());
-                    return redirect("/register?" + state);
+                    cache.set(refreshToken.findValue("openid").asText(), refreshToken.findValue("expires_in").asInt(), new WechatVo(refreshToken.findValue("openid").asText(), refreshToken.findValue("access_token").asText()));
+                    ctx().response().setCookie("openId", refreshToken.findValue("openid").asText(),refreshToken.findValue("expires_in").asInt());
+                    ctx().response().setCookie("accessToken", refreshToken.findValue("access_token").asText(),refreshToken.findValue("expires_in").asInt());
+                    return redirect("/bind?state=" + state);
                 });
                 return t.get(10);
             }
@@ -188,11 +188,14 @@ public class ComCtrl extends Controller {
                 String token = json.findValue("result").findValue("token").asText();
                 Integer expired = json.findValue("result").findValue("expired").asInt();
                 String session_id = UUID.randomUUID().toString().replaceAll("-", "");
-                cacheApi.set(session_id, expired, token);
+                cache.set(session_id, expired, token);
                 response().setCookie("session_id", session_id, expired);
                 response().setCookie("user_token", token, expired);
 
-                return redirect(cacheApi.get(state).toString());
+                String uri = cache.get(state).toString();
+                if (uri==null) uri="/";
+
+                return redirect(uri);
             });
             return t.get(10);
         });

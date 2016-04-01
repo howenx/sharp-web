@@ -49,7 +49,7 @@ POST        /user/photo                               controllers.UserCtrl.userP
 #登出
 GET         /logout                                   controllers.UserCtrl.logout()
 #绑定手机号
-GET         /bind                                     controllers.UserCtrl.bindPhone()
+GET         /bind                                     controllers.UserCtrl.bindPhone(state:String)
 
 
 #首页,主题,详情页相关
