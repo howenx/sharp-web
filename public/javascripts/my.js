@@ -319,6 +319,40 @@ $(document).on("click", "#add", function() {
     }
 });
 
+//上传图片
+$(document).on('change','.face',function() {
+    var file = $(this);
+    var files = this.files;
+    previewImage(this.files[0]);
+});
+
+function previewImage(file) {
+    var imageType = /image.*/;
+    if (!file.type.match(imageType)) {
+        throw "File Type must be an image";
+    }
+    var img = document.getElementById("photo");
+    //upload(file);
+    // Using FileReader to display the image content
+    var reader = new FileReader();
+    reader.onload = (function(aImg) {
+        return function(e) {
+            aImg.src = e.target.result;
+        }
+    })(img);
+    reader.readAsDataURL(file);
+    var div = document.createElement("div");
+    var span = document.createElement("span");
+    var input = document.createElement("input");
+    div.classList.add('detail-box');
+    div.classList.add('clearfix');
+    span.classList.add('picture');
+    input.classList.add('face');
+    input.type = "file";
+    span.appendChild(input);
+    div.appendChild(span);
+}
+
 //申请售后下一步
 $(document).on("click", ".next", function() {
     var num = Number($(".num").html());
