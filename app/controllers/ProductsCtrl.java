@@ -267,7 +267,7 @@ public class ProductsCtrl extends Controller {
      */
     public F.Promise<Result> detail(String url){
         F.Promise<JsonNode> promise = F.Promise.promise(() -> {
-            Request request = getBuilder(request(), session())
+            Request request = comCtrl.getBuilder(ctx())//getBuilder(request(), session())
                     .url(GOODS_PAGE + url)
                     .build();
             client.setConnectTimeout(15, TimeUnit.SECONDS);
@@ -382,7 +382,7 @@ public class ProductsCtrl extends Controller {
                         pushResultList.add(rowList);
                     }
                 }
-                return ok(views.html.products.detail.render(path, itemMain, itemFeaturesList, pushResultList, inventoryList, inventoryList.size(), preImgList, publicityList));
+                return ok(views.html.products.detail.render(path, itemMain, itemFeaturesList, pushResultList, inventoryList, inventoryList.size(), preImgList, publicityList,url));
             }
             //拼购商品
             else {

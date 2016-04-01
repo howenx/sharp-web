@@ -358,7 +358,6 @@ public class ShoppingCtrl extends Controller {
                 return badRequest(views.html.error.render(message.getMessage()));
             }
             SettleVo settleVo=Json.fromJson(json.get("settle"), SettleVo.class);
-            Logger.info(String.valueOf(toJson(settleVo)));
 
             return ok(views.html.shopping.settle.render(settleVo,settleInfoList,buyNowTemp, finalPinActiveId,PAY_URL));
         });
@@ -545,15 +544,19 @@ public class ShoppingCtrl extends Controller {
      * @return
      */
     public F.Promise<Result>  cartAmount(){
-        Optional<String> header = Optional.ofNullable(ctx().session().get("id-token"));
-        if (header.isPresent()) {
+//        Optional<String> header = Optional.ofNullable(ctx().session().get("id-token"));
+//        if (header.isPresent()) {
+        Optional<Http.Cookie> user_token = Optional.ofNullable(ctx().request().cookies().get("user_token"));
+        Optional<Http.Cookie> session_id = Optional.ofNullable(ctx().request().cookies().get("session_id"));
+        Logger.info(user_token+"===="+session_id);
+        if (user_token.isPresent() && session_id.isPresent()) {
                 F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
-                    Request.Builder builder = new Request.Builder();
-                    builder.addHeader(Http.HeaderNames.X_FORWARDED_FOR,ctx().request().remoteAddress());
-                    builder.addHeader(Http.HeaderNames.VIA,ctx().request().remoteAddress());
-                    builder.addHeader("User-Agent",ctx().request().getHeader("User-Agent"));
-                    builder.addHeader("id-token", header.get());
-
+//                    Request.Builder builder = new Request.Builder();
+//                    builder.addHeader(Http.HeaderNames.X_FORWARDED_FOR,ctx().request().remoteAddress());
+//                    builder.addHeader(Http.HeaderNames.VIA,ctx().request().remoteAddress());
+//                    builder.addHeader("User-Agent",ctx().request().getHeader("User-Agent"));
+//                    builder.addHeader("id-token", header.get());
+                    Request.Builder builder =comCtrl.getBuilder(ctx());
                     Request request = builder.url(CART_AMOUNT).get().build();
                     Response response = client.newCall(request).execute();
                     if (response.isSuccessful()) {

@@ -68,10 +68,10 @@ $(document).on("click",".addAddressBtn",function(){
                                     tip(data.message.message);
                                 }
                             }else{
-                                if(data.message.code==200) {
+                                if(data.code==200) {
                                      setTimeout("location.href='/address/"+Number(selId)+"'", 1000);
                                 }else{
-                                    tip(data.message.message);
+                                    tip(data.message);
                                 }
                             }
                         }

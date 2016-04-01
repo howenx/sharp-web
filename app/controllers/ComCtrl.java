@@ -23,6 +23,7 @@ import javax.inject.Inject;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Map;
+import java.util.Optional;
 import java.util.TreeMap;
 import java.util.UUID;
 
@@ -202,15 +203,35 @@ public class ComCtrl extends Controller {
 
     }
 
-    public Request.Builder getBuilder(Http.Request request, Http.Session session) {
+//    public Request.Builder getBuilder(Http.Request request, Http.Session session) {
+//        Request.Builder builder = new Request.Builder();
+//        builder.addHeader(Http.HeaderNames.X_FORWARDED_FOR, request.remoteAddress());
+//        builder.addHeader(Http.HeaderNames.VIA, request.remoteAddress());
+//        builder.addHeader("User-Agent", request.getHeader("User-Agent"));
+//        if (session.containsKey("id-token")) {
+//            builder.addHeader("id-token", session.get("id-token"));
+//        }
+//        return builder;
+//    }
+
+    /**
+     * 未登录或者登录两种情况下
+     * @param ctx
+     * @return
+     */
+    public Request.Builder getBuilder(Http.Context ctx) {
 
         Request.Builder builder = new Request.Builder();
-        builder.addHeader(Http.HeaderNames.X_FORWARDED_FOR, request.remoteAddress());
-        builder.addHeader(Http.HeaderNames.VIA, request.remoteAddress());
-        builder.addHeader("User-Agent", request.getHeader("User-Agent"));
-        if (session.containsKey("id-token")) {
-            builder.addHeader("id-token", session.get("id-token"));
+        builder.addHeader(Http.HeaderNames.X_FORWARDED_FOR, ctx.request().remoteAddress());
+        builder.addHeader(Http.HeaderNames.VIA, ctx.request().remoteAddress());
+        builder.addHeader("User-Agent", ctx.request().getHeader("User-Agent"));
+
+        Optional<Http.Cookie> user_token = Optional.ofNullable(ctx.request().cookies().get("user_token"));
+        Optional<Http.Cookie> session_id = Optional.ofNullable(ctx.request().cookies().get("session_id"));
+        if (user_token.isPresent() && session_id.isPresent()) {
+            builder.addHeader("id-token", user_token.get().value());
         }
         return builder;
+
     }
 }

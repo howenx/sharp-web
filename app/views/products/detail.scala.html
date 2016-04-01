@@ -1,4 +1,4 @@
-@(path:String,itemMain:domain.Item,itemFeaturesList:List[Array[Object]],pushList:List[List[domain.ThemeItem]],inventoryList:List[domain.Inventory],stockSize:Int,preImgList:List[List[String]],publicityList:List[String])
+@(path:String,itemMain:domain.Item,itemFeaturesList:List[Array[Object]],pushList:List[List[domain.ThemeItem]],inventoryList:List[domain.Inventory],stockSize:Int,preImgList:List[List[String]],publicityList:List[String],url:String)
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -15,6 +15,7 @@
 	<script src="/assets/javascripts/jquery/TouchSlide.1.1.js"></script>
 	<script src="/assets/javascripts/detail.js"></script>
 	<script src="/assets/javascripts/cartAmount.js"></script>
+	<script>window.urlParam = "@url"</script>
 </head>
 <body>
 <div id='screen_wrap'>
@@ -315,7 +316,7 @@
 			</div>
 
 			<div class="buy_btn" data-type="buy">
-				<a href="javascript:;" class="" onclick="document.getElementById('settleForm').submit();">
+				<a href="javascript:;" class="mabuy">
 					立即购买
 				</a>
 			</div>
