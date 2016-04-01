@@ -94,7 +94,7 @@
                     </a>
 
                 @if(pinInvDetail.isSoldOut() != true){
-                    <a href="javascript:;" onclick="document.getElementById('settleForm').submit();">
+                    <a href="javascript:;" class="mabuy">
                 }
                 @if(pinInvDetail.isSoldOut() == true){
                     <a href="javascript:;" class="soldOut" >
@@ -324,7 +324,7 @@
         </div>
         <div class="buy_btn pin-buy" data-type="buy">
             @if(pinInvDetail.isSoldOut() != true){
-                <a href="javascript:;" class="" onclick="document.getElementById('settleForm').submit();">
+                <a href="javascript:;" class="mabuy">
                     单独购买
                 </a>
             }
