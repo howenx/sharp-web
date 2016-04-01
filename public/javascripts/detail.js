@@ -1,6 +1,5 @@
 $(function() {
-
-    $('.diamond a').click(function(){
+    $('.soldOut').click(function(){
         $('.hd-js').show();
 
         setInterval(function(){
