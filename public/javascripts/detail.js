@@ -1,4 +1,22 @@
 $(function() {
+      var urlParam = window.urlParam;
+
+//    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+//    if( userAgent.match( /iPad/i ) || userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) )
+//        {
+//          //    //ios APP
+//          //    setTimeout(function () { window.location = ""; }, 25);
+//          alert("ios");
+//
+//        }
+//        else if( userAgent.match( /Android/i ) )
+//        {
+//          //    //Android APP
+//          //    setTimeout(function () { window.location = ""; }, 25);
+//          alert("android");
+//        }
+//    }
+
     $('.soldOut').click(function(){
         $('.hd-js').show();
 
@@ -9,6 +27,33 @@ $(function() {
 
     $('.finish-box').click(function(){
         $('.con').show();
+    })
+
+    $(".mabuy").click(function () {
+        if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
+            var loadDateTime = new Date();
+            window.setTimeout(function() {
+                    var timeOutDateTime = new Date();
+                console.log(timeOutDateTime - loadDateTime);
+                    if (timeOutDateTime - loadDateTime < 5000) {
+                        // window.location = "https://www.baidu.com/";
+                        document.getElementById('settleForm').submit();
+                    }
+                },
+                1000);
+            window.location = "https://24114.com/";
+        } else if (navigator.userAgent.match(/android/i)) {
+            var state = null;
+            try {
+                var url= window.location.href;
+                state = window.open("app://hanmimei/"+url);
+            } catch(e) {}
+            if (state) {
+                window.close();
+            } else {
+                window.location = "https://www.baidu.com/";
+            }
+        }
     })
 
 	$('.classify ul li').click(function(){

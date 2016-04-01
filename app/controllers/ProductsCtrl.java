@@ -382,7 +382,7 @@ public class ProductsCtrl extends Controller {
                         pushResultList.add(rowList);
                     }
                 }
-                return ok(views.html.products.detail.render(path, itemMain, itemFeaturesList, pushResultList, inventoryList, inventoryList.size(), preImgList, publicityList));
+                return ok(views.html.products.detail.render(path, itemMain, itemFeaturesList, pushResultList, inventoryList, inventoryList.size(), preImgList, publicityList,url));
             }
             //拼购商品
             else {
