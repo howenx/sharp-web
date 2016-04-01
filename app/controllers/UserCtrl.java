@@ -546,7 +546,9 @@ public class UserCtrl extends Controller {
      * @return
      */
     public Result bindPhone(String state) {
-        return ok(views.html.users.bindPhone.render(cache.get(state).toString(), "?state="+state));
+        if (null!=cache.get(state)) {
+            return ok(views.html.users.bindPhone.render(cache.get(state).toString(), "?state="+state));
+        } else return redirect(routes.ProductsCtrl.index());
     }
 
 
