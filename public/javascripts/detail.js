@@ -46,12 +46,12 @@ $(function() {
             var state = null;
             try {
                 var url= window.location.href;
-                state = window.open("app://hanmimei/"+url);
+                state = window.open("app://hanmimei/"+window.urlParam);
             } catch(e) {}
             if (state) {
                 window.close();
             } else {
-                window.location = "https://www.baidu.com/";
+                document.getElementById('settleForm').submit()
             }
         }
     })
