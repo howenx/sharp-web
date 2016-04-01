@@ -61,6 +61,8 @@
             //修改头像
             $(document).on('change','#face',function() {
                 var file = $(this);
+                file.after(file.clone().val(""));
+                file.remove();
                 var files = this.files;
                 previewImage(this.files[0]);
             });
