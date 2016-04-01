@@ -192,7 +192,10 @@ public class ComCtrl extends Controller {
                 response().setCookie("session_id", session_id, expired);
                 response().setCookie("user_token", token, expired);
 
-                return redirect(cache.get(state).toString());
+                String uri = cache.get(state).toString();
+                if (uri==null) uri="/";
+
+                return redirect(uri);
             });
             return t.get(10);
         });

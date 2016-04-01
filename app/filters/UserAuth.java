@@ -32,8 +32,6 @@ public class UserAuth extends Security.Authenticator {
     @Inject
     private WSClient ws;
 
-    private String uri;
-
 
     @Override
     public String getUsername(Http.Context ctx) {
@@ -115,26 +113,26 @@ public class UserAuth extends Security.Authenticator {
         String state = UUID.randomUUID().toString().replaceAll("-", "");
 
         if (ctx.request().method().equals("GET")) {
-            cache.set(uri, 60 * 60, ctx.request().uri());
-        } else cache.set(uri, 60 * 60, "/");
-
-        uri = state;
+            cache.set(state, 60 * 60, ctx.request().uri());
+        } else cache.set(state, 60 * 60, "/");
 
         if (getUsername(ctx) != null && getUsername(ctx).equals("state_base")) {
             try {
-                return redirect(SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/base", "UTF-8") + "&response_type=code&scope=snsapi_base&state=" + cache.get(uri).toString() + "#wechat_redirect");
+                return redirect(SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/base", "UTF-8") + "&response_type=code&scope=snsapi_base&state=" + state + "#wechat_redirect");
             } catch (UnsupportedEncodingException e) {
-                return redirect("/login?state=" + uri);
+                return redirect("/login?state=" + state);
             }
         } else if (getUsername(ctx) != null && getUsername(ctx).equals("state_userinfo")) {
             try {
-                return redirect(SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/userinfo", "UTF-8") + "&response_type=code&scope=snsapi_userinfo&state=" + cache.get(uri).toString() + "#wechat_redirect");
+                return redirect(SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/userinfo", "UTF-8") + "&response_type=code&scope=snsapi_userinfo&state=" + state + "#wechat_redirect");
             } catch (UnsupportedEncodingException e) {
-                return redirect("/login?state=" + uri);
+                return redirect("/login?state=" + state);
             }
         } else if (getUsername(ctx) != null && getUsername(ctx).equals("success")) {
-            return redirect(cache.get(state).toString());
-        } else return redirect("/login?state=" + uri);
+            String uri = cache.get(state).toString();
+            if (uri == null) uri = "/";
+            return redirect(uri);
+        } else return redirect("/login?state=" + state);
     }
 }
 
