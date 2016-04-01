@@ -66,7 +66,6 @@ public class UserAuth extends Security.Authenticator {
             } else return weixin(ctx);
 
         } catch (Exception ex) {
-            ex.printStackTrace();
             Logger.info("userAuth:" + ex.getMessage());
             return null;
         }
@@ -126,14 +125,12 @@ public class UserAuth extends Security.Authenticator {
             try {
                 return redirect(SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/base", "UTF-8") + "&response_type=code&scope=snsapi_base&state=" + cache.get(uri).toString() + "#wechat_redirect");
             } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
                 return redirect("/login?state=" + uri);
             }
         } else if (getUsername(ctx) != null && getUsername(ctx).equals("state_userinfo")) {
             try {
                 return redirect(SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/userinfo", "UTF-8") + "&response_type=code&scope=snsapi_userinfo&state=" + cache.get(uri).toString() + "#wechat_redirect");
             } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
                 return redirect("/login?state=" + uri);
             }
         } else return redirect("/login?state=" + uri);
