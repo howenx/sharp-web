@@ -55,7 +55,7 @@ $(function() {
             return;
         }else{
             var ifr = document.createElement('iframe');
-            ifr.src = 'hmmapp://aa.bb:80/hanmimei?state = C';
+            ifr.src = 'hmmapp://data/'+window.urlParam;
             ifr.style.display = 'none';
             document.body.appendChild(ifr);
             window.setTimeout(function(){
