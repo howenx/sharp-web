@@ -546,7 +546,9 @@ public class UserCtrl extends Controller {
      * @return
      */
     public Result bindPhone(String state) {
-        return ok(views.html.users.bindPhone.render(cache.get(state).toString(), "?state="+state));
+        if (null!=cache.get(state)) {
+            return ok(views.html.users.bindPhone.render(cache.get(state).toString(), "?state="+state));
+        } else return redirect(routes.ProductsCtrl.index());
     }
 
 
@@ -931,41 +933,29 @@ public class UserCtrl extends Controller {
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> userPhoto() {
         play.mvc.Http.MultipartFormData body = request().body().asMultipartFormData();
-        play.mvc.Http.MultipartFormData.FilePart picture = body.getFile("picture");
+        play.mvc.Http.MultipartFormData.FilePart photo = body.getFile("photo");
         File file = null;
-        String fileName = "";
-        if (picture != null) {
-            fileName = picture.getFilename();
-            String contentType = picture.getContentType();
-            file = picture.getFile();
+        FileInputStream in = null;
+        byte[] data = null;
+        String photoUrl = "";
+        Logger.error("文件:"+photo);
+        if (photo != null) {
+            file = photo.getFile();
+            //读取图片字节数组
+            try {
+                in = new FileInputStream(file);
+                data = new byte[in.available()];
+                int read = in.read(data);
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //对字节数组Base64编码
+            photoUrl = org.apache.commons.codec.binary.Base64.encodeBase64String(data);//返回Base64编码过的字节数组字符串
+
         } else {
             flash("error", "Missing file");
         }
-//        try {
-//            file.createNewFile();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        //
-//        String str = "";
-
-        //将图片文件转化为字节数组字符串，并对其进行Base64编码处理
-//        String imgFile = "d:\\111.jpg";//待处理的图片
-        FileInputStream in = null;
-        byte[] data = null;
-        //读取图片字节数组
-        try {
-            in = new FileInputStream(file);
-            data = new byte[in.available()];
-            int read = in.read(data);
-            in.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        //对字节数组Base64编码
-        String photoUrl = org.apache.commons.codec.binary.Base64.encodeBase64String(data);//返回Base64编码过的字节数组字符串
-//        Logger.error("photoUrl:" + photoUrl);
-
         ObjectNode objectNode = Json.newObject();
         objectNode.put("photoUrl", photoUrl);
         Promise<JsonNode> promiseOfInt = Promise.promise(() -> {

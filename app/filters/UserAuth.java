@@ -41,15 +41,15 @@ public class UserAuth extends Security.Authenticator {
             builder.addHeader(Http.HeaderNames.VIA, ctx.request().remoteAddress());
             builder.addHeader("User-Agent", ctx.request().getHeader("User-Agent"));
 
-            Optional<String> user_token = Optional.ofNullable(ctx.request().cookies().get("user_token").value());
-            Optional<String> session_id = Optional.ofNullable(ctx.request().cookies().get("session_id").value());
+            Optional<Http.Cookie> user_token = Optional.ofNullable(ctx.request().cookies().get("user_token"));
+            Optional<Http.Cookie> session_id = Optional.ofNullable(ctx.request().cookies().get("session_id"));
             if (user_token.isPresent() && session_id.isPresent()) {
-                Optional<String> cache_session_id = Optional.ofNullable(cache.get(session_id.get()).toString());
-                if (cache_session_id.isPresent() && user_token.get().equals(cache_session_id.get())) {
-                    Optional<String> token = Optional.ofNullable(cache.get(user_token.get()).toString());
+                Optional<Object> cache_session_id = Optional.ofNullable(cache.get(session_id.get().value()));
+                if (cache_session_id.isPresent() && user_token.get().value().equals(cache_session_id.get().toString())) {
+                    Optional<String> token = Optional.ofNullable(cache.get(user_token.get().value()).toString());
                     if (token.isPresent()) {
                         String session_id_new = UUID.randomUUID().toString().replaceAll("-", "");
-                        cache.delete(session_id.get());
+                        cache.delete(session_id.get().value());
                         cache.set(session_id_new, 7 * 24 * 60 * 60, cache_session_id.get());
 
                         ctx.response().discardCookie("session_id");
@@ -58,13 +58,14 @@ public class UserAuth extends Security.Authenticator {
                         JsonNode userJson = Json.parse(token.get());
                         Long userId = userJson.findValue("id").asLong();
 
-                        ctx.args.put("request", builder.addHeader("id-token", user_token.get()));
+                        ctx.args.put("request", builder.addHeader("id-token", user_token.get().value()));
                         return userId.toString();
                     } else return null;
                 } else return null;
             } else return weixin(ctx);
 
         } catch (Exception ex) {
+            ex.printStackTrace();
             Logger.info("userAuth:" + ex.getMessage());
             return null;
         }
@@ -74,13 +75,14 @@ public class UserAuth extends Security.Authenticator {
     private String weixin(Http.Context ctx) throws UnsupportedEncodingException {
 
         if (ctx.request().getHeader("User-Agent").contains("MicroMessenger")) {
+
             Logger.error("微信用户");
 
-            Optional<String> openId = Optional.ofNullable(ctx.request().cookie("openId").value());
-            Optional<String> accessToken = Optional.ofNullable(ctx.request().cookie("accessToken").value());
+            Optional<Http.Cookie> openId = Optional.ofNullable(ctx.request().cookie("openId"));
+            Optional<Http.Cookie> accessToken = Optional.ofNullable(ctx.request().cookie("accessToken"));
 
             if (openId.isPresent() && accessToken.isPresent()) {
-                return ws.url(WEIXIN_VERIFY + openId.get()).get().map(wr -> {
+                return ws.url(WEIXIN_VERIFY + openId.get().value()).get().map(wr -> {
                     JsonNode json = wr.asJson();
                     Message message = Json.fromJson(json.get("message"), Message.class);
                     if (null == message) {

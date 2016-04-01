@@ -1,64 +1,64 @@
 
 #用户相关
-GET         /address/$selId<[0-9]+>                   controllers.UserCtrl.address(selId:Long)
+GET         /address/$selId<[0-9]+>                                            controllers.UserCtrl.address(selId:Long)
 #POST       /address                                  controllers.UserCtrl.address()
-GET         /addressnew                               controllers.UserCtrl.addressnew()
-POST        /address/save                             controllers.UserCtrl.addressSave()
-POST        /address/del                              controllers.UserCtrl.addressDel()
-GET         /address/update/$addId<[0-9]+>/$selId<[0-9]+> controllers.UserCtrl.addressUpdate(addId:Long,selId:Long)
-GET         /carded                                   controllers.UserCtrl.carded()
-GET         /myView                                   controllers.UserCtrl.myView()
-GET         /login                                    controllers.UserCtrl.login(state:String)
-GET         /setting                                  controllers.UserCtrl.setting()
-GET         /tickling                                 controllers.UserCtrl.tickling()
-POST        /feedback                                 controllers.UserCtrl.feedback()
-GET         /coupon                                   controllers.UserCtrl.coupon()
-POST        /login/submit                             controllers.UserCtrl.loginSubmit()
-GET         /collect                                  controllers.UserCtrl.collect()
-GET         /aboutus                                  controllers.UserCtrl.aboutus()
-GET         /collect/del/$collectId<[0-9]+>           controllers.UserCtrl.collectDel(collectId:Long)
-POST        /collect/submit                           controllers.UserCtrl.submitCollect()
+GET         /addressnew                                                        controllers.UserCtrl.addressnew()
+POST        /address/save                                                      controllers.UserCtrl.addressSave()
+POST        /address/del                                                       controllers.UserCtrl.addressDel()
+GET         /address/update/$addId<[0-9]+>/$selId<[0-9]+>                      controllers.UserCtrl.addressUpdate(addId:Long,selId:Long)
+GET         /carded                                                            controllers.UserCtrl.carded()
+GET         /myView                                                            controllers.UserCtrl.myView()
+GET         /login                                                             controllers.UserCtrl.login(state:String)
+GET         /setting                                                           controllers.UserCtrl.setting()
+GET         /tickling                                                          controllers.UserCtrl.tickling()
+POST        /feedback                                                          controllers.UserCtrl.feedback()
+GET         /coupon                                                            controllers.UserCtrl.coupon()
+POST        /login/submit                                                      controllers.UserCtrl.loginSubmit()
+GET         /collect                                                           controllers.UserCtrl.collect()
+GET         /aboutus                                                           controllers.UserCtrl.aboutus()
+GET         /collect/del/$collectId<[0-9]+>                                    controllers.UserCtrl.collectDel(collectId:Long)
+POST        /collect/submit                                                    controllers.UserCtrl.submitCollect()
 
-POST        /service                                  controllers.UserCtrl.service()
-POST        /order/apply/refund                       controllers.UserCtrl.refundApply()
+POST        /service                                                           controllers.UserCtrl.service()
+POST        /order/apply/refund                                                controllers.UserCtrl.refundApply()
 
 #我的拼购
-GET         /mypin                                    controllers.UserCtrl.mypin()
-GET         /pin/order/detail/$orderId<[0-9]+>        controllers.UserCtrl.pinOrderDetail(orderId:Long)
+GET         /mypin                                                             controllers.UserCtrl.mypin()
+GET         /pin/order/detail/$orderId<[0-9]+>                                 controllers.UserCtrl.pinOrderDetail(orderId:Long)
 GET         /pin/activity/$pinActivity<[0-9]+>                                 controllers.UserCtrl.pinActivity(pinActivity:Long,pay: Integer ?= 1,userPayType: Integer ?=0)
 GET         /pin/activity/pay/$pinActivity<[0-9]+>/$userPayType<[0-9]+>        controllers.UserCtrl.pinActivity(pinActivity:Long,pay: Integer ?= 2,userPayType: Integer)
 
 
 
 #注册
-GET         /register                                 controllers.UserCtrl.registVerify(state:String)
-POST        /phone/verify                             controllers.UserCtrl.phoneVerify()
-POST        /phone/code                               controllers.UserCtrl.phoneCode()
-POST        /register                                 controllers.UserCtrl.register(state:String)
-GET         /agreement                                controllers.UserCtrl.agreement()
-POST        /regist/submit                            controllers.UserCtrl.registSubmit()
+GET         /register                                                          controllers.UserCtrl.registVerify(state:String)
+POST        /phone/verify                                                      controllers.UserCtrl.phoneVerify()
+POST        /phone/code                                                        controllers.UserCtrl.phoneCode()
+POST        /register                                                          controllers.UserCtrl.register(state:String)
+GET         /agreement                                                         controllers.UserCtrl.agreement()
+POST        /regist/submit                                                     controllers.UserCtrl.registSubmit()
 #密码重置
-GET         /retrieve                                 controllers.UserCtrl.retrieve(state:String)
-POST        /retrieve                                 controllers.UserCtrl.resetPasswd(state:String)
-POST        /reset/submit                             controllers.UserCtrl.resetPwdSubmit()
+GET         /retrieve                                                          controllers.UserCtrl.retrieve(state:String)
+POST        /retrieve                                                          controllers.UserCtrl.resetPasswd(state:String)
+POST        /reset/submit                                                      controllers.UserCtrl.resetPwdSubmit()
 #用户信息
-GET         /means                                    controllers.UserCtrl.means()
-POST        /nickname                                 controllers.UserCtrl.nickname()
-POST        /user/update                              controllers.UserCtrl.userUpdate()
-POST        /user/photo                               controllers.UserCtrl.userPhoto()
+GET         /means                                                             controllers.UserCtrl.means()
+POST        /nickname                                                          controllers.UserCtrl.nickname()
+POST        /user/update                                                       controllers.UserCtrl.userUpdate()
+POST        /user/photo                                                        controllers.UserCtrl.userPhoto()
 #登出
-GET         /logout                                   controllers.UserCtrl.logout()
+GET         /logout                                                            controllers.UserCtrl.logout()
 #绑定手机号
-GET         /bind                                     controllers.UserCtrl.bindPhone(state:String)
+GET         /bind                                                              controllers.UserCtrl.bindPhone(state:String)
 
 
 #首页,主题,详情页相关
-GET         /                                         controllers.ProductsCtrl.index()
-GET         /indexAjax/:pageCount                     controllers.ProductsCtrl.loadIndexAjax(pageCount:String)
-GET         /themeDetail/*url                         controllers.ProductsCtrl.themeDetail(url)
-GET         /detail/*url                              controllers.ProductsCtrl.detail(url)
-GET         /pinInstruction                           controllers.ProductsCtrl.pinInstruction()
-GET         /pinTieredPrice/*url                      controllers.ProductsCtrl.pinTieredPrice(url)
+GET         /                                                                  controllers.ProductsCtrl.index()
+GET         /indexAjax/:pageCount                                              controllers.ProductsCtrl.loadIndexAjax(pageCount:String)
+GET         /themeDetail/*url                                                  controllers.ProductsCtrl.themeDetail(url)
+GET         /detail/*url                                                       controllers.ProductsCtrl.detail(url)
+GET         /pinInstruction                                                    controllers.ProductsCtrl.pinInstruction()
+GET         /pinTieredPrice/*url                                               controllers.ProductsCtrl.pinTieredPrice(url)
 
 
 
@@ -70,41 +70,41 @@ GET         /pinTieredPrice/*url                      controllers.ProductsCtrl.p
 
 
 #购物车,结算,订单,拼购相关
-GET         /all                                      controllers.ShoppingCtrl.all(orderId: Long ?= 0L)
-GET         /all/$orderId<[0-9]+>                     controllers.ShoppingCtrl.all(orderId: Long)
-GET         /appraise                                 controllers.ShoppingCtrl.appraise()
-GET         /assess                                   controllers.ShoppingCtrl.assess()
-GET         /delivered                                controllers.ShoppingCtrl.delivered()
-GET         /drawback                                 controllers.ShoppingCtrl.drawback()
-GET         /logistic                                 controllers.ShoppingCtrl.logistic()
-GET         /obligati                                 controllers.ShoppingCtrl.obligati()
-GET         /orders                                   controllers.ShoppingCtrl.orders()
-POST        /settle                                   controllers.ShoppingCtrl.settle()
-GET         /cart                                     controllers.ShoppingCtrl.cart()
-GET         /cart/empty                               controllers.ShoppingCtrl.emptyCart()
-GET         /order/cancel/$orderId<[0-9]+>            controllers.ShoppingCtrl.cancelOrder(orderId:Long)
-GET         /order/del/$orderId<[0-9]+>               controllers.ShoppingCtrl.delOrder(orderId:Long)
-GET         /order/verify/$orderId<[0-9]+>            controllers.ShoppingCtrl.verifyOrder(orderId:Long)
-POST        /order/submit                             controllers.ShoppingCtrl.submitOrder()
+GET         /all                                                               controllers.ShoppingCtrl.all(orderId: Long ?= 0L)
+GET         /all/$orderId<[0-9]+>                                              controllers.ShoppingCtrl.all(orderId: Long)
+GET         /appraise                                                          controllers.ShoppingCtrl.appraise()
+GET         /assess                                                            controllers.ShoppingCtrl.assess()
+GET         /delivered                                                         controllers.ShoppingCtrl.delivered()
+GET         /drawback                                                          controllers.ShoppingCtrl.drawback()
+GET         /logistic                                                          controllers.ShoppingCtrl.logistic()
+GET         /obligati                                                          controllers.ShoppingCtrl.obligati()
+GET         /orders                                                            controllers.ShoppingCtrl.orders()
+POST        /settle                                                            controllers.ShoppingCtrl.settle()
+GET         /cart                                                              controllers.ShoppingCtrl.cart()
+GET         /cart/empty                                                        controllers.ShoppingCtrl.emptyCart()
+GET         /order/cancel/$orderId<[0-9]+>                                     controllers.ShoppingCtrl.cancelOrder(orderId:Long)
+GET         /order/del/$orderId<[0-9]+>                                        controllers.ShoppingCtrl.delOrder(orderId:Long)
+GET         /order/verify/$orderId<[0-9]+>                                     controllers.ShoppingCtrl.verifyOrder(orderId:Long)
+POST        /order/submit                                                      controllers.ShoppingCtrl.submitOrder()
 
 
 
-POST        /cart/add                                 controllers.ShoppingCtrl.cartAdd()
-GET         /cart/del/$cartId<[0-9]+>                 controllers.ShoppingCtrl.cartDel(cartId:Long)
-GET         /cart/amount                              controllers.ShoppingCtrl.cartAmount()
+POST        /cart/add                                                          controllers.ShoppingCtrl.cartAdd()
+GET         /cart/del/$cartId<[0-9]+>                                          controllers.ShoppingCtrl.cartDel(cartId:Long)
+GET         /cart/amount                                                       controllers.ShoppingCtrl.cartAmount()
 #
 
 
 
-GET         /pay/order/get/$orderId<[0-9]+>           controllers.JDCtrl.cashDesk(orderId:Long)
+GET         /pay/order/get/$orderId<[0-9]+>                                    controllers.JDCtrl.cashDesk(orderId:Long)
 
-GET         /wechat/base                              controllers.ComCtrl.wechatBase(code: String,state:String)
+GET         /wechat/base                                                       controllers.ComCtrl.wechatBase(code: String,state:String)
 
-GET         /wechat/userinfo                          controllers.ComCtrl.wechatUserinfo(code: String,state:String)
+GET         /wechat/userinfo                                                   controllers.ComCtrl.wechatUserinfo(code: String,state:String)
 
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                             controllers.Assets.versioned(path="/public", file: Asset)
+GET         /assets/*file                                                      controllers.Assets.versioned(path="/public", file: Asset)
 
 
