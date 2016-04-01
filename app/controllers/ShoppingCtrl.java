@@ -47,7 +47,7 @@ public class ShoppingCtrl extends Controller {
             }else  throw new IOException("Unexpected code " + response);
         });
 
-        String token=session().get("id-token");
+        String token=comCtrl.getUserToken(ctx());
         return promiseOfInt.map((play.libs.F.Function<JsonNode , Result>) json -> {
         //    Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
@@ -505,8 +505,9 @@ public class ShoppingCtrl extends Controller {
             ObjectNode objectNode = Json.newObject();
             objectNode.putPOJO("message",message);
             if(message.getCode()==Message.ErrorCode.SUCCESS.getIndex()&&json.has("orderId")){
-                String securityCode= comCtrl.orderSecurityCode(json.get("orderId").asText(),session().get("id-token"));
-                objectNode.put("token",session().get("id-token"));
+                String token=comCtrl.getUserToken(ctx());
+                String securityCode= comCtrl.orderSecurityCode(json.get("orderId").asText(),token);
+                objectNode.put("token",token);
                 objectNode.put("orderId",json.get("orderId").asLong());
                 objectNode.put("securityCode",securityCode);
             }

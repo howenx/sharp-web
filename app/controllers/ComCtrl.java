@@ -234,4 +234,17 @@ public class ComCtrl extends Controller {
         return builder;
 
     }
+
+    /***
+     * 获取token
+     * @param ctx
+     * @return
+     */
+    public  String getUserToken(Http.Context ctx){
+        Optional<Http.Cookie> user_token = Optional.ofNullable(ctx.request().cookies().get("user_token"));
+        if (user_token.isPresent()){
+            return user_token.get().value();
+        }
+        return "";
+    }
 }
