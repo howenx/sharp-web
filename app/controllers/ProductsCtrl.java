@@ -53,7 +53,8 @@ public class ProductsCtrl extends Controller {
 
     public F.Promise<Result> index(){
         F.Promise<JsonNode> promise = F.Promise.promise(() -> {
-            Request request = getBuilder(request(), session())
+            Request request = comCtrl.getBuilder(ctx())
+                    //getBuilder(request(), session())
                     .url(INDEX_PAGE + "1")
                     .build();
             client.setConnectTimeout(15, TimeUnit.SECONDS);
