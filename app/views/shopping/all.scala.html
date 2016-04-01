@@ -87,15 +87,13 @@
                             </a>
                             @for(sku<-order.getSku()){
                             <a href="@sku.getInvUrl()" class="commodity clearfix">
-                                <div class="clearfix">
-                                    <div class="photo-img">
-                                        <img src="@sku.getInvImg()" alt=""/>
-                                    </div>
-
-                                    <h2>@sku.getSkuTitle()</h2>
-
-                                    <div class="size"><span>@sku.getItemColor()</span><span>@sku.getItemSize()</span></div>
+                                <div class="photo-img">
+                                    <img src="@sku.getInvImg()" alt=""/>
                                 </div>
+
+                                <h2>@sku.getSkuTitle()</h2>
+
+                                <div class="size"><span>@sku.getItemColor()</span><span>@sku.getItemSize()</span></div>
 
                                 <span class="commodity-rmb clearfix"><i class="rmb">￥@sku.getPrice()</i><i class="number"> ×@sku.getAmount()</i></span>
 
@@ -143,13 +141,13 @@
                                         </div>
                                     </a>
                                     @for(sku<-order.getSku()){
-                                    <a href="@sku.getInvUrl()" class="commodity">
+                                    <a href="@sku.getInvUrl()" class="commodity clearfix">
                                         <div class="photo-img">
                                             <img src="@sku.getInvImg()" alt=""/>
                                         </div>
                                         <h2>@sku.getSkuTitle()</h2>
                                         <div class="size"><span>@sku.getItemColor()</span><span>@sku.getItemSize()</span></div>
-                                        <span class="commodity-rmb"><i class="rmb">￥@sku.getPrice()</i><i class="number">数量: @sku.getAmount()</i></span>
+                                        <span class="commodity-rmb"><i class="rmb">￥@sku.getPrice()</i><i class="number">x@sku.getAmount()</i></span>
 
                                     </a>
                                     }
@@ -186,13 +184,13 @@
                                         </div>
                                     </a>
                                     @for(sku<-order.getSku()){
-                                    <a href="@sku.getInvUrl()" class="commodity">
+                                    <a href="@sku.getInvUrl()" class="commodity clearfix">
                                         <div class="photo-img">
                                             <img src="@sku.getInvImg()" alt=""/>
                                         </div>
                                         <h2>@sku.getSkuTitle()</h2>
                                         <div class="size"><span>@sku.getItemColor()</span><span>@sku.getItemSize()</span></div>
-                                        <span class="commodity-rmb"><i class="rmb">￥@sku.getPrice()</i><i class="number">数量: @sku.getAmount()</i></span>
+                                        <span class="commodity-rmb"><i class="rmb">￥@sku.getPrice()</i><i class="number">x@sku.getAmount()</i></span>
 
                                     </a>
                                     }

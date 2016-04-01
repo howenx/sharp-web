@@ -9,8 +9,12 @@
     <meta name="format-detection"content="telephone=no, email=no" />
     <link rel="stylesheet" href="/assets/stylesheets/global.css"/>
     <link rel="stylesheet" href="/assets/stylesheets/service.css"/>
+    <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
     <script src="/assets/javascripts/my.js"></script>
+    <style>
+        .pre-img{width:100px;height:100px;}
+    </style>
 </head>
 <body>
 
@@ -60,12 +64,17 @@
 
 
     <div class="detail-box clearfix">
-        <p>上传图片</p>
         <div class="detail-m clearfix">
+            <div id="gallery" style="display:inline-block;">
+                <!--<div>-->
+                    <!--<img class="pre-img" src="">-->
+                    <!--&lt;!&ndash;<img class="pre-img" src="http://img.hanmimei.com/users/photo/20160401/14594869510021.jpg">&ndash;&gt;-->
+                <!--</div>-->
+            </div>
             <span class="picture"><input type="file" class="face"></span>
         </div>
         <p class="p-last">您最多上传3张</p>
-
+        <p>上传图片</p>
     </div>
 
     <div class="next btn">下一步</div>

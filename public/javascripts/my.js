@@ -68,10 +68,10 @@ $(document).on("click",".addAddressBtn",function(){
                                     tip(data.message.message);
                                 }
                             }else{
-                                if(data.message.code==200) {
+                                if(data.code==200) {
                                      setTimeout("location.href='/address/"+Number(selId)+"'", 1000);
                                 }else{
-                                    tip(data.message.message);
+                                    tip(data.message);
                                 }
                             }
                         }
@@ -318,6 +318,39 @@ $(document).on("click", "#add", function() {
         $(".num").html(num+1);
     }
 });
+
+//上传图片
+$(document).on('change','.face',function() {
+    var file = $(this);
+    file.after(file.clone().val(""));
+    file.remove();
+    var files = this.files;
+    previewImage(this.files[0]);
+});
+
+function previewImage(file) {
+    var imageType = /image.*/;
+    if (!file.type.match(imageType)) {
+        throw "File Type must be an image";
+    }
+    var gallery = document.getElementById("gallery");
+    var div = document.createElement("div");
+    var img = document.createElement("img");
+    img.classList.add('pre-img');
+    div.appendChild(img);
+    gallery.appendChild(div);
+    gallery.appendChild(div);
+
+    //upload(file);
+    // Using FileReader to display the image content
+    var reader = new FileReader();
+    reader.onload = (function(aImg) {
+        return function(e) {
+            aImg.src = e.target.result;
+        }
+    })(img);
+    reader.readAsDataURL(file);
+}
 
 //申请售后下一步
 $(document).on("click", ".next", function() {

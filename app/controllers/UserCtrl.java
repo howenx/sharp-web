@@ -1067,7 +1067,8 @@ public class UserCtrl extends Controller {
                 url = PIN_ACTIVITY + activityId;
             }
             // Request.Builder builder = (Request.Builder) ctx().args.get("request");
-            Request.Builder builder = comCtrl.getBuilder(request(), session());
+          //  Request.Builder builder = comCtrl.getBuilder(request(), session());
+            Request.Builder builder = comCtrl.getBuilder(ctx());
             Request request = builder.url(url).get().build();
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
@@ -1076,7 +1077,7 @@ public class UserCtrl extends Controller {
         });
         return promiseOfInt.map((play.libs.F.Function<JsonNode, Result>) json -> {
 
-            Logger.info("===json==" + json);
+         //   Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回数据错误code=" + json);

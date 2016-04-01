@@ -28,6 +28,41 @@ $(function() {
         $('.con').show();
     })
 
+    $(".mabuy").click(function () {
+        // if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
+        //     var loadDateTime = new Date();
+        //     window.setTimeout(function() {
+        //             var timeOutDateTime = new Date();
+        //         console.log(timeOutDateTime - loadDateTime);
+        //             if (timeOutDateTime - loadDateTime < 5000) {
+        //                 // window.location = "https://www.baidu.com/";
+        //                 document.getElementById('settleForm').submit();
+        //             }
+        //         },
+        //         1000);
+        //     window.location = "https://24114.com/";
+        // } else if (navigator.userAgent.match(/android/i)) {
+        //     var state = null;
+        //     var url= window.location.href;
+        //     state = window.open("app://hanmimei/"+window.urlParam);
+        //     window.close();
+        //     document.getElementById('settleForm').submit()
+        // }
+            // 通过iframe的方式试图打开APP，如果能正常打开，会直接切换到APP，并自动阻止a标签的默认行为
+            // 否则打开a标签的href链接
+        if (navigator.userAgent.match(/MicroMessenger/i)) {
+            return;
+        }else{
+            var ifr = document.createElement('iframe');
+            ifr.src = 'hmmapp://data/'+window.urlParam;
+            ifr.style.display = 'none';
+            document.body.appendChild(ifr);
+            window.setTimeout(function(){
+                document.body.removeChild(ifr);
+            },3000)
+        }
+    })
+
 	$('.classify ul li').click(function(){
 		$(this).addClass('current').siblings().removeClass('current');
 		var index = $(".classify ul li").index($(this));
@@ -275,6 +310,7 @@ $(document).on("click",".cartAdd",function(){
     obj.skuTypeId=skuTypeId;
     obj.state="I";
     obj.amount=1;
+    obj.url=window.location.href;
     $.ajax({
         type: 'POST',
         url: "/cart/add",
@@ -282,13 +318,17 @@ $(document).on("click",".cartAdd",function(){
         data : JSON.stringify(obj),
         dataType: 'json',
         error : function(request) {
-            tip("加入购物车失败");
+            console.log("request.responseText="+request.responseText);
+            tip("加入购物车失败,请检测是否已登录");
          },
         success: function(data) {
             console.log("data="+data);
             if (data!=""&&data!=null){
                 if(data.code==200) { //成功
                     addCartEffect(); //加入购物车特效
+                }else if(null!=data.message&&null!=data.message.code&&data.message.code==5006) { //您还未登录,请先登录
+                     setTimeout("location.href='/login?state="+data.state+"'", 2000);
+
                 }else{
                      tip(data.message);
                 }

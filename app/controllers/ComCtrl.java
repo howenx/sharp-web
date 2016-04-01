@@ -23,6 +23,7 @@ import javax.inject.Inject;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Map;
+import java.util.Optional;
 import java.util.TreeMap;
 import java.util.UUID;
 
@@ -86,19 +87,16 @@ public class ComCtrl extends Controller {
 //       return oldUrl;
     }
 
-    @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> getReqReturnMsg(String url) {
         return sendReq(url, null);
 
     }
 
-    @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> postReqReturnMsg(String url, RequestBody requestBody) {
         return sendReq(url, requestBody);
 
     }
 
-    @Security.Authenticated(UserAuth.class)
     private F.Promise<Result> sendReq(String url, RequestBody requestBody) {
         F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
@@ -202,15 +200,48 @@ public class ComCtrl extends Controller {
 
     }
 
-    public Request.Builder getBuilder(Http.Request request, Http.Session session) {
+//    public Request.Builder getBuilder(Http.Request request, Http.Session session) {
+//        Request.Builder builder = new Request.Builder();
+//        builder.addHeader(Http.HeaderNames.X_FORWARDED_FOR, request.remoteAddress());
+//        builder.addHeader(Http.HeaderNames.VIA, request.remoteAddress());
+//        builder.addHeader("User-Agent", request.getHeader("User-Agent"));
+//        if (session.containsKey("id-token")) {
+//            builder.addHeader("id-token", session.get("id-token"));
+//        }
+//        return builder;
+//    }
+
+    /**
+     * 未登录或者登录两种情况下
+     * @param ctx
+     * @return
+     */
+    public Request.Builder getBuilder(Http.Context ctx) {
 
         Request.Builder builder = new Request.Builder();
-        builder.addHeader(Http.HeaderNames.X_FORWARDED_FOR, request.remoteAddress());
-        builder.addHeader(Http.HeaderNames.VIA, request.remoteAddress());
-        builder.addHeader("User-Agent", request.getHeader("User-Agent"));
-        if (session.containsKey("id-token")) {
-            builder.addHeader("id-token", session.get("id-token"));
+        builder.addHeader(Http.HeaderNames.X_FORWARDED_FOR, ctx.request().remoteAddress());
+        builder.addHeader(Http.HeaderNames.VIA, ctx.request().remoteAddress());
+        builder.addHeader("User-Agent", ctx.request().getHeader("User-Agent"));
+
+        Optional<Http.Cookie> user_token = Optional.ofNullable(ctx.request().cookies().get("user_token"));
+        Optional<Http.Cookie> session_id = Optional.ofNullable(ctx.request().cookies().get("session_id"));
+        if (user_token.isPresent() && session_id.isPresent()) {
+            builder.addHeader("id-token", user_token.get().value());
         }
         return builder;
+
+    }
+
+    /***
+     * 获取token
+     * @param ctx
+     * @return
+     */
+    public  String getUserToken(Http.Context ctx){
+        Optional<Http.Cookie> user_token = Optional.ofNullable(ctx.request().cookies().get("user_token"));
+        if (user_token.isPresent()){
+            return user_token.get().value();
+        }
+        return "";
     }
 }
