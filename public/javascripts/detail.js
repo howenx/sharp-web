@@ -11,6 +11,32 @@ $(function() {
         $('.con').show();
     })
 
+    $(".mabuy").click(function () {
+        if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
+            var loadDateTime = new Date();
+            window.setTimeout(function() {
+                    var timeOutDateTime = new Date();
+                console.log(timeOutDateTime - loadDateTime);
+                    if (timeOutDateTime - loadDateTime < 5000) {
+                        window.location = "https://www.baidu.com/";
+                    }
+                },
+                1000);
+            window.location = "https://www.hao123.com/";
+        } else if (navigator.userAgent.match(/android/i)) {
+            var state = null;
+            try {
+                var url= window.location.href;
+                state = window.open("app://hanmimei/"+url);
+            } catch(e) {}
+            if (state) {
+                window.close();
+            } else {
+                window.location = "https://www.baidu.com/";
+            }
+        }
+    })
+
 	$('.classify ul li').click(function(){
 		$(this).addClass('current').siblings().removeClass('current');
 		var index = $(".classify ul li").index($(this));
