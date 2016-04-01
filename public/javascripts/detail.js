@@ -1,4 +1,22 @@
 $(function() {
+      var urlParam = window.urlParam;
+
+//    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+//    if( userAgent.match( /iPad/i ) || userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) )
+//        {
+//          //    //ios APP
+//          //    setTimeout(function () { window.location = ""; }, 25);
+//          alert("ios");
+//
+//        }
+//        else if( userAgent.match( /Android/i ) )
+//        {
+//          //    //Android APP
+//          //    setTimeout(function () { window.location = ""; }, 25);
+//          alert("android");
+//        }
+//    }
+
     $('.soldOut').click(function(){
         $('.hd-js').show();
 
