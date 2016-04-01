@@ -81,18 +81,24 @@
         <div class="txt">
             <p>支付开团并邀请2人参团,人数不足自动退款,详见下方拼团玩法</p>
             <div class="diamond">
-                @if(pinInvDetail.isSoldOut() == true){
-                <a href="javascript:;">
-                }
                 @if(pinInvDetail.isSoldOut() != true){
-                <a href="/pinTieredPrice/@url">
+                    <a href="/pinTieredPrice/@url">
+                }
+                @if(pinInvDetail.isSoldOut() == true){
+                    <a href="javascript:;" class="soldOut">
                 }
                     <span class="big">@pinInvDetail.getFloorPrice()元/件</span>
                     <span>@pinInvDetail.getFloorPricePersonNum()人成团</span>
-                </a>
-                <a href="javascript:;" onclick="document.getElementById('settleForm').submit();">
-                    <span class="big ed">@pinInvDetail.getInvPrice()元/件</span>
-                    <span>单独购买</span>
+                    </a>
+
+                @if(pinInvDetail.isSoldOut() != true){
+                    <a href="javascript:;" onclick="document.getElementById('settleForm').submit();">
+                }
+                @if(pinInvDetail.isSoldOut() == true){
+                    <a href="javascript:;" class="soldOut" >
+                }
+                <span class="big ed">@pinInvDetail.getInvPrice()元/件</span>
+                <span>单独购买</span>
                 </a>
             </div>
         </div>
@@ -303,14 +309,28 @@
         </div>
 
         <div class="add_cart btns" data-type="cart">
-            <a href="/pinTieredPrice/@url" class="btnCart add_cart_large pin-cart">
-                立即开团
-            </a>
+            @if(pinInvDetail.isSoldOut() != true){
+                <a href="/pinTieredPrice/@url" class="btnCart add_cart_large pin-cart">
+                    立即开团
+                </a>
+            }
+            @if(pinInvDetail.isSoldOut() == true){
+                <a href="javascript:;" class="btnCart add_cart_large pin-cart soldOut">
+                    立即开团
+                </a>
+            }
         </div>
         <div class="buy_btn pin-buy" data-type="buy">
-            <a href="javascript:;" class="" onclick="document.getElementById('settleForm').submit();">
-                单独购买
-            </a>
+            @if(pinInvDetail.isSoldOut() != true){
+                <a href="javascript:;" class="" onclick="document.getElementById('settleForm').submit();">
+                    单独购买
+                </a>
+            }
+            @if(pinInvDetail.isSoldOut() == true){
+                <a href="javascript:;" class="soldOut">
+                    单独购买
+                </a>
+            }
         </div>
 
 
