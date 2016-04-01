@@ -34,6 +34,7 @@ public class UserAuth extends Security.Authenticator {
 
     private String uri;
 
+
     @Override
     public String getUsername(Http.Context ctx) {
         try {
@@ -74,13 +75,14 @@ public class UserAuth extends Security.Authenticator {
 
     private String weixin(Http.Context ctx) throws UnsupportedEncodingException {
 
-        Logger.error("微信用户");
-        String state = UUID.randomUUID().toString().replaceAll("-", "");
-        cache.set(state, 60 * 60, ctx.request().uri());
-
         if (ctx.request().getHeader("User-Agent").contains("MicroMessenger")) {
-            if (ctx.session().get("openId") != null && ctx.session().get("accessToken") != null) {
-                return ws.url(WEIXIN_VERIFY + ctx.session().get("openid")).get().map(wr -> {
+            Logger.error("微信用户");
+
+            Optional<String> openId = Optional.ofNullable(ctx.request().cookie("openId").value());
+            Optional<String> accessToken = Optional.ofNullable(ctx.request().cookie("accessToken").value());
+
+            if (openId.isPresent() && accessToken.isPresent()) {
+                return ws.url(WEIXIN_VERIFY + openId.get()).get().map(wr -> {
                     JsonNode json = wr.asJson();
                     Message message = Json.fromJson(json.get("message"), Message.class);
                     if (null == message) {
@@ -90,7 +92,6 @@ public class UserAuth extends Security.Authenticator {
                     if (message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
                         Logger.error("返回数据code=" + json);
                         //此openId不存在时发起授权请求
-                        this.uri = state;
                         return "state_userinfo";
                     }
 
@@ -101,7 +102,6 @@ public class UserAuth extends Security.Authenticator {
                     cache.set(session_id, expired, token);
                     ctx.response().setCookie("session_id", session_id, expired);
                     ctx.response().setCookie("user_token", token, expired);
-                    this.uri = state;
                     return "success";
                 }).get(10).toString();
             } else return "state_base";
@@ -112,15 +112,14 @@ public class UserAuth extends Security.Authenticator {
     @Override
     public Result onUnauthorized(Http.Context ctx) {
 
-        Logger.error("当前的---->"+ctx.request().uri());
         String state = UUID.randomUUID().toString().replaceAll("-", "");
 
-        if (ctx.request().method().equals("GET")){
-            cache.set(state, 60 * 60, ctx.request().uri());
-        }else cache.set(state, 60 * 60, "/");
-
+        if (ctx.request().method().equals("GET")) {
+            cache.set(uri, 60 * 60, ctx.request().uri());
+        } else cache.set(uri, 60 * 60, "/");
 
         uri = state;
+
         if (getUsername(ctx) != null && getUsername(ctx).equals("state_base")) {
             try {
                 return redirect(SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/base", "UTF-8") + "&response_type=code&scope=snsapi_base&state=" + cache.get(uri).toString() + "#wechat_redirect");
@@ -133,6 +132,8 @@ public class UserAuth extends Security.Authenticator {
             } catch (UnsupportedEncodingException e) {
                 return redirect("/login?state=" + uri);
             }
+        } else if (getUsername(ctx) != null && getUsername(ctx).equals("success")) {
+            return redirect(cache.get(state).toString());
         } else return redirect("/login?state=" + uri);
     }
 }
