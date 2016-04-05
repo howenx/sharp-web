@@ -242,13 +242,15 @@ input[type=radio]:checked::after {
     float: right;
 }
 
-
+.shade{
+    height:100%;
+}
 .shade,.add-shade{
     width: 100%;
     position: fixed;
     top:0;
     left: 0;
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0,0,0,0.5);
     z-index: 20;
     display: none;
 

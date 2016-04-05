@@ -1,5 +1,5 @@
 body{
-    background:#F4F4F4;
+    background:#fff;
 }
 
 /*主体部分*/
@@ -256,25 +256,25 @@ span .number{
 }
 
 .coupon-box li{
-    width:400px;
-    height:140px;
+    width:320px;
+    height:85px;
     color: #fff;
     background: url("/assets/images/youhuiquan_bg.png") no-repeat;
     background-size: contain;
     margin: 10px auto;
-    padding:10px 15px;
+    padding:5px 15px;
 }
 
 .coupon-s li{
-    width:400px;
-    height:140px;
-    background: url("/assets/images/youhuiquan_bg_use.png") no-repeat;
+    width:320px;
+    height:85px;
+    background: url("/assets/images/coupon_shiyong.png") no-repeat;
     background-size: contain;
 }
 .coupon-g li{
-    width:400px;
-    height:140px;
-    background: url("/assets/images/youhuiquan_bg_use.png") no-repeat;
+    width:320px;
+    height:85px;
+    background: url("/assets/images/coupon_guoqi.png") no-repeat;
     background-size: contain;
 }
 
@@ -288,19 +288,17 @@ span .number{
 
 .coupon-box-r{
     float: right;
-    font-size:36px;
-    margin:16px;
+    font-size:24px;
+    margin: 16px 10px 16px 0;
 }
+
 .coupon-m{
-    margin: 5px 0;
-    font-size: 20px;
+    font-size:18px;
 }
 
-.coupon-rmb{
-    text-align: right;
+.coupon-deta{
+    font-size: 14px;
 }
-
-
 
 .coupon-box li img{
     margin:10px auto;
@@ -320,7 +318,7 @@ span .number{
     border: 0;margin: 0;padding: 0;
 }
 .coll ul .con a{
-    margin: 0;border-bottom: none;padding: 15px 8px;height: auto;
+    margin: -1px 0 0 0;padding: 15px 8px;height: auto;
 }
 
 .coll ul .size span{

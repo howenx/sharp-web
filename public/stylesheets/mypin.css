@@ -72,7 +72,7 @@ img{
     height: auto;
 }
 .up .info{
-    width: 70%;font-size: 12px;padding: 8px;
+    width:68%;font-size: 12px;padding: 8px;
 }
 .up .info div{
     height: 36px;
@@ -116,7 +116,10 @@ img{
 }
 
 
-/*detail*/
+/*拼购详情*/
+.detailcon{
+    padding:44px 0 0 0;
+}
 .detailcon .process{
     padding: 20px 40px;border-bottom: 1px solid #ccc;
 }
@@ -128,12 +131,12 @@ img{
     margin-bottom: 10px;
 }
 .detailcon ul>li b{
-    width: 25%;
+    width: 28%;
     padding-left: 5%;float: left;
 }
 .detailcon ul>li span{
     display: inline-block;width: 70%;
-    color: rgb(167,168,168);
+    color:#666;
 }
 .detailcon .good-infos>div{
     padding: 15px 5%;overflow: hidden;
@@ -182,7 +185,7 @@ div.myall:nth-of-type(2){
 }
 
 .p-txt{
-   height:35px;
+   height:34px;
     overflow: hidden;
     -webkit-line-clamp: 2;
     text-overline: ellipsis;
