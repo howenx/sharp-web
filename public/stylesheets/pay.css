@@ -115,12 +115,18 @@
     display: block;
 }
 
-.account-j span,.account-j h2{
-
+.account-j span,.account-j .usable,.account-j h2{
     line-height:50px;
     height: 50px;
     border-bottom: 1px solid #ccc;
 
+}
+
+.usable span{
+    float: left;
+}
+.usable i{
+    float: right;
 }
 .way{
     display: none;
@@ -236,13 +242,15 @@ input[type=radio]:checked::after {
     float: right;
 }
 
-
+.shade{
+    height:100%;
+}
 .shade,.add-shade{
     width: 100%;
     position: fixed;
     top:0;
     left: 0;
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0,0,0,0.5);
     z-index: 20;
     display: none;
 

@@ -208,11 +208,7 @@ h1 {
     padding: 10px;
     -webkit-transform: translate(-50%,0);
     -moz-transform: translate(-50%,0);
-<<<<<<< HEAD
-
-=======
     z-index:999;
->>>>>>> ab928479950199e45a0fd05786d26d88cdcde9f6
 }
 /**灰色*/
 .discolour{
@@ -230,7 +226,7 @@ h1 {
     margin: 0 auto;
 }
 .down{
-    background:#ff5359 ;
+    background:#ff5359;
     text-align: center;
     line-height:35px;
     color: #fff;
@@ -238,6 +234,10 @@ h1 {
     margin:40px 0 0 0;
 }
 
+.down{
+    margin:0 0 0 0;
+    background: none;
+}
 
 
 

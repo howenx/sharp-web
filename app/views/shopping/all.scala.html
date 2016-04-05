@@ -95,13 +95,13 @@
 
                                 <div class="size"><span>@sku.getItemColor()</span><span>@sku.getItemSize()</span></div>
 
-                                <span class="commodity-rmb clearfix"><i class="rmb">￥@sku.getPrice()</i><i class="number"> ×@sku.getAmount()</i></span>
+                                <span class="commodity-rmb clearfix"><i class="rmb">￥@sku.getPrice()</i><i class="number">x@sku.getAmount()</i></span>
 
                             </a>
                             }
                             <div class="payment">
                                 @if(order.getOrder().getOrderStatus()=="I"||order.getOrder().getOrderStatus()=="F"){
-                                    <a href="javascript:;" class="left cancelOrder">取消订单</a>
+                                    <a href="javascript:;" class="left cancelOrder" style="display:none;">取消订单</a>
                                     <a href="javascript:;" class="right bg right-r" onclick="pay('@payUrl','@order.getOrder().getOrderId()','@token','@order.getOrder().getSecurityCode()')">去支付</a>
                                     <a href="javascript:;" class="right mi">应付金额:￥@order.getOrder().getPayTotal()</a>
                                 }
@@ -126,7 +126,7 @@
                     @for(order<-orderList){
                         @if(order.getOrder().getOrderStatus()=="I"||order.getOrder().getOrderStatus()=="F"){
                             <li value="@order.getOrder().getOrderId()">
-                                <div class="con">
+                                <div class="con-stay clearfix">
                                     <a href="/all/@order.getOrder().getOrderId()" class="clearfix">
                                         <div class="day clearfix">
                                             <div class="day-l">
@@ -152,7 +152,7 @@
                                     </a>
                                     }
                                     <div class="payment">
-                                        <a href="javascript:;" class="left cancelOrder">取消订单</a>
+                                        <a href="javascript:;" class="left cancelOrder" style="display:none;">取消订单</a>
                                         <a href="javascript:;" class="right bg right-r"  onclick="pay('@payUrl','@order.getOrder().getOrderId()','@token','@order.getOrder().getSecurityCode()')">去支付</a>
                                         <a href="javascript:;" class="right mi">应付金额:￥@order.getOrder().getPayTotal()</a>
                                     </div>
@@ -169,7 +169,7 @@
                     @for(order<-orderList){
                         @if(order.getOrder().getOrderStatus()=="D"){
                             <li>
-                                <div class="con">
+                                <div class="con-stay clearfix">
                                     <a href="/all/@order.getOrder().getOrderId()" class="clearfix">
                                         <div class="day clearfix">
                                             <div class="day-l">

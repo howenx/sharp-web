@@ -110,7 +110,7 @@ public class ShoppingCtrl extends Controller {
                 String result = dealToString(response);
                 if(result!=null){
                     JsonNode json = Json.parse(result);
-             //       Logger.info("===json==\n" + json);
+                    Logger.info("===json==\n" + json);
                     return json;
                 } else throw new IOException("Unexpected code " + response);
             } else throw new IOException("Unexpected code " + response);
@@ -350,7 +350,7 @@ public class ShoppingCtrl extends Controller {
         final Integer buyNowTemp=buyNow;
         final boolean finalIsPinCheck = isPinCheck;
         return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
-         //   Logger.info("==settle=json==" + json);
+            Logger.info("==settle=json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回商品结算数据错误code=" + json);
@@ -481,7 +481,7 @@ public class ShoppingCtrl extends Controller {
         }
 
         object.put("addressId",Long.valueOf(settleMap.get("addressId")));//地址id
-        object.put("couponId",Long.valueOf(settleMap.get("couponId")));//优惠券id
+        object.put("couponId",settleMap.get("couponId"));//优惠券id
         object.put("clientIp",request().remoteAddress());//客户端ip
         object.put("clientType","3");
         object.put("shipTime",Integer.valueOf(settleMap.get("shipTime"))); //送货日期：1－工作日双休日与假期均可送货 2-只工作日送货 3-只双休日送货

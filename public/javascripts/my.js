@@ -371,6 +371,7 @@ $(document).on("click", ".next", function() {
 
 //申请退款提交
 $(document).on("click", ".box-btn", function() {
+    var orderId = $("#orderId").val();
     var phoneReg = new RegExp(/^1[345678]\d{9}$/);
     if ($("#contactName").val()=="") {
          $("#warn").html("请填写联系人姓名").show()
@@ -382,14 +383,17 @@ $(document).on("click", ".box-btn", function() {
         $("#warn").html("请填写正确的联系方式").show()
         setTimeout(function(){$("#warn").hide();},2000);
     } else {
-//        alert("yes");
         $.ajax({
             type: "POST",
             url: "/order/apply/refund",
-            dataType: 'json',
             data: $('form#cell_refForm').serialize(),
             success: function(data) {
                 console.log(data);
+                if (data.code==200) {
+                    $(".box-btn").html("提交成功");
+                    setTimeout(function(){$('.shade').hide();},2000);
+                    window.location.href = "/all?orderId="+orderId
+                }
             }
 
         });

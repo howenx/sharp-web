@@ -32,7 +32,6 @@
 <form id="settleForm" action="/settle" method="POST">
 <div class="cart-goods" id="cart-goods">
     <div class="hint-hd" id="hint-hd">友情提示 : 同一保税区商品总额有限制</div>
-
     <input type="hidden" name="areaNum" value="@resultVo.getCartList().size()">
     @for((cart,index)<-resultVo.getCartList().zipWithIndex){
     <div class="areaAndSku">
@@ -41,6 +40,8 @@
                 <input type="checkbox" class="areac check" name="check_item" />
             </div>
             <span class="area">@cart.getInvAreaNm()</span>
+
+            <div class="xs postalCss" style="display:none;">行邮税: ￥<span>66.00</span></div>
 
             <input type="hidden" class="postalLimit" value="@cart.getPostalLimit()"/>
             <div id="hiddenArea@index" class="hiddenArea">
@@ -63,7 +64,7 @@
                             </a>
                             <div class="item-con-r">
                                 <div class="cart-product-name">
-                                    <a href="@cartInfo.getInvUrl()" target="_top">
+                                    <a href="@cartInfo.getInvUrl()" target="_top" class="item-con-hd">
                                         <span>@cartInfo.getInvTitle()</span>
                                     </a>
                                 </div>
@@ -82,7 +83,6 @@
                                     <a href="javascript:;" class="quantity-increase">+</a>
                                     <i class="cart-del-btn" onclick="delCart(@cartInfo.getCartId())"></i>
                                 </div>
-                                <input type="hidden" class="restrictAmount" value="@cartInfo.getRestrictAmount"/>
                             </div>
 
                         </div>
@@ -99,6 +99,8 @@
                             <input type="hidden" name="skuPrice@index-@skuIndex" value="@cartInfo.getItemPrice()" disabled="disabled"/>
                         </div>
                     </div>
+                    <input type="hidden" class="restrictAmountCss" value="@cartInfo.getRestrictAmount()"/>
+                    <input type="hidden" class="postalTaxRateCss" value="@cartInfo.getPostalTaxRate()"/>
                 </li>
             }
         </ul>
@@ -121,7 +123,9 @@
             -->
             <div class="footer-l-right">
                 合计:￥<span class="total" id="total">0.00</span>
+                <div class="postage">(不含邮税 , 行邮税)</div>
             </div>
+
         </div>
         <div class="footer-r settleBtn" id="selected">去结算(<span id="selectedTotal">0</span>)</div>
     </div>

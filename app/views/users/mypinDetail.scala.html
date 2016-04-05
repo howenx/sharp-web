@@ -12,18 +12,15 @@
     <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
 </head>
 <body style="background: #fff">
-    <header style="background: rgb(243,244,245)">
 
-        <div>
-            <a href="/mypin">
-                <i style="display:inline-block;transform: scale(1,2);margin-left: 20px">&lt;</i>
-            </a>
-        </div>
-
-        <div>
-            拼购详情
-        </div>
+    <header class="head">
+        <a href="/myView" class="back">
+            <i></i>
+            <b></b>
+        </a>
+        <h1>拼购详情</h1>
     </header>
+
     <div class="detailcon">
         <div class="process">
             @if(order.getOrder().getOrderStatus()=="S"){

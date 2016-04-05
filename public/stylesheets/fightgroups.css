@@ -1,15 +1,15 @@
 body{
-
+    background-color: #fff;
 }
 .wrap{
     padding:50px 0;
-    background-color:#F4F4F4 ;
+    background-color:#fff ;
 }
 .con{
     width:100%;
     background-color:#fff;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ededed;
+    border-bottom: 1px solid #ededed;
     margin:10px 0 10px 0;
 
 
@@ -111,9 +111,8 @@ span .rmb{
     font-size:20px;
 }
 .fight-hd.fight-er span{
-    width:130px;
-    height:100px;
-    margin:10px auto;
+    width:120px;
+    height:90px;
     line-height: 50px;
     background: url("/assets/images/hmm_pingou_fail.png") no-repeat;
     background-size:contain;
@@ -170,6 +169,7 @@ span .rmb{
 
 .fight-timer i{
     float: right;
+    color: #EF2528;
 }
 
 .fight-number{
