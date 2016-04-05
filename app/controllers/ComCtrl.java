@@ -23,6 +23,7 @@ import javax.inject.Inject;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Map;
+import java.util.Optional;
 import java.util.TreeMap;
 import java.util.UUID;
 
@@ -40,7 +41,7 @@ public class ComCtrl extends Controller {
     WSClient ws;
 
     @Inject
-    private MemcachedClient cacheApi;
+    private MemcachedClient cache;
 
     /**
      * 图片json串转图片url
@@ -86,19 +87,16 @@ public class ComCtrl extends Controller {
 //       return oldUrl;
     }
 
-    @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> getReqReturnMsg(String url) {
         return sendReq(url, null);
 
     }
 
-    @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> postReqReturnMsg(String url, RequestBody requestBody) {
         return sendReq(url, requestBody);
 
     }
 
-    @Security.Authenticated(UserAuth.class)
     private F.Promise<Result> sendReq(String url, RequestBody requestBody) {
         F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
@@ -154,10 +152,10 @@ public class ComCtrl extends Controller {
             if (response.findValue("errcode") == null && response.findValue("refresh_token") != null) {
                 F.Promise<Result> t = ws.url(SysParCom.WEIXIN_REFRESH + "appid=" + WEIXIN_APPID + "&grant_type=refresh_token&refresh_token=" + response.findValue("refresh_token")).get().map(wsr -> {
                     JsonNode refreshToken = wsr.asJson();
-                    cacheApi.set(refreshToken.findValue("openid").asText(), refreshToken.findValue("expires_in").asInt(), new WechatVo(refreshToken.findValue("openid").asText(), refreshToken.findValue("access_token").asText()));
-                    ctx().response().setCookie("openId", refreshToken.findValue("openid").asText());
-                    ctx().response().setCookie("accessToken", refreshToken.findValue("access_token").asText());
-                    return redirect("/register?" + state);
+                    cache.set(refreshToken.findValue("openid").asText(), refreshToken.findValue("expires_in").asInt(), new WechatVo(refreshToken.findValue("openid").asText(), refreshToken.findValue("access_token").asText()));
+                    ctx().response().setCookie("openId", refreshToken.findValue("openid").asText(),refreshToken.findValue("expires_in").asInt());
+                    ctx().response().setCookie("accessToken", refreshToken.findValue("access_token").asText(),refreshToken.findValue("expires_in").asInt());
+                    return redirect("/bind?state=" + state);
                 });
                 return t.get(10);
             }
@@ -188,26 +186,62 @@ public class ComCtrl extends Controller {
                 String token = json.findValue("result").findValue("token").asText();
                 Integer expired = json.findValue("result").findValue("expired").asInt();
                 String session_id = UUID.randomUUID().toString().replaceAll("-", "");
-                cacheApi.set(session_id, expired, token);
+                cache.set(session_id, expired, token);
                 response().setCookie("session_id", session_id, expired);
                 response().setCookie("user_token", token, expired);
 
-                return redirect(cacheApi.get(state).toString());
+                String uri = cache.get(state).toString();
+                if (uri==null) uri="/";
+
+                return redirect(uri);
             });
             return t.get(10);
         });
 
     }
 
-    public Request.Builder getBuilder(Http.Request request, Http.Session session) {
+//    public Request.Builder getBuilder(Http.Request request, Http.Session session) {
+//        Request.Builder builder = new Request.Builder();
+//        builder.addHeader(Http.HeaderNames.X_FORWARDED_FOR, request.remoteAddress());
+//        builder.addHeader(Http.HeaderNames.VIA, request.remoteAddress());
+//        builder.addHeader("User-Agent", request.getHeader("User-Agent"));
+//        if (session.containsKey("id-token")) {
+//            builder.addHeader("id-token", session.get("id-token"));
+//        }
+//        return builder;
+//    }
+
+    /**
+     * 未登录或者登录两种情况下
+     * @param ctx
+     * @return
+     */
+    public Request.Builder getBuilder(Http.Context ctx) {
 
         Request.Builder builder = new Request.Builder();
-        builder.addHeader(Http.HeaderNames.X_FORWARDED_FOR, request.remoteAddress());
-        builder.addHeader(Http.HeaderNames.VIA, request.remoteAddress());
-        builder.addHeader("User-Agent", request.getHeader("User-Agent"));
-        if (session.containsKey("id-token")) {
-            builder.addHeader("id-token", session.get("id-token"));
+        builder.addHeader(Http.HeaderNames.X_FORWARDED_FOR, ctx.request().remoteAddress());
+        builder.addHeader(Http.HeaderNames.VIA, ctx.request().remoteAddress());
+        builder.addHeader("User-Agent", ctx.request().getHeader("User-Agent"));
+
+        Optional<Http.Cookie> user_token = Optional.ofNullable(ctx.request().cookies().get("user_token"));
+        Optional<Http.Cookie> session_id = Optional.ofNullable(ctx.request().cookies().get("session_id"));
+        if (user_token.isPresent() && session_id.isPresent()) {
+            builder.addHeader("id-token", user_token.get().value());
         }
         return builder;
+
+    }
+
+    /***
+     * 获取token
+     * @param ctx
+     * @return
+     */
+    public  String getUserToken(Http.Context ctx){
+        Optional<Http.Cookie> user_token = Optional.ofNullable(ctx.request().cookies().get("user_token"));
+        if (user_token.isPresent()){
+            return user_token.get().value();
+        }
+        return "";
     }
 }

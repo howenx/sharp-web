@@ -80,33 +80,31 @@ $(document).on("click",".submitOrder",function(){
 
 //立即开团
 $(document).on("click",".pinSubmitBtn",function(){
-        var tipContent=$("#tip").html().trim();
-        if(""!=tipContent&&tipContent.length>1){
-           tip(tipContent);
-           return ;
-        }
-        $.ajax({
-            type: 'POST',
-            url: "/settle",
-            dataType: 'json',
-            data: $('form#settleForm').serialize(),
-            error : function(request) {
-                tip("立即开团失败");
-            },
-            success: function(data) {
-                console.log("data="+data);
-                if (data!=""&&data!=null){
-                    if(data.code==200) {
-                        $("#isPinCheck").val(0);
-                        $("#settleForm").submit();
-                    }else{
-                         tip(data.message);
-                    }
-                }else{
-                 tip("立即开团失败");
+    if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
+        var loadDateTime = new Date();
+        window.setTimeout(function() {
+                var timeOutDateTime = new Date();
+                console.log(timeOutDateTime - loadDateTime);
+                if (timeOutDateTime - loadDateTime < 5000) {
+                    // window.location = "https://www.baidu.com/";
+                    kaituan();
                 }
-            }
-        });
+            },
+            1000);
+        window.location = "https://24114.com/";
+    } else if (navigator.userAgent.match(/android/i)) {
+        var state = null;
+        try {
+            var url= window.location.href;
+            state = window.open("app://hanmimei/"+window.urlParam);
+        } catch(e) {}
+        if (state) {
+            window.close();
+        } else {
+            kaituan();
+        }
+    }
+
 
 });
 
@@ -118,6 +116,35 @@ function tip(tipContent){
     setTimeout(function(){
     $("#tip").hide();
     },3000);
+}
+function kaituan() {
+    var tipContent=$("#tip").html().trim();
+    if(""!=tipContent&&tipContent.length>1){
+        tip(tipContent);
+        return ;
+    }
+    $.ajax({
+        type: 'POST',
+        url: "/settle",
+        dataType: 'json',
+        data: $('form#settleForm').serialize(),
+        error : function(request) {
+            tip("立即开团失败");
+        },
+        success: function(data) {
+            console.log("data="+data);
+            if (data!=""&&data!=null){
+                if(data.code==200) {
+                    $("#isPinCheck").val(0);
+                    $("#settleForm").submit();
+                }else{
+                    tip(data.message);
+                }
+            }else{
+                tip("立即开团失败");
+            }
+        }
+    });
 }
 
 

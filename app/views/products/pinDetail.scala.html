@@ -11,10 +11,12 @@
     <meta content="telephone=no" name="format-detection">
     <title>详情页 － 韩秘美</title>
     <link rel="stylesheet" href="/assets/stylesheets/detail.css">
+    <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
     <script src="/assets/javascripts/jquery/jquery-1.9.1.min.js"></script>
     <script src="/assets/javascripts/jquery/jquery.cycle2.min.js"></script>
     <script src="/assets/javascripts/jquery/jquery.cycle2.swipe.min.js"></script>
     <script src="/assets/javascripts/detail.js"></script>
+    <script>window.urlParam = "@url"</script>
 
 </head>
 
@@ -81,18 +83,24 @@
         <div class="txt">
             <span class="txt-pay">支付开团并邀请2人参团,人数不足自动退款,详见下方拼团玩法</span>
             <div class="diamond">
-                @if(pinInvDetail.isSoldOut() == true){
-                <a href="javascript:;">
-                }
                 @if(pinInvDetail.isSoldOut() != true){
-                <a href="/pinTieredPrice/@url">
+                    <a href="/pinTieredPrice/@url" class="mabuy">
+                }
+                @if(pinInvDetail.isSoldOut() == true){
+                    <a href="javascript:;" class="soldOut">
                 }
                     <span class="big">@pinInvDetail.getFloorPrice()元/件</span>
                     <span>@pinInvDetail.getFloorPricePersonNum()人成团</span>
-                </a>
-                <a href="javascript:;" onclick="document.getElementById('settleForm').submit();">
-                    <span class="big ed">@pinInvDetail.getInvPrice()元/件</span>
-                    <span>单独购买</span>
+                    </a>
+
+                @if(pinInvDetail.isSoldOut() != true){
+                    <a href="javascript:document.getElementById('settleForm').submit();" class="mabuy">
+                }
+                @if(pinInvDetail.isSoldOut() == true){
+                    <a href="javascript:;" class="soldOut" >
+                }
+                <span class="big ed">@pinInvDetail.getInvPrice()元/件</span>
+                <span>单独购买</span>
                 </a>
             </div>
         </div>
@@ -306,14 +314,28 @@
         </div>
 
         <div class="add_cart btns" data-type="cart">
-            <a href="/pinTieredPrice/@url" class="btnCart add_cart_large pin-cart">
-                立即开团
-            </a>
+            @if(pinInvDetail.isSoldOut() != true){
+                <a href="/pinTieredPrice/@url" class="btnCart add_cart_large pin-cart mabuy">
+                    立即开团
+                </a>
+            }
+            @if(pinInvDetail.isSoldOut() == true){
+                <a href="javascript:;" class="btnCart add_cart_large pin-cart soldOut">
+                    立即开团
+                </a>
+            }
         </div>
         <div class="buy_btn pin-buy" data-type="buy">
-            <a href="javascript:;" class="" onclick="document.getElementById('settleForm').submit();">
-                单独购买
-            </a>
+            @if(pinInvDetail.isSoldOut() != true){
+                <a href="javascript:document.getElementById('settleForm').submit();;" class="mabuy">
+                    单独购买
+                </a>
+            }
+            @if(pinInvDetail.isSoldOut() == true){
+                <a href="javascript:;" class="soldOut">
+                    单独购买
+                </a>
+            }
         </div>
 
 
