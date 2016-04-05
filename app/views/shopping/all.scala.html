@@ -101,7 +101,7 @@
                             }
                             <div class="payment">
                                 @if(order.getOrder().getOrderStatus()=="I"||order.getOrder().getOrderStatus()=="F"){
-                                    <a href="javascript:;" class="left cancelOrder">取消订单</a>
+                                    <a href="javascript:;" class="left cancelOrder" style="display:none;">取消订单</a>
                                     <a href="javascript:;" class="right bg right-r" onclick="pay('@payUrl','@order.getOrder().getOrderId()','@token','@order.getOrder().getSecurityCode()')">去支付</a>
                                     <a href="javascript:;" class="right mi">应付金额:￥@order.getOrder().getPayTotal()</a>
                                 }
@@ -152,7 +152,7 @@
                                     </a>
                                     }
                                     <div class="payment">
-                                        <a href="javascript:;" class="left cancelOrder">取消订单</a>
+                                        <a href="javascript:;" class="left cancelOrder" style="display:none;">取消订单</a>
                                         <a href="javascript:;" class="right bg right-r"  onclick="pay('@payUrl','@order.getOrder().getOrderId()','@token','@order.getOrder().getSecurityCode()')">去支付</a>
                                         <a href="javascript:;" class="right mi">应付金额:￥@order.getOrder().getPayTotal()</a>
                                     </div>

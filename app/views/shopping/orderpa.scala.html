@@ -9,6 +9,7 @@
     <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
     <script src="/assets/javascripts/my.js"></script>
+    <script src="/assets/javascripts/countdown.js"></script>
 
 </head>
 <body>
@@ -28,13 +29,12 @@
 
 <div class="wap">
     @if(orderList.get(0).getOrder().getOrderStatus()=="I"){
-    <div class="time-item">
+    <div class="time-item price" style="text-align:center">
         <input type="hidden" id="countdown" value="@orderList.get(0).getOrder().getCountDown()"/>
-        <span>还剩:</span>
-        <span id="day_show">0天</span>
-        <strong id="hour_show">0时</strong>
-        <strong id="minute_show">0分</strong>
-        <strong id="second_show">0秒</strong>
+        <span id="day_show"></span>
+        <strong id="hour_show">&nbsp;</strong>
+        <strong id="minute_show"></strong>
+        <strong id="second_show"></strong>
     </div>
     }
     <ul>

@@ -83,10 +83,10 @@
     @if(pin.getStatus()=="Y"&&pin.getPersonNum()-pin.getPinUsers().size>0){
         <div class="fight-txt"><p>还差<span class="color">@(pin.getPersonNum()-pin.getPinUsers().size)人</span>,让小伙伴们都来组团吧!</p></div>
         <div class="txt"> <input type="hidden" id="countdown" value="@pin.getEndCountDown()"/>
-            <span id="day_show">0天</span>
-            <strong id="hour_show">0时</strong>
-            <strong id="minute_show">0分</strong>
-            <strong id="second_show">0秒</strong></div>
+            <span id="day_show"></span>
+            <strong id="hour_show">&nbsp;</strong>
+            <strong id="minute_show"></strong>
+            <strong id="second_show"></strong>
     }
     @if(pin.getStatus()=="C"){
         <div class="txt"> 谢谢大侠的鼎力相助</div>
