@@ -13,10 +13,15 @@ $(function(){
             $(this).parents("ul").prev().find("input").val($(this).find("input").val())
             var tempTotal=$("#tempTotal").val();
             var denominationSpan=$(this).find(".quick").find(".denominationSpan").html();
+            var hiddenDiscountFee=$("input[name='hiddenDiscountFee']").val();
+            console.log("==hiddenDiscountFee=="+hiddenDiscountFee)
             if(typeof(denominationSpan)=="undefined"||null==denominationSpan){
                 $("#totalPaySpan").html(tempTotal);
+                $(".discountCss").html("￥"+hiddenDiscountFee);
             }else{
                 $("#totalPaySpan").html(tempTotal-denominationSpan);
+                var fee=parseFloat(denominationSpan)+parseFloat(hiddenDiscountFee);
+                $(".discountCss").html("￥"+fee);
             }
 
         });

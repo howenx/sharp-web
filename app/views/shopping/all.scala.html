@@ -95,7 +95,7 @@
 
                                 <div class="size"><span>@sku.getItemColor()</span><span>@sku.getItemSize()</span></div>
 
-                                <span class="commodity-rmb clearfix"><i class="rmb">￥@sku.getPrice()</i><i class="number"> ×@sku.getAmount()</i></span>
+                                <span class="commodity-rmb clearfix"><i class="rmb">￥@sku.getPrice()</i><i class="number">x@sku.getAmount()</i></span>
 
                             </a>
                             }
@@ -126,7 +126,7 @@
                     @for(order<-orderList){
                         @if(order.getOrder().getOrderStatus()=="I"||order.getOrder().getOrderStatus()=="F"){
                             <li value="@order.getOrder().getOrderId()">
-                                <div class="con">
+                                <div class="con-stay clearfix">
                                     <a href="/all/@order.getOrder().getOrderId()" class="clearfix">
                                         <div class="day clearfix">
                                             <div class="day-l">
@@ -169,7 +169,7 @@
                     @for(order<-orderList){
                         @if(order.getOrder().getOrderStatus()=="D"){
                             <li>
-                                <div class="con">
+                                <div class="con-stay clearfix">
                                     <a href="/all/@order.getOrder().getOrderId()" class="clearfix">
                                         <div class="day clearfix">
                                             <div class="day-l">
