@@ -191,6 +191,10 @@ public class ShoppingCtrl extends Controller {
     }
 
 
+    public Result down() {
+        return ok(views.html.shopping.down.render());
+    }
+
     public Result logistic() {
         return ok(views.html.shopping.logistics.render());
     }

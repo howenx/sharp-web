@@ -259,6 +259,18 @@ span .number{
     padding:10px 15px;
     color: #fff;
 }
+.coupon-s li{
+    width:400px;
+    height:140px;
+    background: url("/assets/images/youhuiquan_bg_use.png") no-repeat;
+    background-size: contain;
+}
+.coupon-g li{
+    width:400px;
+    height:140px;
+    background: url("/assets/images/youhuiquan_bg_use.png") no-repeat;
+    background-size: contain;
+}
 
 .coupon-box li p{
     width: 100%;

@@ -88,9 +88,10 @@ ul li.current{
 }
 
 .choose-b{
-    height: 60px;
-    line-height: 60px;
+    height:40px;
+    line-height:40px;
     color: #fff;
     text-align: center;
     background-color: #E66255;
+    border-radius:5px;
 }

@@ -151,25 +151,19 @@
 			</div>
 		</div>
 
+
 		<!-- 详情图片 -->
-		<div class="conner">
+
+		<div class="sku-measure01">
 			@Html(itemMain.getItemDetailImgs())
 		</div>
 
-		<div class="sku-measure01">
-			<!--<img src="/assets/images/img3.png"/>-->
-			<!--<img src="/assets/images/img4.png"/>-->
-			<!--<img src="/assets/images/img5.png"/>-->
-			<!--<img src="/assets/images/img6.png"/>-->
-			<!--<img src="/assets/images/img7.png"/>-->
-			<!--<img src="/assets/images/img8.png"/>-->
-		</div>
-
+		<!-- 参数 -->
 		<div class='sku-measure'>
 			<div class="parameter-wrap">
 				<p class="dc_tit" id="J_proParam_scroll">商品参数<!--<i class="far">Detail</i>--></p>
 
-				<!-- 参数 -->
+
 				<div class="param-list">
 					<ul>
 						@for(feature <- itemFeaturesList){
@@ -270,6 +264,9 @@
 		</div>
 		<!--加入购物车-->
 		<div class="buy_box">
+			<div class="finish-box">
+				该商品已下架
+			</div>
 			<div class="love">
 				<div id="shopCart">
 					<a href="/cart" class="message_list shopping">
