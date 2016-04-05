@@ -25,7 +25,7 @@
     <h1>优惠券</h1>
 </header>
 
-<div class="wrap coupon-body">
+<div class="wrap coupon-body scope">
     <div class="nav-tab">
         <div class="nav-tab-top coupon">
             <ul>
@@ -45,12 +45,14 @@
                     @for(coupon<-couponList){
                         @if(coupon.getState()=="N"){
                             <li>
-                                <div class="coupon-box-l">
-                                    <p class="coupon-hd">@coupon.getCateNm()</p>
-                                    <p class="coupon-m">满@coupon.getLimitQuota()可用</p>
-                                    <p class="coupon-deta">有效期至 <span >@coupon.getEndAt()</span></p>
-                                </div>
-                                <div class="coupon-box-r"><i class="coupon-rmb">￥@coupon.getDenomination()</i></div>
+
+
+                                    <div class="coupon-box-l">
+                                        <p class="coupon-hd">@coupon.getCateNm()</p>
+                                        <p class="coupon-m">满@coupon.getLimitQuota()可用</p>
+                                        <p class="coupon-deta">有效期至 <span >@coupon.getEndAt()</span></p>
+                                    </div>
+                                    <div class="coupon-box-r"><i class="coupon-rmb">￥@coupon.getDenomination()</i></div>
 
                             </li>
                         }

@@ -11,7 +11,14 @@
 	   position: absolute;
 	   top:50%;
 	   left: 50%;
+	   width: 100px;
+	   -webkit-transform: translate(-50%,0);
+	   -moz-transform: translate(-50%,0);
    }
+   #loading img{
+	   width: 100%;
+   }
+
 </style>
 <script>
 	$(function(){
@@ -25,7 +32,7 @@
 
 @layout(title="韩秘美,专卖韩国正品")(scripts) {
 <div id="loading">
-	<img src="/assets/images/loader_ico.gif"/>
+	<img src="/assets/images/loading.gif"/>
 </div>
 
 <!--头部-->

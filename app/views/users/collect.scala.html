@@ -45,11 +45,12 @@
 
                         <h2>@collect.getCartSkuDto().getSkuTitle()</h2>
                         <div class="size"><span>@collect.getCartSkuDto().getItemColor()</span><span>@collect.getCartSkuDto().getItemSize()</span></div>
-                        <span class="commodity-rmb">
+                        <span class="commodity-rmb clearfix">
                              <span>
                                  @if(collect.getSkuType=="pin"){最低至}
                                  @if(collect.getSkuType!="pin"){单价}
-                                : </span>
+                                :
+                             </span>
 
                             <i class="rmb color">￥@collect.getCartSkuDto().getPrice()</i>
                             <i class="cancelColl">取消收藏</i>

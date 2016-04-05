@@ -230,7 +230,7 @@ h1 {
     margin: 0 auto;
 }
 .down{
-    background:#ff5359 ;
+    background:#ff5359;
     text-align: center;
     line-height:35px;
     color: #fff;
@@ -238,6 +238,10 @@ h1 {
     margin:40px 0 0 0;
 }
 
+.down{
+    margin:0 0 0 0;
+    background: none;
+}
 
 
 

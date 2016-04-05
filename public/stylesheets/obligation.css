@@ -88,14 +88,13 @@ h2{
 
 .commodity .commodity-rmb{
     display: block;
-    margin: 10px 0 0 0;
+    margin:8px 0 0 0;
 }
 
 
 span .rmb{
     float: left;
-    font-size:18px;
-    color: #666;
+    color:#EF2528;
 }
 
 span .number{
@@ -116,14 +115,13 @@ span .number{
     height:100%;
 }
 .commodity h2{
-    font-size: 16px;
+    font-size: 14px;
     height: 40px;
     overflow: hidden;
     -webkit-line-clamp: 2;
     display: -webkit-box;
     word-break: break-all;
     -webkit-box-orient: vertical;
-    margin: 0 0 5px 0;
     color: #666;
 }
 
@@ -232,16 +230,23 @@ span .number{
     display: block;
 }
 
+
+
+
+
 /*全部订单页面 all*/
 .box li{
      width:33%;
 }
 
+
+
+
+
 /*优惠券页面 coupon*/
 
 .coupon-body{
     background-color: #fff;
-    height:1000px;
 }
 .coupon li{
     width:33.3%;
@@ -253,12 +258,13 @@ span .number{
 .coupon-box li{
     width:400px;
     height:140px;
+    color: #fff;
     background: url("/assets/images/youhuiquan_bg.png") no-repeat;
     background-size: contain;
     margin: 10px auto;
     padding:10px 15px;
-    color: #fff;
 }
+
 .coupon-s li{
     width:400px;
     height:140px;
@@ -316,22 +322,25 @@ span .number{
 .coll ul .con a{
     margin: 0;border-bottom: none;padding: 15px 8px;height: auto;
 }
-.coll ul .size,.coll ul .commodity-rmb{
-    margin: 12px 0;
-}
+
 .coll ul .size span{
     padding-right: 10px;
-    font-size: 16px;
+    font-size: 12px;
 }
 .coll ul .commodity-rmb span{
-    float: left;font-size: 20px;
+    float: left;
 }
 .coll .cancelColl{
     float: right;
     padding: 3px 6px;
+    color: #ccc;
+    font-size: 12px;
 }
 .coll .pin{
-    position: relative;
+    float: left;
+    width: 80px;
+    height: 80px;
+    margin: 0 5px 0 0;
 }
 .coll .pin .pinicon{
     position: absolute;left: 0;top: 0;
