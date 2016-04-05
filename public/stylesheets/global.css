@@ -208,12 +208,31 @@ h1 {
     padding: 10px;
     -webkit-transform: translate(-50%,0);
     -moz-transform: translate(-50%,0);
+
 }
 /**灰色*/
 .discolour{
     background-color: #969696;
 }
 
+
+/*下载页面*/
+.conner{
+    padding:50px 2%;
+    background-size:30px;
+}
+
+.conner img{
+    margin: 0 auto;
+}
+.down{
+    background:#ff5359 ;
+    text-align: center;
+    line-height:35px;
+    color: #fff;
+    border-radius:5px;
+    margin:40px 0 0 0;
+}
 
 
 
