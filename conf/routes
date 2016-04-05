@@ -70,30 +70,6 @@ GET         /pinTieredPrice/*url                                               c
 
 
 #购物车,结算,订单,拼购相关
-<<<<<<< HEAD
-GET         /all                                      controllers.ShoppingCtrl.all(orderId: Long ?= 0L)
-GET         /all/$orderId<[0-9]+>                     controllers.ShoppingCtrl.all(orderId: Long)
-GET         /appraise                                 controllers.ShoppingCtrl.appraise()
-GET         /assess                                   controllers.ShoppingCtrl.assess()
-GET         /delivered                                controllers.ShoppingCtrl.delivered()
-GET         /drawback                                 controllers.ShoppingCtrl.drawback()
-GET         /logistic                                 controllers.ShoppingCtrl.logistic()
-GET         /obligati                                 controllers.ShoppingCtrl.obligati()
-GET         /orders                                   controllers.ShoppingCtrl.orders()
-POST        /settle                                   controllers.ShoppingCtrl.settle()
-GET         /cart                                     controllers.ShoppingCtrl.cart()
-GET         /cart/empty                               controllers.ShoppingCtrl.emptyCart()
-GET         /order/cancel/$orderId<[0-9]+>            controllers.ShoppingCtrl.cancelOrder(orderId:Long)
-GET         /order/del/$orderId<[0-9]+>               controllers.ShoppingCtrl.delOrder(orderId:Long)
-GET         /order/verify/$orderId<[0-9]+>            controllers.ShoppingCtrl.verifyOrder(orderId:Long)
-POST        /order/submit                             controllers.ShoppingCtrl.submitOrder()
-GET         /down                                     controllers.ShoppingCtrl.down()
-
-
-POST        /cart/add                                 controllers.ShoppingCtrl.cartAdd()
-GET         /cart/del/$cartId<[0-9]+>                 controllers.ShoppingCtrl.cartDel(cartId:Long)
-GET         /cart/amount                              controllers.ShoppingCtrl.cartAmount()
-=======
 GET         /all                                                               controllers.ShoppingCtrl.all(orderId: Long ?= 0L)
 GET         /all/$orderId<[0-9]+>                                              controllers.ShoppingCtrl.all(orderId: Long)
 GET         /appraise                                                          controllers.ShoppingCtrl.appraise()
@@ -116,7 +92,6 @@ POST        /order/submit                                                      c
 POST        /cart/add                                                          controllers.ShoppingCtrl.cartAdd()
 GET         /cart/del/$cartId<[0-9]+>                                          controllers.ShoppingCtrl.cartDel(cartId:Long)
 GET         /cart/amount                                                       controllers.ShoppingCtrl.cartAmount()
->>>>>>> ab928479950199e45a0fd05786d26d88cdcde9f6
 #
 
 
