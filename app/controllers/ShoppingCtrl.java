@@ -110,7 +110,7 @@ public class ShoppingCtrl extends Controller {
                 String result = dealToString(response);
                 if(result!=null){
                     JsonNode json = Json.parse(result);
-             //       Logger.info("===json==\n" + json);
+                    Logger.info("===json==\n" + json);
                     return json;
                 } else throw new IOException("Unexpected code " + response);
             } else throw new IOException("Unexpected code " + response);

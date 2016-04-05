@@ -7,7 +7,7 @@ $(function(){
         var aa = parseInt(t.val()) + 1;
 
         var li=$(this).parents("li");
-        var restrictAmount=li.find(".restrictAmount").val();
+        var restrictAmount=li.find(".restrictAmountCss").val();
         if(aa>restrictAmount){
             tip("本商品限制购买"+restrictAmount+"件");
             return;
@@ -235,6 +235,24 @@ $(function(){
         });
         $("#selectedTotal").html(v);
         /*计算购物车的数量*/
+
+        //计算行邮税
+         $(".areaAndSku").each(function(){
+            var fee =0.00;
+            var ckeckedSku=$(this).find("ul").find("input[type=checkbox]:checked");
+             ckeckedSku.each(function(){
+                var ts = $(this).parents("li").find(".subtotal").html();//小计
+                var ptr = $(this).parents("li").find(".postalTaxRateCss").val();
+                fee+=parseFloat(ts)*parseFloat(ptr)/100;
+             });
+             if(fee>0){
+                $(this).find(".postalCss span").html(fee.toFixed(2));
+                $(this).find(".postalCss").show();
+             }else{
+                $(this).find(".postalCss").hide();
+             }
+
+         });
 
     }
 
