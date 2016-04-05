@@ -208,11 +208,7 @@ h1 {
     padding: 10px;
     -webkit-transform: translate(-50%,0);
     -moz-transform: translate(-50%,0);
-<<<<<<< HEAD
-
-=======
     z-index:999;
->>>>>>> ab928479950199e45a0fd05786d26d88cdcde9f6
 }
 /**灰色*/
 .discolour{

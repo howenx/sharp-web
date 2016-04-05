@@ -14,8 +14,6 @@ import modules.ComTools;
 import net.spy.memcached.MemcachedClient;
 import play.Logger;
 import play.api.libs.Codecs;
-import play.api.mvc.Cookie;
-import play.cache.Cache;
 import play.data.Form;
 import play.libs.F;
 import play.libs.F.Function;
@@ -32,10 +30,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -263,7 +258,11 @@ public class UserCtrl extends Controller {
         return ok(views.html.users.carded.render());
     }
 
-    //优惠券
+    /**
+     * 优惠券
+     *
+     * @return
+     */
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> coupon() {
         Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
@@ -323,10 +322,8 @@ public class UserCtrl extends Controller {
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
             Request request = builder.url(USER_INFO).get().build();
             Response response = client.newCall(request).execute();
-            Logger.error("3r24" + response.toString());
             if (response.isSuccessful()) {
                 return Json.parse(new String(response.body().bytes(), UTF_8));
-
             } else throw new IOException("Unexpected code " + response);
         });
 
@@ -391,11 +388,6 @@ public class UserCtrl extends Controller {
             //path = session().get("path");
             session().replace("path", routes.UserCtrl.setting().url());
         } else session().put("path", routes.UserCtrl.setting().url());
-
-//        Request.Builder builder = (Request.Builder) ctx().args.get("request");
-//        Logger.error("session token----> " + session().get("id-token"));
-//        Logger.error("Cache user----> " + cache.get(session().get("id-token")));
-//        Logger.error(request().cookie("user_token").value());
 
         return ok(views.html.users.setting.render(path));
     }
@@ -1184,27 +1176,33 @@ public class UserCtrl extends Controller {
      */
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> refundApply() {
-        ObjectNode result = Json.newObject();
-//        Form<RefundInfo> refundForm = Form.form(RefundInfo.class).bindFromRequest();
-//
-////        Http.MultipartFormData body = request().body().asMultipartFormData();
-////        Logger.info("==request().body()==="+body);
-////        Map<String, String[]> stringMap = body.asFormUrlEncoded();
-////        Map<String, String> map = new HashMap<>();
-////        stringMap.forEach((k, v) -> map.put(k, v[0]));
-////        Optional<JsonNode> json = Optional.ofNullable(Json.toJson(map));
-////        Logger.info("==json=="+json);
-
-        Form<RefundInfo> refundForm = Form.form(RefundInfo.class).bindFromRequest();
-        Map<String, String> refundMap = refundForm.data();
-        Logger.error("map:" + refundMap.toString());
-        if (refundForm.hasErrors()) {
+        ObjectNode result = newObject();
+        Form<RefundInfo> refundInfoForm = Form.form(RefundInfo.class).bindFromRequest();
+        Map<String, String> map = refundInfoForm.data();
+        Logger.error("map:"+map.toString());
+        if (refundInfoForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
         } else {
-            RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, refundMap.toString());
-            return comCtrl.postReqReturnMsg(ORDER_REFUND, formBody);
+            Promise<JsonNode> promiseOfInt;
+            promiseOfInt = Promise.promise(() -> {
+                RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, map.toString());
+                Request.Builder builder = (Request.Builder) ctx().args.get("request");
+                Request request = builder.url(ORDER_REFUND).post(formBody).build();
+                Response response = client.newCall(request).execute();
+                Logger.error("响应:"+response.toString());
+                if (response.isSuccessful()) {
+                    return Json.parse(new String(response.body().bytes(), UTF_8));
+                } else throw new IOException("Unexpected code" + response);
+            });
+
+            return promiseOfInt.map((Function<JsonNode, Result>) json -> {
+                Message message = Json.fromJson(json.findValue("message"), Message.class);
+                Logger.error(json.toString()+"-----"+message.toString());
+                return ok(Json.toJson(message));
+            });
         }
+
     }
 
 }

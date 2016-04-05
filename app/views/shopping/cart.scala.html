@@ -41,7 +41,7 @@
             </div>
             <span class="area">@cart.getInvAreaNm()</span>
 
-            <div class="xs">行邮税: <span>￥66.00</span></div>
+            <div class="xs postalCss" style="display:none;">行邮税: ￥<span>66.00</span></div>
 
             <input type="hidden" class="postalLimit" value="@cart.getPostalLimit()"/>
             <div id="hiddenArea@index" class="hiddenArea">
@@ -83,7 +83,6 @@
                                     <a href="javascript:;" class="quantity-increase">+</a>
                                     <i class="cart-del-btn" onclick="delCart(@cartInfo.getCartId())"></i>
                                 </div>
-                                <input type="hidden" class="restrictAmount" value="@cartInfo.getRestrictAmount"/>
                             </div>
 
                         </div>
@@ -100,6 +99,8 @@
                             <input type="hidden" name="skuPrice@index-@skuIndex" value="@cartInfo.getItemPrice()" disabled="disabled"/>
                         </div>
                     </div>
+                    <input type="hidden" class="restrictAmountCss" value="@cartInfo.getRestrictAmount()"/>
+                    <input type="hidden" class="postalTaxRateCss" value="@cartInfo.getPostalTaxRate()"/>
                 </li>
             }
         </ul>
