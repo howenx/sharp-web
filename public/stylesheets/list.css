@@ -651,6 +651,10 @@ h1 .logo {
     margin-bottom: 10px;
     overflow: hidden;
     font-size: 14px;
+    -webkit-line-clamp:2;
+    text-overline:ellipsis;
+    -webkit-box-orient:vertical;
+    display: -webkit-box
 }
 
 .product-box{
@@ -870,7 +874,18 @@ h2 span{
     position: absolute;
 }
 
-
+.figure span {
+    display: block;
+    width: 100%;
+    position: absolute;
+    top:25%;
+    color: #fff;
+    height: 40px;
+    background-color: rgba(0,0,0,0.4);
+    font-size: 14px;
+    text-align: center;
+    line-height: 40px;
+}
 
 
 

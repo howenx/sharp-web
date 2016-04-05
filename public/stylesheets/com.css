@@ -133,8 +133,6 @@
     left: 0;
     bottom: 0;
     color: white;
-    line-height: 44px;
-    overflow: hidden;
 }
 .footer-l{
     width: 68%;
@@ -161,9 +159,9 @@
     vertical-align: middle;
 }
 .footer-l-right{
-    float: right;
-    margin-right: 15px;
-    color: #ff5359;
+   text-align: center;
+    color:#EF2528;
+    padding: 2px 0 0 0;
 }
 .footer-r{
     width: 32%;
@@ -172,6 +170,12 @@
     float: left;
     text-align: center;
     cursor: pointer;
+    line-height: 44px;
+}
+
+.postage{
+    color: #666;
+    font-size: 12px;
 }
 .discolour{
     background-color: #969696;

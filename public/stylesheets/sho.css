@@ -68,7 +68,7 @@ input:password {
     margin: 22px 0 0 0;
 }
 .cart-goods-area .check-wrapper{
-    left: 20px;
+    left: 10px;
 }
 .cart-goods-list{
     overflow: hidden;
@@ -80,7 +80,7 @@ input:password {
     background-color: white;
 }
 .item{
-    padding: 10px 20px;
+    padding: 10px 10px;
     margin-left: 20px;
     position: relative;
 }
@@ -89,14 +89,25 @@ input:password {
     width: 22px;
     position: absolute;
     top: 50%;
-    left:-2px;/*这里修改了*/
+    left:-10px;/*这里修改了*/
     margin-top: -10px;
 }
+
+.item-con-hd{
+    height: 46px;
+    display: block;
+    overflow: hidden;
+    -webkit-line-clamp:2;
+    text-overline:ellipsis;
+    -webkit-box-orient:vertical;
+    display: -webkit-box
+}
+
 /*.area*/
 .area{
     position: absolute;
     top: 50%;
-    left:50px;
+    left:35px;
     margin-top: -10px;
     color: #333;
 }
@@ -143,7 +154,7 @@ input:password {
 }
 .cart-product-price-l{
     float: left;
-    color: #ff5359;
+    color: #EF2528;
 }
 .spec{
     color: #9FA0A0;
@@ -151,7 +162,7 @@ input:password {
 }
 .cart-product-price-r{
     float: right;
-    color:#ff5359 ;
+    color:#EF2528;
 }
 .cart-product-number{
     height: 24px;
@@ -167,7 +178,6 @@ input:password {
     border: 1px solid #ccc;
     overflow: hidden;
     float: left;
-    font-size:29px;
     font-size: 14px;
 
 }
@@ -353,6 +363,18 @@ input:password {
     z-index: 10;
     width: 100%;
     font-size: 12px;
+}
+
+.xs{
+    position: absolute;
+    top:12px;
+    right:5px;
+    font-size: 14px;
+    color: #666;
+}
+
+.xs span{
+    color: #EF2528;
 }
 
 /*提示信息*/
