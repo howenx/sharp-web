@@ -15,6 +15,19 @@
 	<script src="/assets/javascripts/jquery/TouchSlide.1.1.js"></script>
 	<script src="/assets/javascripts/detail.js"></script>
 	<script src="/assets/javascripts/cartAmount.js"></script>
+	<script>
+		$(function(){
+			if($("#master-sku").length == 0){
+				$('.classify ul li').each(function(){
+					if($(this).attr("class") != "sel-none"){
+						$(this).click();
+						return false;
+					}
+    			})
+			}
+		})
+
+	</script>
 	<script>window.urlParam = "@url"</script>
 </head>
 <body>
@@ -121,12 +134,21 @@
 				<ul>
 					@for(inventory <- inventoryList){
 						@if(inventory.getOrMasterInv()){
-							<li class="current">@inventory.getItemColor()</li>
+							@if(inventory. getState() == "D" || inventory. getState() == "N" || inventory. getState() == "K"){
+								<li class="sel-none" style="color:#DDD;">@inventory.getItemColor()</li>
+							}else{
+								<li class="current" id="master-sku">@inventory.getItemColor()</li>
+							}
+						}else{
+							@if(inventory. getState() == "D" || inventory. getState() == "N" || inventory. getState() == "K"){
+								<li class="sel-none" style="color:#DDD;">@inventory.getItemColor()</li>
+							}else{
+								<li>@inventory.getItemColor()</li>
+							}
 						}
-						@if(!inventory.getOrMasterInv()){
-						<li>@inventory.getItemColor()</li>
-						}
-
+						<!--@if(!inventory.getOrMasterInv()){-->
+						<!--<li>@inventory.getItemColor()</li>-->
+						<!--}-->
 					}
 				</ul>
 			</div>
@@ -264,9 +286,13 @@
 		</div>
 		<!--加入购物车-->
 		<div class="buy_box">
-			<div class="finish-box">
-				该商品已下架
-			</div>
+
+			@if(itemMain.getState() == "D"){
+				<div class="finish-box">
+					该商品已下架
+				</div>
+			}
+
 			<div class="love">
 				<div id="shopCart">
 					<a href="/cart" class="message_list shopping">
@@ -307,13 +333,23 @@
 			</div>
 
 			<div class="add_cart btns" data-type="cart">
-				<a href="javascript:;" class="btnCart add_cart_large cartAdd">
+				@if(itemMain.getState() != "D"){
+					<a href="javascript:;" class="btnCart add_cart_large cartAdd">
+				}
+				@if(itemMain.getState() == "D"){
+					<a href="javascript:;" class="btnCart add_cart_large">
+				}
 					加入购物车
 				</a>
 			</div>
 
 			<div class="buy_btn" data-type="buy">
-				<a href="javascript:document.getElementById('settleForm').submit();" class="mabuy">
+				@if(itemMain.getState() != "D"){
+					<a href="javascript:document.getElementById('settleForm').submit();" class="mabuy">
+				}
+				@if(itemMain.getState() == "D"){
+				<a href="javascript:;" class="mabuy">
+					}
 					立即购买
 				</a>
 			</div>

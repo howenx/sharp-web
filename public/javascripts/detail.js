@@ -16,6 +16,7 @@ $(function() {
 //          alert("android");
 //        }
 
+
     $('.soldOut').click(function(){
         $('.hd-js').show();
 
@@ -64,18 +65,19 @@ $(function() {
     })
 
 	$('.classify ul li').click(function(){
-		$(this).addClass('current').siblings().removeClass('current');
-		var index = $(".classify ul li").index($(this));
-		$(".item").removeClass("now");
-		$(".item").eq(index).addClass("now");
+	    if($(this).attr("class") != "sel-none"){
+	        $(this).addClass('current').siblings().removeClass('current');
+                var index = $(".classify ul li").index($(this));
+                $(".item").removeClass("now");
+                $(".item").eq(index).addClass("now");
 
-		$(".soul").removeClass("now");
-        $(".soul").eq(index).addClass("now");
+                $(".soul").removeClass("now");
+                $(".soul").eq(index).addClass("now");
 
-        $(".hiddenInput").find("input").attr("disabled",true);
-        $(".hiddenInput").eq(index).find("input").attr("disabled",false);
-       // $("#flyImgId").attr("src",$(".item.now").find("input[name='skuInvImg0-0']").val());
-
+                $(".hiddenInput").find("input").attr("disabled",true);
+                $(".hiddenInput").eq(index).find("input").attr("disabled",false);
+                // $("#flyImgId").attr("src",$(".item.now").find("input[name='skuInvImg0-0']").val());
+	    }
 	})
 
 	$('#slide').on('cycle-next', function(event, opts) {
