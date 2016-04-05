@@ -146,7 +146,11 @@
                     <div class="account-j">
                         <div class="usable clearfix">
                             <span>可使用优惠券</span>
-                            <i>2张</i>
+                            @if(null!=settle.getCoupons()){
+                                <i>@settle.getCoupons().size()张</i>
+                            }else{
+                                <i>0张</i>
+                            }
                         </div>
 
                         <h2>

@@ -13,10 +13,17 @@ function timer(intDiff){
 	}
 	if (minute <= 9) minute = '0' + minute;
 	if (second <= 9) second = '0' + second;
-	$('#day_show').html(day+"天");
+
+	if(day>0){
+	    $('#day_show').html(day+"天");
+	}else{
+	    $('#day_show').hide();
+	}
+
 	$('#hour_show').html('<s id="h"></s>'+hour+'时');
 	$('#minute_show').html('<s></s>'+minute+'分');
 	$('#second_show').html('<s></s>'+second+'秒');
+
 	intDiff--;
 	}, 1000);
 }
