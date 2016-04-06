@@ -640,7 +640,6 @@ h1 .logo {
 
 
 .content li a{
-    position: relative;
     display: block;
     border:1px solid #cfcfcf;
     background-color: #fff;
@@ -648,7 +647,7 @@ h1 .logo {
 
 .title-hd{
     color: #666;
-    height: 50px;
+    height:46px;
     background-color: #fff;
     padding: 10px 5%;
     overflow: hidden;
@@ -680,10 +679,27 @@ h1 .logo {
 
 
 .figure{
+    position: relative;
     width: 100%;
     height:120px;
     overflow: hidden;
 }
+
+.figure span {
+    display: block;
+    width: 100%;
+    position: absolute;
+    top:50%;
+    color: #fff;
+    height: 40px;
+    background-color: rgba(0,0,0,0.4);
+    font-size: 14px;
+    text-align: center;
+    line-height: 40px;
+    -webkit-transform: translate(0,-50%);
+    -moz-transform: translate(0,-50%);
+}
+
 
 .figure img{
     width: 100%;
@@ -881,17 +897,16 @@ h2 span{
     position: absolute;
 }
 
-.figure span {
-    display: block;
-    width: 100%;
+#loading{
     position: absolute;
-    top:25%;
-    color: #fff;
-    height: 40px;
-    background-color: rgba(0,0,0,0.4);
-    font-size: 14px;
-    text-align: center;
-    line-height: 40px;
+    top:50%;
+    left: 50%;
+    width: 100px;
+    -webkit-transform: translate(-50%,0);
+    -moz-transform: translate(-50%,0);
+}
+#loading img{
+    width: 100%;
 }
 
 

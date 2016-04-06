@@ -32,9 +32,8 @@ body{
 }
 
 .choose-m{
-    padding: 10px 2%;
     margin: 20px 0;
-    height: 300px;
+    padding: 10px 2% 20px 2%;
 }
 
 .mold{
@@ -94,4 +93,5 @@ ul li.current{
     text-align: center;
     background-color: #E66255;
     border-radius:5px;
+    margin: 0 0 10px 0;
 }

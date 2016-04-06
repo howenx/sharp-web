@@ -4,9 +4,22 @@
 <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
 <script src="/assets/javascripts/list.js"></script>
 <script src="/assets/javascripts/cartAmount.js"></script>
+
+<script>
+    $(function(){
+
+        $(window).load(function(){
+            $("#loading").hide();
+        });
+    })
+</script>
 }
 
+
 @layout(title="韩秘美,专卖韩国正品")(scripts) {
+    <div id="loading">
+        <img src="/assets/images/loading.gif"/>
+    </div>
 
     <header class="head">
         <a href="/"  class="back">
@@ -160,6 +173,34 @@
     <!--非拼购产品-->
     <div class="content scope">
         <ul class="product">
+
+            <li class="clearfix">
+                <a class="redirect-app" href="/detail/item/888276/111318">
+                    <p class="figure figure-f">
+                        <span>该商品已售罄</span>
+                        <img src="http://img.hanmimei.com/fd2fe66c3f2447efaef9c8abea65f2301451365456278.jpg">
+                    </p>
+                    <p class="title-hd">韩秘美 Crystalshop 施华洛世奇水晶 ‘神圣的石头’水晶吊坠银饰项链 </p>
+                    <span class="title-fd">
+                        <i class="naw">￥742</i>
+                        <i class="agio">￥742</i>
+                        <b>0折</b>
+                    </span>
+                </a>
+
+                <a class="redirect-app" href="/detail/customize/888266/112484">
+                    <p class="figure figure-f">
+                        <img src="http://img.hanmimei.com/9190f73cc2d04550ba10cacf28f8d78e1451365386214.jpg">
+                    </p>
+                    <p class="title-hd">韩秘美 Crystalshop 施华洛世奇水晶 朱碧丽纪念手链</p>
+                    <span class="title-fd">
+                        <i class="naw">￥424</i>
+                        <i class="agio">￥111</i>
+                        <b>0折</b>
+                    </span>
+                </a>
+            </li>
+
             @for(rowList <- itemList){
             <li class="clearfix">
                 @for(item <- rowList){
@@ -199,32 +240,6 @@
             </li>
             }
 
-            <li class="clearfix">
-                <a class="redirect-app" href="/detail/item/888276/111318">
-                    <p class="figure figure-f">
-                        <span>该商品已售罄</span>
-                        <img src="http://img.hanmimei.com/fd2fe66c3f2447efaef9c8abea65f2301451365456278.jpg">
-                    </p>
-                    <p class="title-hd">韩秘美 Crystalshop 施华洛世奇水晶 ‘神圣的石头’水晶吊坠银饰项链 </p>
-                    <span class="title-fd">
-                        <i class="naw">￥742</i>
-                        <i class="agio">￥742</i>
-                        <b>0折</b>
-                    </span>
-                </a>
-
-                <a class="redirect-app" href="/detail/customize/888266/112484">
-                    <p class="figure figure-f">
-                        <img src="http://img.hanmimei.com/9190f73cc2d04550ba10cacf28f8d78e1451365386214.jpg">
-                    </p>
-                    <p class="title-hd">韩秘美 Crystalshop 施华洛世奇水晶 朱碧丽纪念手链</p>
-                    <span class="title-fd">
-                        <i class="naw">￥424</i>
-                        <i class="agio">￥111</i>
-                        <b>0折</b>
-                    </span>
-                </a>
-            </li>
             <!--<li>-->
                 <!--<a href="/detail/D/889577/112406/112408">-->
                     <!--<p class="product-box">-->

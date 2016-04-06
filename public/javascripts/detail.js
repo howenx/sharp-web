@@ -140,7 +140,11 @@ $(function() {
 		$('html,body').stop().animate({'scrollTop':'0'},500);
 	});
 
-
+    $(function(){
+        $(window).load(function(){
+            $("#loading").hide();
+        });
+    });
 
 //	/*收藏*/
 //	var off = true;
@@ -205,6 +209,7 @@ $(function() {
                                 $(".soul.now").parent().find(".collectId").val(data.collectId);
                                 $(".soul.now").addClass('min');
                                 $('.like-s').show();
+
                                 tim = setInterval(function () {
                                 	$('.like-s').hide();
                                 },1000);
