@@ -261,7 +261,7 @@ $(function(){
        var limitFlag=false;
        var selectAreaNum=0;
        $(".areaAndSku").each(function(){
-         var invArea=$(this).find("input[name='invArea0']").val();
+         var invArea=$(this).find(".invAreaCss").val();
          if('K'!=invArea){ //海外直邮不限制
              var total =0.00;
               var postalLimit=$(this).find(".postalLimit").val();
