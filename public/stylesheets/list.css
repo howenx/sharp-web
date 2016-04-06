@@ -195,6 +195,10 @@ h1 .logo {
     top:0;
 }
 
+.cartoon-right i.right-arrow{
+    left:16px;
+}
+
 .ripple,.ripple-right{
     width:10px;
     height:10px;
@@ -735,6 +739,9 @@ h1 .logo {
    float: left;
     margin:0 0 0 1%;
 
+}
+.product li a:nth-child(2){
+    margin:0 0 0 2%;
 }
 
 /*拼购结束*/

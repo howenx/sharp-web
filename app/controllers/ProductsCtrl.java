@@ -1,6 +1,5 @@
 package controllers;
 
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -11,15 +10,12 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
-
 import javax.inject.Inject;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-
-
 import static modules.SysParCom.*;
 import static util.GZipper.dealToString;
 
@@ -50,11 +46,10 @@ public class ProductsCtrl extends Controller {
      * @return
      * @throws Exception
      */
-
     public F.Promise<Result> index(){
         F.Promise<JsonNode> promise = F.Promise.promise(() -> {
-            Request request = comCtrl.getBuilder(ctx())
-                    //getBuilder(request(), session())
+            //Request request = comCtrl.getBuilder(ctx())
+            Request request = getBuilder(request(), session())
                     .url(INDEX_PAGE + "1")
                     .build();
             client.setConnectTimeout(15, TimeUnit.SECONDS);
@@ -171,15 +166,6 @@ public class ProductsCtrl extends Controller {
             } else throw new IOException("Unexpected code" + response);
         });
         return promise.map((F.Function<JsonNode, Result>) json -> {
-            //返回  ------->start
-            String path = session().get("path_index");
-            String path_theme = routes.ProductsCtrl.themeDetail(url).url();
-            if (session().containsKey("path_theme")) {
-                session("path_theme", path_theme);
-            } else {
-                session().put("path_theme", path_theme);
-            }
-            //返回  ------->end
             String themeImg = "";
             List<Object[]> tagList = new ArrayList<>();
             List<List<ThemeItem>> itemResultList = new ArrayList<>();
@@ -255,7 +241,7 @@ public class ProductsCtrl extends Controller {
                     itemResultList.add(rowList);
                 }
             }
-            return ok(views.html.products.themeDetail.render(path, themeBasic, tagList, itemResultList));
+            return ok(views.html.products.themeDetail.render(themeBasic, tagList, itemResultList));
         });
     }
 
@@ -268,7 +254,7 @@ public class ProductsCtrl extends Controller {
      */
     public F.Promise<Result> detail(String url){
         F.Promise<JsonNode> promise = F.Promise.promise(() -> {
-            Request request = comCtrl.getBuilder(ctx())//getBuilder(request(), session())
+            Request request = getBuilder(request(), session())
                     .url(GOODS_PAGE + url)
                     .build();
             client.setConnectTimeout(15, TimeUnit.SECONDS);
@@ -281,9 +267,6 @@ public class ProductsCtrl extends Controller {
             } else throw new IOException("Unexpected code" + response);
         });
         return promise.map((F.Function<JsonNode, Result>) json -> {
-            //返回  ------->start
-            String path = session().get("path_theme");
-            //返回  ------->end
             //当前时间
             SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date now = new Date();
@@ -388,7 +371,7 @@ public class ProductsCtrl extends Controller {
                         pushResultList.add(rowList);
                     }
                 }
-                return ok(views.html.products.detail.render(path, itemMain, itemFeaturesList, pushResultList, inventoryList, inventoryList.size(), preImgList, publicityList,url));
+                return ok(views.html.products.detail.render(itemMain, itemFeaturesList, pushResultList, inventoryList, inventoryList.size(), preImgList, publicityList,url));
             }
             //拼购商品
             else {

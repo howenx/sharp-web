@@ -1,4 +1,4 @@
-@(path:String,itemMain:domain.Item,itemFeaturesList:List[Array[Object]],pushList:List[List[domain.ThemeItem]],inventoryList:List[domain.Inventory],stockSize:Int,preImgList:List[List[String]],publicityList:List[String],url:String)
+@(itemMain:domain.Item,itemFeaturesList:List[Array[Object]],pushList:List[List[domain.ThemeItem]],inventoryList:List[domain.Inventory],stockSize:Int,preImgList:List[List[String]],publicityList:List[String],url:String)
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -289,7 +289,7 @@
 
 			@if(itemMain.getState() == "D"){
 				<div class="finish-box">
-					该商品已下架
+					该商品已售罄
 				</div>
 			}
 

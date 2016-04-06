@@ -1,12 +1,12 @@
 body{
-    background:#fff;
+    background: #F4F4F4;
 }
 
 /*主体部分*/
 /*导航部分*/
 .wrap{
     padding:44px 0 60px 0 ;
-
+    background-color: #F4F4F4;
 }
 
 .nav-tab-top li.current{
@@ -45,11 +45,14 @@ section.current{
     width:100%;
 
 }
+section ul li{
+    margin: 0 0 10px 0;
+}
+
 .con,.con-stay{
     width:100%;
     background-color:#fff;
     padding: 10px 10px 10px 10px;
-    margin: 0 0 10px 0;
 }
 .con{
     padding: 10px 10px 60px 10px;
@@ -83,7 +86,6 @@ h2{
     display: block;
     padding:10px 0;
     border-top:1px solid #ededed;
-    border-bottom:1px solid #ededed;
 }
 
 .commodity .commodity-rmb{
@@ -116,7 +118,7 @@ span .number{
 }
 .commodity h2{
     font-size: 14px;
-    height: 40px;
+    height:35px;
     overflow: hidden;
     -webkit-line-clamp: 2;
     display: -webkit-box;
@@ -139,15 +141,17 @@ span .number{
 }
 .payment,.duein {
     width:100%;
+    border-top:1px solid #ededed;
 }
 
 .payment a{
     margin: 10px 0 0 0;
     display: block;
-    height:35px;
-    color:#fff;
+    height: 30px;
+    color: #fff;
     text-align: center;
-    line-height:35px;
+    font-size: 14;
+    line-height: 30px;
 }
 .payment .left{
     float: left;
@@ -155,13 +159,14 @@ span .number{
 
 .payment .right{
     float:right;
+
+
 }
 
 .payment .mi{
     color:#E66255;
-    width: 120px;
-    margin:10px 10px 0 0;
 
+    margin:10px 10px 0 0;
 }
 
 .duein a{
@@ -366,21 +371,23 @@ span .number{
 }
 
 .shopping .cart_num{
-    width:21px;
-    height:21px;
+    width: 18;
+    height: 18px;
     position: absolute;
-    top:-12px;
-    left:40px;
-    background:#ed145b;
-    line-height: 21px;
+    top: -7px;
+    font-size: 14px;
+    left: 40px;
+    background: #ed145b;
+    line-height: 18px;
     cursor: pointer;
-    color:#fff;
-    border-radius:50%;
+    color: #fff;
+    border-radius: 50%;
     text-align: center;
 }
 
 .right-r{
     padding:0 10px;
+    width: 70px;
 }
 
 .size{
