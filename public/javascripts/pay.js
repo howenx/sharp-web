@@ -103,6 +103,8 @@ $(document).on("click",".pinSubmitBtn",function(){
                 if(data.code==200) {
                     $("#isPinCheck").val(0);
                     $("#settleForm").submit();
+                }else if(null!=data.message&&null!=data.message.code&&data.message.code==5006) { //您还未登录,请先登录
+                    setTimeout("location.href='/login?state="+data.state+"'", 2000);
                 }else{
                     tip(data.message);
                 }
@@ -122,6 +124,11 @@ function tip(tipContent){
     $("#tip").hide();
     },3000);
 }
+//当前url
+$(document).ready(function() {
 
+    $("#curUrl").val(window.location.href);
+
+});
 
 
