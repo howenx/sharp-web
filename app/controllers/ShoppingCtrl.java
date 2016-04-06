@@ -214,10 +214,7 @@ public class ShoppingCtrl extends Controller {
    // @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> settle() {
         ObjectNode result = Json.newObject();
-        Optional<Http.Cookie> user_token = Optional.ofNullable(ctx().request().cookies().get("user_token"));
-        Optional<Http.Cookie> session_id = Optional.ofNullable(ctx().request().cookies().get("session_id"));
         Map<String, String> settleMap = Form.form().bindFromRequest().data();
-
         boolean isPin = false;//是否是拼团
         boolean isPinCheck = false;//是否是拼团校验
         if (null != settleMap.get("isPinCheck")) {
@@ -227,7 +224,7 @@ public class ShoppingCtrl extends Controller {
             }
         }
         //登录了
-        if (user_token.isPresent() && session_id.isPresent()) {
+        if (comCtrl.isHaveLogin(ctx())) {
             List<SettleDTO> settleDTOs = new ArrayList<SettleDTO>();
             List<SettleInfo> settleInfoList = new ArrayList<SettleInfo>();
             Integer buyNow = Integer.valueOf(settleMap.get("buyNow"));//1－立即支付 2-购物车结算
@@ -541,13 +538,11 @@ public class ShoppingCtrl extends Controller {
      */
    // @Security.Authenticated(UserAuth.class)
     public F.Promise<Result>  cartAdd(){
-        Optional<Http.Cookie> user_token = Optional.ofNullable(ctx().request().cookies().get("user_token"));
-        Optional<Http.Cookie> session_id = Optional.ofNullable(ctx().request().cookies().get("session_id"));
+
         JsonNode rjson = request().body().asJson();
         CartAddTempInfo cartAddTempInfo=Json.fromJson(rjson,CartAddTempInfo.class);
-        if (user_token.isPresent() && session_id.isPresent()) {
+        if (comCtrl.isHaveLogin(ctx())) {
 
-//        Logger.info("==json==="+json);
             List<CartAddInfo> cartAddInfoList=new ArrayList<CartAddInfo>();
             CartAddInfo cartAddInfo=new CartAddInfo();
             cartAddInfo.setCartId(cartAddTempInfo.getCartId());
@@ -559,7 +554,6 @@ public class ShoppingCtrl extends Controller {
 
             cartAddInfoList.add(cartAddInfo);
             RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, toJson(cartAddInfoList).toString());
-            //return comCtrl.postReqReturnMsg(CART_ADD,formBody);
 
             F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
                 Request.Builder builder = comCtrl.getBuilder(ctx());
@@ -601,18 +595,8 @@ public class ShoppingCtrl extends Controller {
      * @return
      */
     public F.Promise<Result>  cartAmount(){
-//        Optional<String> header = Optional.ofNullable(ctx().session().get("id-token"));
-//        if (header.isPresent()) {
-        Optional<Http.Cookie> user_token = Optional.ofNullable(ctx().request().cookies().get("user_token"));
-        Optional<Http.Cookie> session_id = Optional.ofNullable(ctx().request().cookies().get("session_id"));
-        Logger.info(user_token+"===="+session_id);
-        if (user_token.isPresent() && session_id.isPresent()) {
+        if (comCtrl.isHaveLogin(ctx())) {
                 F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
-//                    Request.Builder builder = new Request.Builder();
-//                    builder.addHeader(Http.HeaderNames.X_FORWARDED_FOR,ctx().request().remoteAddress());
-//                    builder.addHeader(Http.HeaderNames.VIA,ctx().request().remoteAddress());
-//                    builder.addHeader("User-Agent",ctx().request().getHeader("User-Agent"));
-//                    builder.addHeader("id-token", header.get());
                     Request.Builder builder =comCtrl.getBuilder(ctx());
                     Request request = builder.url(CART_AMOUNT).get().build();
                     Response response = client.newCall(request).execute();

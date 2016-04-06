@@ -270,4 +270,19 @@ public class ComCtrl extends Controller {
         result.put("state",state);
         return F.Promise.promise((F.Function0<Result>) () -> ok(views.html.users.login.render(routes.ProductsCtrl.index().url(),IMAGE_CODE,cache.get(state).toString(), "?state=" + state)));
     }
+
+    /**
+     * 是否登录了
+     * @param ctx
+     * @return
+     */
+    public boolean isHaveLogin(Http.Context ctx){
+        Optional<Http.Cookie> user_token = Optional.ofNullable(ctx().request().cookies().get("user_token"));
+        Optional<Http.Cookie> session_id = Optional.ofNullable(ctx().request().cookies().get("session_id"));
+        if (user_token.isPresent()&&null!=user_token.get() && session_id.isPresent()&&null!=session_id.get()) {
+            return true;
+        }
+        return false;
+
+    }
 }
