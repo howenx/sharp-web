@@ -499,8 +499,8 @@ public class UserCtrl extends Controller {
         Form<UserLoginInfo> userForm = Form.form(UserLoginInfo.class).bindFromRequest();
         Map<String, String> userMap = userForm.data();
 
-        String openId = ctx().session().get("openId");
-        String accessToken = ctx().session().get("accessToken");
+        String openId = ctx().request().cookies().get("openId").value();
+        String accessToken = ctx().request().cookies().get("accessToken").value();
         Logger.error("openId:"+openId+" , "+"accessToken:"+accessToken);
         if (null!=openId && null!= accessToken) {
             userMap.put("openId", openId);
@@ -704,8 +704,8 @@ public class UserCtrl extends Controller {
         Form<UserRegistInfo> userRegistInfoForm = Form.form(UserRegistInfo.class).bindFromRequest();
         Map<String, String> userMap = userRegistInfoForm.data();
 
-        String openId = ctx().session().get("openId");
-        String accessToken = ctx().session().get("accessToken");
+        String openId = ctx().request().cookies().get("openId").value();
+        String accessToken = ctx().request().cookies().get("accessToken").value();
         Logger.error("openId:"+openId+" , "+"accessToken:"+accessToken);
         if (null!=openId && null!= accessToken) {
             userMap.put("openId", openId);
@@ -790,8 +790,8 @@ public class UserCtrl extends Controller {
         Form<UserRegistInfo> userRegistInfoForm = Form.form(UserRegistInfo.class).bindFromRequest();
         Map<String, String> userMap = userRegistInfoForm.data();
 
-        String openId = ctx().session().get("openId");
-        String accessToken = ctx().session().get("accessToken");
+        String openId = ctx().request().cookies().get("openId").value();
+        String accessToken = ctx().request().cookies().get("accessToken").value();
         Logger.error("openId:"+openId+" , "+"accessToken:"+accessToken);
         if (null!=openId && null!= accessToken) {
             userMap.put("openId", openId);

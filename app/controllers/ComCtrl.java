@@ -1,6 +1,7 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
@@ -242,5 +243,33 @@ public class ComCtrl extends Controller {
             return user_token.get().value();
         }
         return "";
+    }
+
+    /***
+     * 未登录状态下返回的Message
+     * @param url
+     * @return
+     */
+    public F.Promise<Result> getNotLoginMsg(String url){
+        ObjectNode result = Json.newObject();
+        result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.USER_NOT_LOGIN.getIndex()), Message.ErrorCode.USER_NOT_LOGIN.getIndex())));
+        String state = UUID.randomUUID().toString().replaceAll("-", "");
+        cache.set(state, 60 * 60, url);
+        result.put("state",state);
+        return F.Promise.promise((F.Function0<Result>) () -> ok(result));
+    }
+
+    /***
+     * 未登录状态下返回的Message
+     * @param url
+     * @return
+     */
+    public F.Promise<Result> getNotLoginView(String url){
+        ObjectNode result = Json.newObject();
+        result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.USER_NOT_LOGIN.getIndex()), Message.ErrorCode.USER_NOT_LOGIN.getIndex())));
+        String state = UUID.randomUUID().toString().replaceAll("-", "");
+        cache.set(state, 60 * 60, url);
+        result.put("state",state);
+        return F.Promise.promise((F.Function0<Result>) () -> ok(views.html.users.login.render(routes.ProductsCtrl.index().url(),IMAGE_CODE,cache.get(state).toString(), "?state=" + state)));
     }
 }
