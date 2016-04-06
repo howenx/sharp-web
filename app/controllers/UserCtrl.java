@@ -516,8 +516,10 @@ public class UserCtrl extends Controller {
                 FormEncodingBuilder feb = new FormEncodingBuilder();
                 userMap.forEach(feb::add);
                 RequestBody formBody = feb.build();
-                Request request = new Request.Builder()
-                        .header("User-Agent", request().getHeader("User-Agent"))
+                Request.Builder builder = comCtrl.getBuilder(ctx());
+//                Request request = new Request.Builder()
+                Request request = builder
+//                        .header("User-Agent", request().getHeader("User-Agent"))
                         .url(LOGIN_PAGE)
                         .post(formBody)
                         .build();
@@ -597,7 +599,8 @@ public class UserCtrl extends Controller {
                 FormEncodingBuilder feb = new FormEncodingBuilder();
                 userMap.forEach(feb::add);
                 RequestBody formBody = feb.build();
-                Request request = new Request.Builder()
+                Request.Builder builder = comCtrl.getBuilder(ctx());
+                Request request = builder
                         .url(PHONE_VERIFY)
                         .post(formBody)
                         .build();
@@ -636,8 +639,8 @@ public class UserCtrl extends Controller {
                 FormEncodingBuilder feb = new FormEncodingBuilder();
                 userMap.forEach(feb::add);
                 RequestBody formBody = feb.build();
-                Request request = new Request.Builder()
-                        .url(PHONE_CODE)
+                Request.Builder builder = comCtrl.getBuilder(ctx());
+                Request request = builder
                         .post(formBody)
                         .build();
                 client.setConnectTimeout(10, TimeUnit.SECONDS);
@@ -721,8 +724,7 @@ public class UserCtrl extends Controller {
                 FormEncodingBuilder feb = new FormEncodingBuilder();
                 userMap.forEach(feb::add);
                 RequestBody formBody = feb.build();
-                Request request = new Request.Builder()
-                        .header("User-Agent", request().getHeader("User-Agent"))
+                Request request = comCtrl.getBuilder(ctx())
                         .url(REGISTER_PAGE)
                         .post(formBody)
                         .build();
@@ -807,7 +809,7 @@ public class UserCtrl extends Controller {
                 FormEncodingBuilder feb = new FormEncodingBuilder();
                 userMap.forEach(feb::add);
                 RequestBody formBody = feb.build();
-                Request request = new Request.Builder()
+                Request request = comCtrl.getBuilder(ctx())
                         .url(RESET_PASSWORD)
                         .post(formBody)
                         .build();
@@ -1016,6 +1018,7 @@ public class UserCtrl extends Controller {
      *
      * @return
      */
+    @Security.Authenticated(UserAuth.class)
     public Result aboutus() throws IOException {
         String path = routes.UserCtrl.setting().url();
         if (session().containsKey("path")) {
@@ -1149,6 +1152,7 @@ public class UserCtrl extends Controller {
      *
      * @return
      */
+    @Security.Authenticated(UserAuth.class)
     public Result service() {
         Form<CartDto> cartDtoForm = Form.form(CartDto.class).bindFromRequest();
         Map<String, String> map = cartDtoForm.data();
