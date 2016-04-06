@@ -108,9 +108,9 @@ public class UserAuth extends Security.Authenticator {
                     ctx.response().setCookie("session_id", session_id, expired);
                     ctx.response().setCookie("user_token", token, expired);
                     ctx.args.put("request", builder.addHeader("id-token", token));
-                    
+
                     return "success";
-                }).get(10).toString();
+                }).get(0).toString();
             } else return "state_base";
         } else return null;
     }
