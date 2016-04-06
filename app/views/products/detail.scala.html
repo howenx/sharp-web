@@ -1,4 +1,4 @@
-@(path:String,itemMain:domain.Item,itemFeaturesList:List[Array[Object]],pushList:List[List[domain.ThemeItem]],inventoryList:List[domain.Inventory],stockSize:Int,preImgList:List[List[String]],publicityList:List[String],url:String)
+@(itemMain:domain.Item,itemFeaturesList:List[Array[Object]],pushList:List[List[domain.ThemeItem]],inventoryList:List[domain.Inventory],stockSize:Int,preImgList:List[List[String]],publicityList:List[String],url:String)
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -324,7 +324,7 @@
 
 			@if(itemMain.getState() == "D"){
 				<div class="finish-box">
-					该商品已下架
+					该商品已售罄
 				</div>
 			}
 
@@ -399,6 +399,7 @@
 			<img src="/assets/images/backtop.png">
 		</div>
 	</div>
+	<input type="hidden" id="curUrl" name="curUrl" value="" />
 	</form>
 </div>
 <!--购物车-->

@@ -393,5 +393,12 @@ $(document).on("click",".pinSoldOutCss",function(){
     tip("该商品已结束去看看其他拼购吧");
 });
 
+//当前url
+$(document).ready(function() {
+
+    $("#curUrl").val(window.location.href);
+
+});
+
 
 

@@ -14,7 +14,6 @@ $(function(){
             var tempTotal=$("#tempTotal").val();
             var denominationSpan=$(this).find(".quick").find(".denominationSpan").html();
             var hiddenDiscountFee=$("input[name='hiddenDiscountFee']").val();
-            console.log("==hiddenDiscountFee=="+hiddenDiscountFee)
             if(typeof(denominationSpan)=="undefined"||null==denominationSpan){
                 $("#totalPaySpan").html(tempTotal);
                 $(".discountCss").html("￥"+hiddenDiscountFee);
@@ -85,44 +84,6 @@ $(document).on("click",".submitOrder",function(){
 
 //立即开团
 $(document).on("click",".pinSubmitBtn",function(){
-    if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
-        var loadDateTime = new Date();
-        window.setTimeout(function() {
-                var timeOutDateTime = new Date();
-                console.log(timeOutDateTime - loadDateTime);
-                if (timeOutDateTime - loadDateTime < 5000) {
-                    // window.location = "https://www.baidu.com/";
-                    kaituan();
-                }
-            },
-            1000);
-        window.location = "https://24114.com/";
-    } else if (navigator.userAgent.match(/android/i)) {
-        var state = null;
-        try {
-            var url= window.location.href;
-            state = window.open("app://hanmimei/"+window.urlParam);
-        } catch(e) {}
-        if (state) {
-            window.close();
-        } else {
-            kaituan();
-        }
-    }
-
-
-});
-
-
-
-//提示
-function tip(tipContent){
-    $("#tip").html(tipContent).show();
-    setTimeout(function(){
-    $("#tip").hide();
-    },3000);
-}
-function kaituan() {
     var tipContent=$("#tip").html().trim();
     if(""!=tipContent&&tipContent.length>1){
         tip(tipContent);
@@ -142,6 +103,8 @@ function kaituan() {
                 if(data.code==200) {
                     $("#isPinCheck").val(0);
                     $("#settleForm").submit();
+                }else if(null!=data.message&&null!=data.message.code&&data.message.code==5006) { //您还未登录,请先登录
+                    setTimeout("location.href='/login?state="+data.state+"'", 2000);
                 }else{
                     tip(data.message);
                 }
@@ -150,7 +113,22 @@ function kaituan() {
             }
         }
     });
-}
+});
 
+
+
+//提示
+function tip(tipContent){
+    $("#tip").html(tipContent).show();
+    setTimeout(function(){
+    $("#tip").hide();
+    },3000);
+}
+//当前url
+$(document).ready(function() {
+
+    $("#curUrl").val(window.location.href);
+
+});
 
 

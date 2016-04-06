@@ -211,162 +211,176 @@ public class ShoppingCtrl extends Controller {
      * 商品结算
      * @return
      */
-    @Security.Authenticated(UserAuth.class)
+   // @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> settle() {
         ObjectNode result = Json.newObject();
-     //   Logger.info("==settle data="+Form.form().bindFromRequest().data());
+        Optional<Http.Cookie> user_token = Optional.ofNullable(ctx().request().cookies().get("user_token"));
+        Optional<Http.Cookie> session_id = Optional.ofNullable(ctx().request().cookies().get("session_id"));
         Map<String, String> settleMap = Form.form().bindFromRequest().data();
-        Logger.error(settleMap.toString());
-        Integer buyNow=Integer.valueOf(settleMap.get("buyNow"));//1－立即支付 2-购物车结算
-        Map<String,Object> object=new HashMap<>();
 
-        List<SettleDTO> settleDTOs=new ArrayList<SettleDTO>();
-
-        List<SettleInfo> settleInfoList=new ArrayList<SettleInfo>();
-        boolean isPin=false;//是否是拼团
-        boolean isPinCheck=false;//是否是拼团校验
-        if(null!=settleMap.get("isPinCheck")){
-            isPin=true;
-            if(1==Integer.valueOf(settleMap.get("isPinCheck"))){
-                isPinCheck=true;
+        boolean isPin = false;//是否是拼团
+        boolean isPinCheck = false;//是否是拼团校验
+        if (null != settleMap.get("isPinCheck")) {
+            isPin = true;
+            if (1 == Integer.valueOf(settleMap.get("isPinCheck"))) {
+                isPinCheck = true;
             }
         }
-        Integer areaNum=1;
-        if(buyNow==2){
-            areaNum=Integer.valueOf(settleMap.get("areaNum"));
-        }
-        for(int i=0;i<areaNum;i++){
-            if(null==settleMap.get("invCustoms"+i)){
-            //    Logger.info("第"+(i+1)+"个保税区未选");
-                continue;
+        //登录了
+        if (user_token.isPresent() && session_id.isPresent()) {
+            List<SettleDTO> settleDTOs = new ArrayList<SettleDTO>();
+            List<SettleInfo> settleInfoList = new ArrayList<SettleInfo>();
+            Integer buyNow = Integer.valueOf(settleMap.get("buyNow"));//1－立即支付 2-购物车结算
+            Map<String, Object> object = new HashMap<>();
+
+            Integer areaNum = 1;
+            if (buyNow == 2) {
+                areaNum = Integer.valueOf(settleMap.get("areaNum"));
             }
-            String invCustoms=settleMap.get("invCustoms"+i);  //保税区
-            String invArea=settleMap.get("invArea"+i);//保税区
-            String invAreaNm=settleMap.get("invAreaNm"+i);//保税区
-            Integer cartNum=1;
-            if(null!=settleMap.get("cartNum"+i)){
-                cartNum=Integer.valueOf(settleMap.get("cartNum"+i));
-            }
-            List<CartDto>cartDtos=new ArrayList<CartDto>();
-            List<CartInfo>cartInfos=new ArrayList<CartInfo>();
-            for(int j=0;j<cartNum;j++){
-                String suffix=i+"-"+j;
-                if(null==settleMap.get("skuId"+suffix)){
-            //        Logger.info("第"+(i+1)+"个保税区下的第"+(j+1)+"个商品未选");
+            for (int i = 0; i < areaNum; i++) {
+                if (null == settleMap.get("invCustoms" + i)) {
+                    //    Logger.info("第"+(i+1)+"个保税区未选");
                     continue;
                 }
-                Long cartId=0L;
-                if(null!=settleMap.get("cartId"+suffix)){
-                    cartId=Long.valueOf(settleMap.get("cartId"+suffix)); //购物车ID
+                String invCustoms = settleMap.get("invCustoms" + i);  //保税区
+                String invArea = settleMap.get("invArea" + i);//保税区
+                String invAreaNm = settleMap.get("invAreaNm" + i);//保税区
+                Integer cartNum = 1;
+                if (null != settleMap.get("cartNum" + i)) {
+                    cartNum = Integer.valueOf(settleMap.get("cartNum" + i));
                 }
-                Long skuId=Long.valueOf(settleMap.get("skuId"+suffix));
-                Integer amount=1;
-                if(null!=settleMap.get("amount"+suffix)){
-                    amount=Integer.valueOf(settleMap.get("amount"+suffix));//购买的数量
+                List<CartDto> cartDtos = new ArrayList<CartDto>();
+                List<CartInfo> cartInfos = new ArrayList<CartInfo>();
+                for (int j = 0; j < cartNum; j++) {
+                    String suffix = i + "-" + j;
+                    if (null == settleMap.get("skuId" + suffix)) {
+                        //        Logger.info("第"+(i+1)+"个保税区下的第"+(j+1)+"个商品未选");
+                        continue;
+                    }
+                    Long cartId = 0L;
+                    if (null != settleMap.get("cartId" + suffix)) {
+                        cartId = Long.valueOf(settleMap.get("cartId" + suffix)); //购物车ID
+                    }
+                    Long skuId = Long.valueOf(settleMap.get("skuId" + suffix));
+                    Integer amount = 1;
+                    if (null != settleMap.get("amount" + suffix)) {
+                        amount = Integer.valueOf(settleMap.get("amount" + suffix));//购买的数量
+                    }
+                    String state = settleMap.get("state" + suffix); //商品的状态
+
+                    String skuType = settleMap.get("skuType" + suffix);
+
+                    if (buyNow == 1 && !isPin && "pin".equals(skuType)) { //拼购下的单独购买skuType为item
+                        skuType = "item";
+                    }
+                    Long skuTypeId = Long.valueOf(settleMap.get("skuTypeId" + suffix));//商品类型的id
+
+                    Long pinTieredPriceId = 0L;
+                    if (null != settleMap.get("pinTieredPriceId" + suffix)) {
+                        pinTieredPriceId = Long.valueOf(settleMap.get("pinTieredPriceId" + suffix));//在提交拼购商品订单时填写阶梯价格的id
+                    }
+                    String skuTitle = settleMap.get("skuTitle" + suffix);   //商品标题,用于展示
+                    String skuInvImg = settleMap.get("skuInvImg" + suffix); //商品图片,用于展示
+                    String skuPrice = "";
+                    if (null != settleMap.get("skuPrice" + suffix)) {
+                        skuPrice = settleMap.get("skuPrice" + suffix);   //商品价格,用于展示
+                    }
+                    CartDto cartDTO = new CartDto(cartId, skuId, amount, state, skuType, skuTypeId, pinTieredPriceId);
+                    cartDtos.add(cartDTO);
+                    CartInfo cartInfo = new CartInfo(cartId, skuId, amount, state, skuType, skuTypeId, pinTieredPriceId, skuTitle, skuInvImg, skuPrice);
+                    cartInfos.add(cartInfo);
                 }
-                String state=settleMap.get("state"+suffix); //商品的状态
-
-                String skuType=settleMap.get("skuType"+suffix);
-
-                if(buyNow==1&&!isPin&&"pin".equals(skuType)){ //拼购下的单独购买skuType为item
-                    skuType="item";
+                if (cartDtos.size() <= 0) {
+                    Logger.error("商品结算第" + (i + 1) + "个保税区无商品" + Json.toJson(settleMap));
+                    continue;
                 }
-                Long skuTypeId=Long.valueOf(settleMap.get("skuTypeId"+suffix));//商品类型的id
 
-                Long pinTieredPriceId=0L;
-                if(null!=settleMap.get("pinTieredPriceId"+suffix)){
-                    pinTieredPriceId=Long.valueOf(settleMap.get("pinTieredPriceId"+suffix));//在提交拼购商品订单时填写阶梯价格的id
+                SettleDTO settleDTO = createSettleDTO(invCustoms, invArea, invAreaNm, cartDtos);
+                settleDTOs.add(settleDTO);
+                SettleInfo settleInfo = new SettleInfo();
+                settleInfo.setInvCustoms(invCustoms);
+                settleInfo.setInvArea(invArea);
+                settleInfo.setInvAreaNm(invAreaNm);
+                settleInfo.setCartInfos(cartInfos);
+                settleInfoList.add(settleInfo);
+            }
+            if (settleDTOs.size() <= 0) {
+                Logger.error("商品结算无商品" + Json.toJson(settleMap));
+                result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
+                return F.Promise.promise((F.Function0<Result>) () -> ok(result));
+            }
+
+            object.put("settleDTOs", settleDTOs);
+
+            Long addressId = 0L;
+            if (null != settleMap.get("addressId")) {
+                addressId = Long.valueOf(settleMap.get("addressId"));
+            }
+            object.put("addressId", addressId);//地址id
+            Long couponId = 0L;
+            if (null != settleMap.get("couponId")) {
+                couponId = Long.valueOf(settleMap.get("couponId"));
+            }
+            object.put("couponId", couponId);//优惠券id
+            object.put("clientIp", request().remoteAddress());//客户端ip
+            object.put("clientType", "3");
+            object.put("shipTime", 1); //送货日期：1－工作日双休日与假期均可送货 2-只工作日送货 3-只双休日送货
+            String payMethod = "JD";
+            if (null != settleMap.get("payMethod")) {
+                payMethod = settleMap.get("payMethod");
+            }
+            object.put("payMethod", payMethod);
+            object.put("buyNow", buyNow);//1－立即支付 2-购物车结算
+            Long pinActiveId = 0L;
+            if (null != settleMap.get("pinActiveId")) {
+                pinActiveId = Long.valueOf(settleMap.get("pinActiveId"));
+            }
+
+            object.put("pinActiveId", pinActiveId); //拼购活动id
+
+
+            RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, toJson(object).toString());
+            F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
+                Request.Builder builder = comCtrl.getBuilder(ctx());
+                Request request = builder.url(SHOPPING_SETTLE).post(formBody).build();
+                Response response = client.newCall(request).execute();
+                if (response.isSuccessful()) {
+                    return Json.parse(new String(response.body().bytes(), UTF_8));
+                } else throw new IOException("Unexpected code" + response);
+            });
+            final Long finalPinActiveId = pinActiveId;
+            final Integer buyNowTemp = buyNow;
+            final boolean finalIsPinCheck = isPinCheck;
+            return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
+                Logger.info("==settle=json==" + json);
+                Message message = Json.fromJson(json.get("message"), Message.class);
+                if (null == message) {
+                    Logger.error("返回商品结算数据错误code=" + json);
+                    return badRequest(views.html.error500.render());
                 }
-                String skuTitle=settleMap.get("skuTitle"+suffix);   //商品标题,用于展示
-                String skuInvImg=settleMap.get("skuInvImg"+suffix); //商品图片,用于展示
-                String skuPrice="";
-                if(null!=settleMap.get("skuPrice"+suffix)) {
-                    skuPrice=settleMap.get("skuPrice"+suffix);   //商品价格,用于展示
+                if (finalIsPinCheck) {
+                    return ok(Json.toJson(message));
                 }
-                CartDto cartDTO=new CartDto(cartId,skuId,amount,state,skuType,skuTypeId,pinTieredPriceId);
-                cartDtos.add(cartDTO);
-                CartInfo cartInfo=new CartInfo(cartId,skuId,amount,state,skuType,skuTypeId,pinTieredPriceId,skuTitle,skuInvImg,skuPrice);
-                cartInfos.add(cartInfo);
+                if (message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
+                    Logger.info("返回数据code=" + json);
+                    return badRequest(views.html.error.render(message.getMessage()));
+                }
+                SettleVo settleVo = Json.fromJson(json.get("settle"), SettleVo.class);
+
+                return ok(views.html.shopping.settle.render(settleVo, settleInfoList, buyNowTemp, finalPinActiveId, PAY_URL));
+            });
+        }else{
+            //未登录
+            String url=routes.ProductsCtrl.index().url();
+            if(null!=settleMap.get("curUrl")){
+                url=settleMap.get("curUrl");
             }
-            if(cartDtos.size()<=0){
-                Logger.error("商品结算第"+(i+1)+"个保税区无商品"+Json.toJson(settleMap));
-                continue;
+            if(isPinCheck)//ajax返回未登录消息
+                return comCtrl.getNotLoginMsg(url);
+            else{ //未登录界面
+                return comCtrl.getNotLoginView(url);
             }
-
-            SettleDTO settleDTO=createSettleDTO(invCustoms,invArea,invAreaNm,cartDtos);
-            settleDTOs.add(settleDTO);
-            SettleInfo settleInfo=new SettleInfo();
-            settleInfo.setInvCustoms(invCustoms);
-            settleInfo.setInvArea(invArea);
-            settleInfo.setInvAreaNm(invAreaNm);
-            settleInfo.setCartInfos(cartInfos);
-            settleInfoList.add(settleInfo);
         }
-        if(settleDTOs.size()<=0){
-            Logger.error("商品结算无商品"+Json.toJson(settleMap));
-            result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
-            return F.Promise.promise((F.Function0<Result>) () -> ok(result));
-        }
-
-        object.put("settleDTOs",settleDTOs);
-
-        Long addressId=0L;
-        if(null!=settleMap.get("addressId")){
-            addressId=Long.valueOf(settleMap.get("addressId"));
-        }
-        object.put("addressId",addressId);//地址id
-        Long couponId=0L;
-        if(null!=settleMap.get("couponId")){
-            couponId=Long.valueOf(settleMap.get("couponId"));
-        }
-        object.put("couponId",couponId);//优惠券id
-        object.put("clientIp",request().remoteAddress());//客户端ip
-        object.put("clientType","3");
-        object.put("shipTime",1); //送货日期：1－工作日双休日与假期均可送货 2-只工作日送货 3-只双休日送货
-        String payMethod="JD";
-        if(null!=settleMap.get("payMethod")){
-            payMethod=settleMap.get("payMethod");
-        }
-        object.put("payMethod",payMethod);
-        object.put("buyNow",buyNow);//1－立即支付 2-购物车结算
-        Long pinActiveId=0L;
-        if(null!=settleMap.get("pinActiveId")){
-            pinActiveId=Long.valueOf(settleMap.get("pinActiveId"));
-        }
-
-        object.put("pinActiveId",pinActiveId); //拼购活动id
-
-
-        RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, toJson(object).toString());
-        F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
-            Request.Builder builder = (Request.Builder) ctx().args.get("request");
-            Request request = builder.url(SHOPPING_SETTLE).post(formBody).build();
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                return Json.parse(new String(response.body().bytes(), UTF_8));
-            } else throw new IOException("Unexpected code" + response);
-        });
-        final Long finalPinActiveId = pinActiveId;
-        final Integer buyNowTemp=buyNow;
-        final boolean finalIsPinCheck = isPinCheck;
-        return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
-            Logger.info("==settle=json==" + json);
-            Message message = Json.fromJson(json.get("message"), Message.class);
-            if (null == message) {
-                Logger.error("返回商品结算数据错误code=" + json);
-                return badRequest(views.html.error500.render());
-            }
-            if(finalIsPinCheck){
-                return ok(Json.toJson(message));
-            }
-            if(message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
-                Logger.info("返回数据code=" + json);
-                return badRequest(views.html.error.render(message.getMessage()));
-            }
-            SettleVo settleVo=Json.fromJson(json.get("settle"), SettleVo.class);
-
-            return ok(views.html.shopping.settle.render(settleVo,settleInfoList,buyNowTemp, finalPinActiveId,PAY_URL));
-        });
     }
     private SettleDTO createSettleDTO(String invCustoms,String invArea, String invAreaNm,List<CartDto> cartDtos){
         SettleDTO settleDTO=new SettleDTO();
@@ -529,7 +543,6 @@ public class ShoppingCtrl extends Controller {
     public F.Promise<Result>  cartAdd(){
         Optional<Http.Cookie> user_token = Optional.ofNullable(ctx().request().cookies().get("user_token"));
         Optional<Http.Cookie> session_id = Optional.ofNullable(ctx().request().cookies().get("session_id"));
-        Logger.info(user_token+"===="+session_id);
         JsonNode rjson = request().body().asJson();
         CartAddTempInfo cartAddTempInfo=Json.fromJson(rjson,CartAddTempInfo.class);
         if (user_token.isPresent() && session_id.isPresent()) {
@@ -549,33 +562,28 @@ public class ShoppingCtrl extends Controller {
             //return comCtrl.postReqReturnMsg(CART_ADD,formBody);
 
             F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
-            Request.Builder builder = comCtrl.getBuilder(ctx());
-            Request request = builder.url(CART_ADD).post(formBody).build();
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                return Json.parse(new String(response.body().bytes(), UTF_8));
-            }
-            else throw new IOException("Unexpected code " + response);
-        });
-        return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
-            //   Logger.info(url+"返回结果---->\n"+json);
-            Message message = Json.fromJson(json.get("message"), Message.class);
-            if (null == message) {
-                Logger.error("返回数据错误json=" + json);
-                return badRequest();
-            }
-            return ok(toJson(message));
-        });
-
-
+                Request.Builder builder = comCtrl.getBuilder(ctx());
+                Request request = builder.url(CART_ADD).post(formBody).build();
+                Response response = client.newCall(request).execute();
+                if (response.isSuccessful()) {
+                    return Json.parse(new String(response.body().bytes(), UTF_8));
+                }
+                else throw new IOException("Unexpected code " + response);
+            });
+            return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
+                   Logger.info("返回结果---->\n"+json);
+                Message message = Json.fromJson(json.get("message"), Message.class);
+                if (null == message) {
+                    Logger.error("返回数据错误json=" + json);
+                    return badRequest();
+                }
+                return ok(toJson(message));
+            });
         }
-        ObjectNode result = Json.newObject();
-        result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.USER_NOT_LOGIN.getIndex()), Message.ErrorCode.USER_NOT_LOGIN.getIndex())));
-        String state = UUID.randomUUID().toString().replaceAll("-", "");
-        cache.set(state, 60 * 60, cartAddTempInfo.getUrl());
-        result.put("state",state);
-        return F.Promise.promise((F.Function0<Result>) () -> ok(result));
-
+        else {
+            //未登录
+            return comCtrl.getNotLoginMsg(cartAddTempInfo.getUrl());
+        }
     }
 
     /**
