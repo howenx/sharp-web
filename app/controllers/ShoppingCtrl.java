@@ -529,7 +529,6 @@ public class ShoppingCtrl extends Controller {
     public F.Promise<Result>  cartAdd(){
         Optional<Http.Cookie> user_token = Optional.ofNullable(ctx().request().cookies().get("user_token"));
         Optional<Http.Cookie> session_id = Optional.ofNullable(ctx().request().cookies().get("session_id"));
-        Logger.info(user_token+"===="+session_id);
         JsonNode rjson = request().body().asJson();
         CartAddTempInfo cartAddTempInfo=Json.fromJson(rjson,CartAddTempInfo.class);
         if (user_token.isPresent() && session_id.isPresent()) {
@@ -558,7 +557,7 @@ public class ShoppingCtrl extends Controller {
             else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
-            //   Logger.info(url+"返回结果---->\n"+json);
+               Logger.info("返回结果---->\n"+json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回数据错误json=" + json);

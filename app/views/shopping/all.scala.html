@@ -56,7 +56,7 @@
 
             <section class="current">
                 <ul>
-                    <!--已取消-->
+                    <!--
                     <li value="77702347" id="li77702347">
                         <div class="con-stay clearfix">
                             <a href="/all/77702347" class="clearfix">
@@ -66,7 +66,6 @@
                                         <span class="date">2016-04-05 10:10:13</span>
                                     </div>
 
-                                    <!--//I:初始化即未支付状态，S:成功，C：取消， F:失败，R:已收货，D:已经发货，J:拒收，N已删除，T已退款，PI:拼购未支付状态，PS:拼购支付成功状态，PF:拼团失败还未成功退款-->
                                     <span class="day-r">
                                         已取消
                                     </span>
@@ -92,7 +91,7 @@
                         </div>
                     </li>
 
-                    <!--待发货-->
+
                     <li value="77702332" id="li77702332">
                         <div class="con-stay clearfix">
                             <a href="/all/77702332" class="clearfix">
@@ -102,7 +101,6 @@
                                         <span class="date">2016-04-01 16:49:06</span>
                                     </div>
 
-                                    <!--//I:初始化即未支付状态，S:成功，C：取消， F:失败，R:已收货，D:已经发货，J:拒收，N已删除，T已退款，PI:拼购未支付状态，PS:拼购支付成功状态，PF:拼团失败还未成功退款-->
                                     <span class="day-r">
                                         待发货
                                     </span>
@@ -120,7 +118,6 @@
                         </div>
                     </li>
 
-                    <!--待支付-->
                     <li value="77702302" id="li77702302">
                         <div class="con-stay clearfix">
                             <a href="/all/77702302" class="clearfix">
@@ -130,7 +127,6 @@
                                         <span class="date">2016-04-01 16:19:34</span>
                                     </div>
 
-                                    <!--//I:初始化即未支付状态，S:成功，C：取消， F:失败，R:已收货，D:已经发货，J:拒收，N已删除，T已退款，PI:拼购未支付状态，PS:拼购支付成功状态，PF:拼团失败还未成功退款-->
                                     <span class="day-r">
                                         待支付
                                       </span>
@@ -154,7 +150,7 @@
                         </div>
                     </li>
 
-
+-->
 
                     @for(order<-orderList){
                     <li value="@order.getOrder().getOrderId()" id="li@order.getOrder().getOrderId()">
@@ -199,21 +195,26 @@
 
                             </a>
                             }
-                            <div class="payment">
-                                @if(order.getOrder().getOrderStatus()=="I"||order.getOrder().getOrderStatus()=="F"){
+
+                            @if(order.getOrder().getOrderStatus()=="I"||order.getOrder().getOrderStatus()=="F"){
+                                <div class="payment">
                                     <a href="javascript:;" class="left cancelOrder" style="display:none;">取消订单</a>
                                     <a href="javascript:;" class="right bg right-r" onclick="pay('@payUrl','@order.getOrder().getOrderId()','@token','@order.getOrder().getSecurityCode()')">去支付</a>
                                     <a href="javascript:;" class="right mi">应付金额:￥@order.getOrder().getPayTotal()</a>
-                                }
-                                @if(order.getOrder().getOrderStatus()=="D"){
+                                </div>
+                            }
+                            @if(order.getOrder().getOrderStatus()=="D"){
+                                <div class="payment">
                                     <a href="javascript:;" class="right bg">查看物流</a>
-                                }
-                                @if(order.getOrder().getOrderStatus()=="C"||order.getOrder().getOrderStatus()=="R"){
-                                <a href="javascript:;" class="right bg discolour" onclick="delOrder(@order.getOrder().getOrderId(),0)">删除</a>
+                                </div>
+                            }
+                            @if(order.getOrder().getOrderStatus()=="C"||order.getOrder().getOrderStatus()=="R"){
+                                <div class="payment">
+                                    <a href="javascript:;" class="right bg discolour right-r" onclick="delOrder(@order.getOrder().getOrderId(),0)">删除</a>
+                                </div>
+                            }
 
-                                }
 
-                            </div>
                         </div>
                     </li>
                     }
