@@ -48,7 +48,7 @@ img{
     width: 100%;
 }
 .con{
-    margin-top: 10px;background: #fff;
+    margin-bottom: 10px;background: #fff;
 }
 .up{
     width: 100%;
@@ -59,10 +59,7 @@ img{
 }
 .up .pinimg{
   padding: 8px;
-}
-
-.pinimg-photo{
-    width:80px;
+    width: 80px;
     height: 80px;
 
 }
@@ -172,6 +169,7 @@ img{
 /* tabpin */
 .tabpin{
     width: 100%;overflow: hidden;
+    padding: 44px 0 0 0;
 }
 .tabpin>li{
     float: left;width: 50%;text-align: center;line-height: 36px;
