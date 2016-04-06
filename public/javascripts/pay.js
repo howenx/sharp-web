@@ -84,44 +84,6 @@ $(document).on("click",".submitOrder",function(){
 
 //立即开团
 $(document).on("click",".pinSubmitBtn",function(){
-    if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
-        var loadDateTime = new Date();
-        window.setTimeout(function() {
-                var timeOutDateTime = new Date();
-                console.log(timeOutDateTime - loadDateTime);
-                if (timeOutDateTime - loadDateTime < 5000) {
-                    // window.location = "https://www.baidu.com/";
-                    kaituan();
-                }
-            },
-            1000);
-        window.location = "https://24114.com/";
-    } else if (navigator.userAgent.match(/android/i)) {
-        var state = null;
-        try {
-            var url= window.location.href;
-            state = window.open("app://hanmimei/"+window.urlParam);
-        } catch(e) {}
-        if (state) {
-            window.close();
-        } else {
-            kaituan();
-        }
-    }
-
-
-});
-
-
-
-//提示
-function tip(tipContent){
-    $("#tip").html(tipContent).show();
-    setTimeout(function(){
-    $("#tip").hide();
-    },3000);
-}
-function kaituan() {
     var tipContent=$("#tip").html().trim();
     if(""!=tipContent&&tipContent.length>1){
         tip(tipContent);
@@ -149,6 +111,16 @@ function kaituan() {
             }
         }
     });
+});
+
+
+
+//提示
+function tip(tipContent){
+    $("#tip").html(tipContent).show();
+    setTimeout(function(){
+    $("#tip").hide();
+    },3000);
 }
 
 
