@@ -14,7 +14,6 @@ $(function(){
             var tempTotal=$("#tempTotal").val();
             var denominationSpan=$(this).find(".quick").find(".denominationSpan").html();
             var hiddenDiscountFee=$("input[name='hiddenDiscountFee']").val();
-            console.log("==hiddenDiscountFee=="+hiddenDiscountFee)
             if(typeof(denominationSpan)=="undefined"||null==denominationSpan){
                 $("#totalPaySpan").html(tempTotal);
                 $(".discountCss").html("￥"+hiddenDiscountFee);

@@ -1190,7 +1190,8 @@ div .cycle-overlay {
 }
 
 .toup .con .item div:nth-of-type(3) p{
-	font-size: 12px;padding: 0 12px 12px 5px;
+	font-size: 12px;
+	padding: 0 12px 12px 5px;
 	word-wrap: break-word;
 	white-space:pre-wrap;
 	height:35px;overflow: hidden;
@@ -1205,7 +1206,7 @@ div .cycle-overlay {
 }
 
 .conaddr-p{
-	height:125px;
+	height:85px;
 }
 
 .txt-box-title{
