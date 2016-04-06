@@ -150,14 +150,14 @@ public class ComCtrl extends Controller {
             Logger.info("微信scope userinfo返回的数据JSON: " + response.toString());
 
             if (response.findValue("errcode") == null && response.findValue("refresh_token") != null) {
-                F.Promise<Result> t = ws.url(SysParCom.WEIXIN_REFRESH + "appid=" + WEIXIN_APPID + "&grant_type=refresh_token&refresh_token=" + response.findValue("refresh_token")).get().map(wsr -> {
+                F.Promise<Result> t = ws.url(SysParCom.WEIXIN_REFRESH + "appid=" + WEIXIN_APPID + "&grant_type=refresh_token&refresh_token=" + response.findValue("refresh_token").asText()).get().map(wsr -> {
                     JsonNode refreshToken = wsr.asJson();
                     cache.set(refreshToken.findValue("openid").asText(), refreshToken.findValue("expires_in").asInt(), new WechatVo(refreshToken.findValue("openid").asText(), refreshToken.findValue("access_token").asText()));
                     ctx().response().setCookie("openId", refreshToken.findValue("openid").asText(),refreshToken.findValue("expires_in").asInt());
                     ctx().response().setCookie("accessToken", refreshToken.findValue("access_token").asText(),refreshToken.findValue("expires_in").asInt());
                     return redirect("/bind?state=" + state);
                 });
-                return t.get(10);
+                return t.get(1500);
             }
             return badRequest(views.html.error500.render());
         });
@@ -179,7 +179,7 @@ public class ComCtrl extends Controller {
                 if (message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
                     Logger.error("返回数据code=" + json);
                     //此openId不存在时发起授权请求
-                    redirect(SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/userinfo", "utf-8") + "&response_type=code&scope=snsapi_userinfo&state=" + state + "#wechat_redirect");
+                    return redirect(SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/userinfo", "utf-8") + "&response_type=code&scope=snsapi_userinfo&state=" + state + "#wechat_redirect");
                 }
 
                 //此openId存在则自动登录
@@ -195,7 +195,7 @@ public class ComCtrl extends Controller {
 
                 return redirect(uri);
             });
-            return t.get(10);
+            return t.get(2000);
         });
 
     }
@@ -229,7 +229,6 @@ public class ComCtrl extends Controller {
             builder.addHeader("id-token", user_token.get().value());
         }
         return builder;
-
     }
 
     /***

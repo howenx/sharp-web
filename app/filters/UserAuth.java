@@ -68,7 +68,7 @@ public class UserAuth extends Security.Authenticator {
                 } else return null;
             } else {
                 weixin(ctx);
-                return result ;
+                return null ;
             }
 
         } catch (Exception ex) {
