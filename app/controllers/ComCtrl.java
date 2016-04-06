@@ -68,7 +68,7 @@ public class ComCtrl extends Controller {
      */
     public String getDetailUrl(String oldUrl) {
 //        Logger.info(oldUrl+"===="+oldUrl.indexOf("/detail/")+"==="+oldUrl.substring(oldUrl.indexOf("/detail/")));
-        if (oldUrl.indexOf("/detail/") < 0) {
+        if (!oldUrl.contains("/detail/")) {
             return oldUrl;
         }
         return oldUrl.substring(oldUrl.indexOf("/detail/"));
@@ -193,12 +193,10 @@ public class ComCtrl extends Controller {
 
                 String uri = cache.get(state).toString();
                 if (uri==null) uri="/";
-
                 return redirect(uri);
             });
-            return t.get(2000);
+            return t.get(1500);
         });
-
     }
 
 //    public Request.Builder getBuilder(Http.Request request, Http.Session session) {
