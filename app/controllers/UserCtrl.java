@@ -499,12 +499,12 @@ public class UserCtrl extends Controller {
         Form<UserLoginInfo> userForm = Form.form(UserLoginInfo.class).bindFromRequest();
         Map<String, String> userMap = userForm.data();
 
-        String openId = ctx().session().get("openId");
-        String accessToken = ctx().session().get("accessToken");
+        Optional<Http.Cookie> openId =Optional.ofNullable(ctx().request().cookies().get("openId"));
+        Optional<Http.Cookie> accessToken = Optional.ofNullable(ctx().request().cookies().get("accessToken"));
         Logger.error("openId:"+openId+" , "+"accessToken:"+accessToken);
-        if (null!=openId && null!= accessToken) {
-            userMap.put("openId", openId);
-            userMap.put("accessToken", accessToken);
+        if (openId.isPresent()&& accessToken.isPresent()) {
+            userMap.put("openId", openId.get().value());
+            userMap.put("accessToken", accessToken.get().value());
         }
         Logger.error("userMap:" + userMap);
 
@@ -516,8 +516,10 @@ public class UserCtrl extends Controller {
                 FormEncodingBuilder feb = new FormEncodingBuilder();
                 userMap.forEach(feb::add);
                 RequestBody formBody = feb.build();
-                Request request = new Request.Builder()
-                        .header("User-Agent", request().getHeader("User-Agent"))
+                Request.Builder builder = comCtrl.getBuilder(ctx());
+//                Request request = new Request.Builder()
+                Request request = builder
+//                        .header("User-Agent", request().getHeader("User-Agent"))
                         .url(LOGIN_PAGE)
                         .post(formBody)
                         .build();
@@ -597,7 +599,8 @@ public class UserCtrl extends Controller {
                 FormEncodingBuilder feb = new FormEncodingBuilder();
                 userMap.forEach(feb::add);
                 RequestBody formBody = feb.build();
-                Request request = new Request.Builder()
+                Request.Builder builder = comCtrl.getBuilder(ctx());
+                Request request = builder
                         .url(PHONE_VERIFY)
                         .post(formBody)
                         .build();
@@ -636,8 +639,8 @@ public class UserCtrl extends Controller {
                 FormEncodingBuilder feb = new FormEncodingBuilder();
                 userMap.forEach(feb::add);
                 RequestBody formBody = feb.build();
-                Request request = new Request.Builder()
-                        .url(PHONE_CODE)
+                Request.Builder builder = comCtrl.getBuilder(ctx());
+                Request request = builder
                         .post(formBody)
                         .build();
                 client.setConnectTimeout(10, TimeUnit.SECONDS);
@@ -704,12 +707,12 @@ public class UserCtrl extends Controller {
         Form<UserRegistInfo> userRegistInfoForm = Form.form(UserRegistInfo.class).bindFromRequest();
         Map<String, String> userMap = userRegistInfoForm.data();
 
-        String openId = ctx().session().get("openId");
-        String accessToken = ctx().session().get("accessToken");
+        Optional<Http.Cookie> openId =Optional.ofNullable(ctx().request().cookies().get("openId"));
+        Optional<Http.Cookie> accessToken = Optional.ofNullable(ctx().request().cookies().get("accessToken"));
         Logger.error("openId:"+openId+" , "+"accessToken:"+accessToken);
-        if (null!=openId && null!= accessToken) {
-            userMap.put("openId", openId);
-            userMap.put("accessToken", accessToken);
+        if (openId.isPresent()&& accessToken.isPresent()) {
+            userMap.put("openId", openId.get().value());
+            userMap.put("accessToken", accessToken.get().value());
         }
         Logger.error("userMap:" + userMap);
 
@@ -721,8 +724,7 @@ public class UserCtrl extends Controller {
                 FormEncodingBuilder feb = new FormEncodingBuilder();
                 userMap.forEach(feb::add);
                 RequestBody formBody = feb.build();
-                Request request = new Request.Builder()
-                        .header("User-Agent", request().getHeader("User-Agent"))
+                Request request = comCtrl.getBuilder(ctx())
                         .url(REGISTER_PAGE)
                         .post(formBody)
                         .build();
@@ -790,12 +792,12 @@ public class UserCtrl extends Controller {
         Form<UserRegistInfo> userRegistInfoForm = Form.form(UserRegistInfo.class).bindFromRequest();
         Map<String, String> userMap = userRegistInfoForm.data();
 
-        String openId = ctx().session().get("openId");
-        String accessToken = ctx().session().get("accessToken");
+        Optional<Http.Cookie> openId =Optional.ofNullable(ctx().request().cookies().get("openId"));
+        Optional<Http.Cookie> accessToken = Optional.ofNullable(ctx().request().cookies().get("accessToken"));
         Logger.error("openId:"+openId+" , "+"accessToken:"+accessToken);
-        if (null!=openId && null!= accessToken) {
-            userMap.put("openId", openId);
-            userMap.put("accessToken", accessToken);
+        if (openId.isPresent()&& accessToken.isPresent()) {
+            userMap.put("openId", openId.get().value());
+            userMap.put("accessToken", accessToken.get().value());
         }
         Logger.error("userMap:" + userMap);
 
@@ -807,7 +809,7 @@ public class UserCtrl extends Controller {
                 FormEncodingBuilder feb = new FormEncodingBuilder();
                 userMap.forEach(feb::add);
                 RequestBody formBody = feb.build();
-                Request request = new Request.Builder()
+                Request request = comCtrl.getBuilder(ctx())
                         .url(RESET_PASSWORD)
                         .post(formBody)
                         .build();
@@ -1016,6 +1018,7 @@ public class UserCtrl extends Controller {
      *
      * @return
      */
+    @Security.Authenticated(UserAuth.class)
     public Result aboutus() throws IOException {
         String path = routes.UserCtrl.setting().url();
         if (session().containsKey("path")) {
@@ -1149,6 +1152,7 @@ public class UserCtrl extends Controller {
      *
      * @return
      */
+    @Security.Authenticated(UserAuth.class)
     public Result service() {
         Form<CartDto> cartDtoForm = Form.form(CartDto.class).bindFromRequest();
         Map<String, String> map = cartDtoForm.data();
