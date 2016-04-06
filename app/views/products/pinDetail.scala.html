@@ -21,9 +21,12 @@
 </head>
 
 <body>
+<div id="loading">
+    <img src="/assets/images/loading.gif"/>
+</div>
 <form id="settleForm" action="/settle" method="POST">
-<div id='screen_wrap' class="pin-wrap">
-    <div class="picture_wrap">
+  <div id='screen_wrap' class="pin-wrap">
+     <div class="picture_wrap">
         <div class="nav_ban_detail">
             <a href="javascript:window.history.back()" class="back">
                 <i></i>
@@ -159,6 +162,34 @@
         <div class="hot">
             <p class="hot-hd">热卖商品</p>
             <ul class="product">
+
+                <li>
+                    <a href="/detail/item/888356/111396">
+                        <p class="figure figure-f">
+                            <span>该商品已售罄</span>
+                            <img src="http://img.hanmimei.com/de5a2f21a057478cb432fe4f9e903ed71451370005389.jpg">
+                        </p>
+                        <p class="title-hd">韩秘美 Crystalshop 施华洛世奇水晶 wendy温蒂爱的花环银饰</p>
+					   <span class="title-fd">
+						   <i class="naw">￥308</i>
+						   <i class="agio">￥308</i>
+						   <b>0折</b>
+					   </span>
+                    </a>
+
+                    <a href="/detail/item/888351/111387">
+                        <p class="figure figure-f">
+                            <img src="http://img.hanmimei.com/7b557e46bded43358f6d06c8f0a10dbc1451370164326.jpg">
+                        </p>
+                        <p class="title-hd">韩秘美 Crystalshop 施华洛世奇 水晶巨星闪耀单钻银饰</p>
+					   <span class="title-fd">
+						   <i class="naw">￥228</i>
+						   <i class="agio">￥228</i>
+						   <b>0折</b>
+					   </span>
+                    </a>
+                </li>
+
                 @for(rowList <- pushList){
                 <li>
                     @for(pushItem <- rowList){

@@ -198,7 +198,7 @@ h1 {
 
 /*提示信息*/
 .hint{
-    background-color:#E46359 ;
+    background-color:#ff5359 ;
     position: fixed;
     top:50%;
     left: 50%;
@@ -210,6 +210,7 @@ h1 {
     -moz-transform: translate(-50%,0);
     z-index:999;
 }
+
 /**灰色*/
 .discolour{
     background-color: #969696;
@@ -239,7 +240,17 @@ h1 {
     background: none;
 }
 
-
+#loading{
+    position: absolute;
+    top:50%;
+    left: 50%;
+    width: 100px;
+    -webkit-transform: translate(-50%,0);
+    -moz-transform: translate(-50%,0);
+}
+#loading img{
+    width: 100%;
+}
 
 
 

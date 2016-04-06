@@ -3,37 +3,24 @@
 <link rel="stylesheet" href="/assets/stylesheets/hp.css">
 <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
 <script src="/assets/javascripts/jquery/TouchSlide.1.1.js"></script>
-<script src="/assets/javascripts/hp.js"></script>
 <script src="/assets/javascripts/jquery/jquery-1.9.1.min.js"></script>
+<script src="/assets/javascripts/hp.js"></script>
 <script src="/assets/javascripts/cartAmount.js"></script>
-<style>
-   #loading{
-	   position: absolute;
-	   top:50%;
-	   left: 50%;
-	   width: 100px;
-	   -webkit-transform: translate(-50%,0);
-	   -moz-transform: translate(-50%,0);
-   }
-   #loading img{
-	   width: 100%;
-   }
-
-</style>
 <script>
 	$(function(){
-
 		$(window).load(function(){
 			$("#loading").hide();
 		});
-	})
+	});
 </script>
+
 }
 
 @layout(title="韩秘美,专卖韩国正品")(scripts) {
-<div id="loading">
-	<img src="/assets/images/loading.gif"/>
-</div>
+
+	<div id="loading">
+		<img src="/assets/images/loading.gif"/>
+	</div>
 
 <!--头部-->
 	<div class="battener">

@@ -60,14 +60,13 @@ input:password {
 /****cartempty************/
 .nav_ban {
     text-align: center;
-    background: #fff;
-    height:50px;
+    height:44px;
     overflow: auto;
     position: relative;
     width: 100%;
-    line-height:50px;
+    line-height:44px;
     display: block;
-    background-color:#E66255;
+    background-color:#ff5359;
     border-bottom:1px solid #C7C7C7;
 
 }
@@ -200,7 +199,7 @@ input[type=checkbox]{
 }
 
 .login .loginBtn {
-    background-color:#E46359;
+    background-color:#ff5359;
     border: 1px solid #fff;
     float: left;
 }
@@ -539,10 +538,7 @@ dl.list dd>.btn {
     color: #fff;
     font-size: 16px;
     cursor: pointer;
-    margin:10px 0 0 0;
     -webkit-appearance: none;
-
-
 }
 
 .back{

@@ -31,7 +31,13 @@
 	<script>window.urlParam = "@url"</script>
 </head>
 <body>
+
+<div id="loading">
+	<img src="/assets/images/loading.gif"/>
+</div>
+
 <div id='screen_wrap'>
+
 	<form id="settleForm" action="/settle" method="POST">
 		<input type="hidden" name="buyNow" value="1"/>
 		<div class="nav_ban_detail">
@@ -62,16 +68,16 @@
 				@if(!inventory.getOrMasterInv()){
 					<div class="item">
 						<div class="hiddenInput">
-							<input type="hidden" name="invCustoms0" value="@inventory.getInvCustoms()"/>
-							<input type="hidden" name="invArea0" value="@inventory.getInvArea()" />
-							<input type="hidden" name="invAreaNm0" value="@inventory.getInvAreaNm()" />
-							<input type="hidden" name="skuId0-0" value="@inventory.getId()"/>
-							<input type="hidden" name="skuType0-0" value="@inventory.getSkuType()"/>
-							<input type="hidden" name="skuTypeId0-0" value="@inventory.getSkuTypeId()"/>
-							<input type="hidden" name="skuTitle0-0" value="@inventory.getInvTitle()"/>
-							<input type="hidden" name="skuInvImg0-0" value="@inventory.getInvImg()"/>
-							<input type="hidden" name="state0-0" value="@inventory.getState()"/>
-							<input type="hidden" name="skuPrice0-0" value="@inventory.getItemPrice()"/>
+							<input type="hidden" name="invCustoms0" value="@inventory.getInvCustoms()" disabled="disabled"/>
+							<input type="hidden" name="invArea0" value="@inventory.getInvArea()" disabled="disabled"/>
+							<input type="hidden" name="invAreaNm0" value="@inventory.getInvAreaNm()" disabled="disabled"/>
+							<input type="hidden" name="skuId0-0" value="@inventory.getId()" disabled="disabled"/>
+							<input type="hidden" name="skuType0-0" value="@inventory.getSkuType()" disabled="disabled"/>
+							<input type="hidden" name="skuTypeId0-0" value="@inventory.getSkuTypeId()" disabled="disabled"/>
+							<input type="hidden" name="skuTitle0-0" value="@inventory.getInvTitle()" disabled="disabled"/>
+							<input type="hidden" name="skuInvImg0-0" value="@inventory.getInvImg()" disabled="disabled"/>
+							<input type="hidden" name="state0-0" value="@inventory.getState()" disabled="disabled"/>
+							<input type="hidden" name="skuPrice0-0" value="@inventory.getItemPrice()" disabled="disabled"/>
 						</div>
 				}
 
@@ -201,6 +207,35 @@
 		<div class="hot">
 			<p class="hot-hd">热卖商品</p>
 			<ul class="product">
+
+				<li>
+					<a href="/detail/item/888356/111396">
+						<p class="figure figure-f">
+							<span>该商品已售罄</span>
+							<img src="http://img.hanmimei.com/de5a2f21a057478cb432fe4f9e903ed71451370005389.jpg">
+						</p>
+						<p class="title-hd">韩秘美 Crystalshop 施华洛世奇水晶 wendy温蒂爱的花环银饰</p>
+					   <span class="title-fd">
+						   <i class="naw">￥308</i>
+						   <i class="agio">￥308</i>
+						   <b>0折</b>
+					   </span>
+					</a>
+
+					<a href="/detail/item/888351/111387">
+						<p class="figure figure-f">
+							<img src="http://img.hanmimei.com/7b557e46bded43358f6d06c8f0a10dbc1451370164326.jpg">
+						</p>
+						<p class="title-hd">韩秘美 Crystalshop 施华洛世奇 水晶巨星闪耀单钻银饰</p>
+					   <span class="title-fd">
+						   <i class="naw">￥228</i>
+						   <i class="agio">￥228</i>
+						   <b>0折</b>
+					   </span>
+					</a>
+                 </li>
+
+
 				@for(rowList <- pushList){
 					<li>
 						@for(pushItem <- rowList){
@@ -410,7 +445,7 @@
 
 </script>
 -->
-<div class="hint" id="tip" style="display:none"></div>
+<div class="hint" id="tip"></div>
 </body>
 
 </html>

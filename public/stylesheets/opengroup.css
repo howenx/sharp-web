@@ -32,15 +32,14 @@ body{
 }
 
 .choose-m{
-    padding: 10px 2%;
     margin: 20px 0;
-    height: 300px;
+    padding: 10px 2% 20px 2%;
 }
 
 .mold{
-    background-color: #E66255;
-    height: 50px;
-    line-height: 50px;
+    background-color:#ff5359;
+    height: 40px;
+    line-height: 40px;
     color: #fff;
     padding: 0 0 0 2%;
 
@@ -64,7 +63,7 @@ ul li{
 
 .first{
     background: url("/assets/images/hmm_icon_tuijian.png") right no-repeat;
-    background-size: 45px 49px;
+    background-size:38px;
 }
 
 ul li .b-big{
@@ -83,8 +82,8 @@ ul li p{
 }
 
 ul li.current{
-    color:#E66255;
-    border-bottom: 2px solid #E66255;
+    color:#ff5359;;
+    border-bottom: 2px solid #ff5359;;
 }
 
 .choose-b{
@@ -92,7 +91,8 @@ ul li.current{
     line-height:40px;
     color: #fff;
     text-align: center;
-    background-color: #E66255;
+    background-color:#ff5359;
     border-radius:5px;
-    margin-bottom: 20px;
+    margin: 0 0 10px 0;
+
 }
