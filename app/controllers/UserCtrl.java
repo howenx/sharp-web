@@ -499,12 +499,12 @@ public class UserCtrl extends Controller {
         Form<UserLoginInfo> userForm = Form.form(UserLoginInfo.class).bindFromRequest();
         Map<String, String> userMap = userForm.data();
 
-        String openId = ctx().request().cookies().get("openId").value();
-        String accessToken = ctx().request().cookies().get("accessToken").value();
+        Optional<Http.Cookie> openId =Optional.ofNullable(ctx().request().cookies().get("openId"));
+        Optional<Http.Cookie> accessToken = Optional.ofNullable(ctx().request().cookies().get("accessToken"));
         Logger.error("openId:"+openId+" , "+"accessToken:"+accessToken);
-        if (null!=openId && null!= accessToken) {
-            userMap.put("openId", openId);
-            userMap.put("accessToken", accessToken);
+        if (openId.isPresent()&& accessToken.isPresent()) {
+            userMap.put("openId", openId.get().value());
+            userMap.put("accessToken", accessToken.get().value());
         }
         Logger.error("userMap:" + userMap);
 
@@ -704,12 +704,12 @@ public class UserCtrl extends Controller {
         Form<UserRegistInfo> userRegistInfoForm = Form.form(UserRegistInfo.class).bindFromRequest();
         Map<String, String> userMap = userRegistInfoForm.data();
 
-        String openId = ctx().request().cookies().get("openId").value();
-        String accessToken = ctx().request().cookies().get("accessToken").value();
+        Optional<Http.Cookie> openId =Optional.ofNullable(ctx().request().cookies().get("openId"));
+        Optional<Http.Cookie> accessToken = Optional.ofNullable(ctx().request().cookies().get("accessToken"));
         Logger.error("openId:"+openId+" , "+"accessToken:"+accessToken);
-        if (null!=openId && null!= accessToken) {
-            userMap.put("openId", openId);
-            userMap.put("accessToken", accessToken);
+        if (openId.isPresent()&& accessToken.isPresent()) {
+            userMap.put("openId", openId.get().value());
+            userMap.put("accessToken", accessToken.get().value());
         }
         Logger.error("userMap:" + userMap);
 
@@ -790,12 +790,12 @@ public class UserCtrl extends Controller {
         Form<UserRegistInfo> userRegistInfoForm = Form.form(UserRegistInfo.class).bindFromRequest();
         Map<String, String> userMap = userRegistInfoForm.data();
 
-        String openId = ctx().request().cookies().get("openId").value();
-        String accessToken = ctx().request().cookies().get("accessToken").value();
+        Optional<Http.Cookie> openId =Optional.ofNullable(ctx().request().cookies().get("openId"));
+        Optional<Http.Cookie> accessToken = Optional.ofNullable(ctx().request().cookies().get("accessToken"));
         Logger.error("openId:"+openId+" , "+"accessToken:"+accessToken);
-        if (null!=openId && null!= accessToken) {
-            userMap.put("openId", openId);
-            userMap.put("accessToken", accessToken);
+        if (openId.isPresent()&& accessToken.isPresent()) {
+            userMap.put("openId", openId.get().value());
+            userMap.put("accessToken", accessToken.get().value());
         }
         Logger.error("userMap:" + userMap);
 

@@ -60,7 +60,6 @@
 
             $("#btn-bind").css('background', '#C0C0C0');
             $('#js-userinfo-error').hide();
-             <!--$('#js-userinfo-error2').hide();-->
 
             //输入手机号格式正确可以点击下一步
             $('#phone').bind('input propertychange', function() {
@@ -78,7 +77,6 @@
 
             //弹框取消按钮
             $('.box-q').click(function(){
-                $('#js-userinfo-error2').text('').hide();
                 $("#password").val("");
                 $('.shade-box').hide();
             })
