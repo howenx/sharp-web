@@ -315,6 +315,10 @@ $(document).on("click",".cartAdd",function(){
     var skuType=$("input[name='skuType0-0']:not(:disabled)").val() ;
     var skuTypeId=$("input[name='skuTypeId0-0']:not(:disabled)").val() ;
     var state=$("input[name='state0-0']:not(:disabled)").val() ;
+    //
+    if(!checkSkuBeforeBuy(state)){
+     return;
+    }
 
     var obj=new Object();
     obj.cartId=0;
@@ -399,6 +403,28 @@ $(document).ready(function() {
     $("#curUrl").val(window.location.href);
 
 });
+
+//立即购买
+$(document).on("click",".buyBtnCss",function(){
+     var state=$("input[name='state0-0']:not(:disabled)").val() ;
+     if(checkSkuBeforeBuy(state)){
+        //提交表单
+         $("#settleForm").submit();
+     }
+
+
+
+
+});
+
+//购买前先检测是否可以购买
+function checkSkuBeforeBuy(state){
+    if("P"==state){
+        tip("该商品处于预售状态,请选择其他商品");
+        return false;
+    }
+    return true;
+}
 
 
 

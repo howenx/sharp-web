@@ -254,7 +254,8 @@ public class ProductsCtrl extends Controller {
      */
     public F.Promise<Result> detail(String url){
         F.Promise<JsonNode> promise = F.Promise.promise(() -> {
-            Request request = getBuilder(request(), session())
+            Request request =comCtrl.getBuilder(ctx()) //该位置需要取个人相关的数据,必须修改
+                    // getBuilder(request(), session())
                     .url(GOODS_PAGE + url)
                     .build();
             client.setConnectTimeout(15, TimeUnit.SECONDS);
@@ -285,6 +286,7 @@ public class ProductsCtrl extends Controller {
                 List<List<String>> preImgList = new ArrayList<>();
                 //优惠信息
                 List<String> publicityList = new ArrayList<>();
+                Logger.info("===detail==" + json);
                 //商品基本信息
                 if (json.has("main")) {
                     JsonNode mainJson = json.get("main");
@@ -389,7 +391,7 @@ public class ProductsCtrl extends Controller {
                 List<String> preImgList = new ArrayList<>();
                 //优惠信息
                 List<String> publicityList = new ArrayList<>();
-             //   Logger.info("===detail==" + json);
+                Logger.info("==pin=detail==" + json);
                 //拼购商品基本信息
                 if (json.has("main")) {
                     JsonNode mainJson = json.get("main");
