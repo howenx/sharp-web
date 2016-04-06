@@ -32,11 +32,13 @@ public class UserAuth extends Security.Authenticator {
     @Inject
     private WSClient ws;
 
+    private Request.Builder builder = new Request.Builder();
+
 
     @Override
     public String getUsername(Http.Context ctx) {
         try {
-            Request.Builder builder = new Request.Builder();
+
             builder.addHeader(Http.HeaderNames.X_FORWARDED_FOR, ctx.request().remoteAddress());
             builder.addHeader(Http.HeaderNames.VIA, ctx.request().remoteAddress());
             builder.addHeader("User-Agent", ctx.request().getHeader("User-Agent"));
@@ -83,6 +85,9 @@ public class UserAuth extends Security.Authenticator {
 
             if (openId.isPresent() && accessToken.isPresent()) {
                 return ws.url(WEIXIN_VERIFY + openId.get().value()).get().map(wr -> {
+
+                    Logger.error("擦擦");
+
                     JsonNode json = wr.asJson();
                     Message message = Json.fromJson(json.get("message"), Message.class);
                     if (null == message) {
@@ -102,6 +107,8 @@ public class UserAuth extends Security.Authenticator {
                     cache.set(session_id, expired, token);
                     ctx.response().setCookie("session_id", session_id, expired);
                     ctx.response().setCookie("user_token", token, expired);
+                    ctx.args.put("request", builder.addHeader("id-token", token));
+                    
                     return "success";
                 }).get(10).toString();
             } else return "state_base";
