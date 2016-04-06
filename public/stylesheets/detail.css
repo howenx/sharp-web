@@ -1293,16 +1293,19 @@ div .cycle-overlay {
     position: fixed;
     top:50%;
     left: 50%;
+	color: #fff;
     height: 40px;
     line-height: 40px;
     text-align: center;
     border-radius: 20px;
     margin: 0 auto;
-    color:#E46359;
-    padding: 10px;
+    padding: 0  10px;
+	background-color:#ff5359;
     text-align: center;
     -webkit-transform: translate(-50%,0);
     -moz-transform: translate(-50%,0);
+	z-index: 100;
+
 }
 
 .hd-js{
