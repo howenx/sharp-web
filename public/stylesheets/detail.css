@@ -399,12 +399,15 @@ div .cycle-overlay {
 }
 
 
-.three{
+.three,.four{
     padding:0 0 0 20px;
 	font-size: 14px;
-	background: url("/assets/images/hmm_dingwei_icon.png") 0 20px no-repeat;
 	float: right;
-	background-size: 20px 20px;
+}
+
+.three{
+	background: url("/assets/images/hmm_dingwei_icon.png") 3px 17px no-repeat;
+	background-size:15px;
 }
 
 
@@ -971,14 +974,20 @@ div .cycle-overlay {
 .thw-detail-other .xian{
 	background: #E56254;
 	color: #fff;
-	width: 20px;
-	height: 20px;
+	width:18px;
+	height:18px;
 	text-align: center;
-	line-height: 20px;
-	display: inline-block;
+	line-height:18px;
+	float: left;
 	border-radius: 3px;
 	font-size: 12px;
+	margin: 2px 2px 0 0;
 }
+.xian-j{
+	float: left;
+
+}
+
 .picture_wrap .item{
 	width: 100%;
 	height: 0;
@@ -1244,7 +1253,7 @@ div .cycle-overlay {
 	font-size: 12px;
 	color:#999;
 	float: right;
-	margin:2px 0 0 0;
+	margin:3px 0 0 0;
 }
 
 

@@ -22,7 +22,7 @@ h2{
 .commodity{
     width:100%;
     display: block;
-    padding: 10px 0 0 10px;
+    padding: 10px;
 }
 
 .commodity h2{
@@ -37,7 +37,7 @@ h2{
 
 .commodity .commodity-rmb{
     display: block;
-    margin:40px 0 10px 0;
+    margin:20px 0 10px 0;
     height:20px;
 
 }
@@ -50,11 +50,16 @@ span .rmb,span .number{
 span .rmb{
     margin: 0 0 0 2%;
 }
-.commodity img{
-    width:80px;
-    height:106px;
+.photo-img{
+    width:100px;
+    height:90px;
     float: left;
-    margin: 0 20px 0 0;
+    margin: 0 10px 0 0;
+}
+
+.commodity img{
+    width:100%;
+    float: left;
 }
 
 
@@ -111,8 +116,8 @@ span .rmb{
     font-size:20px;
 }
 .fight-hd.fight-er span{
-    width:120px;
-    height:90px;
+    width: 100px;
+    height: 65px;
     line-height: 50px;
     background: url("/assets/images/hmm_pingou_fail.png") no-repeat;
     background-size:contain;
@@ -141,7 +146,7 @@ span .rmb{
 
 .fight-timer{
     padding:0 2%;
-   background-color: #4B4B4B;
+   background-color: #999;
     color:#fff;
     height:60px;
     line-height: 60px;
@@ -149,7 +154,7 @@ span .rmb{
 
 .fight-timer img{
     border-radius: 50%;
-    margin:6px 0 0 0;
+    margin:5px 0 0 0;
 }
 .fight-photo{
     width:50px;
@@ -170,6 +175,7 @@ span .rmb{
 .fight-timer i{
     float: right;
     color: #EF2528;
+    font-size: 14px;
 }
 
 .fight-number{
@@ -222,7 +228,7 @@ span .rmb{
 .fight-timer b{
     float: left;
     margin: 0 0 0 10px;
-
+    font-size: 14px;
 }
 
 .fight-f-b{
@@ -249,10 +255,11 @@ span .rmb{
 .triangle{
     width: 0;
     border-width: 10px;
-    border-color:transparent transparent #4B4B4B transparent;
+    border-color:transparent transparent #999 transparent;
     border-style: solid dashed dashed dashed;
     margin: 0 auto;
 }
+
 
 
 
