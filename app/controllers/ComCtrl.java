@@ -68,7 +68,7 @@ public class ComCtrl extends Controller {
      */
     public String getDetailUrl(String oldUrl) {
 //        Logger.info(oldUrl+"===="+oldUrl.indexOf("/detail/")+"==="+oldUrl.substring(oldUrl.indexOf("/detail/")));
-        if (oldUrl.indexOf("/detail/") < 0) {
+        if (!oldUrl.contains("/detail/")) {
             return oldUrl;
         }
         return oldUrl.substring(oldUrl.indexOf("/detail/"));
@@ -151,14 +151,14 @@ public class ComCtrl extends Controller {
             Logger.info("微信scope userinfo返回的数据JSON: " + response.toString());
 
             if (response.findValue("errcode") == null && response.findValue("refresh_token") != null) {
-                F.Promise<Result> t = ws.url(SysParCom.WEIXIN_REFRESH + "appid=" + WEIXIN_APPID + "&grant_type=refresh_token&refresh_token=" + response.findValue("refresh_token")).get().map(wsr -> {
+                F.Promise<Result> t = ws.url(SysParCom.WEIXIN_REFRESH + "appid=" + WEIXIN_APPID + "&grant_type=refresh_token&refresh_token=" + response.findValue("refresh_token").asText()).get().map(wsr -> {
                     JsonNode refreshToken = wsr.asJson();
                     cache.set(refreshToken.findValue("openid").asText(), refreshToken.findValue("expires_in").asInt(), new WechatVo(refreshToken.findValue("openid").asText(), refreshToken.findValue("access_token").asText()));
                     ctx().response().setCookie("openId", refreshToken.findValue("openid").asText(),refreshToken.findValue("expires_in").asInt());
                     ctx().response().setCookie("accessToken", refreshToken.findValue("access_token").asText(),refreshToken.findValue("expires_in").asInt());
                     return redirect("/bind?state=" + state);
                 });
-                return t.get(10);
+                return t.get(1500);
             }
             return badRequest(views.html.error500.render());
         });
@@ -180,7 +180,7 @@ public class ComCtrl extends Controller {
                 if (message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
                     Logger.error("返回数据code=" + json);
                     //此openId不存在时发起授权请求
-                    redirect(SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/userinfo", "utf-8") + "&response_type=code&scope=snsapi_userinfo&state=" + state + "#wechat_redirect");
+                    return redirect(SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/userinfo", "utf-8") + "&response_type=code&scope=snsapi_userinfo&state=" + state + "#wechat_redirect");
                 }
 
                 //此openId存在则自动登录
@@ -193,12 +193,10 @@ public class ComCtrl extends Controller {
 
                 String uri = cache.get(state).toString();
                 if (uri==null) uri="/";
-
                 return redirect(uri);
             });
-            return t.get(10);
+            return t.get(1500);
         });
-
     }
 
 //    public Request.Builder getBuilder(Http.Request request, Http.Session session) {
@@ -230,7 +228,6 @@ public class ComCtrl extends Controller {
             builder.addHeader("id-token", user_token.get().value());
         }
         return builder;
-
     }
 
     /***
@@ -272,5 +269,20 @@ public class ComCtrl extends Controller {
         cache.set(state, 60 * 60, url);
         result.put("state",state);
         return F.Promise.promise((F.Function0<Result>) () -> ok(views.html.users.login.render(routes.ProductsCtrl.index().url(),IMAGE_CODE,cache.get(state).toString(), "?state=" + state)));
+    }
+
+    /**
+     * 是否登录了
+     * @param ctx
+     * @return
+     */
+    public boolean isHaveLogin(Http.Context ctx){
+        Optional<Http.Cookie> user_token = Optional.ofNullable(ctx().request().cookies().get("user_token"));
+        Optional<Http.Cookie> session_id = Optional.ofNullable(ctx().request().cookies().get("session_id"));
+        if (user_token.isPresent()&&null!=user_token.get() && session_id.isPresent()&&null!=session_id.get()) {
+            return true;
+        }
+        return false;
+
     }
 }

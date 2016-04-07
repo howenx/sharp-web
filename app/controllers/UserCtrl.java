@@ -517,9 +517,7 @@ public class UserCtrl extends Controller {
                 userMap.forEach(feb::add);
                 RequestBody formBody = feb.build();
                 Request.Builder builder = comCtrl.getBuilder(ctx());
-//                Request request = new Request.Builder()
                 Request request = builder
-//                        .header("User-Agent", request().getHeader("User-Agent"))
                         .url(LOGIN_PAGE)
                         .post(formBody)
                         .build();
@@ -559,7 +557,7 @@ public class UserCtrl extends Controller {
      */
     public Result bindPhone(String state) {
         if (null!=cache.get(state)) {
-            return ok(views.html.users.bindPhone.render(cache.get(state).toString(), "?state="+state));
+            return ok(views.html.users.bindPhone.render(IMAGE_CODE, cache.get(state).toString(), "?state="+state));
         } else return redirect(routes.ProductsCtrl.index());
     }
 
@@ -619,7 +617,6 @@ public class UserCtrl extends Controller {
         }
     }
 
-
     /**
      * 请求手机验证码
      *
@@ -641,6 +638,7 @@ public class UserCtrl extends Controller {
                 RequestBody formBody = feb.build();
                 Request.Builder builder = comCtrl.getBuilder(ctx());
                 Request request = builder
+                        .url(PHONE_CODE)
                         .post(formBody)
                         .build();
                 client.setConnectTimeout(10, TimeUnit.SECONDS);
@@ -687,7 +685,7 @@ public class UserCtrl extends Controller {
      */
     public Result agreement() throws IOException {
 
-        Request request = new Request.Builder()
+        Request request = comCtrl.getBuilder(ctx())
                 .url(VIEWS_AGREEMENT)
                 .build();
         Response response = client.newCall(request).execute();
@@ -1003,7 +1001,6 @@ public class UserCtrl extends Controller {
         String session_id = request().cookie("session_id").toString();
         String token = request().cookies().get("user_token").value();
         if (session_id != null && token != null) {
-
             cache.delete(session_id);
             cache.delete(token);
             //清理cookie
@@ -1026,7 +1023,7 @@ public class UserCtrl extends Controller {
             session().replace("path", routes.UserCtrl.aboutus().url());
         } else session().put("path", routes.UserCtrl.aboutus().url());
 
-        Request request = new Request.Builder()
+        Request request = comCtrl.getBuilder(ctx())
                 .url(VIEWS_ABOUT)
                 .build();
         Response response = client.newCall(request).execute();

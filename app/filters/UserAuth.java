@@ -32,11 +32,15 @@ public class UserAuth extends Security.Authenticator {
     @Inject
     private WSClient ws;
 
+    private Request.Builder builder = new Request.Builder();
+
+    private String result;
+
 
     @Override
     public String getUsername(Http.Context ctx) {
         try {
-            Request.Builder builder = new Request.Builder();
+
             builder.addHeader(Http.HeaderNames.X_FORWARDED_FOR, ctx.request().remoteAddress());
             builder.addHeader(Http.HeaderNames.VIA, ctx.request().remoteAddress());
             builder.addHeader("User-Agent", ctx.request().getHeader("User-Agent"));
@@ -62,7 +66,10 @@ public class UserAuth extends Security.Authenticator {
                         return userId.toString();
                     } else return null;
                 } else return null;
-            } else return weixin(ctx);
+            } else {
+                weixin(ctx);
+                return null ;
+            }
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -72,7 +79,7 @@ public class UserAuth extends Security.Authenticator {
     }
 
 
-    private String weixin(Http.Context ctx) throws UnsupportedEncodingException {
+    private void weixin(Http.Context ctx) throws UnsupportedEncodingException {
 
         if (ctx.request().getHeader("User-Agent").contains("MicroMessenger")) {
 
@@ -82,17 +89,20 @@ public class UserAuth extends Security.Authenticator {
             Optional<Http.Cookie> accessToken = Optional.ofNullable(ctx.request().cookie("accessToken"));
 
             if (openId.isPresent() && accessToken.isPresent()) {
-                return ws.url(WEIXIN_VERIFY + openId.get().value()).get().map(wr -> {
+                ws.url(WEIXIN_VERIFY + openId.get().value()).get().map(wr -> {
+
+                    Logger.error("擦擦");
+
                     JsonNode json = wr.asJson();
                     Message message = Json.fromJson(json.get("message"), Message.class);
                     if (null == message) {
                         Logger.error("返回数据错误code=" + json);
-                        return badRequest(views.html.error500.render());
+//                        return badRequest(views.html.error500.render());
                     }
-                    if (message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
+                    if (message != null && message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
                         Logger.error("返回数据code=" + json);
                         //此openId不存在时发起授权请求
-                        return "state_userinfo";
+                        result = "state_userinfo";
                     }
 
                     //此openId存在则自动登录
@@ -102,10 +112,13 @@ public class UserAuth extends Security.Authenticator {
                     cache.set(session_id, expired, token);
                     ctx.response().setCookie("session_id", session_id, expired);
                     ctx.response().setCookie("user_token", token, expired);
-                    return "success";
-                }).get(10).toString();
-            } else return "state_base";
-        } else return null;
+                    ctx.args.put("request", builder.addHeader("id-token", token));
+
+                    result = "success";
+                    return null;
+                });
+            } else result = "state_base";
+        } else result = null;
     }
 
 
@@ -118,19 +131,19 @@ public class UserAuth extends Security.Authenticator {
             cache.set(state, 60 * 60, ctx.request().uri());
         } else cache.set(state, 60 * 60, "/");
 
-        if (getUsername(ctx) != null && getUsername(ctx).equals("state_base")) {
+        if (result != null && result.equals("state_base")) {
             try {
                 return redirect(SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/base", "UTF-8") + "&response_type=code&scope=snsapi_base&state=" + state + "#wechat_redirect");
             } catch (UnsupportedEncodingException e) {
                 return redirect("/login?state=" + state);
             }
-        } else if (getUsername(ctx) != null && getUsername(ctx).equals("state_userinfo")) {
+        } else if (result != null && result.equals("state_userinfo")) {
             try {
                 return redirect(SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/userinfo", "UTF-8") + "&response_type=code&scope=snsapi_userinfo&state=" + state + "#wechat_redirect");
             } catch (UnsupportedEncodingException e) {
                 return redirect("/login?state=" + state);
             }
-        } else if (getUsername(ctx) != null && getUsername(ctx).equals("success")) {
+        } else if (result!= null && result.equals("success")) {
             String uri = cache.get(state).toString();
             if (uri == null) uri = "/";
             return redirect(uri);
