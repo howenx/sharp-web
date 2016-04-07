@@ -1,12 +1,12 @@
 body{
-    background: #F4F4F4;
+    background: #fff;
 }
 
 /*主体部分*/
 /*导航部分*/
 .wrap{
     padding:44px 0 60px 0 ;
-    background-color: #F4F4F4;
+    background-color: #fff;
 }
 
 .nav-tab-top li.current{
@@ -376,7 +376,7 @@ span .number{
     position: absolute;
     top: -7px;
     font-size: 14px;
-    left: 40px;
+    left: 44px;
     background: #ed145b;
     line-height: 18px;
     cursor: pointer;
