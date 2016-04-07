@@ -1,7 +1,7 @@
 
 #用户相关
 GET         /address/$selId<[0-9]+>                                            controllers.UserCtrl.address(selId:Long)
-#POST       /address                                  controllers.UserCtrl.address()
+#POST       /address                                                           controllers.UserCtrl.address()
 GET         /addressnew                                                        controllers.UserCtrl.addressnew()
 POST        /address/save                                                      controllers.UserCtrl.addressSave()
 POST        /address/del                                                       controllers.UserCtrl.addressDel()
@@ -86,7 +86,7 @@ GET         /order/cancel/$orderId<[0-9]+>                                     c
 GET         /order/del/$orderId<[0-9]+>                                        controllers.ShoppingCtrl.delOrder(orderId:Long)
 GET         /order/verify/$orderId<[0-9]+>                                     controllers.ShoppingCtrl.verifyOrder(orderId:Long)
 POST        /order/submit                                                      controllers.ShoppingCtrl.submitOrder()
-
+GET         /down                                                            controllers.ShoppingCtrl.down()
 
 
 POST        /cart/add                                                          controllers.ShoppingCtrl.cartAdd()

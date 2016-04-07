@@ -219,25 +219,36 @@ h1 {
 
 /*下载页面*/
 .conner{
-    padding:50px 2%;
+    padding:80px 2%;
     background-size:30px;
 }
 
 .conner img{
     margin: 0 auto;
 }
-.down{
+.down-app{
     background:#ff5359;
     text-align: center;
-    line-height:35px;
+    line-height:40px;
     color: #fff;
     border-radius:5px;
-    margin:40px 0 0 0;
+    margin:30px 0 0 0;
 }
-
-.down{
-    margin:0 0 0 0;
-    background: none;
+.down-hd{
+    color: #333;
+    font-size: 14px;
+    text-align: center;
+    margin: 10px 0 0 0;
+}
+.down-txt{
+    text-align: center;
+    color:#ff5359;
+    margin:60px 0 0 0;
+}
+.down-txt span{
+    color:#EF2528;;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 #loading{
