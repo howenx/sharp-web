@@ -55,17 +55,25 @@ input:password {
 
 
 /*购买产品部分开始*/
+
+.areaAndSku:first-child{
+    padding: 25px 0 0 0;
+}
+
+.areaAndSku:last-child{
+    margin: 0 0 43px 0;
+}
+
 .cart-goods {
     margin-top: 44px;
     width: 100%;
     background-color: #fff;
-    overflow: hidden;
+    padding: 25px 0 0 0;
 }
 .cart-goods-area{
     border-bottom: 1px solid #ccc;
     position: relative;
     height: 40px;
-    margin: 22px 0 0 0;
 }
 .cart-goods-area .check-wrapper{
     left: 10px;
@@ -76,7 +84,7 @@ input:password {
 .cart-goods-list li{
     width: 100%;
     float: left;
-    border-bottom: 1px solid #9FA0A0;
+    border-bottom: 1px solid #ccc;
     background-color: white;
 }
 .item{
@@ -391,3 +399,4 @@ input:password {
     -moz-transform: translate(-50%,0);
     z-index:999;
 }
+
