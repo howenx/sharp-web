@@ -112,7 +112,7 @@
             //输入手机号格式正确可以点击下一步
             $('#phone').bind('input propertychange', function() {
                 if (phoneReg.test($(this).val())) {
-                    $("#btn-bind").css('background-color', '#E46359');
+                    $("#btn-bind").css('background-color', '#ff5359');
                     $("#btn-bind").css('cursor', 'pointer');
                     $('#btn-bind').attr("disabled",false);
                 }
@@ -296,18 +296,18 @@
     <div class="login">
         <div id="js-userinfo-error" class="cue"></div>
         <fieldset>
-            <form id="cell_bindForm" method="post" onsubmit="return false" action="" >
+            <form id="cell_bindForm" method="post" onsubmit="return false" action="">
                     <dl class="list list-in list-regist">
                             <dd class="dd-padding lonin-dd code ">
                                     <input id="phone" class="input-weak" maxlength="11" type="text" placeholder="请输入您的手机号" name="phone" required pattern="[1][345678]\d{9}" onkeyup="this.value=this.value.replace(/\D/g,'')">
                                     <i class="delet"></i>
                             </dd>
-                            <dd class="dd-padding lonin-dd code pwd">
+                            <dd class="dd-padding lonin-dd code pwd" style="display:none;">
                                     <input id="password" class="input-weak input-weak-show" maxlength="12" type="password" placeholder="请输入您的密码" name="password" required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}">
                                     <i class="out"></i>
                                     <i class="howl"></i>
                             </dd>
-                            <dd class="dd-padding  proving-box" >
+                            <dd class="dd-padding  proving-box" style="display:none;">
                                     <input class="proving" id="imgCode" value="" maxlength="4" type="text" size="5" placeholder="请输验证码"/>
                                     <input type="hidden" id="code" name="code" value="">
                                     <img id="imageCodeImage" style="-webkit-user-select: none;" onclick="getImageCode()" src="@imageCode@Math.round(Math.random()*1000000)">
