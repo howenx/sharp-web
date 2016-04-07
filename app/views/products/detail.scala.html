@@ -17,6 +17,26 @@
 	<script src="/assets/javascripts/cartAmount.js"></script>
 	<script src="/assets/javascripts/commonDetail.js"></script>
 	<script>window.urlParam = "@url"</script>
+	<script>
+		$(function(){
+			<!--//主Sku商品下架-->
+			<!--if($("#master-sku").length == 0){-->
+				<!--$(".finish-box").css("display","block");-->
+				<!--$(".add_cart .cartAdd").removeClass('cartAdd');-->
+				<!--$(".buy_btn .buyBtnCss").removeClass('buyBtnCss');-->
+			<!--}-->
+			<!--$('.four').click(function(){-->
+				<!--$('.shade').show()-->
+			<!--});-->
+
+
+			<!--$('.shade-btn').click(function(){-->
+				<!--$('.shade').hide()-->
+			<!--});-->
+
+		})
+
+	</script>
 </head>
 <body>
 
@@ -432,6 +452,15 @@
 </script>
 -->
 <div class="hint" id="tip"></div>
+
+<div class="shade">
+	<div class="shade-box">
+		<div class="shade-hd">行邮税费用</div>
+		<div class="shade-midd">30.00</div>
+		<div class="shade-bottom">本商品适用税率为0%,若该保税仓总税额<50则免征(税额 = 单价 × 数量 × 税率</div>
+		<div class="shade-btn">确定</div>
+	</div>
+</div>
 </body>
 
 </html>

@@ -390,9 +390,24 @@ div .cycle-overlay {
 .one{
 	float: left;
 }
-.one i{
+
+.thw-detail-other .xian{
+	background: #E56254;
+	color: #fff;
+	width:18px;
+	height:18px;
+	text-align: center;
+	line-height:18px;
+	float: left;
+	border-radius: 3px;
+	font-size: 12px;
+	margin: 2px 2px 0 0;
+}
+.xian-j{
+	float: left;
 
 }
+
 .two{
 	float: left;
 	margin: 0 0 0 15%;
@@ -970,23 +985,8 @@ div .cycle-overlay {
 	bottom:60px
 }
 
-/*ffqwfewafegargsdgga*/
-.thw-detail-other .xian{
-	background: #E56254;
-	color: #fff;
-	width:18px;
-	height:18px;
-	text-align: center;
-	line-height:18px;
-	float: left;
-	border-radius: 3px;
-	font-size: 12px;
-	margin: 2px 2px 0 0;
-}
-.xian-j{
-	float: left;
 
-}
+
 
 .picture_wrap .item{
 	width: 100%;
@@ -1343,3 +1343,62 @@ div .cycle-overlay {
 }
 
 
+.shade{
+	width: 100%;
+	height: 2000px;
+	position:fixed;
+	top:0;
+	left: 0;
+	background-color: rgba(0,0,0,0.5);
+	z-index: 20;
+	display: none;
+}
+
+.shade .shade-box{
+	width: 80%;
+	background-color:#fff;
+	position: fixed;
+	top:30%;
+	left: 50%;
+	margin-left:-40%;
+	border-radius:3px;
+}
+
+.shade .shade-hd{
+	width:100%;
+	height: 35px;
+	line-height: 35px;
+	text-align: center;
+	color: #fff;
+	background-color:#ff5359;
+
+}
+
+.shade-midd,.shade-bottom{
+	font-size: 12px;
+	padding: 0 5px;
+
+}
+.shade-midd{
+	color: #ff5359;
+	border-bottom: 1px solid #ededed;
+	height: 35px;
+	line-height: 35px;
+	margin: 0 0 10px 0;
+	text-decoration: line-through;
+	font-size: 14px;
+}
+
+
+.shade-btn{
+	width: 50px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	background-color:#ff5359;
+	color: #fff;
+	margin:20px auto;
+	font-size: 14px;
+	border-radius: 3px;
+
+}

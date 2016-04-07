@@ -34,7 +34,7 @@
 <div class="cart-goods" id="cart-goods">
 
     <input type="hidden" name="areaNum" value="@resultVo.getCartList().size()">
-    
+
     @for((cart,index)<-resultVo.getCartList().zipWithIndex){
     <div class="areaAndSku">
         <div class="cart-goods-area">
@@ -63,7 +63,7 @@
                             <input type="checkbox" class="check-one check"  name="check_item" />
                         </div>
                         <div class="item-con">
-                            <a href="@cartInfo.getInvUrl()" class="item-con-l" target="_top">
+                            <a href="javascript:;" class="item-con-l" target="_top">
                                 <img src="@cartInfo.getInvImg()" alt=""/>
                             </a>
                             <div class="item-con-r">
