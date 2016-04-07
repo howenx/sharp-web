@@ -390,9 +390,24 @@ div .cycle-overlay {
 .one{
 	float: left;
 }
-.one i{
+
+.thw-detail-other .xian{
+	background: #E56254;
+	color: #fff;
+	width:18px;
+	height:18px;
+	text-align: center;
+	line-height:18px;
+	float: left;
+	border-radius: 3px;
+	font-size: 12px;
+	margin: 2px 2px 0 0;
+}
+.xian-j{
+	float: left;
 
 }
+
 .two{
 	float: left;
 	margin: 0 0 0 15%;
@@ -970,23 +985,8 @@ div .cycle-overlay {
 	bottom:60px
 }
 
-/*ffqwfewafegargsdgga*/
-.thw-detail-other .xian{
-	background: #E56254;
-	color: #fff;
-	width:18px;
-	height:18px;
-	text-align: center;
-	line-height:18px;
-	float: left;
-	border-radius: 3px;
-	font-size: 12px;
-	margin: 2px 2px 0 0;
-}
-.xian-j{
-	float: left;
 
-}
+
 
 .picture_wrap .item{
 	width: 100%;

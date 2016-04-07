@@ -45,25 +45,22 @@ body{
 
 }
 
-ul li div{
+ul li .num-hd{
     padding: 0 40px 0 0;
-
-
+    height: 35px;
+    line-height: 35px;
 }
 
 ul li{
-    height:50px;
-    line-height: 50px;
+
     color: #333;
     border-bottom: 1px solid #ccc;
-    padding: 0 0 0 2%;
-
-
+    padding: 0px 0 10px 2%;
 }
 
 .first{
-    background: url("/assets/images/hmm_icon_tuijian.png") right no-repeat;
-    background-size:38px;
+    background: url("/assets/images/hmm_icon_tuijian.png") right 5px no-repeat;
+    background-size: 30px;
 }
 
 ul li .b-big{
@@ -72,7 +69,7 @@ ul li .b-big{
 
 ul li span{
     float: left;
-    margin: 0 0 0 5px;
+    margin: 0 0 0 2px;
 
 }
 
@@ -83,7 +80,8 @@ ul li p{
 
 ul li.current{
     color:#ff5359;;
-    border-bottom: 2px solid #ff5359;;
+    border-bottom: 2px solid #ff5359;
+    font-size: 14px;
 }
 
 .choose-b{
@@ -95,4 +93,27 @@ ul li.current{
     border-radius:5px;
     margin: 0 0 10px 0;
 
+}
+
+.xian{
+    background:#ff5359;
+    color: #fff;
+    width: 15px;
+    height: 15px;
+    text-align: center;
+    line-height: 15px;
+    float: left;
+    border-radius: 3px;
+    font-size: 10px;
+    margin: 2px 2px 0 0;
+}
+.xian-j{
+    float: left;
+    color: #999;
+    font-size: 12px;
+    margin: 2px 0 0 0;
+}
+
+.xian-j-b{
+    margin: 0 0 0 17px;
 }
