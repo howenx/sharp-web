@@ -143,6 +143,12 @@ public class ComCtrl extends Controller {
     }
 
 
+    /**
+     * 微信授权
+     * @param code code
+     * @param state state
+     * @return Result
+     */
     public F.Promise<Result> wechatUserinfo(String code, String state) {
 
         return ws.url(SysParCom.WEIXIN_ACCESS + "appid=" + WEIXIN_APPID + "&secret=" + WEIXIN_SECRET + "&code=" + code + "&grant_type=authorization_code").get().map(wsResponse -> {
@@ -164,6 +170,12 @@ public class ComCtrl extends Controller {
         });
     }
 
+    /**
+     * 校验微信用户是否注册
+     * @param code code
+     * @param state state
+     * @return Result
+     */
     public F.Promise<Result> wechatBase(String code, String state) {
         return ws.url(SysParCom.WEIXIN_ACCESS + "appid=" + WEIXIN_APPID + "&secret=" + WEIXIN_SECRET + "&code=" + code + "&grant_type=authorization_code").get().map(wsResponse -> {
             JsonNode response = wsResponse.asJson();
