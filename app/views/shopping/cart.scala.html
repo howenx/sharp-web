@@ -30,9 +30,11 @@
 <!--头部结束-->
 <!--购买产品部分开始-->
 <form id="settleForm" action="/settle" method="POST">
-<div class="cart-goods" id="cart-goods">
     <div class="hint-hd" id="hint-hd">友情提示 : 同一保税区商品总额有限制</div>
+<div class="cart-goods" id="cart-goods">
+
     <input type="hidden" name="areaNum" value="@resultVo.getCartList().size()">
+    
     @for((cart,index)<-resultVo.getCartList().zipWithIndex){
     <div class="areaAndSku">
         <div class="cart-goods-area">
@@ -52,6 +54,8 @@
             </div>
         </div>
         <ul class="cart-goods-list">
+
+
             @for((cartInfo,skuIndex)<-cart.getCarts().zipWithIndex){
                 <li id="li@cartInfo.getCartId()">
                     <div class="item">
