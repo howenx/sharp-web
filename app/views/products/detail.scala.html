@@ -15,20 +15,16 @@
 	<script src="/assets/javascripts/jquery/TouchSlide.1.1.js"></script>
 	<script src="/assets/javascripts/detail.js"></script>
 	<script src="/assets/javascripts/cartAmount.js"></script>
+	<script>window.urlParam = "@url"</script>
 	<script>
 		$(function(){
+			//主Sku商品下架
 			if($("#master-sku").length == 0){
-				$('.classify ul li').each(function(){
-					if($(this).attr("class") != "sel-none"){
-						$(this).click();
-						return false;
-					}
-    			})
+				$(".finish-box").css("display","block");
 			}
 		})
 
 	</script>
-	<script>window.urlParam = "@url"</script>
 </head>
 <body>
 
@@ -332,11 +328,9 @@
 		<!--加入购物车-->
 		<div class="buy_box">
 
-			@if(itemMain.getState() == "D"){
-				<div class="finish-box">
+				<div class="finish-box" style="display:none">
 					该商品已售罄
 				</div>
-			}
 
 			<div class="love">
 				<div id="shopCart">

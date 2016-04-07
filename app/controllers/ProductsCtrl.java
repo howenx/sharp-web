@@ -248,7 +248,6 @@ public class ProductsCtrl extends Controller {
 
     /**
      * 商品明细
-     *
      * @param url
      * @return
      * @throws Exception
@@ -307,11 +306,9 @@ public class ProductsCtrl extends Controller {
                 //商品Sku
                 if (json.has("stock")) {
                     JsonNode stockJson = json.get("stock");
-                    int disableSkuCount = 0;
                     for (JsonNode stockInv : stockJson) {
                         Inventory inventory = Json.fromJson(stockInv, Inventory.class);
                         if("D".equals(inventory.getState())  || "N" .equals(inventory.getState()) || "K".equals(inventory.getState())){
-                            disableSkuCount = disableSkuCount + 1;
                         }
                         JsonNode imgJson = Json.parse(inventory.getInvImg());
                         inventory.setInvImg(imgJson.get("url").asText());
@@ -322,9 +319,6 @@ public class ProductsCtrl extends Controller {
                         }
                         preImgList.add(preImgSubList);
                         inventoryList.add(inventory);
-                    }
-                    if(inventoryList.size() == disableSkuCount){
-                        itemMain.setState("D");
                     }
                 }
                 //优惠信息
