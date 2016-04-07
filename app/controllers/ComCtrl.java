@@ -161,7 +161,7 @@ public class ComCtrl extends Controller {
                     JsonNode refreshToken = wsr.asJson();
                     ctx().response().setCookie("accessToken", refreshToken.findValue("access_token").asText(),refreshToken.findValue("expires_in").asInt());
                     ctx().response().setCookie("orBind", "1",refreshToken.findValue("expires_in").asInt());
-                    cache.set(refreshToken.findValue("access_token").asText(), refreshToken.findValue("expires_in").asInt(), new WechatVo(refreshToken.findValue("openid").asText(), refreshToken.findValue("openid").asText()));
+                    cache.set(refreshToken.findValue("access_token").asText(), refreshToken.findValue("expires_in").asInt(), refreshToken.findValue("openid").asText());
                     return redirect("/bind?state=" + state);
                 });
                 return t.get(1500);
