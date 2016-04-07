@@ -77,6 +77,12 @@ $(function() {
                 $(".hiddenInput").find("input").attr("disabled",true);
                 $(".hiddenInput").eq(index).find("input").attr("disabled",false);
                 $(".finish-box").css("display","none");
+                if($(".add_cart .cartAdd").length === 0){
+                    $(".add_cart .btnCart").addClass('cartAdd');
+                }
+                if($(".buy_btn .buyBtnCss").length ===0){
+                    $(".buy_btn .mabuy").addClass('buyBtnCss');
+                }
                 // $("#flyImgId").attr("src",$(".item.now").find("input[name='skuInvImg0-0']").val());
 	    }
 	})

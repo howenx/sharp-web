@@ -21,6 +21,8 @@
 			//主Sku商品下架
 			if($("#master-sku").length == 0){
 				$(".finish-box").css("display","block");
+				$(".add_cart .cartAdd").removeClass('cartAdd');
+				$(".buy_btn .buyBtnCss").removeClass('buyBtnCss');
 			}
 		})
 
@@ -372,23 +374,13 @@
 			</div>
 
 			<div class="add_cart btns" data-type="cart">
-				@if(itemMain.getState() != "D"){
-					<a href="javascript:;" class="btnCart add_cart_large cartAdd">
-				}
-				@if(itemMain.getState() == "D"){
-					<a href="javascript:;" class="btnCart add_cart_large">
-				}
+				<a href="javascript:;" class="btnCart add_cart_large cartAdd">
 					加入购物车
 				</a>
 			</div>
 
 			<div class="buy_btn" data-type="buy">
-				@if(itemMain.getState() != "D"){
-					<a href="javascript:;" class="mabuy buyBtnCss">
-				}
-				@if(itemMain.getState() == "D"){
-				<a href="javascript:;" class="mabuy">
-					}
+				<a href="javascript:;" class="mabuy buyBtnCss">
 					立即购买
 				</a>
 			</div>
