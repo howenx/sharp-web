@@ -174,32 +174,32 @@
     <div class="content scope">
         <ul class="product">
 
-            <li class="clearfix">
-                <a class="redirect-app" href="/detail/item/888276/111318">
-                    <p class="figure figure-f">
-                        <span>该商品已售罄</span>
-                        <img src="http://img.hanmimei.com/fd2fe66c3f2447efaef9c8abea65f2301451365456278.jpg">
-                    </p>
-                    <p class="title-hd">韩秘美 Crystalshop 施华洛世奇水晶 ‘神圣的石头’水晶吊坠银饰项链 </p>
-                    <span class="title-fd">
-                        <i class="naw">￥742</i>
-                        <i class="agio">￥742</i>
-                        <b>0折</b>
-                    </span>
-                </a>
+            <!--<li class="clearfix">-->
+                <!--<a class="redirect-app" href="/detail/item/888276/111318">-->
+                    <!--<p class="figure figure-f">-->
+                        <!--<span>该商品已售罄</span>-->
+                        <!--<img src="http://img.hanmimei.com/fd2fe66c3f2447efaef9c8abea65f2301451365456278.jpg">-->
+                    <!--</p>-->
+                    <!--<p class="title-hd">韩秘美 Crystalshop 施华洛世奇水晶 ‘神圣的石头’水晶吊坠银饰项链 </p>-->
+                    <!--<span class="title-fd">-->
+                        <!--<i class="naw">￥742</i>-->
+                        <!--<i class="agio">￥742</i>-->
+                        <!--<b>0折</b>-->
+                    <!--</span>-->
+                <!--</a>-->
 
-                <a class="redirect-app" href="/detail/customize/888266/112484">
-                    <p class="figure figure-f">
-                        <img src="http://img.hanmimei.com/9190f73cc2d04550ba10cacf28f8d78e1451365386214.jpg">
-                    </p>
-                    <p class="title-hd">韩秘美 Crystalshop 施华洛世奇水晶 朱碧丽纪念手链</p>
-                    <span class="title-fd">
-                        <i class="naw">￥424</i>
-                        <i class="agio">￥111</i>
-                        <b>0折</b>
-                    </span>
-                </a>
-            </li>
+                <!--<a class="redirect-app" href="/detail/customize/888266/112484">-->
+                    <!--<p class="figure figure-f">-->
+                        <!--<img src="http://img.hanmimei.com/9190f73cc2d04550ba10cacf28f8d78e1451365386214.jpg">-->
+                    <!--</p>-->
+                    <!--<p class="title-hd">韩秘美 Crystalshop 施华洛世奇水晶 朱碧丽纪念手链</p>-->
+                    <!--<span class="title-fd">-->
+                        <!--<i class="naw">￥424</i>-->
+                        <!--<i class="agio">￥111</i>-->
+                        <!--<b>0折</b>-->
+                    <!--</span>-->
+                <!--</a>-->
+            <!--</li>-->
 
             @for(rowList <- itemList){
             <li class="clearfix">
@@ -214,9 +214,11 @@
                             </p>
                             <p class="title-hd">@item.getItemTitle()</p>
                             <span class="title-fd">
-                                <i class="naw">￥@item.getItemSrcPrice()</i>
-                                <i class="agio">￥@item.getItemPrice()</i>
-                                <b>@item.getItemDiscount()折</b>
+                                <i class="naw">￥@item.getItemPrice()</i>
+                                 @if(item.getItemDiscount().toString() != "0"){
+                                     <i class="agio">￥@item.getItemSrcPrice()</i>
+                                     <b>@item.getItemDiscount()折</b>
+                                }
                             </span>
                         </a>
                     }
@@ -233,9 +235,11 @@
                             <p class="title-hd">@item.getItemTitle()</p>
 
                             <span class="title-fd">
-                               <i class="naw">￥@item.getItemSrcPrice()</i>
-                               <i class="agio">￥@item.getItemPrice()</i>
-                               <b>@item.getItemDiscount()折</b>
+                               <i class="naw">￥@item.getItemPrice()</i>
+                                @if(item.getItemDiscount().toString() != "0"){
+                                    <i class="agio">￥@item.getItemSrcPrice()</i>
+                                    <b>@item.getItemDiscount()折</b>
+                                }
                             </span>
                         </a>
                     }

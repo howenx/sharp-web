@@ -226,6 +226,7 @@ public class ProductsCtrl extends Controller {
                     } else {
                         themeItem.setEndAt("截止" + endDate);
                     }
+                    Logger.error(String.valueOf(themeItem.getItemDiscount()));
                     nItemList.add(themeItem);
                 }
 
