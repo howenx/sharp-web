@@ -143,6 +143,12 @@ public class ComCtrl extends Controller {
     }
 
 
+    /**
+     * 微信授权
+     * @param code code
+     * @param state state
+     * @return Result
+     */
     public F.Promise<Result> wechatUserinfo(String code, String state) {
 
         return ws.url(SysParCom.WEIXIN_ACCESS + "appid=" + WEIXIN_APPID + "&secret=" + WEIXIN_SECRET + "&code=" + code + "&grant_type=authorization_code").get().map(wsResponse -> {
@@ -153,9 +159,9 @@ public class ComCtrl extends Controller {
             if (response.findValue("errcode") == null && response.findValue("refresh_token") != null) {
                 F.Promise<Result> t = ws.url(SysParCom.WEIXIN_REFRESH + "appid=" + WEIXIN_APPID + "&grant_type=refresh_token&refresh_token=" + response.findValue("refresh_token").asText()).get().map(wsr -> {
                     JsonNode refreshToken = wsr.asJson();
-                    cache.set(refreshToken.findValue("openid").asText(), refreshToken.findValue("expires_in").asInt(), new WechatVo(refreshToken.findValue("openid").asText(), refreshToken.findValue("access_token").asText()));
-                    ctx().response().setCookie("openId", refreshToken.findValue("openid").asText(),refreshToken.findValue("expires_in").asInt());
                     ctx().response().setCookie("accessToken", refreshToken.findValue("access_token").asText(),refreshToken.findValue("expires_in").asInt());
+                    ctx().response().setCookie("orBind", "1",refreshToken.findValue("expires_in").asInt());
+                    cache.set(refreshToken.findValue("access_token").asText(), refreshToken.findValue("expires_in").asInt(), refreshToken.findValue("openid").asText());
                     return redirect("/bind?state=" + state);
                 });
                 return t.get(1500);
@@ -164,6 +170,12 @@ public class ComCtrl extends Controller {
         });
     }
 
+    /**
+     * 校验微信用户是否注册
+     * @param code code
+     * @param state state
+     * @return Result
+     */
     public F.Promise<Result> wechatBase(String code, String state) {
         return ws.url(SysParCom.WEIXIN_ACCESS + "appid=" + WEIXIN_APPID + "&secret=" + WEIXIN_SECRET + "&code=" + code + "&grant_type=authorization_code").get().map(wsResponse -> {
             JsonNode response = wsResponse.asJson();
@@ -263,11 +275,11 @@ public class ComCtrl extends Controller {
      * @return
      */
     public F.Promise<Result> getNotLoginView(String url){
-        ObjectNode result = Json.newObject();
-        result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.USER_NOT_LOGIN.getIndex()), Message.ErrorCode.USER_NOT_LOGIN.getIndex())));
+    //    ObjectNode result = Json.newObject();
+     //   result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.USER_NOT_LOGIN.getIndex()), Message.ErrorCode.USER_NOT_LOGIN.getIndex())));
         String state = UUID.randomUUID().toString().replaceAll("-", "");
         cache.set(state, 60 * 60, url);
-        result.put("state",state);
+      //  result.put("state",state);
         return F.Promise.promise((F.Function0<Result>) () -> ok(views.html.users.login.render(routes.ProductsCtrl.index().url(),IMAGE_CODE,cache.get(state).toString(), "?state=" + state)));
     }
 

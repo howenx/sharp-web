@@ -100,13 +100,16 @@
 						</div>
 						<div class="sku-meta box">
 							<div class="sku-title">
-								<span class="u-detail-discount">[ @inventory.getItemDiscount()折 ]</span>
+								@if(inventory.getItemDiscount().toString() != "0"){
+									<span class="u-detail-discount">[ @inventory.getItemDiscount()折 ]</span>
+								}
 								<span>@inventory.getInvTitle()</span>
 							</div>
 							<p class="u-detail-pricebox clearfix">
 								<span class="u-detail-price"><i>¥</i>@inventory.getItemPrice()</span>
-								<span class="u-detail-mprice">¥@inventory.getItemSrcPrice()</span>
-
+								@if(inventory.getItemDiscount().toString() != "0"){
+									<span class="u-detail-mprice">¥@inventory.getItemSrcPrice()</span>
+								}
 								<span class="three">@inventory.getInvAreaNm()</span>
 							</p>
 							<section class="thw-detail-other" style="margin-bottom: 2px;">
@@ -208,32 +211,32 @@
 			<p class="hot-hd">热卖商品</p>
 			<ul class="product">
 
-				<li>
-					<a href="/detail/item/888356/111396">
-						<p class="figure figure-f">
-							<span>该商品已售罄</span>
-							<img src="http://img.hanmimei.com/de5a2f21a057478cb432fe4f9e903ed71451370005389.jpg">
-						</p>
-						<p class="title-hd">韩秘美 Crystalshop 施华洛世奇水晶 wendy温蒂爱的花环银饰</p>
-					   <span class="title-fd">
-						   <i class="naw">￥308</i>
-						   <i class="agio">￥308</i>
-						   <b>0折</b>
-					   </span>
-					</a>
+				<!--<li>-->
+					<!--<a href="/detail/item/888356/111396">-->
+						<!--<p class="figure figure-f">-->
+							<!--<span>该商品已售罄</span>-->
+							<!--<img src="http://img.hanmimei.com/de5a2f21a057478cb432fe4f9e903ed71451370005389.jpg">-->
+						<!--</p>-->
+						<!--<p class="title-hd">韩秘美 Crystalshop 施华洛世奇水晶 wendy温蒂爱的花环银饰</p>-->
+					   <!--<span class="title-fd">-->
+						   <!--<i class="naw">￥308</i>-->
+						   <!--<i class="agio">￥308</i>-->
+						   <!--<b>0折</b>-->
+					   <!--</span>-->
+					<!--</a>-->
 
-					<a href="/detail/item/888351/111387">
-						<p class="figure figure-f">
-							<img src="http://img.hanmimei.com/7b557e46bded43358f6d06c8f0a10dbc1451370164326.jpg">
-						</p>
-						<p class="title-hd">韩秘美 Crystalshop 施华洛世奇 水晶巨星闪耀单钻银饰</p>
-					   <span class="title-fd">
-						   <i class="naw">￥228</i>
-						   <i class="agio">￥228</i>
-						   <b>0折</b>
-					   </span>
-					</a>
-                 </li>
+					<!--<a href="/detail/item/888351/111387">-->
+						<!--<p class="figure figure-f">-->
+							<!--<img src="http://img.hanmimei.com/7b557e46bded43358f6d06c8f0a10dbc1451370164326.jpg">-->
+						<!--</p>-->
+						<!--<p class="title-hd">韩秘美 Crystalshop 施华洛世奇 水晶巨星闪耀单钻银饰</p>-->
+					   <!--<span class="title-fd">-->
+						   <!--<i class="naw">￥228</i>-->
+						   <!--<i class="agio">￥228</i>-->
+						   <!--<b>0折</b>-->
+					   <!--</span>-->
+					<!--</a>-->
+                 <!--</li>-->
 
 
 				@for(rowList <- pushList){
@@ -242,13 +245,18 @@
 							@if(pushItem.getItemType() == "item" || pushItem.getItemType() == "vary" || pushItem.getItemType() == "customize"){
 								<a href="/detail/@pushItem.getItemUrl()">
 									<p class="figure figure-f">
+										@if(!(pushItem.getState() == "Y" || pushItem.getState() == "P")){
+											<span>该商品已售罄</span>
+										}
 									   <img src="@pushItem.getItemImg()">
 									</p>
 									<p class="title-hd">@pushItem.getItemTitle()</p>
 									   <span class="title-fd">
 										   <i class="naw">￥@pushItem.getItemPrice()</i>
-										   <i class="agio">￥@pushItem.getItemSrcPrice()</i>
-										   <b>@pushItem.getItemDiscount()折</b>
+										   @if(pushItem.getItemDiscount().toString() != "0"){
+										   		<i class="agio">￥@pushItem.getItemSrcPrice()</i>
+										   		<b>@pushItem.getItemDiscount()折</b>
+										   }
 									   </span>
 								</a>
 							}
@@ -263,8 +271,10 @@
 									<p class="title-hd">@pushItem.getItemTitle()</p>
 							   <span class="title-fd">
 								   <i class="naw">￥@pushItem.getItemPrice()</i>
-								   <i class="agio">￥@pushItem.getItemSrcPrice()</i>
-								   <b>@pushItem.getItemDiscount()折</b>
+								   @if(pushItem.getItemDiscount().toString() != "0"){
+								   		<i class="agio">￥@pushItem.getItemSrcPrice()</i>
+								   		<b>@pushItem.getItemDiscount()折</b>
+								   }
 							   </span>
 								</a>
 							}

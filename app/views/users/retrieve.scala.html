@@ -64,7 +64,7 @@
             //输入手机号格式正确可以点击下一步
             $('#phone').bind('input propertychange', function() {
                 if (phoneReg.test($(this).val())) {
-                    $("#btn-res").css('background-color', '#E46359');
+                    $("#btn-res").css('background-color', '#ff5359');
                     $("#btn-res").css('cursor', 'pointer');
                     $('#btn-res').attr("disabled",false);
                 }

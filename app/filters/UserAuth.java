@@ -6,6 +6,7 @@ import domain.Message;
 import modules.SysParCom;
 import net.spy.memcached.MemcachedClient;
 import play.Logger;
+import play.libs.F;
 import play.libs.Json;
 import play.libs.ws.WSClient;
 import play.mvc.Http;
@@ -67,8 +68,7 @@ public class UserAuth extends Security.Authenticator {
                     } else return null;
                 } else return null;
             } else {
-                weixin(ctx);
-                return null ;
+                return weixin(ctx);
             }
 
         } catch (Exception ex) {
@@ -79,46 +79,60 @@ public class UserAuth extends Security.Authenticator {
     }
 
 
-    private void weixin(Http.Context ctx) throws UnsupportedEncodingException {
+    private String weixin(Http.Context ctx) throws UnsupportedEncodingException {
 
         if (ctx.request().getHeader("User-Agent").contains("MicroMessenger")) {
 
             Logger.error("微信用户");
 
-            Optional<Http.Cookie> openId = Optional.ofNullable(ctx.request().cookie("openId"));
             Optional<Http.Cookie> accessToken = Optional.ofNullable(ctx.request().cookie("accessToken"));
+            Optional<Http.Cookie> orBind = Optional.ofNullable(ctx.request().cookie("orBind"));
 
-            if (openId.isPresent() && accessToken.isPresent()) {
-                ws.url(WEIXIN_VERIFY + openId.get().value()).get().map(wr -> {
+            if (accessToken.isPresent()) {
+                Optional<Object> openid = Optional.ofNullable(cache.get(accessToken.get().value()));
+                if (openid.isPresent()) {
+                    F.Promise<Result> t = ws.url(WEIXIN_VERIFY + openid.get().toString()).get().map(wr -> {
 
-                    Logger.error("擦擦");
+                        JsonNode json = wr.asJson();
+                        Message message = Json.fromJson(json.get("message"), Message.class);
+                        if (null == message) {
+                            Logger.error("返回数据错误code=" + json);
+                            result = null;
+                        } else {
+                            if (message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
+                                Logger.error("返回数据code=" + json);
 
-                    JsonNode json = wr.asJson();
-                    Message message = Json.fromJson(json.get("message"), Message.class);
-                    if (null == message) {
-                        Logger.error("返回数据错误code=" + json);
-//                        return badRequest(views.html.error500.render());
-                    }
-                    if (message != null && message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
-                        Logger.error("返回数据code=" + json);
-                        //此openId不存在时发起授权请求
-                        result = "state_userinfo";
-                    }
-
-                    //此openId存在则自动登录
-                    String token = json.findValue("result").findValue("token").asText();
-                    Integer expired = json.findValue("result").findValue("expired").asInt();
-                    String session_id = UUID.randomUUID().toString().replaceAll("-", "");
-                    cache.set(session_id, expired, token);
-                    ctx.response().setCookie("session_id", session_id, expired);
-                    ctx.response().setCookie("user_token", token, expired);
-                    ctx.args.put("request", builder.addHeader("id-token", token));
-
-                    result = "success";
-                    return null;
-                });
-            } else result = "state_base";
-        } else result = null;
+                                //如果已经授权过则直接跳转到绑定页面
+                                if (orBind.isPresent() && orBind.get().value().equals("1")) {
+                                    result = "bind_page";
+                                } else {
+                                    //此openId不存在时发起授权请求
+                                    result = "state_userinfo";
+                                }
+                            } else {
+                                //此openId存在则自动登录
+                                String token = json.findValue("result").findValue("token").asText();
+                                Integer expired = json.findValue("result").findValue("expired").asInt();
+                                String session_id = UUID.randomUUID().toString().replaceAll("-", "");
+                                cache.set(session_id, expired, token);
+                                ctx.response().setCookie("session_id", session_id, expired);
+                                ctx.response().setCookie("user_token", token, expired);
+                                ctx.args.put("request", builder.addHeader("id-token", token));
+                                result = "success";
+                            }
+                        }
+                        return null;
+                    });
+                    return t.get(1500) == null ? null : null;
+                } else return null;
+            } else {
+                result = "state_base";
+                return null;
+            }
+        } else {
+            result = null;
+            return null;
+        }
     }
 
 
@@ -128,6 +142,7 @@ public class UserAuth extends Security.Authenticator {
         String state = UUID.randomUUID().toString().replaceAll("-", "");
 
         if (ctx.request().method().equals("GET")) {
+            Logger.error("上一次请求链接---->" + ctx.request().uri());
             cache.set(state, 60 * 60, ctx.request().uri());
         } else cache.set(state, 60 * 60, "/");
 
@@ -137,13 +152,15 @@ public class UserAuth extends Security.Authenticator {
             } catch (UnsupportedEncodingException e) {
                 return redirect("/login?state=" + state);
             }
+        } else if (result != null && result.equals("bind_page")) {
+            return redirect("/bind?state=" + state);
         } else if (result != null && result.equals("state_userinfo")) {
             try {
                 return redirect(SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/userinfo", "UTF-8") + "&response_type=code&scope=snsapi_userinfo&state=" + state + "#wechat_redirect");
             } catch (UnsupportedEncodingException e) {
                 return redirect("/login?state=" + state);
             }
-        } else if (result!= null && result.equals("success")) {
+        } else if (result != null && result.equals("success")) {
             String uri = cache.get(state).toString();
             if (uri == null) uri = "/";
             return redirect(uri);
