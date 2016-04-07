@@ -76,6 +76,7 @@ $(function() {
 
                 $(".hiddenInput").find("input").attr("disabled",true);
                 $(".hiddenInput").eq(index).find("input").attr("disabled",false);
+                $(".finish-box").css("display","none");
                 // $("#flyImgId").attr("src",$(".item.now").find("input[name='skuInvImg0-0']").val());
 	    }
 	})
