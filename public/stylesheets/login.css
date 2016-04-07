@@ -262,13 +262,21 @@ input[type=checkbox]{
 
 }
 
+.proving-box img{
+    width:90px;
+    height:35px;
+}
+
 .proving-box img,.proving-txt{
     float: left;
 }
 
 .proving-txt{
-    line-height:40px;
+    line-height: 40px;
     color: #666;
+    font-size: 14px;
+    margin: 0 0 0 5px;
+
 }
 
 /*一键登录*/
