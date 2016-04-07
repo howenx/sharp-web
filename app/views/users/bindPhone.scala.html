@@ -1,4 +1,4 @@
-@(uri:String, state:String)
+@(imageCode:String, uri:String, state:String)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,9 +35,9 @@
     <meta name="x5-page-mode" content="app">
     <!-- windows phone 点击无高光 -->
     <meta name="msapplication-tap-highlight" content="no">
-    <link rel="stylesheet" href="/assets/stylesheets/login.css">
-    <link rel="stylesheet" href="/assets/stylesheets/regist.css">
-    <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+        <link rel="stylesheet" href="/assets/stylesheets/regist.css">
+        <link rel="stylesheet" href="/assets/stylesheets/login.css">
+        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
     <style type="text/css">
         input:required:valid, input:focus:invalid {
@@ -55,8 +55,9 @@
     <script>
         $(function(){
 
-            var phoneReg = new RegExp(/^1[345678]\d{9}$/);
-            var passwordReg = new RegExp(/^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}/);
+            var phoneReg = new RegExp(/^1[345678]\d{9}$/);      //手机号
+            var passwordReg = new RegExp(/^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}/);//密码
+            var code_regexp = new RegExp(/^[0-9a-zA-Z]{4}$/);   //校验码
 
             $("#btn-bind").css('background', '#C0C0C0');
             $('#js-userinfo-error').hide();
@@ -76,10 +77,6 @@
             });
 
             //弹框取消按钮
-            $('.box-q').click(function(){
-                $("#password").val("");
-                $('.shade-box').hide();
-            })
             $('.box-l').click(function(){
                 $('.shade-reg').hide();
             })
@@ -112,74 +109,102 @@
                 }
             });
 
-            //绑定下一步检测手机号
-            $(document).on('click', '#btn-bind', function() {
-                $("#pwd").removeAttr("name");
-                $("#auto").removeAttr("name");
-                var phone = $("#phone").val();
-                console.log($('form#cell_bindForm').serialize());
-                $.ajax({
-                        url: "/phone/verify",
-                        dataType: 'json',
-                        data: $('form#cell_bindForm').serialize(),
-                        type: 'POST',
-                        success: function(data) {
-                               console.log(data);
-                               $("#pwd").attr({"name":"password"});
-                               $("#auto").attr({"name":"auto"});
-                               //用户已经注册,弹框输入密码
-                               if (data.code === 5001) {
-                                    $('.shade-box').show();
-                               }
-                               //用户未注册,弹框提示
-                               if (data.code === 4003) {
-                                    $('.shade-reg').show();
-                               }
-                        }
-                });
+            /*验证码*/
+            $(document).on('click', '.proving-txt', function () {
+                $("#imageCodeImage").attr("src", "\@imageCode" + Math.round(Math.random() * 1000000));
             });
 
-            //输入密码确定
-            $(document).on('click', '.box-d', function() {
-                if ($('#password').val().length<6 || $('#password').val().length>12) {
-                    $('#js-userinfo-error2').text('请输入6-12位密码');
-                    setTimeout("$('#js-userinfo-error2').text('')", 2000);
-                }
-                else if (!passwordReg.test($('#password').val())) {
-                    $('#js-userinfo-error2').text('密码必须是字母数字组合');
-                    setTimeout("$('#js-userinfo-error2').text('')", 2000);
-                }
-                else {
-                    $("#pwd").val($("#password").val());
-                    $("#password").val("");
-                    $(".shade-box").hide();
-                    console.log($('form#cell_bindForm').serialize());
-                    $.ajax({
-                            url: "/login/submit",
-                            dataType: 'json',
-                            data: $('form#cell_bindForm').serialize(),
-                            type: 'POST',
-                            success: function(data) {
-                                console.log(data);
-                                if(data.code === 200){
-                                    $('#js-userinfo-error').text('绑定并登录成功').show();
-                                    setTimeout("$('#js-userinfo-error').hide()", 2000);
-                                    setTimeout(function(){
-                                        window.location.href=$("#uri").val();
-                                    }, 1000);
-                                } else{
-                                    $('#js-userinfo-error').text(data.message).show();
-                                    setTimeout("$('#js-userinfo-error').hide()", 2000);
+            $(document).on('click', '#btn-bind', function() {
+                //绑定下一步检测手机号
+                if ($("#btn-bind").val()=="下一步") {
+                        $("#password").removeAttr("name");
+                        $("#auto").removeAttr("name");
+                        $("#code").val("-1");
+                        var phone = $("#phone").val();
+                        console.log($('form#cell_bindForm').serialize());
+                        $.ajax({
+                                url: "/phone/verify",
+                                dataType: 'json',
+                                data: $('form#cell_bindForm').serialize(),
+                                type: 'POST',
+                                success: function(data) {
+                                       console.log(data);
+                                       $("#password").attr({"name":"password"});
+                                       $("#auto").attr({"name":"auto"});
+                                       //用户已经注册,输入密码
+                                       if (data.code === 5001) {
+                                            $('#js-userinfo-error').text('该手机号已经注册,请输入密码').show();;
+                                            setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                            $('.pwd').css("display","block");
+                                            $('#btn-bind').val("登录");
+                                            $('.loginInfo').css("display","block");
+                                       }
+                                       //用户未注册,弹框提示
+                                       if (data.code === 4003) {
+                                            $('.shade-reg').show();
+                                       }
                                 }
-                            }
-                    });
+                        });
+                }
+                //输入密码登录
+                if ($("#btn-bind").val()=="登录") {
+                        if (11 != $('#phone').val().length) {
+                            $('#js-userinfo-error').text('请输入11位的手机号').show();;
+                            setTimeout("$('#js-userinfo-error').hide()", 2000);
+                        } else if (!phoneReg.test($('#phone').val())) {
+                            $('#js-userinfo-error').text('请输入正确位数的手机号').show();;
+                            setTimeout("$('#js-userinfo-error').hide()", 2000);
+                        }
+                        else  if ($('#password').val().length<6 || $('#password').val().length>12) {
+                            $('#js-userinfo-error').text('请输入6-12位密码').show();;
+                            setTimeout("$('#js-userinfo-error').hide()", 2000);
+                        }
+                        else if (!passwordReg.test($('#password').val())) {
+                            $('#js-userinfo-error').text('密码必须是字母数字组合').show();;
+                            setTimeout("$('#js-userinfo-error').hide()", 2000);
+                        }
+                        else {
+                            if ($("#imgCode").val()=="") $("#code").val("-1");
+                            else $("#code").val($("#imgCode").val());
+                            console.log($('form#cell_bindForm').serialize());
+                            $.ajax({
+                                    url: "/login/submit",
+                                    dataType: 'json',
+                                    data: $('form#cell_bindForm').serialize(),
+                                    type: 'POST',
+                                    success: function(data) {
+                                        console.log(data);
+                                        if(data.code === 200){
+                                            $('#js-userinfo-error').text('绑定并登录成功').show();
+                                            setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                            setTimeout(function(){
+                                                window.location.href = $("#uri").val();
+                                            }, 1000);
+                                        } else if (data.code == 4001) {
+                                            //密码输入次数多,请求输入验证码
+                                            $("#imgCode").val("");
+                                            $(".proving-box").show();
+                                            var code = $("#code").val();
+                                            if (!code_regexp.test(code)) {
+                                                $('#js-userinfo-error').text("请输入正确格式的验证码").show();
+                                                setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                            }
+                                        } else if (data.code === 4003) {
+                                            //用户未注册,弹框提示
+                                            $('.shade-reg').show();
+                                        } else {
+                                            $('#js-userinfo-error').text(data.message).show();
+                                            setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                        }
+                                    }
+                            });
+                        }
                 }
             });
 
             //立即注册
             $(document).on('click', '.box-r', function() {
                 $("#code").removeAttr("name");
-                $("#pwd").removeAttr("name");
                 $("#auto").removeAttr("name");
                 var phone = $("#phone").val();
                 $.ajax({
@@ -190,7 +215,6 @@
                     success: function(data) {
                         console.log(data);
                         $("#code").attr({"name":"code"});
-                        $("#pwd").attr({"name":"password"});
                         $("#auto").attr({"name":"auto"});
                         //手机验证码发送成功
                         if (data.code === 200) {
@@ -209,7 +233,6 @@
                 });
             });
 
-
         })
 
     </script>
@@ -227,36 +250,35 @@
         <div id="js-userinfo-error" class="cue"></div>
         <fieldset>
             <form id="cell_bindForm" method="post" onsubmit="return false" action="" >
-                <dl class="list list-in list-regist">
-                    <dd class="dd-padding">
-                        <label>手机号</label> <input id="phone" type="text" class="input-rese input-r" name='phone' placeholder="请输入手机号" maxlength="11" required pattern="[1][345678]\d{9}" onkeyup="this.value=this.value.replace(/\D/g,'')"/>
-                        <i class="delet delet-box"></i>
-                        <input type="hidden" value="" id="pwd" name="password">
-                        <input type="hidden" id="code" name="code" value="-1">
-                        <input type="hidden" id="auto" name="auto" value="true">
-                    </dd>
-                </dl>
+                    <dl class="list list-in list-regist">
+                            <dd class="dd-padding lonin-dd code ">
+                                    <input id="phone" class="input-weak" maxlength="11" type="text" placeholder="请输入您的手机号" name="phone" required pattern="[1][345678]\d{9}" onkeyup="this.value=this.value.replace(/\D/g,'')">
+                                    <i class="delet"></i>
+                            </dd>
+                            <dd class="dd-padding lonin-dd code pwd" style="display:none;">
+                                    <input id="password" class="input-weak input-weak-show" maxlength="12" type="password" placeholder="请输入您的密码" name="password" required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}">
+                                    <i class="out"></i>
+                                    <i class="howl"></i>
+                            </dd>
+                            <dd class="dd-padding  proving-box" style="display:none;">
+                                    <input class="proving" id="imgCode" value="" maxlength="4" type="text" size="5" placeholder="请输验证码"/>
+                                    <input type="hidden" id="code" name="code" value="">
+                                    <img id="imageCodeImage" style="-webkit-user-select: none;" onclick="getImageCode()" src="@imageCode@Math.round(Math.random()*1000000)">
+                                    <a href="javascript:;" class="proving-txt">看不清换一张</a>
+                            </dd>
+                    </dl>
+                    <input type="hidden" id="auto" name="auto" value="true">
             </form>
             <div class="submitBox">
-                <input id="btn-bind" class="registBtn button" type="submit" disabled="disabled" value="下一步">
+                <input id="btn-bind" class="registBtn button" type="button" disabled="disabled" value="下一步">
             </div>
         </fieldset>
-    </div>
 
-    <div class="shade shade-box">
-        <div class="box" >
-            <span>请输入密码</span>
-            <div id="js-userinfo-error2" class="cue" style="background:#fff;"></div>
-            <div class="proof-box">
-                <input id="password" class="input-weak input-weak-show" maxlength="12" type="password" placeholder="6-12位字母/数字组合" required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}">
-                <i class="out" style="margin-top:90px;margin-right:70px;"></i>
-                <i class="howl" style="margin-top:90px;margin-right:70px;"></i>
+            <div class="loginInfo" style="display:none;">
+                    <div class="findWord">
+                            <a href="/retrieve@state" class="password">忘记密码?</a>
+                    </div>
             </div>
-            <div class="box-s">
-                <a href="javascript:;" class="box-q">取消</a>
-                <a class="box-d">确定</a>
-            </div>
-        </div>
     </div>
 
     <div class="shade shade-reg">
@@ -272,3 +294,8 @@
 </div>
 </body>
 </html>
+<script>
+    function getImageCode() {
+        document.getElementById("imageCodeImage").src = "\@imageCode" + Math.round(Math.random() * 1000000);
+    }
+</script>
