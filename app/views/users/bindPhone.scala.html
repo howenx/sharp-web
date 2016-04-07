@@ -35,22 +35,69 @@
     <meta name="x5-page-mode" content="app">
     <!-- windows phone 点击无高光 -->
     <meta name="msapplication-tap-highlight" content="no">
-        <link rel="stylesheet" href="/assets/stylesheets/regist.css">
-        <link rel="stylesheet" href="/assets/stylesheets/login.css">
-        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+    <link rel="stylesheet" href="/assets/stylesheets/login.css">
+    <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
     <style type="text/css">
         input:required:valid, input:focus:invalid {
         background-image: url('/assets/images/ex.png');
-        background-position:85% 0px;
+        background-position:right 2px;
         background-repeat: no-repeat;
         -moz-box-shadow: none;
         }
         input:required:valid {
         background-image: url("/assets/images/dui.png");
-        background-position:85% 0px;
+        background-position:right 2px;
         background-repeat: no-repeat;
         }
+        .shade{
+            width: 100%;
+            height: 2000px;
+            position:fixed;
+            top:0;
+            left: 0;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 20;
+            display: none;
+
+        }
+
+        .shade .box{
+            width: 80%;
+            background-color:#fff;
+            padding:2% 5%;
+            position: fixed;
+            top:30%;
+            left: 50%;
+            margin-left:-40%;
+
+        }
+        .box span{
+            width:100%;
+            text-align: center;
+            display: block;
+            font-weight: bold;
+            font-size:22px;
+            color: #333;
+
+        }
+
+        .box-a{
+            width:212px;
+            margin:20px auto;
+        }
+
+        .box-a .box-l,.box-a .box-r{
+            width:100px;
+            text-align: center;
+            display: inline-block;
+            height: 30px;
+            line-height: 30px;
+            border:1px solid #ccc ;
+            color: #E4634F;
+
+        }
+
     </style>
     <script>
         $(function(){
@@ -255,12 +302,12 @@
                                     <input id="phone" class="input-weak" maxlength="11" type="text" placeholder="请输入您的手机号" name="phone" required pattern="[1][345678]\d{9}" onkeyup="this.value=this.value.replace(/\D/g,'')">
                                     <i class="delet"></i>
                             </dd>
-                            <dd class="dd-padding lonin-dd code pwd" style="display:none;">
+                            <dd class="dd-padding lonin-dd code pwd">
                                     <input id="password" class="input-weak input-weak-show" maxlength="12" type="password" placeholder="请输入您的密码" name="password" required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}">
                                     <i class="out"></i>
                                     <i class="howl"></i>
                             </dd>
-                            <dd class="dd-padding  proving-box" style="display:none;">
+                            <dd class="dd-padding  proving-box" >
                                     <input class="proving" id="imgCode" value="" maxlength="4" type="text" size="5" placeholder="请输验证码"/>
                                     <input type="hidden" id="code" name="code" value="">
                                     <img id="imageCodeImage" style="-webkit-user-select: none;" onclick="getImageCode()" src="@imageCode@Math.round(Math.random()*1000000)">
@@ -290,6 +337,7 @@
             </div>
         </div>
     </div>
+
 
 </div>
 </body>
