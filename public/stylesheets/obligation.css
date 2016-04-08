@@ -1,12 +1,12 @@
 body{
-    background: #fff;
+    background: #f4f4f4;
 }
 
 /*主体部分*/
 /*导航部分*/
 .wrap{
     padding:44px 0 60px 0 ;
-    background-color: #fff;
+    background-color: #f4f4f4;
 }
 
 .nav-tab-top li.current{
@@ -51,6 +51,7 @@ section.current{
     background-color:#fff;
     padding: 10px 10px 10px 10px;
     border-bottom: 1px solid #ededed;
+    margin: 0 0 5px 0;
 }
 .con{
     padding: 10px 10px 60px 10px;
