@@ -31,7 +31,7 @@
                     开团成功
                 }
                 @if(pin.getUserType!="master"){
-                    开团成功
+                    参团成功
                 }
             </span>
             <i></i>
@@ -68,7 +68,15 @@
         </a>
 
         <div class="zutuan">
-            <img src="/assets/images/zutuan_success.png">
+            @if(pin.getStatus=="F"){
+                <img src="/assets/images/zutuan_fail.png"/>
+            }
+            @if(pin.getStatus=="Y"){
+                 <img src="/assets/images/zutuan_z.png"/>
+            }
+            @if(pin.getStatus=="C"){
+                <img src="/assets/images/zutuan_success.png"/>
+            }
         </div>
         
     </div>
@@ -78,7 +86,9 @@
                 <div class="urse-photo-m">
                     <div class="urse-photo">
                         <img src="@pinUser.getUserImg()">
-                        <span>团长</span>
+                        @if(pinUser.isOrMaster()){
+                            <span>团长</span>
+                        }
                     </div>
                 </div>
              }
@@ -95,6 +105,7 @@
             <strong id="hour_show">&nbsp;</strong>
             <strong id="minute_show"></strong>
             <strong id="second_show"></strong>
+        </div>
     }
     @if(pin.getStatus()=="C"){
         <div class="txt"> 谢谢大侠的鼎力相助</div>
@@ -134,12 +145,12 @@
 
 
     @if(pin.getStatus()=="Y"&&pin.getPersonNum()-pin.getPinUsers().size>0){
-
+    <!--最下面邀请组团-->
+            <div class="fight-number">
+                <span>还差<i class="color">@(pin.getPersonNum()-pin.getPinUsers().size)人</i>,邀请小伙伴来组团吧</span>
+            </div>
     }
 
-    <!--<div class="fight-number">
-        <span>还差<i class="color">@(pin.getPersonNum()-pin.getPinUsers().size)人</i>,邀请小伙伴来组团吧</span>
-    </div>-->
             
     @if(pin.getOrJoinActivity()==0){
         <div class="btn-box scope">
