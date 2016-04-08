@@ -621,5 +621,34 @@ public class ShoppingCtrl extends Controller {
         return F.Promise.promise((F.Function0<Result>) () -> ok(result));
     }
 
+
+    /**
+     * 未登录状态下校验加入购物车数量是否超出或者商品是否失效
+     *
+     * @return result
+     */
+    public F.Promise<Result> verifySkuAmount() {
+        F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
+            RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, request().body().asJson().toString());
+            Request.Builder builder =comCtrl.getBuilder(ctx());
+            Request request = builder.url(CART_VERIFY).post(formBody).build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                return Json.parse(new String(response.body().bytes(), UTF_8));
+            } else throw new IOException("Unexpected code" + response);
+        });
+
+        return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
+            //   Logger.info("==settle=json==" + json);
+            Message message = Json.fromJson(json.get("message"), Message.class);
+            if (null == message) {
+                Logger.error("返回商品结算数据错误code=" + json);
+                return badRequest();
+            }
+            return ok(json);
+        });
+
+    }
+
 }
 

@@ -2,7 +2,7 @@ body{
     background-color: #fff;
 }
 .wrap{
-    padding:50px 0;
+    padding:44px 0;
     background-color:#fff ;
 }
 .con{
@@ -11,8 +11,7 @@ body{
     border-top: 1px solid #ededed;
     border-bottom: 1px solid #ededed;
     margin:10px 0 10px 0;
-
-
+    position:relative;
 }
 
 h2{
@@ -26,18 +25,18 @@ h2{
 }
 
 .commodity h2{
-    height: 40px;
+    height:35px;
     overflow: hidden;
     -webkit-line-clamp: 2;
     display: -webkit-box;
     word-break: break-all;
     -webkit-box-orient: vertical;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .commodity .commodity-rmb{
     display: block;
-    margin:20px 0 10px 0;
+    margin:15px 0 0 0;
     height:20px;
 
 }
@@ -45,14 +44,13 @@ h2{
 
 span .rmb,span .number{
     float: left;
-    font-size:20px;
 }
 span .rmb{
     margin: 0 0 0 2%;
 }
 .photo-img{
-    width:100px;
-    height:90px;
+    width:90px;
+    height:60px;
     float: left;
     margin: 0 10px 0 0;
 }
@@ -89,6 +87,7 @@ span .rmb{
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    border: 1px solid #ff5359;
 }
 
 
@@ -106,14 +105,13 @@ span .rmb{
 }
 
 .fight-hd span{
-    width:160px;
-    height:40px;
-    margin:10px auto;
+    width: 130px;
+    height: 37px;
+    margin: 10px auto;
     line-height: 50px;
-    background: url("/assets/images/hmmapp-p.jpg") no-repeat;
-    background-size:contain;
-    padding:0 0 0 50px ;
-    font-size:20px;
+    background: url("/assets/images/pingou_success.png") no-repeat;
+    background-size: contain;
+    padding: 0 0 0 50px;
 }
 .fight-hd.fight-er span{
     width: 100px;
@@ -132,7 +130,7 @@ span .rmb{
 }
 
 .fight-txt{
-    margin: 10px 0 20px 0 ;
+    margin: 20px 0 5px 0;
     width:100%;
     text-align: center;
 }
@@ -140,7 +138,7 @@ span .rmb{
 .fight-txt p{
     width: 100%;
     text-align: center;
-    font-size: 18px;
+    font-size: 14px;
     color: #999;
 }
 
@@ -148,8 +146,8 @@ span .rmb{
     padding:0 2%;
    background-color: #999;
     color:#fff;
-    height:60px;
-    line-height: 60px;
+    height:40px;
+    line-height:40px;
 }
 
 .fight-timer img{
@@ -157,8 +155,7 @@ span .rmb{
     margin:5px 0 0 0;
 }
 .fight-photo{
-    width:50px;
-    height:50px;
+    width:30px;
     float: left;
 }
 
@@ -174,8 +171,8 @@ span .rmb{
 
 .fight-timer i{
     float: right;
-    color: #EF2528;
-    font-size: 14px;
+    color: #fff;
+    font-size: 12px;
 }
 
 .fight-number{
@@ -191,6 +188,19 @@ span .rmb{
     color: #999;
     font-size: 16px;
 }
+
+.zutuan{
+   width:60px;
+    height:60px;
+    position: absolute;
+    bottom:10px;
+    right:5px;
+}
+
+.zutuan img{
+    width: 100%;
+}
+
 .btn-box{
     background-color: #494949;
     height:70px;
@@ -221,14 +231,14 @@ span .rmb{
     border-bottom: 1px solid #ededed;
 }
 
-.fight-f-i{
+.fight-timer .fight-f-i{
     color: #999;
 }
 
 .fight-timer b{
     float: left;
     margin: 0 0 0 10px;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .fight-f-b{
@@ -237,9 +247,10 @@ span .rmb{
 
 .txt{
     width: 100%;
+    font-size: 12px;
     text-align: center;
     color: #999;
-    margin: 0 0 -10px 0;
+    margin: 0 0 -5px 0;
 }
 
 .home{
@@ -260,10 +271,27 @@ span .rmb{
     margin: 0 auto;
 }
 
+.urse-photo{
+    position: relative;
+}
+.urse-photo span{
+    position: absolute;
+    top:-2px;
+    right:2px;
+    font-size: 10px;
+    padding:2px;
+    border-radius:5px;
+    color: #fff;
+    background-color: #ff5359;
+}
 
-
-
-
+.fight-hd-txt{
+    line-height: 25px;
+    text-align: center;
+    font-size: 12px;
+    color:#ff5359;
+    background-color: #FFEEDE;
+}
 
 
 

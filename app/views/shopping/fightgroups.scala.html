@@ -39,15 +39,14 @@
     }
     @if(pin.getPay()!="new"){
         @if(pin.getStatus=="F"){
+        <div class="fight-hd-txt">拼团失败,资金会在1~5个工作日内退回您的账户</div>
         <div class="fight-er fight-hd">
             <span class="color"></span>
-            <i>拼团失败,资金会在1~5个工作日内退回您的账户</i>
         </div>
         }
         @if(pin.getStatus=="C"){
         <div class="fight-hd">
-            <span class="color">拼团成功</span>
-            <i></i>
+            <span></span>
         </div>
         }
         @if(pin.getStatus=="N"){
@@ -59,7 +58,6 @@
     }
 
 
-
     <div class="con">
         <a href="@pin.getPinSkuUrl()" class="commodity">
             <div class="photo-img">
@@ -67,14 +65,22 @@
             </div>
             <h2>@pin.getPinTitle()</h2>
             <span class="commodity-rmb"><i class="number color5">@pin.getPersonNum()人团</i> <i class="rmb color"> ￥@pin.getPinPrice()</i></span>
-
         </a>
 
+        <div class="zutuan">
+            <img src="/assets/images/zutuan_success.png">
+        </div>
+        
     </div>
 
     <div class="urse-photo-box clearfix">
       @for(pinUser<-pin.getPinUsers()){
-                <div class="urse-photo-m"><div class="urse-photo"><img src="@pinUser.getUserImg()"></div></div>
+                <div class="urse-photo-m">
+                    <div class="urse-photo">
+                        <img src="@pinUser.getUserImg()">
+                        <span>团长</span>
+                    </div>
+                </div>
              }
             @{var i: Int=0}
             @for(i <- 1 to pin.getPersonNum()-pin.getPinUsers().size){
@@ -134,6 +140,7 @@
     <!--<div class="fight-number">
         <span>还差<i class="color">@(pin.getPersonNum()-pin.getPinUsers().size)人</i>,邀请小伙伴来组团吧</span>
     </div>-->
+            
     @if(pin.getOrJoinActivity()==0){
         <div class="btn-box scope">
             <a href="/" class="home">
