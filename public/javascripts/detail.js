@@ -185,7 +185,9 @@ $(function() {
 //	})
 //
 	//收藏
+    var tim = null;
     $(document).on("click",".soul",function(){
+            clearInterval( tim );
             var isCollected = false;
             if($(".soul.now").parent().find(".collectId").val() != 0){
                 isCollected = true;
@@ -246,6 +248,7 @@ $(function() {
                              $(".soul.now").removeClass('min');
                              $('.like-s').hide();
                              $('.like-x').show();
+
                              tim = setInterval(function () {
                              	$('.like-x').hide();
                              },1000);

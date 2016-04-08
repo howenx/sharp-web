@@ -60,25 +60,35 @@
                                 <p><b class="sign">￥</b><i>@price.getPrice()</i></p>
                             </div>
 
-                            <div class="clearfix">
-                                <div class="xian">限</div>
-                                <div class="xian-j">
-                                    <span>团长特惠 : </span>
-                                    <span>开团立减</span>
-                                    <i>3元</i>
+                            <div class="favourable">
+                                <div class="clearfix">
+                                    <div class="xian">限</div>
+                                    <div class="xian-j">
+                                        <span>团长特惠 : </span>
+                                        <span>开团立减</span>
+                                        <i>3元</i>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="clearfix">
-
-                                <div class="xian-j xian-j-b">
-                                    <span>团长特惠 : </span>
-                                    <span>开团立减</span>
-                                    <i>3元</i>
+                                <div class="clearfix">
+                                    <div class="xian-j xian-j-b">
+                                        <span>团长特惠 : </span>
+                                        <span>开团立减</span>
+                                        <i>3元</i>
+                                    </div>
                                 </div>
                             </div>
                         </li>
                     }
+
+                <li class="clearfix">
+                    <div class="num-hd clearfix">
+                        <b class="b-big">开团人数 : </b>
+                        <span> 3人</span>
+                        <p><b class="sign">￥</b><i>39</i></p>
+                    </div>
+                </li>
+
                     @if(index != 0){
                         <li>
                             <input type="hidden" value="@price.getId()" name="priceId">
@@ -92,13 +102,7 @@
                     }
                 }
 
-                <!--<li>-->
-                    <!--<div>-->
-                        <!--<b class="b-big">开团人数 : </b>-->
-                        <!--<span> 3人</span>-->
-                        <!--<p><b class="sign">￥</b><i>39</i></p>-->
-                    <!--</div>-->
-                <!--</li>-->
+
             </ul>
         </div>
 

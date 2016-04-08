@@ -52,10 +52,9 @@ ul li .num-hd{
 }
 
 ul li{
-
     color: #333;
-    border-bottom: 1px solid #ccc;
-    padding: 0px 0 10px 2%;
+    padding: 0px 2%;
+    border-bottom: 1px solid #ededed;
 }
 
 .first{
@@ -81,7 +80,6 @@ ul li p{
 ul li.current{
     color:#ff5359;;
     border-bottom: 2px solid #ff5359;
-    font-size: 14px;
 }
 
 .choose-b{
@@ -116,4 +114,8 @@ ul li.current{
 
 .xian-j-b{
     margin: 0 0 0 17px;
+}
+
+.favourable{
+    margin: 0 0 10px 0;
 }
