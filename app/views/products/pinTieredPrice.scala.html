@@ -19,6 +19,8 @@
         $(function(){
             $('ul li').click(function(){
                 $(this).addClass('current').siblings().removeClass('current');
+                $(".youhuiDiv").hide();
+                $(this).find(".youhuiDiv").show();
 
                 $(this).parents('.warp').find('.choose-b span').html($(this).find('i').html())
 
@@ -60,22 +62,27 @@
                                 <p><b class="sign">￥</b><i>@price.getPrice()</i></p>
                             </div>
 
-                            <div class="clearfix">
-                                <div class="xian">限</div>
-                                <div class="xian-j">
-                                    <span>团长特惠 : </span>
-                                    <span>开团立减</span>
-                                    <i>3元</i>
-                                </div>
-                            </div>
+                            <div class="youhuiDiv">
 
-                            <div class="clearfix">
-
-                                <div class="xian-j xian-j-b">
-                                    <span>团长特惠 : </span>
-                                    <span>开团立减</span>
-                                    <i>3元</i>
+                                <div class="clearfix">
+                                    <div class="xian">惠</div>
+                                    <div class="xian-j">
+                                        <span>团长特惠 : </span>
+                                        <span>开团立减</span>
+                                        <i>@price.getMasterMinPrice()元</i>
+                                    </div>
                                 </div>
+
+                                @if(null!=price.getMasterCoupon()&&price.getMasterCoupon()>0){
+                                <div class="clearfix">
+                                    <div class="xian-j xian-j-b">
+                                        <span>团长特惠 : </span>
+                                        <span>赠</span>
+                                        <i>@price.getMasterCoupon()元</i>
+                                        <span>优惠券</span>
+                                    </div>
+                                </div>
+                                }
                             </div>
                         </li>
                     }
@@ -83,10 +90,33 @@
                         <li>
                             <input type="hidden" value="@price.getId()" name="priceId">
                             <input type="hidden" value="@price.getPrice()" name="pinTieredPrice">
-                            <div>
+                            <div class="num-hd clearfix">
                                 <b class="b-big">开团人数 : </b>
                                 <span> @price.getPeopleNum()人</span>
                                 <p><b class="sign">￥</b><i>@price.getPrice()</i></p>
+                            </div>
+
+                            <div class="youhuiDiv" style="display:none;">
+
+                                <div class="clearfix">
+                                    <div class="xian">惠</div>
+                                    <div class="xian-j">
+                                        <span>团长特惠 : </span>
+                                        <span>开团立减</span>
+                                        <i>@price.getMasterMinPrice()元</i>
+                                    </div>
+                                </div>
+
+                                @if(null!=price.getMasterCoupon()&&price.getMasterCoupon()>0){
+                                    <div class="clearfix">
+                                        <div class="xian-j xian-j-b">
+                                            <span>团长特惠 : </span>
+                                            <span>赠</span>
+                                            <i>@price.getMasterCoupon()元</i>
+                                            <span>优惠券</span>
+                                        </div>
+                                    </div>
+                                }
                             </div>
                         </li>
                     }
