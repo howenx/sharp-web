@@ -35,6 +35,7 @@ $(function(){
 
 });
 
+//提交订单
 $(document).on("click",".submitOrder",function(){
     var addressId=$("input[name='addressId']").val() ;
     var orderId=$("#orderId").val();
@@ -130,5 +131,6 @@ $(document).ready(function() {
     $("#curUrl").val(window.location.href);
 
 });
+
 
 

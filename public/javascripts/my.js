@@ -27,7 +27,11 @@ $(document).on("click",".addAddressBtn",function(){
              tip('请填写正确的地址');
         }
         else {
-
+            var curForm=$(this).parents().find("form");
+            if(!checkFormRepeatSubmit(curForm)){
+                return ;
+            }
+            addFormSubmitTimes(curForm);
             $.ajax({
                     type: 'POST',
                     url: "/address/save",
@@ -66,12 +70,14 @@ $(document).on("click",".addAddressBtn",function(){
 
                                 }else{
                                     tip(data.message.message);
+                                    resetFormSubmitTimes(curForm);
                                 }
                             }else{
                                 if(data.code==200) {
                                      setTimeout("location.href='/address/"+Number(selId)+"'", 1000);
                                 }else{
                                     tip(data.message);
+                                    resetFormSubmitTimes(curForm);
                                 }
                             }
                         }

@@ -145,6 +145,7 @@ $(document).on("click",".addressnew",function(){
                           '<p>2.身份信息将加密报关，韩秘美将保证您的信息安全。</p>'+
                       '</div>'+
                       '<input type="hidden" id="selId" name="selId" value="1">'+
+                      '<input type="hidden" class="formSubmitTimes" value="0"/>'+
                   '</form>'+
                   '<button class="plus-add bg addAddressBtn">添加</button>';
                   ;
@@ -219,6 +220,7 @@ $(document).on("click",".addressUpdate",function(){
                                       '<p>2.身份信息将加密报关，韩秘美将保证您的信息安全。</p>'+
                                   '</div>'+
                                   '<input type="hidden" id="selId" name="selId" value="2">'+
+                                  '<input type="hidden" class="formSubmitTimes" value="0"/>'+
                               '</form>'+
 
                               '<button class="plus-add bg addAddressBtn">保存修改</button>';
