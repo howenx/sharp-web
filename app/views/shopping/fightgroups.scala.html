@@ -31,7 +31,7 @@
                     开团成功
                 }
                 @if(pin.getUserType!="master"){
-                    开团成功
+                    参团成功
                 }
             </span>
             <i></i>
@@ -66,7 +66,15 @@
         </a>
 
         <div class="zutuan">
-            <img src="/assets/images/zutuan_success.png">
+            @if(pin.getStatus=="F"){
+                <img src="/assets/images/zutuan_fail.png"/>
+            }
+            @if(pin.getStatus=="Y"){
+                 <img src="/assets/images/zutuan_z.png"/>
+            }
+            @if(pin.getStatus=="C"){
+                <img src="/assets/images/zutuan_success.png"/>
+            }
         </div>
         
     </div>
@@ -76,7 +84,9 @@
                 <div class="urse-photo-m">
                     <div class="urse-photo">
                         <img src="@pinUser.getUserImg()">
-                        <span>团长</span>
+                        @if(pinUser.isOrMaster()){
+                            <span>团长</span>
+                        }
                     </div>
                 </div>
              }
@@ -97,6 +107,7 @@
             <strong id="hour_show">&nbsp;</strong>
             <strong id="minute_show"></strong>
             <strong id="second_show"></strong>
+        </div>
     }
     @if(pin.getStatus()=="C"){
         <div class="txt"> 谢谢大侠的鼎力相助</div>
@@ -137,11 +148,15 @@
 
     @if(pin.getStatus()=="Y"&&pin.getPersonNum()-pin.getPinUsers().size>0){
 
+    <!--最下面邀请组团-->
+        <div class="fight-btn">
+            <span>
+                还差
+                <i>@(pin.getPersonNum()-pin.getPinUsers().size)人</i>
+                ,邀请小伙伴来组团吧
+            </span>
+        </div>
     }
-
-    <!--<div class="fight-number">
-        <span>还差<i class="color">@(pin.getPersonNum()-pin.getPinUsers().size)人</i>,邀请小伙伴来组团吧</span>
-    </div>-->
 
     @if(pin.getOrJoinActivity()==0){
         <div class="btn-box scope">
@@ -165,6 +180,27 @@
             </form>
         </div>
     }
+
+    <!--<div class="btn-box scope">
+        <a href="/" class="home">
+            <img src="/assets/images/home.png">
+        </a>
+        <form id="settleForm" action="/settle" method="POST">
+            <input type="hidden" name="buyNow" value="-1">
+            <input type="hidden" name="invCustoms0" value="shanghai">
+            <input type="hidden" name="invArea0" value="SZ">
+            <input type="hidden" name="invAreaNm0" value="上海保税区直邮">
+            <input type="hidden" name="skuId0-0" value="111399">
+            <input type="hidden" name="skuType0-0" value="pin">
+            <input type="hidden" name="skuTypeId0-0" value="112522">
+            <input type="hidden" name="skuTitle0-0" value="000">
+            <input type="hidden" name="skuInvImg0-0" value="http://img.hanmimei.com/templates/photo/20160315/1b48ef1d98ad4a85a96bfc9a42d7b3c31458022957743.jpg">
+            <input type="hidden" name="state0-0" value="Y">
+            <input type="hidden" name="skuPrice0-0" value="55">
+            <input type="hidden" name="pinTieredPriceId0-0" value="1710">
+            <a href="javascript:;" class="btn bg" onclick="document.getElementById('settleForm').submit();">立即下单</a>
+        </form>
+    </div>-->
 </div>
 
 

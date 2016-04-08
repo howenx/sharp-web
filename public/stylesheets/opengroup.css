@@ -115,7 +115,8 @@ ul li.current{
 }
 
 .xian-j-b{
-    margin: 0 0 0 17px;
+    /*margin: 0 0 0 17px;*/
+    margin: 0 0 0 0;
 }
 
 .favourable{

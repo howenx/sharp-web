@@ -19,8 +19,6 @@
         $(function(){
             $('ul li').click(function(){
                 $(this).addClass('current').siblings().removeClass('current');
-                $(".favourable").hide();
-                $(this).find(".favourable").show();
 
                 $(this).parents('.warp').find('.choose-b span').html($(this).find('i').html())
 
@@ -61,10 +59,35 @@
                                 <span> @price.getPeopleNum()人</span>
                                 <p><b class="sign">￥</b><i>@price.getPrice()</i></p>
                             </div>
+                            @if(price.getMasterMinPrice.toString() != "0" || price.getMemberMinPrice().toString() != "0"){
+                            <div class="favourable">
+                                <div class="clearfix">
+                                    <!--<div class="xian">惠</div>-->
+                                    @if(price.getMasterMinPrice().toString() != "0"){
+                                    <div class="xian-j">
+                                        <span>团长特惠 : </span>
+                                        <span>开团立减</span>
+                                        <i>@price.getMasterMinPrice()元</i>
+                                    </div>
+                                    }
+                                </div>
+
+                                <div class="clearfix">
+                                    @if(price.getMemberMinPrice().toString() != "0"){
+                                    <div class="xian-j xian-j-b">
+                                        <span>团员特惠 : </span>
+                                        <span>参团立减</span>
+                                        <i>@price.getMemberMinPrice()元</i>
+                                    </div>
+                                    }
+
+                                </div>
+                            </div>
+                            }
                         </li>
                     }
                     @if(index != 0){
-                        <li>
+                         <li class="clearfix">
                             <input type="hidden" value="@price.getId()" name="priceId">
                             <input type="hidden" value="@price.getPrice()" name="pinTieredPrice">
                             <div class="num-hd clearfix">
@@ -72,11 +95,33 @@
                                 <span> @price.getPeopleNum()人</span>
                                 <p><b class="sign">￥</b><i>@price.getPrice()</i></p>
                             </div>
+                             @if(price.getMasterMinPrice.toString() != "0" || price.getMemberMinPrice().toString() != "0"){
+                                 <div class="favourable">
+                                     <div class="clearfix">
+                                         <!--<div class="xian">惠</div>-->
+                                         @if(price.getMasterMinPrice().toString() != "0"){
+                                             <div class="xian-j">
+                                                 <span>团长特惠 : </span>
+                                                 <span>开团立减</span>
+                                                 <i>@price.getMasterMinPrice()元</i>
+                                             </div>
+                                         }
+                                     </div>
+
+                                     <div class="clearfix">
+                                         @if(price.getMemberMinPrice().toString() != "0"){
+                                             <div class="xian-j xian-j-b">
+                                                 <span>团员特惠 : </span>
+                                                 <span>参团立减</span>
+                                                 <i>@price.getMemberMinPrice()元</i>
+                                             </div>
+                                         }
+                                     </div>
+                                 </div>
+                             }
                         </li>
                     }
                 }
-
-
             </ul>
         </div>
 
