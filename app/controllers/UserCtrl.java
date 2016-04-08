@@ -1074,7 +1074,7 @@ public class UserCtrl extends Controller {
             } else {
                 url = PIN_ACTIVITY + activityId;
             }
-            Logger.info(url+"====userPayType===="+userPayType);
+            Logger.info("");
             // Request.Builder builder = (Request.Builder) ctx().args.get("request");
           //  Request.Builder builder = comCtrl.getBuilder(request(), session());
             Request.Builder builder = comCtrl.getBuilder(ctx());

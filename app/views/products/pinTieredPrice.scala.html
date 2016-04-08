@@ -19,6 +19,8 @@
         $(function(){
             $('ul li').click(function(){
                 $(this).addClass('current').siblings().removeClass('current');
+                $(".favourable").hide();
+                $(this).find(".favourable").show();
 
                 $(this).parents('.warp').find('.choose-b span').html($(this).find('i').html())
 
@@ -59,42 +61,13 @@
                                 <span> @price.getPeopleNum()人</span>
                                 <p><b class="sign">￥</b><i>@price.getPrice()</i></p>
                             </div>
-
-                            <div class="favourable">
-                                <div class="clearfix">
-                                    <div class="xian">限</div>
-                                    <div class="xian-j">
-                                        <span>团长特惠 : </span>
-                                        <span>开团立减</span>
-                                        <i>3元</i>
-                                    </div>
-                                </div>
-
-                                <div class="clearfix">
-                                    <div class="xian-j xian-j-b">
-                                        <span>团长特惠 : </span>
-                                        <span>赠</span>
-                                        <span>优惠券</span>
-                                        <i>60元</i>
-                                    </div>
-                                </div>
-                            </div>
                         </li>
                     }
-
-                <li class="clearfix">
-                    <div class="num-hd clearfix">
-                        <b class="b-big">开团人数 : </b>
-                        <span> 3人</span>
-                        <p><b class="sign">￥</b><i>39</i></p>
-                    </div>
-                </li>
-
                     @if(index != 0){
                         <li>
                             <input type="hidden" value="@price.getId()" name="priceId">
                             <input type="hidden" value="@price.getPrice()" name="pinTieredPrice">
-                            <div>
+                            <div class="num-hd clearfix">
                                 <b class="b-big">开团人数 : </b>
                                 <span> @price.getPeopleNum()人</span>
                                 <p><b class="sign">￥</b><i>@price.getPrice()</i></p>

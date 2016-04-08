@@ -503,6 +503,7 @@ public class ProductsCtrl extends Controller {
             } else throw new IOException("Unexpected code" + response);
         });
         return promise.map((F.Function<JsonNode, Result>) json -> {
+          //  Logger.info("==pinTieredPrice==="+json);
             if (json.has("stock")) {
                 JsonNode stockJson = json.get("stock");
                 JsonNode floorPriceJson = Json.parse(Json.fromJson(stockJson.get("floorPrice"), String.class));
