@@ -40,13 +40,11 @@
     @if(pin.getPay()!="new"){
         @if(pin.getStatus=="F"){
         <div class="fight-hd-txt">拼团失败,资金会在1~5个工作日内退回您的账户</div>
-        <div class="fight-er fight-hd">
-            <span class="color"></span>
+        <div class="fight-er">
         </div>
         }
         @if(pin.getStatus=="C"){
         <div class="fight-hd">
-            <span></span>
         </div>
         }
         @if(pin.getStatus=="N"){
@@ -94,7 +92,11 @@
              }
             @{var i: Int=0}
             @for(i <- 1 to pin.getPersonNum()-pin.getPinUsers().size){
-                <div class="urse-photo-m"><div class="urse-photo"><img src="/assets/images/100-2.png"></div></div>
+                <div class="urse-photo-m">
+                    <div class="urse-photo">
+                    <img src="/assets/images/100-2.png">
+                    </div>
+                </div>
             }
     </div>
 
@@ -145,13 +147,17 @@
 
 
     @if(pin.getStatus()=="Y"&&pin.getPersonNum()-pin.getPinUsers().size>0){
+
     <!--最下面邀请组团-->
-            <div class="fight-number">
-                <span>还差<i class="color">@(pin.getPersonNum()-pin.getPinUsers().size)人</i>,邀请小伙伴来组团吧</span>
-            </div>
+        <div class="fight-btn">
+            <span>
+                还差
+                <i>@(pin.getPersonNum()-pin.getPinUsers().size)人</i>
+                ,邀请小伙伴来组团吧
+            </span>
+        </div>
     }
 
-            
     @if(pin.getOrJoinActivity()==0){
         <div class="btn-box scope">
             <a href="/" class="home">
@@ -174,6 +180,27 @@
             </form>
         </div>
     }
+
+    <!--<div class="btn-box scope">
+        <a href="/" class="home">
+            <img src="/assets/images/home.png">
+        </a>
+        <form id="settleForm" action="/settle" method="POST">
+            <input type="hidden" name="buyNow" value="-1">
+            <input type="hidden" name="invCustoms0" value="shanghai">
+            <input type="hidden" name="invArea0" value="SZ">
+            <input type="hidden" name="invAreaNm0" value="上海保税区直邮">
+            <input type="hidden" name="skuId0-0" value="111399">
+            <input type="hidden" name="skuType0-0" value="pin">
+            <input type="hidden" name="skuTypeId0-0" value="112522">
+            <input type="hidden" name="skuTitle0-0" value="000">
+            <input type="hidden" name="skuInvImg0-0" value="http://img.hanmimei.com/templates/photo/20160315/1b48ef1d98ad4a85a96bfc9a42d7b3c31458022957743.jpg">
+            <input type="hidden" name="state0-0" value="Y">
+            <input type="hidden" name="skuPrice0-0" value="55">
+            <input type="hidden" name="pinTieredPriceId0-0" value="1710">
+            <a href="javascript:;" class="btn bg" onclick="document.getElementById('settleForm').submit();">立即下单</a>
+        </form>
+    </div>-->
 </div>
 
 

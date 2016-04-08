@@ -97,31 +97,26 @@ span .rmb{
 
 
 .fight-hd{
-    width:100%;
+    width: 100%;
+    margin: 10px 0 0 0;
+    height: 65px;
+    background: url("/assets/images/pingou_success.png") center no-repeat;
+    background-size: 85px;
 }
 
-.fight-hd span,.fight-hd i{
+.fight-hd i{
     display: block;
 }
 
-.fight-hd span{
-    width: 130px;
-    height: 37px;
-    margin: 10px auto;
-    line-height: 50px;
-    background: url("/assets/images/pingou_success.png") no-repeat;
-    background-size: contain;
-    padding: 0 0 0 50px;
-}
-.fight-hd.fight-er span{
-    width: 100px;
+.fight-er{
+    width: 100%;
+    margin: 10px 0 0 0;
     height: 65px;
-    line-height: 50px;
-    background: url("/assets/images/hmm_pingou_fail.png") no-repeat;
-    background-size:contain;
-    padding:0 0 0 50px ;
-    font-size:20px;
+    background: url("/assets/images/pingou_fail.png") center no-repeat;
+    background-size:85px;
+
 }
+
 .fight-hd i{
     width: 100%;
     text-align: center;
@@ -159,7 +154,7 @@ span .rmb{
     float: left;
 }
 
-.fight-timer span,.fight-number span{
+.fight-timer span{
     width:100px;
     height:50px;
     float: left;
@@ -175,18 +170,39 @@ span .rmb{
     font-size: 12px;
 }
 
-.fight-number{
-    padding:0 2%;
-    height:200px;
-}
-.fight-number span{
+/*.fight-btn a{
+    float: left;
     margin:40px 0;
-    width:100%;
+    width:20%;
     line-height:50px;
     background: url("/assets/images/100-2.png") no-repeat;
     background-size:contain;
     color: #999;
     font-size: 16px;
+}*/
+
+.fight-btn span{
+    display: block;
+    width: 100%;
+    color: #fff;
+    height:35px;
+    line-height:35px;
+    background-color: #ff5359;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.fight-btn{
+    width: 100%;
+    position: fixed;
+    bottom:0;
+    text-align: center;
+   height:50px;
+    line-height:50px;
+    background-color: #494949;
+    margin: 20px 0 0 0;
+    padding:7px 10px;
+
 }
 
 .zutuan{
@@ -203,22 +219,21 @@ span .rmb{
 
 .btn-box{
     background-color: #494949;
-    height:70px;
+    height:50px;
     width: 100%;
     color:#fff;
-    padding: 10px 2% 0 0;
+    padding: 8px 10px 8px 0;
     position: fixed;
     bottom:0;
 }
 
 .btn{
-    width:80%;
-    height:50px;
-    float:right;
+    width: 80%;
+    height: 35px;
+    float: right;
     border-radius: 5px;
     text-align: center;
-    line-height:50px;
-    font-size: 18px;
+    line-height: 35px;
     color: #fff;
 
 }
@@ -260,7 +275,8 @@ span .rmb{
 }
 
 .home img{
-    margin: 0 auto;
+    width:25px;
+    margin:4px auto;
 }
 
 .triangle{
