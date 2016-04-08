@@ -80,6 +80,7 @@ public class SysParCom {
     public static  String CART_ADD;//加入购物车
     public static  String CART_DEL;//删除购物车
     public static  String CART_AMOUNT;//购物车数量
+    public static  String CART_VERIFY;//能否购买校验
 
     public static  String PAY_ORDER;
 
@@ -167,6 +168,7 @@ public class SysParCom {
         CART_ADD=configuration.getString("shopping.cart.add");
         CART_DEL=configuration.getString("shopping.cart.del");
         CART_AMOUNT=configuration.getString("services.cart.amount");
+        CART_VERIFY=configuration.getString("shopping.cart.verify");
 
 
         PAY_ORDER=configuration.getString("shopping.pay.order");
