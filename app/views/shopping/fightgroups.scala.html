@@ -1,4 +1,4 @@
-@(pin:domain.PinActivityDTO)
+@(pin:domain.PinActivityDTO,url:String)
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,6 +14,7 @@
     <script src="/assets/javascripts/my.js"></script>
     <script src="/assets/javascripts/countdown.js"></script>
     <script src="/assets/javascripts/detail.js"></script>
+    <script>window.urlParam = "@url"</script>
 </head>
 <body>
 <header class="head">

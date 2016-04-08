@@ -1099,7 +1099,7 @@ public class UserCtrl extends Controller {
             PinActivityDTO pin = Json.fromJson(json.get("activity"), PinActivityDTO.class);
             pin.setPinImg(comCtrl.getImgUrl(pin.getPinImg()));
             pin.setPinSkuUrl(comCtrl.getDetailUrl(pin.getPinSkuUrl()));
-            return ok(views.html.shopping.fightgroups.render(pin));
+            return ok(views.html.shopping.fightgroups.render(pin,request().uri()));
         });
     }
 
