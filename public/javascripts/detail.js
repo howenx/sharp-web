@@ -51,6 +51,11 @@ $(function() {
         // }
             // 通过iframe的方式试图打开APP，如果能正常打开，会直接切换到APP，并自动阻止a标签的默认行为
             // 否则打开a标签的href链接
+         var state=$("input[name='state0-0']:not(:disabled)").val() ;
+          if(checkSkuBeforeBuy(state)){
+             //提交表单
+              $("#settleForm").submit();
+          }
         if (navigator.userAgent.match(/MicroMessenger/i)) {
             return;
         }else{
@@ -414,18 +419,18 @@ $(document).ready(function() {
 
 });
 
-//立即购买
-$(document).on("click",".buyBtnCss",function(){
-     var state=$("input[name='state0-0']:not(:disabled)").val() ;
-     if(checkSkuBeforeBuy(state)){
-        //提交表单
-         $("#settleForm").submit();
-     }
-
-
-
-
-});
+////立即购买
+//$(document).on("click",".buyBtnCss",function(){
+//     var state=$("input[name='state0-0']:not(:disabled)").val() ;
+//     if(checkSkuBeforeBuy(state)){
+//        //提交表单
+//         $("#settleForm").submit();
+//     }
+//
+//
+//
+//
+//});
 
 //购买前先检测是否可以购买
 function checkSkuBeforeBuy(state){

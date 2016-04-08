@@ -52,7 +52,7 @@ $(document).on("click",".submitOrder",function(){
 //                $("#loading").html("加载中...");
 //             },
             error : function(request) {
-                tip("提交订单失败");
+                tip("提交订单失败,请检测是否已登录");
                 //   $("#loading").empty();
              },
             success: function(data) {
@@ -95,7 +95,7 @@ $(document).on("click",".pinSubmitBtn",function(){
         dataType: 'json',
         data: $('form#settleForm').serialize(),
         error : function(request) {
-            tip("立即开团失败");
+            tip("立即开团失败,请检测是否已登录");
         },
         success: function(data) {
             console.log("data="+data);
