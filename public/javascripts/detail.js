@@ -433,5 +433,9 @@ function checkSkuBeforeBuy(state){
     return true;
 }
 
-
+$(function(){
+    $(window).load(function(){
+        $("#loading").hide();
+    });
+})
 
