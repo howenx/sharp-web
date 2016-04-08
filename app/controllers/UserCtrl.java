@@ -299,15 +299,11 @@ public class UserCtrl extends Controller {
      */
     public Result login(String state) {
         String path = routes.ProductsCtrl.index().url();
+        Object uri = cache.get(state);
 
-//        if (null!=ctx().request().cookies().get("path").value()) {
-//            path = ctx().request().cookies().get("path").value();
-//            ctx().response().setCookie("path", path);
-//            Logger.error("cookie path"+path);
-//        }
-//        ctx().response().setCookie("path", routes.ProductsCtrl.index().url());
+        if (uri != null) path = uri.toString();
 
-        return ok(views.html.users.login.render(path, IMAGE_CODE, cache.get(state).toString(), "?state=" + state));
+        return ok(views.html.users.login.render(IMAGE_CODE, path, "?state=" + state));
 
     }
 

@@ -275,12 +275,9 @@ public class ComCtrl extends Controller {
      * @return
      */
     public F.Promise<Result> getNotLoginView(String url){
-    //    ObjectNode result = Json.newObject();
-     //   result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.USER_NOT_LOGIN.getIndex()), Message.ErrorCode.USER_NOT_LOGIN.getIndex())));
         String state = UUID.randomUUID().toString().replaceAll("-", "");
         cache.set(state, 60 * 60, url);
-      //  result.put("state",state);
-        return F.Promise.promise((F.Function0<Result>) () -> ok(views.html.users.login.render(routes.ProductsCtrl.index().url(),IMAGE_CODE,cache.get(state).toString(), "?state=" + state)));
+        return F.Promise.promise(() -> ok(views.html.users.login.render(IMAGE_CODE, url, "?state=" + state)));
     }
 
     /**
