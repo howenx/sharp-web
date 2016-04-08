@@ -2,7 +2,7 @@ body{
     background-color: #fff;
 }
 .wrap{
-    padding:50px 0;
+    padding:44px 0;
     background-color:#fff ;
 }
 .con{
@@ -285,7 +285,13 @@ span .rmb{
     background-color: #ff5359;
 }
 
-
+.fight-hd-txt{
+    line-height: 25px;
+    text-align: center;
+    font-size: 12px;
+    color:#ff5359;
+    background-color: #FFEEDE;
+}
 
 
 

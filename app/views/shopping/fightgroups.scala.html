@@ -39,9 +39,9 @@
     }
     @if(pin.getPay()!="new"){
         @if(pin.getStatus=="F"){
+        <div class="fight-hd-txt">拼团失败,资金会在1~5个工作日内退回您的账户</div>
         <div class="fight-er fight-hd">
             <span class="color"></span>
-            <i>拼团失败,资金会在1~5个工作日内退回您的账户</i>
         </div>
         }
         @if(pin.getStatus=="C"){
@@ -140,6 +140,7 @@
     <!--<div class="fight-number">
         <span>还差<i class="color">@(pin.getPersonNum()-pin.getPinUsers().size)人</i>,邀请小伙伴来组团吧</span>
     </div>-->
+            
     @if(pin.getOrJoinActivity()==0){
         <div class="btn-box scope">
             <a href="/" class="home">
