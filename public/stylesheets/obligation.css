@@ -45,14 +45,12 @@ section.current{
     width:100%;
 
 }
-section ul li{
-    margin: 0 0 10px 0;
-}
 
 .con,.con-stay{
     width:100%;
     background-color:#fff;
     padding: 10px 10px 10px 10px;
+    border-bottom: 1px solid #ededed;
 }
 .con{
     padding: 10px 10px 60px 10px;

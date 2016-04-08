@@ -401,7 +401,7 @@ div .cycle-overlay {
 	float: left;
 	border-radius: 3px;
 	font-size: 12px;
-	margin: 2px 2px 0 0;
+	margin:0px 2px 0 0;
 }
 .xian-j{
 	float: left;
@@ -1330,18 +1330,6 @@ div .cycle-overlay {
 
 }
 
-#loading{
-	position: absolute;
-	top:50%;
-	left: 50%;
-	width: 100px;
-	-webkit-transform: translate(-50%,0);
-	-moz-transform: translate(-50%,0);
-}
-#loading img{
-	width: 100%;
-}
-
 
 .shade{
 	width: 100%;
@@ -1401,4 +1389,17 @@ div .cycle-overlay {
 	font-size: 14px;
 	border-radius: 3px;
 
+}
+
+
+#loading{
+	position: absolute;
+	top:50%;
+	left: 50%;
+	width: 100px;
+	-webkit-transform: translate(-50%,0);
+	-moz-transform: translate(-50%,0);
+}
+#loading img{
+	width: 100%;
 }
