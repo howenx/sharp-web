@@ -40,13 +40,11 @@
     @if(pin.getPay()!="new"){
         @if(pin.getStatus=="F"){
         <div class="fight-hd-txt">拼团失败,资金会在1~5个工作日内退回您的账户</div>
-        <div class="fight-er fight-hd">
-            <span class="color"></span>
+        <div class="fight-er">
         </div>
         }
         @if(pin.getStatus=="C"){
         <div class="fight-hd">
-            <span></span>
         </div>
         }
         @if(pin.getStatus=="N"){
@@ -84,7 +82,11 @@
              }
             @{var i: Int=0}
             @for(i <- 1 to pin.getPersonNum()-pin.getPinUsers().size){
-                <div class="urse-photo-m"><div class="urse-photo"><img src="/assets/images/100-2.png"></div></div>
+                <div class="urse-photo-m">
+                    <div class="urse-photo">
+                    <img src="/assets/images/100-2.png">
+                    </div>
+                </div>
             }
     </div>
 
@@ -140,7 +142,7 @@
     <!--<div class="fight-number">
         <span>还差<i class="color">@(pin.getPersonNum()-pin.getPinUsers().size)人</i>,邀请小伙伴来组团吧</span>
     </div>-->
-            
+
     @if(pin.getOrJoinActivity()==0){
         <div class="btn-box scope">
             <a href="/" class="home">
