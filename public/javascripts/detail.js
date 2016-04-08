@@ -55,7 +55,7 @@ $(function() {
           if(checkSkuBeforeBuy(state)){
              //提交表单
               $("#settleForm").submit();
-          }   
+          }
         if (navigator.userAgent.match(/MicroMessenger/i)) {
             return;
         }else{
