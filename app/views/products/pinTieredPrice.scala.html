@@ -61,30 +61,6 @@
                                 <span> @price.getPeopleNum()人</span>
                                 <p><b class="sign">￥</b><i>@price.getPrice()</i></p>
                             </div>
-
-
-                            <div class="favourable">
-
-                                <div class="clearfix">
-                                    <div class="xian">惠</div>
-                                    <div class="xian-j">
-                                        <span>团长特惠 : </span>
-                                        <span>开团立减</span>
-                                        <i>@price.getMasterMinPrice()元</i>
-                                    </div>
-                                </div>
-
-                                @if(null!=price.getMasterCoupon()&&price.getMasterCoupon()>0){
-                                <div class="clearfix">
-                                    <div class="xian-j xian-j-b">
-                                        <span>团长特惠 : </span>
-                                        <span>赠</span>
-                                        <i>@price.getMasterCoupon()元</i>
-                                        <i>优惠券</i>
-                                    </div>
-                                </div>
-                                }
-                            </div>
                         </li>
                     }
                     @if(index != 0){
@@ -95,29 +71,6 @@
                                 <b class="b-big">开团人数 : </b>
                                 <span> @price.getPeopleNum()人</span>
                                 <p><b class="sign">￥</b><i>@price.getPrice()</i></p>
-                            </div>
-
-                            <div class="favourable" style="display:none;">
-
-                                <div class="clearfix">
-                                    <div class="xian">惠</div>
-                                    <div class="xian-j">
-                                        <span>团长特惠 : </span>
-                                        <span>开团立减</span>
-                                        <i>@price.getMasterMinPrice()元</i>
-                                    </div>
-                                </div>
-
-                                @if(null!=price.getMasterCoupon()&&price.getMasterCoupon()>0){
-                                    <div class="clearfix">
-                                        <div class="xian-j xian-j-b">
-                                            <span>团长特惠 : </span>
-                                            <span>赠</span>
-                                            <i>@price.getMasterCoupon()元</i>
-                                            <i>优惠券</i>
-                                       </div>
-                                    </div>
-                                }
                             </div>
                         </li>
                     }
