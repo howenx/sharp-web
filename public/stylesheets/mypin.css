@@ -52,7 +52,7 @@ img{
 }
 .up{
     width: 100%;
-    overflow: hidden;border-bottom: 1px solid #ccc;
+    overflow: hidden;border-bottom: 1px solid #ededed;
 }
 .down{
     overflow: hidden;padding: 8px;
@@ -122,9 +122,10 @@ img{
 }
 .detailcon ul{
     padding: 15px 0;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #ededed;
 }
 .detailcon ul>li{
+    font-size: 14px;
     margin-bottom: 10px;
 }
 .detailcon ul>li b{
@@ -141,8 +142,10 @@ img{
     border-top: 1px solid rgb(238,239,240);
     font-size: 14px;
 }
-.detailcon .good-infos>div p{
+.good-info-hd{
     margin-bottom: 10px;
+    height: 36px;
+    overflow: hidden;
 }
 .detailcon .good-infos>h2{
     margin: 10px 0;padding-left: 5%;

@@ -179,15 +179,21 @@ input:password {
 }
 .quantity-decrease,.quantity-increase{
     display: block;
-    line-height:16px;
+    line-height:20px;
     height: 20px;
     width: 25px;
     -webkit-border-radius: 2px 0 0 2px;
+    -moz-border-radius: 2px 0 0 2px;
     border: 1px solid #ccc;
     overflow: hidden;
     float: left;
     font-size: 14px;
 
+}
+
+.quantity-increase{
+    -webkit-border-radius: 0 2px 2px 0 ;
+    -moz-border-radius: 0 2px 2px 0 ;
 }
 .quantity{
     display: block;
@@ -203,10 +209,9 @@ input:password {
     text-align: center;
 
 }
-.quantity-increase{
-    font-size:18px;
+.quantity-decrease{
+    font-size: 18px;
 }
-
 .cart-del-btn {
     width:15px;
     height:15px;

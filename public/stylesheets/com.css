@@ -32,14 +32,14 @@
 }
 
 .home_link {
-    width:25px;
-    height:25px;
+    width: 20px;
+    height: 20px;
     background: url(/assets/images/icon_back.png) no-repeat;
     color: rgb(102, 102, 102);
-    background-size:cover;
+    background-size: cover;
     position: absolute;
-    top:10px;
-    left:2%;
+    top: 13px;
+    left: 2%;
 }
 
 .back i,.back span{
@@ -59,13 +59,13 @@
 
 
 .icon-user-title {
-    height:35px;
-    width:35px;
-    background: url("/assets/images/home_un.png") no-repeat center center;
+    height: 20px;
+    width: 20px;
+    background: url("/assets/images/home.png") no-repeat center center;
     background-size: contain;
     position: absolute;
-    top:5px;
-    right:2%;
+    top: 13px;
+    right: 2%;
 }
 /*头部结束*/
 
