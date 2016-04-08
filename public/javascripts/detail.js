@@ -439,7 +439,7 @@ function checkSkuBeforeBuy(state){
         return false;
     }
     var isCanBuy=$("#isCanBuy").val(); //是否能够购买
-    if(1!=isCanBuy){
+    if(typeof(isCanBuy)!="undefined"&&null!=formSubmitTimes&&1!=isCanBuy){
         return false;
     }
     return true;
