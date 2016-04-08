@@ -110,7 +110,7 @@
 									<span class="four directSpec" style="text-decoration: underline">直邮税</span>
 								}
 								@if(inventory.getInvArea()!="K"){
-									<span class="four" style="text-decoration: underline">行邮税  @inventory.getPostalTaxRate()%</span>
+									<span class="four postalCss" style="text-decoration: underline">行邮税  @inventory.getPostalTaxRate()%</span>
 								}
 							</section>
 						</div>
@@ -439,7 +439,7 @@
 </script>
 -->
 <div class="hint" id="tip"></div>
-<div class="shade">
+<div class="shade postalDiv" >
 	<div class="shade-box">
 		<div class="shade-hd">行邮税费用</div>
 		<div class="shade-midd">30.00</div>
@@ -448,7 +448,7 @@
 	</div>
 </div>
 
-<div id="directSpecDiv" style="display:none">
+<div id="directSpecDiv" class="shade" style="display:none">
 	<div class="shade-box">
 		<div class="shade-hd">直邮费用说明</div>
 		<div class="shade-midd">0.00</div>
