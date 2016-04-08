@@ -68,8 +68,10 @@ ul li .b-big{
 
 ul li span{
     float: left;
-    margin: 0 0 0 2px;
+}
 
+ul li span:nth-child(2){
+    margin: 0 0 0 2px;
 }
 
 ul li p{
