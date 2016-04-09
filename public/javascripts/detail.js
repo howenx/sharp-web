@@ -87,6 +87,7 @@ $(function() {
                 }
                 if($(".buy_btn .buyBtnCss").length ===0){
                     $(".buy_btn .mabuy").addClass('buyBtnCss');
+                    $("#isCanBuy").val(1); //不能购买
                 }
                 // $("#flyImgId").attr("src",$(".item.now").find("input[name='skuInvImg0-0']").val());
 	    }

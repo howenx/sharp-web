@@ -267,10 +267,13 @@ public class ShoppingCtrl extends Controller {
 
                     String skuType = settleMap.get("skuType" + suffix);
 
-                    if (buyNow == 1 && !isPin && "pin".equals(skuType)) { //拼购下的单独购买skuType为item
-                        skuType = "item";
-                    }
                     Long skuTypeId = Long.valueOf(settleMap.get("skuTypeId" + suffix));//商品类型的id
+
+                    if (buyNow == 1 && !isPin && "pin".equals(skuType)) { //拼购下的单独购买skuType为item,skuTypeId为skuId
+                        skuType = "item";
+                        skuTypeId=skuId;
+                    }
+
 
                     Long pinTieredPriceId = 0L;
                     if (null != settleMap.get("pinTieredPriceId" + suffix)) {
