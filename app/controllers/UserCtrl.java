@@ -552,8 +552,13 @@ public class UserCtrl extends Controller {
      * @return
      */
     public Result bindPhone(String state) {
-        if (null!=cache.get(state)) {
-            return ok(views.html.users.bindPhone.render(IMAGE_CODE, cache.get(state).toString(), "?state="+state));
+
+        String path = routes.ProductsCtrl.index().url();
+        Object uri = cache.get(state);
+
+        if (null!=uri) {
+            path = uri.toString();
+            return ok(views.html.users.bindPhone.render(IMAGE_CODE, path, "?state="+state));
         } else return redirect(routes.ProductsCtrl.index());
     }
 
@@ -565,13 +570,8 @@ public class UserCtrl extends Controller {
      */
     public Result registVerify(String state) {
         String path = routes.UserCtrl.login(state).url();
-
-//        if (null!=ctx().request().cookies().get("path").value()) {
-//            path = ctx().request().cookies().get("path").value();
-//            ctx().response().setCookie("path", path);
-//            Logger.error("cookie path"+path);
-//        } else ctx().response().setCookie("path", routes.UserCtrl.login(state).url());
-
+        Object uri = cache.get(state);
+        if (uri != null) path = uri.toString();
         return ok(views.html.users.registVerify.render(path, "?state=" + state));
 
     }
@@ -750,11 +750,11 @@ public class UserCtrl extends Controller {
      * @return views
      */
     public Result retrieve(String state) {
+
         String path = routes.UserCtrl.login(state).url();
-        if (session().containsKey("path")) {
-            //path = session().get("path");
-            session().replace("path", routes.UserCtrl.retrieve(state).url());
-        } else session().put("path", routes.UserCtrl.retrieve(state).url());
+        Object uri = cache.get(state);
+        if (uri != null) path = uri.toString();
+
         return ok(views.html.users.retrieve.render(path, IMAGE_CODE, "?state=" + state));
     }
 

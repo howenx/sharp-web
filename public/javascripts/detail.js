@@ -439,10 +439,10 @@ function checkSkuBeforeBuy(state){
         tip("该商品处于预售状态,请选择其他商品");
         return false;
     }
-    var isCanBuy=$("#isCanBuy").val(); //是否能够购买
-    if(typeof(isCanBuy)!="undefined"&&null!=isCanBuy&&1!=isCanBuy){
-        return false;
-    }
+//    var isCanBuy=$("#isCanBuy").val(); //是否能够购买
+//    if(typeof(isCanBuy)!="undefined"&&null!=isCanBuy&&1!=isCanBuy){
+//        return false;
+//    }
     return true;
 }
 
