@@ -262,26 +262,28 @@ $(function(){
        var selectAreaNum=0;
        $(".areaAndSku").each(function(){
          var invArea=$(this).find(".invAreaCss").val();
-         if('K'!=invArea){ //海外直邮不限制
-             var total =0.00;
-              var postalLimit=$(this).find(".postalLimit").val();
-              var ckeckedSku=$(this).find("ul").find("input[type=checkbox]:checked");
-              ckeckedSku.each(function(){
-                 var ts = $(this).parents("li").find(".subtotal").html();
+
+         var total =0.00;
+          var postalLimit=$(this).find(".postalLimit").val();
+          var ckeckedSku=$(this).find("ul").find("input[type=checkbox]:checked");
+          ckeckedSku.each(function(){
+             var ts = $(this).parents("li").find(".subtotal").html();
+              if('K'!=invArea){ //海外直邮不限制
                  total+=parseFloat(ts);
-              });
-              if(!limitFlag&&total>postalLimit){
-                 $("#hint-hd").html("友情提示 : "+$(this).find(".area").html()+"直邮商品总额超过¥"+postalLimit);
-                 limitFlag=true;
+             }
+          });
+          if(!limitFlag&&total>postalLimit){
+             $("#hint-hd").html("友情提示 : "+$(this).find(".area").html()+"直邮商品总额超过¥"+postalLimit);
+             limitFlag=true;
+          }
+          if(ckeckedSku.length>0){
+              selectAreaNum++;
+              if(selectAreaNum>=2){
+                 $("#hint-hd").html("友情提示 : 单次购买,只能购买同一保税区的商品");
+                 return false;
               }
-              if(ckeckedSku.length>0){
-                  selectAreaNum++;
-                  if(selectAreaNum>=2){
-                     $("#hint-hd").html("友情提示 : 单次购买,只能购买同一保税区的商品");
-                     return false;
-                  }
-              }
-         }
+          }
+
 
 
        });
