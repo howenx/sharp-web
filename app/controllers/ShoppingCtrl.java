@@ -363,7 +363,7 @@ public class ShoppingCtrl extends Controller {
                 }
                 if (message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
                     Logger.info("返回数据code=" + json);
-                    return badRequest(views.html.error.render(message.getMessage()));
+                    return ok(views.html.shopping.settleErr.render(settleInfoList, buyNowTemp, finalPinActiveId, PAY_URL,message.getMessage()));
                 }
                 SettleVo settleVo = Json.fromJson(json.get("settle"), SettleVo.class);
 
