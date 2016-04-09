@@ -136,13 +136,13 @@
 				<ul>
 					@for(inventory <- inventoryList){
 						@if(inventory.getOrMasterInv()){
-							@if(inventory. getState() == "D" || inventory. getState() == "N" || inventory. getState() == "K" || inventory.getRestAmount() != 0){
+							@if(inventory. getState() == "D" || inventory. getState() == "N" || inventory. getState() == "K" || inventory.getRestAmount() == 0){
 								<li class="sel-none" style="color:#DDD;">@inventory.getItemColor()</li>
 							}else{
 								<li class="current" id="master-sku">@inventory.getItemColor()</li>
 							}
 						}else{
-							@if(inventory. getState() == "D" || inventory. getState() == "N" || inventory. getState() == "K" || inventory.getRestAmount() != 0){
+							@if(inventory. getState() == "D" || inventory. getState() == "N" || inventory. getState() == "K" || inventory.getRestAmount() == 0){
 								<li class="sel-none" style="color:#DDD;">@inventory.getItemColor()</li>
 							}else{
 								<li>@inventory.getItemColor()</li>
