@@ -107,7 +107,7 @@ $(function() {
 
 
 	//切换
-	var top = $('.pic-tex').offset().top;
+	var top = $('.pic-tex').offset(top);
 	$(window).scroll(function(e) {
 		if($(".pic-tex").length==0){
 			$('.nav_ban_detail').hide();
