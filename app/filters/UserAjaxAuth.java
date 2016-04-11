@@ -22,10 +22,10 @@ import java.util.UUID;
 import static modules.SysParCom.*;
 
 /**
- * 用户校验
+ * 用户校验 ajax 请求未登录返回的是JSON
  * Created by howen on 15/11/25.
  */
-public class UserAuth extends Security.Authenticator {
+public class UserAjaxAuth extends Security.Authenticator {
 
     @Inject
     private MemcachedClient cache;
@@ -139,15 +139,18 @@ public class UserAuth extends Security.Authenticator {
     @Override
     public Result onUnauthorized(Http.Context ctx) {
 
+
+
         String state = UUID.randomUUID().toString().replaceAll("-", "");
 
+        String url="";
         if (ctx.request().method().equals("GET")) {
             Logger.error("上一次请求链接---->" + ctx.request().uri());
             cache.set(state, 60 * 60, ctx.request().uri());
-        }  else {
+        } else {
             Http.Cookie urlCookie=ctx.request().cookie("curUrl");
             if(null!=urlCookie){
-                String  curUrl=urlCookie.value();
+             String  curUrl=urlCookie.value();
                 if(null!=curUrl&&!"".equals(curUrl)){ //含有curUrl cookie
                     cache.set(state, 60 * 60, curUrl);
                 }else{
@@ -160,27 +163,33 @@ public class UserAuth extends Security.Authenticator {
 
         }
 
-       // Logger.info("==UserAuth====="+cache.get(state).toString()+"==="+result);
+     //   Logger.info("==UserAjaxAuth====="+cache.get(state).toString()+"==="+result);
 
         if (result != null && result.equals("state_base")) {
             try {
-                return redirect(SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/base", "UTF-8") + "&response_type=code&scope=snsapi_base&state=" + state + "#wechat_redirect");
+                url=SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/base", "UTF-8") + "&response_type=code&scope=snsapi_base&state=" + state + "#wechat_redirect";
             } catch (UnsupportedEncodingException e) {
-                return redirect("/login?state=" + state);
+                url="/login?state=" + state;
             }
         } else if (result != null && result.equals("bind_page")) {
-            return redirect("/bind?state=" + state);
+            url="/bind?state=" + state;
         } else if (result != null && result.equals("state_userinfo")) {
             try {
-                return redirect(SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/userinfo", "UTF-8") + "&response_type=code&scope=snsapi_userinfo&state=" + state + "#wechat_redirect");
+                url=SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/userinfo", "UTF-8") + "&response_type=code&scope=snsapi_userinfo&state=" + state + "#wechat_redirect";
             } catch (UnsupportedEncodingException e) {
-                return redirect("/login?state=" + state);
+                url="/login?state=" + state;
             }
         } else if (result != null && result.equals("success")) {
             String uri = cache.get(state).toString();
             if (uri == null) uri = "/";
-            return redirect(uri);
-        } else return redirect("/login?state=" + state);
+            url=uri;
+        } else {
+            url = "/login?state=" + state;
+        }
+
+        //错误id是5006,message为登录跳转的url
+        Message message=new Message(url,Message.ErrorCode.USER_NOT_LOGIN.getIndex());
+        return ok(Json.toJson(message));
     }
 }
 

@@ -211,6 +211,7 @@ input:password {
 }
 .quantity-decrease{
     font-size: 18px;
+    line-height: 16px;
 }
 .cart-del-btn {
     width:15px;

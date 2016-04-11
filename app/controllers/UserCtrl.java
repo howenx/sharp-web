@@ -9,6 +9,7 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 import domain.*;
+import filters.UserAjaxAuth;
 import filters.UserAuth;
 import modules.ComTools;
 import net.spy.memcached.MemcachedClient;
@@ -103,6 +104,7 @@ public class UserCtrl extends Controller {
      *
      * @return
      */
+    @Security.Authenticated(UserAuth.class)
     public Result addressnew() {
 //        String path = routes.UserCtrl.address(selId).url();
 //        if (session().containsKey("path")) {
@@ -439,14 +441,14 @@ public class UserCtrl extends Controller {
      *
      * @return
      */
- //   @Security.Authenticated(UserAuth.class)
+    @Security.Authenticated(UserAjaxAuth.class)
     public F.Promise<Result> submitCollect() {
         ObjectNode result = newObject();
         Optional<Http.Cookie> user_token = Optional.ofNullable(request().cookies().get("user_token"));
         Optional<Http.Cookie> session_id = Optional.ofNullable(request().cookies().get("session_id"));
         JsonNode rjson = request().body().asJson();
-        Logger.info("===rjson==="+rjson);
-        if (user_token.isPresent() && session_id.isPresent()) {
+//        Logger.info("===rjson==="+rjson);
+//        if (user_token.isPresent() && session_id.isPresent()) {
             Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
                 CollectSubmitDTO collectSubmitDTO=new CollectSubmitDTO();
                 collectSubmitDTO.setSkuId(rjson.findValue("skuId").asLong());
@@ -476,12 +478,12 @@ public class UserCtrl extends Controller {
                 result.putPOJO("collectId", collectId);
                 return ok(Json.toJson(result));
             });
-        }
-        result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.USER_NOT_LOGIN.getIndex()), Message.ErrorCode.USER_NOT_LOGIN.getIndex())));
-        String state = UUID.randomUUID().toString().replaceAll("-", "");
-        cache.set(state, 60 * 60, rjson.findValue("url").asText());
-        result.put("state",state);
-        return F.Promise.promise((F.Function0<Result>) () -> ok(result));
+  //      }
+ //       result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.USER_NOT_LOGIN.getIndex()), Message.ErrorCode.USER_NOT_LOGIN.getIndex())));
+ //       String state = UUID.randomUUID().toString().replaceAll("-", "");
+//        cache.set(state, 60 * 60, rjson.findValue("url").asText());
+//        result.put("state",state);
+//        return F.Promise.promise((F.Function0<Result>) () -> ok(result));
     }
 
 

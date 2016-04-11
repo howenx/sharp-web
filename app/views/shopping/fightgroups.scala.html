@@ -27,7 +27,11 @@
 </header>
 
 <div class="wrap scope">
-    @if(pin.getPay()=="new"){
+    <div class="fight-hd">
+        <img src="/assets/images/pingou_success.png"/>
+    </div>
+
+    <!--@if(pin.getPay()=="new"){
         <div class="fight-hd">
             <span class="color">
                 @if(pin.getUserType=="master"){
@@ -37,9 +41,8 @@
                     参团成功
                 }
             </span>
-            <i></i>
         </div>
-    }
+    }-->
     @if(pin.getPay()!="new"){
         @if(pin.getStatus=="F"){
         <div class="fight-hd-txt">拼团失败,资金会在1~5个工作日内退回您的账户</div>

@@ -9,13 +9,13 @@ import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 import domain.*;
 import filters.UserAuth;
+import filters.UserAjaxAuth;
 import net.spy.memcached.MemcachedClient;
 import play.Logger;
 import play.data.Form;
 import play.libs.F;
 import play.libs.Json;
 import play.mvc.Controller;
-import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
 
@@ -211,20 +211,15 @@ public class ShoppingCtrl extends Controller {
      * 商品结算
      * @return
      */
-   // @Security.Authenticated(UserAuth.class)
+    @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> settle() {
         ObjectNode result = Json.newObject();
         Map<String, String> settleMap = Form.form().bindFromRequest().data();
         boolean isPin = false;//是否是拼团
-        boolean isPinCheck = false;//是否是拼团校验
         if (null != settleMap.get("isPinCheck")) {
             isPin = true;
-            if (1 == Integer.valueOf(settleMap.get("isPinCheck"))) {
-                isPinCheck = true;
-            }
         }
-        //登录了
-        if (comCtrl.isHaveLogin(ctx())) {
+
             List<SettleDTO> settleDTOs = new ArrayList<SettleDTO>();
             List<SettleInfo> settleInfoList = new ArrayList<SettleInfo>();
             Integer buyNow = Integer.valueOf(settleMap.get("buyNow"));//1－立即支付 2-购物车结算
@@ -341,7 +336,7 @@ public class ShoppingCtrl extends Controller {
 
             RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, toJson(object).toString());
             F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
-                Request.Builder builder = comCtrl.getBuilder(ctx());
+                Request.Builder builder =(Request.Builder)ctx().args.get("request");
                 Request request = builder.url(SHOPPING_SETTLE).post(formBody).build();
                 Response response = client.newCall(request).execute();
                 if (response.isSuccessful()) {
@@ -350,16 +345,12 @@ public class ShoppingCtrl extends Controller {
             });
             final Long finalPinActiveId = pinActiveId;
             final Integer buyNowTemp = buyNow;
-            final boolean finalIsPinCheck = isPinCheck;
             return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
                 Logger.info("==settle=json==" + json);
                 Message message = Json.fromJson(json.get("message"), Message.class);
                 if (null == message) {
                     Logger.error("返回商品结算数据错误code=" + json);
                     return badRequest(views.html.error500.render());
-                }
-                if (finalIsPinCheck) {
-                    return ok(Json.toJson(message));
                 }
                 if (message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
                     Logger.info("返回数据code=" + json);
@@ -369,18 +360,7 @@ public class ShoppingCtrl extends Controller {
 
                 return ok(views.html.shopping.settle.render(settleVo, settleInfoList, buyNowTemp, finalPinActiveId, PAY_URL));
             });
-        }else{
-            //未登录
-            String url=routes.ProductsCtrl.index().url();
-            if(null!=settleMap.get("curUrl")){
-                url=settleMap.get("curUrl");
-            }
-            if(isPinCheck)//ajax返回未登录消息
-                return comCtrl.getNotLoginMsg(url);
-            else{ //未登录界面
-                return comCtrl.getNotLoginView(url);
-            }
-        }
+
     }
     private SettleDTO createSettleDTO(String invCustoms,String invArea, String invAreaNm,List<CartDto> cartDtos){
         SettleDTO settleDTO=new SettleDTO();
@@ -539,12 +519,12 @@ public class ShoppingCtrl extends Controller {
      * 用户将本地购物车添加到网络购物车中（POST请求）
      * @return
      */
-   // @Security.Authenticated(UserAuth.class)
+    @Security.Authenticated(UserAjaxAuth.class)
     public F.Promise<Result>  cartAdd(){
 
         JsonNode rjson = request().body().asJson();
         CartAddTempInfo cartAddTempInfo=Json.fromJson(rjson,CartAddTempInfo.class);
-        if (comCtrl.isHaveLogin(ctx())) {
+      //  if (comCtrl.isHaveLogin(ctx())) {
 
             List<CartAddInfo> cartAddInfoList=new ArrayList<CartAddInfo>();
             CartAddInfo cartAddInfo=new CartAddInfo();
@@ -559,7 +539,7 @@ public class ShoppingCtrl extends Controller {
             RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, toJson(cartAddInfoList).toString());
 
             F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
-                Request.Builder builder = comCtrl.getBuilder(ctx());
+                Request.Builder builder = (Request.Builder) ctx().args.get("request");
                 Request request = builder.url(CART_ADD).post(formBody).build();
                 Response response = client.newCall(request).execute();
                 if (response.isSuccessful()) {
@@ -576,11 +556,11 @@ public class ShoppingCtrl extends Controller {
                 }
                 return ok(toJson(message));
             });
-        }
-        else {
-            //未登录
-            return comCtrl.getNotLoginMsg(cartAddTempInfo.getUrl());
-        }
+//        }
+//        else {
+//            //未登录
+//            return comCtrl.getNotLoginMsg(cartAddTempInfo.getUrl());
+//        }
     }
 
     /**
