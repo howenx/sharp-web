@@ -253,6 +253,7 @@ public class ProductsCtrl extends Controller {
      * @throws Exception
      */
     public F.Promise<Result> detail(String url){
+        comCtrl.addCurUrlCookie(ctx());
         F.Promise<JsonNode> promise = F.Promise.promise(() -> {
             Request request =comCtrl.getBuilder(ctx()) //该位置需要取个人相关的数据,必须修改
                     // getBuilder(request(), session())
@@ -306,9 +307,11 @@ public class ProductsCtrl extends Controller {
                 //商品Sku
                 if (json.has("stock")) {
                     JsonNode stockJson = json.get("stock");
+                    int disableSkuCount = 0;
                     for (JsonNode stockInv : stockJson) {
                         Inventory inventory = Json.fromJson(stockInv, Inventory.class);
                         if("D".equals(inventory.getState())  || "N" .equals(inventory.getState()) || "K".equals(inventory.getState())){
+                            disableSkuCount = disableSkuCount + 1;
                         }
                         JsonNode imgJson = Json.parse(inventory.getInvImg());
                         inventory.setInvImg(imgJson.get("url").asText());
@@ -319,6 +322,9 @@ public class ProductsCtrl extends Controller {
                         }
                         preImgList.add(preImgSubList);
                         inventoryList.add(inventory);
+                    }
+                    if(inventoryList.size() == disableSkuCount){
+                        itemMain.setState("D");
                     }
                 }
                 //优惠信息
@@ -489,6 +495,7 @@ public class ProductsCtrl extends Controller {
      * @throws Exception
      */
     public F.Promise<Result> pinTieredPrice(String url){
+        comCtrl.addCurUrlCookie(ctx());
         F.Promise<JsonNode> promise = F.Promise.promise(() -> {
             Request request = getBuilder(request(), session())
                     .url(GOODS_PAGE + url)

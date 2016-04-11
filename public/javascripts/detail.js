@@ -87,6 +87,7 @@ $(function() {
                 }
                 if($(".buy_btn .buyBtnCss").length ===0){
                     $(".buy_btn .mabuy").addClass('buyBtnCss');
+                    $("#isCanBuy").val(1); //不能购买
                 }
                 // $("#flyImgId").attr("src",$(".item.now").find("input[name='skuInvImg0-0']").val());
 	    }
@@ -106,7 +107,7 @@ $(function() {
 
 
 	//切换
-	var top = $('.pic-tex').offset().top;
+	var top = $('.pic-tex').offset(top);
 	$(window).scroll(function(e) {
 		if($(".pic-tex").length==0){
 			$('.nav_ban_detail').hide();
@@ -228,11 +229,10 @@ $(function() {
                                 	$('.like-s').hide();
                                 },1000);
                                 $('.like-x').hide();
-                            }else if(null!=data.message&&null!=data.message.code&&data.message.code==5006) { //您还未登录,请先登录
-
-                                 setTimeout("location.href='/login?state="+data.state+"'", 2000);
-
+                            }else if(data.code==5006) { //您还未登录,请先登录
+                                setTimeout("location.href='"+data.message+"'", 2000);//您还未登录,请先登录
                             }else{
+                                 tip(data.message);
 
                             }
                         }
@@ -340,7 +340,7 @@ $(document).on("click",".cartAdd",function(){
     obj.skuId=skuId;
     obj.skuType=skuType;
     obj.skuTypeId=skuTypeId;
-    obj.state="I";
+    obj.state=state;
     obj.amount=1;
     obj.url=window.location.href;
     $.ajax({
@@ -351,16 +351,20 @@ $(document).on("click",".cartAdd",function(){
         dataType: 'json',
         error : function(request) {
             console.log("request.responseText="+request.responseText);
+ //           var respText=request.responseText;
             tip("加入购物车失败,请检测是否已登录");
+//
+//            document.write(respText);
+//            document.close();
+//            history.replaceState(null, "登录", "login?state");
          },
         success: function(data) {
             console.log("data="+data);
             if (data!=""&&data!=null){
                 if(data.code==200) { //成功
                     addCartEffect(); //加入购物车特效
-                }else if(null!=data.message&&null!=data.message.code&&data.message.code==5006) { //您还未登录,请先登录
-                     setTimeout("location.href='/login?state="+data.state+"'", 2000);
-
+                }else if(data.code==5006) { //成功
+                   setTimeout("location.href='"+data.message+"'", 2000);//您还未登录,请先登录
                 }else{
                      tip(data.message);
                 }
@@ -438,10 +442,10 @@ function checkSkuBeforeBuy(state){
         tip("该商品处于预售状态,请选择其他商品");
         return false;
     }
-    var isCanBuy=$("#isCanBuy").val(); //是否能够购买
-    if(typeof(isCanBuy)!="undefined"&&null!=isCanBuy&&1!=isCanBuy){
-        return false;
-    }
+//    var isCanBuy=$("#isCanBuy").val(); //是否能够购买
+//    if(typeof(isCanBuy)!="undefined"&&null!=isCanBuy&&1!=isCanBuy){
+//        return false;
+//    }
     return true;
 }
 

@@ -211,17 +211,6 @@ public class ComCtrl extends Controller {
         });
     }
 
-//    public Request.Builder getBuilder(Http.Request request, Http.Session session) {
-//        Request.Builder builder = new Request.Builder();
-//        builder.addHeader(Http.HeaderNames.X_FORWARDED_FOR, request.remoteAddress());
-//        builder.addHeader(Http.HeaderNames.VIA, request.remoteAddress());
-//        builder.addHeader("User-Agent", request.getHeader("User-Agent"));
-//        if (session.containsKey("id-token")) {
-//            builder.addHeader("id-token", session.get("id-token"));
-//        }
-//        return builder;
-//    }
-
     /**
      * 未登录或者登录两种情况下
      * @param ctx
@@ -286,6 +275,7 @@ public class ComCtrl extends Controller {
      * @return
      */
     public boolean isHaveLogin(Http.Context ctx){
+        //普通浏览器
         Optional<Http.Cookie> user_token = Optional.ofNullable(ctx().request().cookies().get("user_token"));
         Optional<Http.Cookie> session_id = Optional.ofNullable(ctx().request().cookies().get("session_id"));
         if (user_token.isPresent()&&null!=user_token.get() && session_id.isPresent()&&null!=session_id.get()) {
@@ -293,5 +283,15 @@ public class ComCtrl extends Controller {
         }
         return false;
 
+    }
+
+    /**
+     * 添加当前url的Cookie,用于userAjaxAuth注解登录成功后跳转
+     * @param ctx
+     */
+    public void addCurUrlCookie(Http.Context ctx){
+        //if (!isHaveLogin(ctx())) { //未登录情况下放入
+            ctx.response().setCookie("curUrl", ctx().request().uri(), 60 * 60);
+        //}
     }
 }
