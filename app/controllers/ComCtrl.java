@@ -159,8 +159,8 @@ public class ComCtrl extends Controller {
             if (response.findValue("errcode") == null && response.findValue("refresh_token") != null) {
                 F.Promise<Result> t = ws.url(SysParCom.WEIXIN_REFRESH + "appid=" + WEIXIN_APPID + "&grant_type=refresh_token&refresh_token=" + response.findValue("refresh_token").asText()).get().map(wsr -> {
                     JsonNode refreshToken = wsr.asJson();
-                    ctx().response().setCookie("accessToken", refreshToken.findValue("access_token").asText(),refreshToken.findValue("expires_in").asInt());
-                    ctx().response().setCookie("orBind", "1",refreshToken.findValue("expires_in").asInt());
+                    response().setCookie("accessToken", refreshToken.findValue("access_token").asText(),refreshToken.findValue("expires_in").asInt());
+                    response().setCookie("orBind", "1",refreshToken.findValue("expires_in").asInt());
                     cache.set(refreshToken.findValue("access_token").asText(), refreshToken.findValue("expires_in").asInt(), refreshToken.findValue("openid").asText());
                     return redirect("/bind?state=" + state);
                 });
