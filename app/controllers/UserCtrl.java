@@ -497,7 +497,7 @@ public class UserCtrl extends Controller {
         Form<UserLoginInfo> userForm = Form.form(UserLoginInfo.class).bindFromRequest();
         Map<String, String> userMap = userForm.data();
 
-        Optional<Http.Cookie> accessToken = Optional.ofNullable(request().cookies().get("accessToken"));
+        Optional<Http.Cookie> accessToken = Optional.ofNullable(request().cookie("accessToken"));
         if (accessToken.isPresent()) {
             String openId = cache.get(accessToken.get().value()).toString();
             userMap.put("openId", openId);
@@ -703,7 +703,7 @@ public class UserCtrl extends Controller {
         Form<UserRegistInfo> userRegistInfoForm = Form.form(UserRegistInfo.class).bindFromRequest();
         Map<String, String> userMap = userRegistInfoForm.data();
 
-        Optional<Http.Cookie> accessToken = Optional.ofNullable(request().cookies().get("accessToken"));
+        Optional<Http.Cookie> accessToken = Optional.ofNullable(request().cookie("accessToken"));
         if (accessToken.isPresent()) {
             String openId = cache.get(accessToken.get().value()).toString();
             userMap.put("openId", openId);
@@ -787,7 +787,7 @@ public class UserCtrl extends Controller {
         Form<UserRegistInfo> userRegistInfoForm = Form.form(UserRegistInfo.class).bindFromRequest();
         Map<String, String> userMap = userRegistInfoForm.data();
 
-        Optional<Http.Cookie> accessToken = Optional.ofNullable(request().cookies().get("accessToken"));
+        Optional<Http.Cookie> accessToken = Optional.ofNullable(request().cookie("accessToken"));
         if (accessToken.isPresent()) {
             String openId = cache.get(accessToken.get().value()).toString();
             userMap.put("openId", openId);
