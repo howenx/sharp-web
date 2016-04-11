@@ -105,50 +105,59 @@
 		</div>
 
 		<script type="text/javascript">
-
-			$(function(){
-				var currentPageCount = 2;
-
-				//url data function dataType
-				function loadMeinv(count){
-					var url = "/indexAjax/" + count;
-					$.ajax({
-						type: 'GET', 
-						url:  url, 
-						//data: JSON.stringify(pageCount), 
-						contentType: "application/json; charset=utf-8", 
-						dataType: 'json',
-						success: function(data) { 
-							if(data.length != 0){
-								for(var i=0;i<data.length;i++){
-									if(data[i].type == "ordinary"){
-										var html = '<li><a href="/themeDetail/'+ data[i].themeUrl+ '"><img src="' + data[i].themeImg + '"/></a></li>'; 
-										$minUl = getMinUl(); 
-										$minUl.append(html); 
-									}
-									if(data[i].type == "h5"){
-										var html = '<li><a href='+ data[i].themeUrl+ '"><img src="' + data[i].themeImg + '"/></a></li>'; 
-										$minUl = getMinUl(); 
-										$minUl.append(html); 
-									}
+			function getMinUl(){//每次获取最短的ul,将图片放到其后
+				var $arrUl = $("#container .col");
+				var $minUl =$arrUl.eq(0);
+				$arrUl.each(function(index,elem){
+					if($(elem).height()<$minUl.height()){
+						console.log($(elem));
+						$minUl = $(elem);
+					}
+				});
+				return $minUl;
+			}
+			//url data function dataType
+			function loadMeinv(count){
+				var url = "/indexAjax/" + count;
+				$.ajax({
+					type: 'GET',
+					url:  url,
+					//data: JSON.stringify(pageCount), 
+					contentType: "application/json; charset=utf-8",
+					dataType: 'json',
+					success: function(data) {
+						if(data.length != 0){
+							for(var i=0;i<data.length;i++){
+								if(data[i].type == "ordinary"){
+									var html = '<li><a href="/themeDetail/'+ data[i].themeUrl+ '"><img src="' + data[i].themeImg + '"/></a></li>';
+									$minUl = getMinUl();
+									$minUl.append(html);
+								}
+								if(data[i].type == "h5"){
+									var html = '<li><a href='+ data[i].themeUrl+ '"><img src="' + data[i].themeImg + '"/></a></li>';
+									$minUl = getMinUl();
+									$minUl.append(html);
 								}
 							}
-						}, 
-						error: function() { 
-						console.log("ajax get data fail!");
 						}
-					});
-					<!--var data = 0;-->
-					<!--for(var i=0;i<4;i++){//每次加载时模拟随机加载图片-->
-						<!--data = parseInt(Math.random()*4);-->
-						<!--var html = "";-->
-						<!--html = '<li><img src =/assets/images/'-->
-								<!--+data+'.jpg></li>';-->
-						<!--$minUl = getMinUl();-->
-						<!--$minUl.append(html);-->
-					<!--}-->
-				}
+					},
+					error: function() {
+						console.log("ajax get data fail!");
+					}
+				});
+//					var data = 0;
+//					for(var i=0;i<4;i++){//每次加载时模拟随机加载图片
+//						data = parseInt(Math.random()*4);
+//						var html = "";
+//						html = '<li><img src =/assets/images/'
+//								+data+'.jpg></li>';
+//						$minUl = getMinUl();
+//						$minUl.append(html);
+//					}
+			}
 
+			$(function(){
+				var currentPageCount = 1;
 				//loadMeinv();
 
 				$(window).on("scroll",function(){
@@ -163,17 +172,7 @@
 					}
 				})
 
-				function getMinUl(){//每次获取最短的ul,将图片放到其后
-					var $arrUl = $("#container .col");
-					var $minUl =$arrUl.eq(0);
-					$arrUl.each(function(index,elem){
-						if($(elem).height()<$minUl.height()){
-						console.log($(elem));
-							$minUl = $(elem);
-						}
-					});
-					return $minUl;
-				}
+
 			})
 		</script>
 
