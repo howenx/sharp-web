@@ -499,7 +499,7 @@ public class UserCtrl extends Controller {
 
         Optional<Http.Cookie> accessToken = Optional.ofNullable(request().cookies().get("accessToken"));
         if (accessToken.isPresent()) {
-            String openId = cache.get(accessToken.toString()).toString();
+            String openId = cache.get(accessToken.get().value()).toString();
             userMap.put("openId", openId);
             userMap.put("accessToken", accessToken.get().value());
         }
@@ -705,7 +705,7 @@ public class UserCtrl extends Controller {
 
         Optional<Http.Cookie> accessToken = Optional.ofNullable(request().cookies().get("accessToken"));
         if (accessToken.isPresent()) {
-            String openId = cache.get(accessToken.toString()).toString();
+            String openId = cache.get(accessToken.get().value()).toString();
             userMap.put("openId", openId);
             userMap.put("accessToken", accessToken.get().value());
         }
@@ -789,7 +789,7 @@ public class UserCtrl extends Controller {
 
         Optional<Http.Cookie> accessToken = Optional.ofNullable(request().cookies().get("accessToken"));
         if (accessToken.isPresent()) {
-            String openId = cache.get(accessToken.toString()).toString();
+            String openId = cache.get(accessToken.get().value()).toString();
             userMap.put("openId", openId);
             userMap.put("accessToken", accessToken.get().value());
         }
