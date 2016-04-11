@@ -442,8 +442,8 @@ public class UserCtrl extends Controller {
  //   @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> submitCollect() {
         ObjectNode result = newObject();
-        Optional<Http.Cookie> user_token = Optional.ofNullable(ctx().request().cookies().get("user_token"));
-        Optional<Http.Cookie> session_id = Optional.ofNullable(ctx().request().cookies().get("session_id"));
+        Optional<Http.Cookie> user_token = Optional.ofNullable(request().cookies().get("user_token"));
+        Optional<Http.Cookie> session_id = Optional.ofNullable(request().cookies().get("session_id"));
         JsonNode rjson = request().body().asJson();
         Logger.info("===rjson==="+rjson);
         if (user_token.isPresent() && session_id.isPresent()) {
@@ -495,7 +495,7 @@ public class UserCtrl extends Controller {
         Form<UserLoginInfo> userForm = Form.form(UserLoginInfo.class).bindFromRequest();
         Map<String, String> userMap = userForm.data();
 
-        Optional<Http.Cookie> accessToken = Optional.ofNullable(ctx().request().cookies().get("accessToken"));
+        Optional<Http.Cookie> accessToken = Optional.ofNullable(request().cookies().get("accessToken"));
         if (accessToken.isPresent()) {
             String openId = cache.get(accessToken.toString()).toString();
             userMap.put("openId", openId);
@@ -662,11 +662,11 @@ public class UserCtrl extends Controller {
      */
     public Result register(String state) {
         String path = routes.UserCtrl.registVerify(state).url();
-//        if (null!=ctx().request().cookies().get("path").value()) {
-//            path = ctx().request().cookies().get("path").value();
-//            ctx().response().setCookie("path", path);
+//        if (null!=request().cookies().get("path").value()) {
+//            path = request().cookies().get("path").value();
+//            response().setCookie("path", path);
 //            Logger.error("cookie path"+path);
-//        } else ctx().response().setCookie("path", routes.UserCtrl.registVerify(state).url());
+//        } else response().setCookie("path", routes.UserCtrl.registVerify(state).url());
 
         Form<UserPhoneCode> userPhoneCodeForm = Form.form(UserPhoneCode.class).bindFromRequest();
         Map<String, String> userMap = userPhoneCodeForm.data();
@@ -701,7 +701,7 @@ public class UserCtrl extends Controller {
         Form<UserRegistInfo> userRegistInfoForm = Form.form(UserRegistInfo.class).bindFromRequest();
         Map<String, String> userMap = userRegistInfoForm.data();
 
-        Optional<Http.Cookie> accessToken = Optional.ofNullable(ctx().request().cookies().get("accessToken"));
+        Optional<Http.Cookie> accessToken = Optional.ofNullable(request().cookies().get("accessToken"));
         if (accessToken.isPresent()) {
             String openId = cache.get(accessToken.toString()).toString();
             userMap.put("openId", openId);
@@ -785,7 +785,7 @@ public class UserCtrl extends Controller {
         Form<UserRegistInfo> userRegistInfoForm = Form.form(UserRegistInfo.class).bindFromRequest();
         Map<String, String> userMap = userRegistInfoForm.data();
 
-        Optional<Http.Cookie> accessToken = Optional.ofNullable(ctx().request().cookies().get("accessToken"));
+        Optional<Http.Cookie> accessToken = Optional.ofNullable(request().cookies().get("accessToken"));
         if (accessToken.isPresent()) {
             String openId = cache.get(accessToken.toString()).toString();
             userMap.put("openId", openId);
