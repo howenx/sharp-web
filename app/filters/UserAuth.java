@@ -89,8 +89,15 @@ public class UserAuth extends Security.Authenticator {
             Optional<Http.Cookie> orBind = Optional.ofNullable(ctx.request().cookie("orBind"));
 
             if (accessToken.isPresent()) {
+
+                Logger.error("accessToken----------->"+accessToken.get().value());
+
+
                 Optional<Object> openid = Optional.ofNullable(cache.get(accessToken.get().value()));
                 if (openid.isPresent()) {
+                    Logger.error("openid----------->"+openid.get());
+
+
                     F.Promise<Result> t = ws.url(WEIXIN_VERIFY + openid.get().toString()).get().map(wr -> {
 
                         JsonNode json = wr.asJson();
@@ -160,7 +167,7 @@ public class UserAuth extends Security.Authenticator {
 
         }
 
-       // Logger.info("==UserAuth====="+cache.get(state).toString()+"==="+result);
+        Logger.error("==UserAuth====="+cache.get(state).toString()+"==="+result);
 
         if (result != null && result.equals("state_base")) {
             try {

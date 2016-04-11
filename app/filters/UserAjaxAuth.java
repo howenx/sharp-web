@@ -89,8 +89,13 @@ public class UserAjaxAuth extends Security.Authenticator {
             Optional<Http.Cookie> orBind = Optional.ofNullable(ctx.request().cookie("orBind"));
 
             if (accessToken.isPresent()) {
+
+                Logger.error("accessToken----------->"+accessToken.get().value());
+
                 Optional<Object> openid = Optional.ofNullable(cache.get(accessToken.get().value()));
                 if (openid.isPresent()) {
+                    Logger.error("openid----------->"+openid.get());
+
                     F.Promise<Result> t = ws.url(WEIXIN_VERIFY + openid.get().toString()).get().map(wr -> {
 
                         JsonNode json = wr.asJson();
@@ -162,6 +167,8 @@ public class UserAjaxAuth extends Security.Authenticator {
             }
 
         }
+
+        Logger.error("这结果到底是啥?-------"+result);
 
      //   Logger.info("==UserAjaxAuth====="+cache.get(state).toString()+"==="+result);
 
