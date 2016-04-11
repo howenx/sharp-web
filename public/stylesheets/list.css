@@ -904,10 +904,12 @@ h2 span{
     width: 100px;
     -webkit-transform: translate(-50%,0);
     -moz-transform: translate(-50%,0);
+     z-index: 100;
 }
 #loading img{
     width: 100%;
 }
+
 
 
 

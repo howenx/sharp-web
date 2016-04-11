@@ -29,15 +29,12 @@
 <div class="wrap scope">
     @if(pin.getPay()=="new"){
         <div class="fight-hd">
-            <span class="color">
-                @if(pin.getUserType=="master"){
-                    开团成功
-                }
-                @if(pin.getUserType!="master"){
-                    参团成功
-                }
-            </span>
-            <i></i>
+            @if(pin.getUserType=="master"){
+               <img src="/assets/images/hmm_kaituan_success-.png"/>
+            }
+            @if(pin.getUserType!="master"){
+                <img src="/assets/images/hmm_cantuan_success-.png"/>
+            }
         </div>
     }
     @if(pin.getPay()!="new"){

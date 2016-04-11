@@ -99,13 +99,12 @@ span .rmb{
 .fight-hd{
     width: 100%;
     margin: 10px 0 0 0;
-    height: 65px;
-    background: url("/assets/images/pingou_success.png") center no-repeat;
-    background-size: 85px;
-}
 
-.fight-hd i{
-    display: block;
+}
+.fight-hd img{
+width:80px;
+    margin: 0 auto;
+
 }
 
 .fight-er{

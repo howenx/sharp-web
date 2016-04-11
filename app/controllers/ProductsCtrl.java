@@ -253,6 +253,7 @@ public class ProductsCtrl extends Controller {
      * @throws Exception
      */
     public F.Promise<Result> detail(String url){
+        comCtrl.addCurUrlCookie(ctx());
         F.Promise<JsonNode> promise = F.Promise.promise(() -> {
             Request request =comCtrl.getBuilder(ctx()) //该位置需要取个人相关的数据,必须修改
                     // getBuilder(request(), session())
@@ -494,6 +495,7 @@ public class ProductsCtrl extends Controller {
      * @throws Exception
      */
     public F.Promise<Result> pinTieredPrice(String url){
+        comCtrl.addCurUrlCookie(ctx());
         F.Promise<JsonNode> promise = F.Promise.promise(() -> {
             Request request = getBuilder(request(), session())
                     .url(GOODS_PAGE + url)

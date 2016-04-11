@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 @Singleton
 public class SysParCom {
     public static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
+    public static final MediaType MEDIA_TYPE_MULTIPART = MediaType.parse("multipart/form-data; charset=utf-8");
     //图片服务器url
     public static String IMAGE_URL;
 

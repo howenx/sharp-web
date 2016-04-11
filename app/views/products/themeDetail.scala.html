@@ -4,6 +4,7 @@
 <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
 <script src="/assets/javascripts/list.js"></script>
 <script src="/assets/javascripts/cartAmount.js"></script>
+<script src="/assets/javascripts/echo.min.js"></script>
 
 <script>
     $(function(){
@@ -12,6 +13,8 @@
             $("#loading").hide();
         });
     })
+
+    echo.init();
 </script>
 }
 
@@ -210,7 +213,8 @@
                                 @if(!(item.getState() == "Y" || item.getState() == "P")){
                                     <span>该商品已售罄</span>
                                 }
-                                <img src="@item.getItemImg()">
+                                <img src="/assets/images/blank.png" data-echo="@item.getItemImg()">
+
                             </p>
                             <p class="title-hd">@item.getItemTitle()</p>
                             <span class="title-fd">
@@ -229,7 +233,7 @@
                             </p>
 
                             <p class="figure">
-                                <img src="@item.getItemImg()">
+                                <img src="/assets/images/blank.png" data-echo="@item.getItemImg()">
                             </p>
 
                             <p class="title-hd">@item.getItemTitle()</p>

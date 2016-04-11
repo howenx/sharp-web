@@ -16,7 +16,9 @@
 	<script src="/assets/javascripts/detail.js"></script>
 	<script src="/assets/javascripts/cartAmount.js"></script>
 	<script src="/assets/javascripts/commonDetail.js"></script>
-	<script>window.urlParam = "@url"</script>
+	<script>
+		window.urlParam = "@url"
+	</script>
 </head>
 <body>
 
@@ -75,8 +77,9 @@
 								<ul>
 									@for(imgUrl <- preImgList.get(index)){
 										<li>
-											<a class="pic" href="#"><img src="@imgUrl"/></a>
-
+											<a class="pic" href="#">
+												<img src="@imgUrl"/>
+											</a>
 										</li>
 									}
 								</ul>
