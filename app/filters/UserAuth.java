@@ -46,25 +46,37 @@ public class UserAuth extends Security.Authenticator {
             builder.addHeader(Http.HeaderNames.VIA, ctx.request().remoteAddress());
             builder.addHeader("User-Agent", ctx.request().getHeader("User-Agent"));
 
-            Optional<Http.Cookie> user_token = Optional.ofNullable(ctx.request().cookies().get("user_token"));
-            Optional<Http.Cookie> session_id = Optional.ofNullable(ctx.request().cookies().get("session_id"));
-            if (user_token.isPresent() && session_id.isPresent()) {
-                Optional<Object> cache_session_id = Optional.ofNullable(cache.get(session_id.get().value()));
-                if (cache_session_id.isPresent() && user_token.get().value().equals(cache_session_id.get().toString())) {
-                    Optional<String> token = Optional.ofNullable(cache.get(user_token.get().value()).toString());
-                    if (token.isPresent()) {
-                        String session_id_new = UUID.randomUUID().toString().replaceAll("-", "");
-                        cache.delete(session_id.get().value());
-                        cache.set(session_id_new, 7 * 24 * 60 * 60, cache_session_id.get());
+            if (!ctx.request().getHeader("User-Agent").contains("MicroMessenger")) {
 
-                        ctx.response().discardCookie("session_id");
-                        ctx.response().setCookie("session_id", session_id_new, 7 * 24 * 60 * 60);
+                Optional<Http.Cookie> user_token = Optional.ofNullable(ctx.request().cookie("user_token"));
+                Optional<Http.Cookie> session_id = Optional.ofNullable(ctx.request().cookie("session_id"));
+                if (user_token.isPresent() && session_id.isPresent()) {
 
-                        JsonNode userJson = Json.parse(token.get());
-                        Long userId = userJson.findValue("id").asLong();
+                    Logger.error("cookie session_id & token---------------->" + session_id.get().value() + "---------------->" + user_token.get().value());
 
-                        ctx.args.put("request", builder.addHeader("id-token", user_token.get().value()));
-                        return userId.toString();
+                    Optional<Object> cache_session_id = Optional.ofNullable(cache.get(session_id.get().value()));
+
+
+                    if (cache_session_id.isPresent() && user_token.get().value().equals(cache_session_id.get().toString())) {
+
+                        Logger.error("cache token---------------->" + cache_session_id.get().toString());
+
+
+                        Optional<String> token = Optional.ofNullable(cache.get(user_token.get().value()).toString());
+                        if (token.isPresent()) {
+                            String session_id_new = UUID.randomUUID().toString().replaceAll("-", "");
+                            cache.delete(session_id.get().value());
+                            cache.set(session_id_new, 7 * 24 * 60 * 60, cache_session_id.get());
+
+                            ctx.response().discardCookie("session_id");
+                            ctx.response().setCookie("session_id", session_id_new, 7 * 24 * 60 * 60);
+
+                            JsonNode userJson = Json.parse(token.get());
+                            Long userId = userJson.findValue("id").asLong();
+
+                            ctx.args.put("request", builder.addHeader("id-token", user_token.get().value()));
+                            return userId.toString();
+                        } else return null;
                     } else return null;
                 } else return null;
             } else {
@@ -90,13 +102,12 @@ public class UserAuth extends Security.Authenticator {
 
             if (accessToken.isPresent()) {
 
-                Logger.error("accessToken----------->"+accessToken.get().value());
+                Logger.error("accessToken----------->" + accessToken.get().value());
 
 
                 Optional<Object> openid = Optional.ofNullable(cache.get(accessToken.get().value()));
                 if (openid.isPresent()) {
-                    Logger.error("openid----------->"+openid.get());
-
+                    Logger.error("openid----------->" + openid.get());
 
                     F.Promise<Result> t = ws.url(WEIXIN_VERIFY + openid.get().toString()).get().map(wr -> {
 
@@ -107,12 +118,14 @@ public class UserAuth extends Security.Authenticator {
                             result = null;
                         } else {
                             if (message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
-                                Logger.error("返回数据code=" + json);
+                                Logger.error("非成功状态返回数据code=" + json);
 
                                 //如果已经授权过则直接跳转到绑定页面
                                 if (orBind.isPresent() && orBind.get().value().equals("1")) {
+                                    Logger.error("已经授权用户");
                                     result = "bind_page";
                                 } else {
+                                    Logger.error("发起授权");
                                     //此openId不存在时发起授权请求
                                     result = "state_userinfo";
                                 }
@@ -146,28 +159,9 @@ public class UserAuth extends Security.Authenticator {
     @Override
     public Result onUnauthorized(Http.Context ctx) {
 
-        String state = UUID.randomUUID().toString().replaceAll("-", "");
+        String state = getState(ctx);
 
-        if (ctx.request().method().equals("GET")) {
-            Logger.error("上一次请求链接---->" + ctx.request().uri());
-            cache.set(state, 60 * 60, ctx.request().uri());
-        }  else {
-            Http.Cookie urlCookie=ctx.request().cookie("curUrl");
-            if(null!=urlCookie){
-                String  curUrl=urlCookie.value();
-                if(null!=curUrl&&!"".equals(curUrl)){ //含有curUrl cookie
-                    cache.set(state, 60 * 60, curUrl);
-                }else{
-                    cache.set(state, 60 * 60, "/");
-                }
-            }
-            else{
-                cache.set(state, 60 * 60, "/");
-            }
-
-        }
-
-        Logger.error("==UserAuth====="+cache.get(state).toString()+"==="+result);
+        Logger.error("Auth校验结果------->"+ result);
 
         if (result != null && result.equals("state_base")) {
             try {
@@ -188,6 +182,44 @@ public class UserAuth extends Security.Authenticator {
             if (uri == null) uri = "/";
             return redirect(uri);
         } else return redirect("/login?state=" + state);
+    }
+
+    public Request.Builder getBuilder() {
+        return builder;
+    }
+
+    public void setBuilder(Request.Builder builder) {
+        this.builder = builder;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public String getState(Http.Context ctx) {
+        String state = UUID.randomUUID().toString().replaceAll("-", "");
+
+        if (ctx.request().method().equals("GET")) {
+            Logger.error("上一次请求链接---->" + ctx.request().uri());
+            cache.set(state, 60 * 60, ctx.request().uri());
+        } else {
+            Http.Cookie urlCookie = ctx.request().cookie("curUrl");
+            if (null != urlCookie) {
+                String curUrl = urlCookie.value();
+                if (null != curUrl && !"".equals(curUrl)) { //含有curUrl cookie
+                    cache.set(state, 60 * 60, curUrl);
+                } else {
+                    cache.set(state, 60 * 60, "/");
+                }
+            } else {
+                cache.set(state, 60 * 60, "/");
+            }
+        }
+        return state;
     }
 }
 
