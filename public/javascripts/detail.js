@@ -107,28 +107,34 @@ $(function() {
 
 
 	//切换
-	var top = $('.pic-tex').offset(top);
+	var top = $('.sku-measure01').offset().top;
+    console.log(top);
 	$(window).scroll(function(e) {
-		if($(".pic-tex").length==0){
-			$('.nav_ban_detail').hide();
-		}
-		if($(window).scrollTop() > top-51){
+        //console.log($(window).scrollTop());
+        //返回顶部
+        if($(window).scrollTop() > $(window).height()){
+            $('.top').show();
+        }else{
+            $('.top').hide();
+        }
+        //选项卡
+		if($(window).scrollTop() >= top){
 			$('.detail-tabpanel').addClass('detail-tabpanel-fixed');
-			$('.nav_ban_detail').hide()
+			$('.nav_ban_detail').hide();
 		}else{
 			$('.detail-tabpanel').removeClass('detail-tabpanel-fixed');
-			$('.nav_ban_detail').show()
+			$('.nav_ban_detail').show();
 		}
+
 	});
 
 	$('.tabpanel-tabs ul li').click(function(){
 		$(this).addClass('current').siblings().removeClass('current');
-
-		if ($(this).hasClass('pic-tex')) {
-			$('body').scrollTop(top-50);
-		}
+		// if ($(this).hasClass('pic-tex')) {
+		// 	$('body').scrollTop(top-50);
+		// }
 		if($(this).hasClass('pin-pic')){
-			$('body').scrollTop($('.sku-measure01').offset().top-60);
+			$('body').scrollTop($('.sku-measure01').offset().top-61);
 		}
 		if ($(this).hasClass('goods-para')) {
 			$('body').scrollTop($('.sku-measure').offset().top-61);
@@ -138,17 +144,6 @@ $(function() {
 		}
 
 	});
-
-
-	$(window).scroll(function(e) {
-		//console.log($(window).scrollTop());
-		if($(window).scrollTop() > $(window).height()){
-			$('.top').show();
-		}else{
-			$('.top').hide();
-		}
-	});
-
 	$('.top').click(function(e) {
 		$('html,body').stop().animate({'scrollTop':'0'},500);
 	});
