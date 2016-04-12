@@ -88,7 +88,8 @@
             <span class="txt-pay">支付开团并邀请2人参团,人数不足自动退款,详见下方拼团玩法</span>
             <div class="diamond">
                 @if(pinInvDetail.isSoldOut() != true){
-                    <a href="/pinTieredPrice/@url" class="mabuy">
+                    <a href="javascript:;" class="mabuy">
+                        <!--/pinTieredPrice/@url-->
                 }
                 @if(pinInvDetail.isSoldOut() == true){
                     <a href="javascript:;" class="soldOut">
@@ -98,7 +99,7 @@
                     </a>
 
                 @if(pinInvDetail.isSoldOut() != true){
-                    <a href="javascript:document.getElementById('settleForm').submit();" class="mabuy">
+                    <a href="javascript:;" class="mabuy">
                 }
                 @if(pinInvDetail.isSoldOut() == true){
                     <a href="javascript:;" class="soldOut" >
@@ -354,9 +355,10 @@
 
         <div class="add_cart btns" data-type="cart">
             @if(pinInvDetail.isSoldOut() != true){
-                <a href="/pinTieredPrice/@url" class="btnCart add_cart_large pin-cart mabuy">
+                <a href="javascript:;" class="btnCart add_cart_large pin-cart mabuy">
                     立即开团
                 </a>
+            <!--/pinTieredPrice/@url-->
             }
             @if(pinInvDetail.isSoldOut() == true){
                 <a href="javascript:;" class="btnCart add_cart_large pin-cart soldOut">
@@ -366,7 +368,7 @@
         </div>
         <div class="buy_btn pin-buy" data-type="buy">
             @if(pinInvDetail.isSoldOut() != true){
-                <a href="javascript:document.getElementById('settleForm').submit();;" class="mabuy">
+                <a href="javascript:;" class="mabuy">
                     单独购买
                 </a>
             }
