@@ -188,6 +188,9 @@ public class ComCtrl extends Controller {
 
             F.Promise<Result> t = ws.url(WEIXIN_VERIFY + openId).get().map(wr -> {
                 JsonNode json = wr.asJson();
+
+                Logger.error("ID系统校验返回------->"+json.toString());
+
                 Message message = Json.fromJson(json.get("message"), Message.class);
                 if (null == message) {
                     Logger.error("返回数据错误code=" + json);
@@ -213,6 +216,8 @@ public class ComCtrl extends Controller {
                     Integer idExpired = json.findValue("result").findValue("expired").asInt();
 
                     Object refresh_token = cache.get(openId);
+                    Logger.error("缓存中的刷新token是----->"+refresh_token);
+
                     if (refresh_token != null) {
                         F.Promise<Result> refresh = getRefresh(refresh_token.toString(), idToken, idExpired, state, true);
 
