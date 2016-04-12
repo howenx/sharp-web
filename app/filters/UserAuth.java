@@ -141,7 +141,10 @@ public class UserAuth extends Security.Authenticator {
                         return null;
                     });
                     return t.get(1500) == null ? null : null;
-                } else return null;
+                } else  {
+                    result = "state_base";
+                    return null;
+                }
             } else {
                 result = "state_base";
                 return null;

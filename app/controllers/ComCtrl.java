@@ -181,7 +181,10 @@ public class ComCtrl extends Controller {
 
             Logger.info("微信scope base返回的数据JSON: " + response.toString());
 
-            F.Promise<Result> t = ws.url(WEIXIN_VERIFY + response.findValue("openid").asText()).get().map(wr -> {
+            String openId = response.findValue("openid").asText();
+
+
+            F.Promise<Result> t = ws.url(WEIXIN_VERIFY + openId).get().map(wr -> {
                 JsonNode json = wr.asJson();
                 Message message = Json.fromJson(json.get("message"), Message.class);
                 if (null == message) {
@@ -189,36 +192,70 @@ public class ComCtrl extends Controller {
                     return badRequest(views.html.error500.render());
                 }
                 if (message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
+
                     Logger.error("返回数据code=" + json);
-                    //此openId不存在时发起授权请求
-                    return redirect(SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/userinfo", "utf-8") + "&response_type=code&scope=snsapi_userinfo&state=" + state + "#wechat_redirect");
+                    Object refresh_token = cache.get(openId);
+                    if (refresh_token != null) {
+                        F.Promise<Result> refresh = getRefresh(refresh_token.toString(), null, null, state, false);
+                        return refresh.get(1500);
+                    } else {
+                        //此openId不存在时发起授权请求
+                        return redirect(SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/userinfo", "utf-8") + "&response_type=code&scope=snsapi_userinfo&state=" + state + "#wechat_redirect");
+                    }
+
                 } else {
-                    //刷新accessToken
-                    F.Promise<Result> refresh = ws.url(SysParCom.WEIXIN_REFRESH + "appid=" + WEIXIN_APPID + "&grant_type=refresh_token&refresh_token=" + response.findValue("refresh_token").asText()).get().map(wsr -> {
-                        JsonNode refreshToken = wsr.asJson();
-                        Logger.error("刷新token请求返回结果------------->"+refreshToken.toString());
-                        response().setCookie("accessToken", refreshToken.findValue("access_token").asText(), refreshToken.findValue("expires_in").asInt());
-                        cache.set(refreshToken.findValue("access_token").asText(), refreshToken.findValue("expires_in").asInt(), refreshToken.findValue("openid").asText());
 
-                        Logger.error("微信刷新token有效期----->" + refreshToken.findValue("expires_in").asInt());
+                    Logger.error("微信access获取到的refresh token---------------------->" + response.findValue("refresh_token").asText());
 
-                        //此openId存在则自动登录
-                        String token = json.findValue("result").findValue("token").asText();
-                        Integer expired = json.findValue("result").findValue("expired").asInt();
-                        String session_id = UUID.randomUUID().toString().replaceAll("-", "");
-                        cache.set(session_id, expired, token);
-                        response().setCookie("session_id", session_id, expired);
-                        response().setCookie("user_token", token, expired);
+                    String idToken = json.findValue("result").findValue("token").asText();
+                    Integer idExpired = json.findValue("result").findValue("expired").asInt();
 
-                        Logger.error("Cache刷新token有效期----->" + expired);
-
-                        Object uri = cache.get(state);
-                        return redirect(uri == null ? "/" : uri.toString());
-                    });
-                    return refresh.get(1500);
+                    Object refresh_token = cache.get(openId);
+                    if (refresh_token != null) {
+                        F.Promise<Result> refresh = getRefresh(refresh_token.toString(), idToken, idExpired, state, true);
+                        return refresh.get(1500);
+                    } else {
+                        //此openId不存在时发起授权请求
+                        return redirect(SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/userinfo", "utf-8") + "&response_type=code&scope=snsapi_userinfo&state=" + state + "#wechat_redirect");
+                    }
                 }
             });
             return t.get(1500);
+        });
+    }
+
+
+    private F.Promise<Result> getRefresh(String refresh_token, String idToken, Integer idExpired, String state, Boolean orBind) {
+        //刷新accessToken
+        return ws.url(SysParCom.WEIXIN_REFRESH + "appid=" + WEIXIN_APPID + "&grant_type=refresh_token&refresh_token=" + refresh_token).get().map(wsr -> {
+            JsonNode refreshToken = wsr.asJson();
+            String access_token = refreshToken.findValue("access_token").asText();
+            Integer expires_in = refreshToken.findValue("expires_in").asInt();
+            String openid = refreshToken.findValue("openid").asText();
+
+            Logger.error("刷新token请求返回结果------------->" + refreshToken.toString());
+            response().setCookie("accessToken", access_token, expires_in);
+            cache.set(access_token, expires_in, openid);
+            if (orBind) {
+                //此openId存在则自动登录
+                String session_id = UUID.randomUUID().toString().replaceAll("-", "");
+                cache.set(session_id, idExpired, idToken);
+
+                cache.set(openid, idExpired, refresh_token);
+
+                response().setCookie("session_id", session_id, idExpired);
+                response().setCookie("user_token", idToken, idExpired);
+
+                Logger.error("Cache刷新token有效期----->" + idExpired);
+                Logger.error("微信刷新token有效期----->" + expires_in);
+
+            } else {
+                response().setCookie("orBind", "1", expires_in);
+            }
+
+            Object uri = cache.get(state);
+            return redirect(uri == null ? "/" : uri.toString());
+
         });
     }
 
