@@ -63,7 +63,7 @@ input:password {
 	text-align: center;
 	height:44px;
 	width: 100%;
-	z-index: 200;
+	z-index: 600;
 	background:#ff5359 ;
 	position: fixed;
 	top:0;
