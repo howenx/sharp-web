@@ -99,6 +99,8 @@ public class SysParCom {
 
     public static Integer SESSION_TIMEOUT;
 
+    public static Integer WEIXIN_REFRESH_OVERTIME;
+
     @Inject
     public SysParCom(Configuration configuration) {
 
@@ -185,5 +187,7 @@ public class SysParCom {
         M_HTTP = configuration.getString("m.http.prefix");
 
         SESSION_TIMEOUT = configuration.getInt("session.timeout");
+
+        WEIXIN_REFRESH_OVERTIME =  configuration.getInt("weixin.refreshToken.overtime");
     }
 }

@@ -157,9 +157,11 @@ public class ComCtrl extends Controller {
             if (response.findValue("errcode") == null && response.findValue("refresh_token") != null) {
                 F.Promise<Result> t = ws.url(SysParCom.WEIXIN_REFRESH + "appid=" + WEIXIN_APPID + "&grant_type=refresh_token&refresh_token=" + response.findValue("refresh_token").asText()).get().map(wsr -> {
                     JsonNode refreshToken = wsr.asJson();
+                    Logger.error("微信授权刷新token返回数据" + refreshToken.toString());
                     response().setCookie("accessToken", refreshToken.findValue("access_token").asText(), refreshToken.findValue("expires_in").asInt());
                     response().setCookie("orBind", "1", refreshToken.findValue("expires_in").asInt());
                     cache.set(refreshToken.findValue("access_token").asText(), refreshToken.findValue("expires_in").asInt(), refreshToken.findValue("openid").asText());
+                    cache.set(refreshToken.findValue("openid").asText(), WEIXIN_REFRESH_OVERTIME, refreshToken.findValue("refresh_token").asInt());
                     return redirect("/bind?state=" + state);
                 });
                 return t.get(1500);
@@ -213,6 +215,10 @@ public class ComCtrl extends Controller {
                     Object refresh_token = cache.get(openId);
                     if (refresh_token != null) {
                         F.Promise<Result> refresh = getRefresh(refresh_token.toString(), idToken, idExpired, state, true);
+
+                        Logger.error("我去session_id--------->" + response().cookie("session_id").orElse(null).value());
+                        Logger.error("我去user_token--------->" + response().cookie("user_token").orElse(null).value());
+
                         return refresh.get(1500);
                     } else {
                         //此openId不存在时发起授权请求
