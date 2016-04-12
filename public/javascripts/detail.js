@@ -107,7 +107,7 @@ $(function() {
 
 
 	//切换
-	var top = $('.sku-measure01').offset().top;
+	var top = $('.sku-measure01').offset(top); //top放后面会报错
     console.log(top);
 	$(window).scroll(function(e) {
         //console.log($(window).scrollTop());
