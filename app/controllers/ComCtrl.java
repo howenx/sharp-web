@@ -161,7 +161,7 @@ public class ComCtrl extends Controller {
                     response().setCookie("accessToken", refreshToken.findValue("access_token").asText(), refreshToken.findValue("expires_in").asInt());
                     response().setCookie("orBind", "1", refreshToken.findValue("expires_in").asInt());
                     cache.set(refreshToken.findValue("access_token").asText(), refreshToken.findValue("expires_in").asInt(), refreshToken.findValue("openid").asText());
-                    cache.set(refreshToken.findValue("openid").asText(), WEIXIN_REFRESH_OVERTIME, refreshToken.findValue("refresh_token").asInt());
+                    cache.set(refreshToken.findValue("openid").asText(), WEIXIN_REFRESH_OVERTIME, refreshToken.findValue("refresh_token").asText());
                     return redirect("/bind?state=" + state);
                 });
                 return t.get(1500);
@@ -221,8 +221,8 @@ public class ComCtrl extends Controller {
                     if (refresh_token != null) {
                         F.Promise<Result> refresh = getRefresh(refresh_token.toString(), idToken, idExpired, state, true);
 
-                        Logger.error("我去session_id--------->" + response().cookie("session_id").orElse(null).value());
-                        Logger.error("我去user_token--------->" + response().cookie("user_token").orElse(null).value());
+                        Logger.error("我去session_id--------->" + response().cookie("session_id"));
+                        Logger.error("我去user_token--------->" + response().cookie("user_token"));
 
                         return refresh.get(1500);
                     } else {
