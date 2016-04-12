@@ -531,14 +531,16 @@ public class UserCtrl extends Controller {
                             String token = json.findValue("result").findValue("token").asText();
                             Integer expired = json.findValue("result").findValue("expired").asInt();
                             String session_id = UUID.randomUUID().toString().replaceAll("-", "");
-                            cache.set(session_id, expired, token);
+
                             response().discardCookie("orBind");
                             if (userMap.get("auto").equals("true")) {
                                 response().setCookie("session_id", session_id, expired);
                                 response().setCookie("user_token", token, expired);
+                                cache.set(session_id, expired, token);
                             } else {
                                 response().setCookie("session_id", session_id, SESSION_TIMEOUT);
                                 response().setCookie("user_token", token, SESSION_TIMEOUT);
+                                cache.set(session_id, expired, SESSION_TIMEOUT);
                             }
                         }
 //                        Logger.error(json.toString() + "-----" + message.toString());
