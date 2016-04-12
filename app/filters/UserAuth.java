@@ -46,42 +46,39 @@ public class UserAuth extends Security.Authenticator {
             builder.addHeader(Http.HeaderNames.VIA, ctx.request().remoteAddress());
             builder.addHeader("User-Agent", ctx.request().getHeader("User-Agent"));
 
-            if (!ctx.request().getHeader("User-Agent").contains("MicroMessenger")) {
 
-                Optional<Http.Cookie> user_token = Optional.ofNullable(ctx.request().cookie("user_token"));
-                Optional<Http.Cookie> session_id = Optional.ofNullable(ctx.request().cookie("session_id"));
-                if (user_token.isPresent() && session_id.isPresent()) {
+            Optional<Http.Cookie> user_token = Optional.ofNullable(ctx.request().cookie("user_token"));
+            Optional<Http.Cookie> session_id = Optional.ofNullable(ctx.request().cookie("session_id"));
+            if (user_token.isPresent() && session_id.isPresent()) {
 
-                    Logger.error("cookie session_id & token---------------->" + session_id.get().value() + "---------------->" + user_token.get().value());
+                Logger.error("cookie session_id & token---------------->" + session_id.get().value() + "---------------->" + user_token.get().value());
 
-                    Optional<Object> cache_session_id = Optional.ofNullable(cache.get(session_id.get().value()));
-
-
-                    if (cache_session_id.isPresent() && user_token.get().value().equals(cache_session_id.get().toString())) {
-
-                        Logger.error("cache token---------------->" + cache_session_id.get().toString());
+                Optional<Object> cache_session_id = Optional.ofNullable(cache.get(session_id.get().value()));
 
 
-                        Optional<String> token = Optional.ofNullable(cache.get(user_token.get().value()).toString());
-                        if (token.isPresent()) {
-                            String session_id_new = UUID.randomUUID().toString().replaceAll("-", "");
-                            cache.delete(session_id.get().value());
-                            cache.set(session_id_new, 7 * 24 * 60 * 60, cache_session_id.get());
+                if (cache_session_id.isPresent() && user_token.get().value().equals(cache_session_id.get().toString())) {
 
-                            ctx.response().discardCookie("session_id");
-                            ctx.response().setCookie("session_id", session_id_new, 7 * 24 * 60 * 60);
+                    Logger.error("cache token---------------->" + cache_session_id.get().toString());
 
-                            JsonNode userJson = Json.parse(token.get());
-                            Long userId = userJson.findValue("id").asLong();
 
-                            ctx.args.put("request", builder.addHeader("id-token", user_token.get().value()));
-                            return userId.toString();
-                        } else return null;
+                    Optional<String> token = Optional.ofNullable(cache.get(user_token.get().value()).toString());
+                    if (token.isPresent()) {
+                        String session_id_new = UUID.randomUUID().toString().replaceAll("-", "");
+                        cache.delete(session_id.get().value());
+                        cache.set(session_id_new, 7 * 24 * 60 * 60, cache_session_id.get());
+
+                        ctx.response().discardCookie("session_id");
+                        ctx.response().setCookie("session_id", session_id_new, 7 * 24 * 60 * 60);
+
+                        JsonNode userJson = Json.parse(token.get());
+                        Long userId = userJson.findValue("id").asLong();
+
+                        ctx.args.put("request", builder.addHeader("id-token", user_token.get().value()));
+                        return userId.toString();
                     } else return null;
                 } else return null;
-            } else {
-                return weixin(ctx);
-            }
+            } else return weixin(ctx);
+
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -161,7 +158,7 @@ public class UserAuth extends Security.Authenticator {
 
         String state = getState(ctx);
 
-        Logger.error("Auth校验结果------->"+ result);
+        Logger.error("Auth校验结果------->" + result);
 
         if (result != null && result.equals("state_base")) {
             try {

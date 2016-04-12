@@ -6,8 +6,6 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 import domain.Message;
-import domain.WechatVo;
-import filters.UserAuth;
 import modules.SysParCom;
 import net.spy.memcached.MemcachedClient;
 import play.Logger;
@@ -17,7 +15,6 @@ import play.libs.ws.WSClient;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
-import play.mvc.Security;
 import util.Crypto;
 
 import javax.inject.Inject;
@@ -145,7 +142,8 @@ public class ComCtrl extends Controller {
 
     /**
      * 微信授权
-     * @param code code
+     *
+     * @param code  code
      * @param state state
      * @return Result
      */
@@ -159,8 +157,8 @@ public class ComCtrl extends Controller {
             if (response.findValue("errcode") == null && response.findValue("refresh_token") != null) {
                 F.Promise<Result> t = ws.url(SysParCom.WEIXIN_REFRESH + "appid=" + WEIXIN_APPID + "&grant_type=refresh_token&refresh_token=" + response.findValue("refresh_token").asText()).get().map(wsr -> {
                     JsonNode refreshToken = wsr.asJson();
-                    response().setCookie("accessToken", refreshToken.findValue("access_token").asText(),refreshToken.findValue("expires_in").asInt());
-                    response().setCookie("orBind", "1",refreshToken.findValue("expires_in").asInt());
+                    response().setCookie("accessToken", refreshToken.findValue("access_token").asText(), refreshToken.findValue("expires_in").asInt());
+                    response().setCookie("orBind", "1", refreshToken.findValue("expires_in").asInt());
                     cache.set(refreshToken.findValue("access_token").asText(), refreshToken.findValue("expires_in").asInt(), refreshToken.findValue("openid").asText());
                     return redirect("/bind?state=" + state);
                 });
@@ -172,7 +170,8 @@ public class ComCtrl extends Controller {
 
     /**
      * 校验微信用户是否注册
-     * @param code code
+     *
+     * @param code  code
      * @param state state
      * @return Result
      */
@@ -193,19 +192,30 @@ public class ComCtrl extends Controller {
                     Logger.error("返回数据code=" + json);
                     //此openId不存在时发起授权请求
                     return redirect(SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/userinfo", "utf-8") + "&response_type=code&scope=snsapi_userinfo&state=" + state + "#wechat_redirect");
+                } else {
+                    //刷新accessToken
+                    F.Promise<Result> refresh = ws.url(SysParCom.WEIXIN_REFRESH + "appid=" + WEIXIN_APPID + "&grant_type=refresh_token&refresh_token=" + response.findValue("refresh_token").asText()).get().map(wsr -> {
+                        JsonNode refreshToken = wsr.asJson();
+                        response().setCookie("accessToken", refreshToken.findValue("access_token").asText(), refreshToken.findValue("expires_in").asInt());
+                        cache.set(refreshToken.findValue("access_token").asText(), refreshToken.findValue("expires_in").asInt(), refreshToken.findValue("openid").asText());
+
+                        Logger.error("微信刷新token有效期----->" + refreshToken.findValue("openid").asText());
+
+                        //此openId存在则自动登录
+                        String token = json.findValue("result").findValue("token").asText();
+                        Integer expired = json.findValue("result").findValue("expired").asInt();
+                        String session_id = UUID.randomUUID().toString().replaceAll("-", "");
+                        cache.set(session_id, expired, token);
+                        response().setCookie("session_id", session_id, expired);
+                        response().setCookie("user_token", token, expired);
+
+                        Logger.error("Cache刷新token有效期----->" + expired);
+
+                        Object uri = cache.get(state);
+                        return redirect(uri == null ? "/" : uri.toString());
+                    });
+                    return refresh.get(1500);
                 }
-
-                //此openId存在则自动登录
-                String token = json.findValue("result").findValue("token").asText();
-                Integer expired = json.findValue("result").findValue("expired").asInt();
-                String session_id = UUID.randomUUID().toString().replaceAll("-", "");
-                cache.set(session_id, expired, token);
-                response().setCookie("session_id", session_id, expired);
-                response().setCookie("user_token", token, expired);
-
-                String uri = cache.get(state).toString();
-                if (uri==null) uri="/";
-                return redirect(uri);
             });
             return t.get(1500);
         });
@@ -213,6 +223,7 @@ public class ComCtrl extends Controller {
 
     /**
      * 未登录或者登录两种情况下
+     *
      * @param ctx
      * @return
      */
@@ -233,12 +244,13 @@ public class ComCtrl extends Controller {
 
     /***
      * 获取token
+     *
      * @param ctx
      * @return
      */
-    public  String getUserToken(Http.Context ctx){
+    public String getUserToken(Http.Context ctx) {
         Optional<Http.Cookie> user_token = Optional.ofNullable(ctx.request().cookies().get("user_token"));
-        if (user_token.isPresent()){
+        if (user_token.isPresent()) {
             return user_token.get().value();
         }
         return "";
@@ -246,24 +258,26 @@ public class ComCtrl extends Controller {
 
     /***
      * 未登录状态下返回的Message
+     *
      * @param url
      * @return
      */
-    public F.Promise<Result> getNotLoginMsg(String url){
+    public F.Promise<Result> getNotLoginMsg(String url) {
         ObjectNode result = Json.newObject();
         result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.USER_NOT_LOGIN.getIndex()), Message.ErrorCode.USER_NOT_LOGIN.getIndex())));
         String state = UUID.randomUUID().toString().replaceAll("-", "");
         cache.set(state, 60 * 60, url);
-        result.put("state",state);
+        result.put("state", state);
         return F.Promise.promise((F.Function0<Result>) () -> ok(result));
     }
 
     /***
      * 未登录状态下返回的Message
+     *
      * @param url
      * @return
      */
-    public F.Promise<Result> getNotLoginView(String url){
+    public F.Promise<Result> getNotLoginView(String url) {
         String state = UUID.randomUUID().toString().replaceAll("-", "");
         cache.set(state, 60 * 60, url);
         return F.Promise.promise(() -> ok(views.html.users.login.render(IMAGE_CODE, url, "?state=" + state)));
@@ -271,14 +285,15 @@ public class ComCtrl extends Controller {
 
     /**
      * 是否登录了
+     *
      * @param ctx
      * @return
      */
-    public boolean isHaveLogin(Http.Context ctx){
+    public boolean isHaveLogin(Http.Context ctx) {
         //普通浏览器
         Optional<Http.Cookie> user_token = Optional.ofNullable(ctx().request().cookies().get("user_token"));
         Optional<Http.Cookie> session_id = Optional.ofNullable(ctx().request().cookies().get("session_id"));
-        if (user_token.isPresent()&&null!=user_token.get() && session_id.isPresent()&&null!=session_id.get()) {
+        if (user_token.isPresent() && null != user_token.get() && session_id.isPresent() && null != session_id.get()) {
             return true;
         }
         return false;
@@ -287,11 +302,12 @@ public class ComCtrl extends Controller {
 
     /**
      * 添加当前url的Cookie,用于userAjaxAuth注解登录成功后跳转
+     *
      * @param ctx
      */
-    public void addCurUrlCookie(Http.Context ctx){
+    public void addCurUrlCookie(Http.Context ctx) {
         //if (!isHaveLogin(ctx())) { //未登录情况下放入
-            ctx.response().setCookie("curUrl", ctx().request().uri(), 60 * 60);
+        ctx.response().setCookie("curUrl", ctx().request().uri(), 60 * 60);
         //}
     }
 }
