@@ -51,14 +51,20 @@ $(function() {
         // }
             // 通过iframe的方式试图打开APP，如果能正常打开，会直接切换到APP，并自动阻止a标签的默认行为
             // 否则打开a标签的href链接
-         var state=$("input[name='state0-0']:not(:disabled)").val() ;
-         if(checkSkuBeforeBuy(state)){
-             //提交表单
-              $("#settleForm").submit();
-         }
+
         if (navigator.userAgent.match(/MicroMessenger/i)) {
+            var state=$("input[name='state0-0']:not(:disabled)").val() ;
+            if(checkSkuBeforeBuy(state)){
+                //提交表单
+                $("#settleForm").submit();
+            }
             return;
         }else if (navigator.userAgent.match(/android/i)){
+            var state=$("input[name='state0-0']:not(:disabled)").val() ;
+            if(checkSkuBeforeBuy(state)){
+                //提交表单
+                $("#settleForm").submit();
+            }
             var ifr = document.createElement('iframe');
             ifr.src = 'hmmapp://data/'+window.urlParam;
             ifr.style.display = 'none';
@@ -67,7 +73,19 @@ $(function() {
                 document.body.removeChild(ifr);
             },3000)
         }else{
+            var btnthis=$(this);
             window.location = 'hmmapp://data/'+window.urlParam;
+            setTimeout(
+                function(){
+                    // if($(this).hasClass()){
+                    //
+                    // }
+                    var state=$("input[name='state0-0']:not(:disabled)").val() ;
+                    if(checkSkuBeforeBuy(state)){
+                        //提交表单
+                        $("#settleForm").submit();
+                    }
+                }, 1000);
         }
     })
 
