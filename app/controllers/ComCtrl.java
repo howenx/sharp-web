@@ -196,10 +196,11 @@ public class ComCtrl extends Controller {
                     //刷新accessToken
                     F.Promise<Result> refresh = ws.url(SysParCom.WEIXIN_REFRESH + "appid=" + WEIXIN_APPID + "&grant_type=refresh_token&refresh_token=" + response.findValue("refresh_token").asText()).get().map(wsr -> {
                         JsonNode refreshToken = wsr.asJson();
+                        Logger.error("刷新token请求返回结果------------->"+refreshToken.toString());
                         response().setCookie("accessToken", refreshToken.findValue("access_token").asText(), refreshToken.findValue("expires_in").asInt());
                         cache.set(refreshToken.findValue("access_token").asText(), refreshToken.findValue("expires_in").asInt(), refreshToken.findValue("openid").asText());
 
-                        Logger.error("微信刷新token有效期----->" + refreshToken.findValue("openid").asText());
+                        Logger.error("微信刷新token有效期----->" + refreshToken.findValue("expires_in").asInt());
 
                         //此openId存在则自动登录
                         String token = json.findValue("result").findValue("token").asText();
