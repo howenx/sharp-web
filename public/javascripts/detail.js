@@ -58,7 +58,7 @@ $(function() {
          }
         if (navigator.userAgent.match(/MicroMessenger/i)) {
             return;
-        }else{
+        }else if (navigator.userAgent.match(/android/i)){
             var ifr = document.createElement('iframe');
             ifr.src = 'hmmapp://data/'+window.urlParam;
             ifr.style.display = 'none';
@@ -66,6 +66,8 @@ $(function() {
             window.setTimeout(function(){
                 document.body.removeChild(ifr);
             },3000)
+        }else{
+            window.location = 'hmmapp://data/'+window.urlParam;
         }
     })
 
