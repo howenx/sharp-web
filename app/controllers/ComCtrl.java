@@ -20,10 +20,7 @@ import util.Crypto;
 import javax.inject.Inject;
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.util.Map;
-import java.util.Optional;
-import java.util.TreeMap;
-import java.util.UUID;
+import java.util.*;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static modules.SysParCom.*;
@@ -311,4 +308,71 @@ public class ComCtrl extends Controller {
         ctx.response().setCookie("curUrl", ctx().request().uri(), 60 * 60);
         //}
     }
+
+    /**
+     * 获取cookie的UUID
+     * @param ctx
+     * @return
+     */
+
+    public String getCookieUUID(Http.Context ctx){
+        String cookieUUID="";
+        Http.Cookie uuidCookie = ctx.request().cookie("uuid");
+        if (null != uuidCookie) {
+            cookieUUID=uuidCookie.value();
+        }else{
+            cookieUUID=UUID.randomUUID().toString().replaceAll("-", "");
+            ctx.response().setCookie("uuid", cookieUUID, 60 * 60);
+        }
+        return cookieUUID;
+    }
+
+    /***
+     * 只获取上一级目录
+     * @param ctx
+     * @return
+     */
+    public String getHistoryUrl(Http.Context ctx){
+        String key=cacheHistoryKey(getCookieUUID(ctx));
+        Stack<String> stack = (Stack<String>) cache.get(key);
+        if(null!=stack){
+            return stack.peek();
+        }
+        return "";
+    }
+
+    /**
+     * 记录访问页面顺序,如果是最后一条则pop,否则push,返回回退URL
+     * @param ctx
+     */
+    public String pushOrPopHistoryUrl(Http.Context ctx){
+        //用栈记录上一次访问的页面
+        String url=ctx.request().uri();
+        String key=cacheHistoryKey(getCookieUUID(ctx));
+        Stack<String> stack = (Stack<String>) cache.get(key);
+        if(null!=stack){
+            if(url.equals(stack.peek())){
+                stack.pop();//是上一次访问记录
+                if(stack.empty()){
+                    return "";
+                }
+                return stack.peek();
+            }
+        }else{
+            stack=new Stack<String>();
+        }
+        String hisUrl="";
+        if(!stack.empty()){
+            hisUrl=stack.peek();
+        }
+        stack.push(url);
+     //   Logger.info("====push==url==="+url);
+        cache.set(key,60*60,stack);
+        return hisUrl;
+    }
+
+    private String cacheHistoryKey(String cookieUUID){
+        return cookieUUID+"_his";
+    }
+
 }

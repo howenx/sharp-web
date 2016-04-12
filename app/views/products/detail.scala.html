@@ -1,4 +1,4 @@
-@(itemMain:domain.Item,itemFeaturesList:List[Array[Object]],pushList:List[List[domain.ThemeItem]],inventoryList:List[domain.Inventory],stockSize:Int,preImgList:List[List[String]],publicityList:List[String],url:String)
+@(itemMain:domain.Item,itemFeaturesList:List[Array[Object]],pushList:List[List[domain.ThemeItem]],inventoryList:List[domain.Inventory],stockSize:Int,preImgList:List[List[String]],publicityList:List[String],url:String,hisUrl:String)
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -31,7 +31,7 @@
 	<form id="settleForm" action="/settle" method="POST">
 		<input type="hidden" name="buyNow" value="1"/>
 		<div class="nav_ban_detail">
-			<a href="javascript:window.history.back()" class="back">
+			<a href="@hisUrl" class="back">
 				<i></i>
 				<b></b>
 			</a>
