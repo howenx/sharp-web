@@ -72,7 +72,6 @@ $(function() {
                 document.body.removeChild(ifr);
             },3000)
         }else{
-            var btnthis=$(this);
             window.location = 'hmmapp://data/'+window.urlParam;
             setTimeout(
                 function(){
