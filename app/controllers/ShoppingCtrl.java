@@ -40,6 +40,7 @@ public class ShoppingCtrl extends Controller {
     //全部订单
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result>  all(Long id) {
+        comCtrl.pushOrPopHistoryUrl(ctx());
         play.libs.F.Promise<JsonNode > promiseOfInt = play.libs.F.Promise.promise(() -> {
             Request.Builder builder =(Request.Builder)ctx().args.get("request");
             Request request=builder.url(ORDER_PAGE+id).get().build();

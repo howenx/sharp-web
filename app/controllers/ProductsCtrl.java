@@ -47,6 +47,7 @@ public class ProductsCtrl extends Controller {
      * @throws Exception
      */
     public F.Promise<Result> index(){
+        comCtrl.pushOrPopHistoryUrl(ctx());
         F.Promise<JsonNode> promise = F.Promise.promise(() -> {
             //Request request = comCtrl.getBuilder(ctx())
             Request request = getBuilder(request(), session())
@@ -152,6 +153,7 @@ public class ProductsCtrl extends Controller {
      * @throws Exception
      */
     public F.Promise<Result> themeDetail(String url){
+        String hisUrl=comCtrl.pushOrPopHistoryUrl(ctx());
         F.Promise<JsonNode> promise = F.Promise.promise(() -> {
             Request request = getBuilder(request(), session())
                     .url(THEME_PAGE + url)
@@ -253,6 +255,7 @@ public class ProductsCtrl extends Controller {
      * @throws Exception
      */
     public F.Promise<Result> detail(String url){
+        String hisUrl=comCtrl.pushOrPopHistoryUrl(ctx());
         comCtrl.addCurUrlCookie(ctx());
         F.Promise<JsonNode> promise = F.Promise.promise(() -> {
             Request request =comCtrl.getBuilder(ctx()) //该位置需要取个人相关的数据,必须修改
@@ -374,7 +377,7 @@ public class ProductsCtrl extends Controller {
                         pushResultList.add(rowList);
                     }
                 }
-                return ok(views.html.products.detail.render(itemMain, itemFeaturesList, pushResultList, inventoryList, inventoryList.size(), preImgList, publicityList,url));
+                return ok(views.html.products.detail.render(itemMain, itemFeaturesList, pushResultList, inventoryList, inventoryList.size(), preImgList, publicityList,url,hisUrl));
             }
             //拼购商品
             else {
@@ -473,7 +476,7 @@ public class ProductsCtrl extends Controller {
                         pushResultList.add(rowList);
                     }
                 }
-                return ok(views.html.products.pinDetail.render(itemMain, itemFeaturesList, pinInvDetail, pushResultList, preImgList, pushList, url));
+                return ok(views.html.products.pinDetail.render(itemMain, itemFeaturesList, pinInvDetail, pushResultList, preImgList, pushList, url,hisUrl));
             }
         });
     }
@@ -495,6 +498,7 @@ public class ProductsCtrl extends Controller {
      * @throws Exception
      */
     public F.Promise<Result> pinTieredPrice(String url){
+        String hisUrl=comCtrl.getHistoryUrl(ctx());
         comCtrl.addCurUrlCookie(ctx());
         F.Promise<JsonNode> promise = F.Promise.promise(() -> {
             Request request = getBuilder(request(), session())
@@ -524,7 +528,7 @@ public class ProductsCtrl extends Controller {
                         return tieredPrice1.getPeopleNum().compareTo(tieredPrice2.getPeopleNum());
                     }
                 });
-                return ok(views.html.products.pinTieredPrice.render(pinInvDetail));
+                return ok(views.html.products.pinTieredPrice.render(pinInvDetail,hisUrl));
             }
             return badRequest(views.html.error500.render());
         });

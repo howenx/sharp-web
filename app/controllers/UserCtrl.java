@@ -397,6 +397,7 @@ public class UserCtrl extends Controller {
      */
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> collect() {
+        comCtrl.pushOrPopHistoryUrl(ctx());
         Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
             Request request = builder.url(COLLECT_PAGE).get().build();
@@ -1034,6 +1035,7 @@ public class UserCtrl extends Controller {
     //我的拼团
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> mypin() {
+        comCtrl.pushOrPopHistoryUrl(ctx());
         play.libs.F.Promise<JsonNode> promiseOfInt = play.libs.F.Promise.promise(() -> {
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
             Request request = builder.url(PIN_LIST).get().build();
@@ -1067,6 +1069,7 @@ public class UserCtrl extends Controller {
     //我的拼团
     //   @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> pinActivity(Long activityId, Integer pay, Integer userPayType) {
+        comCtrl.pushOrPopHistoryUrl(ctx());
         play.libs.F.Promise<JsonNode> promiseOfInt = play.libs.F.Promise.promise(() -> {
             String url = "";
             if (userPayType > 0) {
@@ -1105,6 +1108,7 @@ public class UserCtrl extends Controller {
 
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> pinOrderDetail(Long orderId) {
+        comCtrl.pushOrPopHistoryUrl(ctx());
         play.libs.F.Promise<JsonNode> promiseOfInt = play.libs.F.Promise.promise(() -> {
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
             Request request = builder.url(PIN_ORDER_DETAIL + orderId).get().build();
