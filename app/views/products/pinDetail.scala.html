@@ -88,8 +88,8 @@
             <span class="txt-pay">支付开团并邀请2人参团,人数不足自动退款,详见下方拼团玩法</span>
             <div class="diamond">
                 @if(pinInvDetail.isSoldOut() != true){
-                    <a href="javascript:;" class="mabuy">
-                        <!--/pinTieredPrice/@url-->
+                    <a href="/pinTieredPrice/@url">
+                        <!---->
                 }
                 @if(pinInvDetail.isSoldOut() == true){
                     <a href="javascript:;" class="soldOut">
@@ -355,10 +355,10 @@
 
         <div class="add_cart btns" data-type="cart">
             @if(pinInvDetail.isSoldOut() != true){
-                <a href="javascript:;" class="btnCart add_cart_large pin-cart mabuy">
+                <a href="/pinTieredPrice/@url" class="btnCart add_cart_large pin-cart">
                     立即开团
                 </a>
-            <!--/pinTieredPrice/@url-->
+            <!---->
             }
             @if(pinInvDetail.isSoldOut() == true){
                 <a href="javascript:;" class="btnCart add_cart_large pin-cart soldOut">
