@@ -397,6 +397,7 @@ public class UserCtrl extends Controller {
      */
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> collect() {
+        comCtrl.pushOrPopHistoryUrl(ctx());
         Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
             Request request = builder.url(COLLECT_PAGE).get().build();
@@ -497,9 +498,9 @@ public class UserCtrl extends Controller {
         Form<UserLoginInfo> userForm = Form.form(UserLoginInfo.class).bindFromRequest();
         Map<String, String> userMap = userForm.data();
 
-        Optional<Http.Cookie> accessToken = Optional.ofNullable(request().cookies().get("accessToken"));
+        Optional<Http.Cookie> accessToken = Optional.ofNullable(request().cookie("accessToken"));
         if (accessToken.isPresent()) {
-            String openId = cache.get(accessToken.toString()).toString();
+            String openId = cache.get(accessToken.get().value()).toString();
             userMap.put("openId", openId);
             userMap.put("accessToken", accessToken.get().value());
         }
@@ -531,14 +532,16 @@ public class UserCtrl extends Controller {
                             String token = json.findValue("result").findValue("token").asText();
                             Integer expired = json.findValue("result").findValue("expired").asInt();
                             String session_id = UUID.randomUUID().toString().replaceAll("-", "");
-                            cache.set(session_id, expired, token);
+
                             response().discardCookie("orBind");
                             if (userMap.get("auto").equals("true")) {
                                 response().setCookie("session_id", session_id, expired);
                                 response().setCookie("user_token", token, expired);
+                                cache.set(session_id, expired, token);
                             } else {
                                 response().setCookie("session_id", session_id, SESSION_TIMEOUT);
                                 response().setCookie("user_token", token, SESSION_TIMEOUT);
+                                cache.set(session_id, expired, SESSION_TIMEOUT);
                             }
                         }
 //                        Logger.error(json.toString() + "-----" + message.toString());
@@ -703,9 +706,9 @@ public class UserCtrl extends Controller {
         Form<UserRegistInfo> userRegistInfoForm = Form.form(UserRegistInfo.class).bindFromRequest();
         Map<String, String> userMap = userRegistInfoForm.data();
 
-        Optional<Http.Cookie> accessToken = Optional.ofNullable(request().cookies().get("accessToken"));
+        Optional<Http.Cookie> accessToken = Optional.ofNullable(request().cookie("accessToken"));
         if (accessToken.isPresent()) {
-            String openId = cache.get(accessToken.toString()).toString();
+            String openId = cache.get(accessToken.get().value()).toString();
             userMap.put("openId", openId);
             userMap.put("accessToken", accessToken.get().value());
         }
@@ -787,9 +790,9 @@ public class UserCtrl extends Controller {
         Form<UserRegistInfo> userRegistInfoForm = Form.form(UserRegistInfo.class).bindFromRequest();
         Map<String, String> userMap = userRegistInfoForm.data();
 
-        Optional<Http.Cookie> accessToken = Optional.ofNullable(request().cookies().get("accessToken"));
+        Optional<Http.Cookie> accessToken = Optional.ofNullable(request().cookie("accessToken"));
         if (accessToken.isPresent()) {
-            String openId = cache.get(accessToken.toString()).toString();
+            String openId = cache.get(accessToken.get().value()).toString();
             userMap.put("openId", openId);
             userMap.put("accessToken", accessToken.get().value());
         }
@@ -1032,6 +1035,7 @@ public class UserCtrl extends Controller {
     //我的拼团
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> mypin() {
+        comCtrl.pushOrPopHistoryUrl(ctx());
         play.libs.F.Promise<JsonNode> promiseOfInt = play.libs.F.Promise.promise(() -> {
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
             Request request = builder.url(PIN_LIST).get().build();
@@ -1065,6 +1069,7 @@ public class UserCtrl extends Controller {
     //我的拼团
     //   @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> pinActivity(Long activityId, Integer pay, Integer userPayType) {
+        comCtrl.pushOrPopHistoryUrl(ctx());
         play.libs.F.Promise<JsonNode> promiseOfInt = play.libs.F.Promise.promise(() -> {
             String url = "";
             if (userPayType > 0) {
@@ -1103,6 +1108,7 @@ public class UserCtrl extends Controller {
 
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> pinOrderDetail(Long orderId) {
+        comCtrl.pushOrPopHistoryUrl(ctx());
         play.libs.F.Promise<JsonNode> promiseOfInt = play.libs.F.Promise.promise(() -> {
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
             Request request = builder.url(PIN_ORDER_DETAIL + orderId).get().build();

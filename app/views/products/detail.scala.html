@@ -1,4 +1,4 @@
-@(itemMain:domain.Item,itemFeaturesList:List[Array[Object]],pushList:List[List[domain.ThemeItem]],inventoryList:List[domain.Inventory],stockSize:Int,preImgList:List[List[String]],publicityList:List[String],url:String)
+@(itemMain:domain.Item,itemFeaturesList:List[Array[Object]],pushList:List[List[domain.ThemeItem]],inventoryList:List[domain.Inventory],stockSize:Int,preImgList:List[List[String]],publicityList:List[String],url:String,hisUrl:String)
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -16,15 +16,9 @@
 	<script src="/assets/javascripts/detail.js"></script>
 	<script src="/assets/javascripts/cartAmount.js"></script>
 	<script src="/assets/javascripts/commonDetail.js"></script>
-<<<<<<< HEAD
-
 	<script>
 		window.urlParam = "@url"
 	</script>
-
-=======
-	<script>window.urlParam = "@url"</script>
->>>>>>> 3ad2774a9674caf18b25117a050c2584d25c040b
 </head>
 <body>
 
@@ -37,7 +31,7 @@
 	<form id="settleForm" action="/settle" method="POST">
 		<input type="hidden" name="buyNow" value="1"/>
 		<div class="nav_ban_detail">
-			<a href="javascript:window.history.back()" class="back">
+			<a href="@hisUrl" class="back">
 				<i></i>
 				<b></b>
 			</a>
@@ -176,7 +170,7 @@
 				<!-- 标签 -->
 				<nav class="tabpanel-tabs center">
 					<ul>
-						<li class="tab-item active pic-tex current"> <span class='tab-span'>图文详情</span> <i></i> </li>
+						<li class="tab-item active pic-tex pin-pic current"> <span class='tab-span'>图文详情</span> <i></i> </li>
 						<li class="tab-item goods-para"> <span class='tab-span'>商品参数</span> <i></i> </li>
 						<li class="tab-item hot-sale"> <span>热卖推荐</span> <i></i> </li>
 					</ul>

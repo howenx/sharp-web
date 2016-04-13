@@ -28,7 +28,14 @@ $(function() {
     $('.finish-box').click(function(){
         $('.con').show();
     })
-
+    //表单提交
+    function masunmit() {
+        var state=$("input[name='state0-0']:not(:disabled)").val() ;
+        if(checkSkuBeforeBuy(state)){
+            //提交表单
+            $("#settleForm").submit();
+        }
+    }
     $(".mabuy").click(function () {
         // if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
         //     var loadDateTime = new Date();
@@ -51,14 +58,12 @@ $(function() {
         // }
             // 通过iframe的方式试图打开APP，如果能正常打开，会直接切换到APP，并自动阻止a标签的默认行为
             // 否则打开a标签的href链接
-         var state=$("input[name='state0-0']:not(:disabled)").val() ;
-         if(checkSkuBeforeBuy(state)){
-             //提交表单
-              $("#settleForm").submit();
-         }
+
         if (navigator.userAgent.match(/MicroMessenger/i)) {
+            masunmit();
             return;
-        }else{
+        }else if (navigator.userAgent.match(/android/i)){
+            masunmit();
             var ifr = document.createElement('iframe');
             ifr.src = 'hmmapp://data/'+window.urlParam;
             ifr.style.display = 'none';
@@ -66,6 +71,12 @@ $(function() {
             window.setTimeout(function(){
                 document.body.removeChild(ifr);
             },3000)
+        }else{
+            window.location = 'hmmapp://data/'+window.urlParam;
+            setTimeout(
+                function(){
+                    masunmit();
+                }, 1000);
         }
     })
 
@@ -107,28 +118,34 @@ $(function() {
 
 
 	//切换
-	var top = $('.pic-tex').offset(top);
+	var top = $('.sku-measure01').offset(top); //top放后面会报错
+    console.log(top);
 	$(window).scroll(function(e) {
-		if($(".pic-tex").length==0){
-			$('.nav_ban_detail').hide();
-		}
-		if($(window).scrollTop() > top-51){
+        //console.log($(window).scrollTop());
+        //返回顶部
+        if($(window).scrollTop() > $(window).height()){
+            $('.top').show();
+        }else{
+            $('.top').hide();
+        }
+        //选项卡
+		if($(window).scrollTop() >= top){
 			$('.detail-tabpanel').addClass('detail-tabpanel-fixed');
-			$('.nav_ban_detail').hide()
+			$('.nav_ban_detail').hide();
 		}else{
 			$('.detail-tabpanel').removeClass('detail-tabpanel-fixed');
-			$('.nav_ban_detail').show()
+			$('.nav_ban_detail').show();
 		}
+
 	});
 
 	$('.tabpanel-tabs ul li').click(function(){
 		$(this).addClass('current').siblings().removeClass('current');
-
-		if ($(this).hasClass('pic-tex')) {
-			$('body').scrollTop(top-50);
-		}
+		// if ($(this).hasClass('pic-tex')) {
+		// 	$('body').scrollTop(top-50);
+		// }
 		if($(this).hasClass('pin-pic')){
-			$('body').scrollTop($('.sku-measure01').offset().top-60);
+			$('body').scrollTop($('.sku-measure01').offset().top-61);
 		}
 		if ($(this).hasClass('goods-para')) {
 			$('body').scrollTop($('.sku-measure').offset().top-61);
@@ -138,17 +155,6 @@ $(function() {
 		}
 
 	});
-
-
-	$(window).scroll(function(e) {
-		//console.log($(window).scrollTop());
-		if($(window).scrollTop() > $(window).height()){
-			$('.top').show();
-		}else{
-			$('.top').hide();
-		}
-	});
-
 	$('.top').click(function(e) {
 		$('html,body').stop().animate({'scrollTop':'0'},500);
 	});

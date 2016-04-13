@@ -1,5 +1,5 @@
 
-@(pinDetail:domain.PinInvDetail)
+@(pinDetail:domain.PinInvDetail,hisUrl:String)
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -33,7 +33,7 @@
 </head>
 <body>
 <header class="head">
-    <a href="javascript:window.history.back()" class="back">
+    <a href="@hisUrl" class="back">
         <i></i>
         <b></b>
     </a>
