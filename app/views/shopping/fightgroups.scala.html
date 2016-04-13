@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/assets/stylesheets/fightgroups.css">
     <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+    <script src="/assets/javascripts/jquery.zclip.js"></script>
     <script src="/assets/javascripts/my.js"></script>
     <script src="/assets/javascripts/countdown.js"></script>
     <script src="/assets/javascripts/detail.js"></script>
@@ -171,13 +172,14 @@
 @if(pin.getOrJoinActivity()!=0&&pin.getStatus()=="Y"&&pin.getPersonNum()-pin.getPinUsers().size>0){
 
 <!--最下面邀请组团-->
-<div class="fight-btn">
+<div class="fight-btn inviteFriendCss" id="inviteFriendDiv">
             <span>
                 还差
                 <i>@(pin.getPersonNum()-pin.getPinUsers().size)人</i>
                 ,邀请小伙伴来组团吧
             </span>
 </div>
+<input type="hidden" id="copySuc" value="0">
 }
 
 @if(pin.getOrJoinActivity()==0){
@@ -203,6 +205,29 @@
     </form>
 </div>
 }
+<script type="text/javascript">
+
+
+/* 定义所有class为copy标签，点击后可复制被点击对象的文本 */
+    $("#inviteFriendDiv").zclip({
+        path: "/assets/swf/ZeroClipboard.swf",
+        copy: function(){
+            return window.location.href;
+        },
+        beforeCopy:function(){/* 按住鼠标时的操作 */
+           // $(this).css("color","orange");
+        },
+        afterCopy:function(){/* 复制成功后的操作 */
+             $("#copySuc").val(1);//拷贝成功
+             alert("复制成功");
+        }
+    });
+    $(document).on("click", ".inviteFriendCss", function() {
+        if($("#copySuc").val()==0){
+            alert("Copy to clipboard: Ctrl+C, Enter");
+        }
+    });
+</script>
 
 
 </body>
