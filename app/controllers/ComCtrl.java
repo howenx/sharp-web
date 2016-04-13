@@ -154,7 +154,7 @@ public class ComCtrl extends Controller {
             if (response.findValue("errcode") == null && response.findValue("refresh_token") != null) {
                 F.Promise<Result> t = ws.url(SysParCom.WEIXIN_REFRESH + "appid=" + WEIXIN_APPID + "&grant_type=refresh_token&refresh_token=" + response.findValue("refresh_token").asText()).get().map(wsr -> {
                     JsonNode refreshToken = wsr.asJson();
-                    Logger.error("微信授权刷新token返回数据" + refreshToken.toString());
+                    Logger.error("微信授权后刷新token返回数据" + refreshToken.toString());
                     response().setCookie("accessToken", refreshToken.findValue("access_token").asText(), refreshToken.findValue("expires_in").asInt());
                     response().setCookie("orBind", "1", refreshToken.findValue("expires_in").asInt());
                     cache.set(refreshToken.findValue("access_token").asText(), refreshToken.findValue("expires_in").asInt(), refreshToken.findValue("openid").asText());
@@ -224,7 +224,7 @@ public class ComCtrl extends Controller {
         //刷新accessToken
         return ws.url(SysParCom.WEIXIN_REFRESH + "appid=" + WEIXIN_APPID + "&grant_type=refresh_token&refresh_token=" + refresh_token).get().map(wsr -> {
             JsonNode refreshToken = wsr.asJson();
-            Logger.error("真要疯了啊--->" + refreshToken.toString());
+            Logger.error("请求微信刷新token结果--->" + refreshToken.toString());
 
             String access_token = refreshToken.findValue("access_token").asText();
             Integer expires_in = refreshToken.findValue("expires_in").asInt();

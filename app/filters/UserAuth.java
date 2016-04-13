@@ -51,15 +51,10 @@ public class UserAuth extends Security.Authenticator {
             Optional<Http.Cookie> session_id = Optional.ofNullable(ctx.request().cookie("session_id"));
             if (user_token.isPresent() && session_id.isPresent()) {
 
-                Logger.error("cookie session_id & token---------------->" + session_id.get().value() + "---------------->" + user_token.get().value());
-
                 Optional<Object> cache_session_id = Optional.ofNullable(cache.get(session_id.get().value()));
 
 
                 if (cache_session_id.isPresent() && user_token.get().value().equals(cache_session_id.get().toString())) {
-
-                    Logger.error("cache token---------------->" + cache_session_id.get().toString());
-
 
                     Optional<String> token = Optional.ofNullable(cache.get(user_token.get().value()).toString());
                     if (token.isPresent()) {

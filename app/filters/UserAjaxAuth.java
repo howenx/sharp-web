@@ -43,8 +43,6 @@ public class UserAjaxAuth extends Security.Authenticator {
 
         String state = auth.getState(ctx);
 
-        Logger.error("这结果到底是啥?-------" + result);
-
         if (result != null && result.equals("state_base")) {
             try {
                 url = SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/base", "UTF-8") + "&response_type=code&scope=snsapi_base&state=" + state + "#wechat_redirect";
