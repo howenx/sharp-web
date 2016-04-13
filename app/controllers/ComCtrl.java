@@ -338,7 +338,7 @@ public class ComCtrl extends Controller {
         if(null!=stack){
             return stack.peek();
         }
-        return "";
+        return "/";
     }
 
     /**
@@ -354,14 +354,14 @@ public class ComCtrl extends Controller {
             if(url.equals(stack.peek())){
                 stack.pop();//是上一次访问记录
                 if(stack.empty()){
-                    return "";
+                    return "/";
                 }
                 return stack.peek();
             }
         }else{
             stack=new Stack<String>();
         }
-        String hisUrl="";
+        String hisUrl="/";
         if(!stack.empty()){
             hisUrl=stack.peek();
         }
