@@ -96,57 +96,23 @@ public class UserAuth extends Security.Authenticator {
 
             Optional<Http.Cookie> accessToken = Optional.ofNullable(ctx.request().cookie("accessToken"));
             Optional<Http.Cookie> orBind = Optional.ofNullable(ctx.request().cookie("orBind"));
+            Optional<Http.Cookie> wechat_refresh_token = Optional.ofNullable(ctx.request().cookie("wechat_refresh_token"));
 
-            if (accessToken.isPresent()) {
-
-                Logger.error("accessToken----------->" + accessToken.get().value());
-
+            if (accessToken.isPresent() && wechat_refresh_token.isPresent()) {
 
                 Optional<Object> openid = Optional.ofNullable(cache.get(accessToken.get().value()));
+                Optional<Object> refreshToken_openId = Optional.ofNullable(cache.get(wechat_refresh_token.get().value()));
+
                 if (openid.isPresent()) {
-                    Logger.error("openid----------->" + openid.get());
-
-                    F.Promise<Result> t = ws.url(WEIXIN_VERIFY + openid.get().toString()).get().map(wr -> {
-
-                        JsonNode json = wr.asJson();
-                        Message message = Json.fromJson(json.get("message"), Message.class);
-                        if (null == message) {
-                            Logger.error("返回数据错误code=" + json);
-                            result = null;
-                        } else {
-                            if (message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
-                                Logger.error("非成功状态返回数据code=" + json);
-
-                                //如果已经授权过则直接跳转到绑定页面
-                                if (orBind.isPresent() && orBind.get().value().equals("1")) {
-                                    Logger.error("已经授权用户");
-                                    result = "bind_page";
-                                } else {
-                                    Logger.error("发起授权");
-                                    //此openId不存在时发起授权请求
-                                    result = "state_userinfo";
-                                }
-                            } else {
-                                //此openId存在则自动登录
-                                String token = json.findValue("result").findValue("token").asText();
-                                Integer expired = json.findValue("result").findValue("expired").asInt();
-                                String session_id = UUID.randomUUID().toString().replaceAll("-", "");
-                                cache.set(session_id, expired, token);
-                                ctx.response().setCookie("session_id", session_id, expired);
-                                ctx.response().setCookie("user_token", token, expired);
-                                ctx.args.put("request", builder.addHeader("id-token", token));
-                                result = "success";
-                            }
-                        }
-                        return null;
-                    });
-                    return t.get(1500) == null ? null : null;
-                } else  {
-                    result = "state_base";
+                    return getVerify(false, openid.get().toString(), orBind.isPresent() ? orBind.get().value() : null, ctx, null);
+                } else if (refreshToken_openId.isPresent()) {
+                    return getVerify(true, refreshToken_openId.get().toString(), orBind.isPresent() ? orBind.get().value() : null, ctx, wechat_refresh_token.get().value());
+                } else {
+                    result = "state_userinfo";
                     return null;
                 }
             } else {
-                result = "state_base";
+                result = "state_userinfo";
                 return null;
             }
         } else {
@@ -156,6 +122,62 @@ public class UserAuth extends Security.Authenticator {
     }
 
 
+    private String getVerify(Boolean orAccess, String openid, String orBind, Http.Context ctx, String refresh) {
+
+        F.Promise<Result> t = ws.url(WEIXIN_VERIFY + openid).get().map(wr -> {
+            JsonNode json = wr.asJson();
+            Message message = Json.fromJson(json.get("message"), Message.class);
+            if (null == message) {
+                Logger.error("返回数据错误code=" + json);
+                result = null;
+                return null;
+            } else if (message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
+                Logger.error("非成功状态返回数据code=" + json);
+
+                //如果已经授权过则直接跳转到绑定页面
+                if (orBind != null && orBind.equals("1")) {
+                    Logger.error("已经授权用户");
+                    result = "bind_page";
+                } else {
+                    Logger.error("发起授权");
+                    //此openId不存在时发起授权请求
+                    result = "state_userinfo";
+                }
+                return null;
+            } else {
+                //此openId存在则自动登录
+                String token = json.findValue("result").findValue("token").asText();
+                Integer expired = json.findValue("result").findValue("expired").asInt();
+                String session_id = UUID.randomUUID().toString().replaceAll("-", "");
+                cache.set(session_id, expired, token);
+                ctx.response().setCookie("session_id", session_id, expired);
+                ctx.response().setCookie("user_token", token, expired);
+                ctx.args.put("request", builder.addHeader("id-token", token));
+
+                if (orAccess) {
+                    ws.url(SysParCom.WEIXIN_REFRESH + "appid=" + WEIXIN_APPID + "&grant_type=refresh_token&refresh_token=" + refresh).get().map(wsr -> {
+                        JsonNode refreshToken = wsr.asJson();
+                        Logger.error("窝里--->" + refreshToken.toString());
+
+                        String access_token = refreshToken.findValue("access_token").asText();
+                        Integer expires_in = refreshToken.findValue("expires_in").asInt();
+                        String refresh_token_new = refreshToken.findValue("refresh_token").asText();
+
+                        ctx.response().setCookie("accessToken", access_token, expires_in);
+                        cache.set(access_token, expires_in, openid);
+
+                        ctx.response().setCookie("wechat_refresh_token", refresh_token_new, expired);
+                        cache.set(refresh_token_new, expired, openid);
+                        return null;
+                    });
+                }
+
+                return ok("autoLogin");
+            }
+        });
+        return t.get(1500) == null ? null : "success";
+    }
+
     @Override
     public Result onUnauthorized(Http.Context ctx) {
 
@@ -163,13 +185,7 @@ public class UserAuth extends Security.Authenticator {
 
         Logger.error("Auth校验结果------->" + result);
 
-        if (result != null && result.equals("state_base")) {
-            try {
-                return redirect(SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/base", "UTF-8") + "&response_type=code&scope=snsapi_base&state=" + state + "#wechat_redirect");
-            } catch (UnsupportedEncodingException e) {
-                return redirect("/login?state=" + state);
-            }
-        } else if (result != null && result.equals("bind_page")) {
+        if (result != null && result.equals("bind_page")) {
             return redirect("/bind?state=" + state);
         } else if (result != null && result.equals("state_userinfo")) {
             try {
@@ -177,10 +193,6 @@ public class UserAuth extends Security.Authenticator {
             } catch (UnsupportedEncodingException e) {
                 return redirect("/login?state=" + state);
             }
-        } else if (result != null && result.equals("success")) {
-            String uri = cache.get(state).toString();
-            if (uri == null) uri = "/";
-            return redirect(uri);
         } else return redirect("/login?state=" + state);
     }
 

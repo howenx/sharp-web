@@ -161,8 +161,11 @@ public class ComCtrl extends Controller {
                     response().setCookie("accessToken", refreshToken.findValue("access_token").asText(), refreshToken.findValue("expires_in").asInt());
                     response().setCookie("orBind", "1", refreshToken.findValue("expires_in").asInt());
                     cache.set(refreshToken.findValue("access_token").asText(), refreshToken.findValue("expires_in").asInt(), refreshToken.findValue("openid").asText());
-                    cache.set(refreshToken.findValue("openid").asText(), WEIXIN_REFRESH_OVERTIME, refreshToken.findValue("refresh_token").asText());
-                    return redirect("/bind?state=" + state);
+                    response().setCookie("wechat_refresh_token", refreshToken.findValue("refresh_token").asText(), WEIXIN_REFRESH_OVERTIME);
+                    cache.set(refreshToken.findValue("refresh_token").asText(), WEIXIN_REFRESH_OVERTIME, refreshToken.findValue("openid").asText());
+
+                    Object uri = cache.get(state);
+                    return redirect(uri == null ? "/" : uri.toString());
                 });
                 return t.get(1500);
             }
@@ -185,11 +188,13 @@ public class ComCtrl extends Controller {
 
             String openId = response.findValue("openid").asText();
 
+            String refresh_token = response.findValue("refresh_token").asText();
+
 
             F.Promise<Result> t = ws.url(WEIXIN_VERIFY + openId).get().map(wr -> {
                 JsonNode json = wr.asJson();
 
-                Logger.error("ID系统校验返回------->"+json.toString());
+                Logger.error("ID系统校验返回------->" + json.toString());
 
                 Message message = Json.fromJson(json.get("message"), Message.class);
                 if (null == message) {
@@ -199,36 +204,18 @@ public class ComCtrl extends Controller {
                 if (message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
 
                     Logger.error("返回数据code=" + json);
-                    Object refresh_token = cache.get(openId);
-                    if (refresh_token != null) {
-                        F.Promise<Result> refresh = getRefresh(refresh_token.toString(), null, null, state, false);
-                        return refresh.get(1500);
-                    } else {
-                        //此openId不存在时发起授权请求
-                        return redirect(SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/userinfo", "utf-8") + "&response_type=code&scope=snsapi_userinfo&state=" + state + "#wechat_redirect");
-                    }
-
+                    //此openId不存在时发起授权请求
+                    return redirect(SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/userinfo", "utf-8") + "&response_type=code&scope=snsapi_userinfo&state=" + state + "#wechat_redirect");
                 } else {
 
-                    Logger.error("微信access获取到的refresh token---------------------->" + response.findValue("refresh_token").asText());
+                    Logger.error("微信access获取到的refresh token------->" + refresh_token);
 
                     String idToken = json.findValue("result").findValue("token").asText();
                     Integer idExpired = json.findValue("result").findValue("expired").asInt();
 
-                    Object refresh_token = cache.get(openId);
-                    Logger.error("缓存中的刷新token是----->"+refresh_token);
+                    F.Promise<Result> refresh = getRefresh(refresh_token, idToken, idExpired, state, true);
 
-                    if (refresh_token != null) {
-                        F.Promise<Result> refresh = getRefresh(refresh_token.toString(), idToken, idExpired, state, true);
-
-                        Logger.error("我去session_id--------->" + response().cookie("session_id"));
-                        Logger.error("我去user_token--------->" + response().cookie("user_token"));
-
-                        return refresh.get(1500);
-                    } else {
-                        //此openId不存在时发起授权请求
-                        return redirect(SysParCom.WEIXIN_CODE_URL + "appid=" + WEIXIN_APPID + "&&redirect_uri=" + URLEncoder.encode(M_HTTP + "/wechat/userinfo", "utf-8") + "&response_type=code&scope=snsapi_userinfo&state=" + state + "#wechat_redirect");
-                    }
+                    return refresh.get(1500);
                 }
             });
             return t.get(1500);
@@ -240,19 +227,23 @@ public class ComCtrl extends Controller {
         //刷新accessToken
         return ws.url(SysParCom.WEIXIN_REFRESH + "appid=" + WEIXIN_APPID + "&grant_type=refresh_token&refresh_token=" + refresh_token).get().map(wsr -> {
             JsonNode refreshToken = wsr.asJson();
+            Logger.error("真要疯了啊--->" + refreshToken.toString());
+
             String access_token = refreshToken.findValue("access_token").asText();
             Integer expires_in = refreshToken.findValue("expires_in").asInt();
             String openid = refreshToken.findValue("openid").asText();
+            String refresh_token_new = refreshToken.findValue("refresh_token").asText();
 
-            Logger.error("刷新token请求返回结果------------->" + refreshToken.toString());
             response().setCookie("accessToken", access_token, expires_in);
             cache.set(access_token, expires_in, openid);
+
+            response().setCookie("wechat_refresh_token", refresh_token_new, idExpired);
+            cache.set(refresh_token_new, idExpired, openid);
+
             if (orBind) {
                 //此openId存在则自动登录
                 String session_id = UUID.randomUUID().toString().replaceAll("-", "");
                 cache.set(session_id, idExpired, idToken);
-
-                cache.set(openid, idExpired, refresh_token);
 
                 response().setCookie("session_id", session_id, idExpired);
                 response().setCookie("user_token", idToken, idExpired);

@@ -59,10 +59,6 @@ public class UserAjaxAuth extends Security.Authenticator {
             } catch (UnsupportedEncodingException e) {
                 url = "/login?state=" + state;
             }
-        } else if (result != null && result.equals("success")) {
-            String uri = cache.get(state).toString();
-            if (uri == null) uri = "/";
-            url = uri;
         } else {
             url = "/login?state=" + state;
         }
