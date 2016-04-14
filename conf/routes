@@ -97,7 +97,7 @@ POST        /cart/nologin/verify/amount                                        c
 
 
 
-GET         /pay/order/get/$orderId<[0-9]+>                                    controllers.JDCtrl.cashDesk(orderId:Long)
+
 
 GET         /wechat/base                                                       controllers.ComCtrl.wechatBase(code: String,state:String)
 

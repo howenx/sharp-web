@@ -438,6 +438,9 @@ function pay(url,orderId,token,securityCode){
 
           }
      });
-}
+};
 
+$(document).on("click", "#inviteFriendDiv", function() {
+      tip("亲,请长按链接地址复制分享给小伙伴吧");
+ });
 
