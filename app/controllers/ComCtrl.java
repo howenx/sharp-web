@@ -366,6 +366,56 @@ public class ComCtrl extends Controller {
         return cookieUUID;
     }
 
+//    /***
+//     * 只获取上一级目录
+//     * @param ctx
+//     * @return
+//     */
+//    public String getHistoryUrl2(Http.Context ctx){
+//        String key=cacheHistoryKey(getCookieUUID(ctx));
+//        Stack<String> stack = (Stack<String>) cache.get(key);
+//        if(null!=stack){
+//            return stack.peek();
+//        }
+//        return "/";
+//    }
+//
+//    /**
+//     * 记录访问页面顺序,如果是最后一条则pop,否则push,返回回退URL
+//     * @param ctx
+//     */
+//    public String pushOrPopHistoryUrl2(Http.Context ctx){
+//        //用栈记录上一次访问的页面
+//        String url=ctx.request().uri();
+//        String key=cacheHistoryKey(getCookieUUID(ctx));
+//        Stack<String> stack = (Stack<String>) cache.get(key);
+//        Logger.info(url+"===pushOrPopHistoryUrl===="+url.equals(stack.peek())+"==stack.peek=="+stack.peek());
+//        if(null!=stack){
+//            if(url.equals(stack.peek())){
+//                stack.pop();//是上一次访问记录
+//                if(stack.empty()){
+//                    return "/";
+//                }
+//                Logger.info("====pop==url==="+url+"==hisUrl="+stack.peek());
+//                return stack.peek();
+//            }
+//        }else{
+//            stack=new Stack<String>();
+//        }
+//        String hisUrl="/";
+//        if(!stack.empty()){
+//            hisUrl=stack.peek();
+//        }
+//        stack.push(url);
+//        Logger.info("====push==url==="+url+"==hisUrl="+hisUrl+"===stack.peek()="+stack.peek());
+//        cache.set(key,60*60,stack);
+//        return hisUrl;
+//    }
+
+    private String cacheHistoryKey(String cookieUUID){
+        return cookieUUID+"_his";
+    }
+
     /***
      * 只获取上一级目录
      * @param ctx
@@ -373,9 +423,9 @@ public class ComCtrl extends Controller {
      */
     public String getHistoryUrl(Http.Context ctx){
         String key=cacheHistoryKey(getCookieUUID(ctx));
-        Stack<String> stack = (Stack<String>) cache.get(key);
-        if(null!=stack){
-            return stack.peek();
+        List<String> stack = (List<String>) cache.get(key);
+        if(null!=stack&&stack.size()>0){
+            return stack.get(stack.size()-1);
         }
         return "/";
     }
@@ -388,30 +438,48 @@ public class ComCtrl extends Controller {
         //用栈记录上一次访问的页面
         String url=ctx.request().uri();
         String key=cacheHistoryKey(getCookieUUID(ctx));
-        Stack<String> stack = (Stack<String>) cache.get(key);
-        if(null!=stack){
-            if(url.equals(stack.peek())){
-                stack.pop();//是上一次访问记录
-                if(stack.empty()){
+        List<String> stack = (List<String>) cache.get(key);
+        if("/".equals(url)){ //首页清一下返回
+            stack.clear();
+            cache.set(key,60*60,stack);
+            return "/";
+        }
+        if(null!=stack&&stack.size()>0){
+//            for(int i=stack.size()-1;i>=0;i--){
+//                Logger.info("===>"+stack.get(i));
+//
+//            }
+//        Logger.info(url+"===pushOrPopHistoryUrl===="+url.equals(stack.get(stack.size()-1))+"==stack.peek=="+stack.get(stack.size()-1));
+            if(url.equals(stack.get(stack.size()-1))){
+                stack.remove(stack.size()-1);//是上一次访问记录
+                if(stack.isEmpty()){
                     return "/";
                 }
-                return stack.peek();
+            //    Logger.info("====pop==url==="+url+"==hisUrl="+stack.get(stack.size()-1));
+                return stack.get(stack.size()-1);
+            }
+            if(stack.size()>=2){
+                if(url.equals(stack.get(stack.size()-2))){
+                    stack.remove(stack.size()-1);//是上一次访问记录
+                    stack.remove(stack.size()-1);//是上一次访问记录
+                    if(stack.isEmpty()){
+                        return "/";
+                    }
+                 //   Logger.info("====pop==url==="+url+"==hisUrl="+stack.get(stack.size()-1));
+                    return stack.get(stack.size()-1);
+                }
             }
         }else{
             stack=new Stack<String>();
         }
         String hisUrl="/";
-        if(!stack.empty()){
-            hisUrl=stack.peek();
+        if(!stack.isEmpty()){
+            hisUrl=stack.get(stack.size()-1);
         }
-        stack.push(url);
-     //   Logger.info("====push==url==="+url);
+        stack.add(url);
+       // Logger.info("====push==url==="+url+"==hisUrl="+hisUrl+"===stack.peek()="+stack.get(stack.size()-1));
         cache.set(key,60*60,stack);
         return hisUrl;
-    }
-
-    private String cacheHistoryKey(String cookieUUID){
-        return cookieUUID+"_his";
     }
 
 }
