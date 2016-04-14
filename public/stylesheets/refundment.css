@@ -52,3 +52,16 @@ input{
 .rmb{
     color: #FF5359;
 }
+
+.refundBtnCss{
+    color: #fff;
+    text-align: center;
+    margin:40px 0 0 0;
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    width: 100%;
+    border-radius: 5px;
+    background:#FF5359 ;
+
+}
