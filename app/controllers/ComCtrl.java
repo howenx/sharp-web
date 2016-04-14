@@ -424,10 +424,16 @@ public class ComCtrl extends Controller {
     public String getHistoryUrl(Http.Context ctx){
         String key=cacheHistoryKey(getCookieUUID(ctx));
         List<String> stack = (List<String>) cache.get(key);
+        String hisUrl="/";
         if(null!=stack&&stack.size()>0){
-            return stack.get(stack.size()-1);
+            hisUrl=stack.get(stack.size()-1);
+            if(hisUrl.equals(ctx.request().uri())){
+                if(stack.size()>=2){
+                    hisUrl=stack.get(stack.size()-2);
+                }
+            }
         }
-        return "/";
+        return hisUrl;
     }
 
     /**
@@ -446,41 +452,38 @@ public class ComCtrl extends Controller {
         }
         String hisUrl="/";
         if(null!=stack&&stack.size()>0){
-            for(int i=stack.size()-1;i>=0;i--){
-                Logger.info("===>"+stack.get(i));
-
-            }
+//            for(int i=stack.size()-1;i>=0;i--){
+//                Logger.info("===>"+stack.get(i));
+//
+//            }
        // Logger.info(url+"===pushOrPopHistoryUrl===="+url.equals(stack.get(stack.size()-1))+"==stack.peek=="+stack.get(stack.size()-1));
-            if(url.equals(stack.get(stack.size()-1))||(stack.size()>=2&&url.equals(stack.get(stack.size()-2))){
+            if(url.equals(stack.get(stack.size()-1))||(stack.size()>=2&&url.equals(stack.get(stack.size()-2)))){
+                //路线1:主题——>详情-->返回主题-->详情-->返回主题
+                //路线2:主题——>详情-->购物车-->详情-->返回购物车-->返回
+                //路线3:拼购路线返回
                 stack.remove(stack.size()-1);//是上一次访问记录
-                cache.set(key,60*60,stack);
                 if(!stack.isEmpty()){
                     hisUrl=stack.get(stack.size()-1);
                     if(hisUrl.equals(url)){
-
-                    }
-                    if(stack.size()>=2){
-
+                        if(stack.size()>=2){
+                            hisUrl=stack.get(stack.size()-2);
+                        }
                     }
                 }
-
-
-
-
-
-                Logger.info("====pop==url==="+url+"==hisUrl="+stack.get(stack.size()-1));
+                cache.set(key,60*60,stack);
+               // Logger.info("====pop==url==="+url+"==hisUrl="+hisUrl);
                 return hisUrl;
             }
 
         }else{
             stack=new Stack<String>();
         }
-        String hisUrl="/";
+
         if(!stack.isEmpty()){
             hisUrl=stack.get(stack.size()-1);
         }
         stack.add(url);
-        Logger.info("====push==url==="+url+"==hisUrl="+hisUrl+"===stack.peek()="+stack.get(stack.size()-1));
+    //    Logger.info("====push==url==="+url+"==hisUrl="+hisUrl+"===stack.peek()="+stack.get(stack.size()-1));
         cache.set(key,60*60,stack);
         return hisUrl;
     }
