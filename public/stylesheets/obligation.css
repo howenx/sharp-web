@@ -250,7 +250,7 @@ span .number{
 /*优惠券页面 coupon*/
 
 .coupon-body{
-    background-color: #fff;
+    background-color:#ededed;
 }
 .coupon li{
     width:33.3%;
@@ -261,8 +261,8 @@ span .number{
 
 .coupon-box li{
     width:320px;
-    height:85px;
-    color: #fff;
+    height:120px;
+    color: #333;
     background: url("/assets/images/youhuiquan_bg.png") no-repeat;
     background-size: contain;
     margin: 10px auto;
@@ -271,43 +271,67 @@ span .number{
 
 .coupon-s li{
     width:320px;
-    height:85px;
+    height:120px;
     background: url("/assets/images/coupon_shiyong.png") no-repeat;
-    background-size: contain;
-}
-.coupon-g li{
-    width:320px;
-    height:85px;
-    background: url("/assets/images/coupon_guoqi.png") no-repeat;
     background-size: contain;
 }
 
 .coupon-box li p{
     width: 100%;
 }
-
 .coupon-box-l{
     float: left;
+    margin: 16px 18px 0 20px;
+}
+.Fullcut{
+    float:left;
+    margin:40px 10px 0px 0;
 }
 
 .coupon-box-r{
-    float: right;
+    float:left;
     font-size:24px;
-    margin: 16px 10px 16px 0;
+    margin: 16px 10px 0px 0;
 }
 
 .coupon-m{
-    font-size:18px;
+    font-size:20px;
 }
 
 .coupon-deta{
-    font-size: 14px;
+    width:100%;
+    text-align: right;
+    margin:26px 0 0 0;
+    font-size: 12px;
 }
 
 .coupon-box li img{
     margin:10px auto;
 
 }
+
+.coupon-box-r{
+    color:#FAA728;
+    font-size: 14px;
+
+}
+.coupon-rmb{
+    font-size:36px;
+}
+.coupon-hd,.coupon-deta{
+    color: #999;
+}
+.coupon-hd,.Fullcut{
+    font-size: 12px;
+}
+
+.coupon-s .coupon-box-r{
+    color: #4C4C4C;
+}
+
+
+
+
 
 
 /*收藏页面*/

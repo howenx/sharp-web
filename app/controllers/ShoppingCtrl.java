@@ -91,6 +91,13 @@ public class ShoppingCtrl extends Controller {
         return ok(views.html.shopping.assess.render());
     }
 
+    //退款
+        public Result refundment() {
+            return ok(views.html.shopping.refundment.render());
+        }
+
+    //
+
     /**
      * 购物车列表
      *
