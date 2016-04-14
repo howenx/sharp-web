@@ -98,7 +98,7 @@ public class ShoppingCtrl extends Controller {
      */
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> cart() {
-
+        String hisUrl=comCtrl.pushOrPopHistoryUrl(ctx());
         F.Promise<JsonNode> promise = F.Promise.promise(() -> {
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
             Request request = builder.url(SHOPPING_LIST).get().build();
@@ -133,7 +133,7 @@ public class ShoppingCtrl extends Controller {
                                 sku.setInvUrl(comCtrl.getDetailUrl(sku.getInvUrl()));
                             }
                         }
-                        return ok(views.html.shopping.cart.render(path, resultVo));
+                        return ok(views.html.shopping.cart.render(path, resultVo,hisUrl));
                     } else if (resultVo.getMessage().getCode() == Message.ErrorCode.CART_LIST_NULL_EXCEPTION.getIndex()) {
                         return ok(views.html.shopping.cartempty.render(path));
                     } else return badRequest(views.html.error500.render());

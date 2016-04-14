@@ -1,4 +1,4 @@
-@(path:String,resultVo:domain.CartListResultVo)
+@(path:String,resultVo:domain.CartListResultVo,hisUrl:String)
 <html>
 <head lang="en">
     <meta charset="UTF-8">
@@ -19,7 +19,7 @@
 <body>
 <!--头部开始-->
 <header class="header">
-    <a href="javascript:window.history.back()" class="home_link"></a>
+    <a href="@hisUrl" class="home_link"></a>
     <div class="header-text">
         <h1 class="header-title">购物车</h1>
     </div>

@@ -444,31 +444,34 @@ public class ComCtrl extends Controller {
             cache.set(key,60*60,stack);
             return "/";
         }
+        String hisUrl="/";
         if(null!=stack&&stack.size()>0){
-//            for(int i=stack.size()-1;i>=0;i--){
-//                Logger.info("===>"+stack.get(i));
-//
-//            }
-//        Logger.info(url+"===pushOrPopHistoryUrl===="+url.equals(stack.get(stack.size()-1))+"==stack.peek=="+stack.get(stack.size()-1));
-            if(url.equals(stack.get(stack.size()-1))){
+            for(int i=stack.size()-1;i>=0;i--){
+                Logger.info("===>"+stack.get(i));
+
+            }
+       // Logger.info(url+"===pushOrPopHistoryUrl===="+url.equals(stack.get(stack.size()-1))+"==stack.peek=="+stack.get(stack.size()-1));
+            if(url.equals(stack.get(stack.size()-1))||(stack.size()>=2&&url.equals(stack.get(stack.size()-2))){
                 stack.remove(stack.size()-1);//是上一次访问记录
-                if(stack.isEmpty()){
-                    return "/";
-                }
-            //    Logger.info("====pop==url==="+url+"==hisUrl="+stack.get(stack.size()-1));
-                return stack.get(stack.size()-1);
-            }
-            if(stack.size()>=2){
-                if(url.equals(stack.get(stack.size()-2))){
-                    stack.remove(stack.size()-1);//是上一次访问记录
-                    stack.remove(stack.size()-1);//是上一次访问记录
-                    if(stack.isEmpty()){
-                        return "/";
+                cache.set(key,60*60,stack);
+                if(!stack.isEmpty()){
+                    hisUrl=stack.get(stack.size()-1);
+                    if(hisUrl.equals(url)){
+
                     }
-                 //   Logger.info("====pop==url==="+url+"==hisUrl="+stack.get(stack.size()-1));
-                    return stack.get(stack.size()-1);
+                    if(stack.size()>=2){
+
+                    }
                 }
+
+
+
+
+
+                Logger.info("====pop==url==="+url+"==hisUrl="+stack.get(stack.size()-1));
+                return hisUrl;
             }
+
         }else{
             stack=new Stack<String>();
         }
@@ -477,7 +480,7 @@ public class ComCtrl extends Controller {
             hisUrl=stack.get(stack.size()-1);
         }
         stack.add(url);
-       // Logger.info("====push==url==="+url+"==hisUrl="+hisUrl+"===stack.peek()="+stack.get(stack.size()-1));
+        Logger.info("====push==url==="+url+"==hisUrl="+hisUrl+"===stack.peek()="+stack.get(stack.size()-1));
         cache.set(key,60*60,stack);
         return hisUrl;
     }
