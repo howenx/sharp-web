@@ -52,7 +52,7 @@ public class ShoppingCtrl extends Controller {
 
         String token=comCtrl.getUserToken(ctx());
         return promiseOfInt.map((play.libs.F.Function<JsonNode , Result>) json -> {
-        //    Logger.info("===json==" + json);
+            Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回数据错误code=" + json);
@@ -75,7 +75,7 @@ public class ShoppingCtrl extends Controller {
             }
 
             if (id > 0) {
-                return ok(views.html.shopping.orderpa.render(orderList,PAY_URL,token));//订单详情
+                return ok(views.html.shopping.orderpa.render(orderList.get(0),PAY_URL,token));//订单详情
             }
             return ok(views.html.shopping.all.render(orderList,PAY_URL,token));
         });
@@ -92,9 +92,11 @@ public class ShoppingCtrl extends Controller {
     }
 
     //退款
-        public Result refundment() {
-            return ok(views.html.shopping.refundment.render());
-        }
+    public Result refundment() {
+        Map<String, String> map = Form.form().bindFromRequest().data();
+        Logger.info(Form.form().bindFromRequest().data()+"===Form.form().data()===="+Json.toJson(map).toString());
+        return ok(views.html.shopping.refundment.render(map.get("orderId"),map.get("splitOrderId"),map.get("payBackFee")));
+    }
 
     //
 

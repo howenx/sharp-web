@@ -1,4 +1,4 @@
-@(orderList:List[domain.OrderDTO],payUrl:String,token:String)
+@(order:domain.OrderDTO,payUrl:String,token:String)
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,17 +20,17 @@
         <b></b>
     </a>
     <h1>订单详情</h1>
-    @if(orderList.get(0).getOrder().getOrderStatus()=="C"||orderList.get(0).getOrder().getOrderStatus()=="R"){
-    <span onclick="delOrder(@orderList.get(0).getOrder().getOrderId(),1)"></span>
+    @if(order.getOrder().getOrderStatus()=="C"||order.getOrder().getOrderStatus()=="R"){
+    <span onclick="delOrder(order.getOrder().getOrderId(),1)"></span>
     }
 
 
 </header>
 
 <div class="wap">
-    @if(orderList.get(0).getOrder().getOrderStatus()=="I"){
+    @if(order.getOrder().getOrderStatus()=="I"){
     <div class="time-item price" style="text-align:center">
-        <input type="hidden" id="countdown" value="@orderList.get(0).getOrder().getCountDown()"/>
+        <input type="hidden" id="countdown" value="@order.getOrder().getCountDown()"/>
         <span id="day_show"></span>
         <strong id="hour_show">&nbsp;</strong>
         <strong id="minute_show"></strong>
@@ -38,7 +38,6 @@
     </div>
     }
     <ul>
-        @for(order<-orderList){
         <li>
             <p class="first">
                 <span>订单号 :</span>
@@ -153,7 +152,7 @@
 
             <p>
                 <span>订单应付金额 :</span>
-                <i>@order.getOrder().getPayTotal()</i>
+                <i id="payBackFee">@order.getOrder().getPayTotal()</i>
             </p>
         </li>
         @if(order.getOrder().getOrderStatus()=="I"||order.getOrder().getOrderStatus()=="F"){
@@ -162,9 +161,16 @@
                 <a href="javascript:;" class="right bg"  onclick="pay('@payUrl','@order.getOrder().getOrderId()','@token','@order.getOrder().getSecurityCode()')">去支付</a>
             </li>
         }
-
+        @if(order.getOrder().getOrderStatus()=="S"){
+            <li value="@order.getOrder().getOrderId()" class="btn">
+                <a href="javascript:;" class="left discolour applyRefundCss" >申请退货</a>
+            </li>
         }
+
+        <input type="hidden" value="@order.getOrder().getOrderSplitId()" id="orderSplitId">
+
     </ul>
+
 
 </div>
 <div class="hint" id="tip" style="display:none"></div>

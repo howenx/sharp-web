@@ -4,11 +4,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.squareup.okhttp.FormEncodingBuilder;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
+import com.ning.http.client.multipart.MultipartBody;
+import com.squareup.okhttp.*;
 import domain.*;
+import domain.Address;
 import filters.UserAjaxAuth;
 import filters.UserAuth;
 import modules.ComTools;
@@ -1190,9 +1189,25 @@ public class UserCtrl extends Controller {
         } else {
             Promise<JsonNode> promiseOfInt;
             promiseOfInt = Promise.promise(() -> {
-                RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, map.toString());
+              //  RequestBody formBody = RequestBody.create(MEDIA_TYPE_MULTIPART, new String(Form.form().bindFromRequest().data().toString()));
                 Request.Builder builder = (Request.Builder) ctx().args.get("request");
-                Request request = builder.url(ORDER_REFUND).post(formBody).build();
+                RequestBody requestBody = new MultipartBuilder()
+                        .type(MultipartBuilder.FORM)
+                        .addFormDataPart("orderId", null==map.get("orderId")?"":map.get("orderId"))
+                        .addFormDataPart("splitOrderId", null==map.get("splitOrderId")?"":map.get("splitOrderId"))
+                        .addFormDataPart("skuId", null==map.get("skuId")?"":map.get("skuId"))
+                        .addFormDataPart("reason", null==map.get("reason")?"":map.get("reason"))
+                        .addFormDataPart("amount", null==map.get("amount")?"":map.get("amount"))
+                        .addFormDataPart("contactName", null==map.get("contactName")?"":map.get("contactName"))
+                        .addFormDataPart("contactTel", null==map.get("contactTel")?"":map.get("contactTel"))
+                        .addFormDataPart("payBackFee", null==map.get("payBackFee")?"":map.get("payBackFee"))
+                        .addFormDataPart("refundType", null==map.get("refundType")?"":map.get("refundType"))
+//                        .addFormDataPart("refundImg1", "1.jpg", RequestBody.create(MEDIA_TYPE_PNG, bytes))
+//                        .addFormDataPart("refundImg2", "2.jpg", RequestBody.create(MEDIA_TYPE_PNG, bytes))
+//                        .addFormDataPart("refundImg3", "3.jpg", RequestBody.create(MEDIA_TYPE_PNG, bytes))
+                        .build();
+
+                Request request = builder.url(ORDER_REFUND).post(requestBody).build();
                 Response response = client.newCall(request).execute();
                 Logger.error("响应:"+response.toString());
                 if (response.isSuccessful()) {

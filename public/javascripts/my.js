@@ -444,3 +444,23 @@ $(document).on("click", "#inviteFriendDiv", function() {
       tip("亲,请长按链接地址复制分享给小伙伴吧");
  });
 
+//申请退货
+$(document).on("click", ".applyRefundCss", function() {
+    var orderId = $("#orderId").text();
+    var splitOrderId=$("#orderSplitId").val();
+    var payBackFee=$("#payBackFee").text();
+
+    var url = '/refundment';
+    var form = $('<form action="' + url + '" method="post">' +
+    '<input type="hidden" name="orderId" value="' + orderId + '" />' +
+    '<input type="hidden" name="splitOrderId" value="' + splitOrderId + '" />' +
+    '<input type="hidden" name="payBackFee" value="' + payBackFee + '" />' +
+    '</form>');
+    form.submit();
+});
+
+//申请退货提交
+$(document).on("click", ".refundBtnCss", function() {
+
+    $("#cell_refForm").submit();
+});
