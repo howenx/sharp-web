@@ -155,13 +155,29 @@
                 <i id="payBackFee">@order.getOrder().getPayTotal()</i>
             </p>
         </li>
+        @if(null!=order.getRefund()){
+            <li>
+                <p class="first">
+                    <span>退货</span>
+                </p>
+                <p>
+                    <span>状态 :</span>
+                    <i>
+                        @if(order.getRefund().getState()=="I"){审核中}
+                        @if(order.getRefund().getState()=="A"){5-15个工作日，退款金额自动返回}
+                        @if(order.getRefund().getState()=="R"){@order.getRefund().getRejectReason()}
+
+                    </i>
+                </p>
+            </li>
+        }
         @if(order.getOrder().getOrderStatus()=="I"||order.getOrder().getOrderStatus()=="F"){
             <li value="@order.getOrder().getOrderId()" class="btn">
                 <a href="javascript:;" class="left cancelOrder discolour" >取消订单</a>
                 <a href="javascript:;" class="right bg"  onclick="pay('@payUrl','@order.getOrder().getOrderId()','@token','@order.getOrder().getSecurityCode()')">去支付</a>
             </li>
         }
-        @if(order.getOrder().getOrderStatus()=="S"){
+        @if(order.getOrder().getOrderStatus()=="S"&&null==order.getRefund()){
             <li value="@order.getOrder().getOrderId()" class="btn">
                 <a href="javascript:;" class="left discolour applyRefundCss" >申请退货</a>
             </li>

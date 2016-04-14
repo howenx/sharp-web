@@ -461,6 +461,32 @@ $(document).on("click", ".applyRefundCss", function() {
 
 //申请退货提交
 $(document).on("click", ".refundBtnCss", function() {
+    var reason=$("#reason").val();
+    var orderId=$("#orderId").val();
+    var contactName=$("#contactName").val();
+    var contactTel=$("#contactTel").val();
+     var zszReg = new RegExp(/^[a-zA-Z0-9\u4e00-\u9fa5]/); //字母数字中文
+    var telReg=new RegExp(/^[1][345678]\d{9}/);
+    if(null==reason||""==reason||reason.length>200){
+        tip("亲,请填写退款说明,200字以内");
+    } if (""!=contactName&&null!=contactName&&(contactName.length>15||!zszReg.test(contactName))) {
+         tip('姓名只能是中文/数字/字母');
+     }else if (""!=contactTel&&null!=contactTel&&(contactTel.length!=11 ||!telReg.test(contactTel))) {
+          tip('请填写正确的手机号码');
+     }else{
+        $.ajax({
+            type: "POST",
+            url: "/order/apply/refund",
+            data: $('form#cell_refForm').serialize(),
+            success: function(data) {
+                console.log(data);
+                if (data.code==200) {
+                    $(".box-btn").html("提交成功");
+                    setTimeout(function(){$('.shade').hide();},2000);
+                    window.location.href = "/all?orderId="+orderId
+                }
+            }
 
-    $("#cell_refForm").submit();
+        });
+    }
 });
