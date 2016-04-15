@@ -61,53 +61,87 @@
 
 
                         </div>
-                        <p class="coupon-deta">有效期至 <span>2016-04-30 11:13:20</span></p></li></ul>
+                        <p class="coupon-deta">有效期至 <span>2016-04-30 11:13:20</span></p>
+                    </li>
+                    @for(coupon<-couponList){
+                        @if(coupon.getState()=="N"){
+                            <li>
+                                <div class="coupon-box-bjg clearfix">
+
+                                    <div class="coupon-box-r">
+                                        ￥<i class="coupon-rmb">@coupon.getDenomination()</i>
+                                    </div>
+                                    <div class="coupon-box-l">
+                                        <p class="coupon-hd">使用范围:</p>
+                                        <p class="coupon-m">@coupon.getCateNm()</p>
+                                    </div>
+                                    <div class="Fullcut">订单满300减50</div>
+
+
+                                </div>
+                                <p class="coupon-deta">有效期至 <span>@coupon.getEndAt()</span></p>
+                            </li>
+                        }
+                    }
+                </ul>
             </section>
 
             <!--已使用-->
             <section class="coupon-box coupon-s">
                 <ul>
-                    <li>
-                        <div class="coupon-box-bjg clearfix">
+                    @for(coupon<-couponList){
+                        @if(coupon.getState()=="Y"){
+                            <li>
+                                <div class="coupon-box-bjg clearfix">
 
-                            <div class="coupon-box-r">
-                                ￥<i class="coupon-rmb">20</i>
-                            </div>
-                            <div class="coupon-box-l">
-                                <p class="coupon-hd">使用范围:</p>
-                                <p class="coupon-m">全场通用</p>
-                            </div>
-                            <div class="Fullcut">订单满300减50</div>
+                                    <div class="coupon-box-r">
+                                        ￥<i class="coupon-rmb">@coupon.getDenomination()</i>
+                                    </div>
+                                    <div class="coupon-box-l">
+                                        <p class="coupon-hd">使用范围:</p>
+                                        <p class="coupon-m">@coupon.getCateNm()</p>
+                                    </div>
+                                    <div class="Fullcut">满@coupon.getLimitQuota()可用</div>
 
 
-                        </div>
-                        <p class="coupon-deta">有效期至 <span>2016-04-30 11:13:20</span></p></li></ul>
+                                </div>
+                                <p class="coupon-deta">有效期至 <span>@coupon.getEndAt()</span></p>
+                            </li>
+                        }
+                    }
+                </ul>
             </section>
 
             <!--已过期-->
             <section class="coupon-box coupon-s">
                 <ul>
-                    <li>
-                        <div class="coupon-box-bjg clearfix">
+                    @for(coupon<-couponList){
+                        @if(coupon.getState()=="S"){
+                        <li>
+                            <div class="coupon-box-bjg clearfix">
 
-                            <div class="coupon-box-r">
-                                ￥<i class="coupon-rmb">20</i>
+                                <div class="coupon-box-r">
+                                    ￥<i class="coupon-rmb">@coupon.getDenomination()</i>
+                                </div>
+                                <div class="coupon-box-l">
+                                    <p class="coupon-hd">使用范围:</p>
+                                    <p class="coupon-m">@coupon.getCateNm()</p>
+                                </div>
+                                <div class="Fullcut">满@coupon.getLimitQuota()可用</div>
+
+
                             </div>
-                            <div class="coupon-box-l">
-                                <p class="coupon-hd">使用范围:</p>
-                                <p class="coupon-m">全场通用</p>
-                            </div>
-                            <div class="Fullcut">订单满300减50</div>
-
-
-                        </div>
-                        <p class="coupon-deta">有效期至 <span>2016-04-30 11:13:20</span></p></li></ul>
+                            <p class="coupon-deta">有效期至 <span>@coupon.getEndAt()</span></p>
+                        </li>
+                        }
+                    }
+                </ul>
             </section>
 
 
-            <!--全部订单-->
+            <!--全部订单
 
-            <!--<section class="coupon-box coupon-s">
+            <section class="coupon-box coupon-s">
                 <ul>
                     @for(coupon<-couponList){
                         @if(coupon.getState()=="N"){
@@ -166,7 +200,8 @@
                         }
                     }
                 </ul>
-            </section>-->
+            </section>
+            -->
        </div>
    </div>
 </div>

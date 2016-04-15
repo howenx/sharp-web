@@ -445,7 +445,7 @@ public class ComCtrl extends Controller {
         String url=ctx.request().uri();
         String key=cacheHistoryKey(getCookieUUID(ctx));
         List<String> stack = (List<String>) cache.get(key);
-        if("/".equals(url)){ //首页清一下返回
+        if("/".equals(url)&&null!=stack){ //首页清一下返回
             stack.clear();
             cache.set(key,60*60,stack);
             return "/";
