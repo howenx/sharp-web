@@ -158,14 +158,26 @@
         @if(null!=order.getRefund()){
             <li>
                 <p class="first">
-                    <span>退货</span>
+                    <span>退货信息</span>
                 </p>
                 <p>
-                    <span>状态 :</span>
+                    <span>退款金额 :</span>
+                    <i>
+                        ￥@order.getRefund().getPayBackFee()
+                    </i>
+                </p>
+                <p>
+                    <span>退款原因 :</span>
+                    <i>
+                        @order.getRefund().getReason()
+                    </i>
+                </p>
+                <p>
+                    <span>退款状态 :</span>
                     <i>
                         @if(order.getRefund().getState()=="I"){审核中}
-                        @if(order.getRefund().getState()=="A"){5-15个工作日，退款金额自动返回}
-                        @if(order.getRefund().getState()=="R"){@order.getRefund().getRejectReason()}
+                        @if(order.getRefund().getState()=="A"){已通过:5-15个工作日，退款金额自动返回}
+                        @if(order.getRefund().getState()=="R"){被拒绝:@order.getRefund().getRejectReason()}
 
                     </i>
                 </p>
@@ -185,7 +197,7 @@
         @if(order.getOrder().getOrderStatus()=="D"){
             <li class="btn">
                 <a href="/logistic/@order.getOrder().getOrderId()" class="left bg">查看物流</a>
-                <a href="/logistic/@order.getOrder().getOrderId()" class="right bg">确认收货</a>
+                <a href="javascript:;" class="right bg" onclick="orderConfirmDelivery(@order.getOrder().getOrderId())">确认收货</a>
             </li>
         }
 

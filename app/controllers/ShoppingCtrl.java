@@ -668,6 +668,11 @@ public class ShoppingCtrl extends Controller {
         });
 
     }
+    @Security.Authenticated(UserAuth.class)
+    public F.Promise<Result> orderConfirmDelivery(Long orderId){
+        return comCtrl.getReqReturnMsg(ORDER_CONFIRM+orderId);
+
+    }
 
 }
 

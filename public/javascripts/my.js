@@ -493,3 +493,25 @@ $(document).on("click", ".refundBtnCss", function() {
         });
     }
 });
+
+//确认收货
+function orderConfirmDelivery(orderId){
+    if (window.confirm("亲,您确认收到货物了吗?")) {
+         $.ajax({
+                  type :"GET",
+                  url : "/order/confirm/delivery/"+orderId,
+                  contentType: "application/json; charset=utf-8",
+                  dataType:"json",
+                  error : function(request) {
+                      tip("操作失败!");
+                  },
+                  success: function(data) {
+
+                      if (data.code==200){ //成功
+                         window.location.href = "/all";
+                       }
+                       else tip(data.message);
+                  }
+         });
+    }
+}
