@@ -114,26 +114,27 @@ $(document).on("click",".cancelColl",function(e){
      });
 })
 
-$(document).on("click",".cancelOrder",function(e){
-    e.preventDefault();
-    var id=$(this).parents("li").val();
-    console.log("id="+id);
-    $.ajax({
-          type :"GET",
-          url : "/order/cancel/"+id,
-          contentType: "application/json; charset=utf-8",
-          error : function(request) {
-              tip("取消订单失败!");
-          },
-          success: function(data) {
-             console.log("data="+data);
+$(document).on("click",".cancelOrder",function(){
+    if (window.confirm("亲,您确定要取消订单吗")) {
+        var id=$(this).parents("li").val();
+        console.log("id="+id);
+        $.ajax({
+              type :"GET",
+              url : "/order/cancel/"+id,
+              contentType: "application/json; charset=utf-8",
+              error : function(request) {
+                  tip("取消订单失败!");
+              },
+              success: function(data) {
+                 console.log("data="+data);
 
-               if(data.code==200){ //取消订单成功
-                 setTimeout("location.href='/all'", 3000);
-               } else tip("取消订单失败!");
+                   if(data.code==200){ //取消订单成功
+                     setTimeout("location.href='/all'", 3000);
+                   } else tip("取消订单失败!");
 
-          }
-     });
+              }
+         });
+     }
 })
 
 $(document).on("click",".delOrder",function(e){

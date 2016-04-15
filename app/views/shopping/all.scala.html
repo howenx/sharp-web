@@ -182,7 +182,7 @@
                                 </div>
                             </a>
                             @for(sku<-order.getSku()){
-                            <a href="@sku.getInvUrl()" class="commodity clearfix">
+                            <a href="/all/@order.getOrder().getOrderId()" class="commodity clearfix">
                                 <div class="photo-img">
                                     <img src="@sku.getInvImg()" alt=""/>
                                 </div>
@@ -205,7 +205,8 @@
                             }
                             @if(order.getOrder().getOrderStatus()=="D"){
                                 <div class="payment clearfix">
-                                    <a href="javascript:;" class="right bg">查看物流</a>
+                                    <a href="/logistic/@order.getOrder().getOrderId()" class="left">查看物流</a>
+                                    <a href="/logistic/@order.getOrder().getOrderId()" class="right bg">确认收货</a>
                                 </div>
                             }
                             @if(order.getOrder().getOrderStatus()=="C"||order.getOrder().getOrderStatus()=="R"){
@@ -244,7 +245,7 @@
                                         </div>
                                     </a>
                                     @for(sku<-order.getSku()){
-                                    <a href="@sku.getInvUrl()" class="commodity clearfix">
+                                    <a href="/all/@order.getOrder().getOrderId()" class="commodity clearfix">
                                         <div class="photo-img">
                                             <img src="@sku.getInvImg()" alt=""/>
                                         </div>
@@ -287,7 +288,7 @@
                                         </div>
                                     </a>
                                     @for(sku<-order.getSku()){
-                                    <a href="@sku.getInvUrl()" class="commodity clearfix">
+                                    <a href="/all/@order.getOrder().getOrderId()" class="commodity clearfix">
                                         <div class="photo-img">
                                             <img src="@sku.getInvImg()" alt=""/>
                                         </div>
@@ -298,7 +299,8 @@
                                     </a>
                                     }
                                     <div class="payment clearfix">
-                                        <a href="javascript:;" class="right bg discolour">查看物流</a>
+                                        <a href="/logistic/@order.getOrder().getOrderId()" class="left">查看物流</a>
+                                        <a href="/logistic/@order.getOrder().getOrderId()" class="right bg">确认收货</a>
                                     </div>
                                 </div>
                             </li>

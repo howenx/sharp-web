@@ -184,7 +184,8 @@
         }
         @if(order.getOrder().getOrderStatus()=="D"){
             <li class="btn">
-                 <a href="javascript:;" class="right bg">查看物流</a>
+                <a href="/logistic/@order.getOrder().getOrderId()" class="left bg">查看物流</a>
+                <a href="/logistic/@order.getOrder().getOrderId()" class="right bg">确认收货</a>
             </li>
         }
 

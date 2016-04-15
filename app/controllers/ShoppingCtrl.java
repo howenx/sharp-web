@@ -204,8 +204,35 @@ public class ShoppingCtrl extends Controller {
         return ok(views.html.shopping.down.render());
     }
 
-    public Result logistic() {
-        return ok(views.html.shopping.logistics.render());
+    //物流数据
+    @Security.Authenticated(UserAuth.class)
+    public F.Promise<Result> logistic(Long orderId) {
+        String url="http://api.kuaidi100.com/api?id=425796724eeca6b3&com=jd&nu=12837698789&show=0&muti=1&order=desc";
+        play.libs.F.Promise<JsonNode > promiseOfInt = play.libs.F.Promise.promise(() -> {
+            Request.Builder builder =(Request.Builder)ctx().args.get("request");
+            Request request=builder.url(ORDER_EXPRESS+orderId).get().build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()){
+                return Json.parse(new String(response.body().bytes(), UTF_8));
+            }else  throw new IOException("Unexpected code " + response);
+        });
+
+        return promiseOfInt.map((play.libs.F.Function<JsonNode , Result>) json -> {
+            Logger.info("===json==" + json);
+            if(json.has("message")&&json.has("code")){
+                Message message = Json.fromJson(json.get("message"), Message.class);
+                if(null != message&&message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+                    Logger.info("返回数据code=" + json);
+                    return badRequest(views.html.error.render(message.getMessage()));
+                }
+            }
+
+            LogisticsDTO logisticsDTO=Json.fromJson(json, LogisticsDTO.class);
+
+            return ok(views.html.shopping.logistics.render(logisticsDTO));
+        });
+
+
     }
 
     public Result obligati() {

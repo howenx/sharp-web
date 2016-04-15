@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+@(logistics:domain.LogisticsDTO)
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>物流跟踪</title>
     <!-- 视图窗口，移动端特属的标签。 -->
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
     <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
@@ -15,7 +15,7 @@
 </head>
 <body>
 <header class="head">
-    <a href="/obligation" class="back">
+    <a href="javascript:window.history.back()" class="back">
         <i></i>
         <b></b>
     </a>
@@ -32,8 +32,8 @@
 
         <div class="logistics-r">
             <span>支付方式: <i>在线支付</i></span>
-            <span>承运来源: <i>韵达快递</i></span>
-            <span>订单编号: <i>1234567789909766</i></span>
+            <span>承运来源: <i>@logistics.getCompanytype()</i></span>
+            <span>订单编号: <i>@logistics.getNu()</i></span>
            <!-- <span>官方号码: <i class="nub">95546</i></span>-->
         </div>
     </div>
@@ -45,6 +45,24 @@
 
         <div class="logis-fd">
             <ul>
+                @if(null!=logistics.getData()){
+                    @for(logisticsDataDTO<-logistics.getData()){
+                        <li >
+                            <div class="logis-box">
+                                <div class="logis-content">
+                                    <p class="logis-content-detail">
+                                        @if(""!=logisticsDataDTO.getLocation()){
+                                        <i>[ @logisticsDataDTO.getLocation() ]</i>
+                                        }
+                                        <i>@logisticsDataDTO.getContext()</i>
+                                    </p>
+                                    <p class="logis-content-timer">@logisticsDataDTO.getTime()</p>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                }
+                <!--
                 <li >
                     <div class="logis-box color">
                         <div class="logis-content">
@@ -83,72 +101,10 @@
                     </div>
 
                 </li>
+                -->
 
-                <li >
-                    <div class="logis-box">
-                        <div class="logis-content">
-                            <p class="logis-content-detail">
-                                <i>您的订单在</i> <i>[ 北京分吧中心 ]</i> <i>发货完成</i>,<i>正在分配配送员</i>
-                            </p>
-                            <p class="logis-content-timer">2015-12-2 13:16</p>
-                        </div>
-                    </div>
-                </li>
 
-                <li >
-                    <div class="logis-box">
-                        <div class="logis-content">
-                            <p class="logis-content-detail">
-                                <i>您的订单在</i><i>[北京分吧中心]</i><i>发货完成</i>,<i>正在分配配送员</i>
-                            </p>
-                            <p class="logis-content-timer">2015-12-2 13:16</p>
-                        </div>
-                    </div>
-                </li>
 
-                <li >
-                    <div class="logis-box">
-                        <div class="logis-content">
-                            <p class="logis-content-detail">
-                                <i>您的订单在</i> <i>[ 北京分吧中心 ]</i> <i>发货完成</i>,<i>正在分配配送员</i>
-                            </p>
-                            <p class="logis-content-timer">2015-12-2 13:16</p>
-                        </div>
-                    </div>
-                </li>
-
-                <li >
-                    <div class="logis-box">
-                        <div class="logis-content">
-                            <p class="logis-content-detail">
-                                <i>您的订单在</i> <i>[ 北京分吧中心 ]</i> <i>发货完成</i>,<i>正在分配配送员</i>
-                            </p>
-                            <p class="logis-content-timer">2015-12-2 13:16</p>
-                        </div>
-                    </div>
-                </li>
-
-                <li >
-                    <div class="logis-box">
-                        <div class="logis-content">
-                            <p class="logis-content-detail">
-                                <i>您的订单在</i> <i>[ 北京分吧中心 ]</i> <i>发货完成</i>,<i>正在分配配送员</i>
-                            </p>
-                            <p class="logis-content-timer">2015-12-2 13:16</p>
-                        </div>
-                    </div>
-                </li>
-
-                <li >
-                    <div class="logis-box">
-                        <div class="logis-content">
-                            <p class="logis-content-detail">
-                                <i>您的订单在</i> <i>[ 北京分吧中心 ]</i> <i>发货完成</i>,<i>正在分配配送员</i>
-                            </p>
-                            <p class="logis-content-timer">2015-12-2 13:16</p>
-                        </div>
-                    </div>
-                </li>
             </ul>
 
         </div>
