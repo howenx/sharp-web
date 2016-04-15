@@ -20,7 +20,7 @@ GET         /collect/del/$collectId<[0-9]+>                                    c
 POST        /collect/submit                                                    controllers.UserCtrl.submitCollect()
 
 POST        /service                                                           controllers.UserCtrl.service()
-POST        /order/apply/refund                                                controllers.UserCtrl.refundApply()
+POST        /order/apply/refund/$type<[0-9]+>                                  controllers.UserCtrl.refundApply(type:Integer)
 
 #我的拼购
 GET         /mypin                                                             controllers.UserCtrl.mypin()

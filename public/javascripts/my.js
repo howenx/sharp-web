@@ -391,7 +391,7 @@ $(document).on("click", ".box-btn", function() {
     } else {
         $.ajax({
             type: "POST",
-            url: "/order/apply/refund",
+            url: "/order/apply/refund/1",
             data: $('form#cell_refForm').serialize(),
             success: function(data) {
                 console.log(data);
@@ -469,14 +469,14 @@ $(document).on("click", ".refundBtnCss", function() {
     var telReg=new RegExp(/^[1][345678]\d{9}/);
     if(null==reason||""==reason||reason.length>200){
         tip("亲,请填写退款说明,200字以内");
-    } if (""!=contactName&&null!=contactName&&(contactName.length>15||!zszReg.test(contactName))) {
+    } else if (""!=contactName&&null!=contactName&&(contactName.length>15||!zszReg.test(contactName))) {
          tip('姓名只能是中文/数字/字母');
-     }else if (""!=contactTel&&null!=contactTel&&(contactTel.length!=11 ||!telReg.test(contactTel))) {
+    }else if (""!=contactTel&&null!=contactTel&&(contactTel.length!=11 ||!telReg.test(contactTel))) {
           tip('请填写正确的手机号码');
-     }else{
+    }else{
         $.ajax({
             type: "POST",
-            url: "/order/apply/refund",
+            url: "/order/apply/refund/2",
             data: $('form#cell_refForm').serialize(),
             success: function(data) {
                 console.log(data);
@@ -484,6 +484,8 @@ $(document).on("click", ".refundBtnCss", function() {
                     $(".box-btn").html("提交成功");
                     setTimeout(function(){$('.shade').hide();},2000);
                     window.location.href = "/all?orderId="+orderId
+                }else{
+                     tip(data.message);
                 }
             }
 
