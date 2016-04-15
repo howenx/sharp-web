@@ -20,7 +20,7 @@ GET         /collect/del/$collectId<[0-9]+>                                    c
 POST        /collect/submit                                                    controllers.UserCtrl.submitCollect()
 
 POST        /service                                                           controllers.UserCtrl.service()
-POST        /order/apply/refund                                                controllers.UserCtrl.refundApply()
+POST        /order/apply/refund/$type<[0-9]+>                                  controllers.UserCtrl.refundApply(type:Integer)
 
 #我的拼购
 GET         /mypin                                                             controllers.UserCtrl.mypin()
@@ -87,7 +87,7 @@ GET         /order/del/$orderId<[0-9]+>                                        c
 GET         /order/verify/$orderId<[0-9]+>                                     controllers.ShoppingCtrl.verifyOrder(orderId:Long)
 POST        /order/submit                                                      controllers.ShoppingCtrl.submitOrder()
 GET         /down                                                              controllers.ShoppingCtrl.down()
-GET       /refundment                                                        controllers.ShoppingCtrl.refundment()
+POST        /refundment                                                        controllers.ShoppingCtrl.refundment()
 
 POST        /cart/add                                                          controllers.ShoppingCtrl.cartAdd()
 GET         /cart/del/$cartId<[0-9]+>                                          controllers.ShoppingCtrl.cartDel(cartId:Long)

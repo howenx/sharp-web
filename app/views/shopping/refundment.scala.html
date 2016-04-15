@@ -27,7 +27,7 @@
         <div class="explain">
             <h3 class="explain-hd">退款说明:</h3>
             <section>
-                <textarea class="" cols="140" name="reason" placeholder="最多200个字"></textarea>
+                <textarea class="" cols="140" name="reason" placeholder="最多200个字" id="reason"></textarea>
             </section>
         </div>
 
@@ -39,17 +39,17 @@
         <div class="explain">
             <h3 class="field-hd">选填写 ( 非必填 )</h3>
             <section>
-                <input type="text" class="man" placeholder="联系人:" name="contactName" value="dddd">
-                <input type="text" placeholder="联系电话:" name="contactTel" value="13716311853">
+                <input type="text" class="man" placeholder="联系人:" name="contactName" id="contactName">
+                <input type="text" placeholder="联系电话:" name="contactTel" id="contactTel">
 
             </section>
         </div>
 
 
-        <input type="hidden" name="orderId" value="@orderId">
+        <input type="hidden" name="orderId" value="@orderId" id="orderId">
         <input type="hidden" name="splitOrderId" value="@splitOrderId">
         <input type="hidden" name="payBackFee" value="@payBackFee">
-
+        <input type="hidden" name="refundType" value="deliver">
         <input type="hidden" name="skuId" value="0">
         <input type="hidden" name="amount" value="1">
         <a href="javascript:;" class="refundBtnCss" >申请</a>
@@ -57,6 +57,6 @@
 
     </div>
    </form>
-
+    <div class="hint" id="tip" style="display:none"></div>
 </body>
 </html>

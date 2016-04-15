@@ -276,7 +276,7 @@ public class UserCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-            //         Logger.info("===json==" + json);
+                     Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回数据错误code=" + json);
@@ -1178,49 +1178,63 @@ public class UserCtrl extends Controller {
      * @return
      */
     @Security.Authenticated(UserAuth.class)
-    public F.Promise<Result> refundApply() {
+    public F.Promise<Result> refundApply(Integer type) {
         ObjectNode result = newObject();
-        Form<RefundInfo> refundInfoForm = Form.form(RefundInfo.class).bindFromRequest();
-        Map<String, String> map = refundInfoForm.data();
-        Logger.error("map:"+map.toString());
-        if (refundInfoForm.hasErrors()) {
-            result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
-            return Promise.promise((Function0<Result>) () -> ok(result));
-        } else {
-            Promise<JsonNode> promiseOfInt;
-            promiseOfInt = Promise.promise(() -> {
-              //  RequestBody formBody = RequestBody.create(MEDIA_TYPE_MULTIPART, new String(Form.form().bindFromRequest().data().toString()));
-                Request.Builder builder = (Request.Builder) ctx().args.get("request");
-                RequestBody requestBody = new MultipartBuilder()
-                        .type(MultipartBuilder.FORM)
-                        .addFormDataPart("orderId", null==map.get("orderId")?"":map.get("orderId"))
-                        .addFormDataPart("splitOrderId", null==map.get("splitOrderId")?"":map.get("splitOrderId"))
-                        .addFormDataPart("skuId", null==map.get("skuId")?"":map.get("skuId"))
-                        .addFormDataPart("reason", null==map.get("reason")?"":map.get("reason"))
-                        .addFormDataPart("amount", null==map.get("amount")?"":map.get("amount"))
-                        .addFormDataPart("contactName", null==map.get("contactName")?"":map.get("contactName"))
-                        .addFormDataPart("contactTel", null==map.get("contactTel")?"":map.get("contactTel"))
-                        .addFormDataPart("payBackFee", null==map.get("payBackFee")?"":map.get("payBackFee"))
-                        .addFormDataPart("refundType", null==map.get("refundType")?"":map.get("refundType"))
+        Map<String, String> map =new HashMap<>();
+        if(type==1) {
+            Form<RefundInfo> refundInfoForm = Form.form(RefundInfo.class).bindFromRequest();
+            map=refundInfoForm.data();
+            Logger.error("map:" + map.toString());
+            if (refundInfoForm.hasErrors()) {
+                result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
+                return Promise.promise((Function0<Result>) () -> ok(result));
+            }
+        }else{
+            Form<ApplyRefundInfo> refundInfoForm = Form.form(ApplyRefundInfo.class).bindFromRequest();
+            map=refundInfoForm.data();
+            Logger.error("map:" + map.toString());
+            if (refundInfoForm.hasErrors()) {
+                result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
+                return Promise.promise((Function0<Result>) () -> ok(result));
+            }
+
+        }
+
+        Promise<JsonNode> promiseOfInt;
+        final Map<String, String> finalMap = map;
+        promiseOfInt = Promise.promise(() -> {
+          //  RequestBody formBody = RequestBody.create(MEDIA_TYPE_MULTIPART, new String(Form.form().bindFromRequest().data().toString()));
+            Request.Builder builder = (Request.Builder) ctx().args.get("request");
+            RequestBody requestBody = new MultipartBuilder()
+                    .type(MultipartBuilder.FORM)
+                    .addFormDataPart("orderId", null== finalMap.get("orderId")?"": finalMap.get("orderId"))
+                    .addFormDataPart("splitOrderId", null== finalMap.get("splitOrderId")?"": finalMap.get("splitOrderId"))
+                    .addFormDataPart("skuId", null== finalMap.get("skuId")?"": finalMap.get("skuId"))
+                    .addFormDataPart("reason", null== finalMap.get("reason")?"": finalMap.get("reason"))
+                    .addFormDataPart("amount", null== finalMap.get("amount")?"": finalMap.get("amount"))
+                    .addFormDataPart("contactName", null== finalMap.get("contactName")?"": finalMap.get("contactName"))
+                    .addFormDataPart("contactTel", null== finalMap.get("contactTel")?"": finalMap.get("contactTel"))
+                    .addFormDataPart("payBackFee", null== finalMap.get("payBackFee")?"0": finalMap.get("payBackFee"))
+                    .addFormDataPart("refundType", null== finalMap.get("refundType")?"deliver": finalMap.get("refundType"))
 //                        .addFormDataPart("refundImg1", "1.jpg", RequestBody.create(MEDIA_TYPE_PNG, bytes))
 //                        .addFormDataPart("refundImg2", "2.jpg", RequestBody.create(MEDIA_TYPE_PNG, bytes))
 //                        .addFormDataPart("refundImg3", "3.jpg", RequestBody.create(MEDIA_TYPE_PNG, bytes))
-                        .build();
+                    .build();
 
-                Request request = builder.url(ORDER_REFUND).post(requestBody).build();
-                Response response = client.newCall(request).execute();
-                Logger.error("响应:"+response.toString());
-                if (response.isSuccessful()) {
-                    return Json.parse(new String(response.body().bytes(), UTF_8));
-                } else throw new IOException("Unexpected code" + response);
-            });
+            Request request = builder.url(ORDER_REFUND).post(requestBody).build();
+            Response response = client.newCall(request).execute();
+            Logger.error("响应:"+response.toString());
+            if (response.isSuccessful()) {
+                return Json.parse(new String(response.body().bytes(), UTF_8));
+            } else throw new IOException("Unexpected code" + response);
+        });
 
-            return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-                Message message = Json.fromJson(json.findValue("message"), Message.class);
-                Logger.error(json.toString()+"-----"+message.toString());
-                return ok(Json.toJson(message));
-            });
-        }
+        return promiseOfInt.map((Function<JsonNode, Result>) json -> {
+            Message message = Json.fromJson(json.findValue("message"), Message.class);
+            Logger.error(json.toString()+"-----"+message.toString());
+            return ok(Json.toJson(message));
+        });
+
 
     }
 

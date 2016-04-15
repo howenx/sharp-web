@@ -11,7 +11,7 @@ public class OrderDTO implements Serializable {
     private Address address;
     private Order order;
     private List<CartSkuDto> sku;
-
+    private Refund refund;
 
     public Address getAddress() {
         return address;
@@ -35,5 +35,13 @@ public class OrderDTO implements Serializable {
 
     public void setSku(List<CartSkuDto> sku) {
         this.sku = sku;
+    }
+
+    public Refund getRefund() {
+        return refund;
+    }
+
+    public void setRefund(Refund refund) {
+        this.refund = refund;
     }
 }
