@@ -113,12 +113,31 @@
     }
 
 
-    <!--添加的失效-->
-    <div class=" areaAndSku-s">
+    <div class="areaAndSku">
+        <div class="cart-goods-area">
+            <div class="check-wrapper">
+                <input type="checkbox" class="areac check" name="check_item">
+            </div>
+            <span class="area">杭州保税仓直邮</span>
+
+            <div class="xs postalCss" style="display:none;">行邮税: ￥<span>66.00</span></div>
+
+            <input type="hidden" class="postalLimit" value="1000">
+            <div id="hiddenArea0" class="hiddenArea">
+                <input type="hidden" name="invCustoms0" value="hangzhou" disabled="disabled">
+                <input type="hidden" name="invArea0" value="HZ" disabled="disabled" class="invAreaCss">
+                <input type="hidden" name="invAreaNm0" value="杭州保税仓直邮" disabled="disabled">
+                <input type="hidden" name="cartNum0" value="1" disabled="disabled">
+            </div>
+        </div>
+
         <ul class="cart-goods-list">
+
             <li id="li502412">
                 <div class="item">
-                    <div class="check-wrapper abate"></div>
+                    <div class="check-wrapper">
+                        <input type="checkbox" class="check-one check" name="check_item">
+                    </div>
                     <div class="item-con">
                         <a href="javascript:;" class="item-con-l" target="_top">
                             <img src="http://img.hanmimei.com/item/photo/20160407/ce7626df0cf94207a7fdf302354b24371460016222457.jpg" alt="">
@@ -134,6 +153,57 @@
                                     ￥<span class="price">100</span>
                                     <span class="spec">蓝色 100ml</span>
                                 </div>
+                                <div class="cart-product-price-r">
+                                    小计:￥<span class="subtotal">600</span>
+                                </div>
+                            </div>
+                            <div class="cart-product-number">
+                                <a href="javascript:;" class="quantity-decrease">-</a>
+                                <input type="text" class="quantity" value="6">
+                                <a href="javascript:;" class="quantity-increase">+</a>
+                                <i class="cart-del-btn" onclick="delCart(502412)"></i>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div id="hiddenSku0-0" class="hiddenSku">
+                        <input type="hidden" name="cartId0-0" value="502412" class="cartId">
+                        <input type="hidden" name="skuId0-0" value="112542" class="skuId">
+                        <input type="hidden" name="amount0-0" value="6" class="amount">
+                        <input type="hidden" name="skuType0-0" value="item" class="skuType">
+                        <input type="hidden" name="skuTypeId0-0" value="112542" class="skuTypeId">
+                        <input type="hidden" name="state0-0" value="I" class="state">
+                        <input type="hidden" name="pinTieredPriceId0-0" value="0">
+                        <input type="hidden" name="skuTitle0-0" value="海外商品">
+                        <input type="hidden" name="skuInvImg0-0" value="http://img.hanmimei.com/item/photo/20160407/ce7626df0cf94207a7fdf302354b24371460016222457.jpg">
+                        <input type="hidden" name="skuPrice0-0" value="100">
+                    </div>
+                </div>
+                <input type="hidden" class="restrictAmountCss" value="99">
+                <input type="hidden" class="postalTaxRateCss" value="">
+            </li>
+
+            <!--失效-->
+            <li class="areaAndSku-s" id="li502412">
+                <div class="item">
+                    <div class="check-wrapper abate">
+                    </div>
+                    <div class="item-con">
+                        <a href="javascript:;" class="item-con-l" target="_top">
+                            <img src="http://img.hanmimei.com/item/photo/20160407/ce7626df0cf94207a7fdf302354b24371460016222457.jpg" alt="">
+                        </a>
+                        <div class="item-con-r">
+                            <div class="cart-product-name">
+                                <a href="/detail/item/889640/112542" target="_top" class="item-con-hd">
+                                    <span>海外商品</span>
+                                </a>
+                            </div>
+                            <div class="cart-product-price">
+                                <div class="cart-product-price-l">
+                                    ￥<span class="price">100</span>
+                                    <span class="spec">蓝色 100ml</span>
+                                </div>
+
                             </div>
                             <div class="cart-product-number">
                                 <a href="javascript:;" class="quantity-decrease">-</a>
@@ -160,57 +230,11 @@
                 <input type="hidden" class="postalTaxRateCss" value="">
             </li>
 
-        </ul>
-    </div>
-
-    <div class=" areaAndSku-s">
-        <ul class="cart-goods-list">
-            <li id="li502412">
-                <div class="item">
-                    <div class="check-wrapper abate"></div>
-                    <div class="item-con">
-                        <a href="javascript:;" class="item-con-l" target="_top">
-                            <img src="http://img.hanmimei.com/item/photo/20160407/ce7626df0cf94207a7fdf302354b24371460016222457.jpg" alt="">
-                        </a>
-                        <div class="item-con-r">
-                            <div class="cart-product-name">
-                                <a href="/detail/item/889640/112542" target="_top" class="item-con-hd">
-                                    <span>海外商品</span>
-                                </a>
-                            </div>
-                            <div class="cart-product-price">
-                                <div class="cart-product-price-l">
-                                    ￥<span class="price">100</span>
-                                    <span class="spec">蓝色 100ml</span>
-                                </div>
-                            </div>
-                            <div class="cart-product-number">
-                                <a href="javascript:;" class="quantity-decrease">-</a>
-                                <input type="text" class="quantity" value="6">
-                                <a href="javascript:;" class="quantity-increase">+</a>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div id="hiddenSku0-0" class="hiddenSku">
-                        <input type="hidden" name="cartId0-0" value="502412" disabled="disabled" class="cartId">
-                        <input type="hidden" name="skuId0-0" value="112542" disabled="disabled" class="skuId">
-                        <input type="hidden" name="amount0-0" value="6" disabled="disabled" class="amount">
-                        <input type="hidden" name="skuType0-0" value="item" disabled="disabled" class="skuType">
-                        <input type="hidden" name="skuTypeId0-0" value="112542" disabled="disabled" class="skuTypeId">
-                        <input type="hidden" name="state0-0" value="I" disabled="disabled" class="state">
-                        <input type="hidden" name="pinTieredPriceId0-0" value="0" disabled="disabled">
-                        <input type="hidden" name="skuTitle0-0" value="海外商品" disabled="disabled">
-                        <input type="hidden" name="skuInvImg0-0" value="http://img.hanmimei.com/item/photo/20160407/ce7626df0cf94207a7fdf302354b24371460016222457.jpg" disabled="disabled">
-                        <input type="hidden" name="skuPrice0-0" value="100" disabled="disabled">
-                    </div>
-                </div>
-                <input type="hidden" class="restrictAmountCss" value="99">
-                <input type="hidden" class="postalTaxRateCss" value="">
-            </li>
 
         </ul>
     </div>
+
+
 
 </div>
 <div class="hint" id="tip" style="display:none"></div>
