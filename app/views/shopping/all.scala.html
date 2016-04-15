@@ -205,22 +205,22 @@
                             }
                             @if(order.getOrder().getOrderStatus()=="D"){
                                 <div class="payment clearfix">
-<<<<<<< HEAD
+
                                     <a href="javascript:;" class="right">查看物流</a>
-=======
+
                                     <a href="/logistic/@order.getOrder().getOrderId()" class="left">查看物流</a>
                                     <a href="javascript:;" class="right bg" onclick="orderConfirmDelivery(@order.getOrder().getOrderId())">确认收货</a>
->>>>>>> 931b368a3f095c674a5dea206ab059c272ca4aa0
+
                                 </div>
                             }
                             @if(order.getOrder().getOrderStatus()=="C"||order.getOrder().getOrderStatus()=="R"){
                                 <div class="payment clearfix">
-<<<<<<< HEAD
+
                                     <a href="javascript:;" class="right " onclick="delOrder(@order.getOrder().getOrderId(),0)">删除订单</a>
-=======
+
                                     <a href="/logistic/@order.getOrder().getOrderId()" class="left">查看物流</a>
                                     <a href="javascript:;" class="right bg discolour right-r" onclick="delOrder(@order.getOrder().getOrderId(),0)">删除</a>
->>>>>>> 931b368a3f095c674a5dea206ab059c272ca4aa0
+
                                 </div>
                             }
 
@@ -308,12 +308,12 @@
                                     </a>
                                     }
                                     <div class="payment clearfix">
-<<<<<<< HEAD
+
                                         <a href="javascript:;" class="right discolour">查看物流</a>
-=======
+
                                         <a href="/logistic/@order.getOrder().getOrderId()" class="left">查看物流</a>
                                         <a href="javascript:;" class="right bg" onclick="orderConfirmDelivery(@order.getOrder().getOrderId())">确认收货</a>
->>>>>>> 931b368a3f095c674a5dea206ab059c272ca4aa0
+
                                     </div>
                                 </div>
                             </li>

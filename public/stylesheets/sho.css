@@ -406,9 +406,17 @@ input:password {
     z-index:999;
 }
 
+.areaAndSku-s:last-child{
+    margin: 0 0 50px 0;
+}
+
 .areaAndSku-s li{
     background: url("/assets/images/shixiao.png") bottom right no-repeat #ededed;
     background-size:60px;
 
 }
 
+
+.abate{
+    background: url("/assets/images/select-.png") no-repeat;
+}
