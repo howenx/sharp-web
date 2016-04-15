@@ -406,3 +406,9 @@ input:password {
     z-index:999;
 }
 
+.areaAndSku-s li{
+    background: url("/assets/images/shixiao.png") bottom right no-repeat #ededed;
+    background-size:60px;
+
+}
+

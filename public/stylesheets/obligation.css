@@ -147,10 +147,13 @@ span .number{
     margin: 10px 0 0 0;
     display: block;
     height: 30px;
-    color: #fff;
-    text-align: center;
-    font-size: 14;
+    font-size: 12px;
+    border-radius: 3px;
+    border: 1px solid #ededed;
     line-height: 30px;
+    color: #666;
+    width: 60px;
+    text-align: center;
 }
 .payment .left{
     float: left;
@@ -158,14 +161,17 @@ span .number{
 
 .payment .right{
     float:right;
-
-
 }
 
 .payment .mi{
     color:#E66255;
-
+    border: none;
     margin:10px 10px 0 0;
+    float: right;
+    font-size: 12px;
+    display: inline-block;
+    line-height: 30px;
+
 }
 
 .duein a{
@@ -407,16 +413,15 @@ span .number{
     text-align: center;
 }
 
-.right-r{
-    padding:0 10px;
-    width: 70px;
-}
-
 .size{
     font-size: 14px;
 }
 
+.payment .red{
 
+    border: 1px solid #FF5359;
+    color: #FF5359;
+}
 
 
 
