@@ -39,6 +39,8 @@ public class SysParCom {
     public static String ORDER_DEL;//删除订单
     public static String ORDER_REFUND;//申请售后
     public static String ORDER_VERIFY;//订单校验
+    public static String ORDER_EXPRESS;//查看物流
+    public static String ORDER_CONFIRM;//确认收货
 
     public static String PIN_LIST;//我的拼团
     public static String PIN_ACTIVITY;//拼团活动
@@ -131,6 +133,8 @@ public class SysParCom {
         ORDER_DEL=configuration.getString("shopping.order.del");
         ORDER_REFUND=configuration.getString("shopping.order.refund");
         ORDER_VERIFY=configuration.getString("shopping.order.verify");
+        ORDER_EXPRESS=configuration.getString("shopping.order.express");
+        ORDER_CONFIRM=configuration.getString("shopping.order.confirm");
 
         //我的拼团
         PIN_LIST=configuration.getString("promotion.pin.list");

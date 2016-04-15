@@ -1,4 +1,4 @@
-@(orderId:String,splitOrderId:String,payBackFee:String)
+@(orderId:String,splitOrderId:String,payBackFee:String,orderStatus:String)
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -49,7 +49,12 @@
         <input type="hidden" name="orderId" value="@orderId" id="orderId">
         <input type="hidden" name="splitOrderId" value="@splitOrderId">
         <input type="hidden" name="payBackFee" value="@payBackFee">
-        <input type="hidden" name="refundType" value="deliver">
+        @if(orderStatus!="S"){
+            <input type="hidden" name="refundType" value="receive">
+        }
+        @if(orderStatus=="S"){
+            <input type="hidden" name="refundType" value="deliver">
+        }
         <input type="hidden" name="skuId" value="0">
         <input type="hidden" name="amount" value="1">
         <a href="javascript:;" class="refundBtnCss" >申请</a>

@@ -114,26 +114,27 @@ $(document).on("click",".cancelColl",function(e){
      });
 })
 
-$(document).on("click",".cancelOrder",function(e){
-    e.preventDefault();
-    var id=$(this).parents("li").val();
-    console.log("id="+id);
-    $.ajax({
-          type :"GET",
-          url : "/order/cancel/"+id,
-          contentType: "application/json; charset=utf-8",
-          error : function(request) {
-              tip("取消订单失败!");
-          },
-          success: function(data) {
-             console.log("data="+data);
+$(document).on("click",".cancelOrder",function(){
+    if (window.confirm("亲,您确定要取消订单吗")) {
+        var id=$(this).parents("li").val();
+        console.log("id="+id);
+        $.ajax({
+              type :"GET",
+              url : "/order/cancel/"+id,
+              contentType: "application/json; charset=utf-8",
+              error : function(request) {
+                  tip("取消订单失败!");
+              },
+              success: function(data) {
+                 console.log("data="+data);
 
-               if(data.code==200){ //取消订单成功
-                 setTimeout("location.href='/all'", 3000);
-               } else tip("取消订单失败!");
+                   if(data.code==200){ //取消订单成功
+                     setTimeout("location.href='/all'", 3000);
+                   } else tip("取消订单失败!");
 
-          }
-     });
+              }
+         });
+     }
 })
 
 $(document).on("click",".delOrder",function(e){
@@ -449,12 +450,14 @@ $(document).on("click", ".applyRefundCss", function() {
     var orderId = $("#orderId").text();
     var splitOrderId=$("#orderSplitId").val();
     var payBackFee=$("#payBackFee").text();
+    var orderStatus=$("#orderStatus").val();
 
     var url = '/refundment';
     var form = $('<form action="' + url + '" method="post">' +
     '<input type="hidden" name="orderId" value="' + orderId + '" />' +
     '<input type="hidden" name="splitOrderId" value="' + splitOrderId + '" />' +
     '<input type="hidden" name="payBackFee" value="' + payBackFee + '" />' +
+    '<input type="hidden" name="orderStatus" value="' + orderStatus + '" />' +
     '</form>');
     form.submit();
 });
@@ -492,3 +495,25 @@ $(document).on("click", ".refundBtnCss", function() {
         });
     }
 });
+
+//确认收货
+function orderConfirmDelivery(orderId){
+    if (window.confirm("亲,您确认收到货物了吗?")) {
+         $.ajax({
+                  type :"GET",
+                  url : "/order/confirm/delivery/"+orderId,
+                  contentType: "application/json; charset=utf-8",
+                  dataType:"json",
+                  error : function(request) {
+                      tip("操作失败!");
+                  },
+                  success: function(data) {
+
+                      if (data.code==200){ //成功
+                         window.location.href = "/all";
+                       }
+                       else tip(data.message);
+                  }
+         });
+    }
+}

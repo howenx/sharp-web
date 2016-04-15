@@ -76,7 +76,7 @@ GET         /appraise                                                          c
 GET         /assess                                                            controllers.ShoppingCtrl.assess()
 GET         /delivered                                                         controllers.ShoppingCtrl.delivered()
 GET         /drawback                                                          controllers.ShoppingCtrl.drawback()
-GET         /logistic                                                          controllers.ShoppingCtrl.logistic()
+GET         /logistic/$orderId<[0-9]+>                                         controllers.ShoppingCtrl.logistic(orderId: Long)
 GET         /obligati                                                          controllers.ShoppingCtrl.obligati()
 GET         /orders                                                            controllers.ShoppingCtrl.orders()
 POST        /settle                                                            controllers.ShoppingCtrl.settle()
@@ -93,6 +93,8 @@ POST        /cart/add                                                          c
 GET         /cart/del/$cartId<[0-9]+>                                          controllers.ShoppingCtrl.cartDel(cartId:Long)
 GET         /cart/amount                                                       controllers.ShoppingCtrl.cartAmount()
 POST        /cart/nologin/verify/amount                                        controllers.ShoppingCtrl.verifySkuAmount()
+GET         /order/confirm/delivery/$orderId<[0-9]+>                           controllers.ShoppingCtrl.orderConfirmDelivery(orderId:Long)
+
 #
 
 
