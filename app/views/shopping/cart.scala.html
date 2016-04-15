@@ -57,11 +57,22 @@
         <ul class="cart-goods-list">
 
             @for((cartInfo,skuIndex)<-cart.getCarts().zipWithIndex){
-                <li id="li@cartInfo.getCartId()">
+                @if(cartInfo.getState()=="S"){
+                    <li id="li@cartInfo.getCartId()" class="areaAndSku-s" >
+                }
+                @if(cartInfo.getState()!="S"){
+                    <li id="li@cartInfo.getCartId()">
+                }
                     <div class="item">
-                        <div class="check-wrapper">
-                            <input type="checkbox" class="check-one check"  name="check_item" />
+                        @if(cartInfo.getState()=="S"){
+                        <div class="check-wrapper abate">
                         </div>
+                        }
+                        @if(cartInfo.getState()!="S"){
+                            <div class="check-wrapper">
+                                <input type="checkbox" class="check-one check"  name="check_item" />
+                            </div>
+                        }
                         <div class="item-con">
                             <a href="javascript:;" class="item-con-l" target="_top">
                                 <img src="@cartInfo.getInvImg()" alt=""/>
@@ -90,6 +101,7 @@
                             </div>
 
                         </div>
+                        @if(cartInfo.getState()!="S"){
                         <div id="hiddenSku@index-@skuIndex" class="hiddenSku">
                             <input type="hidden" name="cartId@index-@skuIndex" value="@cartInfo.getCartId()" disabled="disabled" class="cartId"/>
                             <input type="hidden" name="skuId@index-@skuIndex" value="@cartInfo.getSkuId()" disabled="disabled" class="skuId"/>
@@ -102,6 +114,7 @@
                             <input type="hidden" name="skuInvImg@index-@skuIndex" value="@cartInfo.getInvImg()" disabled="disabled"/>
                             <input type="hidden" name="skuPrice@index-@skuIndex" value="@cartInfo.getItemPrice()" disabled="disabled"/>
                         </div>
+                        }
                     </div>
                     <input type="hidden" class="restrictAmountCss" value="@cartInfo.getRestrictAmount()"/>
                     <input type="hidden" class="postalTaxRateCss" value="@cartInfo.getPostalTaxRate()"/>
@@ -112,7 +125,7 @@
     }
 
 
-
+<!--
     <div class="areaAndSku">
         <div class="cart-goods-area">
             <div class="check-wrapper">
@@ -183,7 +196,7 @@
                 <input type="hidden" class="postalTaxRateCss" value="">
             </li>
 
-            <!--失效-->
+
             <li class="areaAndSku-s" id="li502412">
                 <div class="item">
                     <div class="check-wrapper abate">
@@ -233,7 +246,7 @@
 
         </ul>
     </div>
-
+-->
 
 
 </div>
