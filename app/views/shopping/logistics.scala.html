@@ -32,15 +32,16 @@
 
         <div class="logistics-r">
             <span>物流状态: <i>
-                @if(logistics.getStatus()=="0"){在途}
-                @if(logistics.getStatus()=="1"){揽件}
-                @if(logistics.getStatus()=="2"){疑难}
-                @if(logistics.getStatus()=="3"){签收}
-                @if(logistics.getStatus()=="4"){退签}
-                @if(logistics.getStatus()=="5"){派件}
-                @if(logistics.getStatus()=="6"){退回}
+                @if(logistics.getState()=="0"){在途中}
+                @if(logistics.getState()=="1"){已揽收}
+                @if(logistics.getState()=="2"){疑难}
+                @if(logistics.getState()=="3"){已签收}
+                @if(logistics.getState()=="4"){退签}
+                @if(logistics.getState()=="5"){同城派送中}
+                @if(logistics.getState()=="6"){退回}
+                @if(logistics.getState()=="7"){转单}
             </i></span>
-            <span>承运来源: <i>@logistics.getCompanytype()</i></span>
+            <span>承运来源: <i>@logistics.getExpressName()</i></span>
             <span>运单号: <i>@logistics.getNu()</i></span>
 
            <!-- <span>官方号码: <i class="nub">95546</i></span>-->

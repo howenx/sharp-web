@@ -94,7 +94,7 @@ public class ShoppingCtrl extends Controller {
     //退款
     public Result refundment() {
         Map<String, String> map = Form.form().bindFromRequest().data();
-        return ok(views.html.shopping.refundment.render(map.get("orderId"),map.get("splitOrderId"),map.get("payBackFee")));
+        return ok(views.html.shopping.refundment.render(map.get("orderId"),map.get("splitOrderId"),map.get("payBackFee"),map.get("orderStatus")));
     }
 
     //

@@ -25,6 +25,7 @@ public class LogisticsDTO {
     private String pickuptime;
     private String comurl;
     private List<LogisticsDataDTO> data;
+    private String expressName;
 
     public String getNu() {
         return nu;
@@ -168,5 +169,13 @@ public class LogisticsDTO {
 
     public void setData(List<LogisticsDataDTO> data) {
         this.data = data;
+    }
+
+    public String getExpressName() {
+        return expressName;
+    }
+
+    public void setExpressName(String expressName) {
+        this.expressName = expressName;
     }
 }

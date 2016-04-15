@@ -450,12 +450,14 @@ $(document).on("click", ".applyRefundCss", function() {
     var orderId = $("#orderId").text();
     var splitOrderId=$("#orderSplitId").val();
     var payBackFee=$("#payBackFee").text();
+    var orderStatus=$("#orderStatus").val();
 
     var url = '/refundment';
     var form = $('<form action="' + url + '" method="post">' +
     '<input type="hidden" name="orderId" value="' + orderId + '" />' +
     '<input type="hidden" name="splitOrderId" value="' + splitOrderId + '" />' +
     '<input type="hidden" name="payBackFee" value="' + payBackFee + '" />' +
+    '<input type="hidden" name="orderStatus" value="' + orderStatus + '" />' +
     '</form>');
     form.submit();
 });
