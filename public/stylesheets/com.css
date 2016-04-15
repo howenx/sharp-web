@@ -188,20 +188,23 @@
 input[type=checkbox]{
     -webkit-appearance: none;
     appearance: none;
-    width:18px;
-    height:18px;
+    width: 22px;
+    height: 20px;
     cursor: pointer;
     vertical-align: bottom;
-    border:1px solid #666;
+    /* border: 1px solid #666; */
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
+    background: url("/assets/images/select-.png") no-repeat;
+    background-size: 20px;
     border-radius: 50%;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     position: relative;
-    /*overflow: hidden; */
+
 }
+
 input[name=check_all]{
     border: 2px solid #fff;
 }

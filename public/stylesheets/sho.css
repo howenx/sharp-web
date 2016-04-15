@@ -98,7 +98,7 @@ input:password {
     position: absolute;
     top: 50%;
     left:-10px;/*这里修改了*/
-    margin-top: -10px;
+    margin: -10px 0 0 -5px;
 }
 
 .item-con-hd{
