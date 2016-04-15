@@ -10,15 +10,15 @@ body{
 
 .logistics-hd{
     width:100%;
-    height:140px;
+
     background-color: #fff;
-    padding:20px 2%;
-    font-size: 16px;
+    padding:10px 2%;
     border-bottom: 1px solid #e1e1e1;
 
 }
 .logistics-l,.logistics-r{
-    float: left;
+
+    color: #666;
 }
 .logistics-l{
     margin: 0 2% 0 0 ;
@@ -29,16 +29,11 @@ body{
 }
 .logistics-r span{
     display: block;
-    margin: 0 0 5px 0;
+    margin: 0 0 10px 0;
 }
 .nub{
     color:#87C0FA;
 }
-
-
-
-
-
 
 
 .logis-hd{
@@ -46,13 +41,13 @@ body{
     line-height:50px;
     font-size: 18px;
     color: #565656;
-    border-bottom: 1px solid #e1e1e1;
+    border-bottom: 1px solid #ededed;
 }
 
 .logistics-fd{
     background-color: #fff;
     margin: 20px 0 0 0;
-    border-top: 1px solid #e1e1e1;
+    border-top: 1px solid #ededed;
     padding:0 2%;
 }
 
@@ -75,17 +70,17 @@ body{
 
 .logis-content{
     padding:10px 0;
-    border-bottom: 1px solid #e1e1e1;
+    border-bottom: 1px solid #ededed;
 }
 
 .logis-box::after{
     content: '';
     display: inline-block;
     position: absolute;
-    left: -6px;
+    left: -9px;
     top: 30px;
-    width: 6px;
-    height: 6px;
+    width: 10px;
+    height: 10px;
     -webkit-border-radius: 10px;
     background: #BDBDBD;
     border: 2px solid #EEE;
@@ -96,18 +91,43 @@ body{
     background: #F40;
 }
 
+.logis-content-timer{
+    margin: 5px 0 0 0;
+}
+
+.phone{
+    color: #6BA7E5;
+}
+
+.logis-l{
+
+}
 
 
+.logis-r img{
+    width:50px;
+    height:50px;
+    border-radius: 50%;
+}
 
 
+.logis-l{
+    width:70%;
+}
+.man-box{
+    position: relative;
+}
 
-
-
-
-
-
-
-
+.logis-r{
+   position: absolute;
+    top:50%;
+    right: 5px;
+    width:20%;
+    -webkit-transform: translate(0,-50%);
+}
+.man,.man-timer{
+    display: block;
+}
 
 
 
