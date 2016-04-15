@@ -430,6 +430,8 @@ public class ComCtrl extends Controller {
             if(hisUrl.equals(ctx.request().uri())){
                 if(stack.size()>=2){
                     hisUrl=stack.get(stack.size()-2);
+                }else{
+                    hisUrl="/";
                 }
             }
         }
@@ -444,47 +446,50 @@ public class ComCtrl extends Controller {
         //用栈记录上一次访问的页面
         String url=ctx.request().uri();
         String key=cacheHistoryKey(getCookieUUID(ctx));
-        List<String> stack = (List<String>) cache.get(key);
-        if("/".equals(url)&&null!=stack){ //首页清一下返回
-            stack.clear();
-            cache.set(key,60*60,stack);
+        List<String> list = (List<String>) cache.get(key);
+        if("/".equals(url)&&null!=list){ //首页清一下返回
+            list.clear();
+            cache.set(key,60*60,list);
             return "/";
         }
         String hisUrl="/";
-        if(null!=stack&&stack.size()>0){
-//            for(int i=stack.size()-1;i>=0;i--){
-//                Logger.info("===>"+stack.get(i));
+        if(null!=list&&list.size()>0){
+//            for(int i=list.size()-1;i>=0;i--){
+//                Logger.info("===>"+list.get(i));
 //
 //            }
-       // Logger.info(url+"===pushOrPopHistoryUrl===="+url.equals(stack.get(stack.size()-1))+"==stack.peek=="+stack.get(stack.size()-1));
-            if(url.equals(stack.get(stack.size()-1))||(stack.size()>=2&&url.equals(stack.get(stack.size()-2)))){
+       // Logger.info(url+"===pushOrPopHistoryUrl===="+url.equals(list.get(list.size()-1))+"==list.peek=="+list.get(list.size()-1));
+            if(url.equals(list.get(list.size()-1))||(list.size()>=2&&url.equals(list.get(list.size()-2)))){
                 //路线1:主题——>详情-->返回主题-->详情-->返回主题
                 //路线2:主题——>详情-->购物车-->详情-->返回购物车-->返回
                 //路线3:拼购路线返回
-                stack.remove(stack.size()-1);//是上一次访问记录
-                if(!stack.isEmpty()){
-                    hisUrl=stack.get(stack.size()-1);
+                //路线4:首页-->购物车-->详情-->返回购物车-->返回
+                list.remove(list.size()-1);//是上一次访问记录
+                if(!list.isEmpty()){
+                    hisUrl=list.get(list.size()-1);
                     if(hisUrl.equals(url)){
-                        if(stack.size()>=2){
-                            hisUrl=stack.get(stack.size()-2);
+                        if(list.size()>=2){
+                            hisUrl=list.get(list.size()-2);
+                        }else{
+                            hisUrl="/";
                         }
                     }
                 }
-                cache.set(key,60*60,stack);
-               // Logger.info("====pop==url==="+url+"==hisUrl="+hisUrl);
+                cache.set(key,60*60,list);
+ //               Logger.info("====pop==url==="+url+"==hisUrl="+hisUrl);
                 return hisUrl;
             }
 
         }else{
-            stack=new Stack<String>();
+            list=new ArrayList<String>();
         }
 
-        if(!stack.isEmpty()){
-            hisUrl=stack.get(stack.size()-1);
+        if(!list.isEmpty()){
+            hisUrl=list.get(list.size()-1);
         }
-        stack.add(url);
-    //    Logger.info("====push==url==="+url+"==hisUrl="+hisUrl+"===stack.peek()="+stack.get(stack.size()-1));
-        cache.set(key,60*60,stack);
+        list.add(url);
+//        Logger.info("====push==url==="+url+"==hisUrl="+hisUrl+"===list.peek()="+list.get(list.size()-1));
+        cache.set(key,60*60,list);
         return hisUrl;
     }
 
