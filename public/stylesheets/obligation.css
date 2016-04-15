@@ -144,28 +144,31 @@ span .number{
 }
 
 .payment a{
-    margin: 10px 0 0 0;
+    margin: 10px 0 0 5px;
     display: block;
     height: 30px;
-    color: #fff;
-    text-align: center;
-    font-size: 14;
+    font-size: 12px;
+    border-radius: 3px;
+    border: 1px solid #ededed;
     line-height: 30px;
-}
-.payment .left{
-    float: left;
+    color: #666;
+    width: 60px;
+    text-align: center;
 }
 
-.payment .right{
+.payment .right,.payment .left{
     float:right;
-
-
 }
 
 .payment .mi{
     color:#E66255;
-
+    border: none;
     margin:10px 10px 0 0;
+    float: right;
+    font-size: 12px;
+    display: inline-block;
+    line-height: 30px;
+
 }
 
 .duein a{
@@ -393,30 +396,29 @@ span .number{
 }
 
 .shopping .cart_num{
-    width: 18;
-    height: 18px;
-    position: absolute;
-    top: -7px;
-    font-size: 14px;
-    left: 44px;
-    background: #ed145b;
-    line-height: 18px;
-    cursor: pointer;
-    color: #fff;
-    border-radius: 50%;
-    text-align: center;
-}
-
-.right-r{
-    padding:0 10px;
-    width: 70px;
+    width: 16px;
+        height: 16px;
+        position: absolute;
+        top: -7px;
+        font-size: 12px;
+        left: 44px;
+        background: #ed145b;
+        line-height: 16px;
+        cursor: pointer;
+        color: #fff;
+        border-radius: 50%;
+        text-align: center;
 }
 
 .size{
     font-size: 14px;
 }
 
+.payment .red{
 
+    border: 1px solid #FF5359;
+    color: #FF5359;
+}
 
 
 

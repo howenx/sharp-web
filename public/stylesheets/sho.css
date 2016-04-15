@@ -98,7 +98,7 @@ input:password {
     position: absolute;
     top: 50%;
     left:-10px;/*这里修改了*/
-    margin-top: -10px;
+    margin: -10px 0 0 -5px;
 }
 
 .item-con-hd{
@@ -406,3 +406,17 @@ input:password {
     z-index:999;
 }
 
+.areaAndSku-s:last-child{
+    margin: 0 0 50px 0;
+}
+
+.areaAndSku-s li{
+    background: url("/assets/images/shixiao.png") bottom right no-repeat #ededed;
+    background-size:60px;
+
+}
+
+
+.abate{
+    background: url("/assets/images/select-.png") no-repeat;
+}

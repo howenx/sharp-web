@@ -188,20 +188,23 @@
 input[type=checkbox]{
     -webkit-appearance: none;
     appearance: none;
-    width:18px;
-    height:18px;
+    width: 22px;
+    height: 20px;
     cursor: pointer;
     vertical-align: bottom;
-    border:1px solid #666;
+    /* border: 1px solid #666; */
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
+    background: url("/assets/images/select-.png") no-repeat;
+    background-size: 20px;
     border-radius: 50%;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     position: relative;
-    /*overflow: hidden; */
+
 }
+
 input[name=check_all]{
     border: 2px solid #fff;
 }
@@ -222,14 +225,14 @@ input[type=checkbox]:checked::after {
     -webkit-transform: scale(0.49,0.49);
     -moz-transform: scale(0.55,0.55);
     position: absolute;
-    top: -8px;
-    left: -8px;
+    top: -6px;
+    left: -5px;
 }
 
-input[type=checkbox]:focus {
+/*input[type=checkbox]:focus {
     outline: none;
     border: 2px solid #9FA0A0;
-}
+}*/
 input[name=check_all]:focus{
     border: 2px solid #fff;
 }
