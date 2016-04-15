@@ -144,7 +144,9 @@ span .number{
 }
 
 .payment a{
+
     margin: 10px 5px 0 0;
+
     display: block;
     height: 30px;
     font-size: 12px;
@@ -155,11 +157,14 @@ span .number{
     width: 60px;
     text-align: center;
 }
+
 {
     float:right;
 }
 
-.payment .left,.payment .right{
+
+.payment .right,.payment .left{
+
     float:right;
 }
 
@@ -411,6 +416,9 @@ span .number{
     color: #fff;
     border-radius: 50%;
     text-align: center;
+
+
+
 }
 
 .size{

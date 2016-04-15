@@ -56,7 +56,6 @@
         </div>
         <ul class="cart-goods-list">
 
-
             @for((cartInfo,skuIndex)<-cart.getCarts().zipWithIndex){
                 <li id="li@cartInfo.getCartId()">
                     <div class="item">
@@ -111,6 +110,7 @@
         </ul>
     </div>
     }
+
 
 
     <div class="areaAndSku">

@@ -203,19 +203,23 @@
                                     <span href="javascript:;" class="mi">应付金额:￥@order.getOrder().getPayTotal()</span>
                                 </div>
                             }
-                            @if(order.getOrder().getOrderStatus()=="D"){
+                            @if(order.getOrder().getOrderStatus()=="D"||order.getOrder().getOrderStatus()=="R"){
                                 <div class="payment clearfix">
 
-                                    <a href="javascript:;" class="right">查看物流</a>
-
+                                    @if(order.getOrder().getOrderStatus()=="D"){
+                                        <a href="javascript:;" class="right" onclick="orderConfirmDelivery(@order.getOrder().getOrderId())">确认收货</a>
+                                    }
+                                    @if(order.getOrder().getOrderStatus()=="R"){
+                                        <a href="javascript:;" class="right " onclick="delOrder(@order.getOrder().getOrderId(),0)">删除订单</a>
+                                    }
                                     <a href="/logistic/@order.getOrder().getOrderId()" class="left">查看物流</a>
                                     <a href="javascript:;" class="right" onclick="orderConfirmDelivery(@order.getOrder().getOrderId())">确认收货</a>
 
+
                                 </div>
                             }
-                            @if(order.getOrder().getOrderStatus()=="C"||order.getOrder().getOrderStatus()=="R"){
+                            @if(order.getOrder().getOrderStatus()=="C"){
                                 <div class="payment clearfix">
-
                                     <a href="javascript:;" class="right " onclick="delOrder(@order.getOrder().getOrderId(),0)">删除订单</a>
 
                                     <a href="/logistic/@order.getOrder().getOrderId()" class="left">查看物流</a>
@@ -266,7 +270,7 @@
                                     }
                                     <div class="payment clearfix">
                                         <a href="javascript:;" class="left cancelOrder" style="display:none;">取消订单</a>
-                                        <a href="javascript:;" class="right right-r"  onclick="pay('@payUrl','@order.getOrder().getOrderId()','@token','@order.getOrder().getSecurityCode()')">去支付</a>
+                                        <a href="javascript:;" class="right red"  onclick="pay('@payUrl','@order.getOrder().getOrderId()','@token','@order.getOrder().getSecurityCode()')">去支付</a>
                                         <span href="javascript:;" class="mi">应付金额:￥@order.getOrder().getPayTotal()</span>
                                     </div>
                                 </div>
@@ -308,10 +312,9 @@
                                     </a>
                                     }
                                     <div class="payment clearfix">
-
-                                        <a href="javascript:;" class="right discolour">查看物流</a>
-
+                                        <a href="javascript:;" class="right" onclick="orderConfirmDelivery(@order.getOrder().getOrderId())">确认收货</a>
                                         <a href="/logistic/@order.getOrder().getOrderId()" class="left">查看物流</a>
+
                                         <a href="javascript:;" class="right" onclick="orderConfirmDelivery(@order.getOrder().getOrderId())">确认收货</a>
 
                                     </div>
