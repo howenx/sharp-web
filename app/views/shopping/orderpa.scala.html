@@ -200,6 +200,11 @@
                 <a href="javascript:;" class="right bg" onclick="orderConfirmDelivery(@order.getOrder().getOrderId())">确认收货</a>
             </li>
         }
+        @if(order.getOrder().getOrderStatus()=="R"){
+            <li class="btn">
+                <a href="/logistic/@order.getOrder().getOrderId()" class="left bg">查看物流</a>
+            </li>
+        }
 
         <input type="hidden" value="@order.getOrder().getOrderSplitId()" id="orderSplitId">
 

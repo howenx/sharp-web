@@ -31,9 +31,18 @@
         </div>-->
 
         <div class="logistics-r">
-            <span>支付方式: <i>在线支付</i></span>
+            <span>物流状态: <i>
+                @if(logistics.getStatus()=="0"){在途}
+                @if(logistics.getStatus()=="1"){揽件}
+                @if(logistics.getStatus()=="2"){疑难}
+                @if(logistics.getStatus()=="3"){签收}
+                @if(logistics.getStatus()=="4"){退签}
+                @if(logistics.getStatus()=="5"){派件}
+                @if(logistics.getStatus()=="6"){退回}
+            </i></span>
             <span>承运来源: <i>@logistics.getCompanytype()</i></span>
-            <span>订单编号: <i>@logistics.getNu()</i></span>
+            <span>运单号: <i>@logistics.getNu()</i></span>
+
            <!-- <span>官方号码: <i class="nub">95546</i></span>-->
         </div>
     </div>
