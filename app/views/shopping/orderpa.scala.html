@@ -27,7 +27,7 @@
 
 </header>
 
-<div class="wap">
+<li class="wap">
     @if(order.getOrder().getOrderStatus()=="I"){
     <div class="time-item price" style="text-align:center">
         <input type="hidden" id="countdown" value="@order.getOrder().getCountDown()"/>
@@ -178,8 +178,13 @@
             </li>
         }
         @if(order.getOrder().getOrderStatus()=="S"&&null==order.getRefund()){
-            <li value="@order.getOrder().getOrderId()" class="btn">
+            <li class="btn">
                 <a href="javascript:;" class="left discolour applyRefundCss" >申请退货</a>
+            </li>
+        }
+        @if(order.getOrder().getOrderStatus()=="D"){
+            <li class="btn">
+                 <a href="javascript:;" class="right bg">查看物流</a>
             </li>
         }
 
