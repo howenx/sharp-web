@@ -281,17 +281,13 @@ span .number{
 }
 .coupon-box-l{
     float: left;
-    margin: 16px 18px 0 20px;
-}
-.Fullcut{
-    float:left;
-    margin:40px 10px 0px 0;
+    margin: 12px 18px 0 30px;
 }
 
 .coupon-box-r{
     float:left;
     font-size:24px;
-    margin: 16px 10px 0px 0;
+    margin: 16px 0px 0px 0;
 }
 
 .coupon-m{
@@ -301,7 +297,7 @@ span .number{
 .coupon-deta{
     width:100%;
     text-align: right;
-    margin:26px 0 0 0;
+    margin:15px 0 0 0;
     font-size: 12px;
 }
 
@@ -323,6 +319,7 @@ span .number{
 }
 .coupon-hd,.Fullcut{
     font-size: 12px;
+    margin: 2px 0 0 0;
 }
 
 .coupon-s .coupon-box-r{
