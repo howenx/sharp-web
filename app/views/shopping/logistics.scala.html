@@ -31,7 +31,7 @@
         </div>-->
 
         <div class="logistics-r">
-            <span>物流状态: <i>
+            <span>物流状态: <i class="color">
                 @if(logistics.getState()=="0"){在途中}
                 @if(logistics.getState()=="1"){已揽收}
                 @if(logistics.getState()=="2"){疑难}
@@ -56,9 +56,10 @@
         <div class="logis-fd">
             <ul>
                 @if(null!=logistics.getData()){
-                    @for(logisticsDataDTO<-logistics.getData()){
+                    @for((logisticsDataDTO,index)<-logistics.getData().zipWithIndex){
                         <li >
-                            <div class="logis-box">
+                           @if(index==0){<div class="logis-box color">}
+                           @if(index!=0){<div class="logis-box">}
                                 <div class="logis-content">
                                     <p class="logis-content-detail">
                                         @if(""!=logisticsDataDTO.getLocation()){
