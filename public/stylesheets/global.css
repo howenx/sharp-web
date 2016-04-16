@@ -269,7 +269,27 @@ h1 {
 }
 
 
+.not{
+    text-align: center;
+    width: 50%;
+    position:relative;
+    top:50%;
+    left: 50%;
+    z-index: 100;
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
 
+}
+.look{
+    width: 60px;
+    height:30px;
+    line-height: 30px;
+    background-color: #FF5359;
+    color: #fff;
+    display: block;
+    margin: 10px auto;
+
+}
 
 
 
