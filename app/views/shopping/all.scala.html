@@ -325,6 +325,28 @@
         </div>
     </div>
 </div>
+@if(null==orderList||orderList.size<=0){
+    <div class="not orderNot">
+        <p>您还未有任何订单</p>
+        <a href="/" class="look">去逛逛</a>
+    </div>
+}
+@if(null!=orderList&&orderList.size>0){
+<div class="not orderNot" style="display:none">
+    <p>您还未有任何订单</p>
+    <a href="/" class="look">去逛逛</a>
+</div>
+}
+<div class="not orderNot" style="display:none">
+    <p>您还未有任何待支付订单</p>
+    <a href="/" class="look">去逛逛</a>
+</div>
+
+<div class="not orderNot" style="display:none">
+    <p>您还未有任何待收货订单</p>
+    <a href="/" class="look">去逛逛</a>
+</div>
+
 <div class="hint" id="tip" style="display:none"></div>
 </body>
 </html>

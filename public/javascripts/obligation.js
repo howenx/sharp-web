@@ -5,6 +5,15 @@ $(function(){
         $('.scroll-wrap .scroll-content section').eq($(this).index()).show().siblings().hide();
         $('.scroll-coupon .coupon-content section').eq($(this).index()).show().siblings().hide();
 
+
+        $(".not").css("display","none");
+        if($('.scroll-wrap .scroll-content section').eq($(this).index()).find("li").length<=0){
+            $(".orderNot").eq($(this).index()).css("display","block");
+        }
+        if($('.scroll-coupon .coupon-content section').eq($(this).index()).find("li").length<=0){
+           $(".couponNot").eq($(this).index()).css("display","block");
+        }
+
     })
 
     $('.closeBtn').click(function(){
