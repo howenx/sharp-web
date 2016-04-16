@@ -174,7 +174,7 @@
                 </p>
                 <p>
                     <span>退款状态 :</span>
-                    <i>
+                    <i class="color">
                         @if(order.getRefund().getState()=="I"){申请受理中}
                         @if(order.getRefund().getState()=="A"){退款受理中，资金会在1-5个工作日内退回您的账户}
                         @if(order.getRefund().getState()=="R"){拒绝退款:@order.getRefund().getRejectReason()}
