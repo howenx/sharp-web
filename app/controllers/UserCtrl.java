@@ -162,7 +162,7 @@ public class UserCtrl extends Controller {
             });
 
             return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-                Logger.info("===json==" + json);
+               // Logger.info("===json==" + json);
                 Message message = Json.fromJson(json.get("message"), Message.class);
                 if (null == message) {
                     Logger.error("返回创建新的收货地址数据错误code=" + json);
@@ -276,7 +276,7 @@ public class UserCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-                     Logger.info("===json==" + json);
+            //         Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回数据错误code=" + json);
@@ -1181,7 +1181,7 @@ public class UserCtrl extends Controller {
     public F.Promise<Result> refundApply(Integer type) {
         ObjectNode result = newObject();
         Map<String, String> map =new HashMap<>();
-        if(type==1) {
+        if(type==1) { //售后
             Form<RefundInfo> refundInfoForm = Form.form(RefundInfo.class).bindFromRequest();
             map=refundInfoForm.data();
             Logger.error("map:" + map.toString());
@@ -1189,7 +1189,7 @@ public class UserCtrl extends Controller {
                 result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
                 return Promise.promise((Function0<Result>) () -> ok(result));
             }
-        }else{
+        }else{ //退货
             Form<ApplyRefundInfo> refundInfoForm = Form.form(ApplyRefundInfo.class).bindFromRequest();
             map=refundInfoForm.data();
             Logger.error("map:" + map.toString());

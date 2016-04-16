@@ -112,7 +112,7 @@
 									<span class="four directSpec" style="text-decoration: underline">直邮税</span>
 								}
 								@if(inventory.getInvArea()!="K"){
-									<span class="four postalCss" style="text-decoration: underline">行邮税  @inventory.getPostalTaxRate()%</span>
+									<span class="four " style="text-decoration: underline" onclick="postalShade(@inventory.getItemPrice(),@inventory.getPostalTaxRate())">行邮税  @inventory.getPostalTaxRate()%</span>
 								}
 							</section>
 						</div>
@@ -444,8 +444,8 @@
 <div class="shade postalDiv" >
 	<div class="shade-box">
 		<div class="shade-hd">行邮税费用</div>
-		<div class="shade-midd">30.00</div>
-		<div class="shade-bottom">本商品适用税率为0%,若该保税仓总税额<50则免征(税额 = 单价 × 数量 × 税率</div>
+		<div class="shade-midd" id="postalShadeDiv" style="text-decoration: none">30.00</div>
+		<div class="shade-bottom">本商品行邮税率为<i id="postalRateShadeCss">0</i>%,若该保税仓总税额<50则免征(税额 = 单价 × 数量 × 税率)</div>
 		<div class="shade-btn">确定</div>
 	</div>
 </div>

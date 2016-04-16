@@ -100,6 +100,7 @@ $(function() {
                     $(".buy_btn .mabuy").addClass('buyBtnCss');
                     $("#isCanBuy").val(1); //不能购买
                 }
+
                 // $("#flyImgId").attr("src",$(".item.now").find("input[name='skuInvImg0-0']").val());
 	    }
 	})
@@ -459,6 +460,17 @@ $(function(){
         $("#loading").hide();
     });
 })
+
+//行邮税弹出层
+function postalShade(price,postalTaxRate){
+    if(null==postalTaxRate||""==postalTaxRate){
+        postalTaxRate=0;
+    }
+    var postal=parseFloat(price)*parseFloat(postalTaxRate)/100;
+    $("#postalShadeDiv").html(postal);
+    $("#postalRateShadeCss").html(postalTaxRate);
+    $(".postalDiv").show();
+}
 
 
 
