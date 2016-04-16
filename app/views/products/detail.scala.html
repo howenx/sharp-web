@@ -112,7 +112,12 @@
 									<span class="four directSpec" style="text-decoration: underline">直邮税</span>
 								}
 								@if(inventory.getInvArea()!="K"){
+									@if(null==inventory.getPostalTaxRate()||""==inventory.getPostalTaxRate()){
+										<span class="four " style="text-decoration: underline" onclick="postalShade(@inventory.getItemPrice(),0)">行邮税  0%</span>
+									}
+									@if(null!=inventory.getPostalTaxRate()&&""!=inventory.getPostalTaxRate()){
 									<span class="four " style="text-decoration: underline" onclick="postalShade(@inventory.getItemPrice(),@inventory.getPostalTaxRate())">行邮税  @inventory.getPostalTaxRate()%</span>
+									}
 								}
 							</section>
 						</div>
