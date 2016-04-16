@@ -21,13 +21,13 @@
     </a>
     <h1>订单详情</h1>
     @if(order.getOrder().getOrderStatus()=="C"||order.getOrder().getOrderStatus()=="R"){
-    <span onclick="delOrder(order.getOrder().getOrderId(),1)"></span>
+         <span onclick="delOrder(order.getOrder().getOrderId(),1)"></span>
     }
 
 
 </header>
 
-<li class="wap">
+<div class="wap">
     @if(order.getOrder().getOrderStatus()=="I"){
     <div class="time-item price" style="text-align:center">
         <input type="hidden" id="countdown" value="@order.getOrder().getCountDown()"/>
@@ -175,9 +175,11 @@
                 <p>
                     <span>退款状态 :</span>
                     <i>
-                        @if(order.getRefund().getState()=="I"){审核中}
-                        @if(order.getRefund().getState()=="A"){已通过:5-15个工作日，退款金额自动返回}
-                        @if(order.getRefund().getState()=="R"){被拒绝:@order.getRefund().getRejectReason()}
+                        @if(order.getRefund().getState()=="I"){申请受理中}
+                        @if(order.getRefund().getState()=="A"){退款受理中，资金会在1-5个工作日内退回您的账户}
+                        @if(order.getRefund().getState()=="R"){拒绝退款:@order.getRefund().getRejectReason()}
+                        @if(order.getRefund().getState()=="N"){由于某种不可抗力量，导致退款受理失败，我们客服MM会及时联系您}
+                        @if(order.getRefund().getState()=="Y"){退款受理成功}
 
                     </i>
                 </p>
