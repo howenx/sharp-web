@@ -104,10 +104,12 @@
 								<span class="three">@inventory.getInvAreaNm()</span>
 							</p>
 							<section class="thw-detail-other" style="margin-bottom: 2px;">
-								<span class="one">
-									<span class="xian">限</span>
-									<span class="xian-j">@inventory.getRestrictAmount()件</span>
-								</span>
+								@if(null!=inventory.getRestrictAmount()&&""!=inventory.getRestrictAmount()&&inventory.getRestrictAmount()>0){
+									<span class="one">
+										<span class="xian">限</span>
+										<span class="xian-j">@inventory.getRestrictAmount()件</span>
+									</span>
+								}
 								@if(inventory.getInvArea()=="K"){
 									<span class="four directSpec" style="text-decoration: underline">直邮税</span>
 								}
@@ -116,7 +118,7 @@
 										<span class="four " style="text-decoration: underline" onclick="postalShade(@inventory.getItemPrice(),0)">行邮税  0%</span>
 									}
 									@if(null!=inventory.getPostalTaxRate()&&""!=inventory.getPostalTaxRate()){
-									<span class="four " style="text-decoration: underline" onclick="postalShade(@inventory.getItemPrice(),@inventory.getPostalTaxRate())">行邮税  @inventory.getPostalTaxRate()%</span>
+										<span class="four " style="text-decoration: underline" onclick="postalShade(@inventory.getItemPrice(),@inventory.getPostalTaxRate())">行邮税  @inventory.getPostalTaxRate()%</span>
 									}
 								}
 							</section>
