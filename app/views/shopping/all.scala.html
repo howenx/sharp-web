@@ -151,7 +151,7 @@
                     </li>
 
 -->
-
+                    @if(null!=orderList&&orderList.size>0){
                     @for(order<-orderList){
                     <li value="@order.getOrder().getOrderId()" id="li@order.getOrder().getOrderId()">
                         <div class="con-stay clearfix">
@@ -227,7 +227,7 @@
                         </div>
                     </li>
                     }
-
+                    }
 
 
                 </ul>
@@ -235,6 +235,7 @@
 
             <section>
                 <ul id="waitPayUl">
+                    @if(null!=orderList&&orderList.size>0){
                     @for(order<-orderList){
                         @if(order.getOrder().getOrderStatus()=="I"||order.getOrder().getOrderStatus()=="F"){
                             <li value="@order.getOrder().getOrderId()">
@@ -272,12 +273,14 @@
                             </li>
                         }
                     }
+                    }
 
                 </ul>
             </section>
 
             <section>
                 <ul id="waitGoodsUl">
+                    @if(null!=orderList&&orderList.size>0){
                     @for(order<-orderList){
                         @if(order.getOrder().getOrderStatus()=="D"){
                             <li>
@@ -314,6 +317,7 @@
                                 </div>
                             </li>
                         }
+                    }
                     }
                 </ul>
             </section>
