@@ -211,7 +211,7 @@ public class ShoppingCtrl extends Controller {
     //物流数据
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> logistic(Long orderId) {
-        String url="http://api.kuaidi100.com/api?id=425796724eeca6b3&com=jd&nu=12837698789&show=0&muti=1&order=desc";
+      //  String url="http://api.kuaidi100.com/api?id=425796724eeca6b3&com=jd&nu=12837698789&show=0&muti=1&order=desc";
         play.libs.F.Promise<JsonNode > promiseOfInt = play.libs.F.Promise.promise(() -> {
             Request.Builder builder =(Request.Builder)ctx().args.get("request");
             Request request=builder.url(ORDER_EXPRESS+orderId).get().build();
