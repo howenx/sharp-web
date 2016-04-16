@@ -25,9 +25,7 @@
 </header>
 
 <div class="scope wap">
-
-    <div class="coll">
-
+    <div class="coll" style="display: none">
         <ul>
             @if(null==collectList||collectList.size()<=0){<p>暂无收藏的商品</p>}
             @for(collect<-collectList){
@@ -68,6 +66,10 @@
     本商品限购10件
 </div>
 
+<div class="not">
+    <p>暂无收藏的商品</p>
+    <a href="javascaript:;" class="look">去逛逛</a>
+</div>
 
 <div class="hint" id="tip" style="display:none"></div>
 
