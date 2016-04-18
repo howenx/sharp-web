@@ -119,7 +119,7 @@ $(function() {
 
 
 	//切换
-	var top = $('.sku-measure01').offset(top); //top放后面会报错
+	var top1 = $('.sku-measure01').offset().top; //top放后面会报错
 	$(window).scroll(function(e) {
         //console.log($(window).scrollTop());
         //返回顶部
@@ -129,7 +129,7 @@ $(function() {
             $('.top').hide();
         }
         //选项卡
-		if($(window).scrollTop() >= top){
+		if($(window).scrollTop() >= top1){
 			$('.detail-tabpanel').addClass('detail-tabpanel-fixed');
 			$('.nav_ban_detail').hide();
 		}else{
