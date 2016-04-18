@@ -178,6 +178,10 @@
                                         @if(order.getOrder().getOrderStatus()=="PS"){拼购支付成功状态}
                                         @if(order.getOrder().getOrderStatus()=="PF"){拼团失败还未成功退款}
 
+                                        @if(null!=order.getRefund()&&"Y"!=order.getRefund().getState()){
+                                             <i class="color">(已锁定)</i>
+                                         }
+
                                     </span>
                                 </div>
                             </a>
@@ -207,17 +211,17 @@
                                 <div class="payment clearfix">
 
                                     @if(order.getOrder().getOrderStatus()=="D"){
-                                        <a href="javascript:;" class="right" onclick="orderConfirmDelivery(@order.getOrder().getOrderId())">确认收货</a>
+                                        <a href="javascript:;" class="right red" onclick="orderConfirmDelivery(@order.getOrder().getOrderId())">确认收货</a>
                                     }
-                                    @if(order.getOrder().getOrderStatus()=="R"){
-                                        <a href="javascript:;" class="right " onclick="delOrder(@order.getOrder().getOrderId(),0)">删除订单</a>
-                                    }
+                                    <!--@if(order.getOrder().getOrderStatus()=="R"){-->
+                                        <!--<a href="javascript:;" class="right " onclick="delOrder(@order.getOrder().getOrderId(),0)">删除订单</a>-->
+                                    <!--}-->
                                     <a href="/logistic/@order.getOrder().getOrderId()" class="left">查看物流</a>
 
 
                                 </div>
                             }
-                            @if(order.getOrder().getOrderStatus()=="C"){
+                            @if(order.getOrder().getOrderStatus()=="C"||order.getOrder().getOrderStatus()=="T"){
                                 <div class="payment clearfix">
                                     <a href="javascript:;" class="right " onclick="delOrder(@order.getOrder().getOrderId(),0)">删除订单</a>
                                 </div>
@@ -310,7 +314,7 @@
                                     </a>
                                     }
                                     <div class="payment clearfix">
-                                        <a href="javascript:;" class="right" onclick="orderConfirmDelivery(@order.getOrder().getOrderId())">确认收货</a>
+                                        <a href="javascript:;" class="right red" onclick="orderConfirmDelivery(@order.getOrder().getOrderId())">确认收货</a>
                                         <a href="/logistic/@order.getOrder().getOrderId()" class="left">查看物流</a>
 
                                     </div>
@@ -331,23 +335,23 @@
 </div>
 @if(null==orderList||orderList.size<=0){
     <div class="not orderNot">
-        <p>您还未有任何订单</p>
+        <p>您还未有相关订单</p>
         <a href="/" class="look">去逛逛</a>
     </div>
 }
 @if(null!=orderList&&orderList.size>0){
 <div class="not orderNot" style="display:none">
-    <p>您还未有任何订单</p>
+    <p>您还未有相关订单</p>
     <a href="/" class="look">去逛逛</a>
 </div>
 }
 <div class="not orderNot" style="display:none">
-    <p>您还未有任何待支付订单</p>
+    <p>您还未有待支付订单</p>
     <a href="/" class="look">去逛逛</a>
 </div>
 
 <div class="not orderNot" style="display:none">
-    <p>您还未有任何待收货订单</p>
+    <p>您还未有待收货订单</p>
     <a href="/" class="look">去逛逛</a>
 </div>
 

@@ -20,7 +20,7 @@
         <b></b>
     </a>
     <h1>订单详情</h1>
-    @if(order.getOrder().getOrderStatus()=="C"||order.getOrder().getOrderStatus()=="R"){
+    @if(order.getOrder().getOrderStatus()=="C"||order.getOrder().getOrderStatus()=="R"||order.getOrder().getOrderStatus()=="T"){
          <span onclick="delOrder(order.getOrder().getOrderId(),1)"></span>
     }
 
@@ -59,6 +59,9 @@
                     @if(order.getOrder().getOrderStatus()=="PS"){拼购支付成功状态}
                     @if(order.getOrder().getOrderStatus()=="PF"){拼团失败还未成功退款}
                 </i>
+                @if(null!=order.getRefund()&&"Y"!=order.getRefund().getState()){
+                     <i class="color">(已锁定)</i>
+                }
             </p>
 
             <p>
@@ -167,12 +170,6 @@
                     </i>
                 </p>
                 <p>
-                    <span>退款原因 :</span>
-                    <i>
-                        @order.getRefund().getReason()
-                    </i>
-                </p>
-                <p>
                     <span>退款状态 :</span>
                     <i class="color">
                         @if(order.getRefund().getState()=="I"){申请受理中}
@@ -183,6 +180,13 @@
 
                     </i>
                 </p>
+                <p>
+                    <span>退款原因 :</span>
+                    <i>
+                        @order.getRefund().getReason()
+                    </i>
+                </p>
+
             </li>
         }
         @if(order.getOrder().getOrderStatus()=="I"||order.getOrder().getOrderStatus()=="F"){

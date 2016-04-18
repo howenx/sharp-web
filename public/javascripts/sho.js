@@ -37,7 +37,6 @@ $(function(){
                 tip("修改购物车失败");
              },
             success: function(data) {
-                console.log("data="+data);
                 if (data!=""&&data!=null){
                     if(data.code==200) { //成功
                          //修改数量
@@ -95,7 +94,6 @@ $(function(){
                 tip("修改购物车失败");
              },
             success: function(data) {
-                console.log("data="+data);
                 if (data!=""&&data!=null){
                     if(data.code==200) { //成功
                          //修改数量
@@ -308,7 +306,6 @@ $(function(){
 //删除购物车
 function delCart(cartId){
     if (window.confirm("确定删除吗?")) {
-        console.log("cartId="+cartId);
         $.ajax({
               type :"GET",
               url : "/cart/del/"+cartId,
@@ -317,7 +314,6 @@ function delCart(cartId){
                   tip("删除失败!");
               },
               success: function(data) {
-                 console.log("data="+data);
                   if (data!=""&&data!=null&&data.code==200){ //删除成功
                       var li=$("#li"+cartId);
                       var ul=li.parents("ul");

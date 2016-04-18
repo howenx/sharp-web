@@ -57,7 +57,6 @@ $(document).on("click",".submitOrder",function(){
                 //   $("#loading").empty();
              },
             success: function(data) {
-                console.log("data="+data);
                 if (data!=""&&data!=null){
                     if(data.message.code==200) {
                         $("#orderId").val(data.orderId);
@@ -99,7 +98,6 @@ $(document).on("click",".pinSubmitBtn",function(){
             tip("立即开团失败,请检测是否已登录");
         },
         success: function(data) {
-            console.log("data="+data);
             if (data!=""&&data!=null){
                 if(data.code==200) {
                     $("#isPinCheck").val(0);

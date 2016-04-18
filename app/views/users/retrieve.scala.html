@@ -107,7 +107,10 @@
                             type: 'POST',
                             success: function(data) {
                                 console.log(data);
-                                if(data.code === 5001){
+                                if (data==null || data=="") {
+                                    $('#js-userinfo-error2').text("网络连接异常,请检查网络").show();
+                                    setTimeout("$('#js-userinfo-error2').hide()", 2000);
+                                } else if(data.code === 5001){
                                     //请求手机验证码接口
                                     $("#code").removeAttr("name");
                                     console.log($('form#cell_verifyForm').serialize());
@@ -116,11 +119,14 @@
                                             dataType: 'json',
                                             data: $('form#cell_verifyForm').serialize(),
                                             type: 'POST',
-                                            success: function(data) {
-                                               console.log(data);
+                                            success: function(data2) {
+                                               console.log(data2);
                                                $("#code").attr({"name":"code"});
-                                               //手机验证码发送成功
-                                               if (data.code === 200) {
+                                               if (data2==null || data2=="") {
+                                                   $('#js-userinfo-error2').text("网络连接异常,请检查网络").show();
+                                                   setTimeout("$('#js-userinfo-error2').hide()", 2000);
+                                               } else if (data2.code === 200) {
+                                                    //手机验证码发送成功
                                                     var url = '/retrieve'+$("#state").val();
                                                     var form = $('<form action="' + url + '" method="post">' +
                                                     '<input type="hidden" name="phone" value="' + phone + '" />' +
@@ -129,7 +135,7 @@
                                                     form.submit();
                                                }
                                                else {
-                                                    $('#js-userinfo-error2').text(data.message).show();
+                                                    $('#js-userinfo-error2').text(data2.message).show();
                                                     setTimeout("$('#js-userinfo-error2').hide()", 2000);
                                                }
                                             }
@@ -158,18 +164,21 @@
                     success: function(data) {
                         console.log(data);
                         $("#code").attr({"name":"code"});
-                        //手机验证码发送成功
-                        if (data.code === 200) {
-                                var url = '/register'+$("#state").val();
-                                var form = $('<form action="' + url + '" method="post">' +
-                                '<input type="hidden" name="phone" value="' + phone + '" />' +
-                                '</form>');
-                                $('body').append(form);
-                                form.submit();
+                        if (data==null || data=="") {
+                            $('#js-userinfo-error').text("网络连接异常,请检查网络").show();
+                            setTimeout("$('#js-userinfo-error').hide()", 2000);
+                        } else if (data.code === 200) {
+                            //手机验证码发送成功
+                            var url = '/register'+$("#state").val();
+                            var form = $('<form action="' + url + '" method="post">' +
+                            '<input type="hidden" name="phone" value="' + phone + '" />' +
+                            '</form>');
+                            $('body').append(form);
+                            form.submit();
                         }
                         else {
-                                $('#js-userinfo-error').text(data.message).show();
-                                setTimeout("$('#js-userinfo-error').hide()", 2000);
+                            $('#js-userinfo-error').text(data.message).show();
+                            setTimeout("$('#js-userinfo-error').hide()", 2000);
                         }
                     }
                 });

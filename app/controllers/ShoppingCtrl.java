@@ -123,7 +123,7 @@ public class ShoppingCtrl extends Controller {
                 String result = dealToString(response);
                 if(result!=null){
                     JsonNode json = Json.parse(result);
-                    Logger.info("===json==\n" + json);
+                 //   Logger.info("===json==\n" + json);
                     return json;
                 } else throw new IOException("Unexpected code " + response);
             } else throw new IOException("Unexpected code " + response);
@@ -222,7 +222,7 @@ public class ShoppingCtrl extends Controller {
         });
 
         return promiseOfInt.map((play.libs.F.Function<JsonNode , Result>) json -> {
-            Logger.info("===json==" + json);
+            //Logger.info("===json==" + json);
             if(json.has("message")&&json.has("code")){
                 Message message = Json.fromJson(json.get("message"), Message.class);
                 if(null != message&&message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
@@ -386,7 +386,7 @@ public class ShoppingCtrl extends Controller {
             final Long finalPinActiveId = pinActiveId;
             final Integer buyNowTemp = buyNow;
             return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
-                Logger.info("==settle=json==" + json);
+                //Logger.info("==settle=json==" + json);
                 Message message = Json.fromJson(json.get("message"), Message.class);
                 if (null == message) {
                     Logger.error("返回商品结算数据错误code=" + json);
@@ -477,7 +477,7 @@ public class ShoppingCtrl extends Controller {
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result>  submitOrder() {
         ObjectNode result = Json.newObject();
-        Logger.info("==submitOrder=\n"+Form.form().bindFromRequest().data());
+     //   Logger.info("==submitOrder=\n"+Form.form().bindFromRequest().data());
         Map<String, String> settleMap = Form.form().bindFromRequest().data();
         Map<String,Object> object=new HashMap<>();
         List<SettleDTO> settleDTOs=new ArrayList<SettleDTO>();
@@ -535,7 +535,7 @@ public class ShoppingCtrl extends Controller {
         });
 
         return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
-           Logger.info("==submitOrder=json=" + json);
+         //  Logger.info("==submitOrder=json=" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回商品结算数据错误code=" + json);
@@ -588,7 +588,7 @@ public class ShoppingCtrl extends Controller {
                 else throw new IOException("Unexpected code " + response);
             });
             return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
-                   Logger.info("返回结果---->\n"+json);
+                //   Logger.info("返回结果---->\n"+json);
                 Message message = Json.fromJson(json.get("message"), Message.class);
                 if (null == message) {
                     Logger.error("返回数据错误json=" + json);

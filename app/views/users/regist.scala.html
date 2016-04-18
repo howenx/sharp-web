@@ -153,8 +153,11 @@
                         console.log(data);
                         $("#password").attr({"name": "password"});
                         $("#code").attr({"name": "code"});
-                        //手机验证码发送成功
-                        if (data.code === 200) {
+                        if (data==null || data=="") {
+                            $('#js-userinfo-error').text("网络连接异常,请检查网络").show();
+                            setTimeout("$('#js-userinfo-error').hide()", 2000);
+                        } else if (data.code === 200) {
+                            //手机验证码发送成功
                             $('#js-userinfo-error').text('验证码发送成功!').show();
                             setTimeout("$('#js-userinfo-error').hide()", 2000);
                             $("#get-code").css("color", "#000");
@@ -215,7 +218,10 @@
                     type: 'POST',
                     success: function(data) {
                         console.log(data);
-                        if(data.code === 200){
+                        if (data==null || data=="") {
+                            $('#js-userinfo-error').text("网络连接异常,请检查网络").show();
+                            setTimeout("$('#js-userinfo-error').hide()", 2000);
+                        } else if(data.code === 200){
                             $('#js-userinfo-error').text("注册并登录成功!").show();
                             setTimeout("$('#js-userinfo-error').hide()", 2000);
                             setTimeout(function(){
