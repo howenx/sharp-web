@@ -356,13 +356,7 @@ $(document).on("click",".cartAdd",function(){
         data : JSON.stringify(obj),
         dataType: 'json',
         error : function(request) {
-            console.log("request.responseText="+request.responseText);
- //           var respText=request.responseText;
             tip("加入购物车失败,请检测是否已登录");
-//
-//            document.write(respText);
-//            document.close();
-//            history.replaceState(null, "登录", "login?state");
          },
         success: function(data) {
             console.log("data="+data);

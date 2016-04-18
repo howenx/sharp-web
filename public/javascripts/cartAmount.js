@@ -8,7 +8,6 @@ $(document).ready(function() {
           error : function(request) {
           },
           success: function(data) {
-           //  console.log("data="+data);
               if (data!=""&&data!=null&&null!=data.message){ //成功
                     if(data.message.code==200){
                          $("#cartAmountSpan").html(data.cartNum);

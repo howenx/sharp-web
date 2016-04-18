@@ -209,15 +209,15 @@
                                     @if(order.getOrder().getOrderStatus()=="D"){
                                         <a href="javascript:;" class="right" onclick="orderConfirmDelivery(@order.getOrder().getOrderId())">确认收货</a>
                                     }
-                                    @if(order.getOrder().getOrderStatus()=="R"){
-                                        <a href="javascript:;" class="right " onclick="delOrder(@order.getOrder().getOrderId(),0)">删除订单</a>
-                                    }
+                                    <!--@if(order.getOrder().getOrderStatus()=="R"){-->
+                                        <!--<a href="javascript:;" class="right " onclick="delOrder(@order.getOrder().getOrderId(),0)">删除订单</a>-->
+                                    <!--}-->
                                     <a href="/logistic/@order.getOrder().getOrderId()" class="left">查看物流</a>
 
 
                                 </div>
                             }
-                            @if(order.getOrder().getOrderStatus()=="C"){
+                            @if(order.getOrder().getOrderStatus()=="C"||order.getOrder().getOrderStatus()=="T"){
                                 <div class="payment clearfix">
                                     <a href="javascript:;" class="right " onclick="delOrder(@order.getOrder().getOrderId(),0)">删除订单</a>
                                 </div>

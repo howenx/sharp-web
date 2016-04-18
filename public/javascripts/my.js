@@ -38,7 +38,6 @@ $(document).on("click",".addAddressBtn",function(){
                     dataType: 'json',
                     data: $('form#cell_addressForm').serialize(),
                     success: function(data) {
-                        console.log("data="+data);
                         if (data!=""&&data!=null){
                             if(selId!=0){ //0-普通添加更新跳全部地址界面  1-结算结算添加 2-结算界面更新
                                 if(data.message.code==200) {
@@ -95,7 +94,6 @@ $(document).on("click",".cancelColl",function(e){
     e.preventDefault();
     var id=$(this).parents("li").val();
     var li=$(this).parents("li");
-    console.log("id="+id);
     $.ajax({
           type :"GET",
           url : "/collect/del/"+id,
@@ -104,7 +102,6 @@ $(document).on("click",".cancelColl",function(e){
               tip("删除失败!");
           },
           success: function(data) {
-             console.log("data="+data);
 
                if(data.code==200){ //取消收藏成功
                   li.remove();
@@ -117,7 +114,6 @@ $(document).on("click",".cancelColl",function(e){
 $(document).on("click",".cancelOrder",function(){
     if (window.confirm("亲,您确定要取消订单吗")) {
         var id=$(this).parents("li").val();
-        console.log("id="+id);
         $.ajax({
               type :"GET",
               url : "/order/cancel/"+id,
@@ -126,7 +122,6 @@ $(document).on("click",".cancelOrder",function(){
                   tip("取消订单失败!");
               },
               success: function(data) {
-                 console.log("data="+data);
 
                    if(data.code==200){ //取消订单成功
                      setTimeout("location.href='/all'", 3000);
@@ -141,7 +136,6 @@ $(document).on("click",".delOrder",function(e){
     e.preventDefault();
     var id=$(this).parents("li").val();
     var li=$(this).parents("li");
-    console.log("id="+id);
     $.ajax({
           type :"GET",
           url : "/order/del/"+id,
@@ -150,7 +144,6 @@ $(document).on("click",".delOrder",function(e){
               tip("删除失败!");
           },
           success: function(data) {
-             console.log("data="+data);
 
                if(data.code==200){ //删除订单成功
                   li.remove();
@@ -162,7 +155,6 @@ $(document).on("click",".delOrder",function(e){
 
 function delOrder(id,position){
     if (window.confirm("确定删除吗?")) {
-        console.log("id="+id);
         $.ajax({
               type :"GET",
               url : "/order/del/"+id,
@@ -171,7 +163,6 @@ function delOrder(id,position){
                   tip("删除失败!");
               },
               success: function(data) {
-                 console.log("data="+data);
 
                   if (data!=""&&data!=null&&data.code==200){ //删除成功
                       if(position==0){
@@ -203,8 +194,7 @@ function delAddress(addId,orDefault){
                       tip("删除失败!");
                   },
                   success: function(data) {
-                     console.log(data);
-                         if (data!=""&&data!=null&&data.code==200){ //删除地址成功
+                       if (data!=""&&data!=null&&data.code==200){ //删除地址成功
                           $("#li"+addId).remove();
                        } else tip("删除失败!");
                   }
@@ -242,7 +232,6 @@ $(document).on("click",".feedbackBtn",function(){
                     tip("意见反馈失败");
                 },
                 success: function(data) {
-                    console.log("data="+data+"==="+data.code);
                     if (data!=""&&data!=null&&data.code==200) {
                         setTimeout("location.href='/myView'", 3000);
                     }else{
@@ -395,7 +384,6 @@ $(document).on("click", ".box-btn", function() {
             url: "/order/apply/refund/1",
             data: $('form#cell_refForm').serialize(),
             success: function(data) {
-                console.log(data);
                 if (data.code==200) {
                     $(".box-btn").html("提交成功");
                     setTimeout(function(){$('.shade').hide();},2000);
@@ -418,7 +406,6 @@ function pay(url,orderId,token,securityCode){
               tip("请求失败!");
           },
           success: function(data) {
-             console.log("data="+data);
               if (data!=""&&data!=null){
 
                   if(data.code==200){ //校验订单成功
@@ -482,7 +469,6 @@ $(document).on("click", ".refundBtnCss", function() {
             url: "/order/apply/refund/2",
             data: $('form#cell_refForm').serialize(),
             success: function(data) {
-                console.log(data);
                 if (data.code==200) {
                     $(".box-btn").html("提交成功");
                     setTimeout(function(){$('.shade').hide();},2000);

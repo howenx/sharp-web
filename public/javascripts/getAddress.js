@@ -8,7 +8,6 @@ $(document).ready(function() {
           error : function(request) {
           },
           success: function(data) {
-             console.log("data="+data);
               if (data!=""&&data!=null&&null!=data.message){ //成功
                     if(data.message.code==200){
                            if(null!=data.address&&data.address.length>0){
@@ -169,7 +168,6 @@ $(document).on("click",".addressUpdate",function(){
               error : function(request) {
               },
               success: function(data) {
-                 console.log("data="+data);
                  var str='<div class="amput clearfix closeAddUpdate">'+
                                '<span> × </span>'+
                                '</div>'+
