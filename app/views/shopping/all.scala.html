@@ -207,7 +207,7 @@
                                 <div class="payment clearfix">
 
                                     @if(order.getOrder().getOrderStatus()=="D"){
-                                        <a href="javascript:;" class="right" onclick="orderConfirmDelivery(@order.getOrder().getOrderId())">确认收货</a>
+                                        <a href="javascript:;" class="right red" onclick="orderConfirmDelivery(@order.getOrder().getOrderId())">确认收货</a>
                                     }
                                     <!--@if(order.getOrder().getOrderStatus()=="R"){-->
                                         <!--<a href="javascript:;" class="right " onclick="delOrder(@order.getOrder().getOrderId(),0)">删除订单</a>-->
@@ -310,7 +310,7 @@
                                     </a>
                                     }
                                     <div class="payment clearfix">
-                                        <a href="javascript:;" class="right" onclick="orderConfirmDelivery(@order.getOrder().getOrderId())">确认收货</a>
+                                        <a href="javascript:;" class="right red" onclick="orderConfirmDelivery(@order.getOrder().getOrderId())">确认收货</a>
                                         <a href="/logistic/@order.getOrder().getOrderId()" class="left">查看物流</a>
 
                                     </div>
