@@ -130,7 +130,7 @@ input:password {
     display: block;
     position:absolute;
     left: 0;
-    top:50%;
+    top:40%;
     transform: translate(0,-50%);
     width: auto;
     height: auto;
@@ -241,13 +241,18 @@ input:password {
 
 
 /*空购物车*/
+body{
+    background-color: #fff;
+}
+
 .wrap{
-    padding:300px 0 0 0;
+    padding: 140px 0 0 0;
     background-color: #FFFFFF;
-    height:900px;
+
 }
 
 .wrap img{
+    width: 200px;
    margin: 0 auto;
 }
 .wrap a{
@@ -258,8 +263,12 @@ input:password {
     font-size: 18px;
     text-align: center;
     line-height: 50px;
-    margin:30px auto;
+    margin:10px auto;
 }
+
+
+
+
 
 /*底部*/
 .foot{
