@@ -1076,9 +1076,6 @@ public class UserCtrl extends Controller {
             } else {
                 url = PIN_ACTIVITY + activityId;
             }
-            Logger.info("");
-            // Request.Builder builder = (Request.Builder) ctx().args.get("request");
-          //  Request.Builder builder = comCtrl.getBuilder(request(), session());
             Request.Builder builder = comCtrl.getBuilder(ctx());
             Request request = builder.url(url).get().build();
             Response response = client.newCall(request).execute();
