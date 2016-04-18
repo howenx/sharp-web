@@ -119,7 +119,7 @@ $(function() {
 
 
 	//切换
-	var top = $('.detail-tabpanel').offset().top; //top放后面会报错
+	var top = $('.sku-measure01').offset(top); //top放后面会报错
 	$(window).scroll(function(e) {
         //console.log($(window).scrollTop());
         //返回顶部
@@ -129,12 +129,12 @@ $(function() {
             $('.top').hide();
         }
         //选项卡
-		if($(window).scrollTop() >= (top-44)){
+		if($(window).scrollTop() >= top){
 			$('.detail-tabpanel').addClass('detail-tabpanel-fixed');
-			// $('.nav_ban_detail').hide();
+			$('.nav_ban_detail').hide();
 		}else{
 			$('.detail-tabpanel').removeClass('detail-tabpanel-fixed');
-			// $('.nav_ban_detail').show();
+			$('.nav_ban_detail').show();
 		}
 
 	});
@@ -145,13 +145,13 @@ $(function() {
 		// 	$('body').scrollTop(top-50);
 		// }
 		if($(this).hasClass('pin-pic')){
-			$('body').scrollTop($('.sku-measure01').offset().top-104);
+			$('body').scrollTop($('.sku-measure01').offset().top-61);
 		}
 		if ($(this).hasClass('goods-para')) {
-			$('body').scrollTop($('.sku-measure').offset().top-104);
+			$('body').scrollTop($('.sku-measure').offset().top-61);
 		}
 		if ($(this).hasClass('hot-sale')) {
-			$('body').scrollTop($('.hot').offset().top-104);
+			$('body').scrollTop($('.hot').offset().top-61);
 		}
 
 	});
