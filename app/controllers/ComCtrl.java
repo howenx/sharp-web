@@ -30,6 +30,7 @@ import static play.libs.Json.toJson;
  * 公共
  * Created by sibyl.sun on 16/3/18.
  */
+@SuppressWarnings("unchecked")
 public class ComCtrl extends Controller {
 
     @Inject

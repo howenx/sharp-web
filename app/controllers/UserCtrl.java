@@ -503,7 +503,7 @@ public class UserCtrl extends Controller {
             userMap.put("openId", openId);
             userMap.put("accessToken", accessToken.get().value());
         }
-        Logger.error("userMap:" + userMap);
+//        Logger.error("userMap:" + userMap);
 
         if (userForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
@@ -711,7 +711,7 @@ public class UserCtrl extends Controller {
             userMap.put("openId", openId);
             userMap.put("accessToken", accessToken.get().value());
         }
-        Logger.error("userMap:" + userMap);
+//        Logger.error("userMap:" + userMap);
 
         if (userRegistInfoForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
@@ -795,7 +795,7 @@ public class UserCtrl extends Controller {
             userMap.put("openId", openId);
             userMap.put("accessToken", accessToken.get().value());
         }
-        Logger.error("userMap:" + userMap);
+//        Logger.error("userMap:" + userMap);
 
         if (userRegistInfoForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
@@ -946,7 +946,7 @@ public class UserCtrl extends Controller {
         FileInputStream in = null;
         byte[] data = null;
         String photoUrl = "";
-        Logger.error("文件:"+photo);
+//        Logger.error("文件:"+photo);
         if (photo != null) {
             file = photo.getFile();
             //读取图片字节数组
