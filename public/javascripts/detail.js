@@ -31,7 +31,7 @@ $(function() {
     //表单提交
     function masunmit(pin) {
         if($(pin).hasClass("mabuyPin")){
-            window.location =
+            window.location = "/pinTieredPrice/"+window.urlParam;
         }else{
             var state=$("input[name='state0-0']:not(:disabled)").val() ;
             if(checkSkuBeforeBuy(state)){
