@@ -1,5 +1,5 @@
 
-@(pinDetail:domain.PinInvDetail,hisUrl:String)
+@(pinDetail:domain.PinInvDetail,hisUrl:String,url:String)
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -30,6 +30,7 @@
             })
         })
     </script>
+    <script>window.urlParam = "@url"</script>
 </head>
 <body>
 <header class="head">

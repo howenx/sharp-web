@@ -528,7 +528,7 @@ public class ProductsCtrl extends Controller {
                         return tieredPrice1.getPeopleNum().compareTo(tieredPrice2.getPeopleNum());
                     }
                 });
-                return ok(views.html.products.pinTieredPrice.render(pinInvDetail,hisUrl));
+                return ok(views.html.products.pinTieredPrice.render(pinInvDetail,hisUrl,request().uri().substring(1)));
             }
             return badRequest(views.html.error500.render());
         });
