@@ -1252,6 +1252,7 @@ div .cycle-overlay {
     border-radius: 20px;
     margin: 0 auto;
     padding: 0  10px;
+	font-size: 14px;
 	background-color:#ff5359;
     text-align: center;
     -webkit-transform: translate(-50%,0);

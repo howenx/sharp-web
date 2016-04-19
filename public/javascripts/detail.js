@@ -29,11 +29,15 @@ $(function() {
         $('.con').show();
     })
     //表单提交
-    function masunmit() {
-        var state=$("input[name='state0-0']:not(:disabled)").val() ;
-        if(checkSkuBeforeBuy(state)){
-            //提交表单
-            $("#settleForm").submit();
+    function masunmit(pin) {
+        if($(pin).hasClass("mabuyPin")){
+            window.location = "/pinTieredPrice/"+window.urlParam;
+        }else{
+            var state=$("input[name='state0-0']:not(:disabled)").val() ;
+            if(checkSkuBeforeBuy(state)){
+                //提交表单
+                $("#settleForm").submit();
+            }
         }
     }
     $(".mabuy").click(function () {
@@ -60,10 +64,10 @@ $(function() {
             // 否则打开a标签的href链接
 
         if (navigator.userAgent.match(/MicroMessenger/i)) {
-            masunmit();
+            masunmit(this);
             return;
         }else if (navigator.userAgent.match(/android/i)){
-            masunmit();
+            masunmit(this);
             var ifr = document.createElement('iframe');
             ifr.src = 'hmmapp://data/'+window.urlParam;
             ifr.style.display = 'none';
@@ -75,7 +79,7 @@ $(function() {
             window.location = 'hmmapp://data/'+window.urlParam;
             setTimeout(
                 function(){
-                    masunmit();
+                    masunmit(this);
                 }, 1000);
         }
     })
@@ -119,7 +123,7 @@ $(function() {
 
 
 	//切换
-	var top1 = $('.sku-measure01').offset().top; //top放后面会报错
+	var top1 = $('.sku-measure01').offset(); //top放后面会报错
 	$(window).scroll(function(e) {
         //console.log($(window).scrollTop());
         //返回顶部
@@ -129,7 +133,7 @@ $(function() {
             $('.top').hide();
         }
         //选项卡
-		if($(window).scrollTop() >= top1){
+		if($(window).scrollTop() >= top1.top){
 			$('.detail-tabpanel').addClass('detail-tabpanel-fixed');
 			$('.nav_ban_detail').hide();
 		}else{

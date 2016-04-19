@@ -1,5 +1,5 @@
 
-@(pinDetail:domain.PinInvDetail,hisUrl:String)
+@(pinDetail:domain.PinInvDetail,hisUrl:String,url:String)
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -30,6 +30,7 @@
             })
         })
     </script>
+    <script>window.urlParam = "@url"</script>
 </head>
 <body>
 <header class="head">
@@ -143,12 +144,12 @@
         <input type="hidden" name="pinTieredPriceId0-0" id="pinTieredPriceId" value="@pinDetail.getPinTieredPrices().get(0).getId()"/>
         }
         <input type="hidden" id="curUrl" name="curUrl" value="" />
-        <div class="choose-b mabuy">
+        <div class="choose-b" onclick="document.getElementById('settleForm').submit()">
             <p><b>立即开团</b> ( <span>@pinDetail.getFloorPricePrice()</span><b>元 / </b> <i>@pinDetail.getFloorPricePersonNum()人</i> )</p>
         </div>
     </form>
 </div>
 <div class="hint" id="tip" style="display:none"></div>
-
+@comContent()
 </body>
 </html>
