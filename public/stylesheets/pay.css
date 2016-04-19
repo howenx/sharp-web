@@ -160,7 +160,7 @@ label{
 }
 
 input[type=radio] {
-    /*-webkit-appearance: none;*/
+    -webkit-appearance: none;
     appearance: none;
     width: 20px;
     height: 20px;
@@ -177,17 +177,7 @@ input[type=radio] {
 
 }
 
-input[type=radio]:checked::after {
-    /*content: url("/assets/images/icon3.png");*/
-    display: block;
-    width:20px;
-    height:20px;
-    transform: scale(0.55,0.55);
-    position: absolute;
-    top: -9px;
-    left: -8px;
 
-}
 
 .current{
     width:25px;
