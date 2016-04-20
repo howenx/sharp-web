@@ -63,12 +63,12 @@ body{
 }
 
 .head span{
-    width: 25px;
-    height: 25px;
+    width: 18px;
+    height: 18px;
     background: url("/assets/images/icon_delete_hui.png");
     background-size: contain;
     position: absolute;
-    top:12px;
+    top: 14px;
     right: 2%;
 }
 

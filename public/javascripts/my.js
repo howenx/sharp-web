@@ -532,14 +532,17 @@ function orderConfirmDelivery(orderId){
 }
 //确认框,callback为确认时回调函数
 function windowConfirm(content,callback){
-    var html='<div class="bombbox bombboxDivCss">'+
+    var html=
+        '<div class="bombbox-big bombboxDivCss">'+
+          '<div class="bombbox">'+
               '<p class="bombbox-hd"></p>'+
               '<p>'+content+'</p>'+
               '<div class="bombbo-b clearfix">'+
                   '<span class="confirmCss">确认</span>'+
                   '<span class="cancelCss">取消</span>'+
               '</div>'+
-          '</div>';
+          '</div>'+
+        '</div>';
     $('body').append(html);
 
     $(".cancelCss").bind("click", function() {
