@@ -153,29 +153,56 @@ $(document).on("click",".delOrder",function(e){
      });
 });
 
+//function delOrder(id,position){
+//   // if (window.confirm("确定删除吗?")) {
+//    if (windowConfirm("确定删除吗?")) {
+//        $.ajax({
+//              type :"GET",
+//              url : "/order/del/"+id,
+//              contentType: "application/json; charset=utf-8",
+//              error : function(request) {
+//                  tip("删除失败!");
+//              },
+//              success: function(data) {
+//
+//                  if (data!=""&&data!=null&&data.code==200){ //删除成功
+//                      if(position==0){
+//                        $("#li"+id).remove();
+//                      }else{
+//                       setTimeout("location.href='/all'", 2000);
+//                      }
+//
+//                   } else tip("删除失败!");
+//
+//              }
+//         });
+//    }
+//};
 function delOrder(id,position){
-    if (window.confirm("确定删除吗?")) {
-        $.ajax({
-              type :"GET",
-              url : "/order/del/"+id,
-              contentType: "application/json; charset=utf-8",
-              error : function(request) {
-                  tip("删除失败!");
-              },
-              success: function(data) {
+   // if (window.confirm("确定删除吗?")) {
+    windowConfirm("确定删除吗?",function(){
+    $.ajax({
+                  type :"GET",
+                  url : "/order/del/"+id,
+                  contentType: "application/json; charset=utf-8",
+                  error : function(request) {
+                      tip("删除失败!");
+                  },
+                  success: function(data) {
 
-                  if (data!=""&&data!=null&&data.code==200){ //删除成功
-                      if(position==0){
-                        $("#li"+id).remove();
-                      }else{
-                       setTimeout("location.href='/all'", 2000);
-                      }
+                      if (data!=""&&data!=null&&data.code==200){ //删除成功
+                          if(position==0){
+                            $("#li"+id).remove();
+                          }else{
+                           setTimeout("location.href='/all'", 2000);
+                          }
 
-                   } else tip("删除失败!");
+                       } else tip("删除失败!");
 
-              }
-         });
-    }
+                  }
+             });
+    });
+
 };
 
 //删除地址
@@ -502,4 +529,25 @@ function orderConfirmDelivery(orderId){
                   }
          });
     }
+}
+//确认框,callback为确认时回调函数
+function windowConfirm(content,callback){
+    var html='<div class="bombbox bombboxDivCss">'+
+              '<p class="bombbox-hd"></p>'+
+              '<p>'+content+'</p>'+
+              '<div class="bombbo-b clearfix">'+
+                  '<span class="confirmCss">确认</span>'+
+                  '<span class="cancelCss">取消</span>'+
+              '</div>'+
+          '</div>';
+    $('body').append(html);
+
+    $(".cancelCss").bind("click", function() {
+        $(".bombboxDivCss").remove();
+    }) ;
+
+    $(".confirmCss").bind("click", function() {
+      $(".bombboxDivCss").remove();
+        callback();
+     }) ;
 }
