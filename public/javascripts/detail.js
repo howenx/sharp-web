@@ -40,7 +40,7 @@ $(function() {
             }
         }
     }
-    $(".mabuy").click(function () {
+    $(".mabuy").click(function (e) {
         // if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
         //     var loadDateTime = new Date();
         //     window.setTimeout(function() {
@@ -67,6 +67,7 @@ $(function() {
             masunmit(this);
             return;
         }else if (navigator.userAgent.match(/android/i)){
+            e.preventDefault();
             masunmit(this);
             var ifr = document.createElement('iframe');
             ifr.src = 'hmmapp://data/'+window.urlParam;
@@ -76,7 +77,7 @@ $(function() {
                 document.body.removeChild(ifr);
             },3000)
         }else{
-            window.location = 'hmmapp://data/'+window.urlParam;
+            // window.location = 'hmmapp://data/'+window.urlParam;
             setTimeout(
                 function(){
                     masunmit(this);
