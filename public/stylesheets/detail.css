@@ -101,7 +101,7 @@ input:password {
 
 /*海报*/
 /* 本例子css -------------------------------------- */
-.slideBox{ position:relative; width:100%;  height:auto; overflow:hidden; margin:5px auto; }
+.slideBox{ position:relative; width:100%;  height:auto; overflow:hidden; margin:5px auto;    padding: 40px 0 0 0; }
 .slideBox .hd{ position: absolute;
 	height: auto;
 	line-height: 28px;
@@ -1337,7 +1337,7 @@ div .cycle-overlay {
 
 
 #loading{
-	position: absolute;
+	position:fixed;
 	top:50%;
 	left: 50%;
 	width: 100px;

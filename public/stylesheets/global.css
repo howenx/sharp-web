@@ -292,5 +292,43 @@ h1 {
 }
 
 
+.bombbox{
+    position: fixed;
+    top:50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    width:90%;
+    margin: 0 auto;
+    background-color:#ededed;
+
+    border-radius: 5px;
+    -moz-box-shadow:5px 5px 10px #ccc;
+    -webkit-box-shadow:5px 5px 10px #ccc;
+    box-shadow:5px 5px 10px #ccc;
+}
+.bombbox-hd{
+    background-color: #F6F6F6;
+    height:25px;
+
+}
+.bombbo-b{
+    padding:20px 20px 10px;
+}
+
+.bombbox p:nth-child(2){
+    margin: 20px 10px;
+    font-size: 14px;
+}
+
+.bombbo-b span{
+    float: right;
+    padding: 3px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    margin:0px 5px 0 0;
+
+}
 
 
