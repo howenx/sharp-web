@@ -305,7 +305,7 @@ $(function(){
 
 //删除购物车
 function delCart(cartId){
-    if (window.confirm("确定删除吗?")) {
+    windowConfirm("确定删除吗?",function() {
         $.ajax({
               type :"GET",
               url : "/cart/del/"+cartId,
@@ -326,7 +326,7 @@ function delCart(cartId){
 
               }
          });
-    }
+    });
 };
 
 //去结算
@@ -348,6 +348,31 @@ function tip(tipContent){
     setTimeout(function(){
     $("#tip").hide();
     },3000);
+}
+
+//确认框,callback为确认时回调函数
+function windowConfirm(content,callback){
+    var html=
+        '<div class="bombbox-big bombboxDivCss">'+
+          '<div class="bombbox">'+
+              '<p class="bombbox-hd"></p>'+
+              '<p>'+content+'</p>'+
+              '<div class="bombbo-b clearfix">'+
+                  '<span class="confirmCss">确认</span>'+
+                  '<span class="cancelCss">取消</span>'+
+              '</div>'+
+          '</div>'+
+        '</div>';
+    $('body').append(html);
+
+    $(".cancelCss").bind("click", function() {
+        $(".bombboxDivCss").remove();
+    }) ;
+
+    $(".confirmCss").bind("click", function() {
+      $(".bombboxDivCss").remove();
+        callback();
+     }) ;
 }
 
 

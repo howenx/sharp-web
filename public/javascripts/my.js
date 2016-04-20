@@ -111,9 +111,10 @@ $(document).on("click",".cancelColl",function(e){
      });
 })
 
+//取消订单
 $(document).on("click",".cancelOrder",function(){
-    if (window.confirm("亲,您确定要取消订单吗")) {
-        var id=$(this).parents("li").val();
+    var id=$(this).parents("li").val();
+    windowConfirm("亲,您确定要取消订单吗",function() {
         $.ajax({
               type :"GET",
               url : "/order/cancel/"+id,
@@ -129,7 +130,7 @@ $(document).on("click",".cancelOrder",function(){
 
               }
          });
-     }
+     });
 })
 
 $(document).on("click",".delOrder",function(e){
@@ -152,35 +153,8 @@ $(document).on("click",".delOrder",function(e){
           }
      });
 });
-
-//function delOrder(id,position){
-//   // if (window.confirm("确定删除吗?")) {
-//    if (windowConfirm("确定删除吗?")) {
-//        $.ajax({
-//              type :"GET",
-//              url : "/order/del/"+id,
-//              contentType: "application/json; charset=utf-8",
-//              error : function(request) {
-//                  tip("删除失败!");
-//              },
-//              success: function(data) {
-//
-//                  if (data!=""&&data!=null&&data.code==200){ //删除成功
-//                      if(position==0){
-//                        $("#li"+id).remove();
-//                      }else{
-//                       setTimeout("location.href='/all'", 2000);
-//                      }
-//
-//                   } else tip("删除失败!");
-//
-//              }
-//         });
-//    }
-//};
 function delOrder(id,position){
-   // if (window.confirm("确定删除吗?")) {
-    windowConfirm("确定删除吗?",function(){
+    windowConfirm("亲,您确定要删除该订单吗?",function(){
     $.ajax({
                   type :"GET",
                   url : "/order/del/"+id,
@@ -207,7 +181,7 @@ function delOrder(id,position){
 
 //删除地址
 function delAddress(addId,orDefault){
-    if (window.confirm("确定删除该地址吗?")) {
+     windowConfirm("亲,您确定删除该地址吗?",function() {
         var obj=new Object();
         obj.addId=addId;
         obj.orDefault=orDefault==true?1:0;
@@ -226,7 +200,7 @@ function delAddress(addId,orDefault){
                        } else tip("删除失败!");
                   }
              });
-    }
+    });
 }
 //我的订单待付款,待收款
 $(document).ready(function(){
@@ -511,24 +485,24 @@ $(document).on("click", ".refundBtnCss", function() {
 
 //确认收货
 function orderConfirmDelivery(orderId){
-    if (window.confirm("亲,您确认收到货物了吗?")) {
-         $.ajax({
-                  type :"GET",
-                  url : "/order/confirm/delivery/"+orderId,
-                  contentType: "application/json; charset=utf-8",
-                  dataType:"json",
-                  error : function(request) {
-                      tip("操作失败!");
-                  },
-                  success: function(data) {
+    windowConfirm("亲,您确认收到货物了吗?",function(){
+        $.ajax({
+              type :"GET",
+              url : "/order/confirm/delivery/"+orderId,
+              contentType: "application/json; charset=utf-8",
+              dataType:"json",
+              error : function(request) {
+                  tip("操作失败!");
+              },
+              success: function(data) {
 
-                      if (data.code==200){ //成功
-                         window.location.href = "/all";
-                       }
-                       else tip(data.message);
-                  }
-         });
-    }
+                  if (data.code==200){ //成功
+                     window.location.href = "/all";
+                   }
+                   else tip(data.message);
+              }
+        });
+    });
 }
 //确认框,callback为确认时回调函数
 function windowConfirm(content,callback){
