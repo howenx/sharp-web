@@ -21,6 +21,14 @@ libraryDependencies += "org.apache.commons" % "commons-lang3" % "3.4" withSource
 
 libraryDependencies += "com.github.mumoshu" %% "play2-memcached-play24" % "0.7.0" withSources() withJavadoc()
 
+libraryDependencies += "com.typesafe.akka" % "akka-actor_2.11" % "2.4.1" withSources() withJavadoc()
+
+libraryDependencies += "com.typesafe.akka" % "akka-kernel_2.11" % "2.4.1" withSources() withJavadoc()
+
+libraryDependencies += "com.typesafe.akka" % "akka-slf4j_2.11" % "2.4.1" withSources() withJavadoc()
+
+libraryDependencies += "com.typesafe.akka" %% "akka-remote" % "2.4.1" withSources() withJavadoc()
+
 resolvers ++= Seq(
   "Apache" at "https://repo1.maven.org/maven2/"
 )
