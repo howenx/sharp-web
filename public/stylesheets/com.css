@@ -188,20 +188,23 @@
 input[type=checkbox]{
     -webkit-appearance: none;
     appearance: none;
-    width:18px;
-    height:18px;
+    width: 22px;
+    height: 20px;
     cursor: pointer;
     vertical-align: bottom;
-    border:1px solid #666;
+    /* border: 1px solid #666; */
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
+    background: url("/assets/images/select-.png") no-repeat;
+    background-size: 20px;
     border-radius: 50%;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     position: relative;
-    /*overflow: hidden; */
+
 }
+
 input[name=check_all]{
     border: 2px solid #fff;
 }
@@ -222,14 +225,16 @@ input[type=checkbox]:checked::after {
     -webkit-transform: scale(0.49,0.49);
     -moz-transform: scale(0.55,0.55);
     position: absolute;
-    top: -8px;
-    left: -8px;
+    top: -6px;
+    left: -5px;
 }
 
-input[type=checkbox]:focus {
+
+/*input[type=checkbox]:focus {
     outline: none;
     border: 2px solid #9FA0A0;
-}
+}*/
+
 input[name=check_all]:focus{
     border: 2px solid #fff;
 }
@@ -237,4 +242,55 @@ input[name=check_all]:focus{
     position: absolute;
     left: -5px;
     top:-16px;
+}
+
+
+/*弹出框*/
+
+.bombbox-big{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top:0;
+    left: 0;
+    background-color:rgba(255,255,255,0.1);
+}
+
+.bombbox{
+    color: #333;
+    position:absolute;
+    top:50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    width:90%;
+    margin: 0 auto;
+    background-color:#ededed;
+    border-radius: 5px;
+    -moz-box-shadow:5px 5px 10px #ccc;
+    -webkit-box-shadow:5px 5px 10px #ccc;
+    box-shadow:5px 5px 10px #ccc;
+}
+.bombbox-hd{
+    background-color: #F6F6F6;
+    height:25px;
+
+}
+.bombbo-b{
+    padding:20px 20px 10px;
+}
+
+.bombbox p:nth-child(2){
+    margin: 20px 10px;
+    font-size: 14px;
+}
+
+.bombbo-b span{
+    float: right;
+    padding: 3px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    border: 1px solid #999;
+    margin:0px 5px 0 0;
+
 }

@@ -687,17 +687,19 @@ h1 .logo {
 
 .figure span {
     display: block;
-    width: 100%;
+    width: 70px;
     position: absolute;
-    top:50%;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
     color: #fff;
-    height: 40px;
+    height: 70px;
     background-color: rgba(0,0,0,0.4);
     font-size: 14px;
     text-align: center;
-    line-height: 40px;
-    -webkit-transform: translate(0,-50%);
-    -moz-transform: translate(0,-50%);
+    line-height:70px;
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
 }
 
 
@@ -898,7 +900,7 @@ h2 span{
 }
 
 #loading{
-    position: absolute;
+    position:fixed;
     top:50%;
     left: 50%;
     width: 100px;

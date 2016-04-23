@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/assets/stylesheets/fightgroups.css">
     <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+    <script src="/assets/javascripts/jquery.zclip.js"></script>
     <script src="/assets/javascripts/my.js"></script>
     <script src="/assets/javascripts/countdown.js"></script>
     <script src="/assets/javascripts/detail.js"></script>
@@ -145,43 +146,7 @@
         }
     }
 
-
-    @if(pin.getOrJoinActivity()!=0&&pin.getStatus()=="Y"&&pin.getPersonNum()-pin.getPinUsers().size>0){
-
-    <!--最下面邀请组团-->
-        <div class="fight-btn">
-            <span>
-                还差
-                <i>@(pin.getPersonNum()-pin.getPinUsers().size)人</i>
-                ,邀请小伙伴来组团吧
-            </span>
-        </div>
-    }
-
-    @if(pin.getOrJoinActivity()==0){
-        <div class="btn-box scope">
-            <a href="/" class="home">
-                <img src="/assets/images/home.png">
-            </a>
-            <form id="settleForm" action="/settle" method="POST">
-                <input type="hidden" name="buyNow" value="-1"/>
-                <input type="hidden" name="invCustoms0" value="@pin.getInvCustoms()"/>
-                <input type="hidden" name="invArea0" value="@pin.getInvArea()"/>
-                <input type="hidden" name="invAreaNm0" value="@pin.getInvAreaNm()"/>
-                <input type="hidden" name="skuId0-0" value="@pin.getSkuId()"/>
-                <input type="hidden" name="skuType0-0" value="@pin.getSkuType()"/>
-                <input type="hidden" name="skuTypeId0-0" value="@pin.getSkuTypeId()"/>
-                <input type="hidden" name="skuTitle0-0" value="@pin.getPinTitle()"/>
-                <input type="hidden" name="skuInvImg0-0" value="@pin.getPinImg()"/>
-                <input type="hidden" name="state0-0" value="@pin.getStatus()"/>
-                <input type="hidden" name="skuPrice0-0"  value="@pin.getPinPrice()"/>
-                <input type="hidden" name="pinTieredPriceId0-0"  value="@pin.getPinTieredPriceId()"/>
-                <input type="hidden" id="curUrl" name="curUrl" value="@url" />
-                <a href="javascript:;" class="btn bg mabuy">立即下单</a>
-            </form>
-        </div>
-    }
-
+<!--立即下单-->
     <!--<div class="btn-box scope">
         <a href="/" class="home">
             <img src="/assets/images/home.png">
@@ -201,10 +166,70 @@
             <input type="hidden" name="pinTieredPriceId0-0" value="1710">
             <a href="javascript:;" class="btn bg" onclick="document.getElementById('settleForm').submit();">立即下单</a>
         </form>
-    </div>-->
+    </div>
+</div>-->
+
+@if(pin.getOrJoinActivity()!=0&&pin.getStatus()=="Y"&&pin.getPersonNum()-pin.getPinUsers().size>0){
+
+<!--最下面邀请组团-->
+<div class="fight-btn inviteFriendCss" id="inviteFriendDiv">
+            <span>
+                还差
+                <i>@(pin.getPersonNum()-pin.getPinUsers().size)人</i>
+                ,邀请小伙伴来组团吧
+            </span>
 </div>
+}
+
+@if(pin.getOrJoinActivity()==0){
+<div class="btn-box scope">
+    <a href="/" class="home">
+        <img src="/assets/images/home.png">
+    </a>
+    <form id="settleForm" action="/settle" method="POST">
+        <input type="hidden" name="buyNow" value="-1"/>
+        <input type="hidden" name="invCustoms0" value="@pin.getInvCustoms()"/>
+        <input type="hidden" name="invArea0" value="@pin.getInvArea()"/>
+        <input type="hidden" name="invAreaNm0" value="@pin.getInvAreaNm()"/>
+        <input type="hidden" name="skuId0-0" value="@pin.getSkuId()"/>
+        <input type="hidden" name="skuType0-0" value="@pin.getSkuType()"/>
+        <input type="hidden" name="skuTypeId0-0" value="@pin.getSkuTypeId()"/>
+        <input type="hidden" name="skuTitle0-0" value="@pin.getPinTitle()"/>
+        <input type="hidden" name="skuInvImg0-0" value="@pin.getPinImg()"/>
+        <input type="hidden" name="state0-0" value="@pin.getStatus()"/>
+        <input type="hidden" name="skuPrice0-0"  value="@pin.getPinPrice()"/>
+        <input type="hidden" name="pinTieredPriceId0-0"  value="@pin.getPinTieredPriceId()"/>
+        <input type="hidden" id="curUrl" name="curUrl" value="@url" />
+        <a href="hmmapp://data/@url" class="btn bg mabuy">立即下单</a>
+    </form>
+</div>
+}
+<script type="text/javascript">
 
 
+<!--/* 定义所有class为copy标签，点击后可复制被点击对象的文本 */-->
+    <!--$("#inviteFriendDiv").zclip({-->
+        <!--path: "/assets/swf/ZeroClipboard.swf",-->
+        <!--copy: function(){-->
+            <!--return window.location.href;-->
+        <!--},-->
+        <!--beforeCopy:function(){/* 按住鼠标时的操作 */-->
+           <!--// $(this).css("color","orange");-->
+        <!--},-->
+        <!--afterCopy:function(){/* 复制成功后的操作 */-->
+             <!--$("#copySuc").val(1);//拷贝成功-->
+             <!--alert('代码已经复制到您的剪贴板,使用ctrl+v粘贴或者右键粘贴。');-->
+        <!--}-->
+    <!--});-->
+    <!--$(document).on("click", ".inviteFriendCss", function() {-->
+        <!--if($("#copySuc").val()==0){-->
+            <!--tip("Copy to clipboard: Ctrl+C, Enter");-->
+        <!--}-->
+    <!--});-->
+</script>
+
+<div class="hint" id="tip" style="display:none"></div>
+@comContent()
 </body>
 </html>
 

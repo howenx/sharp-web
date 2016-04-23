@@ -19,8 +19,20 @@
                 $(this).addClass("cur");
                 $(".myall").css("display","none");
                 $(".myall").eq(index).css("display","block");
+
+                $(".not").css("display","none");
+                var html=$(".myall").eq(index).html().trim();
+                if(null==html||""==html||html.length<=0){
+                    $(".not").eq(index).css("display","block");
+                }
             })
-        })
+        });
+        $(document).ready(function() {
+            var html=$(".myall").eq(0).html().trim();
+            if(null==html||""==html||html.length<=0){
+                $(".not").eq(0).css("display","block");
+            }
+        });
     </script>
 </head>
 <body>
@@ -59,7 +71,7 @@
     <div class="myall">
         @for(pin<-pinList){
             @if(pin.getOrMaster()==1){
-                <div class="con">
+                <div class="con pinDivCss">
                     <div class="up">
                         <div class="pinimg">
                             <img src="@pin.getPinImg()" alt="">
@@ -87,14 +99,11 @@
                 </div>
             }
         }
-
     </div>
-    <div class="myall">
-
-
+    <div class="myall" id="joinPinDiv">
         @for(pin<-pinList){
             @if(pin.getOrMaster()==0){
-                <div class="con">
+                <div class="con pinDivCss">
                     <div class="up">
                         <div class="pinimg">
                             <img src="@pin.getPinImg()" alt="">
@@ -122,6 +131,17 @@
                 </div>
             }
         }
+
+    </div>
+
+    <div class="not" style="display:none">
+        <p>您还未开启任何拼团</p>
+        <a href="/" class="look">去逛逛</a>
+    </div>
+
+    <div class="not" style="display:none">
+        <p>您还未参加任何拼团</p>
+        <a href="/" class="look">去逛逛</a>
     </div>
     <!--
     <div class="imm">
@@ -131,5 +151,6 @@
         <button class="imm-click">立即下单</button>
     </div>
     -->
+    @comContent()
 </body>
 </html>

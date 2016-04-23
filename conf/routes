@@ -20,7 +20,7 @@ GET         /collect/del/$collectId<[0-9]+>                                    c
 POST        /collect/submit                                                    controllers.UserCtrl.submitCollect()
 
 POST        /service                                                           controllers.UserCtrl.service()
-POST        /order/apply/refund                                                controllers.UserCtrl.refundApply()
+POST        /order/apply/refund/$type<[0-9]+>                                  controllers.UserCtrl.refundApply(type:Integer)
 
 #我的拼购
 GET         /mypin                                                             controllers.UserCtrl.mypin()
@@ -76,7 +76,7 @@ GET         /appraise                                                          c
 GET         /assess                                                            controllers.ShoppingCtrl.assess()
 GET         /delivered                                                         controllers.ShoppingCtrl.delivered()
 GET         /drawback                                                          controllers.ShoppingCtrl.drawback()
-GET         /logistic                                                          controllers.ShoppingCtrl.logistic()
+GET         /logistic/$orderId<[0-9]+>                                         controllers.ShoppingCtrl.logistic(orderId: Long)
 GET         /obligati                                                          controllers.ShoppingCtrl.obligati()
 GET         /orders                                                            controllers.ShoppingCtrl.orders()
 POST        /settle                                                            controllers.ShoppingCtrl.settle()
@@ -87,17 +87,19 @@ GET         /order/del/$orderId<[0-9]+>                                        c
 GET         /order/verify/$orderId<[0-9]+>                                     controllers.ShoppingCtrl.verifyOrder(orderId:Long)
 POST        /order/submit                                                      controllers.ShoppingCtrl.submitOrder()
 GET         /down                                                              controllers.ShoppingCtrl.down()
-
+POST        /refundment                                                        controllers.ShoppingCtrl.refundment()
 
 POST        /cart/add                                                          controllers.ShoppingCtrl.cartAdd()
 GET         /cart/del/$cartId<[0-9]+>                                          controllers.ShoppingCtrl.cartDel(cartId:Long)
 GET         /cart/amount                                                       controllers.ShoppingCtrl.cartAmount()
 POST        /cart/nologin/verify/amount                                        controllers.ShoppingCtrl.verifySkuAmount()
+GET         /order/confirm/delivery/$orderId<[0-9]+>                           controllers.ShoppingCtrl.orderConfirmDelivery(orderId:Long)
+
 #
 
 
 
-GET         /pay/order/get/$orderId<[0-9]+>                                    controllers.JDCtrl.cashDesk(orderId:Long)
+
 
 GET         /wechat/base                                                       controllers.ComCtrl.wechatBase(code: String,state:String)
 

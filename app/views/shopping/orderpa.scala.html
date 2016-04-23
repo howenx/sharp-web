@@ -1,4 +1,4 @@
-@(orderList:List[domain.OrderDTO],payUrl:String,token:String)
+@(order:domain.OrderDTO,payUrl:String,token:String)
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,17 +20,17 @@
         <b></b>
     </a>
     <h1>订单详情</h1>
-    @if(orderList.get(0).getOrder().getOrderStatus()=="C"||orderList.get(0).getOrder().getOrderStatus()=="R"){
-    <span onclick="delOrder(@orderList.get(0).getOrder().getOrderId(),1)"></span>
+    @if(order.getOrder().getOrderStatus()=="C"||order.getOrder().getOrderStatus()=="R"||order.getOrder().getOrderStatus()=="T"){
+         <span onclick="delOrder(@order.getOrder().getOrderId(),1)"></span>
     }
 
 
 </header>
 
 <div class="wap">
-    @if(orderList.get(0).getOrder().getOrderStatus()=="I"){
+    @if(order.getOrder().getOrderStatus()=="I"){
     <div class="time-item price" style="text-align:center">
-        <input type="hidden" id="countdown" value="@orderList.get(0).getOrder().getCountDown()"/>
+        <input type="hidden" id="countdown" value="@order.getOrder().getCountDown()"/>
         <span id="day_show"></span>
         <strong id="hour_show">&nbsp;</strong>
         <strong id="minute_show"></strong>
@@ -38,7 +38,6 @@
     </div>
     }
     <ul>
-        @for(order<-orderList){
         <li>
             <p class="first">
                 <span>订单号 :</span>
@@ -60,6 +59,9 @@
                     @if(order.getOrder().getOrderStatus()=="PS"){拼购支付成功状态}
                     @if(order.getOrder().getOrderStatus()=="PF"){拼团失败还未成功退款}
                 </i>
+                @if(null!=order.getRefund()&&"Y"!=order.getRefund().getState()){
+                     <i class="color">(已锁定)</i>
+                }
             </p>
 
             <p>
@@ -93,9 +95,9 @@
                         <h2>@sku.getSkuTitle()</h2>
                         <span class="commodity-rmb"><b>￥</b><i class="price">@sku.getPrice()</i><i class="rmb color"></i>数量:<i class="number">@sku.getAmount()</i></span>
                     </a>
-                    <a  class="right apply">申请售后</a>
+
                     @if(order.getOrder().getOrderStatus()=="R"){
-                    <a href="/service" class="right">申请售后</a>
+                        <a  class="right apply" style="display:none">申请售后</a>
                     }
                     <input type="hidden" value="@sku.getSkuId()">
                 </div>
@@ -153,20 +155,71 @@
 
             <p>
                 <span>订单应付金额 :</span>
-                <i>@order.getOrder().getPayTotal()</i>
+                <i id="payBackFee">@order.getOrder().getPayTotal()</i>
             </p>
         </li>
+        @if(null!=order.getRefund()){
+            <li>
+                <p class="first">
+                    <span>退货信息</span>
+                </p>
+                <p>
+                    <span>退款金额 :</span>
+                    <i>
+                        ￥@order.getRefund().getPayBackFee()
+                    </i>
+                </p>
+                <p>
+                    <span>退款状态 :</span>
+                    <i class="color">
+                        @if(order.getRefund().getState()=="I"){申请受理中}
+                        @if(order.getRefund().getState()=="A"){退款受理中，资金会在1-5个工作日内退回您的账户}
+                        @if(order.getRefund().getState()=="R"){拒绝退款:@order.getRefund().getRejectReason()}
+                        @if(order.getRefund().getState()=="N"){由于某种不可抗力量，导致退款受理失败，我们客服MM会及时联系您}
+                        @if(order.getRefund().getState()=="Y"){退款受理成功}
+
+                    </i>
+                </p>
+                <p>
+                    <span>退款原因 :</span>
+                    <i>
+                        @order.getRefund().getReason()
+                    </i>
+                </p>
+
+            </li>
+        }
         @if(order.getOrder().getOrderStatus()=="I"||order.getOrder().getOrderStatus()=="F"){
             <li value="@order.getOrder().getOrderId()" class="btn">
                 <a href="javascript:;" class="left cancelOrder discolour" >取消订单</a>
                 <a href="javascript:;" class="right bg"  onclick="pay('@payUrl','@order.getOrder().getOrderId()','@token','@order.getOrder().getSecurityCode()')">去支付</a>
             </li>
         }
-
+        @if(order.getOrder().getOrderStatus()=="S"&&null==order.getRefund()){
+            <li class="btn">
+                <a href="javascript:;" class="left discolour applyRefundCss" >申请退货</a>
+            </li>
         }
+        @if(order.getOrder().getOrderStatus()=="D"){
+            <li class="btn">
+                <a href="/logistic/@order.getOrder().getOrderId()" class="left bg">查看物流</a>
+                <a href="javascript:;" class="right bg" onclick="orderConfirmDelivery(@order.getOrder().getOrderId())">确认收货</a>
+            </li>
+        }
+        @if(order.getOrder().getOrderStatus()=="R"){
+            <li class="btn">
+                <a href="/logistic/@order.getOrder().getOrderId()" class="left bg">查看物流</a>
+            </li>
+        }
+
+        <input type="hidden" value="@order.getOrder().getOrderSplitId()" id="orderSplitId"/>
+        <input type="hidden" value="@order.getOrder().getOrderStatus()" id="orderStatus"/>
+
     </ul>
+
 
 </div>
 <div class="hint" id="tip" style="display:none"></div>
+@comContent()
 </body>
 </html>

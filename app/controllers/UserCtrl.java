@@ -4,11 +4,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.squareup.okhttp.FormEncodingBuilder;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
+import com.ning.http.client.multipart.MultipartBody;
+import com.squareup.okhttp.*;
 import domain.*;
+import domain.Address;
 import filters.UserAjaxAuth;
 import filters.UserAuth;
 import modules.ComTools;
@@ -163,7 +162,7 @@ public class UserCtrl extends Controller {
             });
 
             return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-                Logger.info("===json==" + json);
+               // Logger.info("===json==" + json);
                 Message message = Json.fromJson(json.get("message"), Message.class);
                 if (null == message) {
                     Logger.error("返回创建新的收货地址数据错误code=" + json);
@@ -504,7 +503,7 @@ public class UserCtrl extends Controller {
             userMap.put("openId", openId);
             userMap.put("accessToken", accessToken.get().value());
         }
-        Logger.error("userMap:" + userMap);
+//        Logger.error("userMap:" + userMap);
 
         if (userForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
@@ -712,7 +711,7 @@ public class UserCtrl extends Controller {
             userMap.put("openId", openId);
             userMap.put("accessToken", accessToken.get().value());
         }
-        Logger.error("userMap:" + userMap);
+//        Logger.error("userMap:" + userMap);
 
         if (userRegistInfoForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
@@ -796,7 +795,7 @@ public class UserCtrl extends Controller {
             userMap.put("openId", openId);
             userMap.put("accessToken", accessToken.get().value());
         }
-        Logger.error("userMap:" + userMap);
+//        Logger.error("userMap:" + userMap);
 
         if (userRegistInfoForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
@@ -947,7 +946,7 @@ public class UserCtrl extends Controller {
         FileInputStream in = null;
         byte[] data = null;
         String photoUrl = "";
-        Logger.error("文件:"+photo);
+//        Logger.error("文件:"+photo);
         if (photo != null) {
             file = photo.getFile();
             //读取图片字节数组
@@ -1077,9 +1076,6 @@ public class UserCtrl extends Controller {
             } else {
                 url = PIN_ACTIVITY + activityId;
             }
-            Logger.info("");
-            // Request.Builder builder = (Request.Builder) ctx().args.get("request");
-          //  Request.Builder builder = comCtrl.getBuilder(request(), session());
             Request.Builder builder = comCtrl.getBuilder(ctx());
             Request request = builder.url(url).get().build();
             Response response = client.newCall(request).execute();
@@ -1179,33 +1175,63 @@ public class UserCtrl extends Controller {
      * @return
      */
     @Security.Authenticated(UserAuth.class)
-    public F.Promise<Result> refundApply() {
+    public F.Promise<Result> refundApply(Integer type) {
         ObjectNode result = newObject();
-        Form<RefundInfo> refundInfoForm = Form.form(RefundInfo.class).bindFromRequest();
-        Map<String, String> map = refundInfoForm.data();
-        Logger.error("map:"+map.toString());
-        if (refundInfoForm.hasErrors()) {
-            result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
-            return Promise.promise((Function0<Result>) () -> ok(result));
-        } else {
-            Promise<JsonNode> promiseOfInt;
-            promiseOfInt = Promise.promise(() -> {
-                RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, map.toString());
-                Request.Builder builder = (Request.Builder) ctx().args.get("request");
-                Request request = builder.url(ORDER_REFUND).post(formBody).build();
-                Response response = client.newCall(request).execute();
-                Logger.error("响应:"+response.toString());
-                if (response.isSuccessful()) {
-                    return Json.parse(new String(response.body().bytes(), UTF_8));
-                } else throw new IOException("Unexpected code" + response);
-            });
+        Map<String, String> map =new HashMap<>();
+        if(type==1) { //售后
+            Form<RefundInfo> refundInfoForm = Form.form(RefundInfo.class).bindFromRequest();
+            map=refundInfoForm.data();
+            Logger.error("map:" + map.toString());
+            if (refundInfoForm.hasErrors()) {
+                result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
+                return Promise.promise((Function0<Result>) () -> ok(result));
+            }
+        }else{ //退货
+            Form<ApplyRefundInfo> refundInfoForm = Form.form(ApplyRefundInfo.class).bindFromRequest();
+            map=refundInfoForm.data();
+            Logger.error("map:" + map.toString());
+            if (refundInfoForm.hasErrors()) {
+                result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
+                return Promise.promise((Function0<Result>) () -> ok(result));
+            }
 
-            return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-                Message message = Json.fromJson(json.findValue("message"), Message.class);
-                Logger.error(json.toString()+"-----"+message.toString());
-                return ok(Json.toJson(message));
-            });
         }
+
+        Promise<JsonNode> promiseOfInt;
+        final Map<String, String> finalMap = map;
+        promiseOfInt = Promise.promise(() -> {
+          //  RequestBody formBody = RequestBody.create(MEDIA_TYPE_MULTIPART, new String(Form.form().bindFromRequest().data().toString()));
+            Request.Builder builder = (Request.Builder) ctx().args.get("request");
+            RequestBody requestBody = new MultipartBuilder()
+                    .type(MultipartBuilder.FORM)
+                    .addFormDataPart("orderId", null== finalMap.get("orderId")?"": finalMap.get("orderId"))
+                    .addFormDataPart("splitOrderId", null== finalMap.get("splitOrderId")?"": finalMap.get("splitOrderId"))
+                    .addFormDataPart("skuId", null== finalMap.get("skuId")?"": finalMap.get("skuId"))
+                    .addFormDataPart("reason", null== finalMap.get("reason")?"": finalMap.get("reason"))
+                    .addFormDataPart("amount", null== finalMap.get("amount")?"": finalMap.get("amount"))
+                    .addFormDataPart("contactName", null== finalMap.get("contactName")?"": finalMap.get("contactName"))
+                    .addFormDataPart("contactTel", null== finalMap.get("contactTel")?"": finalMap.get("contactTel"))
+                    .addFormDataPart("payBackFee", null== finalMap.get("payBackFee")?"0": finalMap.get("payBackFee"))
+                    .addFormDataPart("refundType", null== finalMap.get("refundType")?"deliver": finalMap.get("refundType"))
+//                        .addFormDataPart("refundImg1", "1.jpg", RequestBody.create(MEDIA_TYPE_PNG, bytes))
+//                        .addFormDataPart("refundImg2", "2.jpg", RequestBody.create(MEDIA_TYPE_PNG, bytes))
+//                        .addFormDataPart("refundImg3", "3.jpg", RequestBody.create(MEDIA_TYPE_PNG, bytes))
+                    .build();
+
+            Request request = builder.url(ORDER_REFUND).post(requestBody).build();
+            Response response = client.newCall(request).execute();
+            Logger.error("响应:"+response.toString());
+            if (response.isSuccessful()) {
+                return Json.parse(new String(response.body().bytes(), UTF_8));
+            } else throw new IOException("Unexpected code" + response);
+        });
+
+        return promiseOfInt.map((Function<JsonNode, Result>) json -> {
+            Message message = Json.fromJson(json.findValue("message"), Message.class);
+            Logger.error(json.toString()+"-----"+message.toString());
+            return ok(Json.toJson(message));
+        });
+
 
     }
 

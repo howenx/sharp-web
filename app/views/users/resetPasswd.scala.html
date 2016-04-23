@@ -70,27 +70,30 @@
                                         console.log(data);
                                         $("#password").attr({"name":"password"});
                                         $("#code").attr({"name":"code"});
-                                        //手机验证码发送成功
-                                        if (data.code === 200) {
-                                                $('#js-userinfo-error').text('验证码发送成功!').show();
-                                                setTimeout("$('#js-userinfo-error').hide()", 2000);
-                                                $("#get-code").css("color", "#000");
-                                                $("#get-code").css('cursor', 'auto');
-                                                var ctime = 80;
-                                                $("#time").html(ctime+"s");
-                                                timer2 = window.setInterval(function() {
-                                                        $("#time").html(--ctime+"s");
-                                                        if (ctime == 0) {
-                                                            window.clearInterval(timer2);
-                                                            $("#time").html("");
-                                                            $("#get-code").css("color", "#E46359");
-                                                            $("#get-code").css('cursor', 'pointer');
-                                                            flag = true;
-                                                        }
-                                                }, 1000);
+                                        if (data==null || data=="") {
+                                            $('#js-userinfo-error').text("网络连接异常,请检查网络").show();
+                                            setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                        } else if (data.code === 200) {
+                                            //手机验证码发送成功
+                                            $('#js-userinfo-error').text('验证码发送成功!').show();
+                                            setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                            $("#get-code").css("color", "#000");
+                                            $("#get-code").css('cursor', 'auto');
+                                            var ctime = 80;
+                                            $("#time").html(ctime+"s");
+                                            timer2 = window.setInterval(function() {
+                                                $("#time").html(--ctime+"s");
+                                                if (ctime == 0) {
+                                                    window.clearInterval(timer2);
+                                                    $("#time").html("");
+                                                    $("#get-code").css("color", "#E46359");
+                                                    $("#get-code").css('cursor', 'pointer');
+                                                    flag = true;
+                                                 }
+                                            }, 1000);
                                         } else {
-                                                $('#js-userinfo-error').text(data.message).show();
-                                                setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                            $('#js-userinfo-error').text(data.message).show();
+                                            setTimeout("$('#js-userinfo-error').hide()", 2000);
                                         }
                                 }
                         });
@@ -128,7 +131,10 @@
                             type: 'POST',
                             success: function(data) {
                                 console.log(data);
-                                if(data.code === 200){
+                                if (data==null || data=="") {
+                                    $('#js-userinfo-error').text("网络连接异常,请检查网络").show();
+                                    setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                } else if(data.code === 200){
                                     $('#js-userinfo-error').text('密码修改并登录成功').show();
                                     setTimeout("$('#js-userinfo-error').hide()", 2000);
                                     setTimeout(function(){
@@ -218,6 +224,7 @@
         </fieldset>
     </div>
 </div>
+@comContent()
 </body>
 </html>
 <!--reference script region-->

@@ -38,7 +38,6 @@ $(document).on("click",".addAddressBtn",function(){
                     dataType: 'json',
                     data: $('form#cell_addressForm').serialize(),
                     success: function(data) {
-                        console.log("data="+data);
                         if (data!=""&&data!=null){
                             if(selId!=0){ //0-普通添加更新跳全部地址界面  1-结算结算添加 2-结算界面更新
                                 if(data.message.code==200) {
@@ -95,7 +94,6 @@ $(document).on("click",".cancelColl",function(e){
     e.preventDefault();
     var id=$(this).parents("li").val();
     var li=$(this).parents("li");
-    console.log("id="+id);
     $.ajax({
           type :"GET",
           url : "/collect/del/"+id,
@@ -104,7 +102,6 @@ $(document).on("click",".cancelColl",function(e){
               tip("删除失败!");
           },
           success: function(data) {
-             console.log("data="+data);
 
                if(data.code==200){ //取消收藏成功
                   li.remove();
@@ -114,25 +111,25 @@ $(document).on("click",".cancelColl",function(e){
      });
 })
 
-$(document).on("click",".cancelOrder",function(e){
-    e.preventDefault();
+//取消订单
+$(document).on("click",".cancelOrder",function(){
     var id=$(this).parents("li").val();
-    console.log("id="+id);
-    $.ajax({
-          type :"GET",
-          url : "/order/cancel/"+id,
-          contentType: "application/json; charset=utf-8",
-          error : function(request) {
-              tip("取消订单失败!");
-          },
-          success: function(data) {
-             console.log("data="+data);
+    windowConfirm("亲,您确定要取消订单吗",function() {
+        $.ajax({
+              type :"GET",
+              url : "/order/cancel/"+id,
+              contentType: "application/json; charset=utf-8",
+              error : function(request) {
+                  tip("取消订单失败!");
+              },
+              success: function(data) {
 
-               if(data.code==200){ //取消订单成功
-                 setTimeout("location.href='/all'", 3000);
-               } else tip("取消订单失败!");
+                   if(data.code==200){ //取消订单成功
+                     setTimeout("location.href='/all'", 3000);
+                   } else tip("取消订单失败!");
 
-          }
+              }
+         });
      });
 })
 
@@ -140,7 +137,6 @@ $(document).on("click",".delOrder",function(e){
     e.preventDefault();
     var id=$(this).parents("li").val();
     var li=$(this).parents("li");
-    console.log("id="+id);
     $.ajax({
           type :"GET",
           url : "/order/del/"+id,
@@ -149,7 +145,6 @@ $(document).on("click",".delOrder",function(e){
               tip("删除失败!");
           },
           success: function(data) {
-             console.log("data="+data);
 
                if(data.code==200){ //删除订单成功
                   li.remove();
@@ -158,37 +153,35 @@ $(document).on("click",".delOrder",function(e){
           }
      });
 });
-
 function delOrder(id,position){
-    if (window.confirm("确定删除吗?")) {
-        console.log("id="+id);
-        $.ajax({
-              type :"GET",
-              url : "/order/del/"+id,
-              contentType: "application/json; charset=utf-8",
-              error : function(request) {
-                  tip("删除失败!");
-              },
-              success: function(data) {
-                 console.log("data="+data);
+    windowConfirm("亲,您确定要删除该订单吗?",function(){
+    $.ajax({
+                  type :"GET",
+                  url : "/order/del/"+id,
+                  contentType: "application/json; charset=utf-8",
+                  error : function(request) {
+                      tip("删除失败!");
+                  },
+                  success: function(data) {
 
-                  if (data!=""&&data!=null&&data.code==200){ //删除成功
-                      if(position==0){
-                        $("#li"+id).remove();
-                      }else{
-                       setTimeout("location.href='/all'", 2000);
-                      }
+                      if (data!=""&&data!=null&&data.code==200){ //删除成功
+                          if(position==0){
+                            $("#li"+id).remove();
+                          }else{
+                           setTimeout("location.href='/all'", 2000);
+                          }
 
-                   } else tip("删除失败!");
+                       } else tip("删除失败!");
 
-              }
-         });
-    }
+                  }
+             });
+    });
+
 };
 
 //删除地址
 function delAddress(addId,orDefault){
-    if (window.confirm("确定删除该地址吗?")) {
+     windowConfirm("亲,您确定删除该地址吗?",function() {
         var obj=new Object();
         obj.addId=addId;
         obj.orDefault=orDefault==true?1:0;
@@ -202,13 +195,12 @@ function delAddress(addId,orDefault){
                       tip("删除失败!");
                   },
                   success: function(data) {
-                     console.log(data);
-                         if (data!=""&&data!=null&&data.code==200){ //删除地址成功
+                       if (data!=""&&data!=null&&data.code==200){ //删除地址成功
                           $("#li"+addId).remove();
                        } else tip("删除失败!");
                   }
              });
-    }
+    });
 }
 //我的订单待付款,待收款
 $(document).ready(function(){
@@ -241,7 +233,6 @@ $(document).on("click",".feedbackBtn",function(){
                     tip("意见反馈失败");
                 },
                 success: function(data) {
-                    console.log("data="+data+"==="+data.code);
                     if (data!=""&&data!=null&&data.code==200) {
                         setTimeout("location.href='/myView'", 3000);
                     }else{
@@ -391,10 +382,9 @@ $(document).on("click", ".box-btn", function() {
     } else {
         $.ajax({
             type: "POST",
-            url: "/order/apply/refund",
+            url: "/order/apply/refund/1",
             data: $('form#cell_refForm').serialize(),
             success: function(data) {
-                console.log(data);
                 if (data.code==200) {
                     $(".box-btn").html("提交成功");
                     setTimeout(function(){$('.shade').hide();},2000);
@@ -417,7 +407,6 @@ function pay(url,orderId,token,securityCode){
               tip("请求失败!");
           },
           success: function(data) {
-             console.log("data="+data);
               if (data!=""&&data!=null){
 
                   if(data.code==200){ //校验订单成功
@@ -438,6 +427,104 @@ function pay(url,orderId,token,securityCode){
 
           }
      });
+};
+
+$(document).on("click", "#inviteFriendDiv", function() {
+      tip("亲,请长按链接地址复制分享给小伙伴吧");
+ });
+
+//申请退货
+$(document).on("click", ".applyRefundCss", function() {
+    var orderId = $("#orderId").text();
+    var splitOrderId=$("#orderSplitId").val();
+    var payBackFee=$("#payBackFee").text();
+    var orderStatus=$("#orderStatus").val();
+
+    var url = '/refundment';
+    var form = $('<form action="' + url + '" method="post">' +
+    '<input type="hidden" name="orderId" value="' + orderId + '" />' +
+    '<input type="hidden" name="splitOrderId" value="' + splitOrderId + '" />' +
+    '<input type="hidden" name="payBackFee" value="' + payBackFee + '" />' +
+    '<input type="hidden" name="orderStatus" value="' + orderStatus + '" />' +
+    '</form>');
+    form.submit();
+});
+
+//申请退货提交
+$(document).on("click", ".refundBtnCss", function() {
+    var reason=$("#reason").val();
+    var orderId=$("#orderId").val();
+    var contactName=$("#contactName").val();
+    var contactTel=$("#contactTel").val();
+     var zszReg = new RegExp(/^[a-zA-Z0-9\u4e00-\u9fa5]/); //字母数字中文
+    var telReg=new RegExp(/^[1][345678]\d{9}/);
+    if(null==reason||""==reason||reason.length>200){
+        tip("亲,请填写退款说明,200字以内");
+    } else if (""!=contactName&&null!=contactName&&(contactName.length>15||!zszReg.test(contactName))) {
+         tip('姓名只能是中文/数字/字母');
+    }else if (""!=contactTel&&null!=contactTel&&(contactTel.length!=11 ||!telReg.test(contactTel))) {
+          tip('请填写正确的手机号码');
+    }else{
+        $.ajax({
+            type: "POST",
+            url: "/order/apply/refund/2",
+            data: $('form#cell_refForm').serialize(),
+            success: function(data) {
+                if (data.code==200) {
+                    $(".box-btn").html("提交成功");
+                    setTimeout(function(){$('.shade').hide();},2000);
+                    window.location.href = "/all?orderId="+orderId
+                }else{
+                     tip(data.message);
+                }
+            }
+
+        });
+    }
+});
+
+//确认收货
+function orderConfirmDelivery(orderId){
+    windowConfirm("亲,您确认收到货物了吗?",function(){
+        $.ajax({
+              type :"GET",
+              url : "/order/confirm/delivery/"+orderId,
+              contentType: "application/json; charset=utf-8",
+              dataType:"json",
+              error : function(request) {
+                  tip("操作失败!");
+              },
+              success: function(data) {
+
+                  if (data.code==200){ //成功
+                     window.location.href = "/all";
+                   }
+                   else tip(data.message);
+              }
+        });
+    });
 }
+//确认框,callback为确认时回调函数
+function windowConfirm(content,callback){
+    var html=
+        '<div class="bombbox-big bombboxDivCss">'+
+          '<div class="bombbox">'+
+              '<p class="bombbox-hd"></p>'+
+              '<p>'+content+'</p>'+
+              '<div class="bombbo-b clearfix">'+
+                  '<span class="confirmCss">确认</span>'+
+                  '<span class="cancelCss">取消</span>'+
+              '</div>'+
+          '</div>'+
+        '</div>';
+    $('body').append(html);
 
+    $(".cancelCss").bind("click", function() {
+        $(".bombboxDivCss").remove();
+    }) ;
 
+    $(".confirmCss").bind("click", function() {
+      $(".bombboxDivCss").remove();
+        callback();
+     }) ;
+}

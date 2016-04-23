@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+@(logistics:domain.LogisticsDTO)
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>物流跟踪</title>
     <!-- 视图窗口，移动端特属的标签。 -->
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
     <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
@@ -15,7 +15,7 @@
 </head>
 <body>
 <header class="head">
-    <a href="/obligation" class="back">
+    <a href="javascript:window.history.back()" class="back">
         <i></i>
         <b></b>
     </a>
@@ -24,17 +24,27 @@
 
 <div class="wrap scope">
     <div class="logistics-hd">
-        <div class="logistics-l">
+        <!--<div class="logistics-l">
             <a href="#">
-                <img src="/assets/images/HMM--list_03.jpg">
+                <img src="/assets/images/HMM&#45;&#45;list_03.jpg">
             </a>
-        </div>
+        </div>-->
 
         <div class="logistics-r">
-            <span>物流状态: <i class="color">运输中</i></span>
-            <span>承运来源: <i>韵达快递</i></span>
-            <span>运单编号: <i>1234567789909766</i></span>
-            <span>官方号码: <i class="nub">95546</i></span>
+            <span>物流状态: <i class="color">
+                @if(logistics.getState()=="0"){在途中}
+                @if(logistics.getState()=="1"){已揽收}
+                @if(logistics.getState()=="2"){疑难}
+                @if(logistics.getState()=="3"){已签收}
+                @if(logistics.getState()=="4"){退签}
+                @if(logistics.getState()=="5"){同城派送中}
+                @if(logistics.getState()=="6"){退回}
+                @if(logistics.getState()=="7"){转单}
+            </i></span>
+            <span>承运来源: <i>@logistics.getExpressName()</i></span>
+            <span>运单号: <i>@logistics.getNu()</i></span>
+
+           <!-- <span>官方号码: <i class="nub">95546</i></span>-->
         </div>
     </div>
 
@@ -45,101 +55,72 @@
 
         <div class="logis-fd">
             <ul>
+                @if(null!=logistics.getData()){
+                    @for((logisticsDataDTO,index)<-logistics.getData().zipWithIndex){
+                        <li >
+                           @if(index==0){<div class="logis-box color">}
+                           @if(index!=0){<div class="logis-box">}
+                                <div class="logis-content">
+                                    <p class="logis-content-detail">
+                                        @if(""!=logisticsDataDTO.getLocation()){
+                                        <i>[ @logisticsDataDTO.getLocation() ]</i>
+                                        }
+                                        <i>@logisticsDataDTO.getContext()</i>
+                                    </p>
+                                    <p class="logis-content-timer">@logisticsDataDTO.getTime()</p>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                }
+                <!--
                 <li >
                     <div class="logis-box color">
                         <div class="logis-content">
-                            <p class="logis-content-detail">快件已签收</p>
+                            <p class="logis-content-detail">
+                                <span>[ 北京市 ]</span> <span>在北京市昌平区信息员公司进行签收扫描,快件已签收,感谢您使用<i>韵达</i>快递</span>
+                            </p>
                             <p class="logis-content-timer">2015-12-2 13:16</p>
                         </div>
                     </div>
 
                 </li>
+
+                <li >
+                    <div class="logis-box">
+                        <div class="logis-content clearfix man-box">
+                            <p class="logis-content-detail logis-l">
+                               <span class="man"><i>配送员</i> <i>[ 杨味 ]</i> 已发出,<i>联系电话</i> [<i class="phone"> 1316808877 </i>]</span>
+                               <span class="logis-content-timer man-timer">2015-12-2 13:16</span>
+                            </p>
+
+                            <p class="logis-r">
+                                <img src="/assets/images/HMM&#45;&#45;list_03.jpg">
+                            </p>
+                        </div>
+                    </div>
+                </li>
+
                 <li >
                     <div class="logis-box">
                         <div class="logis-content">
-                            <p class="logis-content-detail">合肥市 安徽合肥分拔中心已发出</p>
+                            <p class="logis-content-detail">
+                                <i>您的订单在</i> <i>[ 望京站 ]</i> <i>验货完成</i>,<i>正在分配配送员</i>
+                            </p>
                             <p class="logis-content-timer">2015-12-2 13:16</p>
                         </div>
                     </div>
 
                 </li>
-                <li >
-                    <div class="logis-box">
-                        <div class="logis-content">
-                            <p class="logis-content-detail">合肥市 安徽合肥分拔中心已发出</p>
-                            <p class="logis-content-timer">2015-12-2 13:16</p>
-                        </div>
-                    </div>
-
-                </li>
-                <li >
-                    <div class="logis-box">
-                        <div class="logis-content">
-                            <p class="logis-content-detail">合肥市 安徽合肥分拔中心已发出</p>
-                            <p class="logis-content-timer">2015-12-2 13:16</p>
-                        </div>
-                    </div>
-
-                </li>
-                <li >
-                    <div class="logis-box">
-                        <div class="logis-content">
-                            <p class="logis-content-detail">合肥市 安徽合肥分拔中心已发出</p>
-                            <p class="logis-content-timer">2015-12-2 13:16</p>
-                        </div>
-                    </div>
-
-                </li>
-                <li >
-                    <div class="logis-box">
-                        <div class="logis-content">
-                            <p class="logis-content-detail">合肥市 安徽合肥分拔中心已发出</p>
-                            <p class="logis-content-timer">2015-12-2 13:16</p>
-                        </div>
-                    </div>
-
-                </li>
-                <li >
-                    <div class="logis-box">
-                        <div class="logis-content">
-                            <p class="logis-content-detail">合肥市 安徽合肥分拔中心已发出</p>
-                            <p class="logis-content-timer">2015-12-2 13:16</p>
-                        </div>
-                    </div>
-
-                </li>
-                <li >
-                    <div class="logis-box">
-                        <div class="logis-content">
-                            <p class="logis-content-detail">合肥市 安徽合肥分拔中心已发出</p>
-                            <p class="logis-content-timer">2015-12-2 13:16</p>
-                        </div>
-                    </div>
-
-                </li>
-                <li >
-                    <div class="logis-box">
-                        <div class="logis-content">
-                            <p class="logis-content-detail">合肥市 安徽合肥分拔中心已发出</p>
-                            <p class="logis-content-timer">2015-12-2 13:16</p>
-                        </div>
-                    </div>
-
-                </li>
-
-
+                -->
 
 
 
             </ul>
+
         </div>
-
-
     </div>
-
-
-
 </div>
-
+@comContent()
 </body>
 </html>

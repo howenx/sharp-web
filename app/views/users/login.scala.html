@@ -63,7 +63,10 @@
                             type: 'POST',
                             success: function (data) {
                                 console.log(data);
-                                if (data.code === 200) {
+                                if (data==null || data=="") {
+                                    $('#js-userinfo-error').text("网络连接异常,请检查网络").show();
+                                    setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                } else if (data.code === 200) {
                                     $('#js-userinfo-error').removeClass("pcue").text('登录成功').addClass("cue");
                                     setTimeout("$('#js-userinfo-error').removeClass('cue').addClass('pcue')", 1000);
                                     setTimeout(function () {
@@ -180,6 +183,7 @@
                 </div>
             </div>
         </div>
+        @comContent()
     </body>
 </html>
 

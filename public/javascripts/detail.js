@@ -28,8 +28,19 @@ $(function() {
     $('.finish-box').click(function(){
         $('.con').show();
     })
-
-    $(".mabuy").click(function () {
+    //表单提交
+    function masunmit(pin) {
+        if($(pin).hasClass("mabuyPin")){
+            window.location = "/pinTieredPrice/"+window.urlParam;
+        }else{
+            var state=$("input[name='state0-0']:not(:disabled)").val() ;
+            if(checkSkuBeforeBuy(state)){
+                //提交表单
+                $("#settleForm").submit();
+            }
+        }
+    }
+    $(".mabuy").click(function (e) {
         // if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
         //     var loadDateTime = new Date();
         //     window.setTimeout(function() {
@@ -53,18 +64,11 @@ $(function() {
             // 否则打开a标签的href链接
 
         if (navigator.userAgent.match(/MicroMessenger/i)) {
-            var state=$("input[name='state0-0']:not(:disabled)").val() ;
-            if(checkSkuBeforeBuy(state)){
-                //提交表单
-                $("#settleForm").submit();
-            }
+            masunmit(this);
             return;
         }else if (navigator.userAgent.match(/android/i)){
-            var state=$("input[name='state0-0']:not(:disabled)").val() ;
-            if(checkSkuBeforeBuy(state)){
-                //提交表单
-                $("#settleForm").submit();
-            }
+            e.preventDefault();
+            masunmit(this);
             var ifr = document.createElement('iframe');
             ifr.src = 'hmmapp://data/'+window.urlParam;
             ifr.style.display = 'none';
@@ -73,18 +77,10 @@ $(function() {
                 document.body.removeChild(ifr);
             },3000)
         }else{
-            var btnthis=$(this);
-            window.location = 'hmmapp://data/'+window.urlParam;
+            // window.location = 'hmmapp://data/'+window.urlParam;
             setTimeout(
                 function(){
-                    // if($(this).hasClass()){
-                    //
-                    // }
-                    var state=$("input[name='state0-0']:not(:disabled)").val() ;
-                    if(checkSkuBeforeBuy(state)){
-                        //提交表单
-                        $("#settleForm").submit();
-                    }
+                    masunmit(this);
                 }, 1000);
         }
     })
@@ -109,6 +105,7 @@ $(function() {
                     $(".buy_btn .mabuy").addClass('buyBtnCss');
                     $("#isCanBuy").val(1); //不能购买
                 }
+
                 // $("#flyImgId").attr("src",$(".item.now").find("input[name='skuInvImg0-0']").val());
 	    }
 	})
@@ -127,8 +124,7 @@ $(function() {
 
 
 	//切换
-	var top = $('.sku-measure01').offset(top); //top放后面会报错
-    console.log(top);
+	var top1 = $('.sku-measure01').offset(); //top放后面会报错
 	$(window).scroll(function(e) {
         //console.log($(window).scrollTop());
         //返回顶部
@@ -138,7 +134,7 @@ $(function() {
             $('.top').hide();
         }
         //选项卡
-		if($(window).scrollTop() >= top){
+		if($(window).scrollTop() >= top1.top){
 			$('.detail-tabpanel').addClass('detail-tabpanel-fixed');
 			$('.nav_ban_detail').hide();
 		}else{
@@ -365,13 +361,7 @@ $(document).on("click",".cartAdd",function(){
         data : JSON.stringify(obj),
         dataType: 'json',
         error : function(request) {
-            console.log("request.responseText="+request.responseText);
- //           var respText=request.responseText;
             tip("加入购物车失败,请检测是否已登录");
-//
-//            document.write(respText);
-//            document.close();
-//            history.replaceState(null, "登录", "login?state");
          },
         success: function(data) {
             console.log("data="+data);
@@ -469,6 +459,17 @@ $(function(){
         $("#loading").hide();
     });
 })
+
+//行邮税弹出层
+function postalShade(price,postalTaxRate){
+    if(null==postalTaxRate||""==postalTaxRate){
+        postalTaxRate=0;
+    }
+    var postal=parseFloat(price)*parseFloat(postalTaxRate)/100;
+    $("#postalShadeDiv").html(postal);
+    $("#postalRateShadeCss").html(postalTaxRate);
+    $(".postalDiv").show();
+}
 
 
 

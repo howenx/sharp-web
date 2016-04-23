@@ -5,7 +5,7 @@ body{
 /*主体部分*/
 /*导航部分*/
 .wrap{
-    padding:44px 0 60px 0 ;
+    padding:44px 0 0px 0 ;
     background-color: #f4f4f4;
 }
 
@@ -144,28 +144,39 @@ span .number{
 }
 
 .payment a{
-    margin: 10px 0 0 0;
+
+    margin: 10px 5px 0 0;
+
     display: block;
     height: 30px;
-    color: #fff;
-    text-align: center;
-    font-size: 14;
+    font-size: 12px;
+    border-radius: 3px;
+    border: 1px solid #ededed;
     line-height: 30px;
-}
-.payment .left{
-    float: left;
+    color: #666;
+    width: 60px;
+    text-align: center;
 }
 
-.payment .right{
+{
     float:right;
+}
 
 
+.payment .right,.payment .left{
+
+    float:right;
 }
 
 .payment .mi{
     color:#E66255;
-
+    border: none;
     margin:10px 10px 0 0;
+    float: right;
+    font-size: 12px;
+    display: inline-block;
+    line-height: 30px;
+
 }
 
 .duein a{
@@ -250,7 +261,7 @@ span .number{
 /*优惠券页面 coupon*/
 
 .coupon-body{
-    background-color: #fff;
+    background-color:#ededed;
 }
 .coupon li{
     width:33.3%;
@@ -261,8 +272,8 @@ span .number{
 
 .coupon-box li{
     width:320px;
-    height:85px;
-    color: #fff;
+    height:120px;
+    color: #333;
     background: url("/assets/images/youhuiquan_bg.png") no-repeat;
     background-size: contain;
     margin: 10px auto;
@@ -271,43 +282,64 @@ span .number{
 
 .coupon-s li{
     width:320px;
-    height:85px;
+    height:120px;
     background: url("/assets/images/coupon_shiyong.png") no-repeat;
-    background-size: contain;
-}
-.coupon-g li{
-    width:320px;
-    height:85px;
-    background: url("/assets/images/coupon_guoqi.png") no-repeat;
     background-size: contain;
 }
 
 .coupon-box li p{
     width: 100%;
 }
-
 .coupon-box-l{
     float: left;
+    margin: 12px 18px 0 30px;
 }
 
 .coupon-box-r{
-    float: right;
+    float:left;
     font-size:24px;
-    margin: 16px 10px 16px 0;
+    margin: 16px 0px 0px 0;
 }
 
 .coupon-m{
-    font-size:18px;
+    font-size:20px;
 }
 
 .coupon-deta{
-    font-size: 14px;
+    width:100%;
+    text-align: right;
+    margin:15px 0 0 0;
+    font-size: 12px;
 }
 
 .coupon-box li img{
     margin:10px auto;
 
 }
+
+.coupon-box-r{
+    color:#FAA728;
+    font-size: 14px;
+
+}
+.coupon-rmb{
+    font-size:36px;
+}
+.coupon-hd,.coupon-deta{
+    color: #999;
+}
+.coupon-hd,.Fullcut{
+    font-size: 12px;
+    margin: 2px 0 0 0;
+}
+
+.coupon-s .coupon-box-r{
+    color: #4C4C4C;
+}
+
+
+
+
 
 
 /*收藏页面*/
@@ -372,30 +404,31 @@ span .number{
 }
 
 .shopping .cart_num{
-    width: 18;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     position: absolute;
     top: -7px;
-    font-size: 14px;
+    font-size: 12px;
     left: 44px;
     background: #ed145b;
-    line-height: 18px;
+    line-height: 16px;
     cursor: pointer;
     color: #fff;
     border-radius: 50%;
     text-align: center;
 }
 
-.right-r{
-    padding:0 10px;
-    width: 70px;
-}
+
 
 .size{
     font-size: 14px;
 }
 
+.payment .red{
 
+    border: 1px solid #FF5359;
+    color: #FF5359;
+}
 
 
 

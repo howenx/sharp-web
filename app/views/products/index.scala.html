@@ -6,17 +6,19 @@
 <script src="/assets/javascripts/jquery/jquery-1.9.1.min.js"></script>
 <script src="/assets/javascripts/hp.js"></script>
 <script src="/assets/javascripts/cartAmount.js"></script>
+<script src="/assets/javascripts/echo.min.js"></script>
 <script>
 	$(function(){
 		$(window).load(function(){
 			$("#loading").hide();
 		});
 	});
+	echo.init();
 </script>
 
 }
 
-@layout(title="韩秘美,专卖韩国正品")(scripts) {
+@layout(title="韩秘美,专卖韩国正品")(scripts){
 
 	<div id="loading">
 		<img src="/assets/images/loading.gif"/>
@@ -94,10 +96,18 @@
 				<ul class="col">
 					@for(theme <- themeList){
 						@if(theme. getType() == "ordinary"){
-							<li><a href="/themeDetail/@theme.getThemeUrl()"><img src="@theme.getThemeImg()"/></a></li>
+							<li>
+								<a href="/themeDetail/@theme.getThemeUrl()">
+									<img src="/assets/images/hp-320.png" data-echo="@theme.getThemeImg()">
+								</a>
+							</li>
 						}
 						@if(theme. getType() == "h5"){
-						<li><a href="@theme.getThemeUrl()"><img src="@theme.getThemeImg()"/></a></li>
+						<li>
+							<a href="@theme.getThemeUrl()">
+								<img src="/assets/images/hp-320.png" data-echo="@theme.getThemeImg()"/>
+							</a>
+						</li>
 						}
 					}
 				</ul>
@@ -157,7 +167,7 @@
 			}
 
 			$(function(){
-				var currentPageCount = 1;
+				var currentPageCount = 2;
 				//loadMeinv();
 
 				$(window).on("scroll",function(){

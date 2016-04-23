@@ -37,7 +37,6 @@ $(function(){
                 tip("修改购物车失败");
              },
             success: function(data) {
-                console.log("data="+data);
                 if (data!=""&&data!=null){
                     if(data.code==200) { //成功
                          //修改数量
@@ -95,7 +94,6 @@ $(function(){
                 tip("修改购物车失败");
              },
             success: function(data) {
-                console.log("data="+data);
                 if (data!=""&&data!=null){
                     if(data.code==200) { //成功
                          //修改数量
@@ -307,8 +305,7 @@ $(function(){
 
 //删除购物车
 function delCart(cartId){
-    if (window.confirm("确定删除吗?")) {
-        console.log("cartId="+cartId);
+    windowConfirm("确定删除吗?",function() {
         $.ajax({
               type :"GET",
               url : "/cart/del/"+cartId,
@@ -317,7 +314,6 @@ function delCart(cartId){
                   tip("删除失败!");
               },
               success: function(data) {
-                 console.log("data="+data);
                   if (data!=""&&data!=null&&data.code==200){ //删除成功
                       var li=$("#li"+cartId);
                       var ul=li.parents("ul");
@@ -330,7 +326,7 @@ function delCart(cartId){
 
               }
          });
-    }
+    });
 };
 
 //去结算
@@ -352,6 +348,31 @@ function tip(tipContent){
     setTimeout(function(){
     $("#tip").hide();
     },3000);
+}
+
+//确认框,callback为确认时回调函数
+function windowConfirm(content,callback){
+    var html=
+        '<div class="bombbox-big bombboxDivCss">'+
+          '<div class="bombbox">'+
+              '<p class="bombbox-hd"></p>'+
+              '<p>'+content+'</p>'+
+              '<div class="bombbo-b clearfix">'+
+                  '<span class="confirmCss">确认</span>'+
+                  '<span class="cancelCss">取消</span>'+
+              '</div>'+
+          '</div>'+
+        '</div>';
+    $('body').append(html);
+
+    $(".cancelCss").bind("click", function() {
+        $(".bombboxDivCss").remove();
+    }) ;
+
+    $(".confirmCss").bind("click", function() {
+      $(".bombboxDivCss").remove();
+        callback();
+     }) ;
 }
 
 

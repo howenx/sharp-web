@@ -30,6 +30,7 @@ import static play.libs.Json.toJson;
  * 公共
  * Created by sibyl.sun on 16/3/18.
  */
+@SuppressWarnings("unchecked")
 public class ComCtrl extends Controller {
 
     @Inject
@@ -366,6 +367,56 @@ public class ComCtrl extends Controller {
         return cookieUUID;
     }
 
+//    /***
+//     * 只获取上一级目录
+//     * @param ctx
+//     * @return
+//     */
+//    public String getHistoryUrl2(Http.Context ctx){
+//        String key=cacheHistoryKey(getCookieUUID(ctx));
+//        Stack<String> stack = (Stack<String>) cache.get(key);
+//        if(null!=stack){
+//            return stack.peek();
+//        }
+//        return "/";
+//    }
+//
+//    /**
+//     * 记录访问页面顺序,如果是最后一条则pop,否则push,返回回退URL
+//     * @param ctx
+//     */
+//    public String pushOrPopHistoryUrl2(Http.Context ctx){
+//        //用栈记录上一次访问的页面
+//        String url=ctx.request().uri();
+//        String key=cacheHistoryKey(getCookieUUID(ctx));
+//        Stack<String> stack = (Stack<String>) cache.get(key);
+//        Logger.info(url+"===pushOrPopHistoryUrl===="+url.equals(stack.peek())+"==stack.peek=="+stack.peek());
+//        if(null!=stack){
+//            if(url.equals(stack.peek())){
+//                stack.pop();//是上一次访问记录
+//                if(stack.empty()){
+//                    return "/";
+//                }
+//                Logger.info("====pop==url==="+url+"==hisUrl="+stack.peek());
+//                return stack.peek();
+//            }
+//        }else{
+//            stack=new Stack<String>();
+//        }
+//        String hisUrl="/";
+//        if(!stack.empty()){
+//            hisUrl=stack.peek();
+//        }
+//        stack.push(url);
+//        Logger.info("====push==url==="+url+"==hisUrl="+hisUrl+"===stack.peek()="+stack.peek());
+//        cache.set(key,60*60,stack);
+//        return hisUrl;
+//    }
+
+    private String cacheHistoryKey(String cookieUUID){
+        return cookieUUID+"_his";
+    }
+
     /***
      * 只获取上一级目录
      * @param ctx
@@ -373,11 +424,19 @@ public class ComCtrl extends Controller {
      */
     public String getHistoryUrl(Http.Context ctx){
         String key=cacheHistoryKey(getCookieUUID(ctx));
-        Stack<String> stack = (Stack<String>) cache.get(key);
-        if(null!=stack){
-            return stack.peek();
+        List<String> stack = (List<String>) cache.get(key);
+        String hisUrl="/";
+        if(null!=stack&&stack.size()>0){
+            hisUrl=stack.get(stack.size()-1);
+            if(hisUrl.equals(ctx.request().uri())){
+                if(stack.size()>=2){
+                    hisUrl=stack.get(stack.size()-2);
+                }else{
+                    hisUrl="/";
+                }
+            }
         }
-        return "/";
+        return hisUrl;
     }
 
     /**
@@ -388,30 +447,51 @@ public class ComCtrl extends Controller {
         //用栈记录上一次访问的页面
         String url=ctx.request().uri();
         String key=cacheHistoryKey(getCookieUUID(ctx));
-        Stack<String> stack = (Stack<String>) cache.get(key);
-        if(null!=stack){
-            if(url.equals(stack.peek())){
-                stack.pop();//是上一次访问记录
-                if(stack.empty()){
-                    return "/";
-                }
-                return stack.peek();
-            }
-        }else{
-            stack=new Stack<String>();
+        List<String> list = (List<String>) cache.get(key);
+        if("/".equals(url)&&null!=list){ //首页清一下返回
+            list.clear();
+            cache.set(key,60*60,list);
+            return "/";
         }
         String hisUrl="/";
-        if(!stack.empty()){
-            hisUrl=stack.peek();
-        }
-        stack.push(url);
-     //   Logger.info("====push==url==="+url);
-        cache.set(key,60*60,stack);
-        return hisUrl;
-    }
+        if(null!=list&&list.size()>0){
+//            for(int i=list.size()-1;i>=0;i--){
+//                Logger.info("===>"+list.get(i));
+//
+//            }
+       // Logger.info(url+"===pushOrPopHistoryUrl===="+url.equals(list.get(list.size()-1))+"==list.peek=="+list.get(list.size()-1));
+            if(url.equals(list.get(list.size()-1))||(list.size()>=2&&url.equals(list.get(list.size()-2)))){
+                //路线1:主题——>详情-->返回主题-->详情-->返回主题
+                //路线2:主题——>详情-->购物车-->详情-->返回购物车-->返回
+                //路线3:拼购路线返回
+                //路线4:首页-->购物车-->详情-->返回购物车-->返回
+                list.remove(list.size()-1);//是上一次访问记录
+                if(!list.isEmpty()){
+                    hisUrl=list.get(list.size()-1);
+                    if(hisUrl.equals(url)){
+                        if(list.size()>=2){
+                            hisUrl=list.get(list.size()-2);
+                        }else{
+                            hisUrl="/";
+                        }
+                    }
+                }
+                cache.set(key,60*60,list);
+ //               Logger.info("====pop==url==="+url+"==hisUrl="+hisUrl);
+                return hisUrl;
+            }
 
-    private String cacheHistoryKey(String cookieUUID){
-        return cookieUUID+"_his";
+        }else{
+            list=new ArrayList<String>();
+        }
+
+        if(!list.isEmpty()){
+            hisUrl=list.get(list.size()-1);
+        }
+        list.add(url);
+//        Logger.info("====push==url==="+url+"==hisUrl="+hisUrl+"===list.peek()="+list.get(list.size()-1));
+        cache.set(key,60*60,list);
+        return hisUrl;
     }
 
 }

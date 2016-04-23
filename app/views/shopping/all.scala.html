@@ -23,6 +23,17 @@
     <h1>订单</h1>
 </header>
 <div class="wrap">
+    <!--<div class="bombbox-big">
+        <div class="bombbox bombboxDivCss">
+            <p class="bombbox-hd"></p>
+            <p>企鹅为各位各位然后他如何如何</p>
+            <div class="bombbo-b clearfix">
+                <span class="confirmCss">确认</span>
+                <span class="cancelCss">取消</span>
+                </div>
+        </div>
+    </div>-->
+
     <div class="nav-tab">
         <div class="nav-tab-top box">
             <ul>
@@ -151,7 +162,7 @@
                     </li>
 
 -->
-
+                    @if(null!=orderList&&orderList.size>0){
                     @for(order<-orderList){
                     <li value="@order.getOrder().getOrderId()" id="li@order.getOrder().getOrderId()">
                         <div class="con-stay clearfix">
@@ -178,11 +189,15 @@
                                         @if(order.getOrder().getOrderStatus()=="PS"){拼购支付成功状态}
                                         @if(order.getOrder().getOrderStatus()=="PF"){拼团失败还未成功退款}
 
+                                        @if(null!=order.getRefund()&&"Y"!=order.getRefund().getState()){
+                                             <i class="color">(已锁定)</i>
+                                         }
+
                                     </span>
                                 </div>
                             </a>
                             @for(sku<-order.getSku()){
-                            <a href="@sku.getInvUrl()" class="commodity clearfix">
+                            <a href="/all/@order.getOrder().getOrderId()" class="commodity clearfix">
                                 <div class="photo-img">
                                     <img src="@sku.getInvImg()" alt=""/>
                                 </div>
@@ -199,18 +214,27 @@
                             @if(order.getOrder().getOrderStatus()=="I"||order.getOrder().getOrderStatus()=="F"){
                                 <div class="payment clearfix">
                                     <a href="javascript:;" class="left cancelOrder" style="display:none;">取消订单</a>
-                                    <a href="javascript:;" class="right bg right-r" onclick="pay('@payUrl','@order.getOrder().getOrderId()','@token','@order.getOrder().getSecurityCode()')">去支付</a>
-                                    <a href="javascript:;" class="right mi">应付金额:￥@order.getOrder().getPayTotal()</a>
+                                    <a href="javascript:;" class="right red" onclick="pay('@payUrl','@order.getOrder().getOrderId()','@token','@order.getOrder().getSecurityCode()')">去支付</a>
+                                    <span href="javascript:;" class="mi">应付金额:￥@order.getOrder().getPayTotal()</span>
                                 </div>
                             }
-                            @if(order.getOrder().getOrderStatus()=="D"){
+                            @if(order.getOrder().getOrderStatus()=="D"||order.getOrder().getOrderStatus()=="R"){
                                 <div class="payment clearfix">
-                                    <a href="javascript:;" class="right bg">查看物流</a>
+
+                                    @if(order.getOrder().getOrderStatus()=="D"){
+                                        <a href="javascript:;" class="right red" onclick="orderConfirmDelivery(@order.getOrder().getOrderId())">确认收货</a>
+                                    }
+                                    <!--@if(order.getOrder().getOrderStatus()=="R"){-->
+                                        <!--<a href="javascript:;" class="right " onclick="delOrder(@order.getOrder().getOrderId(),0)">删除订单</a>-->
+                                    <!--}-->
+                                    <a href="/logistic/@order.getOrder().getOrderId()" class="left">查看物流</a>
+
+
                                 </div>
                             }
-                            @if(order.getOrder().getOrderStatus()=="C"||order.getOrder().getOrderStatus()=="R"){
+                            @if(order.getOrder().getOrderStatus()=="C"||order.getOrder().getOrderStatus()=="T"){
                                 <div class="payment clearfix">
-                                    <a href="javascript:;" class="right bg discolour right-r" onclick="delOrder(@order.getOrder().getOrderId(),0)">删除</a>
+                                    <a href="javascript:;" class="right " onclick="delOrder(@order.getOrder().getOrderId(),0)">删除订单</a>
                                 </div>
                             }
 
@@ -218,7 +242,7 @@
                         </div>
                     </li>
                     }
-
+                    }
 
 
                 </ul>
@@ -226,6 +250,7 @@
 
             <section>
                 <ul id="waitPayUl">
+                    @if(null!=orderList&&orderList.size>0){
                     @for(order<-orderList){
                         @if(order.getOrder().getOrderStatus()=="I"||order.getOrder().getOrderStatus()=="F"){
                             <li value="@order.getOrder().getOrderId()">
@@ -244,7 +269,7 @@
                                         </div>
                                     </a>
                                     @for(sku<-order.getSku()){
-                                    <a href="@sku.getInvUrl()" class="commodity clearfix">
+                                    <a href="/all/@order.getOrder().getOrderId()" class="commodity clearfix">
                                         <div class="photo-img">
                                             <img src="@sku.getInvImg()" alt=""/>
                                         </div>
@@ -256,12 +281,13 @@
                                     }
                                     <div class="payment clearfix">
                                         <a href="javascript:;" class="left cancelOrder" style="display:none;">取消订单</a>
-                                        <a href="javascript:;" class="right bg right-r"  onclick="pay('@payUrl','@order.getOrder().getOrderId()','@token','@order.getOrder().getSecurityCode()')">去支付</a>
-                                        <a href="javascript:;" class="right mi">应付金额:￥@order.getOrder().getPayTotal()</a>
+                                        <a href="javascript:;" class="right red"  onclick="pay('@payUrl','@order.getOrder().getOrderId()','@token','@order.getOrder().getSecurityCode()')">去支付</a>
+                                        <span href="javascript:;" class="mi">应付金额:￥@order.getOrder().getPayTotal()</span>
                                     </div>
                                 </div>
                             </li>
                         }
+                    }
                     }
 
                 </ul>
@@ -269,6 +295,7 @@
 
             <section>
                 <ul id="waitGoodsUl">
+                    @if(null!=orderList&&orderList.size>0){
                     @for(order<-orderList){
                         @if(order.getOrder().getOrderStatus()=="D"){
                             <li>
@@ -287,7 +314,7 @@
                                         </div>
                                     </a>
                                     @for(sku<-order.getSku()){
-                                    <a href="@sku.getInvUrl()" class="commodity clearfix">
+                                    <a href="/all/@order.getOrder().getOrderId()" class="commodity clearfix">
                                         <div class="photo-img">
                                             <img src="@sku.getInvImg()" alt=""/>
                                         </div>
@@ -298,11 +325,14 @@
                                     </a>
                                     }
                                     <div class="payment clearfix">
-                                        <a href="javascript:;" class="right bg discolour">查看物流</a>
+                                        <a href="javascript:;" class="right red" onclick="orderConfirmDelivery(@order.getOrder().getOrderId())">确认收货</a>
+                                        <a href="/logistic/@order.getOrder().getOrderId()" class="left">查看物流</a>
+
                                     </div>
                                 </div>
                             </li>
                         }
+                    }
                     }
                 </ul>
             </section>
@@ -314,6 +344,29 @@
         </div>
     </div>
 </div>
+@if(null==orderList||orderList.size<=0){
+    <div class="not orderNot">
+        <p>您还未有相关订单</p>
+        <a href="/" class="look">去逛逛</a>
+    </div>
+}
+@if(null!=orderList&&orderList.size>0){
+<div class="not orderNot" style="display:none">
+    <p>您还未有相关订单</p>
+    <a href="/" class="look">去逛逛</a>
+</div>
+}
+<div class="not orderNot" style="display:none">
+    <p>您还未有待支付订单</p>
+    <a href="/" class="look">去逛逛</a>
+</div>
+
+<div class="not orderNot" style="display:none">
+    <p>您还未有待收货订单</p>
+    <a href="/" class="look">去逛逛</a>
+</div>
+
 <div class="hint" id="tip" style="display:none"></div>
+@comContent()
 </body>
 </html>

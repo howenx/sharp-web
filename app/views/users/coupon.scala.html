@@ -20,6 +20,13 @@
             background-color: #fff;
         }
     </style>
+    <script>
+        $(document).ready(function() {
+           if($('.coupon-content.current').find("li").length<=0){
+                $(".not").eq(0).css("display","block");
+            }
+        });
+    </script>
 </head>
 <body>
 <header class="head">
@@ -44,59 +51,73 @@
 
     <div class="scroll-coupon">
         <div class="coupon-content">
-            <!--全部订单-->
+            <!--未使用-->
             <section class="coupon-box current">
                 <ul>
                     @for(coupon<-couponList){
                         @if(coupon.getState()=="N"){
                             <li>
+                                <div class="coupon-box-bjg clearfix">
 
-
-                                    <div class="coupon-box-l">
-                                        <p class="coupon-hd">@coupon.getCateNm()</p>
-                                        <p class="coupon-m">满@coupon.getLimitQuota()可用</p>
-                                        <p class="coupon-deta">有效期至 <span >@coupon.getEndAt()</span></p>
+                                    <div class="coupon-box-r">
+                                        ￥<i class="coupon-rmb">@coupon.getDenomination()</i>
                                     </div>
-                                    <div class="coupon-box-r"><i class="coupon-rmb">￥@coupon.getDenomination()</i></div>
-
+                                    <div class="coupon-box-l">
+                                        <p class="coupon-hd">使用范围:</p>
+                                        <p class="coupon-m">@coupon.getCateNm()</p>
+                                        <div class="Fullcut">满@coupon.getLimitQuota()可用</div>
+                                    </div>
+                                </div>
+                                <p class="coupon-deta">有效期至 <span>@coupon.getEndAt()</span></p>
                             </li>
                         }
                     }
                 </ul>
             </section>
 
+            <!--已使用-->
             <section class="coupon-box coupon-s">
                 <ul>
                     @for(coupon<-couponList){
                         @if(coupon.getState()=="Y"){
                             <li>
-                                <div class="coupon-box-l">
-                                    <p class="coupon-hd">@coupon.getCateNm()</p>
-                                    <p class="coupon-m">满@coupon.getLimitQuota()可用</p>
-                                    <p class="coupon-deta">有效期至 <span >@coupon.getEndAt()</span></p>
-                                </div>
-                                <div class="coupon-box-r"><i class="coupon-rmb">￥@coupon.getDenomination()</i></div>
+                                <div class="coupon-box-bjg clearfix">
 
+                                    <div class="coupon-box-r">
+                                        ￥<i class="coupon-rmb">@coupon.getDenomination()</i>
+                                    </div>
+                                    <div class="coupon-box-l">
+                                        <p class="coupon-hd">使用范围:</p>
+                                        <p class="coupon-m">@coupon.getCateNm()</p>
+                                        <div class="Fullcut">满@coupon.getLimitQuota()可用</div>
+                                    </div>
+                                </div>
+                                <p class="coupon-deta">有效期至 <span>@coupon.getEndAt()</span></p>
                             </li>
                         }
                     }
-
                 </ul>
             </section>
 
-            <section class="coupon-box coupon-g">
+            <!--已过期-->
+            <section class="coupon-box coupon-s">
                 <ul>
                     @for(coupon<-couponList){
                         @if(coupon.getState()=="S"){
-                            <li>
-                                <div class="coupon-box-l">
-                                    <p class="coupon-hd">@coupon.getCateNm()</p>
-                                    <p class="coupon-m">满@coupon.getLimitQuota()可用</p>
-                                    <p class="coupon-deta">有效期至 <span >@coupon.getEndAt()</span></p>
-                                </div>
-                                <div class="coupon-box-r"><i class="coupon-rmb">￥@coupon.getDenomination()</i></div>
+                        <li>
+                            <div class="coupon-box-bjg clearfix">
 
-                            </li>
+                                <div class="coupon-box-r">
+                                    ￥<i class="coupon-rmb">@coupon.getDenomination()</i>
+                                </div>
+                                <div class="coupon-box-l">
+                                    <p class="coupon-hd">使用范围:</p>
+                                    <p class="coupon-m">@coupon.getCateNm()</p>
+                                    <div class="Fullcut">满@coupon.getLimitQuota()可用</div>
+                                </div>
+                            </div>
+                            <p class="coupon-deta">有效期至 <span>@coupon.getEndAt()</span></p>
+                        </li>
                         }
                     }
                 </ul>
@@ -104,5 +125,19 @@
        </div>
    </div>
 </div>
+
+<div class="not couponNot" style="display:none">
+    <p>您还未有未使用的购物券</p>
+    <a href="/" class="look">去逛逛</a>
+</div>
+<div class="not couponNot" style="display:none">
+    <p>您还未有已使用的购物券</p>
+    <a href="/" class="look">去逛逛</a>
+</div>
+<div class="not couponNot" style="display:none">
+    <p>您还未有未过期的购物券</p>
+    <a href="/" class="look">去逛逛</a>
+</div>
+@comContent()
 </body>
 </html>

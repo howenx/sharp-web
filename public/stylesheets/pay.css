@@ -118,7 +118,7 @@
 .account-j span,.account-j .usable,.account-j h2{
     line-height:50px;
     height: 50px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #ededed;
 
 }
 
@@ -160,7 +160,7 @@ label{
 }
 
 input[type=radio] {
-    /*-webkit-appearance: none;*/
+    -webkit-appearance: none;
     appearance: none;
     width: 20px;
     height: 20px;
@@ -177,17 +177,7 @@ input[type=radio] {
 
 }
 
-input[type=radio]:checked::after {
-    /*content: url("/assets/images/icon3.png");*/
-    display: block;
-    width:20px;
-    height:20px;
-    transform: scale(0.55,0.55);
-    position: absolute;
-    top: -9px;
-    left: -8px;
 
-}
 
 .current{
     width:25px;
@@ -357,4 +347,16 @@ input[type=radio]:checked::after {
 }
 .plus-add-x{
     width: 98%;
+}
+
+input[type=radio]:checked::after {
+    content: url("/assets/images/icon3.png");
+    display: block;
+    width: 18px;
+    height: 18px;
+    -webkit-transform: scale(0.49,0.49);
+    -moz-transform: scale(0.55,0.55);
+    position: absolute;
+    top: -8px;
+    left: -8px;
 }

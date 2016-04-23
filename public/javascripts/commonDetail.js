@@ -11,9 +11,9 @@ $(function(){
 		$(".buy_btn .buyBtnCss").removeClass('buyBtnCss');
 		$("#isCanBuy").val(0); //不能购买
 	}
-	$('.postalCss').click(function(){
-		$('.postalDiv').show()
-	});
+//	$('.postalCss').click(function(){
+//		$('.postalDiv').show()
+//	});
 
 	$('.shade-btn').click(function(){
 		$('.shade').hide()

@@ -36,7 +36,7 @@
         <span class="warn-info"></span>
 
 </div>
-
+@comContent()
 </body>
 </html>
 
@@ -64,7 +64,6 @@
                 $(".warn-info").html("名称只能是中文 / 数字 / 字母").attr("style", "display:block;");
                 setTimeout("$('.warn-info').hide()", 1000);
             } else {
-                console.log("合法");
                 console.log($('form#cell_nicknameForm').serialize());
                 $.ajax({
                         url: "/user/update",
@@ -73,8 +72,11 @@
                         type: 'POST',
                         success: function(data) {
                             console.log(data);
-                            if (data.code==200) {
+                            if (data!=null && data.code==200) {
                                 window.location.href = "/means";
+                            } else {
+                                $(".warn-info").html("网络连接异常,请检查网络").attr("style", "display:block;");
+                                setTimeout("$('.warn-info').hide()", 1000);
                             }
                         }
                 });
