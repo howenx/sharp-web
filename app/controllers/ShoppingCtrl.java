@@ -94,6 +94,9 @@ public class ShoppingCtrl extends Controller {
     public Result assess() {
         return ok(views.html.shopping.assess.render());
     }
+    public Result evaluate() {
+            return ok(views.html.shopping.evaluate.render());
+        }
 
     //退款
     public Result refundment() {

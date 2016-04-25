@@ -454,11 +454,7 @@ function checkSkuBeforeBuy(state){
     return true;
 }
 
-$(function(){
-    $(window).load(function(){
-        $("#loading").hide();
-    });
-})
+
 
 //行邮税弹出层
 function postalShade(price,postalTaxRate){

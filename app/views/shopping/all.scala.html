@@ -33,8 +33,7 @@
                 </div>
         </div>
     </div>-->
-
-    <div class="nav-tab">
+   <div class="nav-tab">
         <div class="nav-tab-top box">
             <ul>
 
@@ -56,15 +55,21 @@
 
                 </li>
 
+                <li>
+                    <a href="javascript:;" class="message_list shopping">
+                        <i class="message">待评价</i>
+                        <span id="waitGoods"></span>
+                    </a>
+
+                </li>
+
 
             </ul>
         </div>
     </div>
     <div class="scroll-wrap">
         <div class="scroll-content">
-
             <!--全部订单-->
-
             <section class="current">
                 <ul>
                     <!--
@@ -229,7 +234,6 @@
                                     <!--}-->
                                     <a href="/logistic/@order.getOrder().getOrderId()" class="left">查看物流</a>
 
-
                                 </div>
                             }
                             @if(order.getOrder().getOrderStatus()=="C"||order.getOrder().getOrderStatus()=="T"){
@@ -337,6 +341,48 @@
                 </ul>
             </section>
 
+            <!--待评价-->
+            <section>
+                <ul>
+                    <li value="77703004" id="li77703004">
+                        <div class="con-stay clearfix">
+                            <a href="/all/77703004" class="clearfix">
+                                <div class="day clearfix">
+                                    <div class="day-l clearfix">
+                                        <span>订单号: </span><i>77703004</i>
+                                        <span class="date">2016-04-16 10:38:34</span>
+                                    </div>
+
+                                    <!--//I:初始化即未支付状态，S:成功，C：取消， F:失败，R:已收货，D:已经发货，J:拒收，N已删除，T已退款，PI:拼购未支付状态，PS:拼购支付成功状态，PF:拼团失败还未成功退款-->
+                                    <span class="day-r">
+
+                                        待收货
+
+                                    </span>
+                                </div>
+                            </a>
+
+                            <a href="/all/77703004" class="commodity clearfix">
+                                <div class="photo-img">
+                                    <img src="http://img.hanmimei.com/410fd58a4cf74dadb0593b34e69a55291451368819746.jpg" alt="">
+                                </div>
+
+                                <h2>韩秘美 Crystalshop 施华洛世奇水晶8mm Eileen艾琳银饰</h2>
+
+                                <div class="size"><span>水晶色 项链</span><span>均码</span></div>
+
+                                <span class="commodity-rmb clearfix"><i class="rmb">￥88</i><i class="number">x1</i></span>
+
+                            </a>
+
+                            <div class="payment clearfix">
+                                <a href="/assets/assess" class="right red">评价</a>
+                                <a href="/logistic/77703004" class="left">删除订单</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </section>
 
 
 

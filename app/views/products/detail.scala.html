@@ -16,14 +16,19 @@
 	<script src="/assets/javascripts/detail.js"></script>
 	<script src="/assets/javascripts/cartAmount.js"></script>
 	<script src="/assets/javascripts/commonDetail.js"></script>
+	<script src="/assets/javascripts/echo.min.js"></script>
 	<script>
 		window.urlParam = "@url"
+		echo.init();
 	</script>
 </head>
 <body>
 
 <div id="loading">
-	<img src="/assets/images/loading.gif"/>
+	<div class="full">
+		<img src="/assets/images/loading.gif"/>
+	</div>
+
 </div>
 
 <div id='screen_wrap'>
@@ -78,7 +83,8 @@
 									@for(imgUrl <- preImgList.get(index)){
 										<li>
 											<a class="pic" href="#">
-												<img src="@imgUrl"/>
+												<!--<img src="@imgUrl"/>-->
+												<img src="/assets/images/d-320-320.png" data-echo="@imgUrl"/>
 											</a>
 										</li>
 									}
@@ -164,6 +170,15 @@
 					}
 				</ul>
 			</div>
+
+			<div class="opinion clearfix">
+				<a href="/assets/evaluate">
+					<span class="opinion-l">好评 <i>(325)</i></span>
+					<span class="opinion-r">好评 <i class="percent">97%</i> <b>></b></span>
+				</a>
+
+			</div>
+
 			<div class="sale">
 				@for(publicity <- publicityList){
 					<p>@publicity</p>

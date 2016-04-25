@@ -706,6 +706,7 @@ h1 .logo {
 .figure img{
     width: 100%;
     height: auto;
+    background-color: #ededed;
 }
 
 .figure-f{
@@ -903,7 +904,7 @@ h2 span{
     position:fixed;
     top:50%;
     left: 50%;
-    width: 100px;
+    width: 120px;
     -webkit-transform: translate(-50%,0);
     -moz-transform: translate(-50%,0);
      z-index: 100;

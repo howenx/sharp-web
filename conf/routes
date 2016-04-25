@@ -76,6 +76,7 @@ GET         /appraise                                                          c
 GET         /assess                                                            controllers.ShoppingCtrl.assess()
 GET         /delivered                                                         controllers.ShoppingCtrl.delivered()
 GET         /drawback                                                          controllers.ShoppingCtrl.drawback()
+GET         /evaluate                                                          controllers.ShoppingCtrl.evaluate()
 GET         /logistic/$orderId<[0-9]+>                                         controllers.ShoppingCtrl.logistic(orderId: Long)
 GET         /obligati                                                          controllers.ShoppingCtrl.obligati()
 GET         /orders                                                            controllers.ShoppingCtrl.orders()

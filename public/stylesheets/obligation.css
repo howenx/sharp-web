@@ -80,6 +80,7 @@ h2{
     color:#595758;
     font-size: 18px;
 }
+
 .commodity{
     width:100%;
     display: block;
@@ -251,7 +252,7 @@ span .number{
 
 /*全部订单页面 all*/
 .box li{
-     width:33%;
+     width:25%;
 }
 
 

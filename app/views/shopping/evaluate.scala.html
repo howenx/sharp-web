@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>评价详情</title>
+    <!-- 视图窗口，移动端特属的标签。 -->
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+    <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- 忽略页面中的数字识别为电话号码,email识别 -->
+    <meta name="format-detection"content="telephone=no, email=no" />
+    <link rel="stylesheet" href="/assets/stylesheets/global.css"/>
+    <link rel="stylesheet" href="/assets/stylesheets/evaluate.css"/>
+    <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+    <script>
+        $(function(){
+            $('.nav-tab-top ul li').click(function(){
+                $('.scroll-wrap .scroll-content section').eq($(this).index()).show().siblings().hide();
+
+            });
+            $('.nav-tab-top ul a').click(function(){
+                $(this).addClass('current').parent().siblings().children('a').removeClass('current');
+            })
+        })
+    </script>
+</head>
+<body>
+
+<header class="head">
+    <a href="/myView" class="back">
+        <i></i>
+        <b></b>
+    </a>
+    <h1>评价</h1>
+</header>
+
+<div class="wrap">
+
+    <div class="nav-tab">
+        <div class="nav-tab-top box">
+            <ul>
+                <li>
+                    <a href="javascript:;" class="message_list shopping current">
+                        <i class="message">全部</i>
+                        <span id="waitPay">1234</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:;" class="message_list shopping">
+                        <i class="message">好评</i>
+                        <span id="waitPay">1234</span>
+                    </a>
+
+                </li>
+                <li>
+                    <a href="javascript:;" class="message_list shopping">
+                        <i class="message">中评</i>
+                        <span id="waitGoods">456</span>
+                    </a>
+
+                </li>
+                <li>
+                    <a href="javascript:;" class="message_list shopping">
+                        <i class="message">差评</i>
+                        <span id="waitGoods">32</span>
+                    </a>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="scroll-wrap">
+        <div class="scroll-content">
+            <!--全部订单-->
+            <section class="current">
+                <ul>
+                    <li>
+                        <div class="hd clearfix">
+                            <span class="hd-l">
+                                <img src="http://img.hanmimei.com/users/photo/20160229/14567165008891.jpg"/>
+                            </span>
+                            <span class="hd-m">
+                                <i>a***</i>
+                                <img src=""/>
+                            </span>
+                            <span class="hd-r">
+                                <i>2016-04-25</i>
+                                <b>15:56:50</b>
+                            </span>
+                        </div>
+
+                        <div class="md">
+                            <span>不错,发货很快</span>
+                        </div>
+
+                        <div class="bm">
+                            购买日期:
+                            <i>2016-04-17</i>
+                            <i>11:50:30</i>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="hd clearfix">
+                            <span class="hd-l">
+                                <img src="http://img.hanmimei.com/users/photo/20160229/14567165008891.jpg"/>
+                            </span>
+                            <span class="hd-m">
+                                <i>a***</i>
+                                <img src=""/>
+                            </span>
+                            <span class="hd-r">
+                                <i>2016-04-25</i>
+                                <b>15:56:50</b>
+                            </span>
+                        </div>
+
+                        <div class="md">
+                            <span>不错,发货很快</span>
+                        </div>
+
+                        <div class="bm">
+                            购买日期:
+                            <i>2016-04-17</i>
+                            <i>11:50:30</i>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+
+
+            <section>
+                <ul>
+                    <li>
+                        <div class="hd clearfix">
+                            <span class="hd-l">
+                                <img src="http://img.hanmimei.com/users/photo/20160229/14567165008891.jpg"/>
+                            </span>
+                            <span class="hd-m">
+                                <i>a***</i>
+                                <img src=""/>
+                            </span>
+                            <span class="hd-r">
+                                <i>2016-04-25</i>
+                                <b>15:56:50</b>
+                            </span>
+                        </div>
+
+                        <div class="md">
+                            <span>还可以</span>
+                        </div>
+
+                        <div class="bm">
+                            购买日期:
+                            <i>2016-04-17</i>
+                            <i>11:50:30</i>
+                        </div>
+                    </li>
+
+                </ul>
+            </section>
+
+            <section>
+                <ul>
+                    <li>
+                        <div class="hd clearfix">
+                            <span class="hd-l">
+                                <img src="http://img.hanmimei.com/users/photo/20160229/14567165008891.jpg"/>
+                            </span>
+                            <span class="hd-m">
+                                <i>a***</i>
+                                <img src=""/>
+                            </span>
+                            <span class="hd-r">
+                                <i>2016-04-25</i>
+                                <b>15:56:50</b>
+                            </span>
+                        </div>
+
+                        <div class="md">
+                            <span>不可以</span>
+                        </div>
+
+                        <div class="bm">
+                            购买日期:
+                            <i>2016-04-17</i>
+                            <i>11:50:30</i>
+                        </div>
+                    </li>
+
+                </ul>
+            </section>
+
+
+            <section>
+                <ul>
+                    <li>
+                        <div class="hd clearfix">
+                            <span class="hd-l">
+                                <img src="http://img.hanmimei.com/users/photo/20160229/14567165008891.jpg"/>
+                            </span>
+                            <span class="hd-m">
+                                <i>a***</i>
+                                <img src=""/>
+                            </span>
+                            <span class="hd-r">
+                                <i>2016-04-25</i>
+                                <b>15:56:50</b>
+                            </span>
+                        </div>
+
+                        <div class="md">
+                            <span>差评</span>
+                        </div>
+
+                        <div class="bm">
+                            购买日期:
+                            <i>2016-04-17</i>
+                            <i>11:50:30</i>
+                        </div>
+                    </li>
+
+                </ul>
+            </section>
+
+       </div>
+
+
+
+</div>
+
+</body>
+</html>

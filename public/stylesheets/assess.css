@@ -1,11 +1,10 @@
 .wrap{
     background-color: #F4F4F4;
-    padding:50px 0;
+    padding:44px 0;
     font-size: 18px;
-    height:1000px;
 }
 .assess-hd{
-    height:360px;
+    height:300px;
     width:100%;
     background-color: #fff;
     padding:20px 2%;
@@ -19,7 +18,7 @@
     background: url("/assets/images/hmmapp-assess01.jpg") no-repeat;
     background-size:contain;
     width:100%;
-    height:130px;
+    height:120px;
     margin: 20px 0;
     position:relative;
     top:10px;
@@ -44,14 +43,14 @@
 .assess-hd-r{
     width:80%;
     float: left;
-    height:290px;
+    height:220px;
     border: 1px solid #e1e1e1;
 }
 
 textarea{
     resize:none;
     width:100%;
-    height:290px;
+    height:218px;
 }
 
 /*星星*/
@@ -74,13 +73,13 @@ textarea{
 
 /*!*星星*!*/
 
-#xzw_starSys{float: right;width:170px;height:27px;margin: 0 3px 0 0;}
+#xzw_starSys{float: right;width:170px;height:27px;margin: -4px 0 0 0;}
 #xzw_starBox{position:relative;width:115px;float:left}
 
 #xzw_starSys .description{clear:both;}
 
 #xzw_starSys .star{height:27px;width:170px;margin: 0;position:relative;cursor:pointer;
-    background:url(/images/s-2.png) 0 0 repeat-x;background-size: 34px 27px;
+    background:url(/assets/images/s-2.png) 0 0 repeat-x;background-size: 34px 27px;
 }
 #xzw_starSys .star li{float:left;padding:0px;margin:0px}
 #xzw_starSys .star li a{display:block;width:34px;height:27px;overflow:hidden;text-indent:-9999px;position:absolute;z-index:5}
