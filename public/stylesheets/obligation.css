@@ -74,6 +74,7 @@ section.current{
 .day-r{
     float: right;
     color:#666;
+    margin: 8px 0 0 0;
 }
 
 h2{
@@ -158,11 +159,6 @@ span .number{
     width: 60px;
     text-align: center;
 }
-
-{
-    float:right;
-}
-
 
 .payment .right,.payment .left{
 

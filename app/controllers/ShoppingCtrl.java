@@ -98,6 +98,10 @@ public class ShoppingCtrl extends Controller {
             return ok(views.html.shopping.evaluate.render());
         }
 
+    public Result graph() {
+            return ok(views.html.shopping.graph.render());
+    }
+
     //退款
     public Result refundment() {
         Map<String, String> map = Form.form().bindFromRequest().data();

@@ -89,6 +89,7 @@ GET         /order/verify/$orderId<[0-9]+>                                     c
 POST        /order/submit                                                      controllers.ShoppingCtrl.submitOrder()
 GET         /down                                                              controllers.ShoppingCtrl.down()
 POST        /refundment                                                        controllers.ShoppingCtrl.refundment()
+GET         /graph                                                             controllers.ShoppingCtrl.graph()
 
 POST        /cart/add                                                          controllers.ShoppingCtrl.cartAdd()
 GET         /cart/del/$cartId<[0-9]+>                                          controllers.ShoppingCtrl.cartDel(cartId:Long)
