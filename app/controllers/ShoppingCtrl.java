@@ -10,6 +10,7 @@ import com.squareup.okhttp.Response;
 import domain.*;
 import filters.UserAuth;
 import filters.UserAjaxAuth;
+import modules.SysParCom;
 import net.spy.memcached.MemcachedClient;
 import play.Logger;
 import play.data.Form;
@@ -139,13 +140,68 @@ public class ShoppingCtrl extends Controller {
 
     }
 
+    /**
+     * 评论
+     * @param skuType
+     * @param skuTypeId
+     * @param pageNum
+     * @param commentType
+     * @return
+     */
+    public F.Promise<Result> commentDetail(String skuType,Long skuTypeId,Integer pageNum,Integer commentType) {
+        play.libs.F.Promise<JsonNode > promiseOfInt = play.libs.F.Promise.promise(() -> {
+            String url="";
+            if(2==commentType){
+                url= SysParCom.COMMENT_BEST;
+            }else if(3==commentType){
+                url= SysParCom.COMMENT_WORST;
+            }else if(4==commentType){
+                url= SysParCom.COMMENT_IMG;
+            }else{
+                url= SysParCom.COMMENT_DETAIL;
+            }
+            url=url+skuType+"/"+skuTypeId+"/"+pageNum;
+            Request request=comCtrl.getBuilder(ctx()).url(url).get().build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()){
+                return Json.parse(new String(response.body().bytes(), UTF_8));
+            }else  throw new IOException("Unexpected code " + response);
+        });
 
-
+        return promiseOfInt.map((play.libs.F.Function<JsonNode , Result>) json -> {
+            Logger.info("===json==" + json);
+            Message message = Json.fromJson(json.get("message"), Message.class);
+            if (null == message) {
+                Logger.error("返回数据错误code=" + json);
+                return badRequest(views.html.error500.render());
+            }
+            if(message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+                Logger.info("返回数据code=" + json);
+                return badRequest(views.html.error.render(message.getMessage()));
+            }
+            if(1==commentType) {
+                List<CommentDetailDTO> commentDetailDTOList = null;
+                if (json.has("remarkList")) {
+                    commentDetailDTOList = new ObjectMapper().readValue(json.get("remarkList").toString(), new TypeReference<List<CommentDetailDTO>>() {
+                    });
+                    if (null != commentDetailDTOList && commentDetailDTOList.size() > 0) {
+                        for (CommentDetailDTO commentDetailDTO : commentDetailDTOList) {
+                            commentDetailDTO.setPictureList(new ObjectMapper().readValue(commentDetailDTO.getPicture(), new TypeReference<List<String>>() {
+                            }));
+                        }
+                    }
+                }
+                int pageCount = 0;
+                if (json.has("page_count")) {
+                    pageCount = json.get("page_count").asInt();
+                }
+                return ok(views.html.shopping.evaluate.render(commentDetailDTOList, pageCount, skuType, skuTypeId));
+            }else{
+                return ok(json);
+            }
+        });
+    }
     @Security.Authenticated(UserAuth.class)
-    public Result commentDetail(String skuType,Long skuTypeId,Integer pageNum,Integer commentType) {
-            return ok(views.html.shopping.evaluate.render());
-        }
-
     public Result graph() {
             return ok(views.html.shopping.graph.render());
     }
