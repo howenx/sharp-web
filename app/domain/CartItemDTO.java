@@ -1,5 +1,7 @@
 package domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -7,6 +9,7 @@ import java.util.List;
  * 购物车商品列表
  * Created by howen on 16/2/22.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class CartItemDTO implements Serializable {
 
     private String invCustoms;

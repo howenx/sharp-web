@@ -1,6 +1,7 @@
 package domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import util.MoneySerializer;
 
@@ -12,6 +13,7 @@ import java.sql.Timestamp;
  *
  * Created by tiffany on 16/1/20.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PinActivity implements Serializable {
     private Long pinActiveId;   //拼购活动ID
     private String pinUrl;      //此团的分享短连接

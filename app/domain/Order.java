@@ -1,6 +1,7 @@
 package domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import util.MoneySerializer;
 
@@ -12,6 +13,7 @@ import java.sql.Timestamp;
  * 订单
  * Created by howen on 15/11/25.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Order implements Serializable {
 
     private Long                orderId;//订单ID

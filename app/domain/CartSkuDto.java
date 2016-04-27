@@ -1,5 +1,6 @@
 package domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import util.MoneySerializer;
 
@@ -10,22 +11,22 @@ import java.math.BigDecimal;
  * 用于只显示价格,数量,标题,sku主图
  * Created by howen on 15/11/25.
  */
-public class CartSkuDto implements Serializable{
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class CartSkuDto implements Serializable {
+    private static final long serialVersionUID = 21L;
 
-    private     Long            skuId;
-    private     Integer         amount;//购买数量
+    private Long skuId;
+    private Integer amount;//购买数量
     @JsonSerialize(using = MoneySerializer.class)
-    private     BigDecimal      price;//下单时价格
-//    @JsonRawValue
-//    @JsonSerialize(using = StringUnicodeSerializer.class)
-    private     String          skuTitle;  //sku标题
-    private     String          invImg;//sku主图
-    private     String          invUrl;//用于方便前段获取库存跳转链接
-    private     String          invAndroidUrl;//用于方便前段获取库存跳转链接
-    private     String          itemColor;//颜色
-    private     String          itemSize;//尺码
-    private String       skuType;//商品类型
-    private Long         skuTypeId;//商品类型ID
+    private BigDecimal price;//下单时价格
+    private String skuTitle;  //sku标题
+    private String invImg;//sku主图
+    private String invUrl;//用于方便前段获取库存跳转链接
+    private String invAndroidUrl;//用于方便前段获取库存跳转链接
+    private String itemColor;//颜色
+    private String itemSize;//尺码
+    private String skuType;//商品类型
+    private Long skuTypeId;//商品类型ID
 
     public CartSkuDto() {
     }
@@ -42,6 +43,7 @@ public class CartSkuDto implements Serializable{
         this.itemSize = itemSize;
         this.skuType = skuType;
         this.skuTypeId = skuTypeId;
+   //     this.orderId = orderId;
     }
 
     public Long getSkuId() {
@@ -132,6 +134,14 @@ public class CartSkuDto implements Serializable{
         this.skuTypeId = skuTypeId;
     }
 
+//    public Long getOrderId() {
+//        return orderId;
+//    }
+//
+//    public void setOrderId(Long orderId) {
+//        this.orderId = orderId;
+//    }
+
     @Override
     public String toString() {
         return "CartSkuDto{" +
@@ -146,6 +156,7 @@ public class CartSkuDto implements Serializable{
                 ", itemSize='" + itemSize + '\'' +
                 ", skuType='" + skuType + '\'' +
                 ", skuTypeId=" + skuTypeId +
+              //  ", orderId=" + orderId +
                 '}';
     }
 }

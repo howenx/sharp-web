@@ -1,6 +1,7 @@
 package domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -9,6 +10,7 @@ import java.sql.Timestamp;
  * slider
  * Created by howen on 15/10/28.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Slider implements Serializable{
 
     @JsonIgnore

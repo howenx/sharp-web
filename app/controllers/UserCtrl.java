@@ -502,6 +502,7 @@ public class UserCtrl extends Controller {
             String openId = cache.get(accessToken.get().value()).toString();
             userMap.put("openId", openId);
             userMap.put("accessToken", accessToken.get().value());
+            userMap.put("idType", "W");
         }
 //        Logger.error("userMap:" + userMap);
 
@@ -710,6 +711,7 @@ public class UserCtrl extends Controller {
             String openId = cache.get(accessToken.get().value()).toString();
             userMap.put("openId", openId);
             userMap.put("accessToken", accessToken.get().value());
+            userMap.put("idType", "W");
         }
 //        Logger.error("userMap:" + userMap);
 
@@ -794,6 +796,7 @@ public class UserCtrl extends Controller {
             String openId = cache.get(accessToken.get().value()).toString();
             userMap.put("openId", openId);
             userMap.put("accessToken", accessToken.get().value());
+            userMap.put("idType", "W");
         }
 //        Logger.error("userMap:" + userMap);
 

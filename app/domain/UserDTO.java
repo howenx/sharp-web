@@ -1,5 +1,6 @@
 package domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import play.data.validation.Constraints;
 
 import java.io.File;
@@ -9,6 +10,7 @@ import java.io.Serializable;
  * 用户信息
  * Created by sibyl.sun on 16/3/18.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserDTO implements Serializable {
     private String name;//用户昵称
     private String photo;//头像地址

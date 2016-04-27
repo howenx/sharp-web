@@ -1,5 +1,7 @@
 package domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 
@@ -7,6 +9,7 @@ import java.sql.Timestamp;
  * 展示收藏数据
  * Created by sibyl.sun on 16/2/17.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class CollectDto implements Serializable {
     /**收藏ID*/
     private Long collectId;

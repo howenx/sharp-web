@@ -1,6 +1,7 @@
 package domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import util.DiscountSerializer;
 import util.MoneySerializer;
@@ -13,6 +14,7 @@ import java.sql.Timestamp;
  * 视图;用于查询所有商品的
  * Created by howen on 16/2/26.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SkuVo implements Serializable{
 
     private String skuType;//商品类型

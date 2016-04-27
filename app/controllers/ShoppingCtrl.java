@@ -94,6 +94,20 @@ public class ShoppingCtrl extends Controller {
     public Result assess() {
         return ok(views.html.shopping.assess.render());
     }
+
+    /**
+     * 添加评论
+     * @return
+     */
+    public Result commentAdd(){
+
+        return ok("SUCCESS");
+
+    }
+
+
+
+
     public Result evaluate() {
             return ok(views.html.shopping.evaluate.render());
         }
@@ -229,7 +243,7 @@ public class ShoppingCtrl extends Controller {
         });
 
         return promiseOfInt.map((play.libs.F.Function<JsonNode , Result>) json -> {
-            //Logger.info("===json==" + json);
+            Logger.info("==logistic=json==" + json);
             if(json.has("message")&&json.has("code")){
                 Message message = Json.fromJson(json.get("message"), Message.class);
                 if(null != message&&message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){

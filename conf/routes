@@ -74,6 +74,7 @@ GET         /all                                                               c
 GET         /all/$orderId<[0-9]+>                                              controllers.ShoppingCtrl.all(orderId: Long)
 GET         /appraise                                                          controllers.ShoppingCtrl.appraise()
 GET         /assess                                                            controllers.ShoppingCtrl.assess()
+POST        /comment/add                                                       controllers.ShoppingCtrl.commentAdd()
 GET         /delivered                                                         controllers.ShoppingCtrl.delivered()
 GET         /drawback                                                          controllers.ShoppingCtrl.drawback()
 GET         /evaluate                                                          controllers.ShoppingCtrl.evaluate()

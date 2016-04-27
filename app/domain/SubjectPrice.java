@@ -1,6 +1,7 @@
 package domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import util.DiscountSerializer;
 import util.MoneySerializer;
@@ -13,6 +14,7 @@ import java.sql.Timestamp;
  * 主题自定义价格
  * Created by tiffany on 16/2/3.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SubjectPrice implements Serializable {
     private Long id;
     private Long themeId;

@@ -1,6 +1,7 @@
 package domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import util.MoneySerializer;
 
@@ -11,6 +12,7 @@ import java.math.BigDecimal;
  * Table ThemeItem model.
  * Created by howen on 15/10/26.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ThemeItem implements Serializable {
 
     private     String          itemImg;   	            //商品图片

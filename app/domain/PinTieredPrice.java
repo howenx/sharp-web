@@ -2,6 +2,7 @@ package domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import util.MoneySerializer;
 
@@ -13,6 +14,7 @@ import java.sql.Timestamp;
  *拼购价格表
  * Created by tiffany on 16/1/28.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PinTieredPrice implements Serializable {
 
     private Long id;                        //阶梯价格ID

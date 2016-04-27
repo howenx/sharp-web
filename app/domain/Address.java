@@ -1,6 +1,7 @@
 package domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
 
@@ -8,6 +9,7 @@ import java.io.Serializable;
  * 用户配送地址
  * Created by howen on 15/11/19.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Address implements Serializable {
 
     private Long addId;//用户地址主键

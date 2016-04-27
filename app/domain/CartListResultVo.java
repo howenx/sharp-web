@@ -1,5 +1,7 @@
 package domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -7,6 +9,7 @@ import java.util.List;
  * 用于购物车返回数据解析
  * Created by howen on 16/3/14.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class CartListResultVo implements Serializable{
 
     private Message message;
