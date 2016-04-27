@@ -1,6 +1,7 @@
 package domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -10,6 +11,7 @@ import java.sql.Timestamp;
  *
  * Created by tiffany on 16/1/20.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PinSku implements Serializable {
 
     private Long pinId;         //拼购ID

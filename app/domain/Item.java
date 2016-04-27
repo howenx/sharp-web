@@ -1,6 +1,7 @@
 package domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -9,6 +10,7 @@ import java.sql.Timestamp;
  * 商品vo
  * Created by howen on 15/11/12.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Item implements Serializable {
 
     private Long id;//商品ID

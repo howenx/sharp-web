@@ -1,6 +1,7 @@
 package domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -9,6 +10,7 @@ import java.sql.Timestamp;
  * Theme table module
  * Created by howen on 15/10/26.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Theme implements Serializable {
 
     @JsonIgnore

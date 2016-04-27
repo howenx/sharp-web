@@ -1,11 +1,14 @@
 package domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.List;
 
 /**
  * 物流展示数据
  * Created by sibyl.sun on 16/4/15.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class LogisticsDTO {
     private String  nu;
     private String comcontact;
@@ -26,6 +29,10 @@ public class LogisticsDTO {
     private String comurl;
     private List<LogisticsDataDTO> data;
     private String expressName;
+    private String expressNum;
+    private String result;
+    private String returnCode;
+
 
     public String getNu() {
         return nu;
@@ -177,5 +184,29 @@ public class LogisticsDTO {
 
     public void setExpressName(String expressName) {
         this.expressName = expressName;
+    }
+
+    public String getExpressNum() {
+        return expressNum;
+    }
+
+    public void setExpressNum(String expressNum) {
+        this.expressNum = expressNum;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public String getReturnCode() {
+        return returnCode;
+    }
+
+    public void setReturnCode(String returnCode) {
+        this.returnCode = returnCode;
     }
 }

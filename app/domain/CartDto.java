@@ -1,11 +1,14 @@
 package domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 
 /**
  * cartDto
  * Created by howen on 15/11/24.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class CartDto implements Serializable {
 
     private Long cartId;//购物车ID

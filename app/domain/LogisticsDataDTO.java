@@ -1,9 +1,12 @@
 package domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * 物流展示数据data
  * Created by sibyl.sun on 16/4/15.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class LogisticsDataDTO {
     private String  time;
     private String location;

@@ -1,6 +1,7 @@
 package domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import play.data.validation.Constraints;
 
 import java.io.Serializable;
@@ -11,6 +12,7 @@ import java.security.Timestamp;
  * 退款VO
  * Created by howen on 15/12/22.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Refund implements Serializable{
     @JsonIgnore
     private Long        id;//主键
