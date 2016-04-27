@@ -209,10 +209,10 @@ public class SysParCom {
 
         COMMENT_ADD=configuration.getString("shopping.comment.add");
         COMMENT_CENTER=configuration.getString("shopping.comment.center");
-        COMMENT_WORST=configuration.getString("shopping.comment.worst");
-        COMMENT_BEST=configuration.getString("shopping.comment.best");
-        COMMENT_IMG=configuration.getString("shopping.comment.img");
-        COMMENT_DETAIL=configuration.getString("shopping.comment.detail");
+        COMMENT_WORST=configuration.getString("services.comment.worst");
+        COMMENT_BEST=configuration.getString("services.comment.best");
+        COMMENT_IMG=configuration.getString("services.comment.img");
+        COMMENT_DETAIL=configuration.getString("services.comment.detail");
 
     }
 }
