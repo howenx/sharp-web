@@ -415,6 +415,7 @@ function pay(url,orderId,token,securityCode){
                                     '<input type="hidden" name="orderId" value="'+orderId+'"/>' +
                                     '<input type="hidden" name="token" value="'+token+'"/>' +
                                     '<input type="hidden" name="securityCode" value="'+securityCode+'"/>' +
+                                    '<input type="hidden" name="paySrc" value="M"/>' +
                                     '</form>');
                          form.submit();
 

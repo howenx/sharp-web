@@ -51,6 +51,8 @@ $(function(){
                          //检测商品总额限制
                          checkPostalLimit();
 
+                    }else if(data.code==5006) { //成功
+                        setTimeout("location.href='"+data.message+"'", 2000);//您还未登录,请先登录
                     }else{
                          tip(data.message);
                     }
@@ -108,6 +110,8 @@ $(function(){
                          //检测商品总额限制
                           checkPostalLimit();
 
+                    }else if(data.code==5006) { //成功
+                       setTimeout("location.href='"+data.message+"'", 2000);//您还未登录,请先登录
                     }else{
                          tip(data.message);
                     }

@@ -38,7 +38,7 @@
 
 
 .assess-box input{
-    width:100%;
+    width:80px;
     height:100px;
     z-index: 110;
     filter: alpha(opacity = 0);
@@ -56,10 +56,39 @@
 }
 
 .assess-hd-l{
+
     float: left;
     width:80px;
     margin:0 10px 0 0 ;
 }
+
+.photo{
+    position: relative;
+}
+.photo i{
+    width: 20px;
+    height: 20px;
+    display: block;
+    position: absolute;
+    top: -12px;
+    right: -6px;
+    background:url("/assets/images/iconfont-shanchu-2.png") no-repeat ;
+    background-size:contain;;
+}
+
+.assess-txt{
+    position: relative;
+}
+
+.assess-txt span{
+    position: absolute;
+    color: #999;
+    font-size: 12px;
+    right:5px;
+    bottom:10px;
+
+}
+
 
 /*.assess-hd-r{
     width:80%;
@@ -77,7 +106,7 @@ textarea{
 
 /*星星*/
 .assess-star{
-    padding:30px 5% 0 2%;
+    padding:30px 0 0 0;
     background-color: #fff;
     height:80px;
 }
@@ -116,7 +145,7 @@ textarea{
 #xzw_starSys .star a.four-stars:hover{width:136px}
 #xzw_starSys .star a.five-stars{left:136px}
 #xzw_starSys .star a.five-stars:hover{width:170px}
-#xzw_starSys .current-rating{background:url(/assets/images/s-1.png) 0 0 repeat-x;-webkit-background-size: 34px 27px;background-size:contain;position:absolute;height:27px;z-index:1;top:0;left:0;}
+#xzw_starSys .current-rating{background:url(/assets/images/s-1.png) 0 0 repeat-x;-webkit-background-size: 34px 27px;position:absolute;height:27px;z-index:1;top:0;left:0;}
 
 
 .foot{
