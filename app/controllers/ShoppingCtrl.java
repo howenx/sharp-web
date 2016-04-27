@@ -91,6 +91,7 @@ public class ShoppingCtrl extends Controller {
     }
 
     //发表评价
+    @Security.Authenticated(UserAuth.class)
     public Result assess() {
         return ok(views.html.shopping.assess.render());
     }
@@ -99,16 +100,49 @@ public class ShoppingCtrl extends Controller {
      * 添加评论
      * @return
      */
+    @Security.Authenticated(UserAuth.class)
     public Result commentAdd(){
 
         return ok("SUCCESS");
 
     }
 
+    /**
+     * 评价中心
+     * @param orderId
+     * @return
+     */
+    @Security.Authenticated(UserAuth.class)
+    public F.Promise<Result> commentCenter(Long orderId){
+        play.libs.F.Promise<JsonNode > promiseOfInt = play.libs.F.Promise.promise(() -> {
+            Request.Builder builder =(Request.Builder)ctx().args.get("request");
+            Request request=builder.url(COMMENT_CENTER+orderId).get().build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()){
+                return Json.parse(new String(response.body().bytes(), UTF_8));
+            }else  throw new IOException("Unexpected code " + response);
+        });
+
+        return promiseOfInt.map((play.libs.F.Function<JsonNode , Result>) json -> {
+            Logger.info("===json==" + json);
+            Message message = Json.fromJson(json.get("message"), Message.class);
+            if (null == message) {
+                Logger.error("返回数据错误code=" + json);
+                return badRequest(views.html.error500.render());
+            }
+            if(message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+                Logger.info("返回数据code=" + json);
+                return badRequest(views.html.error.render(message.getMessage()));
+            }
+            return ok(views.html.shopping.assess.render());
+        });
+
+    }
 
 
 
-    public Result evaluate() {
+    @Security.Authenticated(UserAuth.class)
+    public Result commentDetail(String skuType,Long skuTypeId,Integer pageNum,Integer commentType) {
             return ok(views.html.shopping.evaluate.render());
         }
 

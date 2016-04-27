@@ -73,11 +73,8 @@ GET         /pinTieredPrice/*url                                               c
 GET         /all                                                               controllers.ShoppingCtrl.all(orderId: Long ?= 0L)
 GET         /all/$orderId<[0-9]+>                                              controllers.ShoppingCtrl.all(orderId: Long)
 GET         /appraise                                                          controllers.ShoppingCtrl.appraise()
-GET         /assess                                                            controllers.ShoppingCtrl.assess()
-POST        /comment/add                                                       controllers.ShoppingCtrl.commentAdd()
 GET         /delivered                                                         controllers.ShoppingCtrl.delivered()
 GET         /drawback                                                          controllers.ShoppingCtrl.drawback()
-GET         /evaluate                                                          controllers.ShoppingCtrl.evaluate()
 GET         /logistic/$orderId<[0-9]+>                                         controllers.ShoppingCtrl.logistic(orderId: Long)
 GET         /obligati                                                          controllers.ShoppingCtrl.obligati()
 GET         /orders                                                            controllers.ShoppingCtrl.orders()
@@ -96,6 +93,14 @@ GET         /cart/del/$cartId<[0-9]+>                                          c
 GET         /cart/amount                                                       controllers.ShoppingCtrl.cartAmount()
 POST        /cart/nologin/verify/amount                                        controllers.ShoppingCtrl.verifySkuAmount()
 GET         /order/confirm/delivery/$orderId<[0-9]+>                           controllers.ShoppingCtrl.orderConfirmDelivery(orderId:Long)
+
+#评价
+GET         /assess                                                            controllers.ShoppingCtrl.assess()
+POST        /comment/add                                                       controllers.ShoppingCtrl.commentAdd()
+GET         /comment/center/$orderId<[0-9]+>                                   controllers.ShoppingCtrl.commentCenter(orderId:Long)
+GET         /comment/detail/$skuType<item|vary|customize|pin>/$skuTypeId<[0-9]+>/$pageNum<[0-9]+>/$commentType<1|2|3|4>  controllers.ShoppingCtrl.commentDetail(skuType:String,skuTypeId:Long,pageNum:Integer,commentType:Integer)
+
+
 
 #
 

@@ -105,6 +105,16 @@ public class SysParCom {
 
     public static Integer WEIXIN_REFRESH_OVERTIME;
 
+
+    //评论
+    public static String COMMENT_ADD;
+    public static String COMMENT_CENTER;
+    public static String COMMENT_WORST;
+    public static String COMMENT_BEST;
+    public static String COMMENT_IMG;
+    public static String COMMENT_DETAIL;
+
+
     @Inject
     public SysParCom(Configuration configuration) {
 
@@ -195,5 +205,14 @@ public class SysParCom {
         SESSION_TIMEOUT = configuration.getInt("session.timeout");
 
         WEIXIN_REFRESH_OVERTIME =  configuration.getInt("weixin.refreshToken.overtime");
+
+
+        COMMENT_ADD=configuration.getString("shopping.comment.add");
+        COMMENT_CENTER=configuration.getString("shopping.comment.center");
+        COMMENT_WORST=configuration.getString("shopping.comment.worst");
+        COMMENT_BEST=configuration.getString("shopping.comment.best");
+        COMMENT_IMG=configuration.getString("shopping.comment.img");
+        COMMENT_DETAIL=configuration.getString("shopping.comment.detail");
+
     }
 }
