@@ -1,11 +1,14 @@
 package domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 
 /**
  * 客户端发过来的收藏数据
  * Created by sibyl.sun on 16/2/17.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class CollectSubmitDTO implements Serializable {
 
     private Long skuId; //sku id

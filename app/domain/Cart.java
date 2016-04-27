@@ -1,6 +1,7 @@
 package domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -9,6 +10,7 @@ import java.sql.Timestamp;
 /**购物车VO
  * Created by howen on 15/11/22.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Cart implements Serializable{
 
     private Long         cartId;

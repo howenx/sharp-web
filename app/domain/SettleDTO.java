@@ -1,11 +1,14 @@
 package domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by sibyl.sun on 16/3/19.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SettleDTO implements Serializable {
     private String invCustoms;  //保税区
     private String invArea;//保税区

@@ -2,6 +2,7 @@ package domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import util.DiscountSerializer;
 import util.MoneySerializer;
@@ -14,6 +15,7 @@ import java.util.List;
  * 拼购库存商品详情页
  * Created by howen on 16/1/25.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PinInvDetail {
 
     private Long id;         //商品库存ID

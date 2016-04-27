@@ -1,5 +1,7 @@
 package domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -7,6 +9,7 @@ import java.util.List;
  * 我的订单数据
  * Created by sibyl.sun on 16/3/14.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class OrderDTO implements Serializable {
     private Address address;
     private Order order;

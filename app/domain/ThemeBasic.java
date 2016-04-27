@@ -1,6 +1,7 @@
 package domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
  * 主题基础信息
  * Created by howen on 16/1/8.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ThemeBasic implements Serializable {
 
     private Long                themeId;   	            //主题ID

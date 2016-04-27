@@ -1,6 +1,7 @@
 package domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import util.MoneySerializer;
 
@@ -12,6 +13,7 @@ import java.util.List;
  * 用于返回订单预览页的entity
  * Created by howen on 16/2/16.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SettleVo implements Serializable {
 
     private Address address;//用户地址

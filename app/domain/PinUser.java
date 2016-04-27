@@ -2,6 +2,7 @@ package domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -10,6 +11,7 @@ import java.sql.Timestamp;
  * 拼购用户
  * Created by tiffany on 16/1/20.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PinUser implements Serializable {
     @JsonIgnore
     private Long id;            //主键ID

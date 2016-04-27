@@ -2,6 +2,7 @@ package domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import util.DiscountSerializer;
 import util.MoneySerializer;
@@ -14,6 +15,7 @@ import java.sql.Timestamp;
  * 商品库存信息
  * Created by howen on 15/11/12.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Inventory implements Serializable{
 
     private     Long                id;//库存ID

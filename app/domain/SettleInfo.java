@@ -1,5 +1,7 @@
 package domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -7,6 +9,7 @@ import java.util.List;
  * 提交的结算商品
  * Created by sibyl.sun on 16/3/19.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SettleInfo implements Serializable {
     private String invCustoms;  //保税区
     private String invArea;//保税区
