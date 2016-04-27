@@ -3,28 +3,41 @@
     padding:44px 0;
     font-size: 18px;
 }
+
+.assess-big{
+    margin: 0 0 10px 0;
+}
 .assess-hd{
-    height:300px;
     width:100%;
     background-color: #fff;
-    padding:20px 2%;
+    padding:10px;
     position: relative;
     border-bottom: 1px solid #e1e1e1;
 
 }
 
-.assess-hd span{
-    display: block;
-    background: url("/assets/images/hmmapp-assess01.jpg") no-repeat;
-    background-size:contain;
-    width:100%;
-    height:120px;
-    margin: 20px 0;
-    position:relative;
-    top:10px;
+.assess-hd i{
+    margin: 0 20px 0 0;
 }
 
-.assess-hd input{
+.assess-box{
+    background-color: #fff;
+    padding:10px;
+}
+.assess-box span{
+    float: left;
+    margin: 0 10px 0 0 ;
+}
+.assess-box .upload{
+    float: left;
+    background: url("/assets/images/hmmapp-assess01.jpg") no-repeat;
+    background-size: contain;
+    height: 80px;
+
+}
+
+
+.assess-box input{
     width:100%;
     height:100px;
     z-index: 110;
@@ -34,23 +47,32 @@
 
 }
 
-.assess-hd-l{
-    float: left;
-    width:16%;
-    margin:0 2% 0 0 ;
+.assess-box img{
+    width: 80px;
 }
 
-.assess-hd-r{
+.assess-star{
+    float:left;
+}
+
+.assess-hd-l{
+    float: left;
+    width:80px;
+    margin:0 10px 0 0 ;
+}
+
+/*.assess-hd-r{
     width:80%;
     float: left;
     height:220px;
     border: 1px solid #e1e1e1;
-}
+}*/
 
 textarea{
     resize:none;
     width:100%;
-    height:218px;
+    height:80px;
+    font-size: 14px;
 }
 
 /*星星*/

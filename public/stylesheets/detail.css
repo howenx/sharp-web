@@ -1364,6 +1364,11 @@ div .cycle-overlay {
 	font-size: 14px;
 }
 
+.opinion a{
+	color: #333;
+	font-size: 16px;
+}
+
 .opinion-l{
 	float: left;
 }
