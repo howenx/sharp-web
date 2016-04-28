@@ -59,7 +59,7 @@ public class UserAuth extends Security.Authenticator {
                     Optional<String> token = Optional.ofNullable(cache.get(user_token.get().value()).toString());
                     if (token.isPresent()) {
                         String session_id_new = UUID.randomUUID().toString().replaceAll("-", "");
-                        cache.delete(session_id.get().value());
+                     //   cache.delete(session_id.get().value());
                         cache.set(session_id_new, 7 * 24 * 60 * 60, cache_session_id.get());
 
                         ctx.response().discardCookie("session_id");
