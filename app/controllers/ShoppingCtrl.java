@@ -148,17 +148,10 @@ public class ShoppingCtrl extends Controller {
 
             if(fileParts!=null&&fileParts.size()>0){
                 for(int i=0;i<fileParts.size();i++){
-                    FileInputStream fis = new FileInputStream(fileParts.get(i).getFile());
-                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                    byte[] b = new byte[1024];
-                    int n;
-                    while ((n = fis.read(b)) != -1)
-                    {
-                        bos.write(b, 0, n);
-                    }
-                    fis.close();
-                    bos.close();
-                    multipartBuilder.addFormDataPart("photo", (i+1)+".jpg", RequestBody.create(MEDIA_TYPE_PNG,b));
+                    InputStream input = new FileInputStream(fileParts.get(i).getFile());
+                    byte[] byt = new byte[input.available()];
+                    input.read(byt);
+                    multipartBuilder.addFormDataPart("photo", (i+1)+".jpg", RequestBody.create(MEDIA_TYPE_PNG,byt));
                 }
             }
 

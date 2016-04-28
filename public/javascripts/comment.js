@@ -10,33 +10,31 @@ function commentTab(skuType,skuTypeId,commentType){
     if(curPage>0){ //说明请求过了,只切换当前状态
       return false;
     }
-    $.ajax({
-           type :"GET",
-           url : "/comment/detail/"+skuType+"/"+skuTypeId+"/1"+"/"+commentType,
-           contentType: "application/json; charset=utf-8",
-           error : function(request) {
-               tip("获取数据失败,请重新尝试!");
-           },
-           success: function(data) {
-                if(data.message.code==200){ //成功
-                    $("#curPage"+commentType).val(1);
-                    var commentList = eval(data.remarkList);
-                    for(var o in commentList){
-                        paintComment(commentList[o],commentType);
-                     }
-
-                } else{
-                    tip(data.message.message);
-                }
-           }
-      });
+    commentPage(1,commentType);
+//    $.ajax({
+//           type :"GET",
+//           url : "/comment/detail/"+skuType+"/"+skuTypeId+"/1"+"/"+commentType,
+//           contentType: "application/json; charset=utf-8",
+//           error : function(request) {
+//               tip("获取数据失败,请重新尝试!");
+//           },
+//           success: function(data) {
+//                if(data.message.code==200){ //成功
+//                    $("#curPage"+commentType).val(1);
+//                    var commentList = eval(data.remarkList);
+//                    for(var o in commentList){
+//                        paintComment(commentList[o],commentType);
+//                     }
+//
+//                } else{
+//                    tip(data.message.message);
+//                }
+//           }
+//      });
 };
 
 //绘制评论
 function paintComment(comment,commentType){
- if(commentType==4){
-   return;
- }
     var html='<li><div class="hd clearfix">'+
             '<span class="hd-l"><img src="'+comment.userImg+'"/></span>'+
             '<span class="hd-m"><i>'+comment.userName+'</i></span>'+
@@ -61,20 +59,20 @@ function paintComment(comment,commentType){
 
 //评论分页
 function commentPage(page,commentType){
-var skuType=$("#skuType").val();
-var skuTypeId=$("#skuTypeId").val();
+    var skuType=$("#skuType").val();
+    var skuTypeId=$("#skuTypeId").val();
       $.ajax({
            type :"GET",
-           url : "/comment/detail/"+skuType+"/"+skuTypeId+"/"+1+"/"+commentType,
+           url : "/comment/detail/"+skuType+"/"+skuTypeId+"/"+page+"/"+commentType,
            contentType: "application/json; charset=utf-8",
            error : function(request) {
                tip("删除失败!");
            },
            success: function(data) {
-                if(data.code==200){ //成功
+                if(data.message.code==200){ //成功
                     $("#curPage"+commentType).val(page);
                     var commentList = eval(data.remarkList);
-                    if(null==commentList||commentList.size()<=0){
+                    if(null==commentList||commentList.length<=0){
                         tip("暂无最新数据");
                         return true;
                     }
@@ -83,7 +81,7 @@ var skuTypeId=$("#skuTypeId").val();
                      }
 
                 } else{
-                    tip(data.message);
+                    tip(data.message.message);
                 }
            }
       });
