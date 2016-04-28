@@ -110,8 +110,8 @@ function commentView(orderId,skuType,skuTypeId,invImg){
 //提交评论
 $(document).on("click", ".commentBtnCss", function() {
     var content = $("#content").val();
-    if (content==""||content.length<5||content.length>500) {
-        tip("亲,评论内容需在5~500字以内");
+    if (content==""||content.length<10||content.length>500) {
+        tip("亲,评论内容需在10~500字以内");
     }  else {
         $.ajax({
             type: "POST",
@@ -134,8 +134,8 @@ $(document).on("click", ".commentBtnCss", function() {
 //上传图片
 $(document).on('change','.face',function() {
     var file = $(this);
-    file.after(file.clone().val(""));
-    file.remove();
+  //  file.after(file.clone().val(""));
+  //  file.remove();
     var files = this.files;
     previewImage(this.files[0],this.value);
 });
@@ -151,14 +151,14 @@ function previewImage(file,path) {
     span.classList.add('photo');
     span.appendChild(img);
     gallery.appendChild(span);
-    gallery.appendChild(span);
     var imgNum=gallery.getElementsByTagName("span").length;
     //图片最多为5张
-    if (imgNum>=5) {
-        $(".upload").css("display","none");
+     $(".upload").hide();
+    if (imgNum<5) {
+        $(".upload").eq(imgNum).show();
     }
-    var appendHtml='<input type="file" name="img'+imgNum+'" value="'+path+'"/>';
-    $("#hiddleFilesDiv").append(appendHtml);
+
+
 
     var reader = new FileReader();
     reader.onload = (function(aImg) {

@@ -4,10 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.squareup.okhttp.MultipartBuilder;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
+import com.squareup.okhttp.*;
 import domain.*;
 import filters.UserAuth;
 import filters.UserAjaxAuth;
@@ -23,8 +20,7 @@ import play.mvc.Result;
 import play.mvc.Security;
 
 import javax.inject.Inject;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -125,35 +121,48 @@ public class ShoppingCtrl extends Controller {
      */
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> commentAdd(){
-        ObjectNode result = newObject();
+
         Form<RemarkInfo> remarkInfoForm = Form.form(RemarkInfo.class).bindFromRequest();
-        Logger.info("======="+remarkInfoForm);
         if (remarkInfoForm.hasErrors()) {
-            result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
-            return F.Promise.promise((F.Function0<Result>) () -> ok(result));
+            return F.Promise.promise((F.Function0<Result>) () -> ok(toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex()))));
         }
 
         F.Promise<JsonNode>  promiseOfInt = F.Promise.promise(() -> {
             Http.MultipartFormData body = request().body().asMultipartFormData();
-            List<Http.MultipartFormData.FilePart> filePart = body.getFiles();
-
-
+            List<Http.MultipartFormData.FilePart> fileParts =null;
+            if(null!=body){
+                fileParts=body.getFiles();
+            }
             Map<String, String> finalMap=remarkInfoForm.data();
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
-            RequestBody requestBody = new MultipartBuilder()
-                    .type(MultipartBuilder.FORM)
+            MultipartBuilder multipartBuilder=new MultipartBuilder().type(MultipartBuilder.FORM);
+            multipartBuilder
+//                    .addFormDataPart("orderId", "77703337")
+//                    .addFormDataPart("skuType", "item")
+//                    .addFormDataPart("skuTypeId", "112542")
                     .addFormDataPart("orderId", null== finalMap.get("orderId")?"": finalMap.get("orderId"))
                     .addFormDataPart("skuType", null== finalMap.get("skuType")?"": finalMap.get("skuType"))
                     .addFormDataPart("skuTypeId", null== finalMap.get("skuTypeId")?"": finalMap.get("skuTypeId"))
                     .addFormDataPart("content", null== finalMap.get("content")?"": finalMap.get("content"))
-                    .addFormDataPart("grade", null== finalMap.get("grade")?"": finalMap.get("grade"))
+                    .addFormDataPart("grade", null== finalMap.get("grade")?"": finalMap.get("grade"));
 
+            if(fileParts!=null&&fileParts.size()>0){
+                for(int i=0;i<fileParts.size();i++){
+                    FileInputStream fis = new FileInputStream(fileParts.get(i).getFile());
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    byte[] b = new byte[1024];
+                    int n;
+                    while ((n = fis.read(b)) != -1)
+                    {
+                        bos.write(b, 0, n);
+                    }
+                    fis.close();
+                    bos.close();
+                    multipartBuilder.addFormDataPart("photo", (i+1)+".jpg", RequestBody.create(MEDIA_TYPE_PNG,b));
+                }
+            }
 
-//                        .addFormDataPart("refundImg1", "1.jpg", RequestBody.create(MEDIA_TYPE_PNG, bytes))
-//                        .addFormDataPart("refundImg2", "2.jpg", RequestBody.create(MEDIA_TYPE_PNG, bytes))
-//                        .addFormDataPart("refundImg3", "3.jpg", RequestBody.create(MEDIA_TYPE_PNG, bytes))
-                    .build();
-
+            RequestBody requestBody = multipartBuilder.build();
             Request request = builder.url(COMMENT_ADD).post(requestBody).build();
             Response response = client.newCall(request).execute();
             Logger.error("响应:"+response.toString());
