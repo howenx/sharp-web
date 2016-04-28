@@ -213,6 +213,10 @@ $(document).ready(function(){
      if(waitGoodsNum>0){
         $("#waitGoods").addClass("cart_num").html(waitGoodsNum);
      }
+     var waitCommentNum=$("#waitCommentUl li").length;
+     if(waitCommentNum>0){
+         $("#waitComment").addClass("cart_num").html(waitCommentNum);
+     }
 });
 //意见反馈
 $(document).on("click",".feedbackBtn",function(){

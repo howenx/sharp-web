@@ -1,3 +1,4 @@
+@(skuInfo:domain.SkuInfo)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,13 +14,13 @@
     <link rel="stylesheet" href="/assets/stylesheets/assess.css"/>
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
     <script src="/assets/javascripts/script.js"></script>
-
+    <script type="text/javascript" src="/assets/javascripts/comment.js"></script>
 </head>
 
 <body>
 
 <header class="head">
-    <a href="/myhmm" class="back">
+    <a href="javascript:window.history.back()" class="back">
         <i></i>
         <b></b>
     </a>
@@ -28,10 +29,11 @@
 </header>
 
 <div class="wrap">
+    <form id="commentForm" method="post" action="/comment/add" enctype="multipart/form-data">
     <div class="assess-big">
         <div class="assess-hd clearfix">
             <div class="assess-hd-l">
-                <img src="/assets/images/hmmapp-assess02.jpg">
+                <img src="@skuInfo.getInvImg()">
             </div>
 
             <div class="assess-star">
@@ -60,70 +62,22 @@
 
         <div class="assess-box clearfix">
             <div class="assess-txt">
-                <textarea maxlength="30" placeholder="快来评价,让小伙伴做个参考吧~"></textarea>
-                <span>12/100</span>
+                <textarea maxlength="30" placeholder="快来评价,让小伙伴做个参考吧~" name="content" id="content"></textarea>
+                <span>5~500字</span>
             </div>
-
-            <span class="photo">
-                <img src="/assets/images/hmmapp-assess02.jpg">
-                <i></i>
-            </span>
-            <span class="photo">
-                <img src="/assets/images/hmmapp-assess02.jpg">
-                <i></i>
-            </span>
+            <div id="gallery" style="display:inline-block;">
+                <!--<span class="photo">-->
+                    <!--<img src="/assets/images/hmmapp-assess02.jpg">-->
+                    <!--<i></i>-->
+                <!--</span>-->
+                <!--<span class="photo">-->
+                    <!--<img src="/assets/images/hmmapp-assess02.jpg">-->
+                    <!--<i></i>-->
+                <!--</span>-->
+            </div>
             <span class="upload"><input type="file" class="face"/></span>
 
         </div>
-
-    </div>
-
-
-    <div class="assess-big">
-        <div class="assess-hd clearfix">
-            <div class="assess-hd-l">
-                <img src="/assets/images/hmmapp-assess02.jpg">
-
-            </div>
-
-            <div class="assess-star">
-                <div class="assess-star-l">
-                    <i>商品评分</i>
-                </div>
-
-                <!--星星-->
-                <div id="xzw_starSys">
-                    <div id="xzw_starBox">
-                        <ul class="star" id="star">
-                            <li><a href="javascript:void(0)" title="1" class="one-star">1</a></li>
-                            <li><a href="javascript:void(0)" title="2" class="two-stars">2</a></li>
-                            <li><a href="javascript:void(0)" title="3" class="three-stars">3</a></li>
-                            <li><a href="javascript:void(0)" title="4" class="four-stars">4</a></li>
-                            <li><a href="javascript:void(0)" title="5" class="five-stars">5</a></li>
-                        </ul>
-                        <div class="current-rating" id="showb2" style="width:170px"></div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="assess-box clearfix">
-            <div class="assess-txt">
-                <textarea maxlength="30" placeholder="快来评价,让小伙伴做个参考吧~"></textarea>
-                <span>12/100</span>
-            </div>
-
-            <span class="photo">
-                <img src="/assets/images/hmmapp-assess02.jpg">
-                <i></i>
-            </span>
-            <span class="upload"><input type="file" class="face"/></span>
-
-        </div>
-
-
-
 
     </div>
 
@@ -181,11 +135,16 @@
             <span class="r bg">发表评价</span>
         </div>
     </div>-->
-
-    <div class="btn">提交</div>
+        <input type="hidden" name="orderId" value="@skuInfo.getOrderId()"/>
+        <input type="hidden" name="skuType" value="@skuInfo.getSkuType()"/>
+        <input type="hidden" name="skuTypeId" value="@skuInfo.getSkuTypeId()"/>
+        <input type="hidden" name="grade" value="5" id="grade"/>
+        <div class="btn commentBtnCss">提交</div>
+    </form>
 </div>
 
 
-
+<div class="hint" id="tip" style="display:none"></div>
+@comContent()
 </body>
 </html>

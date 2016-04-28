@@ -58,7 +58,7 @@
                 <li>
                     <a href="javascript:;" class="message_list shopping">
                         <i class="message">待评价</i>
-                        <span id="waitGoods"></span>
+                        <span id="waitComment"></span>
                     </a>
 
                 </li>
@@ -72,101 +72,6 @@
             <!--全部订单-->
             <section class="current">
                 <ul>
-                    <!--
-                    <li value="77702347" id="li77702347">
-                        <div class="con-stay clearfix">
-                            <a href="/all/77702347" class="clearfix">
-                                <div class="day clearfix">
-                                    <div class="day-l clearfix">
-                                        <span>订单号: </span><i>77702347</i>
-                                        <span class="date">2016-04-05 10:10:13</span>
-                                    </div>
-
-                                    <span class="day-r">
-                                        已取消
-                                    </span>
-                                </div>
-                            </a>
-
-                            <a href="/detail/item/888306/111327" class="commodity clearfix">
-                                <div class="photo-img">
-                                    <img src="http://img.hanmimei.com/440ff81c3f0b4848ad26e3ce112343e61451367544826.jpg" alt="">
-                                </div>
-
-                                <h2>韩秘美 Crystalshop 施华洛世奇水晶 14mm 水晶圈银饰项链</h2>
-
-                                <div class="size"><span>水晶色</span><span>均码</span></div>
-
-                                <span class="commodity-rmb clearfix"><i class="rmb">￥367</i><i class="number">x1</i></span>
-
-                            </a>
-
-                            <div class="payment">
-                                <a href="javascript:;" class="right bg discolour right-r" onclick="delOrder(77702347,0)">删除</a>
-                            </div>
-                        </div>
-                    </li>
-
-
-                    <li value="77702332" id="li77702332">
-                        <div class="con-stay clearfix">
-                            <a href="/all/77702332" class="clearfix">
-                                <div class="day clearfix">
-                                    <div class="day-l clearfix">
-                                        <span>订单号: </span><i>77702332</i>
-                                        <span class="date">2016-04-01 16:49:06</span>
-                                    </div>
-
-                                    <span class="day-r">
-                                        待发货
-                                    </span>
-                                </div>
-                            </a>
-
-                            <a href="/detail/item/888276/111318" class="commodity clearfix">
-                                <div class="photo-img">
-                                    <img src="http://img.hanmimei.com/fd2fe66c3f2447efaef9c8abea65f2301451365456278.jpg" alt="">
-                                </div>
-                                <h2>韩秘美 Crystalshop 施华洛世奇水晶 ‘神圣的石头’水晶吊坠银饰项链 </h2>
-                                <div class="size"><span>水晶色</span><span>均码</span></div>
-                                <span class="commodity-rmb clearfix"><i class="rmb">￥742</i><i class="number">x1</i></span>
-                            </a>
-                        </div>
-                    </li>
-
-                    <li value="77702302" id="li77702302">
-                        <div class="con-stay clearfix">
-                            <a href="/all/77702302" class="clearfix">
-                                <div class="day clearfix">
-                                    <div class="day-l clearfix">
-                                        <span>订单号: </span><i>77702302</i>
-                                        <span class="date">2016-04-01 16:19:34</span>
-                                    </div>
-
-                                    <span class="day-r">
-                                        待支付
-                                      </span>
-                                </div>
-                            </a>
-
-                            <a href="/detail/vary/889544/241865" class="commodity clearfix">
-                                <div class="photo-img">
-                                    <img src="http://img.hanmimei.com/item/photo/20160229/97f9ef900eff49dbbf963c2edaf8cbf01456728441334.jpg" alt="">
-                                </div>
-                                <h2>HMM饰品</h2>
-                                <div class="size"><span>银白色套装</span><span>25cm</span></div>
-                                <span class="commodity-rmb clearfix"><i class="rmb">￥299</i><i class="number">x1</i></span>
-                            </a>
-
-                            <div class="payment">
-                                <a href="javascript:;" class="left cancelOrder" style="display:none;">取消订单</a>
-                                <a href="javascript:;" class="right bg right-r" onclick="pay('http://172.28.3.78:9003/client/redirect/cash','77702302','6a0997a8bfcb02e82cbf5f7b7760c641','d9307698f663c9f13bfb93eef832f8e4')">去支付</a>
-                                <a href="javascript:;" class="right mi">应付金额:￥299</a>
-                            </div>
-                        </div>
-                    </li>
-
--->
                     @if(null!=orderList&&orderList.size>0){
                     @for(order<-orderList){
                     <li value="@order.getOrder().getOrderId()" id="li@order.getOrder().getOrderId()">
@@ -201,19 +106,30 @@
                                     </span>
                                 </div>
                             </a>
-                            @for(sku<-order.getSku()){
-                            <a href="/all/@order.getOrder().getOrderId()" class="commodity clearfix">
-                                <div class="photo-img">
-                                    <img src="@sku.getInvImg()" alt=""/>
-                                </div>
+                            @if(order.getSku().size()<=1){
+                                @for(sku<-order.getSku()){
+                                <a href="/all/@order.getOrder().getOrderId()" class="commodity clearfix">
+                                    <div class="photo-img">
+                                        <img src="@sku.getInvImg()" alt=""/>
+                                    </div>
 
-                                <h2>@sku.getSkuTitle()</h2>
+                                    <h2>@sku.getSkuTitle()</h2>
 
-                                <div class="size"><span>@sku.getItemColor()</span><span>@sku.getItemSize()</span></div>
+                                    <div class="size"><span>@sku.getItemColor()</span><span>@sku.getItemSize()</span></div>
 
-                                <span class="commodity-rmb clearfix"><i class="rmb">￥@sku.getPrice()</i><i class="number">x@sku.getAmount()</i></span>
+                                    <span class="commodity-rmb clearfix"><i class="rmb">￥@sku.getPrice()</i><i class="number">x@sku.getAmount()</i></span>
 
-                            </a>
+                                </a>
+                                }
+                            }
+                            @if(order.getSku().size()>1){
+                             <a href="/all/@order.getOrder().getOrderId()" class="commodity clearfix">
+                                @for(sku<-order.getSku()){
+                                    <div class="photo-img">
+                                        <img src="@sku.getInvImg()" alt="">
+                                    </div>
+                                }
+                             </a>
                             }
 
                             @if(order.getOrder().getOrderStatus()=="I"||order.getOrder().getOrderStatus()=="F"){
@@ -272,15 +188,29 @@
                                             </span>
                                         </div>
                                     </a>
+                                    @if(order.getSku().size()<=1){
                                     @for(sku<-order.getSku()){
                                     <a href="/all/@order.getOrder().getOrderId()" class="commodity clearfix">
                                         <div class="photo-img">
                                             <img src="@sku.getInvImg()" alt=""/>
                                         </div>
-                                        <h2>@sku.getSkuTitle()</h2>
-                                        <div class="size"><span>@sku.getItemColor()</span><span>@sku.getItemSize()</span></div>
-                                        <span class="commodity-rmb"><i class="rmb">￥@sku.getPrice()</i><i class="number">x@sku.getAmount()</i></span>
 
+                                        <h2>@sku.getSkuTitle()</h2>
+
+                                        <div class="size"><span>@sku.getItemColor()</span><span>@sku.getItemSize()</span></div>
+
+                                        <span class="commodity-rmb clearfix"><i class="rmb">￥@sku.getPrice()</i><i class="number">x@sku.getAmount()</i></span>
+
+                                    </a>
+                                    }
+                                    }
+                                    @if(order.getSku().size()>1){
+                                    <a href="/all/@order.getOrder().getOrderId()" class="commodity clearfix">
+                                        @for(sku<-order.getSku()){
+                                        <div class="photo-img">
+                                            <img src="@sku.getInvImg()" alt="">
+                                        </div>
+                                        }
                                     </a>
                                     }
                                     <div class="payment clearfix">
@@ -317,15 +247,29 @@
                                             </span>
                                         </div>
                                     </a>
+                                    @if(order.getSku().size()<=1){
                                     @for(sku<-order.getSku()){
                                     <a href="/all/@order.getOrder().getOrderId()" class="commodity clearfix">
                                         <div class="photo-img">
                                             <img src="@sku.getInvImg()" alt=""/>
                                         </div>
-                                        <h2>@sku.getSkuTitle()</h2>
-                                        <div class="size"><span>@sku.getItemColor()</span><span>@sku.getItemSize()</span></div>
-                                        <span class="commodity-rmb"><i class="rmb">￥@sku.getPrice()</i><i class="number">x@sku.getAmount()</i></span>
 
+                                        <h2>@sku.getSkuTitle()</h2>
+
+                                        <div class="size"><span>@sku.getItemColor()</span><span>@sku.getItemSize()</span></div>
+
+                                        <span class="commodity-rmb clearfix"><i class="rmb">￥@sku.getPrice()</i><i class="number">x@sku.getAmount()</i></span>
+
+                                    </a>
+                                    }
+                                    }
+                                    @if(order.getSku().size()>1){
+                                    <a href="/all/@order.getOrder().getOrderId()" class="commodity clearfix">
+                                        @for(sku<-order.getSku()){
+                                        <div class="photo-img">
+                                            <img src="@sku.getInvImg()" alt="">
+                                        </div>
+                                        }
                                     </a>
                                     }
                                     <div class="payment clearfix">
@@ -343,42 +287,59 @@
 
             <!--待评价-->
             <section>
-                <ul>
-                    <li value="77703004" id="li77703004">
-                        <div class="con-stay clearfix">
-                            <a href="/all/77703004" class="clearfix">
-                                <div class="day clearfix">
-                                    <div class="day-l clearfix">
-                                        <span>订单号: </span><i>77703004</i>
-                                        <span class="date">2016-04-16 10:38:34</span>
+                <ul id="waitCommentUl">
+                    @if(null!=orderList&&orderList.size>0){
+                        @for(order<-orderList){
+                            @if(order.getOrder().getRemark()=="N"){
+                            <li>
+                                <div class="con-stay clearfix">
+                                    <a href="/all/@order.getOrder().getOrderId()" class="clearfix">
+                                        <div class="day clearfix">
+                                            <div class="day-l">
+                                                <span >订单号: </span><i>@order.getOrder().getOrderId()</i>
+                                                <span class="date">@order.getOrder().getOrderCreateAt()</span>
+                                            </div>
+
+                                            <!--//I:初始化即未支付状态，S:成功，C：取消， F:失败，R:已收货，D:已经发货，J:拒收，N已删除，T已退款，PI:拼购未支付状态，PS:拼购支付成功状态，PF:拼团失败还未成功退款-->
+                                                    <span class="day-r">
+                                                        待收货
+                                                    </span>
+                                        </div>
+                                    </a>
+                                    @if(order.getSku().size()<=1){
+                                    @for(sku<-order.getSku()){
+                                    <a href="/all/@order.getOrder().getOrderId()" class="commodity clearfix">
+                                        <div class="photo-img">
+                                            <img src="@sku.getInvImg()" alt=""/>
+                                        </div>
+
+                                        <h2>@sku.getSkuTitle()</h2>
+
+                                        <div class="size"><span>@sku.getItemColor()</span><span>@sku.getItemSize()</span></div>
+
+                                        <span class="commodity-rmb clearfix"><i class="rmb">￥@sku.getPrice()</i><i class="number">x@sku.getAmount()</i></span>
+
+                                    </a>
+                                    }
+                                    }
+                                    @if(order.getSku().size()>1){
+                                    <a href="/all/@order.getOrder().getOrderId()" class="commodity clearfix">
+                                        @for(sku<-order.getSku()){
+                                        <div class="photo-img">
+                                            <img src="@sku.getInvImg()" alt="">
+                                        </div>
+                                        }
+                                    </a>
+                                    }
+                                    <div class="payment clearfix">
+                                        <a href="/comment/center/@order.getOrder().getOrderId()" class="right red">评论</a>
+                                        <a href="javascript:;" class="right " onclick="delOrder(@order.getOrder().getOrderId(),0)">删除订单</a>
                                     </div>
-
-                                    <!--//I:初始化即未支付状态，S:成功，C：取消， F:失败，R:已收货，D:已经发货，J:拒收，N已删除，T已退款，PI:拼购未支付状态，PS:拼购支付成功状态，PF:拼团失败还未成功退款-->
-                                    <span class="day-r">
-                                        已完成
-                                    </span>
                                 </div>
-                            </a>
-
-                            <a href="/all/77703004" class="commodity clearfix">
-                                <div class="photo-img">
-                                    <img src="http://img.hanmimei.com/410fd58a4cf74dadb0593b34e69a55291451368819746.jpg" alt="">
-                                </div>
-                                <div class="photo-img">
-                                    <img src="http://img.hanmimei.com/410fd58a4cf74dadb0593b34e69a55291451368819746.jpg" alt="">
-                                </div>
-                                <div class="photo-img">
-                                    <img src="http://img.hanmimei.com/410fd58a4cf74dadb0593b34e69a55291451368819746.jpg" alt="">
-                                </div>
-
-                            </a>
-
-                            <div class="payment clearfix">
-                                <a href="/assets/assess" class="right red">评价</a>
-                                <a href="/logistic/77703004" class="left">删除订单</a>
-                            </div>
-                        </div>
-                    </li>
+                            </li>
+                            }
+                        }
+                    }
                 </ul>
             </section>
 
@@ -407,6 +368,10 @@
 
 <div class="not orderNot" style="display:none">
     <p>您还未有待收货订单</p>
+    <a href="/" class="look">去逛逛</a>
+</div>
+<div class="not orderNot" style="display:none">
+    <p>您还未有待评论订单</p>
     <a href="/" class="look">去逛逛</a>
 </div>
 

@@ -19,6 +19,8 @@ $(document).ready(function(){
             n = i+1;
             $("#showb3").css({"width":stepW*n});
         }
+
+        $("#grade").val(i+1);
     }
     stars.each(function(i){
         $(stars[i]).click(function(e){
