@@ -18,10 +18,12 @@ import play.data.Form;
 import play.libs.F;
 import play.libs.Json;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
 
 import javax.inject.Inject;
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -132,6 +134,10 @@ public class ShoppingCtrl extends Controller {
         }
 
         F.Promise<JsonNode>  promiseOfInt = F.Promise.promise(() -> {
+            Http.MultipartFormData body = request().body().asMultipartFormData();
+            List<Http.MultipartFormData.FilePart> filePart = body.getFiles();
+
+
             Map<String, String> finalMap=remarkInfoForm.data();
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
             RequestBody requestBody = new MultipartBuilder()
@@ -141,6 +147,7 @@ public class ShoppingCtrl extends Controller {
                     .addFormDataPart("skuTypeId", null== finalMap.get("skuTypeId")?"": finalMap.get("skuTypeId"))
                     .addFormDataPart("content", null== finalMap.get("content")?"": finalMap.get("content"))
                     .addFormDataPart("grade", null== finalMap.get("grade")?"": finalMap.get("grade"))
+
 
 //                        .addFormDataPart("refundImg1", "1.jpg", RequestBody.create(MEDIA_TYPE_PNG, bytes))
 //                        .addFormDataPart("refundImg2", "2.jpg", RequestBody.create(MEDIA_TYPE_PNG, bytes))

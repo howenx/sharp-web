@@ -34,6 +34,9 @@ function commentTab(skuType,skuTypeId,commentType){
 
 //绘制评论
 function paintComment(comment,commentType){
+ if(commentType==4){
+   return;
+ }
     var html='<li><div class="hd clearfix">'+
             '<span class="hd-l"><img src="'+comment.userImg+'"/></span>'+
             '<span class="hd-m"><i>'+comment.userName+'</i></span>'+
