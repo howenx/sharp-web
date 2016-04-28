@@ -1,4 +1,4 @@
-@(commentList:List[domain.CommentDetailDTO],pageCount:Integer,skuType:String,skuTypeId:Long)
+@(commentList:List[domain.CommentDetailDTO],pageCount:Integer,skuType:String,skuTypeId:Long,countNum:Integer)
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -32,30 +32,30 @@
     <div class="nav-tab">
         <div class="nav-tab-top box">
             <ul>
-                <li onclick="commentTab('@skuType','@skuTypeId','1')">
+                <li id="tabLi1" onclick="commentTab('@skuType','@skuTypeId','1')">
                     <a href="javascript:;" class="message_list shopping current" >
                         <i class="message">全部</i>
-                        <span>1234</span>
+                        <span id="commentNumCss1">@countNum</span>
                     </a>
                 </li>
-                <li onclick="commentTab('@skuType','@skuTypeId','2')">
+                <li id="tabLi2" onclick="commentTab('@skuType','@skuTypeId','2')">
                     <a href="javascript:;" class="message_list shopping">
                         <i class="message">好评</i>
-                        <span>1234</span>
+                        <span id="commentNumCss2"></span>
                     </a>
 
                 </li>
-                <li onclick="commentTab('@skuType','@skuTypeId','3')">
+                <li id="tabLi3" onclick="commentTab('@skuType','@skuTypeId','3')">
                     <a href="javascript:;" class="message_list shopping">
                         <i class="message">差评</i>
-                        <span>456</span>
+                        <span id="commentNumCss3"></span>
                     </a>
 
                 </li>
-                <li onclick="commentTab('@skuType','@skuTypeId','4')">
+                <li id="tabLi4" onclick="commentTab('@skuType','@skuTypeId','4')">
                     <a href="javascript:;" class="message_list shopping">
                         <i class="message">晒图</i>
-                        <span>32</span>
+                        <span id="commentNumCss4"></span>
                     </a>
 
                 </li>
@@ -92,6 +92,10 @@
                                             }
                                         }
                                     </div>
+                                </div>
+                                <div class="bm">
+                                    购买日期:
+                                    <i>@comment.getBuyAt()</i>
                                 </div>
                             </li>
                         }
@@ -167,18 +171,7 @@
 
             <section>
                 <ul id="commentUl4">
-                    <img src="/assets/images/0.jpg" alt="">
-                    <img src="/assets/images/1.jpg" alt="">
-                    <img src="/assets/images/2.jpg" alt="">
-                    <img src="/assets/images/3.jpg" alt="">
-                    <img src="/assets/images/0.jpg" alt="">
-                    <img src="/assets/images/1.jpg" alt="">
-                    <img src="/assets/images/2.jpg" alt="">
-                    <img src="/assets/images/3.jpg" alt="">
-                    <img src="/assets/images/0.jpg" alt="">
-                    <img src="/assets/images/1.jpg" alt="">
-                    <img src="/assets/images/2.jpg" alt="">
-                    <img src="/assets/images/3.jpg" alt="">
+
                 </ul>
 
             </section>
@@ -190,9 +183,14 @@
     <input type="hidden" id="curPage2" value="0"/>
     <input type="hidden" id="curPage3" value="0"/>
     <input type="hidden" id="curPage4" value="0"/>
+    <input type="hidden" id="pageCount1" value="@pageCount"/>
+    <input type="hidden" id="pageCount2" value="0"/>
+    <input type="hidden" id="pageCount3" value="0"/>
+    <input type="hidden" id="pageCount4" value="0"/>
 
 <input type="hidden" id="skuType" value="@skuType"/>
 <input type="hidden" id="skuTypeId" value="@skuTypeId"/>
+<input type="hidden" id="commentType" value="1"/>
 
     <div class="hint" id="tip" style="display:none"></div>
     @comContent()

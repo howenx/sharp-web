@@ -269,7 +269,11 @@ public class ShoppingCtrl extends Controller {
                 if (json.has("page_count")) {
                     pageCount = json.get("page_count").asInt();
                 }
-                return ok(views.html.shopping.evaluate.render(commentDetailDTOList, pageCount, skuType, skuTypeId));
+                int countNum = 0;
+                if (json.has("count_num")) {
+                    countNum = json.get("count_num").asInt();
+                }
+                return ok(views.html.shopping.evaluate.render(commentDetailDTOList, pageCount, skuType, skuTypeId,countNum));
             }else{
                 return ok(json);
             }

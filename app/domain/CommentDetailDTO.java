@@ -19,6 +19,8 @@ public class CommentDetailDTO implements Serializable {
     private String userName;
     private String picture;
     private List<String> pictureList;
+    private String buyAt;
+    private String size;
 
     public String getCreateAt() {
         return createAt;
@@ -74,5 +76,21 @@ public class CommentDetailDTO implements Serializable {
 
     public void setPictureList(List<String> pictureList) {
         this.pictureList = pictureList;
+    }
+
+    public String getBuyAt() {
+        return buyAt;
+    }
+
+    public void setBuyAt(String buyAt) {
+        this.buyAt = buyAt;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
     }
 }

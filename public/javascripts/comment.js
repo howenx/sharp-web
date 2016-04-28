@@ -1,66 +1,61 @@
+
+$(document).ready(function(){
+    commentPage(1,2);
+    commentPage(1,3);
+    commentPage(1,4);
+});
+
 //点击评论页签
 function commentTab(skuType,skuTypeId,commentType){
      var index=commentType-1;
      sessionindex = index;
-     $('.scroll-wrap .scroll-content section').eq(index).show().siblings().hide();
+     $('.scroll-wrap .scroll-content section').hide();
+     $("#commentUl"+commentType).parents("section").show();
+
      $('.nav-tab-top li').find("a").removeClass('current');
-     $('.nav-tab-top li').eq(index).find("a").addClass('current');
+     $("#tabLi"+commentType).find("a").addClass('current');
+
+     $("#commentType").val(commentType);
     // $(this).addClass('current').parent().siblings().children('a').removeClass('current');
     var curPage=$("#curPage"+commentType).val();
     if(curPage>0){ //说明请求过了,只切换当前状态
       return false;
     }
     commentPage(1,commentType);
-//    $.ajax({
-//           type :"GET",
-//           url : "/comment/detail/"+skuType+"/"+skuTypeId+"/1"+"/"+commentType,
-//           contentType: "application/json; charset=utf-8",
-//           error : function(request) {
-//               tip("获取数据失败,请重新尝试!");
-//           },
-//           success: function(data) {
-//                if(data.message.code==200){ //成功
-//                    $("#curPage"+commentType).val(1);
-//                    var commentList = eval(data.remarkList);
-//                    for(var o in commentList){
-//                        paintComment(commentList[o],commentType);
-//                     }
-//
-//                } else{
-//                    tip(data.message.message);
-//                }
-//           }
-//      });
 };
 
 //绘制评论
 function paintComment(comment,commentType){
-    var html='<li><div class="hd clearfix">'+
-            '<span class="hd-l"><img src="'+comment.userImg+'"/></span>'+
-            '<span class="hd-m"><i>'+comment.userName+'</i></span>'+
-            '<span class="hd-r"><i>'+comment.createAt+'</i></span></div>'+
-            '<div class="md"><p></p><span>'+comment.content+'</span>'+
-            '<div class="clearfix">';
+    var html="";
+    if(commentType==4){
+        if(null!=comment.picture&&""!=comment.picture){
+             html+='<img src="'+comment.picture+'" alt="'+comment.content+'">';
+        }
+    }else{
+        html='<li><div class="hd clearfix">'+
+                   '<span class="hd-l"><img src="'+comment.userImg+'"/></span>'+
+                   '<span class="hd-m"><i>'+comment.userName+'</i></span>'+
+                   '<span class="hd-r"><i>'+comment.createAt+'</i></span></div>'+
+                   '<div class="md"><p></p><span>'+comment.content+'</span>'+
+                   '<div class="clearfix">';
+                       if(null!=comment.picture&&""!=comment.picture){
 
-            if(null!=comment.picture&&""!=comment.picture){
-                if(commentType==4){
-                    html+='<img src="'+comment.picture+'">';
+                           var pictureList = eval(comment.picture);
+                           for(var o in pictureList){
+                              html+='<img src="'+pictureList[o]+'">';
+                           }
+                       }
+        html+='</div></div><div class="bm">购买日期: <i>'+comment.buyAt+'</i></div></li>';
+     }
 
-                }else{
-                    var pictureList = eval(comment.picture);
-                    for(var o in pictureList){
-                       html+='<img src="'+pictureList[o]+'">';
-                    }
-                }
-            }
-       html+='</div></div></li>';
-       $("#commentUl"+commentType).append(html);
+    $("#commentUl"+commentType).append(html);
 };
 
 //评论分页
 function commentPage(page,commentType){
     var skuType=$("#skuType").val();
     var skuTypeId=$("#skuTypeId").val();
+    console.log("commentType="+commentType+",page="+page);
       $.ajax({
            type :"GET",
            url : "/comment/detail/"+skuType+"/"+skuTypeId+"/"+page+"/"+commentType,
@@ -71,9 +66,23 @@ function commentPage(page,commentType){
            success: function(data) {
                 if(data.message.code==200){ //成功
                     $("#curPage"+commentType).val(page);
+                    if(page==1){
+                        if(null==data.count_num||typeof(data.count_num)=="undefined"){
+                            $("#commentNumCss"+commentType).html(0);
+                        }else{
+                            $("#commentNumCss"+commentType).html(data.count_num);
+                        }
+                         if(null==data.page_count||typeof(data.page_count)=="undefined"){
+                            $("#pageCount"+commentType).val(0);
+                         }else{
+                            $("#pageCount"+commentType).val(data.page_count);
+                         }
+                    }
+
+
                     var commentList = eval(data.remarkList);
                     if(null==commentList||commentList.length<=0){
-                        tip("暂无最新数据");
+                       // tip("数据加载完毕");
                         return true;
                     }
                     for(var o in commentList){
@@ -155,9 +164,6 @@ function previewImage(file,path) {
     if (imgNum<5) {
         $(".upload").eq(imgNum).show();
     }
-
-
-
     var reader = new FileReader();
     reader.onload = (function(aImg) {
         return function(e) {
@@ -166,22 +172,24 @@ function previewImage(file,path) {
     })(img);
     reader.readAsDataURL(file);
 }
-var sessionindex = 0;
+
+
 $(function () {
-    var currentPageCount = 2;
     $(window).on("scroll",function(){
-        console.log(sessionindex);
-        var pageCount = 4;
-        if(currentPageCount <= pageCount){
-            $minUl = $("section").eq(sessionindex);
-            if($minUl.height() <= $(window).scrollTop()+$(window).height()){
+        var commentType=$("#commentType").val();
+        var currentPageCount=$("#curPage"+commentType).val();
+        var pageCount =  $("#pageCount"+commentType).val();
+        if(currentPageCount < pageCount){
+            $minUl = $("#commentUl"+commentType);
+            console.log($minUl.height())
+            if($minUl.height() <= $(window).scrollTop()+500){
                 //当最短的ul的高度比窗口滚出去的高度+浏览器高度大时加载新图片
-                commentPage(currentPageCount,1);
-                currentPageCount = currentPageCount + 1;
+                commentPage(++currentPageCount,commentType);
+             //   currentPageCount = currentPageCount + 1;
             }
         }
     })
-    $("#commentUl4 img").click(function () {
+    $(document).on("click","#commentUl4 img",function () {
         $(".previ").show();
         // $(this).clone().appendTo(".previ").css({
         //     "position":"absolute",
