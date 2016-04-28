@@ -131,10 +131,10 @@ $(document).on('change','.face',function() {
     file.after(file.clone().val(""));
     file.remove();
     var files = this.files;
-    previewImage(this.files[0]);
+    previewImage(this.files[0],this.value);
 });
 
-function previewImage(file) {
+function previewImage(file,path) {
     var imageType = /image.*/;
     if (!file.type.match(imageType)) {
         throw "File Type must be an image";
@@ -146,10 +146,14 @@ function previewImage(file) {
     span.appendChild(img);
     gallery.appendChild(span);
     gallery.appendChild(span);
+    var imgNum=gallery.getElementsByTagName("span").length;
     //图片最多为5张
-    if (gallery.getElementsByTagName("span").length==5) {
+    if (imgNum>=5) {
         $(".upload").css("display","none");
     }
+    var appendHtml='<input type="file" name="img'+imgNum+'" value="'+path+'"/>';
+    $("#hiddleFilesDiv").append(appendHtml);
+
     var reader = new FileReader();
     reader.onload = (function(aImg) {
         return function(e) {

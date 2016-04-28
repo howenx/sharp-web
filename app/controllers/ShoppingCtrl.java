@@ -125,6 +125,7 @@ public class ShoppingCtrl extends Controller {
     public F.Promise<Result> commentAdd(){
         ObjectNode result = newObject();
         Form<RemarkInfo> remarkInfoForm = Form.form(RemarkInfo.class).bindFromRequest();
+        Logger.info("======="+remarkInfoForm);
         if (remarkInfoForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return F.Promise.promise((F.Function0<Result>) () -> ok(result));
