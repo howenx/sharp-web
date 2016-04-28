@@ -4,10 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.squareup.okhttp.MultipartBuilder;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
+import com.squareup.okhttp.*;
 import domain.*;
 import filters.UserAuth;
 import filters.UserAjaxAuth;
@@ -135,9 +132,8 @@ public class ShoppingCtrl extends Controller {
 
         F.Promise<JsonNode>  promiseOfInt = F.Promise.promise(() -> {
             Http.MultipartFormData body = request().body().asMultipartFormData();
-            List<Http.MultipartFormData.FilePart> filePart = body.getFiles();
-
-
+            List<Http.MultipartFormData.FilePart> fileParts = body.getFiles();
+            Logger.info("========"+fileParts);
             Map<String, String> finalMap=remarkInfoForm.data();
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
             RequestBody requestBody = new MultipartBuilder()
@@ -147,7 +143,16 @@ public class ShoppingCtrl extends Controller {
                     .addFormDataPart("skuTypeId", null== finalMap.get("skuTypeId")?"": finalMap.get("skuTypeId"))
                     .addFormDataPart("content", null== finalMap.get("content")?"": finalMap.get("content"))
                     .addFormDataPart("grade", null== finalMap.get("grade")?"": finalMap.get("grade"))
-
+                    .addPart(Headers.of("Content-Disposition", "form-data; name=\"image\""),
+                            RequestBody.create(MEDIA_TYPE_PNG, (fileParts!=null&&fileParts.size()>0)?fileParts.get(0).getFile():null))
+                    .addPart(Headers.of("Content-Disposition", "form-data; name=\"image\""),
+                            RequestBody.create(MEDIA_TYPE_PNG, (fileParts!=null&&fileParts.size()>1)?fileParts.get(1).getFile():null))
+                    .addPart(Headers.of("Content-Disposition", "form-data; name=\"image\""),
+                            RequestBody.create(MEDIA_TYPE_PNG, (fileParts!=null&&fileParts.size()>2)?fileParts.get(2).getFile():null))
+                    .addPart(Headers.of("Content-Disposition", "form-data; name=\"image\""),
+                            RequestBody.create(MEDIA_TYPE_PNG, (fileParts!=null&&fileParts.size()>3)?fileParts.get(3).getFile():null))
+                    .addPart(Headers.of("Content-Disposition", "form-data; name=\"image\""),
+                            RequestBody.create(MEDIA_TYPE_PNG, (fileParts!=null&&fileParts.size()>4)?fileParts.get(4).getFile():null))
 
 //                        .addFormDataPart("refundImg1", "1.jpg", RequestBody.create(MEDIA_TYPE_PNG, bytes))
 //                        .addFormDataPart("refundImg2", "2.jpg", RequestBody.create(MEDIA_TYPE_PNG, bytes))

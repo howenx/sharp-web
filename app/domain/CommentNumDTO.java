@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CommentNumDTO implements Serializable {
     private Integer remarkCount;//评论数
-    private BigDecimal remarkRate;//好评率
+    private String remarkRate;//好评率
 
     public Integer getRemarkCount() {
         return remarkCount;
@@ -21,11 +21,11 @@ public class CommentNumDTO implements Serializable {
         this.remarkCount = remarkCount;
     }
 
-    public BigDecimal getRemarkRate() {
+    public String getRemarkRate() {
         return remarkRate;
     }
 
-    public void setRemarkRate(BigDecimal remarkRate) {
+    public void setRemarkRate(String remarkRate) {
         this.remarkRate = remarkRate;
     }
 }
