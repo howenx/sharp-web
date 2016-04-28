@@ -181,6 +181,34 @@ $(function () {
             }
         }
     })
+    $("#commentUl4 img").click(function () {
+        $(".previ").show();
+        // $(this).clone().appendTo(".previ").css({
+        //     "position":"absolute",
+        //     "top":"50%",
+        //     "left":0,
+        //     "marginTop":-$(".previ").find("img").height()/2,
+        // });
+        $("#commentUl4 img").each(function () {
+            var li = $("<li>");
+            $(this).clone().appendTo(li);
+            li.appendTo(".bd ul");
+        })
+        $("#slideBox").css({
+            "marginTop":"50%"
+        })
+        TouchSlide({
+            slideCell:"#slideBox",
+            titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+            mainCell:".bd ul",
+            effect:"leftLoop",
+            autoPage:true,//自动分页
+        });
+    });
+    $(".previ").click(function () {
+        $(this).find("img").parent().remove();
+        $(this).hide();
+    })
 })
 
 
