@@ -244,7 +244,7 @@ public class ShoppingCtrl extends Controller {
                 Logger.info("返回数据code=" + json);
                 return badRequest(views.html.error.render(message.getMessage()));
             }
-            if(1==commentType) {
+            if(1==commentType&&pageNum<=1) {  //其他直接走json
                 List<CommentDetailDTO> commentDetailDTOList = null;
                 if (json.has("remarkList")) {
                     commentDetailDTOList = new ObjectMapper().readValue(json.get("remarkList").toString(), new TypeReference<List<CommentDetailDTO>>() {

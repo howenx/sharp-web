@@ -58,15 +58,17 @@ function paintComment(comment,commentType){
 
 //评论分页
 function commentPage(page,commentType){
+var skuType=$("#skuType").val();
+var skuTypeId=$("#skuTypeId").val();
       $.ajax({
            type :"GET",
-           url : "/comment/detail/"+skuType+"/"+skuTypeId+"/"+page+"/"+commentType,
+           url : "/comment/detail/"+skuType+"/"+skuTypeId+"/"+1+"/"+commentType,
            contentType: "application/json; charset=utf-8",
            error : function(request) {
                tip("删除失败!");
            },
            success: function(data) {
-                if(data.message.code==200){ //成功
+                if(data.code==200){ //成功
                     $("#curPage"+commentType).val(page);
                     var commentList = eval(data.remarkList);
                     if(null==commentList||commentList.size()<=0){
@@ -78,7 +80,7 @@ function commentPage(page,commentType){
                      }
 
                 } else{
-                    tip(data.message.message);
+                    tip(data.message);
                 }
            }
       });
@@ -173,7 +175,7 @@ $(function () {
             $minUl = $("section").eq(sessionindex);
             if($minUl.height() <= $(window).scrollTop()+$(window).height()){
                 //当最短的ul的高度比窗口滚出去的高度+浏览器高度大时加载新图片
-                paintComment(currentPageCount);
+                commentPage(currentPageCount,1);
                 currentPageCount = currentPageCount + 1;
             }
         }

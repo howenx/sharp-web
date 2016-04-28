@@ -92,31 +92,6 @@
                                     </div>
                                 </div>
                             </li>
-                    <li>
-                        <div class="hd clearfix">
-                                    <span class="hd-l">
-                                        <img src="@comment.getUserImg()"/>
-                                    </span>
-                                    <span class="hd-m">
-                                        <i>@comment.getUserName()</i>
-                                    </span>
-                                    <span class="hd-r">
-                                        <i>@comment.getCreateAt()</i>
-                                    </span>
-                        </div>
-
-                        <div class="md">
-                            <p></p>
-                            <span>@comment.getContent()</span>
-                            <div class="clearfix">
-                                @if(null!=comment.getPictureList()&&comment.getPictureList().size()>0){
-                                @for(picture<-comment.getPictureList()){
-                                <img src="@picture">
-                                }
-                                }
-                            </div>
-                        </div>
-                    </li>
                         }
                     }
                 </ul>
@@ -254,6 +229,9 @@
     <input type="hidden" id="curPage2" value="0"/>
     <input type="hidden" id="curPage3" value="0"/>
     <input type="hidden" id="curPage4" value="0"/>
+
+<input type="hidden" id="skuType" value="@skuType"/>
+<input type="hidden" id="skuTypeId" value="@skuTypeId"/>
 
     <div class="hint" id="tip" style="display:none"></div>
     @comContent()
