@@ -1,6 +1,7 @@
 //点击评论页签
 function commentTab(skuType,skuTypeId,commentType){
      var index=commentType-1;
+     sessionindex = index;
      $('.scroll-wrap .scroll-content section').eq(index).show().siblings().hide();
      $('.nav-tab-top li').find("a").removeClass('current');
      $('.nav-tab-top li').eq(index).find("a").addClass('current');
@@ -162,5 +163,22 @@ function previewImage(file,path) {
     })(img);
     reader.readAsDataURL(file);
 }
+var sessionindex = 0;
+$(function () {
+    var currentPageCount = 2;
+    $(window).on("scroll",function(){
+        console.log(sessionindex);
+        var pageCount = 4;
+        if(currentPageCount <= pageCount){
+            $minUl = $("section").eq(sessionindex);
+            if($minUl.height() <= $(window).scrollTop()+$(window).height()){
+                //当最短的ul的高度比窗口滚出去的高度+浏览器高度大时加载新图片
+                paintComment(currentPageCount);
+                currentPageCount = currentPageCount + 1;
+            }
+        }
+    })
+})
+
 
 
