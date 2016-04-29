@@ -45,7 +45,11 @@ function paintComment(comment,commentType){
                               html+='<img src="'+pictureList[o]+'">';
                            }
                        }
-        html+='</div></div><div class="bm">购买日期: <i>'+comment.buyAt+'</i></div></li>';
+        html+='</div></div>';
+        if(""!=comment.size&&null!=comment.size){
+            html+='<div class="bm"><i>'+comment.size+'</i></div>';
+        }
+        html+='<div class="bm">购买日期: <i>'+comment.buyAt+'</i></div></li>';
      }
 
     $("#commentUl"+commentType).append(html);
@@ -65,7 +69,9 @@ function commentPage(page,commentType){
            },
            success: function(data) {
                 if(data.message.code==200){ //成功
-                    $("#curPage"+commentType).val(page);
+                    if($("#curPage"+commentType).val()<page){
+                        $("#curPage"+commentType).val(page);
+                    }
                     if(page==1){
                         if(null==data.count_num||typeof(data.count_num)=="undefined"){
                             $("#commentNumCss"+commentType).html(0);
@@ -181,10 +187,12 @@ $(function () {
         var pageCount =  $("#pageCount"+commentType).val();
         if(currentPageCount < pageCount){
             $minUl = $("#commentUl"+commentType);
-            console.log($minUl.height())
-            if($minUl.height() <= $(window).scrollTop()+500){
+            var nextPage=parseInt(currentPageCount)+1;
+            $("#curPage"+commentType).val(nextPage);
+          //  console.log($minUl.height()+"="+($(window).scrollTop()+1500)+"=currentPageCount="+currentPageCount+"==pageCount="+pageCount)
+            if($minUl.height() <= $(window).scrollTop()+1500){
                 //当最短的ul的高度比窗口滚出去的高度+浏览器高度大时加载新图片
-                commentPage(++currentPageCount,commentType);
+                commentPage(nextPage,commentType);
              //   currentPageCount = currentPageCount + 1;
             }
         }

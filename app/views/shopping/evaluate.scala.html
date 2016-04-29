@@ -93,10 +93,16 @@
                                         }
                                     </div>
                                 </div>
+                                @if(""!=comment.getSize()&&null!=comment.getSize()){
+                                    <div class="bm">
+                                        <i>@comment.getSize()</i>
+                                    </div>
+                                }
                                 <div class="bm">
                                     购买日期:
                                     <i>@comment.getBuyAt()</i>
                                 </div>
+
                             </li>
                         }
                     }
