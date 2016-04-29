@@ -165,7 +165,7 @@
 				</ul>
 			</div>
 
-			@if(null!=comment){
+			@if(null!=comment&&comment.getRemarkCount()>0){
 				<div class="opinion clearfix">
 					<a href="/comment/detail/@inventoryList.get(0).getSkuType()/@inventoryList.get(0).getSkuTypeId()/1/1" class="clearfix">
 						<span class="opinion-l">评论 <i>(@comment.getRemarkCount())</i></span>
