@@ -178,8 +178,8 @@ $(function () {
             $minUl = $("#commentUl"+commentType);
             var nextPage=parseInt(currentPageCount)+1;
             $("#curPage"+commentType).val(nextPage);
-          //  console.log($minUl.height()+"="+($(window).scrollTop()+1500)+"=currentPageCount="+currentPageCount+"==pageCount="+pageCount)
-            if($minUl.height() <= $(window).scrollTop()+1500){
+            console.log($minUl.height()+"="+($(window).scrollTop()+1500)+"=currentPageCount="+currentPageCount+"==pageCount="+pageCount)
+            if($minUl.height() <= $(window).scrollTop()+$(window).height()){
                 //当最短的ul的高度比窗口滚出去的高度+浏览器高度大时加载新图片
                 commentPage(nextPage,commentType);
              //   currentPageCount = currentPageCount + 1;
