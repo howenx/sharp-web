@@ -1,10 +1,4 @@
 
-$(document).ready(function(){
-    commentPage(1,2);
-    commentPage(1,3);
-    commentPage(1,4);
-});
-
 //点击评论页签
 function commentTab(skuType,skuTypeId,commentType){
      var index=commentType-1;
@@ -183,8 +177,8 @@ function previewImage(file,path) {
 $(function () {
     $(window).on("scroll",function(){
         var commentType=$("#commentType").val();
-        var currentPageCount=$("#curPage"+commentType).val();
-        var pageCount =  $("#pageCount"+commentType).val();
+        var currentPageCount=$("#curPage"+commentType).val(); //当前页
+        var pageCount =  $("#pageCount"+commentType).val(); //总页数
         if(currentPageCount < pageCount){
             $minUl = $("#commentUl"+commentType);
             var nextPage=parseInt(currentPageCount)+1;
