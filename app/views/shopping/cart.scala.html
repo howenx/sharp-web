@@ -14,10 +14,14 @@
     <link rel="stylesheet" href="/assets/stylesheets/sho.css"/>
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
     <script src="/assets/javascripts/sho.js"></script>
-
 </head>
 <body>
 <!--头部开始-->
+
+<div id="loading">
+    <img src="/assets/images/loading.gif"/>
+</div>
+
 <header class="header">
     <a href="@hisUrl" class="home_link"></a>
     <div class="header-text">
@@ -29,6 +33,7 @@
 
 <!--头部结束-->
 <!--购买产品部分开始-->
+<div class="fixed-box" style="position:fixed;width: 100%">
 <form id="settleForm" action="/settle" method="POST">
     <div class="hint-hd" id="hint-hd">友情提示 : 同一保税区商品总额有限制</div>
 <div class="cart-goods" id="cart-goods">
@@ -276,6 +281,7 @@
     <input type="hidden" name="buyNow" value="2"/>
 
 </form>
+</div>
 <!--footer部分结束-->
 @comContent()
 </body>

@@ -167,6 +167,7 @@ $(function() {
     $(function(){
         $(window).load(function(){
             $("#loading").hide();
+            $(".fixed-box").css({"position":"relative"});
         });
     });
 
@@ -467,5 +468,12 @@ function postalShade(price,postalTaxRate){
     $(".postalDiv").show();
 }
 
+
+$(function(){
+    $(window).load(function(){
+        $("#loading").hide();
+        $(".fixed-box").css({"position":"relative"});
+    });
+})
 
 

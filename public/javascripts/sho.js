@@ -1,5 +1,6 @@
 
 $(function(){
+
         var count=0;
     /*改变产品数量*/
     $(".quantity-increase").on("click",function(){
@@ -378,6 +379,13 @@ function windowConfirm(content,callback){
         callback();
      }) ;
 }
+
+$(function(){
+    $(window).load(function(){
+        $("#loading").hide();
+        $(".fixed-box").css({"position":"relative"});
+    });
+})
 
 
 

@@ -1,4 +1,7 @@
 $(function() {
+
+
+
 	//获取window的高度
 	//滚动条滚动的垂直距离大于窗口高度 才是小火箭现身的最佳时机
 	$(window).scroll(function(e) {
@@ -22,12 +25,22 @@ $(function() {
 
 	$('.download b').click(function(){
 		$(this).parents('.download-box').hide();
-	})
+	});
+
+
+
 
 	/*('.foot .buy').click(function(){
 		$(this).children('.icon02').css({'backgroundImage':'url(images/02.png)'});
 	})*/
 
+
+	$(window).load(function(){
+		$("#loading").hide();
+		$(".fixed-box").css({"position":"relative"});
+	});
+
+	echo.init();
 });
 
 

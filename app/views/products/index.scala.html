@@ -7,23 +7,10 @@
 <script src="/assets/javascripts/hp.js"></script>
 <script src="/assets/javascripts/cartAmount.js"></script>
 <script src="/assets/javascripts/echo.min.js"></script>
-<script>
-	$(function(){
-		$(window).load(function(){
-			$("#loading").hide();
-			$("#screen_wrap").css("position","relative");
-		});
-	});
-	echo.init();
-</script>
 
 }
 
 @layout(title="韩秘美,专卖韩国正品")(scripts){
-
-	<div id="loading">
-		<img src="/assets/images/loading.gif"/>
-	</div>
 
 <!--头部-->
 	<div class="battener">
@@ -44,7 +31,8 @@
 
 
 <!--主体	-->
-	<div id='screen_wrap' style="position: fixed;width: 100%">
+<div class="fixed-box" style="position: fixed;width: 100%">
+	<div id='screen_wrap' >
 
 		<!--banner开始-->
 
@@ -191,5 +179,7 @@
 			<img src="/assets/images/backtop.png">
 		</div>
 </div>
+</div>
+
 
 }

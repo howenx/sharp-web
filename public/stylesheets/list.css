@@ -900,17 +900,23 @@ h2 span{
     position: absolute;
 }
 
+
 #loading{
+    width: 100%;
+    height: 100%;
     position:fixed;
+    top:0;
+    z-index: 1000;
+    background-color:rgba(255,255,255,0.1);
+}
+
+#loading img{
+    width: 120px;
+    position:absolute;
     top:50%;
     left: 50%;
-    width: 120px;
     -webkit-transform: translate(-50%,0);
     -moz-transform: translate(-50%,0);
-     z-index: 100;
-}
-#loading img{
-    width: 100%;
 }
 
 

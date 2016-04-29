@@ -25,13 +25,8 @@
 </head>
 
 <body>
-<div id="loading">
-    <div class="full">
-        <img src="/assets/images/loading.gif"/>
-    </div>
 
-</div>
-
+<div class="fixed-box" style="position: fixed;width: 100%">
 <form id="settleForm" action="/settle" method="POST">
   <div id='screen_wrap' class="pin-wrap">
      <div class="picture_wrap">
@@ -101,9 +96,8 @@
                 }
                 @if(pinInvDetail.isSoldOut() == true){
                     <a href="javascript:;" class="soldOut">
-                }
-                    <span class="big">@pinInvDetail.getFloorPrice()元/件</span>
-                    <span>@pinInvDetail.getFloorPricePersonNum()人成团</span>
+                }<span class="big">@pinInvDetail.getFloorPrice()元/件</span>
+                        <span>@pinInvDetail.getFloorPricePersonNum()人成团</span>
                     </a>
 
                 @if(pinInvDetail.isSoldOut() != true){
@@ -126,6 +120,13 @@
             <img src="/assets/images/img9.png"/>
         </div>
     </div>
+
+      <div class="opinion clearfix">
+          <a href="/comment/detail/item/112542/1/1" class="clearfix">
+              <span class="opinion-l">评论 <i>(13)</i></span>
+              <span class="opinion-r">好评 <i class="percent">100%</i> <b>&gt;</b></span>
+          </a>
+      </div>
 
 
     <!-- 切换tab -->
@@ -510,6 +511,8 @@
         <img src="/assets/images/backtop.png">
     </div>
 </div>
+</div>
+
 }
 <!-- <div class="footer">
   <span>
@@ -520,6 +523,7 @@
 </div> -->
 <div class="hint" id="tip" style="display:none"></div>
 @comContent()
+
 </body>
 
 </html>
