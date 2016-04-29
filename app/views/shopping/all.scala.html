@@ -287,6 +287,83 @@
 
             <!--待评价-->
             <section>
+
+                <ul>
+                    <li value="77703004" id="li77703004">
+                        <div class="con-stay clearfix">
+                            <a href="/all/77703004" class="clearfix">
+                                <div class="day-num clearfix">
+                                    <div class="day-l clearfix">
+                                        <span>订单号编号: </span><i>77703004</i>
+                                    </div>
+
+                                    <!--//I:初始化即未支付状态，S:成功，C：取消， F:失败，R:已收货，D:已经发货，J:拒收，N已删除，T已退款，PI:拼购未支付状态，PS:拼购支付成功状态，PF:拼团失败还未成功退款-->
+                                    <span class="num">
+                                        共<i>5</i>件商品
+                                    </span>
+                                </div>
+                            </a>
+
+                            <a href="/all/77703004" class="commodity clearfix">
+                                <div class="photo-img">
+                                    <img src="http://img.hanmimei.com/410fd58a4cf74dadb0593b34e69a55291451368819746.jpg" alt="">
+                                </div>
+                                <div class="photo-img">
+                                    <img src="http://img.hanmimei.com/410fd58a4cf74dadb0593b34e69a55291451368819746.jpg" alt="">
+                                </div>
+                                <div class="photo-img">
+                                    <img src="http://img.hanmimei.com/410fd58a4cf74dadb0593b34e69a55291451368819746.jpg" alt="">
+                                </div>
+                            </a>
+
+                            <div class="data-box clearfix">
+
+                                <a href="javascript:;" class="data">下单时间:<span>2016-05-05</span> <i>19:20:00</i></a>
+                            </div>
+                            <div class="payment clearfix">
+                                <a href="javascript:;" class="right red">评价晒单</a>
+                            </div>
+                         </div>
+                    </li>
+
+                    <li value="77703004" id="li77703004">
+                        <div class="con-stay clearfix">
+                            <a href="/all/77703004" class="clearfix">
+                                <div class="day-num clearfix">
+                                    <div class="day-l clearfix">
+                                        <span>订单号编号: </span><i>77703004</i>
+                                    </div>
+
+                                    <!--//I:初始化即未支付状态，S:成功，C：取消， F:失败，R:已收货，D:已经发货，J:拒收，N已删除，T已退款，PI:拼购未支付状态，PS:拼购支付成功状态，PF:拼团失败还未成功退款-->
+                                    <span class="num">
+                                        共<i>5</i>件商品
+                                    </span>
+                                </div>
+                            </a>
+
+                            <a href="/all/77703004" class="commodity clearfix">
+                                <div class="photo-img">
+                                    <img src="http://img.hanmimei.com/410fd58a4cf74dadb0593b34e69a55291451368819746.jpg" alt="">
+                                </div>
+                                <div class="photo-img">
+                                    <img src="http://img.hanmimei.com/410fd58a4cf74dadb0593b34e69a55291451368819746.jpg" alt="">
+                                </div>
+                                <div class="photo-img">
+                                    <img src="http://img.hanmimei.com/410fd58a4cf74dadb0593b34e69a55291451368819746.jpg" alt="">
+                                </div>
+                            </a>
+
+                            <div class="data-box clearfix">
+
+                                <a href="javascript:;" class="data">下单时间:<span>2016-05-05</span> <i>19:20:00</i></a>
+                            </div>
+                            <div class="payment clearfix">
+                                <a href="javascript:;" class="right red">评价晒单</a>
+                            </div>
+                        </div>
+                    </li>
+               </ul>
+
                 <ul id="waitCommentUl">
                     @if(null!=orderList&&orderList.size>0){
                         @for(order<-orderList){
@@ -312,6 +389,7 @@
                                         <div class="photo-img">
                                             <img src="@sku.getInvImg()" alt=""/>
                                         </div>
+
 
                                         <h2>@sku.getSkuTitle()</h2>
 

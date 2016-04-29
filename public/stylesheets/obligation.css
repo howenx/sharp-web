@@ -61,8 +61,13 @@ section.current{
     float: left;
 }
 
-.day-l span,.day-l i{
-    color:#666;
+
+
+.day-l span{
+    color:#999;
+}
+.day-l i{
+    color: #666;
 }
 
 .day-l .date{
@@ -148,7 +153,6 @@ span .number{
 .payment a{
 
     margin: 10px 5px 0 0;
-
     display: block;
     height: 30px;
     font-size: 12px;
@@ -427,9 +431,26 @@ span .number{
     color: #FF5359;
 }
 
+.num{
+    float: right;
+    color: #999;
+    font-size: 14px;
+}
 
+.day-num{
+    padding: 0 0 8px 0;
+}
 
+.data-box{
+    border-top:1px solid #ededed;
+    padding: 10px 5px;
+    font-size: 14px;
+    color: #999;
+}
 
+.data{
+    float: right;
+}
 
 
 
