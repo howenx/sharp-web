@@ -3,6 +3,9 @@ package modules;
 import com.google.inject.AbstractModule;
 import play.Configuration;
 import play.Environment;
+import redis.clients.jedis.Jedis;
+import util.LogUtil;
+import util.RedisPool;
 
 /**
  * 配置模块,方便注入
@@ -22,5 +25,8 @@ public class ComModule extends AbstractModule {
 
     protected void configure() {
         bind(SysParCom.class).asEagerSingleton();
+        bind(LogUtil.class).asEagerSingleton();
+        bind(RedisPool.class).asEagerSingleton();
+        bind(Jedis.class).toInstance(RedisPool.create());
     }
 }

@@ -115,6 +115,11 @@ public class SysParCom {
     public static String COMMENT_DETAIL;
 
 
+    public static String REDIS_URL;
+    public static String REDIS_PASSWORD;
+    public static Integer REDIS_PORT;
+    public static String REDIS_CHANNEL;
+
     @Inject
     public SysParCom(Configuration configuration) {
 
@@ -213,6 +218,11 @@ public class SysParCom {
         COMMENT_BEST=configuration.getString("services.comment.best");
         COMMENT_IMG=configuration.getString("services.comment.img");
         COMMENT_DETAIL=configuration.getString("services.comment.detail");
+
+        REDIS_URL = configuration.getString("redis.host");
+        REDIS_PASSWORD = configuration.getString("redis.password");
+        REDIS_PORT = configuration.getInt("redis.port");
+        REDIS_CHANNEL = configuration.getString("redis.channel");
 
     }
 }
