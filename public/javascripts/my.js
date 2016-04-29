@@ -533,3 +533,9 @@ function windowConfirm(content,callback){
         callback();
      }) ;
 }
+$(function(){
+    $(window).load(function(){
+        $("#loading").hide();
+        $(".fixed-box").css({"position":"relative"});
+    });
+})

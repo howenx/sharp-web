@@ -15,9 +15,15 @@
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
     <script src="/assets/javascripts/script.js"></script>
     <script type="text/javascript" src="/assets/javascripts/comment.js"></script>
+    <script src="/assets/javascripts/loading.js"></script>
+
 </head>
 
 <body>
+
+<div id="loading">
+    <img src="/assets/images/loading.gif"/>
+</div>
 
 <header class="head">
     <a href="javascript:window.history.back()" class="back">
@@ -28,6 +34,7 @@
 
 </header>
 
+<div class="fixed-box" style="position: fixed;width: 100%">
 <div class="wrap">
     <form id="commentForm" method="post" action="/comment/add" enctype="multipart/form-data">
     <div class="assess-big">
@@ -151,5 +158,6 @@
 
 <div class="hint" id="tip" style="display:none"></div>
 @comContent()
+</div>
 </body>
 </html>
