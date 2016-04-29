@@ -268,8 +268,10 @@ public class ShoppingCtrl extends Controller {
                     });
                     if (null != commentDetailDTOList && commentDetailDTOList.size() > 0) {
                         for (CommentDetailDTO commentDetailDTO : commentDetailDTOList) {
-                            commentDetailDTO.setPictureList(new ObjectMapper().readValue(commentDetailDTO.getPicture(), new TypeReference<List<String>>() {
-                            }));
+                            if(null!=commentDetailDTO.getPicture()&&""!=commentDetailDTO.getPicture()) {
+                                commentDetailDTO.setPictureList(new ObjectMapper().readValue(commentDetailDTO.getPicture(), new TypeReference<List<String>>() {
+                                }));
+                            }
                         }
                     }
                 }
