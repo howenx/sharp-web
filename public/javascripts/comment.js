@@ -120,20 +120,7 @@ $(document).on("click", ".commentBtnCss", function() {
     if (content==""||content.length<10||content.length>500) {
         tip("亲,评论内容需在10~500字以内");
     }  else {
-        $.ajax({
-            type: "POST",
-            url: "/comment/add",
-            data: $('form#commentForm').serialize(),
-            success: function(data) {
-                if (data.code==200) {
-                    window.location.href = "/all";
-                }
-                else{
-                    tip(data.message);
-                }
-            }
-
-        });
+       $("#commentForm").submit();
     }
 });
 

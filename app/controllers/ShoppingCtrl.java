@@ -122,41 +122,46 @@ public class ShoppingCtrl extends Controller {
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> commentAdd(){
 
+        Http.MultipartFormData body = request().body().asMultipartFormData();
+        List<Http.MultipartFormData.FilePart> fileParts =null;
+        if(null!=body){
+            fileParts=body.getFiles();
+        }
         Form<RemarkInfo> remarkInfoForm = Form.form(RemarkInfo.class).bindFromRequest();
         if (remarkInfoForm.hasErrors()) {
             return F.Promise.promise((F.Function0<Result>) () -> ok(toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex()))));
         }
 
+        final List<Http.MultipartFormData.FilePart> finalFileParts = fileParts;
         F.Promise<JsonNode>  promiseOfInt = F.Promise.promise(() -> {
-            Http.MultipartFormData body = request().body().asMultipartFormData();
-            List<Http.MultipartFormData.FilePart> fileParts =null;
-            if(null!=body){
-                fileParts=body.getFiles();
-            }
+
             Map<String, String> finalMap=remarkInfoForm.data();
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
             MultipartBuilder multipartBuilder=new MultipartBuilder().type(MultipartBuilder.FORM);
             multipartBuilder
-//                    .addFormDataPart("orderId", "77703337")
-//                    .addFormDataPart("skuType", "item")
-//                    .addFormDataPart("skuTypeId", "112542")
                     .addFormDataPart("orderId", null== finalMap.get("orderId")?"": finalMap.get("orderId"))
                     .addFormDataPart("skuType", null== finalMap.get("skuType")?"": finalMap.get("skuType"))
                     .addFormDataPart("skuTypeId", null== finalMap.get("skuTypeId")?"": finalMap.get("skuTypeId"))
                     .addFormDataPart("content", null== finalMap.get("content")?"": finalMap.get("content"))
                     .addFormDataPart("grade", null== finalMap.get("grade")?"": finalMap.get("grade"));
 
-            if(fileParts!=null&&fileParts.size()>0){
-                for(int i=0;i<fileParts.size();i++){
-                    InputStream input = new FileInputStream(fileParts.get(i).getFile());
+            if(finalFileParts !=null&& finalFileParts.size()>0){
+                for(int i = 0; i< finalFileParts.size(); i++){
+                    InputStream input = new FileInputStream(finalFileParts.get(i).getFile());
                     byte[] byt = new byte[input.available()];
                     input.read(byt);
+                    StringBuffer sb=new StringBuffer();
+                    for(byte b:byt){
+                        sb.append(b);
+                    }
                     multipartBuilder.addFormDataPart("photo", (i+1)+".jpg", RequestBody.create(MEDIA_TYPE_PNG,byt));
                 }
             }
 
             RequestBody requestBody = multipartBuilder.build();
             Request request = builder.url(COMMENT_ADD).post(requestBody).build();
+            //数据量过大情况下,可以加上这一句
+            builder.addHeader("Accept-Encoding", "gzip");
             Response response = client.newCall(request).execute();
             Logger.error("响应:"+response.toString());
             if (response.isSuccessful()) {
@@ -167,8 +172,11 @@ public class ShoppingCtrl extends Controller {
         return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
             Logger.info("===json==" + json);
             Message message = Json.fromJson(json.findValue("message"), Message.class);
-            Logger.error(json.toString()+"-----"+message.toString());
-            return ok(Json.toJson(message));
+            if(null != message&&message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
+                Logger.info("返回数据code=" + json);
+                return badRequest(views.html.error.render(message.getMessage()));
+            }
+            return redirect("/all");
         });
     }
 
