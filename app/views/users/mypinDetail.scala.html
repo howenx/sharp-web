@@ -92,6 +92,12 @@
                 </div>
             }
         </div>
+        @if(order.getOrder().getRemark()=="N"){
+            <div>
+                <input type="button" class="tuan" value="评论晒单" onclick="location.href='/comment/center/@order.getOrder().getOrderId()'">
+            </div>
+        }
+
         <!--
         <div>
             <input type="button" class="tuan" value="查看团详情(取不到actId)" onclick="location.href='/pin/activity/@order.getOrder().getPinActiveId()'">

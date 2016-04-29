@@ -40,7 +40,9 @@ $(function() {
 		$(".fixed-box").css({"position":"relative"});
 	});
 
-	echo.init();
+    if(typeof(echo)!="undefined"&&null!=echo){
+	    echo.init();
+	}
 });
 
 

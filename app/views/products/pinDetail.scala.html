@@ -1,4 +1,4 @@
-@(itemMain:domain.Item,itemFeaturesList:List[Array[Object]],pinInvDetail:domain.PinInvDetail,pushList:List[List[domain.ThemeItem]],preImgList:List[String],SoldOutPushList:List[domain.ThemeItem],url:String,hisUrl:String)
+@(itemMain:domain.Item,itemFeaturesList:List[Array[Object]],pinInvDetail:domain.PinInvDetail,pushList:List[List[domain.ThemeItem]],preImgList:List[String],SoldOutPushList:List[domain.ThemeItem],url:String,hisUrl:String,comment:domain.CommentNumDTO)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -121,13 +121,14 @@
         </div>
     </div>
 
-      <div class="opinion clearfix">
-          <a href="/comment/detail/item/112542/1/1" class="clearfix">
-              <span class="opinion-l">评论 <i>(13)</i></span>
-              <span class="opinion-r">好评 <i class="percent">100%</i> <b>&gt;</b></span>
-          </a>
-      </div>
-
+      @if(null!=comment&&comment.getRemarkCount()>0){
+          <div class="opinion clearfix">
+              <a href="/comment/detail/@pinInvDetail.getSkuType()/@pinInvDetail.getSkuTypeId()/1/1" class="clearfix">
+                  <span class="opinion-l">评论 <i>(@comment.getRemarkCount())</i></span>
+                  <span class="opinion-r">好评 <i class="percent">@comment.getRemarkRate()%</i> <b>></b></span>
+              </a>
+          </div>
+      }
 
     <!-- 切换tab -->
     <div class="detail-tabpanel">
