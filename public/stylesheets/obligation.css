@@ -61,6 +61,10 @@ section.current{
     float: left;
 }
 
+.day-l i{
+    color: #666;
+}
+
 .day-l span,.day-l i{
     color:#666;
 }
