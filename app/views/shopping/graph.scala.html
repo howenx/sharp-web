@@ -34,12 +34,17 @@
                 <li>
                     <div class="con-stay clearfix">
 
-                        <a href="javascript:;" class="commodity clearfix" onclick="commentView('@sku.getOrderLine().getOrderId()','@sku.getOrderLine().getSkuType()','@sku.getOrderLine().getSkuTypeId()','@sku.getOrderLine().getInvImg()')">
+                        <a href="javascript:;" class="commodity clearfix" >
                             <div class="photo-img">
                                 <img src="@sku.getOrderLine().getInvImg()" alt="">
                             </div>
                             <h2>@sku.getOrderLine().getSkuTitle()</h2>
-                            <span class="commodity-rmb clearfix"><i class="number">去评价</i></span>
+                            @if(null!=sku.getComment()){
+                                <span class="commodity-rmb clearfix" onclick="location.href='/comment/detail/@sku.getOrderLine().getSkuType()/@sku.getOrderLine().getSkuTypeId()/1/1'"><i class="number">查看评价</i></span>
+                            }
+                            @if(null==sku.getComment()){
+                                <span class="commodity-rmb clearfix" onclick="commentView('@sku.getOrderLine().getOrderId()','@sku.getOrderLine().getSkuType()','@sku.getOrderLine().getSkuTypeId()','@sku.getOrderLine().getInvImg()')"><i class="number">去评价</i></span>
+                            }
 
                         </a>
                     </div>
