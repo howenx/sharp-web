@@ -58,6 +58,8 @@ public class Order implements Serializable {
 
     private String securityCode;
 
+    private String remark; //订单列表中在order对象下增加 String  remark;//是否评价完成,Y评价完成,N未评价完成,null空
+
     public Order() {
     }
 
@@ -297,6 +299,14 @@ public class Order implements Serializable {
         this.securityCode = securityCode;
     }
 
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -325,6 +335,7 @@ public class Order implements Serializable {
                 ", countDown=" + countDown +
                 ", orderType=" + orderType +
                 ", pinActiveId=" + pinActiveId +
+                ", remark=" + remark +
                 '}';
     }
 }

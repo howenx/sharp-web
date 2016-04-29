@@ -1,8 +1,9 @@
+@(orderRemarkList:List[domain.OrderRemarkDTO])
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>评价中心</title>
     <!-- 视图窗口，移动端特属的标签。 -->
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
     <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
@@ -11,71 +12,42 @@
     <meta name="format-detection"content="telephone=no, email=no" />
     <link rel="stylesheet" href="/assets/stylesheets/global.css"/>
     <link rel="stylesheet" href="/assets/stylesheets/graph.css"/>
+    <script type="text/javascript" src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="/assets/javascripts/comment.js"></script>
 </head>
 <body>
 
 <header class="head">
-    <a href="/myhmm" class="back">
+    <a href="/all" class="back">
         <i></i>
         <b></b>
     </a>
-    <h1>发表评价</h1>
+    <h1>评价中心</h1>
 
 </header>
 
 
 <div class="wrap">
     <ul>
-        <li value="77703019" id="li77703019">
-            <div class="con-stay clearfix">
+        @if(null!=orderRemarkList&&orderRemarkList.size()>0){
+            @for(sku<-orderRemarkList){
+                <li>
+                    <div class="con-stay clearfix">
 
-                <a href="/all/77703019" class="commodity clearfix">
-                    <div class="photo-img">
-                        <img src="http://img.hanmimei.com/item/photo/20160414/8f9e440f3afa45e086d3e2472832db331460629386283.png" alt="">
+                        <a href="javascript:;" class="commodity clearfix" onclick="commentView('@sku.getOrderLine().getOrderId()','@sku.getOrderLine().getSkuType()','@sku.getOrderLine().getSkuTypeId()','@sku.getOrderLine().getInvImg()')">
+                            <div class="photo-img">
+                                <img src="@sku.getOrderLine().getInvImg()" alt="">
+                            </div>
+                            <h2>@sku.getOrderLine().getSkuTitle()</h2>
+                            <span class="commodity-rmb clearfix"><i class="number">去评价</i></span>
+
+                        </a>
                     </div>
-
-                    <h2>韩秘美 Crystalshop 施华洛世奇水晶 Stella 单排水晶银饰 套装 </h2>
-
-
-                    <span class="commodity-rmb clearfix"><i class="number">去评价</i></span>
-
-                </a>
-            </div>
-        </li>
-
-        <li value="77703019" id="li77703019">
-            <div class="con-stay clearfix">
-
-                <a href="/all/77703019" class="commodity clearfix">
-                    <div class="photo-img">
-                        <img src="http://img.hanmimei.com/item/photo/20160414/8f9e440f3afa45e086d3e2472832db331460629386283.png" alt="">
-                    </div>
-
-                    <h2>韩秘美 Crystalshop 施华洛世奇水晶 Stella 单排水晶银饰 套装 </h2>
+                </li>
+            }
+        }
 
 
-                    <span class="commodity-rmb clearfix"><i class="number">去评价</i></span>
-
-                </a>
-            </div>
-        </li>
-
-        <li value="77703019" id="li77703019">
-            <div class="con-stay clearfix">
-
-                <a href="/all/77703019" class="commodity clearfix">
-                    <div class="photo-img">
-                        <img src="http://img.hanmimei.com/item/photo/20160414/8f9e440f3afa45e086d3e2472832db331460629386283.png" alt="">
-                    </div>
-
-                    <h2>韩秘美 Crystalshop 施华洛世奇水晶 Stella 单排水晶银饰 套装 </h2>
-
-
-                    <span class="commodity-rmb clearfix"><i class="number">去评价</i></span>
-
-                </a>
-            </div>
-        </li>
     </ul>
 
 

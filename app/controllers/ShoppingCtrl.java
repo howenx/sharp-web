@@ -4,9 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
+import com.squareup.okhttp.*;
 import domain.*;
 import filters.UserAuth;
 import filters.UserAjaxAuth;
@@ -17,15 +15,17 @@ import play.data.Form;
 import play.libs.F;
 import play.libs.Json;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
 
 import javax.inject.Inject;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static modules.SysParCom.*;
+import static play.libs.Json.newObject;
 import static play.libs.Json.toJson;
 import static util.GZipper.dealToString;
 /**
@@ -93,8 +93,26 @@ public class ShoppingCtrl extends Controller {
 
     //发表评价
     @Security.Authenticated(UserAuth.class)
-    public Result assess() {
-        return ok(views.html.shopping.assess.render());
+    public Result commentView() {
+        Map<String, String> map = Form.form().bindFromRequest().data();
+        SkuInfo skuInfo=new SkuInfo();
+        if(map.containsKey("orderId")){
+            skuInfo.setOrderId(Long.valueOf(map.get("orderId")));
+        }
+        if(map.containsKey("skuTitle")){
+            skuInfo.setSkuTitle(map.get("skuTitle"));
+        }
+        if(map.containsKey("skuType")){
+            skuInfo.setSkuType(map.get("skuType"));
+        }
+        if(map.containsKey("skuTypeId")){
+            skuInfo.setSkuTypeId(Long.valueOf(map.get("skuTypeId")));
+        }
+        if(map.containsKey("invImg")){
+            skuInfo.setInvImg(map.get("invImg"));
+        }
+
+        return ok(views.html.shopping.assess.render(skuInfo));
     }
 
     /**
@@ -102,10 +120,56 @@ public class ShoppingCtrl extends Controller {
      * @return
      */
     @Security.Authenticated(UserAuth.class)
-    public Result commentAdd(){
+    public F.Promise<Result> commentAdd(){
 
-        return ok("SUCCESS");
+        Form<RemarkInfo> remarkInfoForm = Form.form(RemarkInfo.class).bindFromRequest();
+        if (remarkInfoForm.hasErrors()) {
+            return F.Promise.promise((F.Function0<Result>) () -> ok(toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex()))));
+        }
 
+        F.Promise<JsonNode>  promiseOfInt = F.Promise.promise(() -> {
+            Http.MultipartFormData body = request().body().asMultipartFormData();
+            List<Http.MultipartFormData.FilePart> fileParts =null;
+            if(null!=body){
+                fileParts=body.getFiles();
+            }
+            Map<String, String> finalMap=remarkInfoForm.data();
+            Request.Builder builder = (Request.Builder) ctx().args.get("request");
+            MultipartBuilder multipartBuilder=new MultipartBuilder().type(MultipartBuilder.FORM);
+            multipartBuilder
+//                    .addFormDataPart("orderId", "77703337")
+//                    .addFormDataPart("skuType", "item")
+//                    .addFormDataPart("skuTypeId", "112542")
+                    .addFormDataPart("orderId", null== finalMap.get("orderId")?"": finalMap.get("orderId"))
+                    .addFormDataPart("skuType", null== finalMap.get("skuType")?"": finalMap.get("skuType"))
+                    .addFormDataPart("skuTypeId", null== finalMap.get("skuTypeId")?"": finalMap.get("skuTypeId"))
+                    .addFormDataPart("content", null== finalMap.get("content")?"": finalMap.get("content"))
+                    .addFormDataPart("grade", null== finalMap.get("grade")?"": finalMap.get("grade"));
+
+            if(fileParts!=null&&fileParts.size()>0){
+                for(int i=0;i<fileParts.size();i++){
+                    InputStream input = new FileInputStream(fileParts.get(i).getFile());
+                    byte[] byt = new byte[input.available()];
+                    input.read(byt);
+                    multipartBuilder.addFormDataPart("photo", (i+1)+".jpg", RequestBody.create(MEDIA_TYPE_PNG,byt));
+                }
+            }
+
+            RequestBody requestBody = multipartBuilder.build();
+            Request request = builder.url(COMMENT_ADD).post(requestBody).build();
+            Response response = client.newCall(request).execute();
+            Logger.error("响应:"+response.toString());
+            if (response.isSuccessful()) {
+                return Json.parse(new String(response.body().bytes(), UTF_8));
+            } else throw new IOException("Unexpected code" + response);
+        });
+
+        return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
+            Logger.info("===json==" + json);
+            Message message = Json.fromJson(json.findValue("message"), Message.class);
+            Logger.error(json.toString()+"-----"+message.toString());
+            return ok(Json.toJson(message));
+        });
     }
 
     /**
@@ -135,7 +199,17 @@ public class ShoppingCtrl extends Controller {
                 Logger.info("返回数据code=" + json);
                 return badRequest(views.html.error.render(message.getMessage()));
             }
-            return ok(views.html.shopping.assess.render());
+            List<OrderRemarkDTO> orderRemarkDTOList=null;
+            if(json.has("orderRemark")){
+                orderRemarkDTOList = new ObjectMapper().readValue(json.get("orderRemark").toString(), new TypeReference<List<OrderRemarkDTO>>() {
+                });
+                if(null!=orderRemarkDTOList) {
+                    for (OrderRemarkDTO sku : orderRemarkDTOList) {
+                        sku.getOrderLine().setInvImg(comCtrl.getImgUrl(sku.getOrderLine().getInvImg()));
+                    }
+                }
+            }
+            return ok(views.html.shopping.graph.render(orderRemarkDTOList));
         });
 
     }
@@ -179,7 +253,7 @@ public class ShoppingCtrl extends Controller {
                 Logger.info("返回数据code=" + json);
                 return badRequest(views.html.error.render(message.getMessage()));
             }
-            if(1==commentType) {
+            if(1==commentType&&pageNum<=1) {  //其他直接走json
                 List<CommentDetailDTO> commentDetailDTOList = null;
                 if (json.has("remarkList")) {
                     commentDetailDTOList = new ObjectMapper().readValue(json.get("remarkList").toString(), new TypeReference<List<CommentDetailDTO>>() {
@@ -195,15 +269,15 @@ public class ShoppingCtrl extends Controller {
                 if (json.has("page_count")) {
                     pageCount = json.get("page_count").asInt();
                 }
-                return ok(views.html.shopping.evaluate.render(commentDetailDTOList, pageCount, skuType, skuTypeId));
+                int countNum = 0;
+                if (json.has("count_num")) {
+                    countNum = json.get("count_num").asInt();
+                }
+                return ok(views.html.shopping.evaluate.render(commentDetailDTOList, pageCount, skuType, skuTypeId,countNum));
             }else{
                 return ok(json);
             }
         });
-    }
-    @Security.Authenticated(UserAuth.class)
-    public Result graph() {
-            return ok(views.html.shopping.graph.render());
     }
 
     //退款

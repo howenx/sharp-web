@@ -46,7 +46,7 @@ public class ComCtrl extends Controller {
      * @return
      */
     public String getImgUrl(String imgJson) {
-        if (imgJson.contains("url")) {
+        if (""!=imgJson&&null!=imgJson&&imgJson.contains("url")) {
             JsonNode jsonNode = Json.parse(imgJson);
             if (jsonNode.has("url")) {
                 return jsonNode.get("url").asText();

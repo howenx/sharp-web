@@ -111,6 +111,15 @@ section{
 section.current{
     display: block;
 }
+#commentUl4 img{
+    width: 33.33333%;
+    float: left;
+    padding: 5px;
+    border-radius: 10px;
+}
+.message_list .message{
+    background: none;
+}
 
 
 

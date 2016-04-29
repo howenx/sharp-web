@@ -1,4 +1,4 @@
-@(commentList:List[domain.CommentDetailDTO],pageCount:Integer,skuType:String,skuTypeId:Long)
+@(commentList:List[domain.CommentDetailDTO],pageCount:Integer,skuType:String,skuTypeId:Long,countNum:Integer)
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,6 +13,15 @@
     <link rel="stylesheet" href="/assets/stylesheets/evaluate.css"/>
     <script type="text/javascript" src="/assets/javascripts/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="/assets/javascripts/comment.js"></script>
+    <link rel="stylesheet" href="/assets/stylesheets/hp.css">
+    <script src="/assets/javascripts/jquery/TouchSlide.1.1.js"></script>
+    <script>
+        $(document).ready(function(){
+            commentPage(1,2);
+            commentPage(1,3);
+            commentPage(1,4);
+        });
+    </script>
 
 </head>
 <body>
@@ -30,38 +39,30 @@
     <div class="nav-tab">
         <div class="nav-tab-top box">
             <ul>
-                <li onlick="commentTab('@skuType','@skuTypeId','1')">
+                <li id="tabLi1" onclick="commentTab('@skuType','@skuTypeId','1')">
                     <a href="javascript:;" class="message_list shopping current" >
                         <i class="message">全部</i>
-                        <span>1234</span>
+                        <span id="commentNumCss1">@countNum</span>
                     </a>
                 </li>
-                <li onclick="commentTab('@skuType','@skuTypeId','2')">
+                <li id="tabLi2" onclick="commentTab('@skuType','@skuTypeId','2')">
                     <a href="javascript:;" class="message_list shopping">
                         <i class="message">好评</i>
-                        <span>1234</span>
+                        <span id="commentNumCss2"></span>
                     </a>
 
                 </li>
-                <li onclick="commentTab('@skuType','@skuTypeId','3')">
+                <li id="tabLi3" onclick="commentTab('@skuType','@skuTypeId','3')">
                     <a href="javascript:;" class="message_list shopping">
                         <i class="message">差评</i>
-                        <span>456</span>
+                        <span id="commentNumCss3"></span>
                     </a>
 
                 </li>
-                <li onclick="commentTab('@skuType','@skuTypeId','4')">
+                <li id="tabLi4" onclick="commentTab('@skuType','@skuTypeId','4')">
                     <a href="javascript:;" class="message_list shopping">
                         <i class="message">晒图</i>
-                        <span>32</span>
-                    </a>
-
-                </li>
-
-                <li>
-                    <a href="javascript:;" class="message_list shopping">
-                        <i class="message">晒图</i>
-                        <span id="waitGoods">32</span>
+                        <span id="commentNumCss4"></span>
                     </a>
 
                 </li>
@@ -99,6 +100,16 @@
                                         }
                                     </div>
                                 </div>
+                                @if(""!=comment.getSize()&&null!=comment.getSize()){
+                                    <div class="bm">
+                                        <i>@comment.getSize()</i>
+                                    </div>
+                                }
+                                <div class="bm">
+                                    购买日期:
+                                    <i>@comment.getBuyAt()</i>
+                                </div>
+
                             </li>
                         }
                     }
@@ -113,6 +124,7 @@
 
             <section>
                 <ul id="commentUl3">
+                    <!--
                     <li>
                         <div class="hd clearfix">
                             <span class="hd-l">
@@ -164,6 +176,7 @@
                             <i>11:50:30</i>
                         </div>
                     </li>
+                    -->
                 </ul>
 
             </section>
@@ -171,117 +184,10 @@
 
             <section>
                 <ul id="commentUl4">
-                    <li>
-                        <div class="hd clearfix">
-                            <span class="hd-l">
-                                <img src="http://img.hanmimei.com/users/photo/20160229/14567165008891.jpg"/>
-                            </span>
-                            <span class="hd-m">
-                                <i>a***</i>
-                            </span>
-                            <span class="hd-r">
-                                <i>2016-04-25</i>
-                                <b>15:56:50</b>
-                            </span>
-                        </div>
 
-                        <div class="md">
-                            <p></p>
-                            <span>发货很快</span>
-                            <div class="clearfix">
-                                <img src="/assets/images/hmmapp-assess02.jpg">
-                                <img src="/assets/images/hmmapp-assess02.jpg">
-                                <img src="/assets/images/hmmapp-assess02.jpg">
-                            </div>
-                        </div>
-
-                    </li>
-
-                    <li>
-                        <div class="hd clearfix">
-                            <span class="hd-l">
-                                <img src="http://img.hanmimei.com/users/photo/20160229/14567165008891.jpg"/>
-                            </span>
-                            <span class="hd-m">
-                                <i>a***</i>
-                            </span>
-                            <span class="hd-r">
-                                <i>2016-04-25</i>
-                                <b>15:56:50</b>
-                            </span>
-                        </div>
-
-                        <div class="md">
-                            <p></p>
-                            <span>发货快</span>
-                        </div>
-
-                        <div class="bm">
-                            购买日期:
-                            <i>2016-04-17</i>
-                            <i>11:50:30</i>
-                        </div>
-                    </li>
                 </ul>
 
             </section>
-
-            <section>
-                <ul>
-                    <li>
-                        <div class="hd clearfix">
-                            <span class="hd-l">
-                                <img src="http://img.hanmimei.com/users/photo/20160229/14567165008891.jpg"/>
-                            </span>
-                            <span class="hd-m">
-                                <i>a***</i>
-                            </span>
-                            <span class="hd-r">
-                                <i>2016-04-25</i>
-                                <b>15:56:50</b>
-                            </span>
-                        </div>
-
-                        <div class="md">
-                            <p></p>
-                            <span>发货很快</span>
-                            <div class="clearfix">
-                                <img src="/assets/images/hmmapp-assess02.jpg">
-                                <img src="/assets/images/hmmapp-assess02.jpg">
-                                <img src="/assets/images/hmmapp-assess02.jpg">
-                            </div>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="hd clearfix">
-                            <span class="hd-l">
-                                <img src="http://img.hanmimei.com/users/photo/20160229/14567165008891.jpg"/>
-                            </span>
-                            <span class="hd-m">
-                                <i>a***</i>
-                            </span>
-                            <span class="hd-r">
-                                <i>2016-04-25</i>
-                                <b>15:56:50</b>
-                            </span>
-                        </div>
-
-                        <div class="md">
-                            <p></p>
-                            <span>发货很快</span>
-                            <div class="clearfix">
-                                <img src="/assets/images/hmmapp-assess02.jpg">
-                                <img src="/assets/images/hmmapp-assess02.jpg">
-                                <img src="/assets/images/hmmapp-assess02.jpg">
-                            </div>
-                        </div>
-
-                    </li>
-                </ul>
-
-            </section>
-
        </div>
 </div>
 
@@ -290,9 +196,31 @@
     <input type="hidden" id="curPage2" value="0"/>
     <input type="hidden" id="curPage3" value="0"/>
     <input type="hidden" id="curPage4" value="0"/>
+    <input type="hidden" id="pageCount1" value="@pageCount"/>
+    <input type="hidden" id="pageCount2" value="0"/>
+    <input type="hidden" id="pageCount3" value="0"/>
+    <input type="hidden" id="pageCount4" value="0"/>
+
+<input type="hidden" id="skuType" value="@skuType"/>
+<input type="hidden" id="skuTypeId" value="@skuTypeId"/>
+<input type="hidden" id="commentType" value="1"/>
 
     <div class="hint" id="tip" style="display:none"></div>
     @comContent()
 
+<div class="previ" style="width: 100%;height: 100%;overflow: hidden;background: black;position: absolute;top: 0;left: 0;display: none">
+    <div id="slideBox" class="slideBox">
+
+        <div class="bd">
+            <ul>
+
+            </ul>
+        </div>
+
+        <div class="hd">
+            <ul></ul>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -27,6 +27,7 @@ public class CartSkuDto implements Serializable {
     private String itemSize;//尺码
     private String skuType;//商品类型
     private Long skuTypeId;//商品类型ID
+    private Long orderId;
 
     public CartSkuDto() {
     }
@@ -134,13 +135,13 @@ public class CartSkuDto implements Serializable {
         this.skuTypeId = skuTypeId;
     }
 
-//    public Long getOrderId() {
-//        return orderId;
-//    }
-//
-//    public void setOrderId(Long orderId) {
-//        this.orderId = orderId;
-//    }
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
+    }
 
     @Override
     public String toString() {
@@ -156,7 +157,7 @@ public class CartSkuDto implements Serializable {
                 ", itemSize='" + itemSize + '\'' +
                 ", skuType='" + skuType + '\'' +
                 ", skuTypeId=" + skuTypeId +
-              //  ", orderId=" + orderId +
+                ", orderId=" + orderId +
                 '}';
     }
 }
