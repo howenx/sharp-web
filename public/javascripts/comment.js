@@ -188,6 +188,8 @@ $(function () {
     })
     $(document).on("click","#commentUl4 img",function () {
         $(".previ").show();
+        $(".wrap").css("display","none");
+        $(".hd").css("display","none");
         // $(this).clone().appendTo(".previ").css({
         //     "position":"absolute",
         //     "top":"50%",
@@ -200,8 +202,10 @@ $(function () {
             li.appendTo(".bd ul");
         })
         $("#slideBox").css({
-            "marginTop":"50%"
+            "marginTop":0,
+            "height":"100%"
         })
+
         TouchSlide({
             slideCell:"#slideBox",
             titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
@@ -213,6 +217,7 @@ $(function () {
     $(".previ").click(function () {
         $(this).find("img").parent().remove();
         $(this).hide();
+        $(".wrap").css("display","block");
     })
 })
 
