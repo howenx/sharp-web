@@ -90,9 +90,13 @@
                                 </div>
 
                                 <div class="md">
-                                    <p></p>
+                                    <p class="clearfix">
+                                        <img src="/assets/images/s-1.png">
+                                        <img src="/assets/images/s-1.png">
+                                        <img src="/assets/images/s-2.png">
+                                    </p>
                                     <span>@comment.getContent()</span>
-                                    <div class="clearfix">
+                                    <div class="md-b clearfix">
                                         @if(null!=comment.getPictureList()&&comment.getPictureList().size()>0){
                                             @for(picture<-comment.getPictureList()){
                                                 <img src="@picture">

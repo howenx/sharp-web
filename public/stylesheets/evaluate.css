@@ -82,18 +82,21 @@ section ul li{
     margin: 0px 0 15px 0;
 }
 .md p{
-    height: 25px;
-    width: 105px;
-    margin: 0;
-    background: url(/assets/images/s-1.png) 0 0 repeat-x;
-    background-size:22px 15px;
+    width:100%;
+    margin: 0 0 5px 0;
+}
+
+.md p img{
+    float: left;
+    width:20px;
+    margin: 0 5px 0 0;
 }
 
 .md span{
     font-size: 14px;
 }
 
-.md img{
+.md .md-b img{
     float: left;
     margin: 10px 10px 0 0;
     width: 80px;
