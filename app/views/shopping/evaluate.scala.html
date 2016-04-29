@@ -91,9 +91,13 @@
 
                                 <div class="md">
                                     <p class="clearfix">
-                                        <img src="/assets/images/s-1.png">
-                                        <img src="/assets/images/s-1.png">
-                                        <img src="/assets/images/s-2.png">
+                                        @{var i: Int=0}
+                                        @for(i <- 1 to comment.getGrade()){
+                                             <img src="/assets/images/s-1.png">
+                                        }
+                                        @for(i <- 1 to 5-comment.getGrade()){
+                                            <img src="/assets/images/s-2.png">
+                                        }
                                     </p>
                                     <span>@comment.getContent()</span>
                                     <div class="md-b clearfix">

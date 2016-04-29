@@ -30,8 +30,16 @@ function paintComment(comment,commentType){
                    '<span class="hd-l"><img src="'+comment.userImg+'"/></span>'+
                    '<span class="hd-m"><i>'+comment.userName+'</i></span>'+
                    '<span class="hd-r"><i>'+comment.createAt+'</i></span></div>'+
-                   '<div class="md"><p></p><span>'+comment.content+'</span>'+
-                   '<div class="clearfix">';
+                   '<div class="md"><p class="clearfix">';
+                   for(var i=0;i<comment.grade;i++){
+                        html+='<img src="/assets/images/s-1.png">';
+                   }
+                   for(var i=comment.grade;i<5;i++){
+                        html+='<img src="/assets/images/s-2.png">';
+                   }
+
+          html+='</p><span>'+comment.content+'</span>'+
+                   '<div class="md-b clearfix">';
                        if(null!=comment.picture&&""!=comment.picture){
 
                            var pictureList = eval(comment.picture);

@@ -14,7 +14,7 @@ import java.util.List;
 public class CommentDetailDTO implements Serializable {
     private String createAt;
     private String content;
-    private String grade;
+    private Integer grade;
     private String userImg;
     private String userName;
     private String picture;
@@ -38,11 +38,11 @@ public class CommentDetailDTO implements Serializable {
         this.content = content;
     }
 
-    public String getGrade() {
+    public Integer getGrade() {
         return grade;
     }
 
-    public void setGrade(String grade) {
+    public void setGrade(Integer grade) {
         this.grade = grade;
     }
 
