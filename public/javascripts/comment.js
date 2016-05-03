@@ -214,7 +214,10 @@ $(function () {
             autoPage:true,//自动分页
         });
     });
-    $(".previ").click(function () {
+    $(".previ").click(function (e) {
+        if(e.target.tagName=="IMG"){
+            return;
+        }
         $(this).find("img").parent().remove();
         $(this).hide();
         $(".wrap").css("display","block");
