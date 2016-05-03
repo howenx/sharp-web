@@ -24,13 +24,7 @@
 </head>
 <body>
 
-<div id="loading">
-	<div class="full">
-		<img src="/assets/images/loading.gif"/>
-	</div>
-
-</div>
-
+<div class="fixed-box" style="position: fixed;width: 100%">
 <div id='screen_wrap'>
 
 	<form id="settleForm" action="/settle" method="POST">
@@ -171,7 +165,7 @@
 				</ul>
 			</div>
 
-			@if(null!=comment){
+			@if(null!=comment&&comment.getRemarkCount()>0){
 				<div class="opinion clearfix">
 					<a href="/comment/detail/@inventoryList.get(0).getSkuType()/@inventoryList.get(0).getSkuTypeId()/1/1" class="clearfix">
 						<span class="opinion-l">评论 <i>(@comment.getRemarkCount())</i></span>
@@ -420,6 +414,9 @@
 	<input type="hidden" id="isCanBuy" value="1" />
 	</form>
 </div>
+
+</div>
+
 <!--购物车-->
 <script type="text/javascript" src="/assets/javascripts/jquery/jquery.js"></script>
 <!--[if lte IE 8]>

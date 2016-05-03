@@ -290,7 +290,7 @@ public class ProductsCtrl extends Controller {
                 List<List<String>> preImgList = new ArrayList<>();
                 //优惠信息
                 List<String> publicityList = new ArrayList<>();
-                Logger.info("===detail==" + json);
+               // Logger.info("===detail==" + json);
                 //商品基本信息
                 if (json.has("main")) {
                     JsonNode mainJson = json.get("main");
@@ -401,7 +401,7 @@ public class ProductsCtrl extends Controller {
                 List<String> preImgList = new ArrayList<>();
                 //优惠信息
                 List<String> publicityList = new ArrayList<>();
-                Logger.info("==pin=detail==" + json);
+              //  Logger.info("==pin=detail==" + json);
                 //拼购商品基本信息
                 if (json.has("main")) {
                     JsonNode mainJson = json.get("main");
@@ -482,7 +482,12 @@ public class ProductsCtrl extends Controller {
                         pushResultList.add(rowList);
                     }
                 }
-                return ok(views.html.products.pinDetail.render(itemMain, itemFeaturesList, pinInvDetail, pushResultList, preImgList, pushList, url,hisUrl));
+                //评论
+                CommentNumDTO commentNumDTO=null;
+                if(json.has("comment")){
+                    commentNumDTO=Json.fromJson(json.get("comment"), CommentNumDTO.class);
+                }
+                return ok(views.html.products.pinDetail.render(itemMain, itemFeaturesList, pinInvDetail, pushResultList, preImgList, pushList, url,hisUrl,commentNumDTO));
             }
         });
     }

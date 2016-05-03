@@ -6,23 +6,15 @@
 <script src="/assets/javascripts/cartAmount.js"></script>
 <script src="/assets/javascripts/echo.min.js"></script>
 
-<script>
-    $(function(){
 
-        $(window).load(function(){
-            $("#loading").hide();
-        });
-    })
-
-    echo.init();
-</script>
 }
 
 
 @layout(title="韩秘美,专卖韩国正品")(scripts) {
-    <div id="loading">
-        <img src="/assets/images/loading.gif"/>
-    </div>
+
+<div id="loading">
+    <img src="/assets/images/loading.gif"/>
+</div>
 
     <header class="head">
         <a href="/"  class="back">
@@ -36,7 +28,7 @@
     </header>
 
 
-
+<div class="fixed-box" style="position: fixed;width: 100%">
     <div class="banner scope" id="ad">
         <div class="big-box">
             <a href="javascript:;" class="banner-box">
@@ -309,6 +301,7 @@
         </ul>
 
     </div>
+</div>
 
 }
 

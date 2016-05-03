@@ -21,4 +21,13 @@ $(function(){
         appRedirect(path);
     })
 
+
+    $(window).load(function(){
+        $("#loading").hide();
+        $(".fixed-box").css({"position":"relative"});
+    });
+
+
+    echo.init();
+
 })
