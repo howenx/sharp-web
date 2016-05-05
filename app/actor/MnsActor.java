@@ -24,7 +24,7 @@ public class MnsActor extends AbstractActor {
             if (event instanceof ILoggingEvent) {
                 ((ILoggingEvent) event).getMDCPropertyMap().put("projectId", "style-web");
 //                System.out.println("日志Json格式---->" + Json.toJson(event).toString());
-                jedis.publish(REDIS_CHANNEL, Json.toJson(event).toString());
+//                jedis.publish(REDIS_CHANNEL, Json.toJson(event).toString());
             }
         }).matchAny(s -> {
             Logger.error("MnsActor received messages not matched: {}", s.toString());
