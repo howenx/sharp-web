@@ -325,6 +325,9 @@ function delCart(cartId){
                       li.remove();
                       if(ul.has("li").length <= 0){
                             ul.prev().parents(".areaAndSku").remove();
+                            if($(".areaAndSku").length<=0){ //跳转到空购物车
+                                window.location ='/cart';
+                            }
 
                       }
                   } else tip("删除失败!");
