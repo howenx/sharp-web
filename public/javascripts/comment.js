@@ -187,6 +187,7 @@ $(function () {
         }
     })
     $(document).on("click","#commentUl4 img",function () {
+        var imgindex = $(this).index("#commentUl4 img");
         $(".previ").show();
         $(".wrap").css("display","none");
         $(".hd").css("display","none");
@@ -206,12 +207,14 @@ $(function () {
             "height":"100%"
         })
 
+
         TouchSlide({
             slideCell:"#slideBox",
             titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
             mainCell:".bd ul",
             effect:"leftLoop",
             autoPage:true,//自动分页
+            defaultIndex:imgindex
         });
     });
     $(".previ").click(function (e) {
