@@ -1,4 +1,6 @@
 
+
+
 $(function(){
 
         var count=0;
@@ -221,7 +223,13 @@ $(function(){
     }
      funss();
 
-   /*计算总额*/
+
+
+
+
+});
+
+ /*计算总额*/
     function Total(){
         var total =0.00;
         var v =0;
@@ -304,38 +312,37 @@ $(function(){
 
     }
 
+    //删除购物车
+    function delCart(cartId){
+        windowConfirm("确定删除吗?",function() {
+            $.ajax({
+                  type :"GET",
+                  url : "/cart/del/"+cartId,
+                  contentType: "application/json; charset=utf-8",
+                  error : function(request) {
+                      tip("删除失败!");
+                  },
+                  success: function(data) {
+                      if (data!=""&&data!=null&&data.code==200){ //删除成功
+                          var li=$("#li"+cartId);
+                          var ul=li.parents("ul");
+                          li.remove();
+                          if(ul.has("li").length <= 0){
+                                ul.prev().parents(".areaAndSku").remove();
+                                if($(".areaAndSku").length<=0){ //跳转到空购物车
+                                    window.location ='/cart';
+                                }
 
+                          }
+                           Total();
+                           //检测商品总额限制
+                           checkPostalLimit();
+                      } else tip("删除失败!");
 
-});
-
-//删除购物车
-function delCart(cartId){
-    windowConfirm("确定删除吗?",function() {
-        $.ajax({
-              type :"GET",
-              url : "/cart/del/"+cartId,
-              contentType: "application/json; charset=utf-8",
-              error : function(request) {
-                  tip("删除失败!");
-              },
-              success: function(data) {
-                  if (data!=""&&data!=null&&data.code==200){ //删除成功
-                      var li=$("#li"+cartId);
-                      var ul=li.parents("ul");
-                      li.remove();
-                      if(ul.has("li").length <= 0){
-                            ul.prev().parents(".areaAndSku").remove();
-                            if($(".areaAndSku").length<=0){ //跳转到空购物车
-                                window.location ='/cart';
-                            }
-
-                      }
-                  } else tip("删除失败!");
-
-              }
-         });
-    });
-};
+                  }
+             });
+        });
+    };
 
 //去结算
 $(document).on("click",".settleBtn",function(){
