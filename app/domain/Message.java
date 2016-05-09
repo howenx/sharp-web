@@ -114,6 +114,8 @@ public class Message implements Serializable{
 
         SEND_SMS_TOO_MANY ("发送验证码次数过多,请明天再试", 5005),
 
+        USER_NOT_LOGIN("您还未登录,请先登录",5006),
+
         FILE_TYPE_NOT_SUPPORTED("文件类型不支持",6001),
 
         PIN_ACTIVITY_NOT_EXISTS("活动已经不存在",6002),
