@@ -8,7 +8,11 @@ import play.Logger;
 import play.api.libs.Codecs;
 import play.libs.F;
 import play.libs.Json;
+import play.mvc.Action;
 import play.mvc.Http;
+import play.mvc.Result;
+
+import java.lang.reflect.Method;
 
 import static play.mvc.Results.notFound;
 
@@ -38,5 +42,17 @@ public class Global extends GlobalSettings {
         ObjectNode result = Json.newObject();
         result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.FAILURE_BAD_REQUEST.getIndex()), Message.ErrorCode.FAILURE_BAD_REQUEST.getIndex())));
         return F.Promise.<play.mvc.Result>pure(notFound(views.html.error500.render()));
+    }
+
+    public Action onRequest(Http.Request request, Method actionMethod) {
+        if (request.getHeader("User-Agent").contains("Alibaba.Security")){
+            ObjectNode result = Json.newObject();
+            result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.FAILURE_BAD_REQUEST.getIndex()), Message.ErrorCode.FAILURE_BAD_REQUEST.getIndex())));
+            return new Action.Simple() {
+                public F.Promise<Result> call(Http.Context ctx) throws Throwable {
+                    return F.Promise.pure(notFound(result));
+                }
+            };
+        }else return super.onRequest(request,actionMethod);
     }
 }
