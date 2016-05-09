@@ -347,31 +347,5 @@ h1 {
 }
 
 
-/*支付扫二维码*/
-
-.e-box{
-    /*display: none;*/
-}
-.e-box img{
-    margin: 0 auto;
-}
-
-.success div{
-    width: 200px;
-    margin: 10px auto;
-
-}
-
-.success a{
-    color: #333;
-}
-.success .succeed{
-    float: left;
-}
-.success .see{
-    float: right;
-
-}
-
 
 
