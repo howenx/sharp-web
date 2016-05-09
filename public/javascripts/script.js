@@ -31,7 +31,8 @@ $(document).ready(function(){
     stars.each(function(i){
         $(stars[i]).hover(
             function(){
-                $(".description").text(description[i]);
+              //  $(".description").text(description[i]);
+                  $(".description").text("");
             },
             function(){
                 if(descriptionTemp != null)

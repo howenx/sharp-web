@@ -90,8 +90,13 @@ public class UserCtrl extends Controller {
             } else if (Message.ErrorCode.SUCCESS.getIndex() == message.getCode()) {
                 //地址列表
                 ObjectMapper mapper = new ObjectMapper();
-                List<Address> addressList = mapper.readValue(json.get("address").toString(), new TypeReference<List<Address>>() {
-                });
+                List<Address> addressList = null;
+                if(json.has("address")){
+                    addressList=mapper.readValue(json.get("address").toString(), new TypeReference<List<Address>>() {});
+                }else {
+                    Logger.error("无地址列表"+json);
+                }
+
                 return ok(views.html.users.address.render(addressList));
             } else return badRequest(views.html.error500.render());
         });
@@ -105,11 +110,6 @@ public class UserCtrl extends Controller {
      */
     @Security.Authenticated(UserAuth.class)
     public Result addressnew() {
-//        String path = routes.UserCtrl.address(selId).url();
-//        if (session().containsKey("path")) {
-//            //path = session().get("path");
-//            session().replace("path", routes.UserCtrl.addressnew(selId).url());
-//        }else session().put("path", routes.UserCtrl.addressnew(selId).url());
         return ok(views.html.users.addressnew.render());
     }
 
@@ -174,7 +174,10 @@ public class UserCtrl extends Controller {
                         if (json.has("address")) {
                             Address address = Json.fromJson(json.get("address"), Address.class);
                             JsonNode jsonNode = Json.parse(address.getDeliveryCity());
-                            String add = jsonNode.findValue("province").asText();
+                            String add = "";
+                            if (jsonNode.has("province")) {
+                                add += jsonNode.findValue("province").asText();
+                            }
                             if (jsonNode.has("city")) {
                                 add += " " + jsonNode.findValue("city").asText();
                             }
@@ -211,13 +214,7 @@ public class UserCtrl extends Controller {
         });
 
         return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-//            String path = routes.UserCtrl.address(addId).url();
-//            if (session().containsKey("path")) {
-//                //path = session().get("path");
-//                session().replace("path", routes.UserCtrl.addressUpdate(addId, selId).url());
-//            }else session().put("path", routes.UserCtrl.addressUpdate(addId, selId).url());
 
-//            Logger.error("返回---->\n" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回数据错误code=" + json);
@@ -228,8 +225,11 @@ public class UserCtrl extends Controller {
                 return badRequest(views.html.error.render(message.getMessage()));
             }
             ObjectMapper mapper = new ObjectMapper();
-            List<Address> addressList = mapper.readValue(json.get("address").toString(), new TypeReference<List<Address>>() {
-            });
+            List<Address> addressList = new ArrayList<Address>();
+            if(json.has("address")){
+                addressList=mapper.readValue(json.get("address").toString(), new TypeReference<List<Address>>() {});
+            }
+
             for (Address address : addressList) {
                 if (address.getAddId() == addId.longValue()) {
                     if (selId == 1) {
@@ -287,8 +287,12 @@ public class UserCtrl extends Controller {
                 return badRequest(views.html.error.render(message.getMessage()));
             }
             ObjectMapper mapper = new ObjectMapper();
-            List<CouponVo> couponList = mapper.readValue(json.get("coupons").toString(), new TypeReference<List<CouponVo>>() {
-            });
+            List<CouponVo> couponList =null;
+            if(json.has("coupons")){
+                couponList=mapper.readValue(json.get("coupons").toString(), new TypeReference<List<CouponVo>>() {
+                });
+            }
+
             return ok(views.html.users.coupon.render(couponList));
         });
     }
@@ -412,9 +416,13 @@ public class UserCtrl extends Controller {
                 Logger.error("返回收藏数据错误code=" + (null != message ? message.getCode() : 0));
                 return badRequest();
             }
-            ObjectMapper mapper = new ObjectMapper();
-            List<CollectDto> collectList = mapper.readValue(json.get("collectList").toString(), new TypeReference<List<CollectDto>>() {
-            });
+
+            List<CollectDto> collectList =new ArrayList<CollectDto>();
+            if(json.has("collectList")){
+                ObjectMapper mapper = new ObjectMapper();
+                collectList=mapper.readValue(json.get("collectList").toString(), new TypeReference<List<CollectDto>>() {});
+            }
+
             if (null != collectList && !collectList.isEmpty()) {
                 for (CollectDto collectDto : collectList) {
                     collectDto.getCartSkuDto().setInvImg(comCtrl.getImgUrl(collectDto.getCartSkuDto().getInvImg()));
@@ -444,46 +452,36 @@ public class UserCtrl extends Controller {
     @Security.Authenticated(UserAjaxAuth.class)
     public F.Promise<Result> submitCollect() {
         ObjectNode result = newObject();
-        Optional<Http.Cookie> user_token = Optional.ofNullable(request().cookies().get("user_token"));
-        Optional<Http.Cookie> session_id = Optional.ofNullable(request().cookies().get("session_id"));
         JsonNode rjson = request().body().asJson();
-//        Logger.info("===rjson==="+rjson);
-//        if (user_token.isPresent() && session_id.isPresent()) {
-            Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
-                CollectSubmitDTO collectSubmitDTO=new CollectSubmitDTO();
-                collectSubmitDTO.setSkuId(rjson.findValue("skuId").asLong());
-                collectSubmitDTO.setSkuType(rjson.findValue("skuType").asText());
-                collectSubmitDTO.setSkuTypeId(rjson.findValue("skuTypeId").asLong());
+        Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
+            CollectSubmitDTO collectSubmitDTO=new CollectSubmitDTO();
+            collectSubmitDTO.setSkuId(rjson.findValue("skuId").asLong());
+            collectSubmitDTO.setSkuType(rjson.findValue("skuType").asText());
+            collectSubmitDTO.setSkuTypeId(rjson.findValue("skuTypeId").asLong());
 
-                RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, toJson(collectSubmitDTO).toString());
-                Request.Builder builder = comCtrl.getBuilder(ctx());
-                Request request = builder.url(COLLECT_SUBMIT).post(formBody).build();
-                Response response = client.newCall(request).execute();
-                if (response.isSuccessful()) {
-                    return Json.parse(new String(response.body().bytes(), UTF_8));
-                } else throw new IOException("Unexpected code " + response);
-            });
-            return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-                //    Logger.info("===json==" + json);
-                Message message = Json.fromJson(json.get("message"), Message.class);
-                if (null == message) {
-                    Logger.error("返回数据错误code=" + json);
-                    return badRequest(views.html.error500.render());
-                }
-                if (message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
-                    Logger.error("返回数据code=" + json);
-                    return badRequest(views.html.error.render(message.getMessage()));
-                }
-                Integer collectId = json.get("collectId").asInt();
-                result.putPOJO("collectId", collectId);
-                return ok(Json.toJson(result));
-            });
-  //      }
- //       result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.USER_NOT_LOGIN.getIndex()), Message.ErrorCode.USER_NOT_LOGIN.getIndex())));
- //       String state = UUID.randomUUID().toString().replaceAll("-", "");
-//        cache.set(state, 60 * 60, rjson.findValue("url").asText());
-//        result.put("state",state);
-//        return F.Promise.promise((F.Function0<Result>) () -> ok(result));
+            RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, toJson(collectSubmitDTO).toString());
+            Request.Builder builder = comCtrl.getBuilder(ctx());
+            Request request = builder.url(COLLECT_SUBMIT).post(formBody).build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                return Json.parse(new String(response.body().bytes(), UTF_8));
+            } else throw new IOException("Unexpected code " + response);
+        });
+        return promiseOfInt.map((Function<JsonNode, Result>) json -> {
+            //    Logger.info("===json==" + json);
+            Message message = Json.fromJson(json.get("message"), Message.class);
+            if (null == message) {
+                Logger.error("返回数据错误code=" + json);
+                return badRequest(views.html.error500.render());
+            }
+            if (message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
+                Logger.error("返回数据code=" + json);
+                return badRequest(views.html.error.render(message.getMessage()));
+            }
+            Integer collectId = json.get("collectId").asInt();
+            result.putPOJO("collectId", collectId);
+            return ok(Json.toJson(result));
+        });
     }
 
 
@@ -1088,7 +1086,7 @@ public class UserCtrl extends Controller {
         });
         return promiseOfInt.map((play.libs.F.Function<JsonNode, Result>) json -> {
 
-         //   Logger.info("===json==" + json);
+            Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回数据错误code=" + json);
@@ -1117,7 +1115,7 @@ public class UserCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((play.libs.F.Function<JsonNode, Result>) json -> {
-            //   Logger.info("===json==" + json);
+               Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回数据错误code=" + json);
@@ -1128,8 +1126,11 @@ public class UserCtrl extends Controller {
                 return badRequest(views.html.error.render(message.getMessage()));
             }
             ObjectMapper mapper = new ObjectMapper();
-            List<OrderDTO> orderList = mapper.readValue(json.get("orderList").toString(), new TypeReference<List<OrderDTO>>() {
-            });
+            List<OrderDTO> orderList = null;
+            if(json.has("orderList")){
+                orderList=mapper.readValue(json.get("orderList").toString(), new TypeReference<List<OrderDTO>>() {
+                });
+            }
             if (null == orderList || orderList.isEmpty()) {
                 return badRequest();
             }

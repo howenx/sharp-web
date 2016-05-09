@@ -482,7 +482,12 @@ public class ProductsCtrl extends Controller {
                         pushResultList.add(rowList);
                     }
                 }
-                return ok(views.html.products.pinDetail.render(itemMain, itemFeaturesList, pinInvDetail, pushResultList, preImgList, pushList, url,hisUrl));
+                //评论
+                CommentNumDTO commentNumDTO=null;
+                if(json.has("comment")){
+                    commentNumDTO=Json.fromJson(json.get("comment"), CommentNumDTO.class);
+                }
+                return ok(views.html.products.pinDetail.render(itemMain, itemFeaturesList, pinInvDetail, pushResultList, preImgList, pushList, url,hisUrl,commentNumDTO));
             }
         });
     }

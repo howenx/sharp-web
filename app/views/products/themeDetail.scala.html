@@ -36,7 +36,7 @@
             </a>
             @for(tag <- tagList){
                 @if(tag(4) == 0){
-                    <a href="/detail/@tag(1)" class="right"  style="left:@tag(2)%;top:@tag(0)%">
+                    <a href="/detail/@tag(1)" class="right redirect-app"  style="left:@tag(2)%;top:@tag(0)%">
                         <div class="cartoon-right">
                             @tag(3)
                             <i class="right-arrow"></i>
@@ -50,7 +50,7 @@
                 }
                 @if(tag(4) == 180){
 
-                <a href="/detail/@tag(1)" class="left"  style="right:@tag(2)%;top:@tag(0)%">
+                <a href="/detail/@tag(1)" class="left redirect-app"  style="right:@tag(2)%;top:@tag(0)%">
                     <div class="cartoon">@tag(3)
                         <i></i>
 

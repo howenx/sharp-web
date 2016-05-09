@@ -118,3 +118,4 @@ GET         /wechat/userinfo                                                   c
 GET         /assets/*file                                                      controllers.Assets.versioned(path="/public", file: Asset)
 
 
+HEAD       /health-check.html                                                  controllers.Assets.at(path="/public", file="/health_check.html")

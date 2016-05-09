@@ -41,6 +41,10 @@ $(function() {
 	});
 
 
+    if(typeof(echo)!="undefined"&&null!=echo){
+	    echo.init();
+	}
+
 });
 
 
