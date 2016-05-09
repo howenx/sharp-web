@@ -251,6 +251,9 @@ h1 {
     font-weight: bold;
 }
 
+
+
+
 #loading{
     position: absolute;
     top:50%;
@@ -258,6 +261,7 @@ h1 {
     width: 100px;
     -webkit-transform: translate(-50%,0);
     -moz-transform: translate(-50%,0);
+    z-index: 1000;
 }
 #loading img{
     width: 100%;
@@ -341,5 +345,9 @@ h1 {
     margin:0px 5px 0 0;
 
 }
+
+
+
+
 
 

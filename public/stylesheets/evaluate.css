@@ -97,10 +97,10 @@ section ul li{
 }
 
 .md .md-b img{
-    float: left;
     margin: 10px 10px 0 0;
     width: 80px;
-
+    display: inline-block;
+    vertical-align: middle;
 }
 .bm{
     font-size: 14px;

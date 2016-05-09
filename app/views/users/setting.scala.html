@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="/assets/stylesheets/install.css">
     <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+    <script src="/assets/javascripts/loading.js"></script>
     <link rel="stylesheet" href="/assets/stylesheets/regist.css">
     <script>
         $(function() {
@@ -37,6 +38,10 @@
 
 <body>
 
+<div id="loading">
+    <img src="/assets/images/loading.gif"/>
+</div>
+
 <header class="head">
     <a href="@path" class="back">
         <i></i>
@@ -46,6 +51,7 @@
 
 </header>
 
+<div class="fixed-box" style="position:fixed;width: 100%">
 <div class="wap scope ">
     <section class="list">
         <!--<p class="color">账号与安全</p>-->
@@ -102,8 +108,9 @@
     <i>app首单立减10元</i>
   </span>
     <a href="javascript:;" class="bg">立即下载</a>
-
 </div>
+</div>
+
 @comContent()
 </body>
 </html>

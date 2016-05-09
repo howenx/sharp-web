@@ -37,12 +37,14 @@ $(function() {
 
 	$(window).load(function(){
 		$("#loading").hide();
-		$(".fixed-box").css({"position":"relative"});
+		$(".fixed-box").css({"position":"static"});
 	});
+
 
     if(typeof(echo)!="undefined"&&null!=echo){
 	    echo.init();
 	}
+
 });
 
 

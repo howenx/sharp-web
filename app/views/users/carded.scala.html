@@ -10,8 +10,13 @@
     <link rel="stylesheet" href="/assets/stylesheets/global.css">
     <link rel="stylesheet" href="/assets/stylesheets/carded.css">
     <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+    <script src="/assets/javascripts/loading.js"></script>
 </head>
 <body>
+<div id="loading">
+    <img src="/assets/images/loading.gif"/>
+</div>
+
 <header class="head">
     <a href="/list" class="back">
         <i></i>
@@ -20,6 +25,8 @@
     <h1>上传身份证信息</h1>
     <a href="/" class="shopp"></a>
 </header>
+
+<div class="fixed-box" style="position: fixed;width: 100%">
 <div class="scope wap">
     <div class="user">
           <div class="name">
@@ -45,7 +52,7 @@
     <button class="plus-add bg">上传信息</button>
 
 </div>
-
+</div>
 @comContent()
 </body>
 </html>
