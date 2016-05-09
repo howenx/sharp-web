@@ -472,7 +472,7 @@ function postalShade(price,postalTaxRate){
 $(function(){
     $(window).load(function(){
         $("#loading").hide();
-        $(".fixed-box").css({"position":"relative"});
+        $(".fixed-box").css({"position":"static"});
     });
 })
 

@@ -15,6 +15,10 @@
 </head>
 
 <body>
+<div id="loading">
+    <img src="/assets/images/loading.gif"/>
+</div>
+
 <header class="head">
     <a href="@path" class="back">
         <i></i>
@@ -23,12 +27,13 @@
     <h1>地址列表</h1>
 </header>
 
-<div class="scope wap">
+<div class="fixed-box" style="position:fixed;width: 100%">
+    <div class="scope wap">
 
-    <a href="/addressnew" class="plus-add bg">新增收货地址</a>
+        <a href="/addressnew" class="plus-add bg">新增收货地址</a>
 
+    </div>
 </div>
-
 
 @comContent()
 </body>

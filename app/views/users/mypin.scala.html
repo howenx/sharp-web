@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/assets/stylesheets/global.css">
     <link rel="stylesheet" href="/assets/stylesheets/mypin.css">
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+    <script src="/assets/javascripts/loading.js"></script>
     <script>
         $(function(){
             $(".tabpin>li").click(function(){
@@ -52,6 +53,9 @@
         </div>
 
     </header>-->
+    <div id="loading">
+        <img src="/assets/images/loading.gif"/>
+    </div>
 
     <header class="head">
         <a href="/myView"  class="back">
@@ -64,6 +68,7 @@
         </a>
     </header>
 
+<div class="fixed-box" style="position:fixed;width: 100%">
     <ul class="tabpin">
         <li class="cur">我的开团</li>
         <li>我的参团</li>
@@ -133,7 +138,7 @@
         }
 
     </div>
-
+</div>
     <div class="not" style="display:none">
         <p>您还未开启任何拼团</p>
         <a href="/" class="look">去逛逛</a>

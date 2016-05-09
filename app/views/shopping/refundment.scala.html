@@ -15,6 +15,11 @@
 
 
 <body>
+
+    <div id="loading">
+        <img src="/assets/images/loading.gif"/>
+    </div>
+
     <header class="head">
         <a href="javascript:window.history.back()" class="back">
             <i></i>
@@ -22,8 +27,10 @@
         </a>
         <h1>申请退款</h1>
     </header>
-    <form id="cell_refForm" method="post" action="/order/apply/refund" enctype="multipart/form-data">
-    <div class="wap scope ">
+
+    <div class="fixed-box" style="position:fixed;width: 100%">
+     <form id="cell_refForm" method="post" action="/order/apply/refund" enctype="multipart/form-data">
+        <div class="wap scope ">
         <div class="explain">
             <h3 class="explain-hd">退款说明:</h3>
             <section>
@@ -61,7 +68,9 @@
 
 
     </div>
+
    </form>
+    </div>
     <div class="hint" id="tip" style="display:none"></div>
     @comContent()
 </body>
