@@ -37,10 +37,10 @@ $(function() {
 
 	$(window).load(function(){
 		$("#loading").hide();
-		$(".fixed-box").css({"position":"relative"});
+		$(".fixed-box").css({"position":"static"});
 	});
 
-	echo.init();
+
 });
 
 

@@ -405,14 +405,14 @@ span .number{
 }
 
 .shopping .cart_num{
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     position: absolute;
     top: -7px;
-    font-size: 12px;
-    left: 44px;
+    font-size: 11px;
+    left: 42px;
     background: #ed145b;
-    line-height: 16px;
+    line-height: 20px;
     cursor: pointer;
     color: #fff;
     border-radius: 50%;
