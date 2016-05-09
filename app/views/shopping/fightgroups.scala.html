@@ -19,6 +19,10 @@
     <script>window.urlParam = "@url"</script>
 </head>
 <body>
+<div id="loading">
+    <img src="/assets/images/loading.gif"/>
+</div>
+
 <header class="head">
     <a href="/mypin" class="back">
         <i></i>
@@ -27,6 +31,9 @@
     <h1>我的拼团</h1>
 </header>
 
+
+
+<div class="fixed-box" style="position:fixed;width: 100%">
 <div class="wrap scope">
     @if(pin.getPay()=="new"){
         <div class="fight-hd">
@@ -169,17 +176,7 @@
     </div>
 </div>-->
 
-@if(pin.getOrJoinActivity()!=0&&pin.getStatus()=="Y"&&pin.getPersonNum()-pin.getPinUsers().size>0){
 
-<!--最下面邀请组团-->
-<div class="fight-btn inviteFriendCss" id="inviteFriendDiv">
-            <span>
-                还差
-                <i>@(pin.getPersonNum()-pin.getPinUsers().size)人</i>
-                ,邀请小伙伴来组团吧
-            </span>
-</div>
-}
 
 @if(pin.getOrJoinActivity()==0){
 <div class="btn-box scope">
@@ -204,6 +201,23 @@
     </form>
 </div>
 }
+
+</div>
+
+    @if(pin.getOrJoinActivity()!=0&&pin.getStatus()=="Y"&&pin.getPersonNum()-pin.getPinUsers().size>0){
+
+    <!--最下面邀请组团-->
+    <div class="fight-btn inviteFriendCss" id="inviteFriendDiv">
+            <span>
+                还差
+                <i>@(pin.getPersonNum()-pin.getPinUsers().size)人</i>
+                ,邀请小伙伴来组团吧
+            </span>
+    </div>
+    }
+</div>
+
+
 <script type="text/javascript">
 
 
@@ -230,6 +244,7 @@
 
 <div class="hint" id="tip" style="display:none"></div>
 @comContent()
+
 </body>
 </html>
 

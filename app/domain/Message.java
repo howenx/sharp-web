@@ -47,9 +47,9 @@ public class Message implements Serializable{
 
         SUCCESS("成功", 200),
         FAILURE("失败", 400),
-        FAILURE_REQUEST_ERROR("失败", 441),
-        FAILURE_REQUEST_HANDLER_NOT_FOUND("失败", 442),
-        FAILURE_BAD_REQUEST("失败", 443),
+        FAILURE_REQUEST_ERROR("请求出错", 441),
+        FAILURE_REQUEST_HANDLER_NOT_FOUND("请求未找到", 442),
+        FAILURE_BAD_REQUEST("非法请求", 443),
 
         ERROR("内部发生错误", 1001),
         SERVER_EXCEPTION("服务器异常", 1002),
@@ -67,11 +67,22 @@ public class Message implements Serializable{
         SKU_DETAIL_NULL_EXCEPTION("获取产品详情数据空", 1014),
         CART_LIST_NULL_EXCEPTION("获取购物车数据空", 1015),
         NOT_FOUND_SHIP_FEE_INFO("未找到邮费信息", 1016),
+        NOT_FOUND_SKU("未找到此商品",1017),
+        VARY_OVER_LIMIT("您购买的商品数量已经超过总卖出数量限制",1018),
+        DATA_NOT_EXISTS("未找到数据",1019),
+        ORDER_NOT_EXISTS("未查询到此订单信息",1020),
+        ORDER_NOT_DELIVERY("此订单尚未发货",1021),
+        CONFIRM_DELIVERY_FAIL("确认收货失败",1022),
 
+        UPLOAD_PICTURE_SIZES_OVER_LIMIT("上传图片张数超限",1023),
+        ORDER_STATUS_EXCEPTION("订单状态不符合",1024),
+
+        REMARK_EXISTS("此订单中的商品已经评价过",1025),
 
         SKU_AMOUNT_SHORTAGE("亲,此件商品库存不足了", 2001),
         SKU_INVALID("亲,您已经长时间未操作,此商品已经失效,建议您刷新购物车", 2002),
-
+        SKU_STATUS_ERROR("亲,此商品已经失效,请选择其他商品", 2003),
+        SKU_DOWN("亲,此件商品已经售空", 2004),
 
         PURCHASE_QUANTITY_LIMIT("亲,您购买数量超过我们的限制了", 3001),
         PURCHASE_QUANTITY_SUM_PRICE("海关规定单次报关物品价值不能超过1000元", 3002),
@@ -103,7 +114,13 @@ public class Message implements Serializable{
 
         SEND_SMS_TOO_MANY ("发送验证码次数过多,请明天再试", 5005),
 
-        USER_NOT_LOGIN("您还未登录,请先登录", 5006);
+        FILE_TYPE_NOT_SUPPORTED("文件类型不支持",6001),
+
+        PIN_ACTIVITY_NOT_EXISTS("活动已经不存在",6002),
+
+        PURCHASE_PIN_RESTRICT("购买同一拼购商品数量超出限制",7001),
+
+        PURCHASE_PIN_SINGLE_ONE_TIME("您尚有未结束的拼团,不能再次发起拼团",7002);
 
         // 成员变量
         private String name;

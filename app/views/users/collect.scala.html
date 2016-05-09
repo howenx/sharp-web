@@ -16,6 +16,11 @@
 </head>
 
 <body>
+
+<div id="loading">
+    <img src="/assets/images/loading.gif"/>
+</div>
+
 <header class="head">
     <a href="/myView" class="back">
         <i></i>
@@ -24,6 +29,7 @@
     <h1>我的收藏</h1>
 </header>
 
+<div class="fixed-box" style="position: fixed;width: 100%">
 <div class="scope wap">
     @if(null!=collectList&&collectList.size()>0){
         <div class="coll">
@@ -61,12 +67,16 @@
         </div>
     }
 </div>
+</div>
+
 @if(null==collectList||collectList.size()<=0){
     <div class="not">
         <p>暂无收藏的商品</p>
         <a href="/" class="look">去逛逛</a>
     </div>
 }
+
+
 
 <div class="hint" id="tip" style="display:none"></div>
 

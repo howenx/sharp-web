@@ -18,6 +18,10 @@
 </head>
 <body>
 
+<div id="loading">
+    <img src="/assets/images/loading.gif"/>
+</div>
+
 <header class="head">
     <a href="@path" class="back">
         <i></i>
@@ -26,6 +30,7 @@
     <h1>申请售后服务</h1>
 </header>
 
+<div class="fixed-box" style="position:fixed;width: 100%">
 <div class="warp">
     <form id="cell_refForm" method="post" onsubmit="return false" action="/order/apply/refund" enctype="multipart/form-data">
     <div class="detail-box">
@@ -105,6 +110,7 @@
     </form>
 
     <div class="hint" id="tip" style="display:none"></div>
+</div>
 </div>
 @comContent()
 </body>
