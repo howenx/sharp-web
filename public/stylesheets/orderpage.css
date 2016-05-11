@@ -54,7 +54,7 @@ input:password {
 *{box-sizing:border-box;}
 
 body{
-    background-color: #ccc;
+    background-color:#F4F4F4;
 }
 
 
@@ -132,23 +132,36 @@ span .rmb{
     -webkit-box-orient: vertical;
     margin: 0 0 10px 0;
     color: #666;
+    height: 40px;
 }
 
 .wap .btn{
     padding: 10px 0 10px 8%;
 }
 
-.btn a{
-    display: inline-block;
-    width: 45%;
-    text-align: center;
-    line-height: 40px;
-    background-color: #E66255;
-    color: #fff;
+.btn{
+    width: 100%;
+    background-color: #fff;
+    padding:10px;
+    position:fixed;
+    bottom:0;
+    left: 0;
 }
 
-.btn .left{
-    background-color:#969696 ;
+.btn a{
+    display: inline-block;
+    padding: 5px 10px;
+    text-align: center;
+    color: #666;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+    float: right;
+}
+.btn .right{
+    margin: 0 0 0 5px;
+    border: 1px solid #ff5359;
+    color:#ff5359;
 }
 
 .apply{
@@ -161,7 +174,8 @@ span .rmb{
 
 .time-item{
     width: 100%;
-    padding:10px 2%;
+    padding: 5px 2%;
+    font-size: 14px;
 }
 
 

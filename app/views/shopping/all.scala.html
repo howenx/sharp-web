@@ -28,7 +28,6 @@
     <h1>订单</h1>
 </header>
 
-<div class="fixed-box" style="position:fixed;width: 100%">
 <div class="wrap">
     <!--<div class="bombbox-big">
         <div class="bombbox bombboxDivCss">
@@ -86,7 +85,7 @@
                             <a href="/all/@order.getOrder().getOrderId()" class="clearfix">
                                 <div class="day clearfix">
                                     <div class="day-l clearfix">
-                                        <span>订单号: </span><i>@order.getOrder().getOrderId()</i>
+                                        <span>订单号 : </span><i>@order.getOrder().getOrderId()</i>
                                         <span class="date">@order.getOrder().getOrderCreateAt()</span>
                                     </div>
 
@@ -143,7 +142,7 @@
                                 <div class="payment clearfix">
                                     <a href="javascript:;" class="left cancelOrder" style="display:none;">取消订单</a>
                                     <a href="javascript:;" class="right red" onclick="pay('@payUrl','@order.getOrder().getOrderId()','@token','@order.getOrder().getSecurityCode()')">去支付</a>
-                                    <span href="javascript:;" class="mi">应付金额:￥@order.getOrder().getPayTotal()</span>
+                                    <span href="javascript:;" class="mi">应付金额 :￥@order.getOrder().getPayTotal()</span>
                                 </div>
                             }
                             @if(order.getOrder().getOrderStatus()=="D"||order.getOrder().getOrderStatus()=="R"){
@@ -294,47 +293,7 @@
 
             <!--待评价-->
             <section>
-                <!--
-                                <ul>
-                                    <li value="77703004" id="li77703004">
-                                        <div class="con-stay clearfix">
-                                            <a href="/all/77703004" class="clearfix">
-                                                <div class="day-num clearfix">
-                                                    <div class="day-l clearfix">
-                                                        <span>订单号编号: </span><i>77703004</i>
-                                                    </div>
 
-                                                    <span class="num">
-                                                        共<i>5</i>件商品
-                                                    </span>
-                                                </div>
-                                            </a>
-
-                                            <a href="/all/77703004" class="commodity clearfix">
-                                                <div class="photo-img">
-                                                    <img src="http://img.hanmimei.com/410fd58a4cf74dadb0593b34e69a55291451368819746.jpg" alt="">
-                                                </div>
-                                                <div class="photo-img">
-                                                    <img src="http://img.hanmimei.com/410fd58a4cf74dadb0593b34e69a55291451368819746.jpg" alt="">
-                                                </div>
-                                                <div class="photo-img">
-                                                    <img src="http://img.hanmimei.com/410fd58a4cf74dadb0593b34e69a55291451368819746.jpg" alt="">
-                                                </div>
-                                            </a>
-
-                                            <div class="data-box clearfix">
-
-                                                <a href="javascript:;" class="data">下单时间:<span>2016-05-05</span> <i>19:20:00</i></a>
-                                            </div>
-                                            <div class="payment clearfix">
-                                                <a href="javascript:;" class="right red">评价晒单</a>
-                                            </div>
-                                         </div>
-                                    </li>
-
-
-                               </ul>
-                -->
             <ul id="waitCommentUl">
                 @if(null!=orderList&&orderList.size>0){
                     @for(order<-orderList){
@@ -342,7 +301,7 @@
                         <li>
                             <div class="con-stay clearfix">
                                 <a href="/all/@order.getOrder().getOrderId()" class="clearfix">
-                                    <div class="day clearfix">
+                                    <div class="day clearfix estimate">
                                         <div class="day-l">
                                             <span >订单号: </span><i>@order.getOrder().getOrderId()</i>
                                         </div>
@@ -397,7 +356,7 @@
         </div>
     </div>
 </div>
-</div>
+
 
 @if(null==orderList||orderList.size<=0){
     <div class="not orderNot">

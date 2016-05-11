@@ -86,7 +86,7 @@
                 <div class="clearfix one">
                     <h2><i class="picture"> <img src="@cartInfo.getSkuInvImg()" alt="" height="80"/></i>@cartInfo.getSkuTitle()</h2>
                     <div class="goods">
-                        <span class="order color">￥@cartInfo.getSkuPrice()</span>
+                        <span class="order colore">￥@cartInfo.getSkuPrice()</span>
                         <span class="money">数量 : @cartInfo.getAmount()</span>
                     </div>
                     <input type="hidden" name="cartId@index-@cartIndex" value="@cartInfo.getCartId()"/>
@@ -193,13 +193,13 @@
             <div class="tariff">
                 <ul>
                     <!--<li><span>可使用优惠券</span><i>未选择</i></li>-->
-                    <li><span>商品总价</span><i class="color">￥@settle.getTotalFee()</i></li>
+                    <li><span>商品总价</span><i class="colore">￥@settle.getTotalFee()</i></li>
                     <li><span>优惠金额</span>
-                        @if(null==settle.getDiscountFee()){<i class="color discountCss">￥0</i><input type="hidden" name="hiddenDiscountFee" value="0"/>}
-                        @if(null!=settle.getDiscountFee()){<i class="color discountCss">￥settle.getDiscountFee()</i><input type="hidden" name="hiddenDiscountFee" value="@settle.getDiscountFee()"/>}
+                        @if(null==settle.getDiscountFee()){<i class="colore discountCss">￥0</i><input type="hidden" name="hiddenDiscountFee" value="0"/>}
+                        @if(null!=settle.getDiscountFee()){<i class="colore discountCss">￥settle.getDiscountFee()</i><input type="hidden" name="hiddenDiscountFee" value="@settle.getDiscountFee()"/>}
                    </li>
-                    <li><span>行邮税</span><i class="color">￥@settle.getPortalFee()</i></li>
-                    <li><span>运费</span><i class="color">￥@settle.getShipFee()</i></li>
+                    <li><span>行邮税</span><i class="colore">￥@settle.getPortalFee()</i></li>
+                    <li><span>运费</span><i class="colore">￥@settle.getShipFee()</i></li>
                 </ul>
             </div>
 
@@ -217,8 +217,9 @@
 
         <input type="hidden" name="buyNow" value="@buyNow"/>
         <input type="hidden" name="pinActiveId" value="@pinActiveId"/>
+
         <div class="refer-box">
-            <span class="refer-rmb color">合计:￥<span id="totalPaySpan">@settle.getTotalPayFee()</span></span>
+            <span class="refer-rmb colore">合计:￥<span id="totalPaySpan">@settle.getTotalPayFee()</span></span>
             <a href="javascript:;" class="refer bg submitOrder">提交订单</a>
 
         </div>
@@ -280,6 +281,6 @@
 
 @comContent()
 
-</div>
+
 </body>
 </html>

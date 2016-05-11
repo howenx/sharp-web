@@ -372,11 +372,11 @@ div .cycle-overlay {
 	float: left;
 	font-weight:bold;
 	color:#EF2528;
-	font-size:28px ;
+	font-size:20px ;
 }
 
 .u-detail-price i{
-	font-size:26px ;
+	font-size:20px ;
 }
 .u-detail-mprice {
 	display: inline-block;
@@ -395,7 +395,7 @@ div .cycle-overlay {
 	color: #565555;
 	height: 36px;
 	padding:0 2%;
-	font-size:16px;
+	font-size:14px;
 }
 .one{
 	float: left;
@@ -426,8 +426,12 @@ div .cycle-overlay {
 
 .three,.four{
     padding:0 0 0 20px;
-	font-size: 14px;
+	font-size: 12px;
 	float: right;
+}
+
+.four{
+	font-size: 14px;
 }
 
 .three{
@@ -718,7 +722,7 @@ div .cycle-overlay {
 	position: absolute;
 	top: 2px;
 	left:60%;
-	background: #ed145b;
+	background:#ff5359;
 	line-height: 18px;
 	cursor: pointer;
 	color: #fff;
@@ -810,7 +814,7 @@ div .cycle-overlay {
 .buy_box .add_cart {
 	float: left;
 	width:37.5%;
-	background-color:#565656;
+	background-color:#ff5359;
 	font-size:18px;
 	line-height:44px;
 	color: #666;
@@ -828,14 +832,14 @@ div .cycle-overlay {
 	line-height:44px;
 	text-align: center;
 	color: #fff;
-	background-color: #ff5359;
+	background-color:#F03047;
 	word-wrap: normal;
 	white-space: nowrap;
 }
 
 .buy_box .message{
 	display: block;
-	background:url(/assets/images/shopp-h.png) no-repeat center;
+	background:url(/assets/images/cart02.png) no-repeat center;
 	background-size: contain;
 	width:25px;
 	height:25px;
@@ -901,7 +905,7 @@ div .cycle-overlay {
 		position: fixed;
 		bottom: 0;
 		width: 100%;
-		box-shadow: 0 -1px 0 0 rgba(51,51,51,0.15);
+		box-shadow: 0 -1px 0 0 #ededed;
 		z-index:1000;
 		word-wrap: normal;
 		white-space: nowrap;
@@ -1024,7 +1028,7 @@ div .cycle-overlay {
 
 .diamond a span.ed{
 	background-color:#EDEDED;
-	color: #999;
+	color: #666;
 }
 
 .diamond a span.big{
@@ -1053,7 +1057,7 @@ div .cycle-overlay {
 
 .num{
 	text-align: right;
-	color: #999;
+	color: #666;
 }
 
 .finish{
@@ -1363,7 +1367,7 @@ div .cycle-overlay {
 .opinion{
 	background-color: #fff;
 	line-height: 40px;
-	margin: 10px 0;
+	margin:5px 0;
 	padding: 0 10px;
 	font-size: 14px;
 }
@@ -1381,9 +1385,12 @@ div .cycle-overlay {
 	float: right;
 }
 
-.opinion b{
-	font-size:20px;
-	color: #ccc;
+.opinion b {
+	display: inline-block;
+	width: 18px;
+	height: 20px;
+	background: url("/assets/images/page_gray.png") 5px 7px no-repeat;
+	background-size: 10px 14px;
 }
 
 .percent{

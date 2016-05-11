@@ -78,7 +78,7 @@ h1 .logo {
 
 
 .shopp{
-    background: url(/assets/images/white_shoppingcar.png) center center no-repeat;
+    background: url(/assets/images/cart01.png) center center no-repeat;
     background-size: contain;
     position: absolute;
     top:25%;
@@ -88,16 +88,16 @@ h1 .logo {
 }
 
 .shopp .cart_num{
-    width:18px;
-    height:18px;
+    width: 18px;
+    height: 18px;
     position: absolute;
-    top:-7px;
-    left:15px;
-    background:#ed145b;
-    line-height:18px;
+    top: -7px;
+    left: 15px;
+    background: #fff;
+    line-height: 18px;
     cursor: pointer;
-    color:#fff;
-    border-radius:50%;
+    color: #ff5359;
+    border-radius: 50%;
     text-align: center;
     font-size: 10px;
 
@@ -641,7 +641,7 @@ h1 .logo {
 
 .content li a{
     display: block;
-    border:1px solid #cfcfcf;
+    border:1px solid #ededed;
     background-color: #fff;
 }
 
@@ -720,7 +720,6 @@ h1 .logo {
     height:50px;
     padding:0 5%;
     line-height: 50px;
-    border-bottom: 1px solid #ececec;
     border-top:1px solid #ececec;
 }
 

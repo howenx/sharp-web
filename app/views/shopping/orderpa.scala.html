@@ -194,12 +194,12 @@
 
             </li>
         }
-        @if(order.getOrder().getOrderStatus()=="I"||order.getOrder().getOrderStatus()=="F"){
+        <!--@if(order.getOrder().getOrderStatus()=="I"||order.getOrder().getOrderStatus()=="F"){
             <li value="@order.getOrder().getOrderId()" class="btn">
                 <a href="javascript:;" class="left cancelOrder discolour" >取消订单</a>
                 <a href="javascript:;" class="right bg"  onclick="pay('@payUrl','@order.getOrder().getOrderId()','@token','@order.getOrder().getSecurityCode()')">去支付</a>
             </li>
-        }
+        }-->
         @if(order.getOrder().getOrderStatus()=="S"&&null==order.getRefund()){
             <li class="btn">
                 <a href="javascript:;" class="left discolour applyRefundCss" >申请退货</a>
@@ -223,8 +223,19 @@
     </ul>
 
 
+
 </div>
+    @if(order.getOrder().getOrderStatus()=="I"||order.getOrder().getOrderStatus()=="F"){
+    <div value="@order.getOrder().getOrderId()" class="btn clearfix">
+
+        <a href="javascript:;" class="right"  onclick="pay('@payUrl','@order.getOrder().getOrderId()','@token','@order.getOrder().getSecurityCode()')">去支付</a>
+        <a href="javascript:;" class="left cancelOrder" >取消订单</a>
+    </div>
+    }
+
 </div>
+
+
 
 <div class="hint" id="tip" style="display:none"></div>
 @comContent()
