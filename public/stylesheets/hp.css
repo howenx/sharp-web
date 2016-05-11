@@ -49,10 +49,10 @@ body{
 	top: -7px;
 	left: 15px;
 	font-size: 10px;
-	background: #ed145b;
+	background: #fff;
 	line-height:18px;
 	cursor: pointer;
-	color: #fff;
+	color:#ff5359;
 	border-radius: 50%;
 	text-align: center;
 }
