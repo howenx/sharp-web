@@ -59,7 +59,9 @@
     padding:10px 20px 5px;
     border-bottom: 1px solid #ededed;
 }
-
+.address-padding{
+    border: none;
+}
 .address a{
     color: #666;
 }
@@ -315,13 +317,14 @@ input[type=radio] {
     position: fixed;
     top:10px;
     right: 2%;
+    background: none;
 }
 .amputate span,.amput span{
     margin:40px 0 0 0;
     width: 30px;
     height: 30px;
     line-height: 30px;
-    background-color: #ed145b;
+    background-color:#ff5359;
     border-radius: 50px;
     color: #fff;
     text-align: center;
@@ -332,6 +335,7 @@ input[type=radio] {
     padding: 10px 10px 0px 10px;
     margin:0px 0 10px 0;
     background-color: #fff;
+    border-bottom: 1px solid #ededed;
 }
 
 .alter{

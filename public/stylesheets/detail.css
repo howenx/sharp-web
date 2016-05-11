@@ -402,16 +402,11 @@ div .cycle-overlay {
 }
 
 .thw-detail-other .xian{
-	background: #E56254;
-	color: #fff;
-	width:18px;
-	height:18px;
-	text-align: center;
-	line-height:18px;
+	color: #999;
+	padding: 1px 4px;
 	float: left;
-	border-radius: 3px;
 	font-size: 12px;
-	margin:0px 2px 0 0;
+
 }
 .xian-j{
 	float: left;
@@ -1373,7 +1368,7 @@ div .cycle-overlay {
 }
 
 .opinion a{
-	color: #333;
+	color: #666;
 	font-size: 16px;
 }
 

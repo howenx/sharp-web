@@ -72,7 +72,7 @@ $(document).on("click",".addressAreaA",function(){
 //绘制地址
 function paintAddressLi(address){
  var str='<li id="li'+address.addId+'" class="ul-box-li clearfix hiddenAddressLi" value="'+address.addId+'">'+
-       '<div class="address clearfix">'+
+       '<div class="address address-padding clearfix">'+
            '<a href="javascript:;" class="sel_add clearfix addressAreaA">'+
                 '<p><i class="add-icon"></i><span>姓名:</span><span class="nameSpan">'+address.name+'</span>';
                 if(address.orDefault==1){
