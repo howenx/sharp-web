@@ -170,7 +170,7 @@ public class ShoppingCtrl extends Controller {
         });
 
         return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
-            Logger.info("===json==" + json);
+       //     Logger.info("===json==" + json);
             Message message = Json.fromJson(json.findValue("message"), Message.class);
             if(null != message&&message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
                 Logger.info("返回数据code=" + json);
@@ -197,7 +197,7 @@ public class ShoppingCtrl extends Controller {
         });
 
         return promiseOfInt.map((play.libs.F.Function<JsonNode , Result>) json -> {
-            Logger.info("===json==" + json);
+        //    Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回数据错误code=" + json);
@@ -251,7 +251,7 @@ public class ShoppingCtrl extends Controller {
         });
 
         return promiseOfInt.map((play.libs.F.Function<JsonNode , Result>) json -> {
-            Logger.info("===json==" + json);
+          //  Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回数据错误code=" + json);

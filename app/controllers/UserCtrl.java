@@ -1086,7 +1086,7 @@ public class UserCtrl extends Controller {
         });
         return promiseOfInt.map((play.libs.F.Function<JsonNode, Result>) json -> {
 
-            Logger.info("===json==" + json);
+         //   Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回数据错误code=" + json);
@@ -1115,7 +1115,7 @@ public class UserCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((play.libs.F.Function<JsonNode, Result>) json -> {
-               Logger.info("===json==" + json);
+         //      Logger.info("===json==" + json);
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回数据错误code=" + json);
@@ -1232,7 +1232,7 @@ public class UserCtrl extends Controller {
 
         return promiseOfInt.map((Function<JsonNode, Result>) json -> {
             Message message = Json.fromJson(json.findValue("message"), Message.class);
-            Logger.error(json.toString()+"-----"+message.toString());
+         //   Logger.error(json.toString()+"-----"+message.toString());
             return ok(Json.toJson(message));
         });
 
