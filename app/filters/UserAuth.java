@@ -143,16 +143,16 @@ public class UserAuth extends Security.Authenticator {
                 //此openId存在则自动登录
                 String token = json.findValue("result").findValue("token").asText();
                 Integer expired = json.findValue("result").findValue("expired").asInt();
-                String session_id = UUID.randomUUID().toString().replaceAll("-", "");
-                cache.set(session_id, expired, token);
-                ctx.response().setCookie("session_id", session_id, expired);
+//                String session_id = UUID.randomUUID().toString().replaceAll("-", "");
+//                cache.set(session_id, expired, token);
+//                ctx.response().setCookie("session_id", session_id, expired);
                 ctx.response().setCookie("user_token", token, expired);
                 ctx.args.put("request", builder.addHeader("id-token", token));
 
                 if (orAccess) {
                     ws.url(SysParCom.WEIXIN_REFRESH + "appid=" + WEIXIN_APPID + "&grant_type=refresh_token&refresh_token=" + refresh).get().map(wsr -> {
                         JsonNode refreshToken = wsr.asJson();
-                        Logger.error("窝里--->" + refreshToken.toString());
+//                        Logger.error("窝里--->" + refreshToken.toString());
 
                         String access_token = refreshToken.findValue("access_token").asText();
                         Integer expires_in = refreshToken.findValue("expires_in").asInt();
