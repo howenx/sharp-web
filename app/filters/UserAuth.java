@@ -48,30 +48,30 @@ public class UserAuth extends Security.Authenticator {
 
 
             Optional<Http.Cookie> user_token = Optional.ofNullable(ctx.request().cookie("user_token"));
-            Optional<Http.Cookie> session_id = Optional.ofNullable(ctx.request().cookie("session_id"));
-            if (user_token.isPresent() && session_id.isPresent()) {
+//            Optional<Http.Cookie> session_id = Optional.ofNullable(ctx.request().cookie("session_id"));
+            if (user_token.isPresent()) {
 
-                Optional<Object> cache_session_id = Optional.ofNullable(cache.get(session_id.get().value()));
+//                Optional<Object> cache_session_id = Optional.ofNullable(cache.get(session_id.get().value()));
 
 
-                if (cache_session_id.isPresent() && user_token.get().value().equals(cache_session_id.get().toString())) {
+//                if (cache_session_id.isPresent() && user_token.get().value().equals(cache_session_id.get().toString())) {
 
-                    Optional<String> token = Optional.ofNullable(cache.get(user_token.get().value()).toString());
-                    if (token.isPresent()) {
-                        String session_id_new = UUID.randomUUID().toString().replaceAll("-", "");
-                        cache.delete(session_id.get().value());   //TODO 如果点击快了上条消息还未返回时就会跳到登录页面
-                        cache.set(session_id_new, 7 * 24 * 60 * 60, cache_session_id.get());
+                Optional<String> token = Optional.ofNullable(cache.get(user_token.get().value()).toString());
+                if (token.isPresent()) {
+//                        String session_id_new = UUID.randomUUID().toString().replaceAll("-", "");
+//                        cache.delete(session_id.get().value());
+//                        cache.set(session_id_new, 7 * 24 * 60 * 60, cache_session_id.get());
+//
+//                        ctx.response().discardCookie("session_id");
+//                        ctx.response().setCookie("session_id", session_id_new, 7 * 24 * 60 * 60);
 
-                        ctx.response().discardCookie("session_id");
-                        ctx.response().setCookie("session_id", session_id_new, 7 * 24 * 60 * 60);
+                    JsonNode userJson = Json.parse(token.get());
+                    Long userId = userJson.findValue("id").asLong();
 
-                        JsonNode userJson = Json.parse(token.get());
-                        Long userId = userJson.findValue("id").asLong();
-
-                        ctx.args.put("request", builder.addHeader("id-token", user_token.get().value()));
-                        return userId.toString();
-                    } else return null;
+                    ctx.args.put("request", builder.addHeader("id-token", user_token.get().value()));
+                    return userId.toString();
                 } else return null;
+//                } else return null;
             } else return weixin(ctx);
 
 
