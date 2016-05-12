@@ -75,7 +75,7 @@
                                @if(index!=0){<div class="logis-box">}
                                     <div class="logis-content">
                                         <p class="logis-content-detail">
-                                            @if(""!=logisticsDataDTO.getLocation()){
+                                            @if(null!=logisticsDataDTO.getLocation()&&""!=logisticsDataDTO.getLocation().trim()){
                                             <i>[ @logisticsDataDTO.getLocation() ]</i>
                                             }
                                             <i>@logisticsDataDTO.getContext()</i>
