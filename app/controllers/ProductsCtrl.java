@@ -63,7 +63,7 @@ public class ProductsCtrl extends Controller {
             } else throw new IOException("Unexpected code" + response);
         });
         return promise.map(json -> {
-
+                    Logger.info("===index=="+json);
                     List<Slider> sliderList = new ArrayList<>();
                     List<Theme> themeList = new ArrayList<>();
                     int pageCount = json.get("page_count").asInt();
@@ -71,8 +71,10 @@ public class ProductsCtrl extends Controller {
                         JsonNode sliderJson = json.get("slider");
                         for (JsonNode sliderTemp : sliderJson) {
                             Slider slider = Json.fromJson(sliderTemp, Slider.class);
-                            JsonNode imgJson = Json.parse(slider.getUrl());
-                            slider.setImg(imgJson.get("url").asText());
+                            if(null!=slider.getUrl()){
+                                JsonNode imgJson = Json.parse(slider.getUrl());
+                                slider.setImg(imgJson.get("url").asText());
+                            }
                             if (slider.getItemTarget().contains(GOODS_PAGE)) {
                                 slider.setItemTarget(slider.getItemTarget().replace(GOODS_PAGE, ""));
                             }
