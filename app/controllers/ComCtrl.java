@@ -273,8 +273,8 @@ public class ComCtrl extends Controller {
         builder.addHeader("User-Agent", ctx.request().getHeader("User-Agent"));
 
         Optional<Http.Cookie> user_token = Optional.ofNullable(ctx.request().cookies().get("user_token"));
-        Optional<Http.Cookie> session_id = Optional.ofNullable(ctx.request().cookies().get("session_id"));
-        if (user_token.isPresent() && session_id.isPresent()) {
+     //   Optional<Http.Cookie> session_id = Optional.ofNullable(ctx.request().cookies().get("session_id"));
+        if (user_token.isPresent() /*&& session_id.isPresent()*/) {
             builder.addHeader("id-token", user_token.get().value());
         }
         return builder;
@@ -330,8 +330,8 @@ public class ComCtrl extends Controller {
     public boolean isHaveLogin(Http.Context ctx) {
         //普通浏览器
         Optional<Http.Cookie> user_token = Optional.ofNullable(ctx().request().cookies().get("user_token"));
-        Optional<Http.Cookie> session_id = Optional.ofNullable(ctx().request().cookies().get("session_id"));
-        if (user_token.isPresent() && null != user_token.get() && session_id.isPresent() && null != session_id.get()) {
+      //  Optional<Http.Cookie> session_id = Optional.ofNullable(ctx().request().cookies().get("session_id"));
+        if (user_token.isPresent() && null != user_token.get()/* && session_id.isPresent() && null != session_id.get()*/) {
             return true;
         }
         return false;

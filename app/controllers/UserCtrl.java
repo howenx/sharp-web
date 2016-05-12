@@ -997,10 +997,10 @@ public class UserCtrl extends Controller {
      */
     @Security.Authenticated(UserAuth.class)
     public Result logout() {
-        String session_id = request().cookie("session_id").toString();
+      //  String session_id = request().cookie("session_id").toString();
         String token = request().cookies().get("user_token").value();
-        if (session_id != null && token != null) {
-            cache.delete(session_id);
+        if (token != null) {
+          //  cache.delete(session_id);
             cache.delete(token);
             //清理cookie
             response().discardCookie("user_token");

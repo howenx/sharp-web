@@ -195,31 +195,7 @@
 
             </li>
         }
-        <!--@if(order.getOrder().getOrderStatus()=="I"||order.getOrder().getOrderStatus()=="F"){
-            <li value="@order.getOrder().getOrderId()" class="btn">
-                <a href="javascript:;" class="left cancelOrder discolour" >取消订单</a>
-                <a href="javascript:;" class="right bg"  onclick="pay('@payUrl','@order.getOrder().getOrderId()','@token','@order.getOrder().getSecurityCode()')">去支付</a>
-            </li>
-        }-->
-
-        @if(order.getOrder().getOrderStatus()=="S"&&null==order.getRefund()){
-            <li class="btn clearfix">
-                <a href="javascript:;" class="left btn-t applyRefundCss" >申请退货</a>
-            </li>
-        }
-        @if(order.getOrder().getOrderStatus()=="D"){
-            <li class="btn">
-                <a href="/logistic/@order.getOrder().getOrderId()" class="left bg">查看物流</a>
-                <a href="javascript:;" class="right bg" onclick="orderConfirmDelivery(@order.getOrder().getOrderId())">确认收货</a>
-            </li>
-        }
-        @if(order.getOrder().getOrderStatus()=="R"){
-            <li class="btn">
-                <a href="/logistic/@order.getOrder().getOrderId()" class="left bg">查看物流</a>
-            </li>
-        }
-
-
+        
         <input type="hidden" value="@order.getOrder().getOrderSplitId()" id="orderSplitId"/>
         <input type="hidden" value="@order.getOrder().getOrderStatus()" id="orderStatus"/>
 
