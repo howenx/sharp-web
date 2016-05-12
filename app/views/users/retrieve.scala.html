@@ -87,7 +87,7 @@
             });
 
             //验证码格式校验
-            $(document).on('click', '.box-d', function () {
+            $('.box-d').click(function () {
                 var imgCode = $("#imgCode").val();
                 if (!codeReg.test(imgCode)) {
                     $('#js-userinfo-error').text('验证码格式不正确').show();
@@ -153,7 +153,7 @@
             });
 
             //立即注册
-            $(document).on('click', '.box-r', function() {
+            $('.box-r').click(function () {
                 $("#code").removeAttr("name");
                 var phone = $("#phone").val();
                 $.ajax({
