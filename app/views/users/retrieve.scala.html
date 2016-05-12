@@ -87,7 +87,7 @@
             });
 
             //验证码格式校验
-            $(document).on('click', '.box-d', function () {
+            $('.box-d').click(function () {
                 var imgCode = $("#imgCode").val();
                 if (!codeReg.test(imgCode)) {
                     $('#js-userinfo-error').text('验证码格式不正确').show();
@@ -127,18 +127,14 @@
                                                    setTimeout("$('#js-userinfo-error2').hide()", 2000);
                                                } else if (data2.code === 200) {
                                                     //手机验证码发送成功
-
                                                     var url = '/retrieve'+$("#state").val();
-                                                    alert("手机验证码发送成功"+url);
                                                     var form = $('<form action="' + url + '" method="post">' +
                                                     '<input type="hidden" name="phone" value="' + phone + '" />' +
                                                     '</form>');
                                                     $('body').append(form);
                                                     form.submit();
-                                                     alert("手机验证码发送成功提交成功");
                                                }
                                                else {
-                                                alert("手机验证码发送成功提交失败");
                                                     $('#js-userinfo-error2').text(data2.message).show();
                                                     setTimeout("$('#js-userinfo-error2').hide()", 2000);
                                                }
