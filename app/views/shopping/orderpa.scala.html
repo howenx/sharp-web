@@ -31,6 +31,8 @@
 </header>
 
 
+
+
 <div class="wap">
     @if(order.getOrder().getOrderStatus()=="I"){
     <div class="time-item price" style="text-align:center">
@@ -199,6 +201,7 @@
                 <a href="javascript:;" class="right bg"  onclick="pay('@payUrl','@order.getOrder().getOrderId()','@token','@order.getOrder().getSecurityCode()')">去支付</a>
             </li>
         }-->
+
         @if(order.getOrder().getOrderStatus()=="S"&&null==order.getRefund()){
             <li class="btn clearfix">
                 <a href="javascript:;" class="left btn-t applyRefundCss" >申请退货</a>
@@ -216,6 +219,7 @@
             </li>
         }
 
+
         <input type="hidden" value="@order.getOrder().getOrderSplitId()" id="orderSplitId"/>
         <input type="hidden" value="@order.getOrder().getOrderStatus()" id="orderStatus"/>
 
@@ -225,11 +229,27 @@
 
 </div>
     @if(order.getOrder().getOrderStatus()=="I"||order.getOrder().getOrderStatus()=="F"){
-    <div value="@order.getOrder().getOrderId()" class="btn clearfix">
+        <div class="btn clearfix">
+            <a href="javascript:;" class="right"  onclick="pay('@payUrl','@order.getOrder().getOrderId()','@token','@order.getOrder().getSecurityCode()')">去支付</a>
+            <a href="javascript:;" class="left"  onclick="cancelOrder('@order.getOrder().getOrderId()')">取消订单</a>
+        </div>
+    }
 
-        <a href="javascript:;" class="right"  onclick="pay('@payUrl','@order.getOrder().getOrderId()','@token','@order.getOrder().getSecurityCode()')">去支付</a>
-        <a href="javascript:;" class="left cancelOrder" >取消订单</a>
-    </div>
+    @if(order.getOrder().getOrderStatus()=="S"&&null==order.getRefund()){
+        <div class="btn clearfix">
+            <a href="javascript:;" class="left applyRefundCss" >申请退货</a>
+        </div>
+    }
+    @if(order.getOrder().getOrderStatus()=="D"){
+        <div class="btn clearfix">
+            <a href="/logistic/@order.getOrder().getOrderId()" class="left">查看物流</a>
+            <a href="javascript:;" class="right" onclick="orderConfirmDelivery(@order.getOrder().getOrderId())">确认收货</a>
+        </div>
+    }
+    @if(order.getOrder().getOrderStatus()=="R"){
+        <div class="btn clearfix">
+            <a href="/logistic/@order.getOrder().getOrderId()" class="left">查看物流</a>
+        </div>
     }
 
 
