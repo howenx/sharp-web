@@ -101,7 +101,8 @@
                 @if(pinInvDetail.isSoldOut() == true){
                     <a href="javascript:;" class="soldOut">
                 }<span class="big">@pinInvDetail.getFloorPrice()元/件</span>
-                        <span>@pinInvDetail.getFloorPricePersonNum()人成团</span>
+                        <span>
+                            @if(null!=pinInvDetail.getPinTieredPrices()&&pinInvDetail.getPinTieredPrices().size()>1){最多}@pinInvDetail.getFloorPricePersonNum()人成团</span>
                     </a>
 
                 @if(pinInvDetail.isSoldOut() != true){

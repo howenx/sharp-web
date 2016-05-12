@@ -7,11 +7,15 @@ $(function(){
     /*改变产品数量*/
     $(".quantity-increase").on("click",function(){
         var t=$(this).parent().find('input[class*=quantity]');
-        var aa = parseInt(t.val()) + 1;
+        var oldNum=t.val();
+        if(null==oldNum||""==oldNum){
+            oldNum=0;
+        }
+        var aa = parseInt(oldNum) + 1;
 
         var li=$(this).parents("li");
         var restrictAmount=li.find(".restrictAmountCss").val();
-        if(aa>restrictAmount){
+        if(restrictAmount>0&&aa>restrictAmount){
             tip("本商品限制购买"+restrictAmount+"件");
             return;
         }
@@ -70,7 +74,11 @@ $(function(){
 
     $(".quantity-decrease").on("click",function(){
         var t=$(this).parent().find('input[class*=quantity]');
-        var aa = parseInt(t.val()) - 1;
+        var oldNum=t.val();
+        if(null==oldNum||""==oldNum){
+            oldNum=1;
+        }
+        var aa = parseInt(oldNum) - 1;
         if(aa<=0){
             return;
         }
@@ -224,6 +232,14 @@ $(function(){
      funss();
 
 
+//    $(".quantity").blur(function(){
+//          var num=$(this).val();
+//          if(""==num||0==num){
+//            $(this).val(1);
+//
+//          }
+//
+//    });
 
 
 
@@ -395,6 +411,8 @@ $(function(){
         $("#loading").hide();
     });
 })
+
+
 
 
 

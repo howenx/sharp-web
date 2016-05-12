@@ -48,30 +48,30 @@ public class UserAuth extends Security.Authenticator {
 
 
             Optional<Http.Cookie> user_token = Optional.ofNullable(ctx.request().cookie("user_token"));
-            Optional<Http.Cookie> session_id = Optional.ofNullable(ctx.request().cookie("session_id"));
-            if (user_token.isPresent() && session_id.isPresent()) {
+//            Optional<Http.Cookie> session_id = Optional.ofNullable(ctx.request().cookie("session_id"));
+            if (user_token.isPresent()) {
 
-                Optional<Object> cache_session_id = Optional.ofNullable(cache.get(session_id.get().value()));
+//                Optional<Object> cache_session_id = Optional.ofNullable(cache.get(session_id.get().value()));
 
 
-                if (cache_session_id.isPresent() && user_token.get().value().equals(cache_session_id.get().toString())) {
+//                if (cache_session_id.isPresent() && user_token.get().value().equals(cache_session_id.get().toString())) {
 
-                    Optional<String> token = Optional.ofNullable(cache.get(user_token.get().value()).toString());
-                    if (token.isPresent()) {
-                        String session_id_new = UUID.randomUUID().toString().replaceAll("-", "");
-                        cache.delete(session_id.get().value());   //TODO 如果点击快了上条消息还未返回时就会跳到登录页面
-                        cache.set(session_id_new, 7 * 24 * 60 * 60, cache_session_id.get());
+                Optional<String> token = Optional.ofNullable(cache.get(user_token.get().value()).toString());
+                if (token.isPresent()) {
+//                        String session_id_new = UUID.randomUUID().toString().replaceAll("-", "");
+//                        cache.delete(session_id.get().value());
+//                        cache.set(session_id_new, 7 * 24 * 60 * 60, cache_session_id.get());
+//
+//                        ctx.response().discardCookie("session_id");
+//                        ctx.response().setCookie("session_id", session_id_new, 7 * 24 * 60 * 60);
 
-                        ctx.response().discardCookie("session_id");
-                        ctx.response().setCookie("session_id", session_id_new, 7 * 24 * 60 * 60);
+                    JsonNode userJson = Json.parse(token.get());
+                    Long userId = userJson.findValue("id").asLong();
 
-                        JsonNode userJson = Json.parse(token.get());
-                        Long userId = userJson.findValue("id").asLong();
-
-                        ctx.args.put("request", builder.addHeader("id-token", user_token.get().value()));
-                        return userId.toString();
-                    } else return null;
+                    ctx.args.put("request", builder.addHeader("id-token", user_token.get().value()));
+                    return userId.toString();
                 } else return null;
+//                } else return null;
             } else return weixin(ctx);
 
 
@@ -143,16 +143,16 @@ public class UserAuth extends Security.Authenticator {
                 //此openId存在则自动登录
                 String token = json.findValue("result").findValue("token").asText();
                 Integer expired = json.findValue("result").findValue("expired").asInt();
-                String session_id = UUID.randomUUID().toString().replaceAll("-", "");
-                cache.set(session_id, expired, token);
-                ctx.response().setCookie("session_id", session_id, expired);
+//                String session_id = UUID.randomUUID().toString().replaceAll("-", "");
+//                cache.set(session_id, expired, token);
+//                ctx.response().setCookie("session_id", session_id, expired);
                 ctx.response().setCookie("user_token", token, expired);
                 ctx.args.put("request", builder.addHeader("id-token", token));
 
                 if (orAccess) {
                     ws.url(SysParCom.WEIXIN_REFRESH + "appid=" + WEIXIN_APPID + "&grant_type=refresh_token&refresh_token=" + refresh).get().map(wsr -> {
                         JsonNode refreshToken = wsr.asJson();
-                        Logger.error("窝里--->" + refreshToken.toString());
+//                        Logger.error("窝里--->" + refreshToken.toString());
 
                         String access_token = refreshToken.findValue("access_token").asText();
                         Integer expires_in = refreshToken.findValue("expires_in").asInt();
