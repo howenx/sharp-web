@@ -143,9 +143,9 @@ span .rmb{
     width: 100%;
     background-color: #fff;
     padding:10px;
-    position:fixed;
+    /*position:fixed;
     bottom:0;
-    left: 0;
+    left: 0;*/
 }
 
 .btn a{
@@ -157,6 +157,10 @@ span .rmb{
     border-radius: 3px;
     font-size: 14px;
     float: right;
+}
+
+.btn-t{
+    margin: 0 10px 0 0;
 }
 .btn .right{
     margin: 0 0 0 5px;

@@ -31,7 +31,6 @@
 </header>
 
 
-<div class="fixed-box" style="position:fixed;width: 100%">
 <div class="wap">
     @if(order.getOrder().getOrderStatus()=="I"){
     <div class="time-item price" style="text-align:center">
@@ -201,8 +200,8 @@
             </li>
         }-->
         @if(order.getOrder().getOrderStatus()=="S"&&null==order.getRefund()){
-            <li class="btn">
-                <a href="javascript:;" class="left discolour applyRefundCss" >申请退货</a>
+            <li class="btn clearfix">
+                <a href="javascript:;" class="left btn-t applyRefundCss" >申请退货</a>
             </li>
         }
         @if(order.getOrder().getOrderStatus()=="D"){
@@ -233,7 +232,7 @@
     </div>
     }
 
-</div>
+
 
 
 
