@@ -154,12 +154,13 @@ h1 .logo {
 }
 
 .cartoon,.cartoon-right{
-    height: 26px;
+    height: 20px;
     padding:0 5px;
-    line-height: 26px;
+    line-height: 20px;
     background-color:rgba(0,0,0,0.5);
     border-radius: 5px 0 0 5px;
     color: #fff;
+    font-size: 12px;
 }
 
 .cartoon-right{
@@ -176,7 +177,7 @@ h1 .logo {
 
 .cartoon i,.cartoon-right i{
     display: block;
-    border-width:13px;
+    border-width:10px;
     position: absolute;
 }
 
@@ -184,7 +185,7 @@ h1 .logo {
     border-color:transparent transparent transparent rgba(0,0,0,0.5);
     border-style:dashed dashed dashed solid;
     position: absolute;
-    right:18px;
+    right:22px;
     top:0;
 }
 
@@ -196,7 +197,7 @@ h1 .logo {
 }
 
 .cartoon-right i.right-arrow{
-    left:16px;
+    left:22px;
 }
 
 .ripple,.ripple-right{
@@ -204,12 +205,12 @@ h1 .logo {
     height:10px;
     position:absolute;
     top:0;
-    right:5px;
+    right:18px;
 }
 
 .right .ripple-right{
-    top:5px;
-    left:5px;
+    top:0px;
+    left:18px;
 }
 
 .cartoon-right{
