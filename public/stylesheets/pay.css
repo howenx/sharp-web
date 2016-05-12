@@ -56,7 +56,6 @@
     background-size:cover;
 }
 .address{
-    padding:10px 20px 5px;
     border-bottom: 1px solid #ededed;
 }
 .address-padding{
@@ -197,6 +196,9 @@ input[type=radio] {
 .refer-box{
     min-width:320px; max-width:750px; margin: 0 auto; background-color: #fff;
     height:44px;
+    position: fixed;
+    bottom: 0;
+    border-top:1px solid #ededed;
 }
 .refer{
     width:100%;
@@ -225,11 +227,13 @@ input[type=radio] {
 }
 .tariff ul li{
     padding:15px 2%;
-    border-bottom:1px solid #EBEBEB;
     border-top:1px solid #EBEBEB;
     height:50px;
     margin-top:-1px;
+}
 
+.tariff ul li:last-child{
+    margin: 0 0 43px 0;
 }
 .tariff li span{
     float: left;
@@ -259,7 +263,7 @@ input[type=radio] {
 
 .xnew-add-shade{
     width: 100%;
-    padding: 45px 0 0 2%;
+    padding: 45px 0 0 0;
     position:absolute;
     top:0;
     left: 0;
