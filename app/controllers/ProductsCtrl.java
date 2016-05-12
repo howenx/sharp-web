@@ -63,7 +63,7 @@ public class ProductsCtrl extends Controller {
             } else throw new IOException("Unexpected code" + response);
         });
         return promise.map(json -> {
-                    Logger.info("===index=="+json);
+                //    Logger.info("===index=="+json);
                     List<Slider> sliderList = new ArrayList<>();
                     List<Theme> themeList = new ArrayList<>();
                     int pageCount = json.get("page_count").asInt();
