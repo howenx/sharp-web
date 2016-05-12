@@ -11,7 +11,7 @@ $(function(){
 
         var li=$(this).parents("li");
         var restrictAmount=li.find(".restrictAmountCss").val();
-        if(aa>restrictAmount){
+        if(restrictAmount>0&&aa>restrictAmount){
             tip("本商品限制购买"+restrictAmount+"件");
             return;
         }
