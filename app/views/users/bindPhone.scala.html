@@ -251,7 +251,6 @@
 
             //立即注册
             $(document).on('click', '.box-r', function() {
-            alert("立即注册");
                 $("#code").removeAttr("name");
                 $("#auto").removeAttr("name");
                 var phone = $("#phone").val();
@@ -262,23 +261,18 @@
                     type: 'POST',
                     success: function(data) {
                         console.log(data);
-                        alert("手机验证码发送成功"+data.code+"===="+data);
                         $("#code").attr({"name":"code"});
                         $("#auto").attr({"name":"auto"});
                         //手机验证码发送成功
                         if (data.code === 200) {
-
-                                var url = '/register'+$("#state").val();
-                                alert("手机验证码发送成功"+data.code+"===="+data);
+                                var url = '/register'+$("#state").val();;
                                 var form = $('<form action="' + url + '" method="post">' +
                                 '<input type="hidden" name="phone" value="' + phone + '" />' +
                                 '</form>');
                                 $('body').append(form);
                                 form.submit();
-                                alert("手机验证码发送提交"+data.code+"===="+data);
                         }
                         else {
-                        alert("手机验证码发送失败"+data.code+"===="+data.message);
                                 $('#js-userinfo-error').text(data.message).show();
                                 setTimeout("$('#js-userinfo-error').hide()", 2000);
                         }
