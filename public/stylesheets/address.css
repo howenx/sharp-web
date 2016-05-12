@@ -74,11 +74,11 @@ li div{
 
 .plus-add{
     text-align: center;
-    line-height: 50px;
+    line-height: 40px;
     font-size: 18px;
     display: block;
     width:100%;
-    height:50px;
+    height:40px;
     color:#fff;
     position:fixed;
     bottom:0;
