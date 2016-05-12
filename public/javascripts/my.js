@@ -112,12 +112,11 @@ $(document).on("click",".cancelColl",function(e){
 })
 
 //取消订单
-$(document).on("click",".cancelOrder",function(){
-    var id=$(this).parents("li").val();
+function cancelOrder(orderId){
     windowConfirm("亲,您确定要取消订单吗",function() {
         $.ajax({
               type :"GET",
-              url : "/order/cancel/"+id,
+              url : "/order/cancel/"+orderId,
               contentType: "application/json; charset=utf-8",
               error : function(request) {
                   tip("取消订单失败!");
@@ -131,7 +130,12 @@ $(document).on("click",".cancelOrder",function(){
               }
          });
      });
-})
+}
+
+//
+//$(document).on("click",".cancelOrder",function(){
+//
+//})
 
 $(document).on("click",".delOrder",function(e){
     e.preventDefault();
