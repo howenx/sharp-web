@@ -41,11 +41,13 @@ $(document).on("click",".closeAddUpdate",function(){
 $(document).on("click",".other",function(){
     $('.add-shade').show();
     $(".big").hide();
+    $(".back").hide();
  });
 //关闭其他地址界面
 $(document).on("click",".amputate span",function(){
     $('.add-shade').hide();
     $(".big").show();
+    $(".back").show();
 });
 //新增地址界面保存或者关闭的时候
 function addNewViewClose(){
@@ -53,6 +55,7 @@ function addNewViewClose(){
         $('.add-shade').show();//打开其他地址界面
     }else{
          $(".big").show(); //结算界面
+         $(".back").show();
     }
 
 }

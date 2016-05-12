@@ -37,8 +37,8 @@ body{
 	position: absolute;
 	top:24%;
 	right:4%;
-	width:25px;
-	height:25px;
+	width:22px;
+	height:22px;
 }
 
 
@@ -94,7 +94,7 @@ h1 .logo {
 .slideBox .bd li a{ -webkit-tap-highlight-color:rgba(0,0,0,0);  }  /* 去掉链接触摸高亮 */
 .con{
 	width:100%;
-	padding:10px;
+	padding: 10px 0 0 0;
 }
 
 #container ul{width:100%;list-style:none;float:left;margin-right:20px;}
