@@ -148,6 +148,13 @@ span .rmb{
     left: 0;*/
 }
 
+.btn-fixed{
+    position:fixed;
+    bottom:0;
+    left: 0;
+    border-top: 1px solid #ededed;
+}
+
 .btn a{
     display: inline-block;
     padding: 5px 10px;
