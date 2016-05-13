@@ -169,6 +169,7 @@ img{
 .detailcon ul>li .orderstate,.ordermoney{
     color: #E66255;
 }
+
 /* tabpin */
 .tabpin{
     width: 100%;overflow: hidden;
@@ -181,7 +182,8 @@ img{
 .tabpin>li.cur{
     border-bottom: 2px solid #E66255;
 }
-div.myall:nth-of-type(2){
+
+div.myall:nth-child(2){
     display: none;
 }
 
