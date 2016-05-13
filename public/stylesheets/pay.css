@@ -231,6 +231,9 @@ input[type=radio] {
     height:50px;
     margin-top:-1px;
 }
+.tariff ul li:first-child{
+    border: none;
+}
 
 .tariff ul li:last-child{
     margin: 0 0 43px 0;
@@ -345,6 +348,8 @@ input[type=radio] {
 .alter{
     text-align: right;
     height: 30px;
+    background: url("/assets/images/page_gray.png") right 2px no-repeat;
+    background-size: 10px;
 }
 
 .de-add{

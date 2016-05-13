@@ -19,7 +19,6 @@
 .grayDiv-box .closeBtn{
     margin: 10px 0 0 0;
     font-size: 16px;
-
     color:#E46359;
 }
 .grayDiv-box span{
@@ -75,11 +74,11 @@
     position: fixed;
     bottom:0;
     width: 100%;
-    background-color: #000;
+    background-color:#FC555D;
     height:60px;
     padding:10px 2%;
-
 }
+
 .footer a{
     width:80px;
     height:30px;
@@ -87,21 +86,39 @@
     color:#fff;
     text-align: center;
     line-height:30px;
-    margin: 5px 0 0 0;
+    margin:6px 0 0 0;
+    border: 1px solid #fff;
 }
-.footer span{
-    width:210px;
-    height:50px;
-    float: left;
-    background: url("/assets/images/personal-14.jpg") no-repeat;
-    background-size: 40px 40px;
-    padding:0 0 0 50px;
 
+.footer span{
+    width: 210px;
+    height: 50px;
+    float: left;
+    background: url("/assets/images/personal-down.png") -3px -5px no-repeat;
+    background-size: 55px 55px;
+    padding: 0 0 0 55px;
+    color: #fff;
+    font-size: 14px;
 }
+
+
 .footer span i{
     display:block;;
 }
 
+.footer .app{
+    font-size: 16px;
+    padding: 1px 0 0 0;
+}
+
+.footer .delete-down{
+    width: 16px;
+    height: 24px;
+    background-size:contain;
+    float: right;
+    background: url("/assets/images/delete-down.png") no-repeat;
+    margin: -8px 0 0 10px;
+}
 
 
 
