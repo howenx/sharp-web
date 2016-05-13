@@ -120,6 +120,8 @@ public class SysParCom {
     public static Integer REDIS_PORT;
     public static String REDIS_CHANNEL;
 
+    public static String WEIXIN_UNION;
+
     @Inject
     public SysParCom(Configuration configuration) {
 
@@ -223,6 +225,8 @@ public class SysParCom {
         REDIS_PASSWORD = configuration.getString("redis.password");
         REDIS_PORT = configuration.getInt("redis.port");
         REDIS_CHANNEL = configuration.getString("redis.channel");
+
+        WEIXIN_UNION = configuration.getString("weixin.union");
 
     }
 }

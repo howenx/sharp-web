@@ -162,6 +162,8 @@ public class ComCtrl extends Controller {
                     response().setCookie("wechat_refresh_token", refreshToken.findValue("refresh_token").asText(), WEIXIN_REFRESH_OVERTIME);
                     cache.set(refreshToken.findValue("refresh_token").asText(), WEIXIN_REFRESH_OVERTIME, refreshToken.findValue("openid").asText());
 
+
+
                     Object uri = cache.get(state);
                     return redirect(uri == null ? "/" : uri.toString());
                 });
