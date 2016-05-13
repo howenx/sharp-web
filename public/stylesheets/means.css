@@ -93,14 +93,14 @@
 }
 
 .footer span{
-    width: 210px;
+    width: 185px;
     height: 50px;
     float: left;
     background: url("/assets/images/personal-down.png") -3px -5px no-repeat;
     background-size: 55px 55px;
-    padding: 0 0 0 55px;
+    padding: 0 0 0 50px;
     color: #fff;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 
@@ -108,18 +108,22 @@
     display:block;;
 }
 
-.footer .app{
+.footer span i:first-child{
+    padding:4px 0 0 0;
+}
+
+.footer-app .app{
     font-size: 16px;
     padding: 1px 0 0 0;
 }
 
 .footer .delete-down{
-    width:20px;
-    height: 24px;
+    width: 18px;
+    height: 20px;
     float: right;
     background: url("/assets/images/delete-down.png") no-repeat;
-    margin: -8px 0 0 10px;
-    background-size:20px;
+    margin: -8px 0 0 8px;
+    background-size: 18px;
 }
 
 
