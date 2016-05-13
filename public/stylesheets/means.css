@@ -70,6 +70,8 @@
     background: none;
     color: #ccc;
 }
+
+/*下载*/
 .footer{
     position: fixed;
     bottom:0;
@@ -112,12 +114,12 @@
 }
 
 .footer .delete-down{
-    width: 16px;
+    width:20px;
     height: 24px;
-    background-size:contain;
     float: right;
     background: url("/assets/images/delete-down.png") no-repeat;
     margin: -8px 0 0 10px;
+    background-size:20px;
 }
 
 
