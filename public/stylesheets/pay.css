@@ -340,9 +340,13 @@ input[type=radio] {
 
 .ul-box-li{
     padding: 10px 10px 0px 10px;
-    margin:0px 0 10px 0;
+    margin:2px 0 10px 0;
     background-color: #fff;
     border-bottom: 1px solid #ededed;
+}
+
+.amputate-current{
+    border: 1px solid #ff5359;
 }
 
 .alter{
