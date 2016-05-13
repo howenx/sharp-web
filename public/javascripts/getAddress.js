@@ -42,6 +42,10 @@ $(document).on("click",".other",function(){
     $('.add-shade').show();
     $(".big").hide();
     $(".back").hide();
+    $("li").removeClass("amputate-current");
+    var addId=$("input[name=addressId]").val();
+    $("#li"+addId).addClass("amputate-current");
+
  });
 //关闭其他地址界面
 $(document).on("click",".amputate span",function(){
