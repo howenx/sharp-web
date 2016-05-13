@@ -46,7 +46,7 @@ public class ComCtrl extends Controller {
      * @return
      */
     public String getImgUrl(String imgJson) {
-        if (""!=imgJson&&null!=imgJson&&imgJson.contains("url")) {
+        if ("" != imgJson && null != imgJson && imgJson.contains("url")) {
             JsonNode jsonNode = Json.parse(imgJson);
             if (jsonNode.has("url")) {
                 return jsonNode.get("url").asText();
@@ -150,19 +150,26 @@ public class ComCtrl extends Controller {
         return ws.url(SysParCom.WEIXIN_ACCESS + "appid=" + WEIXIN_APPID + "&secret=" + WEIXIN_SECRET + "&code=" + code + "&grant_type=authorization_code").get().map(wsResponse -> {
             JsonNode response = wsResponse.asJson();
 
-            Logger.info("微信scope userinfo返回的数据JSON: " + response.toString());
+            Logger.error("微信通过code换取网页授权access_token返回的数据JSON: " + response.toString());
+
+            ws.url(SysParCom.WEIXIN_UNION + "?access_token=" + response.findValue("access_token").asText() + "&openid=" + response.findValue("openid").asText() + "&lang=zh_CN").get().map(wsResponse1 -> {
+
+                JsonNode union = wsResponse1.asJson();
+                Logger.error("微信拉取用户信息(需scope为 snsapi_userinfo)返回结果:"+union.toString());
+                cache.set(response.findValue("openid").asText(), WEIXIN_REFRESH_OVERTIME, union.findValue("unionid").asText());
+                response().setCookie("unionId", union.findValue("unionid").asText(), WEIXIN_REFRESH_OVERTIME);
+                return null;
+            });
 
             if (response.findValue("errcode") == null && response.findValue("refresh_token") != null) {
                 F.Promise<Result> t = ws.url(SysParCom.WEIXIN_REFRESH + "appid=" + WEIXIN_APPID + "&grant_type=refresh_token&refresh_token=" + response.findValue("refresh_token").asText()).get().map(wsr -> {
                     JsonNode refreshToken = wsr.asJson();
-                    Logger.error("微信授权后刷新token返回数据" + refreshToken.toString());
+                    Logger.error("微信刷新access_token返回数据" + refreshToken.toString());
                     response().setCookie("accessToken", refreshToken.findValue("access_token").asText(), refreshToken.findValue("expires_in").asInt());
                     response().setCookie("orBind", "1", refreshToken.findValue("expires_in").asInt());
                     cache.set(refreshToken.findValue("access_token").asText(), refreshToken.findValue("expires_in").asInt(), refreshToken.findValue("openid").asText());
                     response().setCookie("wechat_refresh_token", refreshToken.findValue("refresh_token").asText(), WEIXIN_REFRESH_OVERTIME);
                     cache.set(refreshToken.findValue("refresh_token").asText(), WEIXIN_REFRESH_OVERTIME, refreshToken.findValue("openid").asText());
-
-
 
                     Object uri = cache.get(state);
                     return redirect(uri == null ? "/" : uri.toString());
@@ -275,7 +282,7 @@ public class ComCtrl extends Controller {
         builder.addHeader("User-Agent", ctx.request().getHeader("User-Agent"));
 
         Optional<Http.Cookie> user_token = Optional.ofNullable(ctx.request().cookies().get("user_token"));
-     //   Optional<Http.Cookie> session_id = Optional.ofNullable(ctx.request().cookies().get("session_id"));
+        //   Optional<Http.Cookie> session_id = Optional.ofNullable(ctx.request().cookies().get("session_id"));
         if (user_token.isPresent() /*&& session_id.isPresent()*/) {
             builder.addHeader("id-token", user_token.get().value());
         }
@@ -332,7 +339,7 @@ public class ComCtrl extends Controller {
     public boolean isHaveLogin(Http.Context ctx) {
         //普通浏览器
         Optional<Http.Cookie> user_token = Optional.ofNullable(ctx().request().cookies().get("user_token"));
-      //  Optional<Http.Cookie> session_id = Optional.ofNullable(ctx().request().cookies().get("session_id"));
+        //  Optional<Http.Cookie> session_id = Optional.ofNullable(ctx().request().cookies().get("session_id"));
         if (user_token.isPresent() && null != user_token.get()/* && session_id.isPresent() && null != session_id.get()*/) {
             return true;
         }
@@ -353,17 +360,18 @@ public class ComCtrl extends Controller {
 
     /**
      * 获取cookie的UUID
+     *
      * @param ctx
      * @return
      */
 
-    public String getCookieUUID(Http.Context ctx){
-        String cookieUUID="";
+    public String getCookieUUID(Http.Context ctx) {
+        String cookieUUID = "";
         Http.Cookie uuidCookie = ctx.request().cookie("uuid");
         if (null != uuidCookie) {
-            cookieUUID=uuidCookie.value();
-        }else{
-            cookieUUID=UUID.randomUUID().toString().replaceAll("-", "");
+            cookieUUID = uuidCookie.value();
+        } else {
+            cookieUUID = UUID.randomUUID().toString().replaceAll("-", "");
             ctx.response().setCookie("uuid", cookieUUID, 60 * 60);
         }
         return cookieUUID;
@@ -415,26 +423,27 @@ public class ComCtrl extends Controller {
 //        return hisUrl;
 //    }
 
-    private String cacheHistoryKey(String cookieUUID){
-        return cookieUUID+"_his";
+    private String cacheHistoryKey(String cookieUUID) {
+        return cookieUUID + "_his";
     }
 
     /***
      * 只获取上一级目录
+     *
      * @param ctx
      * @return
      */
-    public String getHistoryUrl(Http.Context ctx){
-        String key=cacheHistoryKey(getCookieUUID(ctx));
+    public String getHistoryUrl(Http.Context ctx) {
+        String key = cacheHistoryKey(getCookieUUID(ctx));
         List<String> stack = (List<String>) cache.get(key);
-        String hisUrl="/";
-        if(null!=stack&&stack.size()>0){
-            hisUrl=stack.get(stack.size()-1);
-            if(hisUrl.equals(ctx.request().uri())){
-                if(stack.size()>=2){
-                    hisUrl=stack.get(stack.size()-2);
-                }else{
-                    hisUrl="/";
+        String hisUrl = "/";
+        if (null != stack && stack.size() > 0) {
+            hisUrl = stack.get(stack.size() - 1);
+            if (hisUrl.equals(ctx.request().uri())) {
+                if (stack.size() >= 2) {
+                    hisUrl = stack.get(stack.size() - 2);
+                } else {
+                    hisUrl = "/";
                 }
             }
         }
@@ -443,56 +452,57 @@ public class ComCtrl extends Controller {
 
     /**
      * 记录访问页面顺序,如果是最后一条则pop,否则push,返回回退URL
+     *
      * @param ctx
      */
-    public String pushOrPopHistoryUrl(Http.Context ctx){
+    public String pushOrPopHistoryUrl(Http.Context ctx) {
         //用栈记录上一次访问的页面
-        String url=ctx.request().uri();
-        String key=cacheHistoryKey(getCookieUUID(ctx));
+        String url = ctx.request().uri();
+        String key = cacheHistoryKey(getCookieUUID(ctx));
         List<String> list = (List<String>) cache.get(key);
-        if("/".equals(url)&&null!=list){ //首页清一下返回
+        if ("/".equals(url) && null != list) { //首页清一下返回
             list.clear();
-            cache.set(key,60*60,list);
+            cache.set(key, 60 * 60, list);
             return "/";
         }
-        String hisUrl="/";
-        if(null!=list&&list.size()>0){
+        String hisUrl = "/";
+        if (null != list && list.size() > 0) {
 //            for(int i=list.size()-1;i>=0;i--){
 //                Logger.info("===>"+list.get(i));
 //
 //            }
-       // Logger.info(url+"===pushOrPopHistoryUrl===="+url.equals(list.get(list.size()-1))+"==list.peek=="+list.get(list.size()-1));
-            if(url.equals(list.get(list.size()-1))||(list.size()>=2&&url.equals(list.get(list.size()-2)))){
+            // Logger.info(url+"===pushOrPopHistoryUrl===="+url.equals(list.get(list.size()-1))+"==list.peek=="+list.get(list.size()-1));
+            if (url.equals(list.get(list.size() - 1)) || (list.size() >= 2 && url.equals(list.get(list.size() - 2)))) {
                 //路线1:主题——>详情-->返回主题-->详情-->返回主题
                 //路线2:主题——>详情-->购物车-->详情-->返回购物车-->返回
                 //路线3:拼购路线返回
                 //路线4:首页-->购物车-->详情-->返回购物车-->返回
-                list.remove(list.size()-1);//是上一次访问记录
-                if(!list.isEmpty()){
-                    hisUrl=list.get(list.size()-1);
-                    if(hisUrl.equals(url)){
-                        if(list.size()>=2){
-                            hisUrl=list.get(list.size()-2);
-                        }else{
-                            hisUrl="/";
+                list.remove(list.size() - 1);//是上一次访问记录
+                if (!list.isEmpty()) {
+                    hisUrl = list.get(list.size() - 1);
+                    if (hisUrl.equals(url)) {
+                        if (list.size() >= 2) {
+                            hisUrl = list.get(list.size() - 2);
+                        } else {
+                            hisUrl = "/";
                         }
                     }
                 }
-                cache.set(key,60*60,list);
- //               Logger.info("====pop==url==="+url+"==hisUrl="+hisUrl);
+                cache.set(key, 60 * 60, list);
+                //               Logger.info("====pop==url==="+url+"==hisUrl="+hisUrl);
                 return hisUrl;
             }
 
-        }else{
-            list=new ArrayList<String>();
+        } else {
+            list = new ArrayList<String>();
         }
 
-        if(!list.isEmpty()){
-            hisUrl=list.get(list.size()-1);
+        if (!list.isEmpty()) {
+            hisUrl = list.get(list.size() - 1);
         }
         list.add(url);
 //        Logger.info("====push==url==="+url+"==hisUrl="+hisUrl+"===list.peek()="+list.get(list.size()-1));
-        cache.set(key,60*60,list);
+        cache.set(key, 60 * 60, list);
         return hisUrl;
     }
 
