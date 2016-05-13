@@ -25,13 +25,16 @@
         $(function(){
             $(window).load(function(){
                 $("#loading").hide();
-                $(".fixed-box").css({"position":"static"});
             });
         })
     </script>
 
 </head>
 <body>
+
+<div id="loading">
+    <img src="/assets/images/loading.gif"/>
+</div>
 
 <header class="head">
     <a href="javascript:window.history.back()" class="back">
@@ -41,7 +44,7 @@
     <h1>评价</h1>
 </header>
 
-<div class="fixed-box" style="position: fixed;width: 100%">
+
 <div class="wrap">
 
     <div class="nav-tab">
@@ -238,6 +241,6 @@
         </div>
     </div>
 </div>
-</div>
+
 </body>
 </html>
