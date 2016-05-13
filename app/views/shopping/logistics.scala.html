@@ -14,20 +14,10 @@
     <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
 
-    <script>
-        $(function(){
-            $(window).load(function(){
-                $("#loading").hide();
-                $(".fixed-box").css({"position":"static"});
-            });
-        })
-    </script>
 </head>
 
 <body>
-<div id="loading">
-    <img src="/assets/images/loading.gif"/>
-</div>
+
 
 <header class="head">
     <a href="javascript:window.history.back()" class="back">
@@ -37,7 +27,7 @@
     <h1>物流信息</h1>
 </header>
 
-<div class="fixed-box" style="position:fixed;width: 100%">
+
 <div class="wrap scope">
     <div class="logistics-hd">
         <div class="logistics-r">
@@ -97,6 +87,6 @@
 </div>
 
 @comContent()
-</div>
+
 </body>
 </html>

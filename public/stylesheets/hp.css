@@ -622,7 +622,7 @@ li {
 }
 
 #loading img{
-	width: 120px;
+	width: 100px;
 	position:absolute;
 	top:50%;
 	left: 50%;
@@ -682,8 +682,13 @@ li {
 	background-size: 18px;
 }
 
+.top-bottom{
+	bottom:20px;
+}
 
-
+.top-bottom{
+	bottom:20px;
+}
 
 
 

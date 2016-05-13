@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/assets/stylesheets/global.css">
     <link rel="stylesheet" href="/assets/stylesheets/mypin.css">
     <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+    <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
     <script src="/assets/javascripts/loading.js"></script>
 </head>
 <body style="background: #fff">
@@ -25,7 +26,7 @@
         <h1>拼购详情</h1>
     </header>
 
-    <div class="fixed-box" style="position:fixed;width: 100%">
+
     <div class="detailcon">
         <div class="process">
             @if(order.getOrder().getOrderStatus()=="S"){
@@ -109,7 +110,7 @@
         </div>
         -->
     </div>
-  </div>
+
     @comContent()
 </body>
 </html>

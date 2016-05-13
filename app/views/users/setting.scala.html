@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="/assets/stylesheets/install.css">
     <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
-    <script src="/assets/javascripts/loading.js"></script>
     <link rel="stylesheet" href="/assets/stylesheets/regist.css">
     <script>
         $(function() {
@@ -39,10 +38,6 @@
 
 <body>
 
-<div id="loading">
-    <img src="/assets/images/loading.gif"/>
-</div>
-
 <header class="head">
     <a href="@path" class="back">
         <i></i>
@@ -52,7 +47,7 @@
 
 </header>
 
-<div class="fixed-box" style="position:fixed;width: 100%">
+
 <div class="wap scope ">
     <section class="list">
         <!--<p class="color">账号与安全</p>-->
@@ -103,18 +98,7 @@
 
 </div>
 
-<div class="footer">
-  <span class="color">
-    <i>韩秘美,只卖韩国正品!</i>
-    <i>app首单立减10元</i>
-  </span>
-<<<<<<< HEAD
-=======
-  <!--<b class="delete-down"></b>-->
->>>>>>> d95e0f9410abefb36aa643c26762599969037fc8
-  <a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.hanmimei" class="bg" target="_blank">立即下载</a>
-</div>
-</div>
+    @download()
 
 @comContent()
 </body>

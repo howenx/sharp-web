@@ -9,6 +9,33 @@
 <script src="/assets/javascripts/echo.min.js"></script>
 <script>
 	echo.init();
+	$(document).ready(function() {
+		var closeDownload=false;
+		var arrStr = document.cookie.split("; ");
+		for(var i = 0;i < arrStr.length;i ++){
+			var temp = arrStr[i].split("=");
+			if(temp[0] == "downloadState"){
+				closeDownload=true;
+			}
+		}
+		if(!closeDownload){
+			$("#downloadDiv").show();
+		}else{
+		  $("#topDiv").addClass("top-bottom");
+		}
+	});
+	//关闭下载添加cookie
+	function addDownloadCookie(){
+		var str =  "downloadState=1";
+		<!--var date = new Date(); -->
+		<!--var ms = 3600*1000; -->
+		<!--date.setTime(date.getTime() + ms); -->
+		<!--str += "; expires=" + date.toGMTString(); -->
+		document.cookie = str;
+		$("#downloadDiv").hide();
+		$("#topDiv").addClass("top-bottom");
+	};
+
 </script>
 
 }
@@ -183,17 +210,17 @@
 			})
 		</script>
 
-		<div class="top">
+		<div class="top" id="topDiv"  style="display:none;">
 			<img src="/assets/images/backtop.png">
 		</div>
 </div>
 
-<div class="footer">
+<div class="footer" id="downloadDiv" style="display:none;">
   <span class="color">
-    <i>韩秘美,只卖韩国正品!</i>
-    <i>app首单立减10元</i>
+    <i>下载韩秘美App</i>
+    <i>买遍韩国正品</i>
   </span>
-	<b class="delete-down"></b>
+	<b class="delete-down" onclick="addDownloadCookie()"></b>
 	<a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.hanmimei" class="bg" target="_blank">立即下载</a>
 </div>
 
