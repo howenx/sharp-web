@@ -73,6 +73,7 @@
         <li class="cur">我的开团</li>
         <li>我的参团</li>
     </ul>
+
     <div class="myall">
         @for(pin<-pinList){
             @if(pin.getOrMaster()==1){
@@ -105,6 +106,7 @@
             }
         }
     </div>
+
     <div class="myall" id="joinPinDiv">
         @for(pin<-pinList){
             @if(pin.getOrMaster()==0){
