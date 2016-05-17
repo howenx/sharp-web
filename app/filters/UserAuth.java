@@ -98,6 +98,7 @@ public class UserAuth extends Security.Authenticator {
                 Optional<Object> openid = Optional.ofNullable(cache.get(accessToken.get().value()));
                 Optional<Object> refreshToken_openId = Optional.ofNullable(cache.get(wechat_refresh_token.get().value()));
 
+
                 if (openid.isPresent()) {
                     return getVerify(false, openid.get().toString(), orBind.isPresent() ? orBind.get().value() : null, ctx, null);
                 } else if (refreshToken_openId.isPresent()) {
@@ -119,7 +120,14 @@ public class UserAuth extends Security.Authenticator {
 
     private String getVerify(Boolean orAccess, String openid, String orBind, Http.Context ctx, String refresh) {
 
-        F.Promise<Result> t = ws.url(WEIXIN_VERIFY + openid).get().map(wr -> {
+        Optional<Object> unionId = Optional.ofNullable(cache.get(openid));
+
+        String url = WEIXIN_VERIFY +"?openId="+ openid+"&idType=W";
+        if (unionId.isPresent()){
+            url = WEIXIN_VERIFY +"?openId="+ openid+"&idType=W&unionId="+unionId;
+        }
+
+        F.Promise<Result> t = ws.url(url).get().map(wr -> {
             JsonNode json = wr.asJson();
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {

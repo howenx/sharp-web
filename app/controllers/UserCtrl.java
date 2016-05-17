@@ -497,12 +497,18 @@ public class UserCtrl extends Controller {
 
         Optional<Http.Cookie> accessToken = Optional.ofNullable(request().cookie("accessToken"));
         if (accessToken.isPresent()) {
-            String openId = cache.get(accessToken.get().value()).toString();
-            userMap.put("openId", openId);
-            userMap.put("accessToken", accessToken.get().value());
-            userMap.put("idType", "W");
+            Optional<Object> openId = Optional.ofNullable(cache.get(accessToken.get().value()));
+            if (openId.isPresent()){
+                Optional<Object> unionId = Optional.ofNullable(cache.get(openId.get().toString()));
+                if (unionId.isPresent()){
+                    userMap.put("openId", openId.get().toString());
+                    userMap.put("accessToken", accessToken.get().value());
+                    userMap.put("idType", "W");
+                    userMap.put("unionId",unionId.get().toString());
+                }
+            }
         }
-//        Logger.error("userMap:" + userMap);
+        Logger.error("userMap:" + userMap);
 
         if (userForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
@@ -706,12 +712,18 @@ public class UserCtrl extends Controller {
 
         Optional<Http.Cookie> accessToken = Optional.ofNullable(request().cookie("accessToken"));
         if (accessToken.isPresent()) {
-            String openId = cache.get(accessToken.get().value()).toString();
-            userMap.put("openId", openId);
-            userMap.put("accessToken", accessToken.get().value());
-            userMap.put("idType", "W");
+            Optional<Object> openId = Optional.ofNullable(cache.get(accessToken.get().value()));
+            if (openId.isPresent()){
+                Optional<Object> unionId = Optional.ofNullable(cache.get(openId.get().toString()));
+                if (unionId.isPresent()){
+                    userMap.put("openId", openId.get().toString());
+                    userMap.put("accessToken", accessToken.get().value());
+                    userMap.put("idType", "W");
+                    userMap.put("unionId",unionId.get().toString());
+                }
+            }
         }
-//        Logger.error("userMap:" + userMap);
+        Logger.error("userMap:" + userMap);
 
         if (userRegistInfoForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
@@ -791,12 +803,18 @@ public class UserCtrl extends Controller {
 
         Optional<Http.Cookie> accessToken = Optional.ofNullable(request().cookie("accessToken"));
         if (accessToken.isPresent()) {
-            String openId = cache.get(accessToken.get().value()).toString();
-            userMap.put("openId", openId);
-            userMap.put("accessToken", accessToken.get().value());
-            userMap.put("idType", "W");
+            Optional<Object> openId = Optional.ofNullable(cache.get(accessToken.get().value()));
+            if (openId.isPresent()){
+                Optional<Object> unionId = Optional.ofNullable(cache.get(openId.get().toString()));
+                if (unionId.isPresent()){
+                    userMap.put("openId", openId.get().toString());
+                    userMap.put("accessToken", accessToken.get().value());
+                    userMap.put("idType", "W");
+                    userMap.put("unionId",unionId.get().toString());
+                }
+            }
         }
-//        Logger.error("userMap:" + userMap);
+        Logger.error("userMap:" + userMap);
 
         if (userRegistInfoForm.hasErrors()) {
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
