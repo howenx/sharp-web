@@ -175,10 +175,12 @@ img{
     width: 100%;overflow: hidden;
     padding: 44px 0 0 0;
 }
+
 .tabpin>li{
     float: left;width: 50%;text-align: center;line-height: 36px;
     background: #fff;
 }
+
 .tabpin>li.cur{
     border-bottom: 2px solid #E66255;
 }

@@ -1,0 +1,156 @@
+body{
+    background-color: #f4f4f4;
+}
+
+.wrap{
+    background-color: #fff;
+}
+.case{
+    padding: 20px 5px 0;
+}
+
+h1{
+    color: #333;
+    font-size: 20px;
+    text-align: center;
+    margin:0 0 20px 0;
+}
+
+p{
+    padding: 0 5px;
+    color: #333;
+    font-size: 14px;
+}
+
+.man{
+    text-align: center;
+    font-size: 12px;
+    margin: 0 0 20px 0;
+}
+
+.case img{
+    margin:20px auto;
+}
+
+h2{
+    padding: 0 5px;
+    margin: 10px 0;
+}
+
+.goods{
+    width:80%;
+    padding: 10px;
+    margin: 20px auto;
+    background: #f4f4f4;
+    text-align: center;
+    display: block;
+
+}
+.goods img{
+    margin: 0 auto;
+}
+.goods h3{
+
+    font-size: 12px;
+    margin:20px 0;
+}
+
+.goods span{
+    color: #EF2528;
+    display: block;
+    margin:10px 0 0 0;
+}
+
+.interfix{
+    padding: 10px 5px;
+    background-color: #f4f4f4;
+}
+
+.interfix-p{
+    margin:0 0 10px 0;
+    text-align: center;
+}
+
+.product li {
+    width: 100%;
+}
+.product li {
+    margin-bottom: 10px;
+}
+
+.product li a {
+    width: 48%;
+    display: inline-block;
+    margin: 0 0 0 1%;
+}
+.product li a {
+    position: relative;
+    border: 1px solid #cfcfcf;
+    background-color: #fff;
+}
+
+.figure {
+    width: 100%;
+    height: 170px;
+    overflow: hidden;
+    position: relative;
+}
+
+.product p {
+    width: 100%;
+    line-height: 20px;
+    font-size: 12px;
+    text-align: left;
+    margin: 0px auto 0 auto;
+    padding: 0 5px;
+}
+
+.title-hd {
+    height: 45px;
+    color: #4B4B4B;
+    background-color: #fff;
+    border-bottom: 1px solid #ececec;
+    padding: 10px 5%;
+    overflow: hidden;
+    line-height: 16px;
+    -webkit-line-clamp: 2;
+    text-overline: ellipsis;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+}
+
+.product .title-fd {
+    display: block;
+    background: white;
+    width: 100%;
+    height: 50px;
+    padding: 0 5%;
+    line-height: 50px;
+}
+
+.naw {
+    color: #EF2528;
+}
+
+.agio {
+    font-size: 16px;
+    text-decoration: line-through;
+}
+
+.title-fd b {
+    float: right;
+    width: 50px;
+    line-height: 25px;
+    text-align: center;
+    border: 1px solid #e33a39;
+    color: #ff5359;
+    font-weight: normal;
+    margin: 10px 0 0 0;
+}
+
+
+
+
+
+
+

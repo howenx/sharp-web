@@ -379,6 +379,11 @@ public class ShoppingCtrl extends Controller {
         return ok(views.html.shopping.down.render());
     }
 
+    //new
+        public Result article() {
+            return ok(views.html.shopping.article.render());
+        }
+
     //物流数据
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> logistic(Long orderId) {
