@@ -198,7 +198,7 @@ public class ComCtrl extends Controller {
             String refresh_token = response.findValue("refresh_token").asText();
 
 
-            F.Promise<Result> t = ws.url(WEIXIN_VERIFY + openId).get().map(wr -> {
+            F.Promise<Result> t = ws.url(WEIXIN_VERIFY +"?openId="+ openId+"&idType=W").get().map(wr -> {
                 JsonNode json = wr.asJson();
 
                 Logger.error("ID系统校验返回------->" + json.toString());
