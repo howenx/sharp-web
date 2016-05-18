@@ -380,9 +380,10 @@ public class ShoppingCtrl extends Controller {
     }
 
     //new
-        public Result article() {
-            return ok(views.html.shopping.article.render());
-        }
+    public Result article(String openType) {
+
+        return ok(views.html.shopping.article.render(openType));
+    }
 
     //物流数据
     @Security.Authenticated(UserAuth.class)
