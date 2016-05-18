@@ -152,14 +152,14 @@ public class ComCtrl extends Controller {
 
             Logger.error("微信通过code换取网页授权access_token返回的数据JSON: " + response.toString());
 
-            ws.url(SysParCom.WEIXIN_UNION + "access_token=" + response.findValue("access_token").asText() + "&openid=" + response.findValue("openid").asText() + "&lang=zh_CN").get().map(wsResponse1 -> {
-
-                JsonNode union = wsResponse1.asJson();
-                Logger.error("微信拉取用户信息(需scope为 snsapi_userinfo)返回结果:"+union.toString());
-                cache.set(response.findValue("openid").asText(), WEIXIN_REFRESH_OVERTIME, union.findValue("unionid").asText());
-                response().setCookie("unionId", union.findValue("unionid").asText(), WEIXIN_REFRESH_OVERTIME);
-                return null;
-            });
+//            ws.url(SysParCom.WEIXIN_UNION + "access_token=" + response.findValue("access_token").asText() + "&openid=" + response.findValue("openid").asText() + "&lang=zh_CN").get().map(wsResponse1 -> {
+//
+//                JsonNode union = wsResponse1.asJson();
+//                Logger.error("微信拉取用户信息(需scope为 snsapi_userinfo)返回结果:"+union.toString());
+//                cache.set(response.findValue("openid").asText(), WEIXIN_REFRESH_OVERTIME, union.findValue("unionid").asText());
+//                response().setCookie("unionId", union.findValue("unionid").asText(), WEIXIN_REFRESH_OVERTIME);
+//                return null;
+//            });
 
             if (response.findValue("errcode") == null && response.findValue("refresh_token") != null) {
                 F.Promise<Result> t = ws.url(SysParCom.WEIXIN_REFRESH + "appid=" + WEIXIN_APPID + "&grant_type=refresh_token&refresh_token=" + response.findValue("refresh_token").asText()).get().map(wsr -> {
@@ -170,6 +170,12 @@ public class ComCtrl extends Controller {
                     cache.set(refreshToken.findValue("access_token").asText(), refreshToken.findValue("expires_in").asInt(), refreshToken.findValue("openid").asText());
                     response().setCookie("wechat_refresh_token", refreshToken.findValue("refresh_token").asText(), WEIXIN_REFRESH_OVERTIME);
                     cache.set(refreshToken.findValue("refresh_token").asText(), WEIXIN_REFRESH_OVERTIME, refreshToken.findValue("openid").asText());
+
+                    //union id
+                    if (response.findValue("unionid")!=null){
+                        cache.set(response.findValue("openid").asText(), WEIXIN_REFRESH_OVERTIME, response.findValue("unionid").asText());
+                        response().setCookie("unionId", response.findValue("unionid").asText(), WEIXIN_REFRESH_OVERTIME);
+                    }
 
                     Object uri = cache.get(state);
                     return redirect(uri == null ? "/" : uri.toString());
