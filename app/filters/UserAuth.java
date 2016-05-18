@@ -124,7 +124,7 @@ public class UserAuth extends Security.Authenticator {
 
         String url = WEIXIN_VERIFY +"?openId="+ openid+"&idType=W";
         if (unionId.isPresent()){
-            url = WEIXIN_VERIFY +"?openId="+ openid+"&idType=W&unionId="+unionId;
+            url = WEIXIN_VERIFY +"?openId="+ openid+"&idType=W&unionId="+unionId.get();
         }
 
         F.Promise<Result> t = ws.url(url).get().map(wr -> {

@@ -1,6 +1,7 @@
 package filters;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.common.base.Throwables;
 import domain.Message;
 import play.Application;
 import play.GlobalSettings;
@@ -30,6 +31,7 @@ public class Global extends GlobalSettings {
     }
     public F.Promise<play.mvc.Result> onError(Http.RequestHeader request, Throwable t) {
         t.printStackTrace();
+        Logger.error(Throwables.getStackTraceAsString(t));
         Logger.error("请求出错: "+t.getMessage()+" "+request.host()+request.uri()+" "+request.remoteAddress()+" "+request.getHeader("User-Agent"));
         ObjectNode result = Json.newObject();
         result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.FAILURE_REQUEST_ERROR.getIndex()), Message.ErrorCode.FAILURE_REQUEST_ERROR.getIndex())));
