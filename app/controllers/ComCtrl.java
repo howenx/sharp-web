@@ -152,7 +152,7 @@ public class ComCtrl extends Controller {
 
             Logger.error("微信通过code换取网页授权access_token返回的数据JSON: " + response.toString());
 
-            ws.url(SysParCom.WEIXIN_UNION + "?access_token=" + response.findValue("access_token").asText() + "&openid=" + response.findValue("openid").asText() + "&lang=zh_CN").get().map(wsResponse1 -> {
+            ws.url(SysParCom.WEIXIN_UNION + "access_token=" + response.findValue("access_token").asText() + "&openid=" + response.findValue("openid").asText() + "&lang=zh_CN").get().map(wsResponse1 -> {
 
                 JsonNode union = wsResponse1.asJson();
                 Logger.error("微信拉取用户信息(需scope为 snsapi_userinfo)返回结果:"+union.toString());
