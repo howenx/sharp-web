@@ -147,7 +147,7 @@
             });
 
             //找回密码
-            $(document).on('click', '.box-r', function() {
+            $('.box-r').click(function(){
                 $("#code").removeAttr("name");
                 var phone = $("#phone").val();
                 //请求手机验证码

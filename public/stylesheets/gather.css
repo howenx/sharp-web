@@ -1,0 +1,78 @@
+.warp img{
+    width: 100%;
+    height: auto;
+}
+
+.con{
+    position: relative;
+}
+.one,.two,.three,.four,.five,.six,.seven{
+    width: 20%;
+    height: 9.2%;
+    position: absolute;
+    top: 22%;
+    background-color: rgba(0,0,0,0.0);
+}
+
+.one{
+
+    left: 17%;
+}
+
+.two{
+    left: 42%;
+}
+
+.three{
+    left:67%;
+}
+
+.four{
+    width: 55%;
+    height:8%;
+    top: 46%;
+    left: 3%;
+}
+
+.five{
+    width: 36%;
+    height: 14%;
+    top: 51%;
+    left: 60%;
+}
+
+.six{
+    width: 85%;
+    height: 10%;
+    top: 73%;
+    left: 8%;
+}
+
+.seven{
+    width: 76%;
+    height: 10%;
+    top: 84%;
+    left: 20%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

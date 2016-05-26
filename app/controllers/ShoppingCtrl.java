@@ -385,6 +385,12 @@ public class ShoppingCtrl extends Controller {
         return ok(views.html.shopping.article.render(openType));
     }
 
+    //gather
+        public Result gather() {
+                return ok(views.html.shopping.gather.render());
+            }
+
+
     //物流数据
     @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> logistic(Long orderId) {
