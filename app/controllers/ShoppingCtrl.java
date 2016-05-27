@@ -385,10 +385,15 @@ public class ShoppingCtrl extends Controller {
         return ok(views.html.shopping.article.render(openType));
     }
 
-    //gather
+    //gather  assemblage
         public Result gather() {
                 return ok(views.html.shopping.gather.render());
             }
+
+    //assemblage
+            public Result assemblage() {
+                    return ok(views.html.shopping.assemblage.render());
+                }
 
 
     //物流数据

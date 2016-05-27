@@ -102,6 +102,7 @@ GET         /comment/detail/$skuType<item|vary|customize|pin>/$skuTypeId<[0-9]+>
 GET         /article                                                           controllers.ShoppingCtrl.article(openType:String ?= "APP")
 GET         /article/$openType<[a-zA-Z]+>                                      controllers.ShoppingCtrl.article(openType:String)
 GET         /gather                                                             controllers.ShoppingCtrl.gather()
+GET         /assemblage                                                             controllers.ShoppingCtrl.assemblage()
 #
 
 

@@ -6,7 +6,8 @@
 .con{
     position: relative;
 }
-.one,.two,.three,.four,.five,.six,.seven{
+.one,.two,.three,.four,.five,.six,.seven,.nine,.ten,.eleven,.twelve,.thirteen,.fourteen,.fifteen,.under-one,.under-two,
+.under-three,.under-four,.under-five,.under-six{
     width: 20%;
     height: 9.2%;
     position: absolute;
@@ -56,16 +57,59 @@
 }
 
 
+/*assemblage*/
+
+.nine{
+    width: 96%;
+    top: 17%;
+    left: 2%;
+    height: 7.5%;
+
+}
 
 
+.ten{
+    width: 47%;
+    top: 25%;
+    left: 2%;
+    height: 6%;
 
+}
+.eleven,.thirteen{
+    width: 46%;
+    top: 25%;
+    height: 6%;
+    left: 51%;
+}
+.twelve{
+    width: 47%;
+    top: 31.7%;
+    left: 2%;
+    height: 6%;
+}
 
+.thirteen{
+    top: 31.7%;
 
+}
 
+.under-one,.under-two,.under-three,.under-four,.under-five,.under-six{
+    width: 47%;
+    top: 47.7%;
+    left: 2%;
+    height: 14%;
+}
+.under-two,.under-four,.under-six{
+    left: 51%;
+}
 
+.under-three,.under-four{
+    top: 62.2%;
+}
 
-
-
+.under-five,.under-six{
+    top: 77%;
+}
 
 
 
