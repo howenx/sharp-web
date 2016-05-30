@@ -20,6 +20,8 @@ public class ThemeBasic implements Serializable {
     private String              masterItemTagAndroid;	//如果是主打宣传商品，会需要tag json串
     private List<ThemeItem>     themeItemList;          //主题中的商品数据
 
+    private String              title;                  //主题的标题
+
     public ThemeBasic() {
     }
 
@@ -55,6 +57,14 @@ public class ThemeBasic implements Serializable {
         this.masterItemTagAndroid = masterItemTagAndroid;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public List<ThemeItem> getThemeItemList() {
         return themeItemList;
     }
@@ -79,6 +89,7 @@ public class ThemeBasic implements Serializable {
                 ", masterItemTag='" + masterItemTag + '\'' +
                 ", masterItemTagAndroid='" + masterItemTagAndroid + '\'' +
                 ", themeItemList=" + themeItemList +
+                ", title="+title+
                 '}';
     }
 }

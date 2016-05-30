@@ -63,43 +63,46 @@ public class ProductsCtrl extends Controller {
             } else throw new IOException("Unexpected code" + response);
         });
         return promise.map(json -> {
-                //    Logger.info("===index=="+json);
-                    List<Slider> sliderList = new ArrayList<>();
-                    List<Theme> themeList = new ArrayList<>();
-                    int pageCount = json.get("page_count").asInt();
-                    if (json.has("slider")) {
-                        JsonNode sliderJson = json.get("slider");
-                        for (JsonNode sliderTemp : sliderJson) {
-                            Slider slider = Json.fromJson(sliderTemp, Slider.class);
-                            if(null!=slider.getUrl()){
-                                JsonNode imgJson = Json.parse(slider.getUrl());
-                                slider.setImg(imgJson.get("url").asText());
-                            }
-                            if (slider.getItemTarget().contains(GOODS_PAGE)) {
-                                slider.setItemTarget(slider.getItemTarget().replace(GOODS_PAGE, ""));
-                            }
-                            if ((slider.getItemTarget().contains(THEME_PAGE)) && Objects.equals(slider.getTargetType(), "T")) {
-                                slider.setItemTarget(slider.getItemTarget().replace(THEME_PAGE, ""));
-                            }
-                            sliderList.add(slider);
-                        }
+            if(LOG_OPEN){
+                Logger.info("index接收数据-->\n"+json);
+            }
+            List<Slider> sliderList = new ArrayList<>();
+            List<Theme> themeList = new ArrayList<>();
+            int pageCount = json.get("page_count").asInt();
+            if (json.has("slider")) {
+                JsonNode sliderJson = json.get("slider");
+                for (JsonNode sliderTemp : sliderJson) {
+                    Slider slider = Json.fromJson(sliderTemp, Slider.class);
+                    if(null!=slider.getUrl()){
+                        JsonNode imgJson = Json.parse(slider.getUrl());
+                        slider.setImg(imgJson.get("url").asText());
                     }
-                    if (json.has("theme")) {
-                        JsonNode themeJson = json.get("theme");
-                        for (JsonNode themeTemp : themeJson) {
-                            Theme theme = Json.fromJson(themeTemp, Theme.class);
-                            JsonNode imgJson = Json.parse(theme.getThemeImg());
-                            theme.setThemeImg(imgJson.get("url").asText());
-                            if (!"h5".equals(theme.getType())) {
-                                String themeUrl = theme.getThemeUrl();
-                                themeUrl = themeUrl.replace(THEME_PAGE, "");
-                                theme.setThemeUrl(themeUrl);
-                            }
-                            themeList.add(theme);
-                        }
+                    if (slider.getItemTarget().contains(GOODS_PAGE)) {
+                        slider.setItemTarget(slider.getItemTarget().replace(GOODS_PAGE, ""));
                     }
-                    return ok(views.html.products.index.render(sliderList, themeList,pageCount));
+                    if ((slider.getItemTarget().contains(THEME_PAGE)) && Objects.equals(slider.getTargetType(), "T")) {
+                        slider.setItemTarget(slider.getItemTarget().replace(THEME_PAGE, ""));
+                    }
+                    sliderList.add(slider);
                 }
+            }
+            if (json.has("theme")) {
+                JsonNode themeJson = json.get("theme");
+                for (JsonNode themeTemp : themeJson) {
+                    Theme theme = Json.fromJson(themeTemp, Theme.class);
+                    JsonNode imgJson = Json.parse(theme.getThemeImg());
+                    theme.setThemeImg(imgJson.get("url").asText());
+                    if (!"h5".equals(theme.getType())) {
+                        String themeUrl = theme.getThemeUrl();
+                        themeUrl = themeUrl.replace(THEME_PAGE, "");
+                        theme.setThemeUrl(themeUrl);
+                    }
+                    themeList.add(theme);
+                }
+            }
+
+            return ok(views.html.products.index.render(sliderList, themeList,pageCount));
+        }
         );
     }
 
@@ -125,6 +128,9 @@ public class ProductsCtrl extends Controller {
             } else throw new IOException("Unexpected code" + response);
         });
         return promise.map((F.Function<JsonNode, Result>) json -> {
+            if(LOG_OPEN){
+                Logger.info("loadIndexAjax接收数据-->\n"+json);
+            }
             List<Theme> themeList = new ArrayList<>();
             if (json.has("theme")) {
                 JsonNode themeJson = json.get("theme");
@@ -170,6 +176,9 @@ public class ProductsCtrl extends Controller {
             } else throw new IOException("Unexpected code" + response);
         });
         return promise.map((F.Function<JsonNode, Result>) json -> {
+            if(LOG_OPEN){
+                Logger.info("themeDetail接收数据-->\n"+json);
+            }
             String themeImg = "";
             List<Object[]> tagList = new ArrayList<>();
             List<List<ThemeItem>> itemResultList = new ArrayList<>();
@@ -274,6 +283,9 @@ public class ProductsCtrl extends Controller {
             } else throw new IOException("Unexpected code" + response);
         });
         return promise.map((F.Function<JsonNode, Result>) json -> {
+            if(LOG_OPEN){
+                Logger.info("detail接收数据-->\n"+json);
+            }
             //当前时间
             SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date now = new Date();
@@ -527,7 +539,9 @@ public class ProductsCtrl extends Controller {
             } else throw new IOException("Unexpected code" + response);
         });
         return promise.map((F.Function<JsonNode, Result>) json -> {
-          //  Logger.info("==pinTieredPrice==="+json);
+            if(LOG_OPEN){
+                Logger.info("pinTieredPrice接收数据-->\n"+json);
+            }
             if (json.has("stock")) {
                 JsonNode stockJson = json.get("stock");
                 JsonNode floorPriceJson = Json.parse(Json.fromJson(stockJson.get("floorPrice"), String.class));
