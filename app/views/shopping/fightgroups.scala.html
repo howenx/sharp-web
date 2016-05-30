@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="/assets/stylesheets/fightgroups.css">
     <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
-    <script src="/assets/javascripts/jquery.zclip.js"></script>
     <script src="/assets/javascripts/my.js"></script>
     <script src="/assets/javascripts/countdown.js"></script>
     <script src="/assets/javascripts/detail.js"></script>
@@ -215,32 +214,6 @@
             </span>
     </div>
     }
-
-
-
-<script type="text/javascript">
-
-
-<!--/* 定义所有class为copy标签，点击后可复制被点击对象的文本 */-->
-    <!--$("#inviteFriendDiv").zclip({-->
-        <!--path: "/assets/swf/ZeroClipboard.swf",-->
-        <!--copy: function(){-->
-            <!--return window.location.href;-->
-        <!--},-->
-        <!--beforeCopy:function(){/* 按住鼠标时的操作 */-->
-           <!--// $(this).css("color","orange");-->
-        <!--},-->
-        <!--afterCopy:function(){/* 复制成功后的操作 */-->
-             <!--$("#copySuc").val(1);//拷贝成功-->
-             <!--alert('代码已经复制到您的剪贴板,使用ctrl+v粘贴或者右键粘贴。');-->
-        <!--}-->
-    <!--});-->
-    <!--$(document).on("click", ".inviteFriendCss", function() {-->
-        <!--if($("#copySuc").val()==0){-->
-            <!--tip("Copy to clipboard: Ctrl+C, Enter");-->
-        <!--}-->
-    <!--});-->
-</script>
 
 <div class="hint" id="tip" style="display:none"></div>
 @comContent()
