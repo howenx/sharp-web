@@ -386,13 +386,13 @@ public class ShoppingCtrl extends Controller {
     }
 
     //gather  assemblage
-        public Result gather() {
-                return ok(views.html.shopping.gather.render());
-            }
+    public Result gather(String openType) {
+        return ok(views.html.shopping.gather.render(openType));
+    }
 
     //assemblage
-            public Result assemblage() {
-                    return ok(views.html.shopping.assemblage.render());
+    public Result assemblage(String openType) {
+                    return ok(views.html.shopping.assemblage.render(openType));
                 }
 
 
