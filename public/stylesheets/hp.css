@@ -97,7 +97,7 @@ h1 .logo {
 	padding:5px 0 0 0;
 }
 
-#container ul{width:100%;list-style:none;float:left;margin:0 20px 60px 0}
+#container ul{width:100%;list-style:none;float:left;margin:0 20px 0px 0}
 
 #container ul li{margin-bottom:5px;}
 
@@ -641,18 +641,18 @@ li {
 }
 
 .footer a{
-	width:80px;
-	height:30px;
+	width: 80px;
+	height: 30px;
 	float: right;
-	color:#fff;
+	color: #fff;
 	text-align: center;
-	line-height:30px;
-	margin:6px 0 0 0;
+	line-height: 30px;
+	margin:6px 15px 0 0;
 	border: 1px solid #fff;
 }
 
 .footer span{
-	width: 185px;
+	width: 160px;
 	height: 50px;
 	float: left;
 	background: url("/assets/images/personal-down.png") -3px -5px no-repeat;
@@ -674,20 +674,21 @@ li {
 
 
 .footer .delete-down{
-	width: 18px;
-	height: 20px;
+	width: 24px;
+	height: 24px;
 	float: right;
 	background: url("/assets/images/delete-down.png") no-repeat;
 	margin: -8px 0 0 8px;
-	background-size: 18px;
+	background-size: 22px;
+
 }
 
 .top-bottom{
 	bottom:20px;
 }
 
-.top-bottom{
-	bottom:20px;
+.col-bom{
+	margin-bottom: 60px;
 }
 
 
