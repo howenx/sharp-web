@@ -70,6 +70,9 @@ public class UserCtrl extends Controller {
         });
 
         return promiseOfInt.map((Function<JsonNode, Result>) json -> {
+            if(LOG_OPEN){
+                Logger.info("address接收数据-->\n"+json);
+            }
             String path = routes.UserCtrl.myView().url();
             if (session().containsKey("path")) {
                 //path = session().get("path");
@@ -162,7 +165,9 @@ public class UserCtrl extends Controller {
             });
 
             return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-               // Logger.info("===json==" + json);
+                if(LOG_OPEN){
+                    Logger.info("addressSave接收数据-->\n"+json);
+                }
                 Message message = Json.fromJson(json.get("message"), Message.class);
                 if (null == message) {
                     Logger.error("返回创建新的收货地址数据错误code=" + json);
@@ -276,7 +281,9 @@ public class UserCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-            //         Logger.info("===json==" + json);
+            if(LOG_OPEN){
+                Logger.info("coupon接收数据-->\n"+json);
+            }
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回数据错误code=" + json);
@@ -410,7 +417,9 @@ public class UserCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-            //    Logger.info("===json==" + json);
+            if(LOG_OPEN){
+                Logger.info("collect接收数据-->\n"+json);
+            }
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
                 Logger.error("返回收藏数据错误code=" + (null != message ? message.getCode() : 0));
@@ -468,7 +477,9 @@ public class UserCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((Function<JsonNode, Result>) json -> {
-            //    Logger.info("===json==" + json);
+            if(LOG_OPEN){
+                Logger.info("submitCollect接收数据-->\n"+json);
+            }
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回数据错误code=" + json);
@@ -1063,7 +1074,9 @@ public class UserCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((play.libs.F.Function<JsonNode, Result>) json -> {
-                    //           Logger.info("===json==" + json);
+            if(LOG_OPEN){
+                Logger.info("mypin接收数据-->\n"+json);
+            }
                     Message message = Json.fromJson(json.get("message"), Message.class);
                     if (null == message || message.getCode() != Message.ErrorCode.SUCCESS.getIndex()) {
                         Logger.error("返回拼团数据错误code=" + (null != message ? message.getCode() : 0));
@@ -1103,8 +1116,9 @@ public class UserCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((play.libs.F.Function<JsonNode, Result>) json -> {
-
-         //   Logger.info("===json==" + json);
+            if(LOG_OPEN){
+                Logger.info("pinActivity接收数据-->\n"+json);
+            }
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回数据错误code=" + json);
@@ -1133,7 +1147,9 @@ public class UserCtrl extends Controller {
             } else throw new IOException("Unexpected code " + response);
         });
         return promiseOfInt.map((play.libs.F.Function<JsonNode, Result>) json -> {
-         //      Logger.info("===json==" + json);
+            if(LOG_OPEN){
+                Logger.info("pinOrderDetail接收数据-->\n"+json);
+            }
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回数据错误code=" + json);

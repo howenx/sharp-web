@@ -53,7 +53,9 @@ public class ShoppingCtrl extends Controller {
 
         String token=comCtrl.getUserToken(ctx());
         return promiseOfInt.map((play.libs.F.Function<JsonNode , Result>) json -> {
-          //  Logger.info("===json==" + json);
+            if(LOG_OPEN){
+                Logger.info("all接收数据-->\n"+json);
+            }
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回数据错误code=" + json);
@@ -197,7 +199,9 @@ public class ShoppingCtrl extends Controller {
         });
 
         return promiseOfInt.map((play.libs.F.Function<JsonNode , Result>) json -> {
-        //    Logger.info("===json==" + json);
+            if(LOG_OPEN){
+                Logger.info("commentCenter接收数据-->\n"+json);
+            }
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回数据错误code=" + json);
@@ -251,7 +255,9 @@ public class ShoppingCtrl extends Controller {
         });
 
         return promiseOfInt.map((play.libs.F.Function<JsonNode , Result>) json -> {
-          //  Logger.info("===json==" + json);
+            if(LOG_OPEN){
+                Logger.info("commentDetail接收数据-->\n"+json);
+            }
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回数据错误code=" + json);
@@ -325,7 +331,9 @@ public class ShoppingCtrl extends Controller {
         });
 
         return promise.map(json -> {
-
+                    if(LOG_OPEN){
+                        Logger.info("cart接收数据-->\n"+json);
+                    }
                     String path = routes.ProductsCtrl.index().url();
                     if (session().containsKey("path")) {
                         path = session().get("path");
@@ -386,13 +394,13 @@ public class ShoppingCtrl extends Controller {
     }
 
     //gather  assemblage
-        public Result gather() {
-                return ok(views.html.shopping.gather.render());
-            }
+    public Result gather(String openType) {
+        return ok(views.html.shopping.gather.render(openType));
+    }
 
     //assemblage
-            public Result assemblage() {
-                    return ok(views.html.shopping.assemblage.render());
+    public Result assemblage(String openType) {
+                    return ok(views.html.shopping.assemblage.render(openType));
                 }
 
 
@@ -410,7 +418,9 @@ public class ShoppingCtrl extends Controller {
         });
 
         return promiseOfInt.map((play.libs.F.Function<JsonNode , Result>) json -> {
-            Logger.info("==logistic=json==" + json);
+            if(LOG_OPEN){
+                Logger.info("logistic接收数据-->\n"+json);
+            }
             if(json.has("message")&&json.get("message").toString().contains("code")){
                 Message message = Json.fromJson(json.get("message"), Message.class);
                 if(null != message&&message.getCode()!=Message.ErrorCode.SUCCESS.getIndex()){
@@ -574,7 +584,9 @@ public class ShoppingCtrl extends Controller {
             final Long finalPinActiveId = pinActiveId;
             final Integer buyNowTemp = buyNow;
             return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
-                //Logger.info("==settle=json==" + json);
+                if(LOG_OPEN){
+                    Logger.info("settle接收数据-->\n"+json);
+                }
                 Message message = Json.fromJson(json.get("message"), Message.class);
                 if (null == message) {
                     Logger.error("返回商品结算数据错误code=" + json);
@@ -723,7 +735,9 @@ public class ShoppingCtrl extends Controller {
         });
 
         return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
-         //  Logger.info("==submitOrder=json=" + json);
+            if(LOG_OPEN){
+                Logger.info("submitOrder接收数据-->\n"+json);
+            }
             Message message = Json.fromJson(json.get("message"), Message.class);
             if (null == message) {
                 Logger.error("返回商品结算数据错误code=" + json);
@@ -776,7 +790,9 @@ public class ShoppingCtrl extends Controller {
                 else throw new IOException("Unexpected code " + response);
             });
             return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
-                //   Logger.info("返回结果---->\n"+json);
+                if(LOG_OPEN){
+                    Logger.info("cartAdd接收数据-->\n"+json);
+                }
                 Message message = Json.fromJson(json.get("message"), Message.class);
                 if (null == message) {
                     Logger.error("返回数据错误json=" + json);
@@ -817,7 +833,9 @@ public class ShoppingCtrl extends Controller {
                 });
 
                 return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
-                 //   Logger.info("==settle=json==" + json);
+                    if(LOG_OPEN){
+                        Logger.info("cartAmount接收数据-->\n"+json);
+                    }
                     Message message = Json.fromJson(json.get("message"), Message.class);
                     if (null == message) {
                         Logger.error("返回商品结算数据错误code=" + json);
