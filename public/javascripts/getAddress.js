@@ -125,7 +125,7 @@ $(document).on("click",".addressnew",function(){
 
                       '<div id="addAddress">'+
                           '<div class="address_input">'+
-                              '<input class="address_input1" type="text" placeholder="请选择省市" id="shengshi" onClick="getProvinceBuy()" readonly="readonly">'+
+                              '<input class="address_input1" style="width:100%" type="text" placeholder="请选择省市" id="shengshi" onClick="getProvinceBuy()" readonly="readonly">'+
                           '</div>'+
                       '</div>'+
 

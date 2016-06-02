@@ -72,3 +72,37 @@ function getallArea(val,val1,val2){
 	$("body .dqld_div").remove();
 }
 /*地区联动*/
+
+/*从百度地图中获得的地址*/
+function getAddressFromBMap(province,city,area,street,streetNumber){
+    var provinceList=eval(proStr);
+    for(var p in provinceList){
+        if(province==provinceList[p].NAME){ //省份
+           var cityList=eval(provinceList[p].ITEMS);
+           for(var c in cityList){
+                if(city==cityList[c].NAME){ //市
+                    var areaList=eval(cityList[c].ITEMS);
+                    for(var a in areaList){
+                        if(area==areaList[a].NAME){ //县
+
+                            $("#shengshi").attr({"SS":province,"SQ":city,"XS":area});
+                            $("#shengshi").val(province+city+area);
+                            $("#province").val(province);
+                            $("#city").val(city);
+                            $("#area").val(area);
+                            $("#province_code").val(provinceList[p].EN);
+                            if(null!=street&&""!=street){
+                                 $("#deliveryDetail").val(street+streetNumber);
+                            }
+                             return true;
+                        }
+                    }
+
+                }
+           }
+
+        }
+
+    }
+
+}
