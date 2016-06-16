@@ -389,19 +389,21 @@ public class ShoppingCtrl extends Controller {
 
     //new
     public Result article(String openType) {
-
+        comCtrl.pushOrPopHistoryUrl(ctx());
         return ok(views.html.shopping.article.render(openType));
     }
 
     //gather  assemblage
     public Result gather(String openType) {
+        comCtrl.pushOrPopHistoryUrl(ctx());
         return ok(views.html.shopping.gather.render(openType));
     }
 
     //assemblage
     public Result assemblage(String openType) {
-                    return ok(views.html.shopping.assemblage.render(openType));
-                }
+        comCtrl.pushOrPopHistoryUrl(ctx());
+        return ok(views.html.shopping.assemblage.render(openType));
+    }
 
 
     //物流数据
