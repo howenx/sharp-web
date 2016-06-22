@@ -176,7 +176,7 @@
                             <li class="liCoupon">
                                 <label>
                                     <input type="radio" name="couponId" value="@coupon.getCoupId()" class="pitch" >
-                                    <div class="quick">满@coupon.getLimitQuota()减<i class="denominationSpan">@coupon.getDenomination()</i></div>
+                                    <div class="quick">@if(coupon.getLimitQuota().doubleValue()>0){满@coupon.getLimitQuota()}减<i class="denominationSpan">@coupon.getDenomination()</i></div>
                                 </label>
                             </li>
                             }
