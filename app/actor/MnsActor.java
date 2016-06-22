@@ -7,8 +7,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import play.Logger;
 import play.libs.Json;
 import redis.clients.jedis.Jedis;
-
-import javax.inject.Inject;
+import util.RedisPool;
 
 import static modules.SysParCom.REDIS_CHANNEL;
 
@@ -18,15 +17,13 @@ import static modules.SysParCom.REDIS_CHANNEL;
  */
 public class MnsActor extends AbstractActor {
 
-    @Inject
-    public MnsActor(Jedis jedis) {
+    public MnsActor() {
         receive(ReceiveBuilder.match(Object.class, event -> {
-            try {
+            try (Jedis jedis = RedisPool.createPool().getResource()) {
                 if (event instanceof ILoggingEvent) {
                     ((ILoggingEvent) event).getMDCPropertyMap().put("projectId", "style-web");
                     jedis.publish(REDIS_CHANNEL, Json.mapper().configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false).valueToTree(event).toString());
                 }
-            } catch (Exception ignored) {
             }
         }).matchAny(s -> {
             Logger.error("MnsActor received messages not matched: {}", s.toString());
