@@ -22,7 +22,7 @@
     </style>
     <script>
         $(document).ready(function() {
-           if($('.coupon-content.current').find("li").length<=0){
+           if($('.scroll-coupon .coupon-content section').eq(0).find("li").length<=0){
                 $(".not").eq(0).css("display","block");
             }
         });
@@ -71,7 +71,12 @@
                                     <div class="coupon-box-l">
                                         <p class="coupon-hd">使用范围:</p>
                                         <p class="coupon-m">@coupon.getCateNm()</p>
-                                        <div class="Fullcut">满@coupon.getLimitQuota()可用</div>
+                                        @if(null!=coupon.getLimitQuota()&&coupon.getLimitQuota().doubleValue()>0){
+                                            <div class="Fullcut">满@coupon.getLimitQuota()可用</div>
+                                        }else {
+                                            <div class="Fullcut">无限制</div>
+                                        }
+
                                     </div>
                                 </div>
                                 <p class="coupon-deta">有效期至 <span>@coupon.getEndAt()</span></p>
@@ -95,7 +100,11 @@
                                     <div class="coupon-box-l">
                                         <p class="coupon-hd">使用范围:</p>
                                         <p class="coupon-m">@coupon.getCateNm()</p>
-                                        <div class="Fullcut">满@coupon.getLimitQuota()可用</div>
+                                        @if(null!=coupon.getLimitQuota()&&coupon.getLimitQuota().doubleValue()>0){
+                                            <div class="Fullcut">满@coupon.getLimitQuota()可用</div>
+                                        }else {
+                                            <div class="Fullcut">无限制</div>
+                                        }
                                     </div>
                                 </div>
                                 <p class="coupon-deta">有效期至 <span>@coupon.getEndAt()</span></p>
@@ -119,7 +128,11 @@
                                 <div class="coupon-box-l">
                                     <p class="coupon-hd">使用范围:</p>
                                     <p class="coupon-m">@coupon.getCateNm()</p>
-                                    <div class="Fullcut">满@coupon.getLimitQuota()可用</div>
+                                    @if(null!=coupon.getLimitQuota()&&coupon.getLimitQuota().doubleValue()>0){
+                                        <div class="Fullcut">满@coupon.getLimitQuota()可用</div>
+                                    }else {
+                                        <div class="Fullcut">无限制</div>
+                                    }
                                 </div>
                             </div>
                             <p class="coupon-deta">有效期至 <span>@coupon.getEndAt()</span></p>
@@ -138,15 +151,15 @@
 </div>
 
 <div class="not couponNot" style="display:none">
-    <p>您还未有未使用的购物券</p>
+    <p>您还没有未使用的购物券</p>
     <a href="/" class="look">去逛逛</a>
 </div>
 <div class="not couponNot" style="display:none">
-    <p>您还未有已使用的购物券</p>
+    <p>您还没有已使用的购物券</p>
     <a href="/" class="look">去逛逛</a>
 </div>
 <div class="not couponNot" style="display:none">
-    <p>您还未有未过期的购物券</p>
+    <p>您还没有未过期的购物券</p>
     <a href="/" class="look">去逛逛</a>
 </div>
 @comContent()

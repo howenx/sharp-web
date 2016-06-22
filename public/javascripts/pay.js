@@ -14,12 +14,19 @@ $(function(){
             var tempTotal=$("#tempTotal").val();
             var denominationSpan=$(this).find(".quick").find(".denominationSpan").html();
             var hiddenDiscountFee=$("input[name='hiddenDiscountFee']").val();
+            $("#discTipSpan").hide();
             if(typeof(denominationSpan)=="undefined"||null==denominationSpan){
                 $("#totalPaySpan").html(tempTotal);
                 $(".discountCss").html("￥"+hiddenDiscountFee);
             }else{
-                $("#totalPaySpan").html(tempTotal-denominationSpan);
+                var totalFinal=tempTotal-denominationSpan;
                 var fee=parseFloat(denominationSpan)+parseFloat(hiddenDiscountFee);
+                if(totalFinal<1){
+                    totalFinal=1;
+                    fee=tempTotal-totalFinal;
+                    $("#discTipSpan").show();
+                }
+                $("#totalPaySpan").html(totalFinal);
                 $(".discountCss").html("￥"+fee);
             }
 
