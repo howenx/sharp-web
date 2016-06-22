@@ -86,6 +86,9 @@ public class SysParCom {
     public static  String CART_DEL;//删除购物车
     public static  String CART_AMOUNT;//购物车数量
     public static  String CART_VERIFY;//能否购买校验
+    public static  String CART_CHECK; //购物车列表中操作购物车商品勾选状态接口
+
+
 
     public static  String PAY_ORDER;
 
@@ -198,6 +201,7 @@ public class SysParCom {
         CART_DEL=configuration.getString("shopping.cart.del");
         CART_AMOUNT=configuration.getString("services.cart.amount");
         CART_VERIFY=configuration.getString("shopping.cart.verify");
+        CART_CHECK=configuration.getString("shopping.cart.check");
 
 
         PAY_ORDER=configuration.getString("shopping.pay.order");

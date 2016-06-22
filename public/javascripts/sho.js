@@ -34,6 +34,7 @@ $(function(){
         obj.skuTypeId=skuTypeId;
         obj.state=state;
         obj.amount=aa;
+        obj.cartSource=3;
         $.ajax({
             type: 'POST',
             url: "/cart/add",
@@ -176,6 +177,18 @@ $(function(){
                 $(this).parents(".cart-goods-area").next().find(".hiddenSku").find("input").attr("disabled",true);
 
             }
+             //同步勾选状态
+             var cartCheckList=new Array();
+             var skuList=$(this).parents(".cart-goods-area").next().find(".hiddenSku").find(".cartId")
+             var orCheck=($(this).prop("checked")?"Y":"N");
+             skuList.each(function(){
+                var obj=new Object();
+                obj.cartId=$(this).val();
+                obj.orCheck=orCheck;
+                cartCheckList.push(obj);
+             });
+             cartCheck(cartCheckList);
+
         }else if($(this).hasClass("check-one")){
             var input1 = $(this).parents("ul").find("input[type=checkbox]:checked").length;
             if($(this).prop("checked")==true) {
@@ -202,6 +215,16 @@ $(function(){
                 }
                 $(this).parents("li").find(".hiddenSku").find("input").attr("disabled",true);
             }
+            //同步勾选状态
+             var obj=new Object();
+             obj.cartId=$(this).parents("li").find(".hiddenSku").find(".cartId").val();
+             obj.orCheck=($(this).prop("checked")?"Y":"N");
+
+             var cartCheckList=new Array();
+             cartCheckList.push(obj);
+             cartCheck(cartCheckList);
+
+
         }
         Total();
         //检测商品总额限制
@@ -231,19 +254,37 @@ $(function(){
     }
      funss();
 
-
-//    $(".quantity").blur(function(){
-//          var num=$(this).val();
-//          if(""==num||0==num){
-//            $(this).val(1);
-//
-//          }
-//
-//    });
-
-
-
 });
+
+//同步勾选状态
+function cartCheck(cartCheckList){
+ $.ajax({
+        type: 'POST',
+        url: "/cart/check",
+        contentType: "application/json; charset=utf-8",
+        data : JSON.stringify(cartCheckList),
+        dataType: 'json',
+        error : function(request) {
+            tip("操作失败,请检测是否已登录");
+         },
+        success: function(data) {
+            console.log("data="+data);
+            if (data!=""&&data!=null){
+                if(data.code==200) { //成功
+                   //加入购物车特效
+                }else if(data.code==5006) { //成功
+                   setTimeout("location.href='"+data.message+"'", 2000);//您还未登录,请先登录
+                }else{
+                     tip(data.message);
+                }
+
+            }else{
+             tip("操作失败");
+            }
+        }
+    });
+
+}
 
  /*计算总额*/
     function Total(){
@@ -410,7 +451,21 @@ $(function(){
     $(window).load(function(){
         $("#loading").hide();
     });
-})
+});
+//初始勾选状态
+$(document).ready(function(){
+
+    $(".areaAndSku").each(function(){
+        var len=$(this).find("input[type=checkbox]").length;
+        var checkLen=$(this).find("input[type=checkbox]:checked").length;
+        if(checkLen==len-1){
+            $(this).find(".areac").prop("checked", true);
+        }
+    });
+ Total();
+ checkPostalLimit();
+
+});
 
 
 

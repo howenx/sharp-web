@@ -93,6 +93,8 @@ GET         /cart/del/$cartId<[0-9]+>                                          c
 GET         /cart/amount                                                       controllers.ShoppingCtrl.cartAmount()
 POST        /cart/nologin/verify/amount                                        controllers.ShoppingCtrl.verifySkuAmount()
 GET         /order/confirm/delivery/$orderId<[0-9]+>                           controllers.ShoppingCtrl.orderConfirmDelivery(orderId:Long)
+POST        /cart/check                                                        controllers.ShoppingCtrl.cartCheck()
+
 
 #评价
 POST        /comment/view                                                      controllers.ShoppingCtrl.commentView()
