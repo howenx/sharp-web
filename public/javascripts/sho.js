@@ -460,6 +460,10 @@ $(document).ready(function(){
         var checkLen=$(this).find("input[type=checkbox]:checked").length;
         if(checkLen==len-1){
             $(this).find(".areac").prop("checked", true);
+
+        }
+        if(checkLen>0){
+            $(this).find(".cart-goods-area").find(".hiddenArea").find("input").attr("disabled",false); //
         }
     });
  Total();
