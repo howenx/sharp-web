@@ -381,3 +381,8 @@ input[type=radio]:checked::after {
     top: -8px;
     left: -8px;
 }
+
+
+.ul-box-padding{
+    padding: 44px;
+}

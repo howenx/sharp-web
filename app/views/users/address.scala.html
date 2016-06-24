@@ -31,9 +31,7 @@
 
 
 <div class="scope wap wap-box ">
-    <ul class="ul-box clearfix">
-
-
+    <ul class="ul-box clearfix ul-box-padding">
         @if(null!=addressList&&addressList.size()>0){
             @for(address<-addressList){
             <li id="li@address.getAddId()" class="ul-box-li clearfix">
@@ -86,6 +84,7 @@
 
 
 </div>
+
 <a href="/addressnew" id="addressnew" class="plus-add plus-add-fixed bg">新增收货地址</a>
 
 
