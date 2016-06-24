@@ -564,11 +564,11 @@ public class ShoppingCtrl extends Controller {
             object.put("clientIp", request().remoteAddress());//客户端ip
             object.put("clientType", "3");
             object.put("shipTime", 1); //送货日期：1－工作日双休日与假期均可送货 2-只工作日送货 3-只双休日送货
-            String payMethod = "JD";
-            if (null != settleMap.get("payMethod")) {
-                payMethod = settleMap.get("payMethod");
-            }
-            object.put("payMethod", payMethod);
+//            String payMethod = "JD";
+//            if (null != settleMap.get("payMethod")) {
+//                payMethod = settleMap.get("payMethod");
+//            }
+//            object.put("payMethod", payMethod);
             object.put("buyNow", buyNow);//1－立即支付 2-购物车结算
             Long pinActiveId = 0L;
             if (null != settleMap.get("pinActiveId")) {

@@ -19,11 +19,11 @@ $(function(){
                 $("#totalPaySpan").html(tempTotal);
                 $(".discountCss").html("￥"+hiddenDiscountFee);
             }else{
-                var totalFinal=tempTotal-denominationSpan;
+                var totalFinal=parseFloat(tempTotal-denominationSpan).toFixed(2);
                 var fee=parseFloat(denominationSpan)+parseFloat(hiddenDiscountFee);
                 if(totalFinal<1){
                     totalFinal=1;
-                    fee=tempTotal-totalFinal;
+                    fee=parseFloat(tempTotal-totalFinal).toFixed(2);
                     $("#discTipSpan").show();
                 }
                 $("#totalPaySpan").html(totalFinal);
