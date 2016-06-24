@@ -355,6 +355,8 @@ $(document).on("click",".cartAdd",function(){
     obj.state=state;
     obj.amount=1;
     obj.url=window.location.href;
+    obj.orCheck="Y"
+    obj.cartSource=2;
     $.ajax({
         type: 'POST',
         url: "/cart/add",

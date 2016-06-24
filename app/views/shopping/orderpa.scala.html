@@ -73,6 +73,7 @@
             <p>
                 <span>支付方式 :</span>
                 <i>
+                    @if(null==order.getOrder().getPayMethod()){在线支付}
                     @if(order.getOrder().getPayMethod()=="JD"){京东}
                     @if(order.getOrder().getPayMethod()=="APAY"){支付宝}
                     @if(order.getOrder().getPayMethod()=="WEIXIN"){微信}

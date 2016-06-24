@@ -18,11 +18,13 @@ public class CartDto implements Serializable {
     private String skuType;//商品类型 1.vary,2.item,3.customize,4.pin
     private Long skuTypeId;//商品类型所对应的ID
     private Long pinTieredPriceId;//拼购价格ID
+    private String orCheck;//提交勾选 'Y'为提交勾选,'N'为提交取消勾选
+    private Integer cartSource;//购物车数据来源,1登陆后同步,2详细页面点击加入购物车,3点击购物车列表页操作(增删减)
 
     public CartDto() {
     }
 
-    public CartDto(Long cartId, Long skuId, Integer amount, String state, String skuType, Long skuTypeId, Long pinTieredPriceId) {
+    public CartDto(Long cartId, Long skuId, Integer amount, String state, String skuType, Long skuTypeId, Long pinTieredPriceId, String orCheck, Integer cartSource) {
         this.cartId = cartId;
         this.skuId = skuId;
         this.amount = amount;
@@ -30,6 +32,8 @@ public class CartDto implements Serializable {
         this.skuType = skuType;
         this.skuTypeId = skuTypeId;
         this.pinTieredPriceId = pinTieredPriceId;
+        this.orCheck = orCheck;
+        this.cartSource = cartSource;
     }
 
     public Long getCartId() {
@@ -88,6 +92,22 @@ public class CartDto implements Serializable {
         this.pinTieredPriceId = pinTieredPriceId;
     }
 
+    public String getOrCheck() {
+        return orCheck;
+    }
+
+    public void setOrCheck(String orCheck) {
+        this.orCheck = orCheck;
+    }
+
+    public Integer getCartSource() {
+        return cartSource;
+    }
+
+    public void setCartSource(Integer cartSource) {
+        this.cartSource = cartSource;
+    }
+
     @Override
     public String toString() {
         return "CartDto{" +
@@ -98,6 +118,8 @@ public class CartDto implements Serializable {
                 ", skuType='" + skuType + '\'' +
                 ", skuTypeId=" + skuTypeId +
                 ", pinTieredPriceId=" + pinTieredPriceId +
+                ", orCheck='" + orCheck + '\'' +
+                ", cartSource=" + cartSource +
                 '}';
     }
 }

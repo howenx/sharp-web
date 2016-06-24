@@ -389,19 +389,21 @@ public class ShoppingCtrl extends Controller {
 
     //new
     public Result article(String openType) {
-
+        comCtrl.pushOrPopHistoryUrl(ctx());
         return ok(views.html.shopping.article.render(openType));
     }
 
     //gather  assemblage
     public Result gather(String openType) {
+        comCtrl.pushOrPopHistoryUrl(ctx());
         return ok(views.html.shopping.gather.render(openType));
     }
 
     //assemblage
     public Result assemblage(String openType) {
-                    return ok(views.html.shopping.assemblage.render(openType));
-                }
+        comCtrl.pushOrPopHistoryUrl(ctx());
+        return ok(views.html.shopping.assemblage.render(openType));
+    }
 
 
     //物流数据
@@ -507,6 +509,10 @@ public class ShoppingCtrl extends Controller {
                         skuTypeId=skuId;
                     }
 
+                    ////提交勾选 'Y'为提交勾选,'N'为提交取消勾选
+                    String orCheck="N";
+                    int cartSource=3;//购物车数据来源,1登陆后同步,2详细页面点击加入购物车,3点击购物车列表页操作(增删减)
+
 
                     Long pinTieredPriceId = 0L;
                     if (null != settleMap.get("pinTieredPriceId" + suffix)) {
@@ -518,7 +524,7 @@ public class ShoppingCtrl extends Controller {
                     if (null != settleMap.get("skuPrice" + suffix)) {
                         skuPrice = settleMap.get("skuPrice" + suffix);   //商品价格,用于展示
                     }
-                    CartDto cartDTO = new CartDto(cartId, skuId, amount, state, skuType, skuTypeId, pinTieredPriceId);
+                    CartDto cartDTO = new CartDto(cartId, skuId, amount, state, skuType, skuTypeId, pinTieredPriceId,orCheck,cartSource);
                     cartDtos.add(cartDTO);
                     CartInfo cartInfo = new CartInfo(cartId, skuId, amount, state, skuType, skuTypeId, pinTieredPriceId, skuTitle, skuInvImg, skuPrice);
                     cartInfos.add(cartInfo);
@@ -697,7 +703,7 @@ public class ShoppingCtrl extends Controller {
                 String skuType=settleMap.get("skuType"+suffix);
                 Long skuTypeId=Long.valueOf(settleMap.get("skuTypeId"+suffix));//商品类型的id
                 Long pinTieredPriceId=Long.valueOf(settleMap.get("pinTieredPriceId"+suffix));//在提交拼购商品订单时填写阶梯价格的id
-                CartDto cartDTO=new CartDto(cartId,skuId,amount,state,skuType,skuTypeId,pinTieredPriceId);
+                CartDto cartDTO=new CartDto(cartId,skuId,amount,state,skuType,skuTypeId,pinTieredPriceId,"Y",3);
                 cartDtos.add(cartDTO);
             }
             if(cartDtos.size()<=0){
@@ -765,46 +771,32 @@ public class ShoppingCtrl extends Controller {
     public F.Promise<Result>  cartAdd(){
 
         JsonNode rjson = request().body().asJson();
-        CartAddTempInfo cartAddTempInfo=Json.fromJson(rjson,CartAddTempInfo.class);
-      //  if (comCtrl.isHaveLogin(ctx())) {
+        CartAddInfo cartAddInfo=Json.fromJson(rjson,CartAddInfo.class);
 
-            List<CartAddInfo> cartAddInfoList=new ArrayList<CartAddInfo>();
-            CartAddInfo cartAddInfo=new CartAddInfo();
-            cartAddInfo.setCartId(cartAddTempInfo.getCartId());
-            cartAddInfo.setSkuId(cartAddTempInfo.getSkuId());
-            cartAddInfo.setSkuType(cartAddTempInfo.getSkuType());
-            cartAddInfo.setSkuTypeId(cartAddTempInfo.getSkuTypeId());
-            cartAddInfo.setAmount(cartAddTempInfo.getAmount());
-            cartAddInfo.setState(cartAddTempInfo.getState());
+        List<CartAddInfo> cartAddInfoList=new ArrayList<CartAddInfo>();
+        cartAddInfoList.add(cartAddInfo);
+        RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, toJson(cartAddInfoList).toString());
 
-            cartAddInfoList.add(cartAddInfo);
-            RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, toJson(cartAddInfoList).toString());
-
-            F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
-                Request.Builder builder = (Request.Builder) ctx().args.get("request");
-                Request request = builder.url(CART_ADD).post(formBody).build();
-                Response response = client.newCall(request).execute();
-                if (response.isSuccessful()) {
-                    return Json.parse(new String(response.body().bytes(), UTF_8));
-                }
-                else throw new IOException("Unexpected code " + response);
-            });
-            return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
-                if(LOG_OPEN){
-                    Logger.info("cartAdd接收数据-->\n"+json);
-                }
-                Message message = Json.fromJson(json.get("message"), Message.class);
-                if (null == message) {
-                    Logger.error("返回数据错误json=" + json);
-                    return badRequest();
-                }
-                return ok(toJson(message));
-            });
-//        }
-//        else {
-//            //未登录
-//            return comCtrl.getNotLoginMsg(cartAddTempInfo.getUrl());
-//        }
+        F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
+            Request.Builder builder = (Request.Builder) ctx().args.get("request");
+            Request request = builder.url(CART_ADD).post(formBody).build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                return Json.parse(new String(response.body().bytes(), UTF_8));
+            }
+            else throw new IOException("Unexpected code " + response);
+        });
+        return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
+            if(LOG_OPEN){
+                Logger.info("cartAdd接收数据-->\n"+json);
+            }
+            Message message = Json.fromJson(json.get("message"), Message.class);
+            if (null == message) {
+                Logger.error("返回数据错误json=" + json);
+                return badRequest();
+            }
+            return ok(toJson(message));
+        });
     }
 
     /**
@@ -882,6 +874,31 @@ public class ShoppingCtrl extends Controller {
     public F.Promise<Result> orderConfirmDelivery(Long orderId){
         return comCtrl.getReqReturnMsg(ORDER_CONFIRM+orderId);
 
+    }
+
+    @Security.Authenticated(UserAuth.class)
+    public F.Promise<Result> cartCheck(){
+        RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, request().body().asJson().toString());
+        F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
+            Request.Builder builder = (Request.Builder) ctx().args.get("request");
+            Request request = builder.url(CART_CHECK).post(formBody).build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                return Json.parse(new String(response.body().bytes(), UTF_8));
+            }
+            else throw new IOException("Unexpected code " + response);
+        });
+        return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
+            if(LOG_OPEN){
+                Logger.info("cartCheck接收数据-->\n"+json);
+            }
+            Message message = Json.fromJson(json.get("message"), Message.class);
+            if (null == message) {
+                Logger.error("返回数据错误json=" + json);
+                return badRequest();
+            }
+            return ok(toJson(message));
+        });
     }
 
 }

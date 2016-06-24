@@ -230,9 +230,11 @@
 
                             <span class="title-fd">
                                <i class="naw">￥@item.getItemPrice()</i>
+                                <i>最低</i>
                                 @if(item.getItemDiscount().toString() != "0"){
-                                    <i class="agio">￥@item.getItemSrcPrice()</i>
-                                    <b>@item.getItemDiscount()折</b>
+                                    <!--<i class="agio">￥@item.getItemSrcPrice()</i>-->
+                                    <!--<b>@item.getItemDiscount()折</b>-->
+                                    <i style="float: right">低至@item.getItemDiscount()折</i>
                                 }
                             </span>
                         </a>
