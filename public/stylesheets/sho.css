@@ -246,7 +246,7 @@ body{
 }
 
 .wrap{
-    padding: 140px 0 0 0;
+    padding: 50% 0 0 0;
     background-color: #FFFFFF;
 
 }
@@ -257,13 +257,13 @@ body{
 }
 .wrap a{
     display: block;
-    width:120px;
-    height:50px;
+    width: 120px;
+    height: 45px;
     color: #fff;
     font-size: 18px;
     text-align: center;
-    line-height: 50px;
-    margin:10px auto;
+    line-height: 45px;
+    margin: 10px auto;
 }
 
 

@@ -1,6 +1,5 @@
 .wap{
     background-color: #fff;
-    padding: 44px 0 0;
 }
 
 .wap-box{
@@ -96,7 +95,11 @@ li div{
 /*空地址页面*/
 
 .add-hollow{
-    padding:65px 20px 20px ;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* width: 50%; */
+    -webkit-transform: translate(-50%,-50%);
 }
 .plus-add-hollow{
 
@@ -205,3 +208,11 @@ input{
     display: none;
 }
 
+.wap-padding{
+    padding: 44px 0 0 0;
+    background-color: #fff;
+}
+
+.ul-box-padding{
+    padding: 44px 0 0 0;
+}

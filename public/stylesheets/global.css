@@ -276,18 +276,18 @@ h1 {
 .not{
     text-align: center;
     width: 50%;
-    position:relative;
-    top:50%;
+    position: absolute;
+    top: 50%;
     left: 50%;
     z-index: 100;
     -webkit-transform: translate(-50%,-50%);
     -moz-transform: translate(-50%,-50%);
-
 }
+
 .look{
-    width: 60px;
-    height:30px;
-    line-height: 30px;
+    width: 120px;
+    height: 40px;
+    line-height: 40px;
     background-color: #FF5359;
     color: #fff;
     display: block;
@@ -346,5 +346,10 @@ h1 {
 
 }
 
+
+.not img{
+    width:160px;
+    margin: 0 auto;
+}
 
 
