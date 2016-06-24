@@ -648,17 +648,16 @@ h1 .logo {
 
 .title-hd{
     color: #666;
-    height:52px;
+    height: 52px;
     background-color: #fff;
-    padding: 10px 5%;
+    padding: 5px 5%;
     line-height: 22px;
-    margin-bottom: 10px;
     overflow: hidden;
-    font-size: 14px;
-    -webkit-line-clamp:2;
-    text-overline:ellipsis;
-    -webkit-box-orient:vertical;
-    display: -webkit-box
+    font-size: 12px;
+    -webkit-line-clamp: 2;
+    text-overline: ellipsis;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
 }
 
 .product-box{
@@ -682,8 +681,9 @@ h1 .logo {
 .figure{
     position: relative;
     width: 100%;
-    height:120px;
+    height: 152px;
     overflow: hidden;
+    border-bottom: 1px solid #ededed;
 }
 
 .figure span {
@@ -716,33 +716,41 @@ h1 .logo {
 
 .content .title-fd{
     display: block;
-    background:white;
-    width:100%;
-    height:50px;
-    padding:0 5%;
-    line-height: 50px;
-    border-top:1px solid #ececec;
+    background: white;
+    width: 100%;
+    height:30px;
+    padding: 0 5%;
+    line-height:30px;
+    font-size: 12px;
 }
 
 .naw{
     font-size:28px;
     color:#EF2528;
+    float:left;
 
+}
+.minimum{
+    margin: 0 0 0 5px;
+    float: left;
+}
+.rate{
+    float: right;
 }
 .agio{
    font-size:16px;
    text-decoration: line-through;
+    margin:1px 0 0 5px;
+    float: left;
 }
 
 .title-fd b{
     float:right;
-    width:50px;
-    line-height:25px;
     text-align: center;
-    border: 1px solid #e33a39;
-    color: #ff5359;
+    color: #999;
     font-weight: normal;
-    margin: 10px 0 0 0;
+    float:right;
+    margin:1px 0 0 0;
 }
 
 .product{
@@ -824,16 +832,7 @@ h2 span{
         font-size:12px;
 
     }
-    .title-fd b{
-        font-size:12px;
-        width:35px;
-        line-height:20px;
-        text-align: center;
-        border: 1px solid #e33a39;
-        color: #e56254;
-        font-weight: normal;
-        margin: 15px 0 0 0;
-    }
+
     .footer {
 
         margin: 0 0 70px 0;

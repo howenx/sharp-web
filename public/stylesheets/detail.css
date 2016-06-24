@@ -366,7 +366,7 @@ div .cycle-overlay {
 }
 .u-detail-pricebox {
 	padding:0 2%;
-	line-height: 50px;
+	line-height:35px;
 }
 .u-detail-price {
 	float: left;
@@ -380,10 +380,10 @@ div .cycle-overlay {
 }
 .u-detail-mprice {
 	display: inline-block;
-	margin:5px 0 0 5px;
+	margin:2px 0 0 5px;
 	color: #BEBEBE;
 	text-decoration: line-through;
-	font-size: 16px;
+	font-size: 12px;
 }
 .u-detail-discount {
 	float: left;
@@ -393,7 +393,7 @@ div .cycle-overlay {
 }
 .thw-detail-other {
 	color: #565555;
-	height: 36px;
+	height:28px;
 	padding:0 2%;
 	font-size:14px;
 }
@@ -430,7 +430,7 @@ div .cycle-overlay {
 }
 
 .three{
-	background: url("/assets/images/hmm_dingwei_icon.png") 3px 17px no-repeat;
+	background: url("/assets/images/hmm_dingwei_icon.png") 3px 10px no-repeat;
 	background-size:15px;
 }
 

@@ -39,7 +39,7 @@ section.current{
     float: left;
     width:20%;
     text-align: center;
-    line-height:35px;
+    line-height:33px;
 }
 .box{
     width:100%;
@@ -274,7 +274,7 @@ span .number{
     color: #333;
     background: url("/assets/images/youhuiquan_bg.png") no-repeat;
     background-size: contain;
-    margin: 10px auto;
+    margin:5px auto;
     padding:5px 15px;
 }
 
@@ -290,23 +290,23 @@ span .number{
 }
 .coupon-box-l{
     float: left;
-    margin: 12px 18px 0 30px;
+    margin: 12px 18px 0 18px;
 }
 
 .coupon-box-r{
-    float:left;
-    font-size:24px;
-    margin: 16px 0px 0px 0;
+    float: left;
+    margin:25px 0px 0px 0;
+    padding: 0 0 0 5px;
 }
 
 .coupon-m{
-    font-size:20px;
+    font-size: 18px;
 }
 
 .coupon-deta{
     width:100%;
     text-align: right;
-    margin:15px 0 0 0;
+    line-height:50px;
     font-size: 12px;
 }
 
@@ -316,19 +316,19 @@ span .number{
 }
 
 .coupon-box-r{
-    color:#FAA728;
-    font-size: 14px;
-
+    color: #FAA728;
+    width:80px;
+    border-right: 1px solid #ededed;
 }
 .coupon-rmb{
-    font-size:36px;
+    font-size:24px;
 }
 .coupon-hd,.coupon-deta{
     color: #999;
 }
 .coupon-hd,.Fullcut{
     font-size: 12px;
-    margin: 2px 0 0 0;
+    margin:1% 0 0 0;
 }
 
 .coupon-s .coupon-box-r{
