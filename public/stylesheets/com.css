@@ -225,7 +225,7 @@ input[type=checkbox]:checked::after {
     -webkit-transform: scale(0.49,0.49);
     -moz-transform: scale(0.55,0.55);
     position: absolute;
-    top: -6px;
+    top: -5px;
     left: -5px;
 }
 
