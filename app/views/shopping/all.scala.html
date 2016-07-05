@@ -158,7 +158,7 @@
 
                                 </div>
                             }
-                            @if(order.getOrder().getOrderStatus()=="C"||order.getOrder().getOrderStatus()=="T"){
+                            @if(order.getOrder().getOrderStatus()=="C"||order.getOrder().getOrderStatus()=="T"||order.getOrder().getOrderStatus()=="F"){
                                 <div class="payment clearfix">
                                     <a href="javascript:;" class="right " onclick="delOrder(@order.getOrder().getOrderId(),0)">删除订单</a>
                                 </div>
