@@ -60,15 +60,22 @@
     float: right;
     height:30px;
     background: url("/assets/images/right-arrow.png") right center no-repeat;
-    background-size:10px 20px;
+    background-size:10px 15px;
     margin: 15px 0 0 0;
     line-height:30px;
     padding:0 22px 0 0;
 }
 
+.face-box span img{
+    border-radius: 50%;
+    margin:-5px 0 0 0;
+}
+
 .face-box .none{
     background: none;
     color: #ccc;
+    padding: 0;
+
 }
 
 /*下载*/
