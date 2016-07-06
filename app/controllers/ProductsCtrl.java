@@ -311,8 +311,9 @@ public class ProductsCtrl extends Controller {
                     //商品参数
                     if (itemMain != null) {
                         JsonNode features = Json.parse(itemMain.getItemFeatures());
-                        HashMap featuresMap = Json.fromJson(features, HashMap.class);
+                        LinkedHashMap featuresMap = Json.fromJson(features, LinkedHashMap.class); //按照顺序不能用hashmap
                         for (Object key : featuresMap.keySet()) {
+
                             Object[] featureObj = new Object[2];
                             featureObj[0] = key;
                             featureObj[1] = featuresMap.get(key);
@@ -426,8 +427,9 @@ public class ProductsCtrl extends Controller {
                     //商品参数
                     if (itemMain != null) {
                         JsonNode features = Json.parse(itemMain.getItemFeatures());
-                        HashMap featuresMap = Json.fromJson(features, HashMap.class);
+                        LinkedHashMap featuresMap = Json.fromJson(features, LinkedHashMap.class); //按照顺序不能用hashmap
                         for (Object key : featuresMap.keySet()) {
+
                             Object[] featureObj = new Object[2];
                             featureObj[0] = key;
                             featureObj[1] = featuresMap.get(key);
