@@ -48,9 +48,10 @@ $(document).on("click",".submitOrder",function(){
     var orderId=$("#orderId").val();
     if(addressId<=0){
         tip("请填写地址");
-    }else if(orderId>0){
+    }else if(orderId>0||$("#formSubmitTimes").val()>0){
         tip("请勿重复提交订单");
     }else{
+        $("#formSubmitTimes").val(1);
         $.ajax({
             type: 'POST',
             url: "/order/submit",
@@ -61,6 +62,7 @@ $(document).on("click",".submitOrder",function(){
 //             },
             error : function(request) {
                 tip("提交订单失败,请检测是否已登录");
+                 $("#formSubmitTimes").val(0);
                 //   $("#loading").empty();
              },
             success: function(data) {
@@ -75,10 +77,12 @@ $(document).on("click",".submitOrder",function(){
 
                     }else{
                          tip(data.message.message);
+                         $("#formSubmitTimes").val(0);
                     }
 
                 }else{
                  tip("提交订单失败");
+                   $("#formSubmitTimes").val(0);
                 }
              //   $("#loading").empty();
             }
