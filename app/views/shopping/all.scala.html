@@ -138,7 +138,7 @@
                              </a>
                             }
 
-                            @if(order.getOrder().getOrderStatus()=="I"||order.getOrder().getOrderStatus()=="F"){
+                            @if(order.getOrder().getOrderStatus()=="I"){
                                 <div class="payment clearfix">
                                     <a href="javascript:;" class="left cancelOrder" style="display:none;">取消订单</a>
                                     <a href="javascript:;" class="right red" onclick="pay('@payUrl','@order.getOrder().getOrderId()','@token','@order.getOrder().getSecurityCode()')">去支付</a>
@@ -178,7 +178,7 @@
                 <ul id="waitPayUl">
                     @if(null!=orderList&&orderList.size>0){
                     @for(order<-orderList){
-                        @if(order.getOrder().getOrderStatus()=="I"||order.getOrder().getOrderStatus()=="F"){
+                        @if(order.getOrder().getOrderStatus()=="I"){
                             <li value="@order.getOrder().getOrderId()">
                                 <div class="con-stay clearfix">
                                     <a href="/all/@order.getOrder().getOrderId()" class="clearfix">
