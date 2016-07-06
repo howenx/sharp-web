@@ -53,8 +53,8 @@ $(document).on("click",".addAddressBtn",function(){
                                         //结算界面更新地址
                                         var li=$("#li"+addId);
                                         li.find(".nameSpan").html(name);
-                                        li.find(".telSpan").html(tel);
-                                        li.find(".idCardNumSpan").html(idCardNum);
+                                        li.find(".telSpan").html(tel.substring(0,3)+"****"+tel.substring(7));
+                                        li.find(".idCardNumSpan").html(idCardNum.substring(0,10)+"****"+idCardNum.substring(14));
                                         li.find(".deliverSpan").html(shengshi+" "+deliveryDetail);
                                         if(orDefault==true){
                                             li.find(".orDefaultSpan").show();

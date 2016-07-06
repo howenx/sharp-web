@@ -603,6 +603,11 @@ public class ShoppingCtrl extends Controller {
                     return ok(views.html.shopping.settleErr.render(settleInfoList, buyNowTemp, finalPinActiveId, PAY_URL,message.getMessage()));
                 }
                 SettleVo settleVo = Json.fromJson(json.get("settle"), SettleVo.class);
+                if(null!=settleVo.getAddress()){
+                    settleVo.getAddress().setTel(comCtrl.getShowTel(settleVo.getAddress().getTel()));
+                    settleVo.getAddress().setIdCardNum(comCtrl.getShowIdCardNum(settleVo.getAddress().getIdCardNum()));
+                }
+
 
                 return ok(views.html.shopping.settle.render(settleVo, settleInfoList, buyNowTemp, finalPinActiveId, PAY_URL));
             });

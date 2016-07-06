@@ -71,7 +71,7 @@ public class UserCtrl extends Controller {
 
         return promiseOfInt.map((Function<JsonNode, Result>) json -> {
             if(LOG_OPEN){
-                Logger.info("address接收数据-->\n"+json);
+                Logger.info("address接收数据-selId->\n"+json);
             }
             String path = routes.UserCtrl.myView().url();
             if (session().containsKey("path")) {
@@ -85,7 +85,21 @@ public class UserCtrl extends Controller {
                 return badRequest();
             }
             if (selId == 1) {
-                return ok(json);
+                if (Message.ErrorCode.DATABASE_EXCEPTION.getIndex() == message.getCode()) {
+                    return ok(json);
+                }
+                List<Address> addressList = null;
+                if(json.has("address")){
+                    addressList=mapper.readValue(json.get("address").toString(), new TypeReference<List<Address>>() {});
+                    for(Address address:addressList){
+                        address.setIdCardNum(comCtrl.getShowIdCardNum(address.getIdCardNum()));
+                        address.setTel(comCtrl.getShowTel(address.getTel()));
+                    }
+                }
+                Map<String,Object> result = new HashMap<String, Object>();
+                result.put("message",message);
+                result.put("address",addressList);
+                return ok(Json.toJson(result));
             }
             //空地址列表
             if (Message.ErrorCode.DATABASE_EXCEPTION.getIndex() == message.getCode()) {
@@ -96,6 +110,10 @@ public class UserCtrl extends Controller {
                 List<Address> addressList = null;
                 if(json.has("address")){
                     addressList=mapper.readValue(json.get("address").toString(), new TypeReference<List<Address>>() {});
+                    for(Address address:addressList){
+                        address.setIdCardNum(comCtrl.getShowIdCardNum(address.getIdCardNum()));
+                        address.setTel(comCtrl.getShowTel(address.getTel()));
+                    }
                 }else {
                     Logger.error("无地址列表"+json);
                 }
@@ -190,6 +208,8 @@ public class UserCtrl extends Controller {
                                 add += " " + jsonNode.findValue("area").asText();
                             }
                             address.setDeliveryCity(add);
+                            address.setIdCardNum(comCtrl.getShowIdCardNum(address.getIdCardNum()));
+                            address.setTel(comCtrl.getShowTel(address.getTel()));
                             result.putPOJO("address", address);
                         }
                     }
