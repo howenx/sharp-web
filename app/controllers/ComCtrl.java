@@ -512,4 +512,22 @@ public class ComCtrl extends Controller {
         return hisUrl;
     }
 
+    /**
+     * 获取展示的身份证号码
+     * @param idCardNum
+     * @return
+     */
+    public static  String getShowIdCardNum(String idCardNum){
+        return idCardNum.substring(0,10)+"****"+idCardNum.substring(14);
+    }
+
+    /**
+     * 获取展示的手机号码
+     * @param tel
+     * @return
+     */
+    public static  String getShowTel(String tel){
+        return tel.substring(0,3)+"****"+tel.substring(7);
+    }
+
 }
