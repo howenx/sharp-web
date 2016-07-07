@@ -130,8 +130,7 @@ input:password {
     display: block;
     position:absolute;
     left: 0;
-    top:40%;
-    transform: translate(0,-50%);
+    top:15%;
     width: auto;
     height: auto;
 }
@@ -179,7 +178,7 @@ input:password {
 }
 .quantity-decrease,.quantity-increase{
     display: block;
-    line-height:20px;
+    line-height:17px;
     height: 20px;
     width: 25px;
     -webkit-border-radius: 2px 0 0 2px;
@@ -203,16 +202,15 @@ input:password {
     color: #666;
     border: 1px solid #ccc;
     border-width: 1px 0 1px 0;
+    -webkit-appearance: none;
+    border-radius: 0;
     overflow: hidden;
     float: left;
     font-size: 14px;
     text-align: center;
 
 }
-.quantity-decrease{
-    font-size: 18px;
-    line-height: 16px;
-}
+
 .cart-del-btn {
     width:15px;
     height:15px;

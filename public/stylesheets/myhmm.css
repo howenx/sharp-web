@@ -41,7 +41,7 @@
 }
 
 .land{
-    padding:25px 0 0 0;
+    padding:40px 0 0 0;
     height:100px;
     width:60%;
     display: block;
@@ -52,10 +52,11 @@
 
 }
 .land img{
-    width:80px;
-    height:80px;
+    width:70px;
+    height:70px;
     margin: 0 auto;
     border-radius: 50%;
+    border:1px solid #fff;
 }
 
 .apply{
@@ -102,7 +103,7 @@
     height:50px;
     padding:0 2%;
     line-height: 50px;
-    margin: 0 0 10px 0;
+    margin: 10px 0 0 0;
     background-color: #fff;
 }
 
@@ -176,7 +177,7 @@
 .house .icon{
     width: 20px;
     height: 20px;
-    background: url("/assets/images/personal-12.jpg") no-repeat;
+    background: url("/assets/images/collection-.png") no-repeat;
     background-size: contain;
 }
 

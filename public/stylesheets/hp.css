@@ -37,8 +37,8 @@ body{
 	position: absolute;
 	top:24%;
 	right:4%;
-	width:22px;
-	height:22px;
+	width:20px;
+	height:20px;
 }
 
 
@@ -47,7 +47,7 @@ body{
 	height: 18px;
 	position: absolute;
 	top: -7px;
-	left: 15px;
+	left: 12px;
 	font-size: 10px;
 	background: #fff;
 	line-height:18px;
