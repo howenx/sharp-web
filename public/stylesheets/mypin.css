@@ -84,6 +84,7 @@ img{
     float: right;
 }
 .down input{
+    -webkit-appearance: none;
     background: #fff;color: #E66255;
     padding: 6px 8px;border: 1px solid #E66255;
     border-radius: 5px;
