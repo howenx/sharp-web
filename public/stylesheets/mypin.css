@@ -198,3 +198,10 @@ div.myall:nth-child(2){
     display: -webkit-box;
 
 }
+
+.myall{
+    display: none;
+}
+.current{
+    display: block;
+}

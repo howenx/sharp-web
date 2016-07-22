@@ -74,7 +74,7 @@
         <li>我的参团</li>
     </ul>
 
-    <div class="myall">
+    <div class="myall current">
         @for(pin<-pinList){
             @if(pin.getOrMaster()==1){
                 <div class="con pinDivCss">
@@ -106,6 +106,8 @@
             }
         }
     </div>
+
+
 
     <div class="myall" id="joinPinDiv">
         @for(pin<-pinList){
