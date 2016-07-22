@@ -1121,6 +1121,7 @@ public class UserCtrl extends Controller {
     //   @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> pinActivity(Long activityId, Integer pay, Integer userPayType) {
         comCtrl.pushOrPopHistoryUrl(ctx());
+        comCtrl.addCurUrlCookie(ctx());
         play.libs.F.Promise<JsonNode> promiseOfInt = play.libs.F.Promise.promise(() -> {
             String url = "";
             if (userPayType > 0) {
