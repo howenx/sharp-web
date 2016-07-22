@@ -77,10 +77,11 @@ $(function() {
                 document.body.removeChild(ifr);
             },3000)
         }else{
+            var mabuyThis = this;
             // window.location = 'hmmapp://data/'+window.urlParam;
             setTimeout(
                 function(){
-                    masunmit(this);
+                    masunmit(mabuyThis);
                 }, 1000);
         }
     })
