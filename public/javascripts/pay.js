@@ -5,12 +5,12 @@ $(function(){
 
     $('li.liOther').click(function(){
         $(this).parents("ul").prev().find(".quick").html($(this).find(".quick").html())
-        $(this).parents("ul").prev().find("input").val($(this).find("input").val())
+        //$(this).parents("ul").prev().find("input").val($(this).find("input").val())
     });
     //点击优惠券
     $('li.liCoupon').click(function(){
             $(this).parents("ul").prev().find(".quick").html($(this).find(".quick").html())
-            $(this).parents("ul").prev().find("input").val($(this).find("input").val())
+            //$(this).parents("ul").prev().find("input").val($(this).find("input").val())
             var tempTotal=$("#tempTotal").val();
             var denominationSpan=$(this).find(".quick").find(".denominationSpan").html();
             var hiddenDiscountFee=$("input[name='hiddenDiscountFee']").val();
@@ -136,9 +136,7 @@ function tip(tipContent){
 }
 //当前url
 $(document).ready(function() {
-
     $("#curUrl").val(window.location.href);
-
 });
 
 
