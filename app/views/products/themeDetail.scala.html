@@ -26,43 +26,45 @@
     </header>
 
 
+    @if(null!=themeBasic.getThemeImg()&&""!=themeBasic.getThemeImg()){
+        <div class="banner scope" id="ad">
+            <div class="big-box">
 
-    <div class="banner scope" id="ad">
-        <div class="big-box">
-            <a href="javascript:;" class="banner-box">
-                <img src="@themeBasic.getThemeImg()">
-            </a>
-            @for(tag <- tagList){
-                @if(tag(4) == 0){
-                    <a href="/detail/@tag(1)" class="right redirect-app"  style="left:@tag(2)%;top:@tag(0)%">
-                        <div class="cartoon-right">
-                            @tag(3)
-                            <i class="right-arrow"></i>
-                            <div class="ripple-right">
+                <a href="javascript:;" class="banner-box">
+                    <img src="@themeBasic.getThemeImg()">
+                </a>
+                @for(tag <- tagList){
+                    @if(tag(4) == 0){
+                        <a href="/detail/@tag(1)" class="right redirect-app"  style="left:@tag(2)%;top:@tag(0)%">
+                            <div class="cartoon-right">
+                                @tag(3)
+                                <i class="right-arrow"></i>
+                                <div class="ripple-right">
+                                    <div class="c1"></div>
+                                    <div class="c2"></div>
+                                    <div class="c3"></div>
+                                </div>
+                            </div>
+                        </a>
+                    }
+                    @if(tag(4) == 180){
+
+                    <a href="/detail/@tag(1)" class="left redirect-app"  style="right:@tag(2)%;top:@tag(0)%">
+                        <div class="cartoon">@tag(3)
+                            <i></i>
+
+                            <div class="ripple">
                                 <div class="c1"></div>
                                 <div class="c2"></div>
                                 <div class="c3"></div>
                             </div>
                         </div>
                     </a>
+                    }
                 }
-                @if(tag(4) == 180){
 
-                <a href="/detail/@tag(1)" class="left redirect-app"  style="right:@tag(2)%;top:@tag(0)%">
-                    <div class="cartoon">@tag(3)
-                        <i></i>
-
-                        <div class="ripple">
-                            <div class="c1"></div>
-                            <div class="c2"></div>
-                            <div class="c3"></div>
-                        </div>
-                    </div>
-                </a>
-                }
-            }
-
-      </div>
+          </div>
+        }
         <!--<a href="javascript:;" class="left">-->
             <!--<div class="cartoon">兰蔻-->
                 <!--<i></i>-->
