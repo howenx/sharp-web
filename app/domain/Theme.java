@@ -19,7 +19,7 @@ public class Theme implements Serializable {
     private     String      themeUrl;//跳转到主题列表页的链接
     private     String      type;//主题类型
 
-    @JsonIgnore
+//    @JsonIgnore
     private     String      title;
     @JsonIgnore
     private     Timestamp   startAt;
@@ -37,7 +37,7 @@ public class Theme implements Serializable {
     private     Timestamp   createAt;
     @JsonIgnore
     private     String      themeSrcImg;
-    @JsonIgnore
+//    @JsonIgnore
     private     String    themeConfigInfo;
     @JsonIgnore
     private     String    themeItem;

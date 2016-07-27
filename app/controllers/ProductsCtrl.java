@@ -67,6 +67,7 @@ public class ProductsCtrl extends Controller {
                 Logger.info("index接收数据-->\n"+json);
             }
             List<Slider> sliderList = new ArrayList<>();
+            List<Slider> sliderNavList = new ArrayList<>();
             List<Theme> themeList = new ArrayList<>();
             int pageCount = json.get("page_count").asInt();
             if (json.has("slider")) {
@@ -86,22 +87,45 @@ public class ProductsCtrl extends Controller {
                     sliderList.add(slider);
                 }
             }
+
+            if (json.has("sliderNav")) {
+                JsonNode sliderJson = json.get("sliderNav");
+                for (JsonNode sliderTemp : sliderJson) {
+                    Slider slider = Json.fromJson(sliderTemp, Slider.class);
+                    if(null!=slider.getUrl()){
+                        JsonNode imgJson = Json.parse(slider.getUrl());
+                        slider.setImg(imgJson.get("url").asText());
+                    }
+                    if (slider.getItemTarget().contains(GOODS_PAGE)) {
+                        slider.setItemTarget(slider.getItemTarget().replace(GOODS_PAGE, ""));
+                    }
+                    if ((slider.getItemTarget().contains(THEME_PAGE)) && Objects.equals(slider.getTargetType(), "T")) {
+                        slider.setItemTarget(slider.getItemTarget().replace(THEME_PAGE, ""));
+                    }
+                    sliderNavList.add(slider);
+                }
+            }
+
             if (json.has("theme")) {
                 JsonNode themeJson = json.get("theme");
                 for (JsonNode themeTemp : themeJson) {
                     Theme theme = Json.fromJson(themeTemp, Theme.class);
                     JsonNode imgJson = Json.parse(theme.getThemeImg());
                     theme.setThemeImg(imgJson.get("url").asText());
-                    if (!"h5".equals(theme.getType())) {
+                    if ("ordinary".equals(theme.getType())) {
                         String themeUrl = theme.getThemeUrl();
                         themeUrl = themeUrl.replace(THEME_PAGE, "");
                         theme.setThemeUrl(themeUrl);
+                    }
+                    if ("detail".equals(theme.getType())) {
+                        String themeUrl = theme.getThemeUrl();
+                        theme.setThemeUrl(comCtrl.getDetailUrl(themeUrl));
                     }
                     themeList.add(theme);
                 }
             }
 
-            return ok(views.html.products.index.render(sliderList, themeList,pageCount));
+            return ok(views.html.products.index.render(sliderList,sliderNavList,themeList,pageCount));
         }
         );
     }

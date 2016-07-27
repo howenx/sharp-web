@@ -1,4 +1,4 @@
-@(sliderList:List[domain.Slider],themeList:List[domain.Theme],pageCount:Int)
+@(sliderList:List[domain.Slider],sliderNavList:List[domain.Slider],themeList:List[domain.Theme],pageCount:Int)
 @scripts = {
 <link rel="stylesheet" href="/assets/stylesheets/hp.css">
 <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
@@ -148,54 +148,26 @@
 		<!--分类模块-->
 		<div class="classify">
 			<ul class="clearfix">
-				<li>
-					<a href="#">
-						<img src="/assets/images/chaoxie.png"/>
-						<span class="classify-text">超市团购</span>
-					</a>
-				</li>
-				<li>
-					<a href="#">
-						<img src="/assets/images/chaoxie.png"/>
-						<span class="classify-text">潮鞋</span>
-					</a>
-				</li>
-				<li>
-					<a href="#">
-						<img src="/assets/images/chaoxie.png"/>
-						<span class="classify-text">潮鞋潮鞋</span>
-					</a>
-				</li>
-				<li>
-					<a href="#">
-						<img src="/assets/images/chaoxie.png"/>
-						<span class="classify-text">潮鞋</span>
-					</a>
-				</li>
-				<li>
-					<a href="#">
-						<img src="/assets/images/chaoxie.png"/>
-						<span class="classify-text">潮鞋</span>
-					</a>
-				</li>
-				<li>
-					<a href="#">
-						<img src="/assets/images/chaoxie.png"/>
-						<span class="classify-text">潮鞋</span>
-					</a>
-				</li>
-				<li>
-					<a href="#">
-						<img src="/assets/images/chaoxie.png"/>
-						<span class="classify-text">潮鞋</span>
-					</a>
-				</li>
-				<li>
-					<a href="#">
-						<img src="/assets/images/chaoxie.png"/>
-						<span class="classify-text">潮鞋</span>
-					</a>
-				</li>
+
+				@for(slider <- sliderNavList){
+					@if(slider.getTargetType() == "D" || slider.getTargetType() == "P"){
+					<li>
+						<a href="/detail/@slider.getItemTarget()"><img src="@slider.getImg()"/><span class="classify-text">@slider.getNavText()</span></a>
+					</li>
+					}
+					@if(slider.getTargetType() == "U"){
+					<li>
+						<a href="@slider.getItemTarget()"><img src="@slider.getImg()" /><span class="classify-text">@slider.getNavText()</span></a>
+					</li>
+					}
+					@if(slider.getTargetType() == "T"){
+					<li>
+						<a  href="/themeDetail/@slider.getItemTarget()"><img src="@slider.getImg()" /><span class="classify-text">@slider.getNavText()</span></a>
+					</li>
+					}
+
+				}
+
 			</ul>
 		</div>
         <!--内容开始-->
@@ -203,25 +175,33 @@
 		<div id="container">
 			<ul class="col" id="col-bottom">
 				@for(theme <- themeList){
-					@if(theme. getType() == "ordinary"){
-						<li>
-							<h2 class="col-text">快品牌 满199减100 上不封顶</h2>
-							<span>超值美装,好货必选</span>
+					<li>
+						<!--标题和简介-->
+						@if(null!=theme.getTitle()&&""!=theme.getTitle()){
+							<h2 class="col-text">@theme.getTitle()</h2>
+						}
+						@if(null!=theme.getThemeConfigInfo()&&""!=theme.getThemeConfigInfo()){
+							<span>@theme.getThemeConfigInfo()</span>
+						}
+
+						<!---按照类型跳转-->
+						@if(theme. getType() == "ordinary"){
 							<a href="/themeDetail/@theme.getThemeUrl()">
 								<img src="/assets/images/hp-320.png" data-echo="@theme.getThemeImg()">
 							</a>
-						</li>
-					}
-					@if(theme. getType() == "h5"){
-
-					<li>
-						<h2 class="col-text">快品牌 满199减100 上不封顶</h2>
-						<span>超值美装 , 好货必选</span>
-						<a href="@theme.getThemeUrl()/M">
-							<img src="/assets/images/hp-320.png" data-echo="@theme.getThemeImg()"/>
-						</a>
+						}
+						@if(theme. getType() == "h5"){
+							<a href="@theme.getThemeUrl()/M">
+								<img src="/assets/images/hp-320.png" data-echo="@theme.getThemeImg()"/>
+							</a>
+						}
+						@if(theme. getType() == "detail"){
+							<a href="@theme.getThemeUrl()">
+								<img src="/assets/images/hp-320.png" data-echo="@theme.getThemeImg()"/>
+							</a>
+						}
 					</li>
-					}
+
 				}
 			</ul>
 		</div>
