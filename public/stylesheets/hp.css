@@ -1,7 +1,7 @@
 
 
 body{
-	background-color: #F6F6F6;
+	background-color: #ECECEC;
 }
 
 
@@ -94,12 +94,11 @@ h1 .logo {
 .slideBox .bd li a{ -webkit-tap-highlight-color:rgba(0,0,0,0);  }  /* 去掉链接触摸高亮 */
 .con{
 	width:100%;
-	padding:5px 0 0 0;
 }
 
 #container ul{width:100%;list-style:none;float:left;margin:0 20px 0px 0}
 
-#container ul li{margin-bottom:5px;}
+#container ul li{margin-top:10px; background-color: #fff; padding:20px; }
 
 #container ul li img{width:100%;background-color: #ededed;}
 
@@ -692,6 +691,53 @@ li {
 }
 
 
+/*分类模块*/
+.classify{
+	width:100%;
+	margin: 10px 0 0 0 ;
+}
+.classify ul li{
+	width:25%;
+	float: left;
+	border-top: 1px solid #F4F5F4;
+	border-bottom: 1px solid #F4F5F4;
+	border-right: 1px solid #F4F5F4;
+	text-align: center;
+	margin: -1px 0 0 0;
+	background-color: #fff;
+	padding: 10px 0 0 0;
+}
+.classify ul li:last-child{
+	border-right: none;
+}
+.classify ul li a{
+	display: block;
 
+}
+
+.classify ul li img{
+    width:60px;
+	margin: 0 auto 6px auto;
+	}
+
+.classify-text{
+	width: 100%;
+    display: block;
+	margin-bottom: 10px;
+	font-size: 12px;
+	color: #666;
+
+}
+
+.col-text{
+	font-size: 18px;
+}
+
+.col span{
+	font-size: 12px;
+	color: #999;
+	display: block;
+	margin:5px 0 20px 0;
+}
 
 

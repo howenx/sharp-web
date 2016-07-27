@@ -145,29 +145,87 @@
 		</script>
 		<!-- 本例主要代码 End ================================ -->
 
+		<!--分类模块-->
+		<div class="classify">
+			<ul class="clearfix">
+				<li>
+					<a href="#">
+						<img src="/assets/images/chaoxie.png"/>
+						<span class="classify-text">超市团购</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="/assets/images/chaoxie.png"/>
+						<span class="classify-text">潮鞋</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="/assets/images/chaoxie.png"/>
+						<span class="classify-text">潮鞋潮鞋</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="/assets/images/chaoxie.png"/>
+						<span class="classify-text">潮鞋</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="/assets/images/chaoxie.png"/>
+						<span class="classify-text">潮鞋</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="/assets/images/chaoxie.png"/>
+						<span class="classify-text">潮鞋</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="/assets/images/chaoxie.png"/>
+						<span class="classify-text">潮鞋</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="/assets/images/chaoxie.png"/>
+						<span class="classify-text">潮鞋</span>
+					</a>
+				</li>
+			</ul>
+		</div>
         <!--内容开始-->
-		<div class="con">
-			<div id="container">
-				<ul class="col" id="col-bottom">
-					@for(theme <- themeList){
-						@if(theme. getType() == "ordinary"){
-							<li>
-								<a href="/themeDetail/@theme.getThemeUrl()">
-									<img src="/assets/images/hp-320.png" data-echo="@theme.getThemeImg()">
-								</a>
-							</li>
-						}
-						@if(theme. getType() == "h5"){
+
+		<div id="container">
+			<ul class="col" id="col-bottom">
+				@for(theme <- themeList){
+					@if(theme. getType() == "ordinary"){
 						<li>
-							<a href="@theme.getThemeUrl()/M">
-								<img src="/assets/images/hp-320.png" data-echo="@theme.getThemeImg()"/>
+							<h2 class="col-text">快品牌 满199减100 上不封顶</h2>
+							<span>超值美装,好货必选</span>
+							<a href="/themeDetail/@theme.getThemeUrl()">
+								<img src="/assets/images/hp-320.png" data-echo="@theme.getThemeImg()">
 							</a>
 						</li>
-						}
 					}
-				</ul>
-			</div>
+					@if(theme. getType() == "h5"){
+
+					<li>
+						<h2 class="col-text">快品牌 满199减100 上不封顶</h2>
+						<span>超值美装 , 好货必选</span>
+						<a href="@theme.getThemeUrl()/M">
+							<img src="/assets/images/hp-320.png" data-echo="@theme.getThemeImg()"/>
+						</a>
+					</li>
+					}
+				}
+			</ul>
 		</div>
+
 
 		<script type="text/javascript">
 			function getMinUl(){//每次获取最短的ul,将图片放到其后
