@@ -114,14 +114,18 @@ public class ProductsCtrl extends Controller {
                     Theme theme = Json.fromJson(themeTemp, Theme.class);
                     JsonNode imgJson = Json.parse(theme.getThemeImg());
                     theme.setThemeImg(imgJson.get("url").asText());
+                    //按照类型处理跳转地址
                     if ("ordinary".equals(theme.getType())) {
                         String themeUrl = theme.getThemeUrl();
                         themeUrl = themeUrl.replace(THEME_PAGE, "");
-                        theme.setThemeUrl(themeUrl);
+                        theme.setThemeUrl("/themeDetail/"+themeUrl);
                     }
                     if ("detail".equals(theme.getType())||"pin".equals(theme.getType())) {
                         String themeUrl = theme.getThemeUrl();
                         theme.setThemeUrl(comCtrl.getDetailUrl(themeUrl));
+                    }
+                    if ("h5".equals(theme.getType())) {
+                        theme.setThemeUrl(theme.getThemeUrl()+"/M");
                     }
                     themeList.add(theme);
                 }

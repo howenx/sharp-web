@@ -181,30 +181,17 @@
 			<ul class="col" id="col-bottom">
 				@for(theme <- themeList){
 					<li>
-						<!--标题和简介-->
-						@if(null!=theme.getTitle()&&""!=theme.getTitle()){
-							<h2 class="col-text">@theme.getTitle()</h2>
-						}
-						@if(null!=theme.getThemeConfigInfo()&&""!=theme.getThemeConfigInfo()){
-							<span>@theme.getThemeConfigInfo()</span>
-						}
+						<a href="@theme.getThemeUrl()">
+							<!--标题和简介-->
+							@if(null!=theme.getTitle()&&""!=theme.getTitle()){
+								<h2 class="col-text">@theme.getTitle()</h2>
+							}
+							@if(null!=theme.getThemeConfigInfo()&&""!=theme.getThemeConfigInfo()){
+								<span>@theme.getThemeConfigInfo()</span>
+							}
+							<img src="/assets/images/hp-320.png" data-echo="@theme.getThemeImg()"/>
+						</a>
 
-						<!---按照类型跳转-->
-						@if(theme. getType() == "ordinary"){
-							<a href="/themeDetail/@theme.getThemeUrl()">
-								<img src="/assets/images/hp-320.png" data-echo="@theme.getThemeImg()">
-							</a>
-						}
-						@if(theme. getType() == "h5"){
-							<a href="@theme.getThemeUrl()/M">
-								<img src="/assets/images/hp-320.png" data-echo="@theme.getThemeImg()"/>
-							</a>
-						}
-						@if(theme. getType() == "detail"||theme. getType() == "pin"){
-							<a href="@theme.getThemeUrl()">
-								<img src="/assets/images/hp-320.png" data-echo="@theme.getThemeImg()"/>
-							</a>
-						}
 					</li>
 
 				}
