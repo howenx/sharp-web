@@ -115,14 +115,19 @@
 							</li>
 						}
 						@if(slider.getTargetType() == "U"){
-						<li>
-							<a class="pic" href="@slider.getItemTarget()"><img src="@slider.getImg()" /></a>
-						</li>
+							<li>
+								<a class="pic" href="@slider.getItemTarget()"><img src="@slider.getImg()" /></a>
+							</li>
 						}
 						@if(slider.getTargetType() == "T"){
-						<li>
-							<a class="pic" href="/themeDetail/@slider.getItemTarget()"><img src="@slider.getImg()" /></a>
-						</li>
+							<li>
+								<a class="pic" href="/themeDetail/@slider.getItemTarget()"><img src="@slider.getImg()" /></a>
+							</li>
+						}
+					    @if(null==slider.getTargetType()){
+							<li>
+								<a class="pic" href="javascript:;"><img src="@slider.getImg()" /></a>
+							</li>
 						}
 
 					}
@@ -195,7 +200,7 @@
 								<img src="/assets/images/hp-320.png" data-echo="@theme.getThemeImg()"/>
 							</a>
 						}
-						@if(theme. getType() == "detail"){
+						@if(theme. getType() == "detail"||theme. getType() == "pin"){
 							<a href="@theme.getThemeUrl()">
 								<img src="/assets/images/hp-320.png" data-echo="@theme.getThemeImg()"/>
 							</a>

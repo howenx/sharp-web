@@ -92,7 +92,7 @@ public class UserCtrl extends Controller {
                 if(json.has("address")){
                     addressList=mapper.readValue(json.get("address").toString(), new TypeReference<List<Address>>() {});
                     for(Address address:addressList){
-                        address.setIdCardNum(comCtrl.getShowIdCardNum(address.getIdCardNum()));
+                    //    address.setIdCardNum(comCtrl.getShowIdCardNum(address.getIdCardNum()));
                         address.setTel(comCtrl.getShowTel(address.getTel()));
                     }
                 }
@@ -111,7 +111,7 @@ public class UserCtrl extends Controller {
                 if(json.has("address")){
                     addressList=mapper.readValue(json.get("address").toString(), new TypeReference<List<Address>>() {});
                     for(Address address:addressList){
-                        address.setIdCardNum(comCtrl.getShowIdCardNum(address.getIdCardNum()));
+                     //   address.setIdCardNum(comCtrl.getShowIdCardNum(address.getIdCardNum()));
                         address.setTel(comCtrl.getShowTel(address.getTel()));
                     }
                 }else {
@@ -143,8 +143,8 @@ public class UserCtrl extends Controller {
 //        Logger.info("====addressSave===\n" + addressForm.data());
         Map<String, String> addressMap = addressForm.data();
         Integer selId = Integer.valueOf(addressMap.get("selId"));
-        String idCardNum = addressMap.get("idCardNum").trim().toLowerCase();
-        if (addressForm.hasErrors() || !"".equals(ComTools.IDCardValidate(idCardNum))) { //表单错误或者身份证校验不通过
+//        String idCardNum = addressMap.get("idCardNum").trim().toLowerCase();
+        if (addressForm.hasErrors() /*|| !"".equals(ComTools.IDCardValidate(idCardNum))*/) { //表单错误或者身份证校验不通过
             Logger.error("收货地址保存表单错误或者身份证校验不通过" + toJson(addressMap));
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
@@ -169,7 +169,7 @@ public class UserCtrl extends Controller {
             object.put("name", addressMap.get("name").trim());
             object.put("deliveryDetail", addressMap.get("deliveryDetail").trim());
             object.put("orDefault", "on".equals(addressMap.get("orDefault")) ? 1 : 0);
-            object.put("idCardNum", idCardNum);
+        //    object.put("idCardNum", idCardNum);
 
 
             Promise<JsonNode> promiseOfInt = Promise.promise(() -> {

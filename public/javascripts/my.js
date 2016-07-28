@@ -7,7 +7,7 @@ $(document).on("click",".addAddressBtn",function(){
         var addId=$("#addId").val();
         var name=$("#name").val();
         var tel=$("#tel").val();
-        var idCardNum=$("#idCardNum").val(); //
+//        var idCardNum=$("#idCardNum").val(); //
         var deliveryDetail=$("#deliveryDetail").val();
         var province=$("#province").val();
         var selId = $("#selId").val();
@@ -21,9 +21,11 @@ $(document).on("click",".addAddressBtn",function(){
              tip('请填写正确的手机号码');
         }else if (deliveryDetail.length<5||deliveryDetail.length>50||!zszReg.test(deliveryDetail)) {
              tip('详细地址只能是5~50字内的中文/数字/字母');
-        }else if(!((idCardNum.length==15&&card15Reg.test(idCardNum))||(idCardNum.length==18&&card18Reg.test(idCardNum)))){
-             tip('请填写正确的身份证号码');
-        }else if(null==province||""==province){
+        }
+//        else if(!((idCardNum.length==15&&card15Reg.test(idCardNum))||(idCardNum.length==18&&card18Reg.test(idCardNum)))){
+//             tip('请填写正确的身份证号码');
+//        }
+        else if(null==province||""==province){
              tip('请填写正确的地址');
         }
         else {
@@ -54,7 +56,7 @@ $(document).on("click",".addAddressBtn",function(){
                                         var li=$("#li"+addId);
                                         li.find(".nameSpan").html(name);
                                         li.find(".telSpan").html(tel.substring(0,3)+"****"+tel.substring(7));
-                                        li.find(".idCardNumSpan").html(idCardNum.substring(0,10)+"****"+idCardNum.substring(14));
+                                    //    li.find(".idCardNumSpan").html(idCardNum.substring(0,10)+"****"+idCardNum.substring(14));
                                         li.find(".deliverSpan").html(shengshi+" "+deliveryDetail);
                                         if(orDefault==true){
                                             li.find(".orDefaultSpan").show();

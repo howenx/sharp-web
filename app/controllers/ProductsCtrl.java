@@ -119,7 +119,7 @@ public class ProductsCtrl extends Controller {
                         themeUrl = themeUrl.replace(THEME_PAGE, "");
                         theme.setThemeUrl(themeUrl);
                     }
-                    if ("detail".equals(theme.getType())) {
+                    if ("detail".equals(theme.getType())||"pin".equals(theme.getType())) {
                         String themeUrl = theme.getThemeUrl();
                         theme.setThemeUrl(comCtrl.getDetailUrl(themeUrl));
                     }
