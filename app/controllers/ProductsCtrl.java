@@ -67,17 +67,18 @@ public class ProductsCtrl extends Controller {
                 Logger.info("index接收数据-->\n"+json);
             }
             List<Slider> sliderList = new ArrayList<>();
-            List<Slider> sliderNavList = new ArrayList<>();
+            List<SliderNav> sliderNavList = new ArrayList<>();
             List<Theme> themeList = new ArrayList<>();
             int pageCount = json.get("page_count").asInt();
             if (json.has("slider")) {
                 JsonNode sliderJson = json.get("slider");
                 for (JsonNode sliderTemp : sliderJson) {
                     Slider slider = Json.fromJson(sliderTemp, Slider.class);
-                    if(null!=slider.getUrl()){
-                        JsonNode imgJson = Json.parse(slider.getUrl());
-                        slider.setImg(imgJson.get("url").asText());
-                    }
+//                    if(null!=slider.getUrl()){
+//                        JsonNode imgJson = Json.parse(slider.getUrl());
+//                        slider.setImg(imgJson.get("url").asText());
+//                    }
+                    slider.setImg(slider.getUrl());
                     if (slider.getItemTarget().contains(GOODS_PAGE)) {
                         slider.setItemTarget(slider.getItemTarget().replace(GOODS_PAGE, ""));
                     }
@@ -91,11 +92,12 @@ public class ProductsCtrl extends Controller {
             if (json.has("sliderNav")) {
                 JsonNode sliderJson = json.get("sliderNav");
                 for (JsonNode sliderTemp : sliderJson) {
-                    Slider slider = Json.fromJson(sliderTemp, Slider.class);
-                    if(null!=slider.getUrl()){
-                        JsonNode imgJson = Json.parse(slider.getUrl());
-                        slider.setImg(imgJson.get("url").asText());
-                    }
+                    SliderNav slider = Json.fromJson(sliderTemp, SliderNav.class);
+//                    if(null!=slider.getUrl()){
+//                        JsonNode imgJson = Json.parse(slider.getUrl());
+//                        slider.setImg(imgJson.get("url").asText());
+//                    }
+                    slider.setImg(slider.getUrl());
                     if (slider.getItemTarget().contains(GOODS_PAGE)) {
                         slider.setItemTarget(slider.getItemTarget().replace(GOODS_PAGE, ""));
                     }

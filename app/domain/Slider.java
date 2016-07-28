@@ -24,8 +24,6 @@ public class Slider implements Serializable{
     private String  itemTarget;
     private String  targetType;
     private String  url;
-    private Boolean orNav; //是否是导航图
-    private String navText;//导航文字显示
 
     public Slider() {
     }
@@ -96,23 +94,6 @@ public class Slider implements Serializable{
         this.url = url;
     }
 
-    public Boolean getOrNav() {
-        return orNav;
-    }
-
-    public void setOrNav(Boolean orNav) {
-        this.orNav = orNav;
-    }
-
-    public String getNavText() {
-        return navText;
-    }
-
-    public void setNavText(String navText) {
-        this.navText = navText;
-    }
-
-
     @Override
     public String toString() {
         return "Slider{" +
@@ -123,8 +104,6 @@ public class Slider implements Serializable{
                 ", itemTarget='" + itemTarget + '\'' +
                 ", targetType='" + targetType + '\'' +
                 ", url='" + url + '\'' +
-                ", orNav=" + orNav +
-                ", navText='" + navText + '\'' +
                 '}';
     }
 }
