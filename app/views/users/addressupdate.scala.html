@@ -29,7 +29,7 @@
     <h1>管理地址</h1>
 </header>
 
-<div class="scope wap">
+<div class="scope wap manage">
     <form id="cell_addressForm">
         <input  id="addId" name="addId" value="@address.getAddId()" type="hidden"/>
        <div class="add-s">
@@ -69,14 +69,16 @@
             </span>
         </div>
 
-        <div class="cue">
-            <p class="color">提示:</p>
-            <p>1.海关需要对海外购物查验身份信息，错误信息可能导致无法通关。</p>
-            <p>2.身份信息将加密报关，韩秘美将保证您的信息安全。</p>
-        </div>
+
         <input type="hidden" id="selId" name="selId" value="0">
         <input type="hidden" class="formSubmitTimes" value="0"/>
     </form>
+</div>
+
+<div class="cue">
+    <p class="color">提示:</p>
+    <p>1.海关需要对海外购物查验身份信息，错误信息可能导致无法通关。</p>
+    <p>2.身份信息将加密报关，韩秘美将保证您的信息安全。</p>
 </div>
 
 <button class="plus-add bg addAddressBtn">保存修改</button>

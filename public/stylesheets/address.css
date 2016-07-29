@@ -130,6 +130,7 @@ li div{
     color: #999;
     background-color: #F4F4F4;;
     padding: 0 0 0 5px;
+    margin:10px 0;
 }
 
 
@@ -214,5 +215,8 @@ input{
 }
 
 .ul-box-padding{
+    padding: 44px 0 0 0;
+}
+.manage{
     padding: 44px 0 0 0;
 }

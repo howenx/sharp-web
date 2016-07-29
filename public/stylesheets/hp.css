@@ -4,15 +4,12 @@ body{
 	background-color: #ECECEC;
 }
 
-
-
-
 /***header****/
 .battener{
 	position:fixed;
 	width: 100%;
 	height:44px;
-	background:#ff5359;
+	background:#F9F9F9;
 	z-index:1000;
 }
 .batten{
@@ -20,6 +17,7 @@ body{
 	height:44px;
 	line-height:44px;
 	background-size: 100% auto;
+
 }
 
 .icon-user-title{
@@ -62,13 +60,22 @@ h1 {
 	height:50px;
 	text-align: center;
 }
-h1 .logo {
-	width:90px;
+
+
+.battener img{
+	width:110px;
+	margin: 12px auto;
+	vertical-align:middle;
+
+}
+
+.logo {
+	width:100%;
 	padding-top:32px;
 	display: inline-block;
-	background: url("/assets/images/logo.png") no-repeat center center;
+	background: url("/assets/images/kakaogift_logo.png") no-repeat center center;
 	background-size: 100%;
-	margin: 10px 0 0 0;
+	margin:0px auto;
 }
 
 

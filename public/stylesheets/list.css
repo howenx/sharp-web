@@ -631,6 +631,9 @@ h1 .logo {
 
 
 /*拼购产品*/
+.content{
+    padding: 44px 0 0 0;
+}
 .content,.content ul{
     width: 100%;
 }
@@ -805,7 +808,7 @@ h2 span{
         border: 1px solid #e33a39;
         color: #e56254;
         font-weight: normal;
-        margin: 15px 0 0 0;
+        margin:2px 0 0 0;
     }
     .footer {
 
