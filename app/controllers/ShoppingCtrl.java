@@ -605,7 +605,7 @@ public class ShoppingCtrl extends Controller {
                 SettleVo settleVo = Json.fromJson(json.get("settle"), SettleVo.class);
                 if(null!=settleVo.getAddress()){
                     settleVo.getAddress().setTel(comCtrl.getShowTel(settleVo.getAddress().getTel()));
-                    settleVo.getAddress().setIdCardNum(comCtrl.getShowIdCardNum(settleVo.getAddress().getIdCardNum()));
+                //    settleVo.getAddress().setIdCardNum(comCtrl.getShowIdCardNum(settleVo.getAddress().getIdCardNum()));
                 }
 
 
