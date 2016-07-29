@@ -64,7 +64,7 @@ input:password {
 	height:44px;
 	width: 100%;
 	z-index: 600;
-	background:#ff5359 ;
+	background:#F9F9F9;
 	position: fixed;
 	top:0;
 	color:#fff;
@@ -75,28 +75,16 @@ input:password {
 }
 /*头部*/
 
-.nav_ban_detail .back{
+
+.back{
 	position: absolute;
-	top:12px;
-	left:0;
-	width:40px;
-	height:40px;
-}
-
-
-.back i,.back b{
-	position: absolute;
-	left:0;
-	width:0;
-	height:0;
-	border-width:10px;
-	border-style:dashed solid dashed dashed ;
-	border-color:transparent #fff transparent transparent ;
-}
-.back b{
-	border-color:transparent #ff5359 transparent transparent ;
-	left:2px;
-
+	background: url(/assets/images/hmm_through_page.png) center center no-repeat;
+	background-size: contain;
+	top: 25%;
+	left: 2%;
+	width: 20px;
+	height: 20px;
+	z-index: 10;
 }
 
 /*海报*/
@@ -152,7 +140,8 @@ input:password {
 	text-overflow:ellipsis;
 	overflow:hidden;
 	-webkit-text-overflow:ellipsis;
-	height:50px
+	height:50px;
+	color:#242424;
 
 }
 
@@ -386,10 +375,12 @@ div .cycle-overlay {
 	font-size: 12px;
 }
 .u-detail-discount {
-	float: left;
-	text-align: center;
-	color:#EF2528;
-;
+    float: left;
+	padding:1px 4px;
+	color: #fff;
+	font-size: 12px;
+	background-color:#FF4F4D;
+	margin:0 5px 0 0 ;
 }
 .thw-detail-other {
 	color: #565555;
