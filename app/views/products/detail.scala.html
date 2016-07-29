@@ -90,7 +90,7 @@
 								<ul></ul>
 							</div>
 						</div>
-						<div class="sku-meta box">
+						<div class="box">
 							<div class="sku-title">
 								@if(inventory.getItemDiscount().toString() != "0"){
 									<span class="u-detail-discount">@inventory.getItemDiscount()折 </span>
@@ -102,9 +102,10 @@
 								@if(inventory.getItemDiscount().toString() != "0"){
 									<span class="u-detail-mprice">¥@inventory.getItemSrcPrice()</span>
 								}
-								<span class="three">@inventory.getInvAreaNm()</span>
+								<span class="three">包邮包税</span>
 							</p>
-							<section class="thw-detail-other" style="margin-bottom: 2px;">
+
+							<!--<section class="thw-detail-other" style="margin-bottom: 2px;">
 								@if(null!=inventory.getRestrictAmount()&&""!=inventory.getRestrictAmount()&&inventory.getRestrictAmount()>0){
 									<span class="one">
 										<span class="xian">每单限购</span>
@@ -112,17 +113,30 @@
 									</span>
 								}
 								@if(inventory.getInvArea()=="K"){
-									<span class="four directSpec" style="text-decoration: underline">直邮税</span>
+									&lt;!&ndash;<span class="four directSpec" style="text-decoration: underline">直邮税</span>&ndash;&gt;
 								}
 								@if(inventory.getInvArea()!="K"){
 									@if(null==inventory.getPostalTaxRate()||""==inventory.getPostalTaxRate()){
+&lt;!&ndash;
 										<span class="four " style="text-decoration: underline" onclick="postalShade(@inventory.getItemPrice(),0)">行邮税  0%</span>
+&ndash;&gt;
 									}
 									@if(null!=inventory.getPostalTaxRate()&&""!=inventory.getPostalTaxRate()){
+&lt;!&ndash;
 										<span class="four " style="text-decoration: underline" onclick="postalShade(@inventory.getItemPrice(),@inventory.getPostalTaxRate())">行邮税  @inventory.getPostalTaxRate()%</span>
+&ndash;&gt;
 									}
 								}
-							</section>
+							</section>-->
+						</div>
+
+						<div class="favourable">
+							跨品牌,全场满300减90
+						</div>
+
+						<div class="postage">
+							<span class="postage-f c9">邮寄方式 : </span>
+							<span class="postage-h">韩国直邮</span>
 						</div>
 					</div>
 			}
@@ -142,8 +156,8 @@
 		<!--标题-->
 		<div class="sku-meta">
 			<!--正品保障-->
-			<div class="classify clearfix">
-				<span>规格</span>
+			<div class="classify clearfix ">
+				<span class="c9">规格</span>
 				<ul>
 					@for(inventory <- inventoryList){
 						@if(inventory.getOrMasterInv()){
@@ -175,15 +189,15 @@
 				</div>
 			}
 
-			<div class="sale">
+			<!--<div class="sale">
 				@for(publicity <- publicityList){
 					<p>@publicity</p>
 				}
-			</div>
+			</div>-->
 		</div>
 
 		<!-- 切换tab -->
-		<div class="detail-tabpanel">
+		<div class="detail-tabpanel clearfix">
 			<div class="tabpanel-occupying" id="TabpanelOccupying">
 				<!-- 标签 -->
 				<nav class="tabpanel-tabs center">

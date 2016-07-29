@@ -27,7 +27,7 @@ img {
 /* 清零 */
 body,div,ul,li,ol,h1,h2,h3,h4,h5,h6,input,textarea,select,p,dl,dt,dd,a,img,button,form,table,th,tr,td,tbody,article,
 aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section{margin:0; padding:0; border:none;}
-body{font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self; color:#565555; background:#F0F0F0; }
+body{font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self; color:#565555; background:#F4F9FA; }
 em,i{font-style:normal;}
 strong{font-weight: normal;}
 .clearfix:after{content:""; display:block; visibility:hidden; height:0; clear:both;}
@@ -52,6 +52,10 @@ input:password {
 	ime-mode:disabled;
 }
 *{box-sizing:border-box;}
+
+.c9{
+	color:#999;
+}
 
 .picture_wrap {
 	overflow: auto;
@@ -89,7 +93,7 @@ input:password {
 
 /*海报*/
 /* 本例子css -------------------------------------- */
-.slideBox{ position:relative; width:100%;  height:auto; overflow:hidden; margin:5px auto;    padding: 40px 0 0 0; }
+.slideBox{ margin:1px auto;position:relative; width:100%;  height:auto; overflow:hidden;padding: 40px 0 0 0; }
 .slideBox .hd{ position: absolute;
 	height: auto;
 	line-height: 28px;
@@ -303,27 +307,23 @@ div .cycle-overlay {
 }
 
 
+
 .detail-tabpanel {
-	height:60px;
 	background-color: #fff;
 	border-bottom: 1px solid #eee;
 }
+
 .detail-tabpanel .center li{
 	float: left;
 }
 .tabpanel-tabs .tab-item {
 	position: relative;
 	width: 33%;
-	padding:1.2rem 0;
+	padding:15px 0;
 	text-align: center;
 
 }
-.classify .current{
-	border: 1px solid #F9616A;
-}
-.current{
-	border-bottom: 2px solid #f69;
-}
+
 .tabpanel-tabs .tab-span {
 	display: block;
 	line-height: 20px;
@@ -340,6 +340,7 @@ div .cycle-overlay {
 }
 .box{
 	background-color: #fff;
+
 }
 .sku-title {
 	color: #666;
@@ -351,17 +352,15 @@ div .cycle-overlay {
 	word-break: normal;
 	word-wrap: break-word;
 	text-align: left;
-	padding: 10px 5px 2%;
 }
 .u-detail-pricebox {
-	padding:0 2%;
 	line-height:35px;
 }
 .u-detail-price {
 	float: left;
 	font-weight:bold;
 	color:#EF2528;
-	font-size:20px ;
+	font-size:22px ;
 }
 
 .u-detail-price i{
@@ -409,32 +408,44 @@ div .cycle-overlay {
 	margin: 0 0 0 15%;
 }
 
-
-.three,.four{
+.box{
+	padding: 15px;
+}
+.three{
     padding:0 0 0 20px;
 	font-size: 12px;
 	float: right;
+	color: #999;
 }
 
-.four{
+.favourable{
+	padding: 15px;
+	background-color:#fff;
+	color: #242424;
+	margin: 10px 0 0 0;
+}
+
+.postage{
 	font-size: 14px;
-}
+	margin: 10px 0;
+	padding: 15px;
+	background-color: #fff;
 
-.three{
-	background: url("/assets/images/hmm_dingwei_icon.png") 3px 10px no-repeat;
-	background-size:15px;
 }
-
+.postage-h{
+	color: #242424;
+}
 
 
 /*分类*/
 .classify{
-	margin:5px 0 0 0;
 	width:100%;
-	padding: 5px 2% 10px;
+	padding:15px;
+	margin: 0 0 10px 0;
 	background-color: #fff;
 }
 .classify span{
+	font-size: 14px;
 	display: block;
 	margin: 0 0 10px 0;
 }
@@ -442,26 +453,36 @@ div .cycle-overlay {
 
 .classify ul li{
 	text-align: center;
-	padding: 0 5px;
-	line-height:35px;
+	padding:4px 8px;
 	font-size: 12px;
 	float: left;
 	border: 1px solid #e1e1e1;
 	border-radius: 5px;
 	cursor: pointer;
-	margin: 0 1px 0 0;
-	color: #ff5359;
+	margin: 0 5px 0 0;
+	color: #242424;
 }
-.sale{
-	margin: 5px 0 0 0;
+
+.classify .current{
+	border:none;
+	background-color: #fdd000;
+}
+
+.current{
+	border-bottom: 2px solid  #fdd000;
+	color:  #fdd000;
+}
+
+/*.sale{
+	margin:10px 0 0 0;
 	width: 100%;
-	padding:2%;
+	padding:10px;
 	background-color: #fff;
 }
 .sale p{
 	line-height: 30px;
 	color:#FF8308;
-}
+}*/
 
 
 
@@ -497,8 +518,6 @@ div .cycle-overlay {
 
 }
 .parameter-wrap .param-list li {
-	display: -webkit-flex;
-	display: -webkit-box;
 	line-height: 40px;
 	border-bottom: 1px solid #f4f4f4;
 }
@@ -509,8 +528,7 @@ div .cycle-overlay {
 	font-size: 12px;
 }
 .parameter-wrap .param-list .param-info {
-	-webkit-flex: 1;
-	-webkit-box-flex: 1;
+
 	color: #eb4868;
 	line-height: 40px;
 }
@@ -680,7 +698,7 @@ div .cycle-overlay {
 /*底部购物车*/
 
 .buy_box a{
-	color:#fff;
+	color:#242424;
 }
 
 
@@ -708,11 +726,10 @@ div .cycle-overlay {
 	position: absolute;
 	top:5px;
 	left: 60%;
-	border: 1px solid #ff5359;
-	background: #fff;
-	line-height: 15px;
+	background: #ff4242;
+	line-height: 16px;
 	cursor: pointer;
-	color: #ff5359;
+	color: #fff;
 	border-radius: 50%;
 	text-align: center;
 	font-size: 12px;
@@ -721,8 +738,8 @@ div .cycle-overlay {
 .love{
 	float: left;
 	height:44px;
-	width:25%;
-	background: #fff;
+	width:33.3%;
+	background:#F9F9F9;
 	padding:0 2%;
 }
 
@@ -742,6 +759,7 @@ div .cycle-overlay {
 	background: url("/assets/images/detail-shou.png") center center no-repeat;
 	background-size: 20px;
 	display: none;
+	border-right: 1px solid #d7d7d7;
 }
 
 
@@ -798,14 +816,15 @@ div .cycle-overlay {
 
 
 /*加入购物车*/
-
+.buy_box{
+	border-right:1px solid #d9d9d9;
+}
 .buy_box .add_cart {
 	float: left;
-	width:37.5%;
-	background-color:#ff5359;
+	width:33.3%;
+	background-color:#F9F9F9;
 	font-size:18px;
 	line-height:44px;
-	color: #666;
 	text-align: center;
 	word-wrap: normal;
 	white-space: nowrap;
@@ -815,12 +834,12 @@ div .cycle-overlay {
 
 .buy_box .buy_btn {
 	float: left;
-	width:37.5%;
+	width:33.3%;
 	font-size:18px;
 	line-height:44px;
 	text-align: center;
 	color: #fff;
-	background-color:#F03047;
+	background-color:#FEDB00;
 	word-wrap: normal;
 	white-space: nowrap;
 }
@@ -860,7 +879,6 @@ div .cycle-overlay {
 		bottom: 0;
 		width: 100%;
 		height:auto;
-		box-shadow: 0 -1px 0 0 rgba(51,51,51,0.15);
 		z-index:1000;
 		word-wrap: normal;
 		white-space: nowrap;
@@ -877,7 +895,6 @@ div .cycle-overlay {
 		position: fixed;
 		bottom: 0;
 		width: 100%;
-		box-shadow: 0 -1px 0 0 rgba(51,51,51,0.15);
 		z-index:1000;
 		word-wrap: normal;
 		white-space: nowrap;
@@ -893,7 +910,6 @@ div .cycle-overlay {
 		position: fixed;
 		bottom: 0;
 		width: 100%;
-		box-shadow: 0 -1px 0 0 #ededed;
 		z-index:1000;
 		word-wrap: normal;
 		white-space: nowrap;
