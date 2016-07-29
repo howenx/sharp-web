@@ -102,6 +102,12 @@
 								@if(inventory.getItemDiscount().toString() != "0"){
 									<span class="u-detail-mprice">¥@inventory.getItemSrcPrice()</span>
 								}
+
+								<span class="one">
+										<span class="xian">每单限购</span>
+										<span class="xian-j">@inventory.getRestrictAmount()件</span>
+								</span>
+
 								<span class="three">包邮包税</span>
 							</p>
 
@@ -109,7 +115,7 @@
 								@if(null!=inventory.getRestrictAmount()&&""!=inventory.getRestrictAmount()&&inventory.getRestrictAmount()>0){
 									<span class="one">
 										<span class="xian">每单限购</span>
-										<span class="xian-j">@inventory.getRestrictAmount()件</span>
+										<span class="xian-j"> @inventory.getRestrictAmount() 件</span>
 									</span>
 								}
 								@if(inventory.getInvArea()=="K"){

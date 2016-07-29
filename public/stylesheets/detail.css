@@ -367,11 +367,17 @@ div .cycle-overlay {
 	font-size:20px ;
 }
 .u-detail-mprice {
+	float: left;
 	display: inline-block;
-	margin:2px 0 0 5px;
+	margin: 3px 0 0 10px;
 	color: #BEBEBE;
 	text-decoration: line-through;
 	font-size: 12px;
+}
+
+.one{
+	margin: 2px 0 0 10px;
+	float: left;
 }
 .u-detail-discount {
     float: left;
@@ -387,9 +393,7 @@ div .cycle-overlay {
 	padding:0 2%;
 	font-size:14px;
 }
-.one{
-	float: left;
-}
+
 
 .thw-detail-other .xian{
 	color: #999;
@@ -398,11 +402,6 @@ div .cycle-overlay {
 	font-size: 12px;
 
 }
-.xian-j{
-	float: left;
-
-}
-
 .two{
 	float: left;
 	margin: 0 0 0 15%;

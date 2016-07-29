@@ -66,8 +66,8 @@ input:password {
     width: 100%;
     line-height:44px;
     display: block;
-    background-color:#ff5359;
-    border-bottom:1px solid #C7C7C7;
+    background-color:#F9F9F9;
+    border-bottom:1px solid #d9d9d9;
 
 }
 .nav_ban h1 {
@@ -75,19 +75,22 @@ input:password {
     display: inline-block;
     position: relative;
     font-size:24px;
-    color:#fff;
+    color:#242424;
 }
 .nav_ban .icon-back {
-    height:25px;
-    width:25px;
+    height:20px;
+    width:20px;
     position: absolute;
-    top:9px;
-    left:2%;
-    background: url("/assets/images/icon_back.png") center center no-repeat;
-    background-size: cover;
+    top: 25%;
+    left: 2%;
+    background: url("/assets/images/hmm_through_page.png") center center no-repeat;
+    background-size:contain;
 
 }
 
+.submitBox{
+    margin: 20px 0 10px 0;
+}
 /***********login****************/
 
 .cue{
@@ -198,7 +201,7 @@ input[type=checkbox]{
 }
 
 .login .loginBtn {
-    background-color:#ff5359;
+    background-color:#FDE03C;
     border: 1px solid #fff;
     float: left;
 }
@@ -236,7 +239,7 @@ input[type=checkbox]{
     font-size: 14px;
 }
 .lonin-dd{
-    border:1px solid #DFDFDD;
+    border-bottom:1px solid #DFDFDD;
     margin:0 0 20px 0;
 }
 .dd-padding{
@@ -542,7 +545,7 @@ dl.list dd>.btn {
     text-align: center;
     -webkit-border-radius: 4px;
     border-radius: 4px;
-    color: #fff;
+    color: #242424;
     font-size: 16px;
     cursor: pointer;
     -webkit-appearance: none;
@@ -561,7 +564,7 @@ dl.list dd>.btn {
 /*提示信息*/
 .out{
     width:20px;
-    right:80px;
+    right:55px;
     top:12px;
 }
 .out,.delet{
@@ -573,7 +576,7 @@ dl.list dd>.btn {
 }
 .delet{
     width:20px;
-    right:40px;
+    right:25px;
     top:12px;
 }
 
@@ -584,7 +587,7 @@ dl.list dd>.btn {
     height:20px;
     background-size: contain;
     position: absolute;
-    right:40px;
+    right:25px;
     top:12px;
 }
 
