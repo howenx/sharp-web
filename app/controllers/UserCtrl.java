@@ -208,7 +208,7 @@ public class UserCtrl extends Controller {
                                 add += " " + jsonNode.findValue("area").asText();
                             }
                             address.setDeliveryCity(add);
-                            address.setIdCardNum(comCtrl.getShowIdCardNum(address.getIdCardNum()));
+                        //    address.setIdCardNum(comCtrl.getShowIdCardNum(address.getIdCardNum()));
                             address.setTel(comCtrl.getShowTel(address.getTel()));
                             result.putPOJO("address", address);
                         }

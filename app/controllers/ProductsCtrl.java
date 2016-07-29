@@ -79,12 +79,10 @@ public class ProductsCtrl extends Controller {
 //                        slider.setImg(imgJson.get("url").asText());
 //                    }
                     slider.setImg(slider.getUrl());
-                    if (slider.getItemTarget().contains(GOODS_PAGE)) {
-                        slider.setItemTarget(slider.getItemTarget().replace(GOODS_PAGE, ""));
-                    }
-                    if ((slider.getItemTarget().contains(THEME_PAGE)) && Objects.equals(slider.getTargetType(), "T")) {
-                        slider.setItemTarget(slider.getItemTarget().replace(THEME_PAGE, ""));
-                    }
+
+                    //处理TDPU类型的目标地址在M端应该转化成的最终地址
+                    slider.setItemTarget(comCtrl.getFinalItemTargetByTypeTDPU(slider.getTargetType(),slider.getItemTarget()));
+
                     sliderList.add(slider);
                 }
             }
@@ -98,12 +96,10 @@ public class ProductsCtrl extends Controller {
 //                        slider.setImg(imgJson.get("url").asText());
 //                    }
                     slider.setImg(slider.getUrl());
-                    if (slider.getItemTarget().contains(GOODS_PAGE)) {
-                        slider.setItemTarget(slider.getItemTarget().replace(GOODS_PAGE, ""));
-                    }
-                    if ((slider.getItemTarget().contains(THEME_PAGE)) && Objects.equals(slider.getTargetType(), "T")) {
-                        slider.setItemTarget(slider.getItemTarget().replace(THEME_PAGE, ""));
-                    }
+
+                    //处理TDPU类型的目标地址在M端应该转化成的最终地址
+                    slider.setItemTarget(comCtrl.getFinalItemTargetByTypeTDPU(slider.getTargetType(),slider.getItemTarget()));
+
                     sliderNavList.add(slider);
                 }
             }

@@ -110,24 +110,14 @@
 			<div class="bd">
 				<ul>
 					@for(slider <- sliderList){
-						@if(slider.getTargetType() == "D" || slider.getTargetType() == "P"){
-							<li>
-								<a class="pic" href="/detail/@slider.getItemTarget()"><img src="@slider.getImg()" /></a>
-							</li>
-						}
-						@if(slider.getTargetType() == "U"){
-							<li>
-								<a class="pic" href="@slider.getItemTarget()"><img src="@slider.getImg()" /></a>
-							</li>
-						}
-						@if(slider.getTargetType() == "T"){
-							<li>
-								<a class="pic" href="/themeDetail/@slider.getItemTarget()"><img src="@slider.getImg()" /></a>
-							</li>
-						}
+
 					    @if(null==slider.getTargetType()){
 							<li>
 								<a class="pic" href="javascript:;"><img src="@slider.getImg()" /></a>
+							</li>
+						}else {
+							<li>
+								<a class="pic" href="@slider.getItemTarget()"><img src="@slider.getImg()" /></a>
 							</li>
 						}
 
@@ -156,20 +146,15 @@
 			<ul class="clearfix">
 
 				@for(slider <- sliderNavList){
-					@if(slider.getTargetType() == "D" || slider.getTargetType() == "P"){
-					<li>
-						<a href="/detail/@slider.getItemTarget()"><img src="@slider.getImg()"/><span class="classify-text">@slider.getNavText()</span></a>
-					</li>
-					}
-					@if(slider.getTargetType() == "U"){
-					<li>
-						<a href="@slider.getItemTarget()"><img src="@slider.getImg()" /><span class="classify-text">@slider.getNavText()</span></a>
-					</li>
-					}
-					@if(slider.getTargetType() == "T"){
-					<li>
-						<a  href="/themeDetail/@slider.getItemTarget()"><img src="@slider.getImg()" /><span class="classify-text">@slider.getNavText()</span></a>
-					</li>
+				
+					@if(null==slider.getTargetType()){
+						<li>
+							<a href="javascript:;"><img src="@slider.getImg()" /><span class="classify-text">@slider.getNavText()</span></a>
+						</li>
+					}else {
+						<li>
+							<a href="@slider.getItemTarget()"><img src="@slider.getImg()" /><span class="classify-text">@slider.getNavText()</span></a>
+						</li>
 					}
 
 				}
