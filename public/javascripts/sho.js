@@ -336,7 +336,7 @@ function cartCheck(cartCheckList){
           var ckeckedSku=$(this).find("ul").find("input[type=checkbox]:checked");
           ckeckedSku.each(function(){
              var ts = $(this).parents("li").find(".subtotal").html();
-              if('K'!=invArea){ //海外直邮不限制
+              if('K'!=invArea&&'NK'!=invArea){ //海外直邮,国内直邮不限制
                  total+=parseFloat(ts);
              }
           });
