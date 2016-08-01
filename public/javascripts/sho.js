@@ -51,8 +51,8 @@ $(function(){
                          t.val(aa);
                          li.find(".amount").val(aa);
 
-                         var s = li.find(".price").html();
-                         var d = aa * s;
+                         var s = li.find(".subtotal").html();
+                         var d = aa * (s/(aa-1));
 
                          var ss = li.find(".subtotal").html(d);
                          Total();
@@ -114,8 +114,8 @@ $(function(){
                          t.val(aa);
                          li.find(".amount").val(aa);
 
-                         var s = li.find(".price").html();
-                         var d = aa * s;
+                        var s = li.find(".subtotal").html();
+                        var d = aa * (s/(aa+1));
 
                          var ss = li.find(".subtotal").html(d);
                          Total();
@@ -231,21 +231,21 @@ $(function(){
         checkPostalLimit();
     })
 
-    /*金额小计*/
-    function setTotal(){
-        /*var s=0;*/
-        var v=0;
-        $(".cart-product-number").each(function(){
-            s+=parseInt($(this).find('input[class*=quantity]').val())*parseFloat($(this).siblings().find('span[class*=price]').text());
-        });
-        <!--计算分数-->
-        $("input[type='text']").each(function(){
-            v += parseInt($(this).val());
-        });
-        $(".cart-product-price").each(function(){
-            $(this).find(".subtotal").html(s.toFixed(2));
-        });
-    }
+    // /*金额小计*/
+    // function setTotal(){
+    //     /*var s=0;*/
+    //     var v=0;
+    //     $(".cart-product-number").each(function(){
+    //         s+=parseInt($(this).find('input[class*=quantity]').val())*parseFloat($(this).siblings().find('span[class*=price]').text());
+    //     });
+    //     <!--计算分数-->
+    //     $("input[type='text']").each(function(){
+    //         v += parseInt($(this).val());
+    //     });
+    //     $(".cart-product-price").each(function(){
+    //         $(this).find(".subtotal").html(s.toFixed(2));
+    //     });
+    // }
     function funss(){
         $(".check-one").each(function(){
             count++
