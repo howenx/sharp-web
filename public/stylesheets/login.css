@@ -283,10 +283,15 @@ input[type=checkbox]{
 }
 
 .third{
+    width: 100%;
     position:fixed;
     bottom:0;
     background-color: #fff;
     padding: 30px 0 0 0 ;
+}
+
+.other img{
+    width: 100%;
 }
 
 .third a{
@@ -453,16 +458,23 @@ input[type=checkbox]{
 
 .list dd>.input-weak {
     width:100%;
+    float: left;
+}
+.dd-padding span{
 
+    width: 20%;
+    font-size: 14px;
+    position: absolute;
+    top: 12px;
 }
 
 
 input.input-weak, textarea.input-weak {
-    font-size: 1rem;
+    font-size:14px;
     color:#404040;
     border: 0;
     width: 86%;
-    padding-left: 7px;
+    padding-left:40px;
 	vertical-align: middle;
     margin: 12px 0 0 0;
 }
@@ -623,7 +635,6 @@ dl.list dd>.btn {
 }
 
 .howl-reB{
-
     top:13px;
     right:3px;
 }
@@ -635,7 +646,7 @@ dl.list dd>.btn {
     height:20px;
     background-size: contain;
     position: absolute;
-    right:40px;
+    right:25px;
     top:12px;
 }
 
@@ -658,10 +669,6 @@ dl.list dd>.btn {
     top:13px;
 
 }
-input::-webkit-input-placeholder{
-
-}
-
 
 
 

@@ -1292,6 +1292,13 @@ public class UserCtrl extends Controller {
         });
 
 
+
+
     }
+
+        public Result appdownload() {
+
+        return ok(views.html.users.appdownload.render());
+             }
 
 }
