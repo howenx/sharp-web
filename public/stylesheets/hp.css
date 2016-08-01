@@ -614,7 +614,7 @@ li {
 .top img{
 	width:40px;
 	height:40px;
-
+	filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity: 0.8; opacity: 0.8;
 }
 
 
@@ -743,6 +743,8 @@ li {
 }
 
 .col span{
+	width: 100%;
+	word-break: break-all;
 	font-size: 12px;
 	color: #999;
 	display: block;

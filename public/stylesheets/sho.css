@@ -389,7 +389,7 @@ body{
 }
 
 .hint-hd{
-    background: url("/assets/images/tishi.png") no-repeat #dddddd;
+    background: url("/assets/images/tishi.png") 4px 2px no-repeat #dddddd;
     position: fixed;
     color:#424242;
     padding: 5px 5px 5px 30px;

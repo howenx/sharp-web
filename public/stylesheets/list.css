@@ -631,15 +631,13 @@ h1 .logo {
 
 
 /*拼购产品*/
-.content{
-    padding: 44px 0 0 0;
-}
 .content,.content ul{
     width: 100%;
 }
 .content ul li {
     width: 100%;
     margin-bottom: 10px;
+    padding: 0 10px;
 }
 
 
@@ -763,10 +761,8 @@ h1 .logo {
 }
 
 .product li a{
-    width:48%;
+    width:49%;
    float: left;
-    margin:0 0 0 1%;
-
 }
 .product li a:nth-child(2){
     margin:0 0 0 2%;

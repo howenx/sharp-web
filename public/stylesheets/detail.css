@@ -928,8 +928,10 @@ div .cycle-overlay {
 	display: none;
 }
 .top img{
-	width:35px;
-	height:35px;
+	width:40px;
+	height:40px;
+	filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity: 0.8; opacity: 0.8;
+
 }
 .top-b{
 	bottom:60px

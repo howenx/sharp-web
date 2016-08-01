@@ -113,7 +113,16 @@ input:password {
     padding: 0 0 0 15px;
     display: none;
 }
+.welcom{
+    width: 100%;
+    padding: 20px 0 20px 0;
+}
 
+.welcom img{
+    width: 200px;
+    margin: 0 auto;
+
+}
 .login {
     margin-bottom: 50px;
 	position: relative;

@@ -26,7 +26,6 @@
     @if(null!=themeBasic.getThemeImg()&&""!=themeBasic.getThemeImg()){
         <div class="banner scope" id="ad">
             <div class="big-box">
-
                 <a href="javascript:;" class="banner-box">
                     <img src="@themeBasic.getThemeImg()">
                 </a>
@@ -62,7 +61,10 @@
 
           </div>
         </div>
-    }
+    }else{
+        <div style="padding-top:54px"></div>
+}
+
 
     <!--非拼购产品-->
     <div class="content scope">
