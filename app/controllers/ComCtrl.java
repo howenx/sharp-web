@@ -90,7 +90,6 @@ public class ComCtrl extends Controller {
      * @return
      */
     public String getFinalItemTargetByTypeTDPU(String targetType,String itemTarget){
-        Logger.info("==targetType=="+targetType+",==itemTarget="+itemTarget);
         String url=itemTarget;
         if (url.contains(GOODS_PAGE)) {
             url=url.replace(GOODS_PAGE, "");
@@ -98,9 +97,6 @@ public class ComCtrl extends Controller {
         if (url.contains(THEME_PAGE) && Objects.equals(targetType, "T")) {
             url=url.replace(THEME_PAGE, "");
         }
-
-        Logger.info("=url==="+url);
-
         //处理成最终跳转地址
         if("D".equals(targetType)||"P".equals(targetType)){
             url="/detail/"+url;
