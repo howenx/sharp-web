@@ -4,14 +4,14 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.ning.http.client.multipart.MultipartBody;
 import com.squareup.okhttp.*;
 import domain.*;
 import domain.Address;
 import filters.UserAjaxAuth;
 import filters.UserAuth;
-import modules.ComTools;
 import net.spy.memcached.MemcachedClient;
+import org.w3c.dom.*;
+import org.xml.sax.InputSource;
 import play.Logger;
 import play.api.libs.Codecs;
 import play.data.Form;
@@ -20,15 +20,20 @@ import play.libs.F.Function;
 import play.libs.F.Function0;
 import play.libs.F.Promise;
 import play.libs.Json;
+import play.libs.XPath;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
 
 import javax.inject.Inject;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.beans.XMLDecoder;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.StringReader;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -330,10 +335,11 @@ public class UserCtrl extends Controller {
      * @return
      */
     public Result login(String state) {
-        String path = routes.ProductsCtrl.index().url();
-        Object uri = cache.get(state);
-
-        if (uri != null) path = uri.toString();
+     //   String path = routes.ProductsCtrl.index().url();
+//        Object uri = cache.get(state);
+//
+//        if (uri != null) path = uri.toString();
+        String path=comCtrl.pushOrPopHistoryUrl(ctx());
 
         return ok(views.html.users.login.render(IMAGE_CODE, path, "?state=" + state));
 
@@ -1296,9 +1302,37 @@ public class UserCtrl extends Controller {
 
     }
 
-        public Result appdownload() {
+    /**
+     * 前往下载界面
+      * @return
+     */
+    public Promise<Result> appdownload() {
 
-        return ok(views.html.users.appdownload.render());
-             }
+        play.libs.F.Promise<String> promiseOfInt = play.libs.F.Promise.promise(() -> {
+            Request request =comCtrl.getBuilder(ctx())
+                    .url("http://img.hanmimei.com/android/hmm.xml")
+                    .build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                return new String(response.body().bytes(), UTF_8);
+            } else throw new IOException("Unexpected code " + response);
+        });
+
+        return promiseOfInt.map((play.libs.F.Function<String, Result>) xmlContent-> {
+            if(LOG_OPEN) {
+                Logger.info("下载页内容\n" + xmlContent);
+            }
+            //安卓下载路径
+            XMLDecoder xmlDecoder=new XMLDecoder(new InputSource(new StringReader(xmlContent)));
+            JsonNode jsonNode=toJson(xmlDecoder.readObject());
+            String androidPath="http://a.app.qq.com/o/simple.jsp?pkgname=com.hanmimei";
+            if(jsonNode.has("downloadLink")){
+                androidPath=jsonNode.get("downloadLink").asText();
+            }
+            return ok(views.html.users.appdownload.render(androidPath));
+        });
+
+
+    }
 
 }
