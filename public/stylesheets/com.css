@@ -7,13 +7,14 @@
     left: 0;
     top: 0;
     line-height:44px;
-    background-color:#ff5359;
+    background-color:#F9F9F9;
     z-index: 999;
+    border-bottom: 1px solid #d9d9d9;
 }
 .header-text{
     width: 100%;
     height:44px;
-    color:#fff ;
+    color:#242424 ;
     text-align: center;
 
 }
@@ -34,9 +35,9 @@
 .home_link {
     width: 20px;
     height: 20px;
-    background: url(/assets/images/icon_back.png) no-repeat;
+    background: url(/assets/images/hmm_through_page.png) no-repeat;
     color: rgb(102, 102, 102);
-    background-size: cover;
+    background-size: contain;
     position: absolute;
     top: 13px;
     left: 2%;

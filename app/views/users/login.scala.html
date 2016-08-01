@@ -149,10 +149,12 @@
                     <form  id="account_loginForm" method="post" action="/login/submit">
                         <dl class="list list-in list-regist">
                             <dd class="dd-padding lonin-dd code ">
+                                <span>账号</span>
                                 <input id="input_username" class="input-weak" maxlength="11" type="text" placeholder="请输入您的手机号" name="phone" required pattern="[1][345678]\d{9}" onkeyup="this.value=this.value.replace(/\D/g,'')">
                                 <i class="delet"></i>
                             </dd>
                             <dd class="dd-padding lonin-dd code">
+                                <span>密码</span>
                                 <input id="input_password" class="input-weak input-weak-show" maxlength="12" type="password" placeholder="请输入您的密码" name="password" required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}">
                                 <i class="out"></i>
                                 <i class="howl"></i>
@@ -188,7 +190,7 @@
             </div>
 
             <div class="third">
-                <img src="/assets/images/denglu.png"/>
+                <div class="other"><img src="/assets/images/denglu.png"/></div>
                 <a href="javascript:;" class="wechat"><img src="/assets/images/wechat.png"/></a>
                 <a href="javascript:;" class="wechat"><img src="/assets/images/QQ.png"/></a>
                 <a href="javascript:;" class="wechat"><img src="/assets/images/Weibo.png"/></a>
