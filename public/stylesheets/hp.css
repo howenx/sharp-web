@@ -47,10 +47,10 @@ body{
 	top: -7px;
 	left: 12px;
 	font-size: 10px;
-	background: #fff;
+	background: #ff4242;
 	line-height:18px;
 	cursor: pointer;
-	color:#ff5359;
+	color:#fff;
 	border-radius: 50%;
 	text-align: center;
 }
@@ -89,8 +89,8 @@ h1 {
 
 /* 本例子css -------------------------------------- */
 .slideBox{ position:relative; overflow:hidden;margin:44px 0 auto;}
-.slideBox .hd{ position:absolute; height:25px; bottom:0; left:50%;z-index:1;-webkit-transform: translate(-50%,0);-moz-transform: translate(-50%,0);}
-.slideBox .hd li{ display:inline-block; width:5px; height:5px; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px; background:#333; text-indent:-9999px; overflow:hidden; margin:0 6px;   }
+.slideBox .hd{margin: 0 0 8px 0; position:absolute;/* height:25px;*/ bottom:0; left:50%;z-index:1;-webkit-transform: translate(-50%,0);-moz-transform: translate(-50%,0);}
+.slideBox .hd li{ display:inline-block; width:5px; height:5px; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:50%; background:rgba(0,0,0,0.3); text-indent:-9999px; overflow:hidden; margin:0 6px;   }
 .slideBox .hd li.on{ background:#fff;  }
 .slideBox .bd{ position:relative; z-index:0; }
 .slideBox .bd li{ position:relative; text-align:center;}

@@ -62,7 +62,8 @@ input:password {
     text-align: center;
     height:44px;
     overflow: auto;
-    position: relative;
+    position:fixed;
+    z-index: 10;
     width: 100%;
     line-height:44px;
     display: block;
@@ -281,6 +282,29 @@ input[type=checkbox]{
 
 }
 
+.third{
+    position:fixed;
+    bottom:0;
+    background-color: #fff;
+    padding: 30px 0 0 0 ;
+}
+
+.third a{
+    float: left;
+    width: 33.3%;
+    display: inline-block;
+    margin:30px 0 ;
+}
+
+.third a img{
+    width:50px;
+    margin: 0 auto;
+
+}
+.wechat{
+
+}
+
 /*一键登录*/
 /*.login .fastLogin {
     padding-top: 10%;
@@ -424,7 +448,7 @@ input[type=checkbox]{
 }*/
 /********************自己写************************/
 .login{
-    margin: 20px 0 0 0;
+   padding:44px 0 0 0;
 }
 
 .list dd>.input-weak {
