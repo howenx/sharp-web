@@ -17,6 +17,11 @@
 .user{
      width:100%;
      height:170px;
+    background-color: #fdd000;
+}
+
+.back{
+    top:10px;
 }
 
 .user span{

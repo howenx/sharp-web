@@ -10,7 +10,7 @@ body{
 }
 
 .nav-tab-top li.current{
-    border-bottom: 2px solid red;
+    border-bottom: 2px solid #fdd000;
 }
 
 section{
@@ -26,7 +26,6 @@ section.current{
     height:35px;
     width:100%;
     background-color: #fff;
-    border-bottom: 1px solid #e1e1e1;
     margin: 0 0 5px 0;
 }
 
