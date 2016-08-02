@@ -82,13 +82,17 @@
 												<!--<img src="@imgUrl"/>-->
 												<img src="/assets/images/d-320-320.png" data-echo="@imgUrl"/>
 											</a>
+
 										</li>
 									}
 								</ul>
 
-								<div class="under">
-									已抢光
-								</div>
+								@if("Y"!=inventory.getState()){
+									<div class="under">
+										已抢光
+									</div>
+								}
+
 							</div>
 
 							<div class="hd">
@@ -117,30 +121,6 @@
 
 								<span class="three">包邮 包税</span>
 							</p>
-
-							<!--<section class="thw-detail-other" style="margin-bottom: 2px;">
-								@if(null!=inventory.getRestrictAmount()&&""!=inventory.getRestrictAmount()&&inventory.getRestrictAmount()>0){
-									<span class="one">
-										<span class="xian">每单限购</span>
-										<span class="xian-j"> @inventory.getRestrictAmount() 件</span>
-									</span>
-								}
-								@if(inventory.getInvArea()=="K"){
-									&lt;!&ndash;<span class="four directSpec" style="text-decoration: underline">直邮税</span>&ndash;&gt;
-								}
-								@if(inventory.getInvArea()!="K"){
-									@if(null==inventory.getPostalTaxRate()||""==inventory.getPostalTaxRate()){
-&lt;!&ndash;
-										<span class="four " style="text-decoration: underline" onclick="postalShade(@inventory.getItemPrice(),0)">行邮税  0%</span>
-&ndash;&gt;
-									}
-									@if(null!=inventory.getPostalTaxRate()&&""!=inventory.getPostalTaxRate()){
-&lt;!&ndash;
-										<span class="four " style="text-decoration: underline" onclick="postalShade(@inventory.getItemPrice(),@inventory.getPostalTaxRate())">行邮税  @inventory.getPostalTaxRate()%</span>
-&ndash;&gt;
-									}
-								}
-							</section>-->
 						</div>
 
 						<!--优惠信息-->
@@ -180,15 +160,15 @@
 					@for(inventory <- inventoryList){
 						@if(inventory.getOrMasterInv()){
 							@if(inventory. getState() == "D" || inventory. getState() == "N" || inventory. getState() == "K" || inventory.getRestAmount() == 0){
-								<li class="sel-none" style="color:#DDD;">@inventory.getItemColor()</li>
+								<li class="sel-none" style="color:#DDD;">@inventory.getItemSize() @inventory.getItemColor()</li>
 							}else{
-								<li class="current" id="master-sku">@inventory.getItemColor()</li>
+								<li class="current" id="master-sku">@inventory.getItemSize() @inventory.getItemColor()</li>
 							}
 						}else{
 							@if(inventory. getState() == "D" || inventory. getState() == "N" || inventory. getState() == "K" || inventory.getRestAmount() == 0){
-								<li class="sel-none" style="color:#DDD;">@inventory.getItemColor()</li>
+								<li class="sel-none" style="color:#DDD;">@inventory.getItemSize() @inventory.getItemColor()</li>
 							}else{
-								<li>@inventory.getItemColor()</li>
+								<li>@inventory.getItemSize() @inventory.getItemColor()</li>
 							}
 						}
 						<!--@if(!inventory.getOrMasterInv()){-->
@@ -256,35 +236,6 @@
 		<div class="hot">
 			<p class="hot-hd">热卖商品</p>
 			<ul class="product">
-
-				<!--<li>-->
-					<!--<a href="/detail/item/888356/111396">-->
-						<!--<p class="figure figure-f">-->
-							<!--<span>该商品已售罄</span>-->
-							<!--<img src="http://img.hanmimei.com/de5a2f21a057478cb432fe4f9e903ed71451370005389.jpg">-->
-						<!--</p>-->
-						<!--<p class="title-hd">韩秘美 Crystalshop 施华洛世奇水晶 wendy温蒂爱的花环银饰</p>-->
-					   <!--<span class="title-fd">-->
-						   <!--<i class="naw">￥308</i>-->
-						   <!--<i class="agio">￥308</i>-->
-						   <!--<b>0折</b>-->
-					   <!--</span>-->
-					<!--</a>-->
-
-					<!--<a href="/detail/item/888351/111387">-->
-						<!--<p class="figure figure-f">-->
-							<!--<img src="http://img.hanmimei.com/7b557e46bded43358f6d06c8f0a10dbc1451370164326.jpg">-->
-						<!--</p>-->
-						<!--<p class="title-hd">韩秘美 Crystalshop 施华洛世奇 水晶巨星闪耀单钻银饰</p>-->
-					   <!--<span class="title-fd">-->
-						   <!--<i class="naw">￥228</i>-->
-						   <!--<i class="agio">￥228</i>-->
-						   <!--<b>0折</b>-->
-					   <!--</span>-->
-					<!--</a>-->
-                 <!--</li>-->
-
-
 				@for(rowList <- pushList){
 					<li class="clearfix">
 						@for(pushItem <- rowList){
@@ -327,52 +278,6 @@
 						}
 					</li>
 				}
-
-				<!--<li>-->
-					<!--<a href="/detail">-->
-						<!--<p class="product-box">-->
-							<!--<span class="product-top">已结束</span>-->
-						<!--</p>-->
-						<!--<img src="/assets/images/HMM&#45;&#45;list_01.jpg">-->
-						<!--<p class="title-hd">德国原产 深层修护经典护手霜100ml</p>-->
-					   <!--<span class="title-fd">-->
-						   <!--<i class="naw">￥75.00</i>-->
-						   <!--<i class="agio">￥125.00</i>-->
-						   <!--<b>5.6折</b>-->
-					   <!--</span>-->
-					<!--</a>-->
-					<!--<a href="javascript:;">-->
-						<!--<p class="product-box">-->
-							<!--<span class="product-top">截止7月14日下午14:00</span>-->
-						<!--</p>-->
-						<!--<img src="/assets/images/HMM&#45;&#45;list_01.jpg">-->
-						<!--<p class="title-hd">德国原产 深层修护经典护手霜100ml</p>-->
-					   <!--<span class="title-fd">-->
-						   <!--<i class="naw">￥75.00</i>-->
-						   <!--<i class="agio">￥125.00</i>-->
-						   <!--<b>5.6折</b>-->
-					   <!--</span>-->
-					<!--</a>-->
-				<!--</li>-->
-
-				<!--<li>-->
-					<!--<a href="/detail"><img src="/assets/images/HMM&#45;&#45;list_01.jpg">-->
-						<!--<p class="title-hd">德国原产 深层修护经典护手霜100ml</p>-->
-					   <!--<span class="title-fd">-->
-						   <!--<i class="naw">￥75.00</i>-->
-						   <!--<i class="agio">￥125.00</i>-->
-						   <!--<b>5.6折</b>-->
-					   <!--</span>-->
-					<!--</a>-->
-					<!--<a href="javascript:;"><img src="/assets/images/HMM&#45;&#45;list_01.jpg">-->
-						<!--<p class="title-hd">德国原产 深层修护经典护手霜100ml</p>-->
-					   <!--<span class="title-fd">-->
-						   <!--<i class="naw">￥75.00</i>-->
-						   <!--<i class="agio">￥125.00</i>-->
-						   <!--<b>5.6折</b>-->
-					   <!--</span>-->
-					<!--</a>-->
-				<!--</li>-->
 			</ul>
 		</div>
 		<!--加入购物车-->
@@ -433,6 +338,7 @@
 				</a>
 			</div>
 
+
 			<div id="flyItem" class="fly_item">
 				<img src="/assets/images/gouwu.jpg" width="25" height="25" id="flyImgId" style="z-index:1;"/>
 			</div>
@@ -456,61 +362,7 @@
 <script src="/assets/javascripts/jquery/ieBetter.js"></script>
 <![endif]-->
 <script type="text/javascript" src="/assets/javascripts/jquery/parabola.js"></script>
-<!--
-<script type="text/javascript">
-
-	// 元素以及其他一些变量
-	var eleFlyElement = document.querySelector("#flyItem"), eleShopCart = document.querySelector("#shopCart");
-	// 抛物线运动
-	var myParabola = funParabola(eleFlyElement, eleShopCart, {
-		speed:30, //抛物线速度
-		curvature: 0.0090, //控制抛物线弧度
-		complete: function() {
-			eleFlyElement.style.visibility = "hidden";
-			var numberItem = parseInt($("#cartAmountSpan").html());
-			eleShopCart.querySelector("span").innerHTML = ++numberItem;
-		}
-	});
-	// 绑定点击事件
-	if (eleFlyElement && eleShopCart) {
-
-		[].slice.call(document.getElementsByClassName("btnCart")).forEach(function(button) {
-			button.addEventListener("click", function(event) {
-				var src = $(this).parents(".cycle-slideshow").find('.slide-img').find("img").attr("src");
-				$("#flyItem").find("img").attr("src", src);
-				// 滚动大小
-				var scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft || 0,
-						scrollTop = document.documentElement.scrollTop || document.body.scrollTop || 0;
-				//eleFlyElement.style.left = event.clientX + scrollLeft + "px";
-				//eleFlyElement.style.top = event.clientY + scrollTop + "px";
-				eleFlyElement.style.visibility = "visible";
-
-				// 需要重定位
-				myParabola.position().move();
-			});
-		});
-	}
-
-</script>
--->
 <div class="hint" id="tip"></div>
-<!--<div class="shade postalDiv" >-->
-	<!--<div class="shade-box">-->
-		<!--<div class="shade-hd">行邮税费用</div>-->
-		<!--<div class="shade-midd" id="postalShadeDiv" style="text-decoration: none">30.00</div>-->
-		<!--<div class="shade-bottom">本商品行邮税率为<i id="postalRateShadeCss">0</i>%(税额 = 单价 × 数量 × 税率)</div>-->
-		<!--<div class="shade-btn">确定</div>-->
-	<!--</div>-->
-<!--</div>-->
-
-<!--<div id="directSpecDiv" class="shade" style="display:none">-->
-	<!--<div class="shade-box">-->
-		<!--<div class="shade-hd">直邮费用说明</div>-->
-		<!--<div class="shade-midd">0.00</div>-->
-		<!--<div class="shade-bottom">直邮物品在海关处依据实际情况分为三类：物品1、2、3。其中物品1、2是属于个人物品，物品价值1000元以下免税，超过1000元，按照20%的进口综合税征收税费。如果被判定为物品3，也就是贸易物品（商业贸易入关），则需要征收17%的增值税和0-10%不等的关税。</div>-->
-		<!--<div class="shade-btn">确定</div>-->
-	<!--</div>-->
-<!--</div>-->
 @comContent()
 </body>
 
