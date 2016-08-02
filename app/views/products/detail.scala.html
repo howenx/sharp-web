@@ -109,7 +109,7 @@
 									</span>
 								}
 
-								<span class="three">包邮包税</span>
+								<span class="three">包邮 包税</span>
 							</p>
 
 							<!--<section class="thw-detail-other" style="margin-bottom: 2px;">
@@ -240,7 +240,7 @@
 						@for(feature <- itemFeaturesList){
 							<li>
 								<span class="param-name">@feature(0)</span>
-								<p class="param-info">@feature(1)</p>
+								<span class="param-info">@feature(1)</span>
 							</li>
 						}
 					</ul>
@@ -280,7 +280,7 @@
 
 
 				@for(rowList <- pushList){
-					<li>
+					<li class="clearfix">
 						@for(pushItem <- rowList){
 							@if(pushItem.getItemType() == "item" || pushItem.getItemType() == "vary" || pushItem.getItemType() == "customize"){
 								<a href="/detail/@pushItem.getItemUrl()">

@@ -170,8 +170,10 @@ button{
     width:100%;
     line-height:40px;
     text-align: center;
-    color: #fff;
-    font-size: 18px;
+    color: #242424;
+    background-color: #fdd000;
+    font-size: 16px;
+    border-radius: 3px;
 
 }
 

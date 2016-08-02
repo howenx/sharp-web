@@ -103,8 +103,8 @@ input:password {
 	-moz-transform: translate(-50%,0);
 	z-index: 1;
 }
-.slideBox .hd li{ display:inline-block; width:8px; height:8px; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px; background:#333; text-indent:-9999px; overflow:hidden; margin:0 6px;   }
-.slideBox .hd li.on{ background:#FF5359;  }
+.slideBox .hd li{ display:inline-block; width:6px; height:6px; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px; background:#333; text-indent:-9999px; overflow:hidden; margin:0 6px;   }
+.slideBox .hd li.on{ background:#Fdd000;  }
 .slideBox .bd{ position:relative; z-index:0; }
 .slideBox .bd li{ position:relative;  }
 .slideBox .bd li img{ width:100%;  height:auto; display:block;   }
@@ -315,13 +315,19 @@ div .cycle-overlay {
 
 .detail-tabpanel .center li{
 	float: left;
+	font-size: 14px;
 }
 .tabpanel-tabs .tab-item {
 	position: relative;
 	width: 33%;
 	padding:15px 0;
 	text-align: center;
+   color:#242424;
+}
 
+.detail-tabpanel .center li.current{
+	border-bottom: 2px solid  #fdd000;
+	color:#fdd000;
 }
 
 .tabpanel-tabs .tab-span {
@@ -343,7 +349,7 @@ div .cycle-overlay {
 
 }
 .sku-title {
-	color: #666;
+	color: #242424;
 	font-family: 'Helvetica Neue', Helvetica, 'microsoft yahei', Arial, sans-serif;
 	font-size: 16px;
 	font-weight: normal;
@@ -360,7 +366,7 @@ div .cycle-overlay {
 	float: left;
 	font-weight:bold;
 	color:#EF2528;
-	font-size:22px ;
+	font-size:20px ;
 }
 
 .u-detail-price i{
@@ -380,7 +386,7 @@ div .cycle-overlay {
 	float: left;
 }
 .u-detail-discount {
-    float: left;
+	display: inline-block;
 	padding:1px 4px;
 	color: #fff;
 	font-size: 12px;
@@ -412,12 +418,13 @@ div .cycle-overlay {
 }
 .three{
     padding:0 0 0 20px;
-	font-size: 12px;
+	font-size: 14px;
 	float: right;
 	color: #999;
 }
 
 .favourable{
+	font-size: 14px;
 	padding: 15px;
 	background-color:#fff;
 	color: #242424;
@@ -453,7 +460,7 @@ div .cycle-overlay {
 .classify ul li{
 	text-align: center;
 	padding:4px 8px;
-	font-size: 12px;
+	font-size: 14px;
 	float: left;
 	border: 1px solid #e1e1e1;
 	border-radius: 5px;
@@ -467,10 +474,7 @@ div .cycle-overlay {
 	background-color: #fdd000;
 }
 
-.current{
-	border-bottom: 2px solid  #fdd000;
-	color:  #fdd000;
-}
+
 
 /*.sale{
 	margin:10px 0 0 0;
@@ -489,7 +493,7 @@ div .cycle-overlay {
 .sku-measure {
 	background: #fff;
 	margin: 10px 0;
-	padding: 0 2%;
+	padding: 0 10px;
 }
 .dc_tit{
 	border-bottom: 1px solid #f4f4f4;
@@ -518,17 +522,17 @@ div .cycle-overlay {
 }
 .parameter-wrap .param-list li {
 	line-height: 40px;
+	font-size: 12px;
 	border-bottom: 1px solid #f4f4f4;
 }
 .parameter-wrap .param-list .param-name {
 	display: inline-block;
-	width: 100px;
-	color: #727272;
-	font-size: 12px;
+	width: 20%;
+	color: #999;
 }
 .parameter-wrap .param-list .param-info {
-
-	color: #eb4868;
+	width: 80%;
+	color: #242424;
 	line-height: 40px;
 }
 
@@ -541,7 +545,7 @@ div .cycle-overlay {
 
 }
 .hot .hot-hd{
-	padding: 0 2%;
+	padding: 0 10px;
 	line-height: 40px;
 }
 
@@ -627,14 +631,19 @@ div .cycle-overlay {
 }
 
 .product li{
-	width:100%;
+	width: 100%;
+	padding: 0 10px;
 }
 
 .product li a{
 	width:48%;
-	display: inline-block;
-	margin:0 0 0 1%;
+	width: 49%;
+	float: left;
 
+}
+
+.product li a:nth-child(2) {
+	margin: 0 0 0 5px;
 }
 
 
@@ -1409,8 +1418,6 @@ div .cycle-overlay {
 .message_list img{
 	margin: 0 auto;
 }
-
-
 
 
 
