@@ -110,7 +110,7 @@
                                 </div>
                                 <div class="cart-product-number">
                                     <a href="javascript:;" class="quantity-decrease">-</a>
-                                    <input type="text" class="quantity" value="@cartInfo.getAmount()" required pattern="[0-9]" onkeyup="this.value=this.value.replace(/\D/g,'')" onblur=""/>
+                                    <input type="text" class="quantity" disabled='disabled' value="@cartInfo.getAmount()" required pattern="[0-9]" onkeyup="this.value=this.value.replace(/\D/g,'')" onblur=""/>
                                     <a href="javascript:;" class="quantity-increase">+</a>
                                     <i class="cart-del-btn" onclick="delCart(@cartInfo.getCartId())"></i>
                                 </div>
