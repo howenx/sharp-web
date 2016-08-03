@@ -8,7 +8,7 @@ $(function(){
     //主Sku商品下架
 	if($("#master-sku").length == 0){
 		$(".add_cart .cartAdd").removeClass('cartAdd');
-		$(".buy_btn .buyBtnCss").removeClass('buyBtnCss');
+		$(".buy_btn ").addClass('invalid');
 		$("#isCanBuy").val(0); //不能购买
 	}
 //	$('.postalCss').click(function(){
