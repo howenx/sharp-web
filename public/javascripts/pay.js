@@ -10,7 +10,7 @@ $(function(){
     });
     //点击优惠券
     $('li.liCoupon').click(function(){
-            $(this).parents("ul").prev().find(".quick").html($(this).find(".quick").html())
+            $(this).parents("ul").prev().find(".quick").html($(this).find(".quick").text())
             //$(this).parents("ul").prev().find("input").val($(this).find("input").val())
             var tempTotal=$("#tempTotal").val();
             var denominationSpan=$(this).find(".quick").find(".denominationSpan").html();
