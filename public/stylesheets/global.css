@@ -275,8 +275,8 @@ h1 {
     width: 120px;
     height: 40px;
     line-height: 40px;
-    background-color: #FF5359;
-    color: #fff;
+    background-color: #Fdd000;
+    color: #242424;
     display: block;
     margin: 10px auto;
 
@@ -365,3 +365,9 @@ h1 {
     text-align: center;
 }
 
+.default{
+    background-color: #Fdd000;
+    color: #fff;
+    padding:1px 3px;
+    font-size: 12px;
+}
