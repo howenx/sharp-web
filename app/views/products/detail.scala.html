@@ -102,14 +102,14 @@
 						</div>
 						<div class="box">
 							<div class="sku-title">
-								@if(inventory.getItemDiscount().toString() != "0"){
+								@if(null!=inventory.getItemDiscount()&&inventory.getItemDiscount().toString() != "10"){
 									<span class="u-detail-discount">@inventory.getItemDiscount()折 </span>
 								}
 								<span>@inventory.getInvTitle()</span>
 							</div>
 							<p class="u-detail-pricebox clearfix">
 								<span class="u-detail-price"><i>¥</i>@inventory.getItemPrice()</span>
-								@if(inventory.getItemDiscount().toString() != "0"){
+								@if(null!=inventory.getItemDiscount()&&inventory.getItemDiscount().toString() != "10"){
 									<span class="u-detail-mprice">¥@inventory.getItemSrcPrice()</span>
 								}
 								@if(null!=inventory.getRestrictAmount()&&""!=inventory.getRestrictAmount()&&inventory.getRestrictAmount()>0){
