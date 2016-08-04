@@ -252,27 +252,25 @@ input:password {
 
 /*空购物车*/
 body{
-    background-color: #f4fbf8;
+    background-color: #f4f4f4;
 }
 
 .wrap{
     padding: 50% 0 0 0;
-    background-color: #FFFFFF;
 
 }
 
 .wrap img{
-    width: 200px;
+    width:120px;
    margin: 0 auto;
 }
 .wrap a{
     display: block;
-    width: 120px;
-    height: 45px;
+    width: 100px;
+    height: 40px;
     color: #fff;
-    font-size: 18px;
     text-align: center;
-    line-height: 45px;
+    line-height: 40px;
     margin: 10px auto;
 }
 
