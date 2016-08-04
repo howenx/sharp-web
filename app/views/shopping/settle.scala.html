@@ -168,23 +168,24 @@
                             <span>可使用优惠券</span>
                             <i class="quick couponDiv"> @if(null!=settle.getCoupons()){@settle.getCoupons().size()张}else{无可用}</i>
                         </h2>
-                        <ul class="way">
-                            <!--<li class="liCoupon">-->
-                                <!--<label>-->
-                                    <!--<span class="quick quick-all">20元用惠券</span>-->
-                                    <!--<input type="radio" name="couponId" class="pitch" value="" checked>-->
+                        @if(null!=settle.getCoupons()){
+                            <ul class="way">
+                                <!--<li class="liCoupon">-->
+                                    <!--<label>-->
+                                        <!--<span class="quick quick-all">20元用惠券</span>-->
+                                        <!--<input type="radio" name="couponId" class="pitch" value="" checked>-->
 
-                                <!--</label>-->
-                            <!--</li>-->
-                            <!--<li class="liCoupon">-->
-                                <!--<label>-->
-                                    <!--<span class="quick quick-all">10元优惠券</span>-->
-                                    <!--<input type="radio" name="couponId" class="pitch" value="" checked>-->
+                                    <!--</label>-->
+                                <!--</li>-->
+                                <!--<li class="liCoupon">-->
+                                    <!--<label>-->
+                                        <!--<span class="quick quick-all">10元优惠券</span>-->
+                                        <!--<input type="radio" name="couponId" class="pitch" value="" checked>-->
 
-                                <!--</label>-->
-                            <!--</li>-->
+                                    <!--</label>-->
+                                <!--</li>-->
 
-                            @if(null!=settle.getCoupons()){
+
                                 @for(coupon<-settle.getCoupons()){
                                 <li class="liCoupon">
                                     <label>
@@ -193,8 +194,8 @@
                                     </label>
                                 </li>
                                 }
-                            }
-                        </ul>
+                            </ul>
+                        }
                     </div>
 
                 </div>
