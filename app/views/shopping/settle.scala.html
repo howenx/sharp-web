@@ -166,9 +166,9 @@
                         <h2 class="clearfix">
                           <!--  <input type="radio" class="pitch pitch-hd" checked>-->
                             <span>可使用优惠券</span>
-                            <i class="quick couponDiv"> @if(null!=settle.getCoupons()){@settle.getCoupons().size()张}else{无可用}</i>
+                            <i class="quick couponDiv"> @if(null!=settle.getCoupons()&&settle.getCoupons().size()>0){@settle.getCoupons().size()张}else{无可用}</i>
                         </h2>
-                        @if(null!=settle.getCoupons()){
+                        @if(null!=settle.getCoupons()&&settle.getCoupons().size()>0){
                             <ul class="way">
                                 <!--<li class="liCoupon">-->
                                     <!--<label>-->
