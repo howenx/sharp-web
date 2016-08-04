@@ -239,19 +239,4 @@ $(document).on("click",".addressUpdate",function(){
          });
 });
 
-//隐藏添加修改地址模块
-$(document).on("click",".amput",function(){
-    $('.xnew-add-shade').html("");
-    $('.xnew-add-shade').hide();
-});
-//其他地址界面
-$(document).on("click",".other",function(){
-    $('.add-shade').show();
-    $('.big').hide()
- });
-//关闭其他地址界面
-$(document).on("click",".amputate span",function(){
-    $('.add-shade').hide();
-});
-
 
