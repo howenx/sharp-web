@@ -54,6 +54,10 @@ body{
     float: left;
     width: 30%;
 }
+
+.picture img{
+    margin: 0 auto;
+}
 .address-padding{
     border: none;
 }
@@ -452,5 +456,11 @@ input[type=radio]:checked::after {
 }
 
 .explain{
+    width: 100%;
+    display: block;
+    background-color: #ededed;
+    padding: 2px 10px;
     font-size: 12px;
+    position: absolute;
+    top:-20px;
 }
