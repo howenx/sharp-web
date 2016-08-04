@@ -22,6 +22,7 @@ section.current{
 }
 
 .nav-tab-top{
+    font-size: 14px;
     line-height:35px;
     height:35px;
     width:100%;
@@ -57,6 +58,7 @@ section.current{
 }
 
 .day-l{
+    font-size: 14px;
     float: left;
     color: #666;
 }
@@ -66,11 +68,12 @@ section.current{
 
 .day-l .date{
    display: block;
-    font-size: 14px;
+    font-size: 12px;
     color:#999;
     margin: 5px 0;
 }
 .day-r{
+    font-size: 14px;
     float: right;
     color:#ff5359;
     margin: 8px 0 0 0;
@@ -94,6 +97,7 @@ h2{
 }
 
 .commodity .commodity-rmb{
+    font-size: 14px;
     display: block;
     margin:8px 0 0 0;
 }
@@ -419,7 +423,7 @@ span .number{
 
 
 .size{
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .size span{
