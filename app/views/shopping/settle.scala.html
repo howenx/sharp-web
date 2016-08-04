@@ -166,35 +166,34 @@
                         <h2 class="clearfix">
                           <!--  <input type="radio" class="pitch pitch-hd" checked>-->
                             <span>可使用优惠券</span>
-                            <i class="quick couponDiv"> @if(null!=settle.getCoupons()){@settle.getCoupons().size()张}else{无可用}</i>
+                            <i class="quick couponDiv"> @if(null!=settle.getCoupons()&&settle.getCoupons().size()>0){@settle.getCoupons().size()张}else{无可用}</i>
                         </h2>
-                        <ul class="way">
-                            <!--<li class="liCoupon">-->
-                                <!--<label>-->
-                                    <!--<span class="quick quick-all">20元用惠券</span>-->
-                                    <!--<input type="radio" name="couponId" class="pitch" value="" checked>-->
+                        @if(null!=settle.getCoupons()&&settle.getCoupons().size()>0){
+                            <ul class="way">
+                                <!--<li class="liCoupon">-->
+                                    <!--<label>-->
+                                        <!--<span class="quick quick-all">20元用惠券</span>-->
+                                        <!--<input type="radio" name="couponId" class="pitch" value="" checked>-->
 
-                                <!--</label>-->
-                            <!--</li>-->
-                            <!--<li class="liCoupon">-->
-                                <!--<label>-->
-                                    <!--<span class="quick quick-all">10元优惠券</span>-->
-                                    <!--<input type="radio" name="couponId" class="pitch" value="" checked>-->
-
-                                <!--</label>-->
-                            <!--</li>-->
-
-                            @if(null!=settle.getCoupons()){
-                                @for(coupon<-settle.getCoupons()){
+                                    <!--</label>-->
+                                <!--</li>-->
                                 <li class="liCoupon">
                                     <label>
-                                        <span class="quick quick-all">@if(coupon.getLimitQuota().doubleValue()>0){满@coupon.getLimitQuota()}减<i class="denominationSpan">@coupon.getDenomination()</i></span>
-                                        <input type="radio" name="couponId" value="@coupon.getCoupId()" class="pitch" >
+                                        <span class="quick quick-all">不使用优惠券</span>
+                                        <input type="radio" name="couponId" class="pitch" value="" checked>
+
                                     </label>
                                 </li>
+                                @for(coupon<-settle.getCoupons()){
+                                    <li class="liCoupon">
+                                        <label>
+                                            <span class="quick quick-all">@if(coupon.getLimitQuota().doubleValue()>0){满@coupon.getLimitQuota()}减<i class="denominationSpan">@coupon.getDenomination()</i></span>
+                                            <input type="radio" name="couponId" value="@coupon.getCoupId()" class="pitch" >
+                                        </label>
+                                    </li>
                                 }
-                            }
-                        </ul>
+                            </ul>
+                        }
                     </div>
 
                 </div>
@@ -234,7 +233,7 @@
         <input type="hidden" name="buyNow" value="@buyNow"/>
         <input type="hidden" name="pinActiveId" value="@pinActiveId"/>
         <div class="refer-box">
-            <b id="discTipSpan" class="explain color">(海关规定跨境商品支付金额不小于1元)</b>
+            <b id="discTipSpan" class="explain color" style="display:none;">(海关规定跨境商品支付金额不小于1元)</b>
             <span class="refer-rmb colore">总金额 :￥<span id="totalPaySpan">@settle.getTotalPayFee()</span></span>
             <a href="javascript:;" class="refer submitOrder">提交订单</a>
         </div>

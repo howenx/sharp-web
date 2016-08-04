@@ -1,8 +1,12 @@
 $(function(){
     $('.account-j h2').click(function(){
-        $(this).parents(".account-j").find(".way").toggle();
-        $(this).toggleClass("nothave");
-    })
+
+        var way=$(this).parents(".account-j").find(".way");
+        if(way.length>0){
+            way.toggle();
+            $(this).toggleClass("nothave");
+        }
+    });
 
     $('li.liOther').click(function(){
         $(this).parents("ul").prev().find(".quick").html($(this).find(".quick").html())
