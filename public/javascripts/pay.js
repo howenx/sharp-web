@@ -1,16 +1,21 @@
 $(function(){
     $('.account-j h2').click(function(){
-        $(this).parents(".account-j").find(".way").toggle();
-    })
+
+        var way=$(this).parents(".account-j").find(".way");
+        if(way.length>0){
+            way.toggle();
+            $(this).toggleClass("nothave");
+        }
+    });
 
     $('li.liOther').click(function(){
         $(this).parents("ul").prev().find(".quick").html($(this).find(".quick").html())
-        $(this).parents("ul").prev().find("input").val($(this).find("input").val())
+        //$(this).parents("ul").prev().find("input").val($(this).find("input").val())
     });
     //点击优惠券
     $('li.liCoupon').click(function(){
-            $(this).parents("ul").prev().find(".quick").html($(this).find(".quick").html())
-            $(this).parents("ul").prev().find("input").val($(this).find("input").val())
+            $(this).parents("ul").prev().find(".quick").html($(this).find(".quick").text())
+            //$(this).parents("ul").prev().find("input").val($(this).find("input").val())
             var tempTotal=$("#tempTotal").val();
             var denominationSpan=$(this).find(".quick").find(".denominationSpan").html();
             var hiddenDiscountFee=$("input[name='hiddenDiscountFee']").val();
@@ -19,11 +24,11 @@ $(function(){
                 $("#totalPaySpan").html(tempTotal);
                 $(".discountCss").html("￥"+hiddenDiscountFee);
             }else{
-                var totalFinal=tempTotal-denominationSpan;
+                var totalFinal=parseFloat(tempTotal-denominationSpan).toFixed(2);
                 var fee=parseFloat(denominationSpan)+parseFloat(hiddenDiscountFee);
                 if(totalFinal<1){
                     totalFinal=1;
-                    fee=tempTotal-totalFinal;
+                    fee=parseFloat(tempTotal-totalFinal).toFixed(2);
                     $("#discTipSpan").show();
                 }
                 $("#totalPaySpan").html(totalFinal);
@@ -48,9 +53,10 @@ $(document).on("click",".submitOrder",function(){
     var orderId=$("#orderId").val();
     if(addressId<=0){
         tip("请填写地址");
-    }else if(orderId>0){
+    }else if(orderId>0||$("#formSubmitTimes").val()>0){
         tip("请勿重复提交订单");
     }else{
+        $("#formSubmitTimes").val(1);
         $.ajax({
             type: 'POST',
             url: "/order/submit",
@@ -61,6 +67,7 @@ $(document).on("click",".submitOrder",function(){
 //             },
             error : function(request) {
                 tip("提交订单失败,请检测是否已登录");
+                 $("#formSubmitTimes").val(0);
                 //   $("#loading").empty();
              },
             success: function(data) {
@@ -75,10 +82,12 @@ $(document).on("click",".submitOrder",function(){
 
                     }else{
                          tip(data.message.message);
+                         $("#formSubmitTimes").val(0);
                     }
 
                 }else{
                  tip("提交订单失败");
+                   $("#formSubmitTimes").val(0);
                 }
              //   $("#loading").empty();
             }
@@ -132,9 +141,7 @@ function tip(tipContent){
 }
 //当前url
 $(document).ready(function() {
-
     $("#curUrl").val(window.location.href);
-
 });
 
 

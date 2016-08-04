@@ -50,6 +50,7 @@ POST        /user/photo                                                        c
 GET         /logout                                                            controllers.UserCtrl.logout()
 #绑定手机号
 GET         /bind                                                              controllers.UserCtrl.bindPhone(state:String)
+GET         /appdownload                                                        controllers.UserCtrl.appdownload()
 
 
 #首页,主题,详情页相关

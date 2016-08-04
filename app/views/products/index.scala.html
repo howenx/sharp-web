@@ -1,4 +1,4 @@
-@(sliderList:List[domain.Slider],themeList:List[domain.Theme],pageCount:Int)
+@(sliderList:List[domain.Slider],sliderNavList:List[domain.SliderNav],themeList:List[domain.Theme],pageCount:Int)
 @scripts = {
 <link rel="stylesheet" href="/assets/stylesheets/hp.css">
 <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
@@ -31,11 +31,12 @@
 	$(function(){
 		//关闭下载添加cookie
 		function addDownloadCookie(){
+			//过期时间1小时
 			var str = "downloadState=1";
-			<!--var date = new Date(); -->
-			<!--var ms = 3600*1000; -->
-			<!--date.setTime(date.getTime() + ms); -->
-			<!--str += "; expires=" + date.toGMTString(); -->
+			var date = new Date();
+			var ms = 3600*1000;
+			date.setTime(date.getTime() + ms);
+			str += "; expires=" + date.toGMTString();
 			document.cookie = str;
 			$("#downloadDiv").hide();
 			$("#topDiv").addClass("top-bottom");
@@ -83,15 +84,14 @@
 	<div class="battener">
 		<header class="batten">
 			<!--<span class="icon-search-title" id="searchBtn"></span>-->
-			<h1>
-				韩秘美
-			</h1>
+			<!--<h1>
+				KakaoGift
+			</h1>-->
+			<img src="/assets/images/kakaogift_logo.png"/>
 			<a href="/myView"><span class="icon-user-title" id="userBtn"></span></a>
 			<a href="/cart" class="shopp">
-
 				<span class="cart_num" id="cartAmountSpan">0</span>
 			</a>
-
 		</header>
 	</div>
 
@@ -103,7 +103,6 @@
 
 	<div id='screen_wrap'>
 
-
 		<!--banner开始-->
 
 		<!-- 本例主要代码 Start ================================ -->
@@ -112,20 +111,15 @@
 			<div class="bd">
 				<ul>
 					@for(slider <- sliderList){
-						@if(slider.getTargetType() == "D" || slider.getTargetType() == "P"){
+
+					    @if(null==slider.getTargetType()){
 							<li>
-								<a class="pic" href="/detail/@slider.getItemTarget()"><img src="@slider.getImg()" /></a>
+								<a class="pic" href="javascript:;"><img src="@slider.getImg()" /></a>
 							</li>
-						}
-						@if(slider.getTargetType() == "U"){
-						<li>
-							<a class="pic" href="@slider.getItemTarget()"><img src="@slider.getImg()" /></a>
-						</li>
-						}
-						@if(slider.getTargetType() == "T"){
-						<li>
-							<a class="pic" href="/themeDetail/@slider.getItemTarget()"><img src="@slider.getImg()" /></a>
-						</li>
+						}else {
+							<li>
+								<a class="pic" href="@slider.getItemTarget()"><img src="@slider.getImg()" /></a>
+							</li>
 						}
 
 					}
@@ -148,29 +142,49 @@
 		</script>
 		<!-- 本例主要代码 End ================================ -->
 
-        <!--内容开始-->
-		<div class="con">
-			<div id="container">
-				<ul class="col" id="col-bottom">
-					@for(theme <- themeList){
-						@if(theme. getType() == "ordinary"){
-							<li>
-								<a href="/themeDetail/@theme.getThemeUrl()">
-									<img src="/assets/images/hp-320.png" data-echo="@theme.getThemeImg()">
-								</a>
-							</li>
-						}
-						@if(theme. getType() == "h5"){
+		<!--分类模块-->
+		<div class="classify">
+			<ul class="clearfix">
+
+				@for(slider <- sliderNavList){
+
+					@if(null==slider.getTargetType()){
 						<li>
-							<a href="@theme.getThemeUrl()/M">
-								<img src="/assets/images/hp-320.png" data-echo="@theme.getThemeImg()"/>
-							</a>
+							<a href="javascript:;"><img src="@slider.getImg()" /><span class="classify-text">@slider.getNavText()</span></a>
 						</li>
-						}
+					}else {
+						<li>
+							<a href="@slider.getItemTarget()"><img src="@slider.getImg()" /><span class="classify-text">@slider.getNavText()</span></a>
+						</li>
 					}
-				</ul>
-			</div>
+
+				}
+
+			</ul>
 		</div>
+        <!--内容开始-->
+
+		<div id="container">
+			<ul class="col" id="col-bottom">
+				@for(theme <- themeList){
+					<li>
+						<a href="@theme.getThemeUrl()">
+							<!--标题和简介-->
+							@if(null!=theme.getTitle()&&""!=theme.getTitle()){
+								<h2 class="col-text">@theme.getTitle()</h2>
+							}
+							@if(null!=theme.getThemeConfigInfo()&&""!=theme.getThemeConfigInfo()){
+								<span>@theme.getThemeConfigInfo()</span>
+							}
+							<img src="/assets/images/hp-320.png" data-echo="@theme.getThemeImg()"/>
+						</a>
+
+					</li>
+
+				}
+			</ul>
+		</div>
+
 
 		<script type="text/javascript">
 			function getMinUl(){//每次获取最短的ul,将图片放到其后
@@ -253,7 +267,7 @@
     <i>买遍韩国正品</i>
   </span>
 	<b class="delete-down"></b>
-	<a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.hanmimei" class="bg" target="_blank">立即下载</a>
+	<a href="/appdownload" class="bg" target="_blank">立即下载</a>
 </div>
 
 

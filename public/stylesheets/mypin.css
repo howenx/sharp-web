@@ -84,6 +84,7 @@ img{
     float: right;
 }
 .down input{
+    -webkit-appearance: none;
     background: #fff;color: #E66255;
     padding: 6px 8px;border: 1px solid #E66255;
     border-radius: 5px;
@@ -182,7 +183,7 @@ img{
 }
 
 .tabpin>li.cur{
-    border-bottom: 2px solid #E66255;
+    border-bottom: 2px solid #fdd000;
 }
 
 div.myall:nth-child(2){
@@ -197,4 +198,11 @@ div.myall:nth-child(2){
     -webkit-box-orient: vertical;
     display: -webkit-box;
 
+}
+
+.myall{
+    display: none;
+}
+.current{
+    display: block;
 }

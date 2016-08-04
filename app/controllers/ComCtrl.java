@@ -83,6 +83,35 @@ public class ComCtrl extends Controller {
 //       return oldUrl;
     }
 
+    /**
+     * 处理TDPU类型的目标地址在M端应该转化成的最终地址  ,如首页slider
+     * @param targetType T:主题，D:详细页面，P:拼购商品页，U:一个促销活动的链接（h5主题）
+     * @param itemTarget 目标地址
+     * @return
+     */
+    public String getFinalItemTargetByTypeTDPU(String targetType,String itemTarget){
+        String url=itemTarget;
+        if (url.contains(GOODS_PAGE)) {
+            url=url.replace(GOODS_PAGE, "");
+        }
+        if (url.contains(THEME_PAGE) && Objects.equals(targetType, "T")) {
+            url=url.replace(THEME_PAGE, "");
+        }
+        //处理成最终跳转地址
+        if("D".equals(targetType)||"P".equals(targetType)){
+            url="/detail/"+url;
+        }
+        if("U".equals(targetType)){
+            url=url+"/M";
+        }
+        if("T".equals(targetType)){
+            url="/themeDetail/"+url;
+        }
+
+        return url;
+
+    }
+
     public F.Promise<Result> getReqReturnMsg(String url) {
         return sendReq(url, null);
 
@@ -383,52 +412,11 @@ public class ComCtrl extends Controller {
         return cookieUUID;
     }
 
-//    /***
-//     * 只获取上一级目录
-//     * @param ctx
-//     * @return
-//     */
-//    public String getHistoryUrl2(Http.Context ctx){
-//        String key=cacheHistoryKey(getCookieUUID(ctx));
-//        Stack<String> stack = (Stack<String>) cache.get(key);
-//        if(null!=stack){
-//            return stack.peek();
-//        }
-//        return "/";
-//    }
-//
-//    /**
-//     * 记录访问页面顺序,如果是最后一条则pop,否则push,返回回退URL
-//     * @param ctx
-//     */
-//    public String pushOrPopHistoryUrl2(Http.Context ctx){
-//        //用栈记录上一次访问的页面
-//        String url=ctx.request().uri();
-//        String key=cacheHistoryKey(getCookieUUID(ctx));
-//        Stack<String> stack = (Stack<String>) cache.get(key);
-//        Logger.info(url+"===pushOrPopHistoryUrl===="+url.equals(stack.peek())+"==stack.peek=="+stack.peek());
-//        if(null!=stack){
-//            if(url.equals(stack.peek())){
-//                stack.pop();//是上一次访问记录
-//                if(stack.empty()){
-//                    return "/";
-//                }
-//                Logger.info("====pop==url==="+url+"==hisUrl="+stack.peek());
-//                return stack.peek();
-//            }
-//        }else{
-//            stack=new Stack<String>();
-//        }
-//        String hisUrl="/";
-//        if(!stack.empty()){
-//            hisUrl=stack.peek();
-//        }
-//        stack.push(url);
-//        Logger.info("====push==url==="+url+"==hisUrl="+hisUrl+"===stack.peek()="+stack.peek());
-//        cache.set(key,60*60,stack);
-//        return hisUrl;
-//    }
-
+    /**
+     * 缓存历史记录的键值
+     * @param cookieUUID
+     * @return
+     */
     private String cacheHistoryKey(String cookieUUID) {
         return cookieUUID + "_his";
     }
@@ -507,9 +495,26 @@ public class ComCtrl extends Controller {
             hisUrl = list.get(list.size() - 1);
         }
         list.add(url);
-//        Logger.info("====push==url==="+url+"==hisUrl="+hisUrl+"===list.peek()="+list.get(list.size()-1));
         cache.set(key, 60 * 60, list);
         return hisUrl;
+    }
+
+    /**
+     * 获取展示的身份证号码
+     * @param idCardNum
+     * @return
+     */
+    public static  String getShowIdCardNum(String idCardNum){
+        return idCardNum.substring(0,10)+"****"+idCardNum.substring(14);
+    }
+
+    /**
+     * 获取展示的手机号码
+     * @param tel
+     * @return
+     */
+    public static  String getShowTel(String tel){
+        return tel.substring(0,3)+"****"+tel.substring(7);
     }
 
 }

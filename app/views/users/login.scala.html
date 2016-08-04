@@ -24,6 +24,8 @@
             background-position: right 2px;
             background-repeat: no-repeat;
             }
+
+
         </style>
 
         <script>
@@ -137,20 +139,23 @@
         <div id="screen_wrap">
             <div class="nav_ban">
                 <h1>登录</h1>
-                <a href="javascript:window.history.back()"><span class="icon-back" id="backBtn"></span></a>
+                <a href="@uri"><span class="icon-back" id="backBtn"></span></a>
                 <input type="hidden" id="uri" value="@uri">
                 <input type="hidden" id="state" value="@state">
             </div>
             <div class="login">
                 <div id="js-userinfo-error" class="pcue"></div>
+                <div class="welcom"><img src="/assets/images/welcom.png"/></div>
                 <fieldset>
                     <form  id="account_loginForm" method="post" action="/login/submit">
                         <dl class="list list-in list-regist">
                             <dd class="dd-padding lonin-dd code ">
+                                <span>账号</span>
                                 <input id="input_username" class="input-weak" maxlength="11" type="text" placeholder="请输入您的手机号" name="phone" required pattern="[1][345678]\d{9}" onkeyup="this.value=this.value.replace(/\D/g,'')">
                                 <i class="delet"></i>
                             </dd>
                             <dd class="dd-padding lonin-dd code">
+                                <span>密码</span>
                                 <input id="input_password" class="input-weak input-weak-show" maxlength="12" type="password" placeholder="请输入您的密码" name="password" required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}">
                                 <i class="out"></i>
                                 <i class="howl"></i>
@@ -171,8 +176,8 @@
 
                 <div class="loginInfo">
                     <div class="findWord">
-                        <a href="/register@state" class="resist">快速注册</a>
-                        <a href="/retrieve@state" class="password">忘记密码?</a>
+                        <a href="/register@state" class="resist">手机注册</a>
+                        <a href="/retrieve@state" class="password">找回密码?</a>
                     </div>
                     <div class="min">
                         <label>
@@ -181,6 +186,16 @@
                         </label>
                     </div>
                 </div>
+
+
+            </div>
+
+            <div class="third">
+                <div class="other"><img src="/assets/images/denglu.png"/></div>
+                <a href="javascript:;" class="wechat"><img src="/assets/images/wechat.png"/></a>
+                <a href="javascript:;" class="wechat"><img src="/assets/images/QQ.png"/></a>
+                <a href="javascript:;" class="wechat"><img src="/assets/images/Weibo.png"/></a>
+
             </div>
         </div>
         @comContent()

@@ -62,12 +62,13 @@ input:password {
     text-align: center;
     height:44px;
     overflow: auto;
-    position: relative;
+    position:fixed;
+    z-index: 10;
     width: 100%;
     line-height:44px;
     display: block;
-    background-color:#ff5359;
-    border-bottom:1px solid #C7C7C7;
+    background-color:#F9F9F9;
+    border-bottom:1px solid #d9d9d9;
 
 }
 .nav_ban h1 {
@@ -75,20 +76,22 @@ input:password {
     display: inline-block;
     position: relative;
     font-size:24px;
-    color:#fff;
+    color:#242424;
 }
 .nav_ban .icon-back {
-    position: relative;
-    height:25px;
-    width:25px;
+    height:20px;
+    width:20px;
     position: absolute;
-    top:13px;
-    left:2%;
-    background: url("/assets/images/icon_back.png") center center no-repeat;
-    background-size: cover;
+    top: 25%;
+    left: 2%;
+    background: url("/assets/images/hmm_through_page.png") center center no-repeat;
+    background-size:contain;
 
 }
 
+.submitBox{
+    margin: 20px 0 10px 0;
+}
 /***********login****************/
 
 .cue{
@@ -110,7 +113,16 @@ input:password {
     padding: 0 0 0 15px;
     display: none;
 }
+.welcom{
+    width: 100%;
+    padding: 20px 0 20px 0;
+}
 
+.welcom img{
+    width: 200px;
+    margin: 0 auto;
+
+}
 .login {
     margin-bottom: 50px;
 	position: relative;
@@ -199,7 +211,7 @@ input[type=checkbox]{
 }
 
 .login .loginBtn {
-    background-color:#ff5359;
+    background-color:#FDE03C;
     border: 1px solid #fff;
     float: left;
 }
@@ -237,7 +249,7 @@ input[type=checkbox]{
     font-size: 14px;
 }
 .lonin-dd{
-    border:1px solid #DFDFDD;
+    border-bottom:1px solid #DFDFDD;
     margin:0 0 20px 0;
 }
 .dd-padding{
@@ -276,6 +288,35 @@ input[type=checkbox]{
     color: #666;
     font-size: 14px;
     margin: 0 0 0 5px;
+
+}
+
+.third{
+    width: 100%;
+    position: relative;
+    left: 0;
+    top: 0;
+    background-color: #fff;
+    padding: 30px 0 0 0 ;
+}
+
+.other img{
+    width: 100%;
+}
+
+.third a{
+    float: left;
+    width: 33.3%;
+    display: inline-block;
+    margin:30px 0 ;
+}
+
+.third a img{
+    width:50px;
+    margin: 0 auto;
+
+}
+.wechat{
 
 }
 
@@ -422,21 +463,28 @@ input[type=checkbox]{
 }*/
 /********************自己写************************/
 .login{
-    margin: 20px 0 0 0;
+   padding:44px 0 0 0;
 }
 
 .list dd>.input-weak {
     width:100%;
+    float: left;
+}
+.dd-padding span{
 
+    width: 20%;
+    font-size: 14px;
+    position: absolute;
+    top: 12px;
 }
 
 
 input.input-weak, textarea.input-weak {
-    font-size: 1rem;
-    color: #ccc;
+    font-size:14px;
+    color:#404040;
     border: 0;
     width: 86%;
-    padding-left: 7px;
+    padding-left:40px;
 	vertical-align: middle;
     margin: 12px 0 0 0;
 }
@@ -543,7 +591,7 @@ dl.list dd>.btn {
     text-align: center;
     -webkit-border-radius: 4px;
     border-radius: 4px;
-    color: #fff;
+    color: #242424;
     font-size: 16px;
     cursor: pointer;
     -webkit-appearance: none;
@@ -562,7 +610,7 @@ dl.list dd>.btn {
 /*提示信息*/
 .out{
     width:20px;
-    right:80px;
+    right:55px;
     top:12px;
 }
 .out,.delet{
@@ -574,7 +622,7 @@ dl.list dd>.btn {
 }
 .delet{
     width:20px;
-    right:40px;
+    right:25px;
     top:12px;
 }
 
@@ -585,7 +633,7 @@ dl.list dd>.btn {
     height:20px;
     background-size: contain;
     position: absolute;
-    right:40px;
+    right:25px;
     top:12px;
 }
 
@@ -597,7 +645,6 @@ dl.list dd>.btn {
 }
 
 .howl-reB{
-
     top:13px;
     right:3px;
 }
@@ -609,7 +656,7 @@ dl.list dd>.btn {
     height:20px;
     background-size: contain;
     position: absolute;
-    right:40px;
+    right:25px;
     top:12px;
 }
 
@@ -632,11 +679,6 @@ dl.list dd>.btn {
     top:13px;
 
 }
-
-
-
-
-
 
 
 

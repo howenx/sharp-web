@@ -55,7 +55,7 @@
             </div>
             <span class="area">@cart.getInvAreaNm()</span>
 
-            <div class="xs postalCss" style="display:none;">行邮税: ￥<span>66.00</span></div>
+            <!--<div class="xs postalCss" style="display:none;">行邮税: ￥<span>66.00</span></div>-->
 
             <input type="hidden" class="postalLimit" value="@cart.getPostalLimit()"/>
             <div id="hiddenArea@index" class="hiddenArea">
@@ -101,16 +101,16 @@
                                 </div>
                                 <div class="cart-product-price">
                                     <div class="cart-product-price-l">
-                                        ￥<span class="price">@cartInfo.getItemPrice()</span>
-                                        <span class="spec">@cartInfo.getItemColor() @cartInfo.getItemSize()</span>
+                                       <!--￥<span class="price">@cartInfo.getItemPrice()</span>-->
+                                       <span class="spec">规格 :</span> <span class="spec">@cartInfo.getItemColor() @cartInfo.getItemSize()</span>
                                     </div>
                                     <div class="cart-product-price-r">
-                                        小计:￥<span class="subtotal">@(cartInfo.getItemPrice().multiply(new java.math.BigDecimal(cartInfo.getAmount())))</span>
+                                        ￥<span class="subtotal">@(cartInfo.getItemPrice().multiply(new java.math.BigDecimal(cartInfo.getAmount())))</span>
                                     </div>
                                 </div>
                                 <div class="cart-product-number">
                                     <a href="javascript:;" class="quantity-decrease">-</a>
-                                    <input type="text" class="quantity" value="@cartInfo.getAmount()" required pattern="[0-9]" onkeyup="this.value=this.value.replace(/\D/g,'')" onblur=""/>
+                                    <input type="text" class="quantity" disabled='disabled' value="@cartInfo.getAmount()" required pattern="[0-9]" onkeyup="this.value=this.value.replace(/\D/g,'')" onblur=""/>
                                     <a href="javascript:;" class="quantity-increase">+</a>
                                     <i class="cart-del-btn" onclick="delCart(@cartInfo.getCartId())"></i>
                                 </div>
@@ -169,8 +169,8 @@
             </div>
             -->
             <div class="footer-l-right">
-                合计:￥<span class="total" id="total">0.00</span>
-                <div class="postage">(不含邮税 , 行邮税)</div>
+                总计:￥<span class="total" id="total">0.00</span>
+                <div class="postage">包邮包税</div>
             </div>
 
         </div>

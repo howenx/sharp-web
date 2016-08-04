@@ -67,31 +67,40 @@ input:password {
 .cart-goods {
     margin-top: 44px;
     width: 100%;
-    background-color: #fff;
+
     padding: 25px 0 0 0;
 }
 .cart-goods-area{
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #d9d9d9;
     position: relative;
     height: 40px;
+    background-color: #fff;
 }
 .cart-goods-area .check-wrapper{
     left: 10px;
 }
 .cart-goods-list{
     overflow: hidden;
+    border-bottom: 1px solid #d9d9d9;
 }
 .cart-goods-list li{
     width: 100%;
     float: left;
-    border-bottom: 1px solid #ccc;
+
     background-color: white;
 }
+
+
 .item{
+    border-bottom: 1px solid #d9d9d9;
     padding: 10px 10px;
-    margin-left: 20px;
+    margin: 0 0 -1px 20px;
     position: relative;
+
 }
+
+
+
 .check-wrapper{
     height: 22px;
     width: 22px;
@@ -110,6 +119,9 @@ input:password {
     -webkit-box-orient:vertical;
     display: -webkit-box
 }
+.areaAndSku{
+    margin: 0 0 20px 0;
+}
 
 /*.area*/
 .area{
@@ -117,7 +129,7 @@ input:password {
     top: 50%;
     left:35px;
     margin-top: -10px;
-    color: #333;
+    color: #242424;
 }
 
 .item-con{
@@ -130,8 +142,7 @@ input:password {
     display: block;
     position:absolute;
     left: 0;
-    top:40%;
-    transform: translate(0,-50%);
+    top:15%;
     width: auto;
     height: auto;
 }
@@ -165,12 +176,12 @@ input:password {
     color: #EF2528;
 }
 .spec{
-    color: #9FA0A0;
+    color: #999;
     font-size: 12px;
 }
 .cart-product-price-r{
     float: right;
-    color:#EF2528;
+   color: #f73939;
 }
 .cart-product-number{
     height: 24px;
@@ -179,7 +190,7 @@ input:password {
 }
 .quantity-decrease,.quantity-increase{
     display: block;
-    line-height:20px;
+    line-height:17px;
     height: 20px;
     width: 25px;
     -webkit-border-radius: 2px 0 0 2px;
@@ -203,16 +214,15 @@ input:password {
     color: #666;
     border: 1px solid #ccc;
     border-width: 1px 0 1px 0;
+    -webkit-appearance: none;
+    border-radius: 0;
     overflow: hidden;
     float: left;
     font-size: 14px;
     text-align: center;
 
 }
-.quantity-decrease{
-    font-size: 18px;
-    line-height: 16px;
-}
+
 .cart-del-btn {
     width:15px;
     height:15px;
@@ -242,28 +252,26 @@ input:password {
 
 /*空购物车*/
 body{
-    background-color: #fff;
+    background-color: #f4f4f4;
 }
 
 .wrap{
-    padding: 140px 0 0 0;
-    background-color: #FFFFFF;
+    padding: 50% 0 0 0;
 
 }
 
 .wrap img{
-    width: 200px;
+    width:120px;
    margin: 0 auto;
 }
 .wrap a{
     display: block;
-    width:120px;
-    height:50px;
+    width: 100px;
+    height: 40px;
     color: #fff;
-    font-size: 18px;
     text-align: center;
-    line-height: 50px;
-    margin:10px auto;
+    line-height: 40px;
+    margin: 10px auto;
 }
 
 
@@ -379,10 +387,10 @@ body{
 }
 
 .hint-hd{
+    background: url("/assets/images/tishi.png") 4px 2px no-repeat #dddddd;
     position: fixed;
-    background-color: #FFEEDE;
-    color:#ff5359;
-    padding: 5px;
+    color:#424242;
+    padding: 5px 5px 5px 30px;
     z-index: 10;
     width: 100%;
     font-size: 12px;

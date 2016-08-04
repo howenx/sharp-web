@@ -9,14 +9,14 @@
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <meta content="telephone=no" name="format-detection">
-
-    <title>单品推荐</title>
     <title>韩秘美单品推荐</title>
     <link rel="stylesheet" href="/assets/stylesheets/global.css"/>
     <link rel="stylesheet" href="/assets/stylesheets/gather.css"/>
-    <link rel="stylesheet" href="/assets/stylesheets/article.css"/>
+
     <script src="/assets/javascripts/jquery/jquery-1.9.1.min.js"></script>
+    <script src="/assets/javascripts/cartAmount.js"></script>
     <script src="/assets/javascripts/list.js"></script>
+
     <script>
         $(function(){
             $(window).load(function(){
@@ -28,14 +28,7 @@
 </head>
 <body>
 @if(openType=="M"||openType=="m"){
-<header class="head">
-    <a href="/" class="back">
-        <i></i>
-        <b></b>
-    </a>
-    <h1>单品推荐</h1>
-</header>
-<div class="pd"></div>
+    @headerH5("单品推荐")
 }
 <div id="loading">
     <img src="/assets/images/loading.gif"/>

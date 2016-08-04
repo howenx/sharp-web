@@ -19,7 +19,7 @@
     </div>
 
     <header class="head">
-        <a href="/myView" class="back">
+        <a href="/mypin" class="back">
             <i></i>
             <b></b>
         </a>
@@ -62,7 +62,11 @@
             </li>
             <li>
                 <b>总额:</b>
-                <span><i class="ordermoney">@order.getOrder().getPayTotal()</i> (@order.getOrder().getPayMethod())</span>
+                <span><i class="ordermoney">@order.getOrder().getPayTotal()</i>
+                    @if(null==order.getOrder().getPayMethod()){(在线支付)}
+                    @if(order.getOrder().getPayMethod()=="JD"){(京东)}
+                    @if(order.getOrder().getPayMethod()=="ALIPAY"){(支付宝)}
+                    @if(order.getOrder().getPayMethod()=="WEIXIN"){(微信)}</span>
             </li>
             <li>
                 <b>送至:</b>

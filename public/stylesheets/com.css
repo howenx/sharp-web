@@ -7,13 +7,14 @@
     left: 0;
     top: 0;
     line-height:44px;
-    background-color:#ff5359;
+    background-color:#F9F9F9;
     z-index: 999;
+    border-bottom: 1px solid #d9d9d9;
 }
 .header-text{
     width: 100%;
     height:44px;
-    color:#fff ;
+    color:#242424 ;
     text-align: center;
 
 }
@@ -34,9 +35,9 @@
 .home_link {
     width: 20px;
     height: 20px;
-    background: url(/assets/images/icon_back.png) no-repeat;
+    background: url(/assets/images/hmm_through_page.png) no-repeat;
     color: rgb(102, 102, 102);
-    background-size: cover;
+    background-size: contain;
     position: absolute;
     top: 13px;
     left: 2%;
@@ -132,7 +133,7 @@
     position: fixed;
     left: 0;
     bottom: 0;
-    color: white;
+    color:#242424;
 }
 .footer-l{
     width: 68%;
@@ -160,13 +161,13 @@
 }
 .footer-l-right{
    text-align: center;
-    color:#EF2528;
+    color:#242424;
     padding: 2px 0 0 0;
 }
 .footer-r{
     width: 32%;
     height: 44px;
-    background-color:#ff5359;
+    background-color:#fdd000;
     float: left;
     text-align: center;
     cursor: pointer;
@@ -174,7 +175,7 @@
 }
 
 .postage{
-    color: #666;
+    color: #999;
     font-size: 12px;
 }
 .discolour{
@@ -225,7 +226,7 @@ input[type=checkbox]:checked::after {
     -webkit-transform: scale(0.49,0.49);
     -moz-transform: scale(0.55,0.55);
     position: absolute;
-    top: -6px;
+    top: -5px;
     left: -5px;
 }
 

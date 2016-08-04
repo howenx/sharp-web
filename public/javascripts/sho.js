@@ -51,8 +51,8 @@ $(function(){
                          t.val(aa);
                          li.find(".amount").val(aa);
 
-                         var s = li.find(".price").html();
-                         var d = aa * s;
+                         var s = li.find(".subtotal").html();
+                         var d = aa * (s/(aa-1));
 
                          var ss = li.find(".subtotal").html(d);
                          Total();
@@ -114,8 +114,8 @@ $(function(){
                          t.val(aa);
                          li.find(".amount").val(aa);
 
-                         var s = li.find(".price").html();
-                         var d = aa * s;
+                        var s = li.find(".subtotal").html();
+                        var d = aa * (s/(aa+1));
 
                          var ss = li.find(".subtotal").html(d);
                          Total();
@@ -231,21 +231,21 @@ $(function(){
         checkPostalLimit();
     })
 
-    /*金额小计*/
-    function setTotal(){
-        /*var s=0;*/
-        var v=0;
-        $(".cart-product-number").each(function(){
-            s+=parseInt($(this).find('input[class*=quantity]').val())*parseFloat($(this).siblings().find('span[class*=price]').text());
-        });
-        <!--计算分数-->
-        $("input[type='text']").each(function(){
-            v += parseInt($(this).val());
-        });
-        $(".cart-product-price").each(function(){
-            $(this).find(".subtotal").html(s.toFixed(2));
-        });
-    }
+    // /*金额小计*/
+    // function setTotal(){
+    //     /*var s=0;*/
+    //     var v=0;
+    //     $(".cart-product-number").each(function(){
+    //         s+=parseInt($(this).find('input[class*=quantity]').val())*parseFloat($(this).siblings().find('span[class*=price]').text());
+    //     });
+    //     <!--计算分数-->
+    //     $("input[type='text']").each(function(){
+    //         v += parseInt($(this).val());
+    //     });
+    //     $(".cart-product-price").each(function(){
+    //         $(this).find(".subtotal").html(s.toFixed(2));
+    //     });
+    // }
     function funss(){
         $(".check-one").each(function(){
             count++
@@ -304,23 +304,23 @@ function cartCheck(cartCheckList){
         $("#selectedTotal").html(v);
         /*计算购物车的数量*/
 
-        //计算行邮税
-         $(".areaAndSku").each(function(){
-            var fee =0.00;
-            var ckeckedSku=$(this).find("ul").find("input[type=checkbox]:checked");
-             ckeckedSku.each(function(){
-                var ts = $(this).parents("li").find(".subtotal").html();//小计
-                var ptr = $(this).parents("li").find(".postalTaxRateCss").val();
-                fee+=parseFloat(ts)*parseFloat(ptr)/100;
-             });
-             if(fee>0){
-                $(this).find(".postalCss span").html(fee.toFixed(2));
-                $(this).find(".postalCss").show();
-             }else{
-                $(this).find(".postalCss").hide();
-             }
-
-         });
+//        //计算行邮税
+//         $(".areaAndSku").each(function(){
+//            var fee =0.00;
+//            var ckeckedSku=$(this).find("ul").find("input[type=checkbox]:checked");
+//             ckeckedSku.each(function(){
+//                var ts = $(this).parents("li").find(".subtotal").html();//小计
+//                var ptr = $(this).parents("li").find(".postalTaxRateCss").val();
+//                fee+=parseFloat(ts)*parseFloat(ptr)/100;
+//             });
+//             if(fee>0){
+//                $(this).find(".postalCss span").html(fee.toFixed(2));
+//                $(this).find(".postalCss").show();
+//             }else{
+//                $(this).find(".postalCss").hide();
+//             }
+//
+//         });
 
     }
 
@@ -336,7 +336,7 @@ function cartCheck(cartCheckList){
           var ckeckedSku=$(this).find("ul").find("input[type=checkbox]:checked");
           ckeckedSku.each(function(){
              var ts = $(this).parents("li").find(".subtotal").html();
-              if('K'!=invArea){ //海外直邮不限制
+              if('K'!=invArea&&'NK'!=invArea){ //海外直邮,国内直邮不限制
                  total+=parseFloat(ts);
              }
           });

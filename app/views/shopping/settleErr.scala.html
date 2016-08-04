@@ -71,72 +71,12 @@
             <!--配送方式-->
             <div class="fashion">
                 <div class="fashion-hd">
-
                     <div class="account-j">
-                        <span>发货时间</span>
-                        <h2>
-                            <input type="radio" class="pitch pitch-hd" checked name="shipTime" value="1">
-                            <div class="quick">工作日与双休日与假期均可送货</div>
-                        </h2>
-                        <ul class="way">
-                            <li class="liOther">
-                                <label>
-                                    <input type="radio" name="shipTimeSub" class="pitch" checked value="1">
-                                    <div class="quick">工作日与双休日与假期均可送货</div>
-                                </label>
-                            </li>
-
-                            <li class="liOther">
-                                <label>
-                                    <input type="radio" name="shipTimeSub" class="pitch" value="2">
-                                    <div class="quick">只工作日送达</div>
-                                </label>
-                            </li>
-
-                            <li class="liOther">
-                                <label>
-                                    <input type="radio" name="shipTimeSub" class="pitch" value="3">
-                                    <div class="quick">只休息日与假日送达</div>
-                                </label>
-
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="account-j">
-                        <span>支付方式</span>
-                        <h2>
-                            <input type="radio" class="pitch pitch-hd" checked>
-                            <div class="quick">在线支付</div>
-                        </h2>
-                        <ul class="way">
-                            <li class="liOther">
-                                <label>
-                                    <input type="radio" name="payMethod" value="JD" class="pitch" checked>
-                                    <div class="quick">在线支付</div>
-                                </label>
-                            </li>
-
-                        </ul>
-                    </div>
-                    <div class="account-j">
-                        <div class="usable clearfix">
+                        <h2 class="clearfix">
+                            <!--  <input type="radio" class="pitch pitch-hd" checked>-->
                             <span>可使用优惠券</span>
-                                <i>0张</i>
-                        </div>
-
-                        <h2>
-                            <input type="radio" class="pitch pitch-hd" checked>
-                            <div class="quick couponDiv">不使用优惠券</div>
+                            <i class="quick couponDiv">无可用</i>
                         </h2>
-                        <ul class="way">
-                            <li class="liCoupon">
-                                <label>
-                                    <input type="radio" name="couponId" class="pitch" value="" checked>
-                                    <div class="quick">不使用优惠券</div>
-                                </label>
-                            </li>
-                        </ul>
                     </div>
 
                 </div>
@@ -145,13 +85,10 @@
 
             <div class="tariff">
                 <ul>
-                    <!--<li><span>可使用优惠券</span><i>未选择</i></li>-->
                     <li><span>商品总价</span><i class="color">￥0</i></li>
                     <li><span>优惠金额</span>
                        <i class="color discountCss">￥0</i>
                    </li>
-                    <li><span>行邮税</span><i class="color">￥0</i></li>
-                    <li><span>运费</span><i class="color">￥0</i></li>
                 </ul>
             </div>
 
@@ -176,31 +113,6 @@
         <li class="amputate clearfix">
             <span> × </span>
         </li>
-
-        <!--
-        <li id="li700351" class="ul-box-li clearfix">
-            <div class="address clearfix">
-                <a href="javascript:;" class="sel_add clearfix">
-
-                    <p><i class="add-icon"></i><span>姓名:</span><span>发奖金</span>
-
-                        <span class="color">默认</span>
-
-                    </p>
-                    <p><span>联系电话:</span><span>18392861591</span></p>
-                    <p><span>身份证号:</span><span>610124198903167511</span></p>
-                    <p class="clearfix"><span class="add-l">收货地址:</span><span class="add-r">北京市 北京市 朝阳区积点口德都看到</span></p>
-                </a>
-
-                <div class="alter clearfix">
-
-                    <a href="javascript:;" class="alter-btn color" onclick="delAddress(700351,true)">删除</a>
-                    <a id="700351" href="javascript:;" class="color addup">修改</a>
-                </div>
-            </div>
-        </li>
-       -->
-
 
     </ul>
     <a href="javascript:;" class="plus-add bg de-add addressnew">新增收货地址</a>

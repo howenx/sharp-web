@@ -1,13 +1,15 @@
 
-
-.scope{min-width:320px; max-width:750px; margin: 0 auto; background-color: #fff; padding:60px 2% 0; }
+body{
+    background-color: #f4f4f4;
+}
+.scope{min-width:320px; max-width:750px; margin: 0 auto;padding:44px 0 0; }
 
 .color{
     color:#ff5359;
 }
 
 .colore{
-    color:#EF2528;
+    color:#f73939;
 }
 
 /*收货地址*/
@@ -50,28 +52,38 @@
 }
 .money-box .picture{
     float: left;
-    width:80px;
-    height:80px;
-    /*background: url("/assets/images/icon5.png") no-repeat;*/
-    background-size:cover;
+    width: 30%;
 }
-.address{
-    border-bottom: 1px solid #ededed;
+
+.picture img{
+    margin: 0 auto;
 }
 .address-padding{
     border: none;
 }
 .address a{
-    color: #666;
+    color: #242424;
 }
 
+.address p.personal{
+    font-size: 14px;
+}
 .address p{
     margin:0 0 10px 0;
+    font-size: 12px;
 }
 
 .address p span{
     margin: 0 10px 0 0;
+
 }
+.address p .default{
+    background-color: #Fdd000;
+    color: #fff;
+    padding:1px 4px;
+    font-size: 12px;
+}
+
 
 .address .add-icon{
     display: inline-block;
@@ -89,46 +101,56 @@
 
 
 .money-box .text{
-    line-height:50px;
+    color: #242424;
     border-bottom:1px solid #EBEBEB;
-    margin: 0 0 20px 0;
-
+    padding: 10px 0;
 }
 
 .money-box{
-    margin: 0 0 20px 0px;
+    padding: 0 10px;
+    margin: 10px 0 10px 0px;
+    background-color: #fff;
+    border-bottom: 1px solid #ededed;
+    border-top: 1px solid #ededed;
 }
 
 .money-box h2{
     padding:0 0 20px 0;
+    color: #242424;
 }
 
 .money-box .goods{
-    padding:20px 2%;
+    float: right;
+    width: 70%;
+    font-size: 14px;
 }
 
 .order{
     float: left;
-    font-size: 20px;
 }
 
 .money{
     float: right;
+    color: #999;
 }
 
 .account-j span{
+    float: left;
+    color: #242424;
     display: block;
 }
 
-.account-j span,.account-j .usable,.account-j h2{
-    line-height:50px;
-    height: 50px;
+.account-j .usable,.account-j h2{
+    height: 45px;
+    padding: 0 10px;
+    line-height: 45px;
     border-bottom: 1px solid #ededed;
-
 }
 
 .usable span{
     float: left;
+    color: #242424;
+    font-size: 14px;
 }
 .usable i{
     float: right;
@@ -137,11 +159,11 @@
     display: none;
 }
 .way li{
+    padding: 0 10px;
     font-size: 14px;
-    background-color: #f4f4f4;
-    padding: 0 0 0 20px;
-    line-height: 36px;
-    height: 36px;
+    background-color: #F9F9F9;
+    line-height: 45px;
+    height: 45px;
     border-bottom: 1px solid #ededed;
 }
 label{
@@ -161,17 +183,20 @@ label{
     margin: 13px 5px 0 0;
 }
 .quick{
+    color: #242424;
     float: left;
 }
 
 input[type=radio] {
+    margin: 15px 0 0 0;
+    float: right;
     -webkit-appearance: none;
     appearance: none;
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     cursor: pointer;
     vertical-align: bottom;
-    border: 2px solid #E56254;
+    border: 1px solid #ccc;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
@@ -213,23 +238,28 @@ input[type=radio] {
 }
 .refer{
     float: left;
+    background-color: #fdd000;
     width:40%;
     height:44px;
     text-align: center;
     line-height:44px;
     font-size:18px;
-    color:#fff;
+    color:#242424;
 }
 
 .tariff{
+    background-color: #fff;
     width:100%;
-    font-size: 16px;
+    font-size: 14px;
+    padding: 0 10px;
+    color: #242424;
 }
 .tariff ul li{
-    padding:15px 2%;
-    border-top:1px solid #EBEBEB;
-    height:50px;
-    margin-top:-1px;
+    border-top: 1px solid #EBEBEB;
+    height: 45px;
+    line-height: 45px;
+    margin-top: -1px;
+    color: #242424;
 }
 .tariff ul li:first-child{
     border: none;
@@ -239,7 +269,7 @@ input[type=radio] {
     margin: 0 0 43px 0;
 }
 .tariff li span{
-    float: left;
+    float: left
 }
 .tariff li i{
     float: right;
@@ -314,7 +344,8 @@ input[type=radio] {
 }
 
 .one{
-    margin: 0 0 20px 0;
+    padding: 14px 0 10px;
+
 }
 
 .ul-box{
@@ -352,8 +383,13 @@ input[type=radio] {
 .alter{
     text-align: right;
     height: 30px;
-    background: url("/assets/images/page_gray.png") right 2px no-repeat;
+    background: url("/assets/images/rightr.png") right 2px no-repeat;
     background-size: 10px;
+    position: absolute;
+    top:50%;
+    right:10px;
+    -webkit-transform: translate(0,-50%);
+    -moz-transform: translate(0,-50%);
 }
 
 .de-add{
@@ -371,13 +407,60 @@ input[type=radio] {
 }
 
 input[type=radio]:checked::after {
-    content: url("/assets/images/sett-input.png");
+    /*content: url("/assets/images/sett-input.png");*/
+    content: "";
+    background-color: #58D46E;
     display: block;
-    width:20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
     -webkit-transform: scale(0.49,0.49);
     -moz-transform: scale(0.55,0.55);
     position: absolute;
     top: -8px;
     left: -8px;
+}
+
+
+.ul-box-padding{
+    padding: 44px;
+}
+
+.account-j h2 i{
+    color: #999;
+    padding: 0 15px 0 0;
+    float: right;
+    background: url("/assets/images/rightr.png") right no-repeat;
+    background-size:10px;
+}
+
+.address-r{
+    padding: 14px 30px 14px;
+    /*background:url("/assets/images/dizhi.png") bottom no-repeat #fff;
+    background-size: 1440px 3px;*/
+    background-color: #fff;
+    position: relative;
+}
+.account-j{
+    font-size: 14px;
+    background-color: #fff;
+}
+
+
+.alter-x{
+    text-align: right;
+}
+
+.account-j h2.nothave{
+    border: none;
+}
+
+.explain{
+    width: 100%;
+    display: block;
+    background-color: #ededed;
+    padding: 2px 10px;
+    font-size: 12px;
+    position: absolute;
+    top:-20px;
 }

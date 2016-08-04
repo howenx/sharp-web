@@ -19,12 +19,10 @@
 <div class="fixed-box" style="position:fixed;width: 100%">
 
 <div class="wap">
-    <a href="@path"  class="back">
-        <i></i>
-        <b></b>
-    </a>
-    <a href="/setting" class="fit"></a>
-    <div class="user bg">
+    <div class="user">
+        <a href="@path"  class="back"></a>
+        <a href="/setting" class="fit"></a>
+
          <a  href="/means" class="land">
              <img id="photo" src="@userInfo.getPhoto()">
              @userInfo.getName()
@@ -83,10 +81,19 @@
                 <span></span>
             </div>
         </a>
+
+
+        <a href="/collect" class="house">
+            <div class="whole">
+                <i class="icon"></i>
+                <i class="icon-txt">我的收藏</i>
+                <span>&nbsp;</span>
+            </div>
+        </a>
         <a href="/coupon" class="list-agio">
             <div class="agio-box">
                 <i class="icon"></i>
-                <i class="icon-txt">我的优惠券</i>
+                <i class="icon-txt">优惠券</i>
                 <span>
                    @userInfo.getCouponsCount()张可用
                 </span>
@@ -95,15 +102,8 @@
         <a id="myAdd" href="/address/0"  class="list-add">
             <div class="add-box">
                 <i class="icon"></i>
-                <i class="icon-txt">我的地址</i>
+                <i class="icon-txt">管理收货地址</i>
                 <span></span>
-            </div>
-        </a>
-        <a href="/collect" class="house">
-            <div class="whole">
-                <i class="icon"></i>
-                <i class="icon-txt">我的收藏</i>
-                <span>&nbsp;</span>
             </div>
         </a>
     </section>

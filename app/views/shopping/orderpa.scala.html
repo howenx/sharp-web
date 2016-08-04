@@ -23,11 +23,9 @@
         <b></b>
     </a>
     <h1>订单详情</h1>
-    @if(order.getOrder().getOrderStatus()=="C"||order.getOrder().getOrderStatus()=="R"||order.getOrder().getOrderStatus()=="T"){
+    @if(order.getOrder().getOrderStatus()=="C"||order.getOrder().getOrderStatus()=="R"||order.getOrder().getOrderStatus()=="T"||order.getOrder().getOrderStatus()=="F"){
          <span onclick="delOrder(@order.getOrder().getOrderId(),1)"></span>
     }
-
-
 </header>
 
 
@@ -55,7 +53,7 @@
                 <i>@if(order.getOrder().getOrderStatus()=="I"){待支付}
                     @if(order.getOrder().getOrderStatus()=="S"){待发货}
                     @if(order.getOrder().getOrderStatus()=="C"){已取消}
-                    @if(order.getOrder().getOrderStatus()=="F"){失败}
+                    @if(order.getOrder().getOrderStatus()=="F"){交易失败}
                     @if(order.getOrder().getOrderStatus()=="R"){已完成}
                     @if(order.getOrder().getOrderStatus()=="D"){待收货}
                     @if(order.getOrder().getOrderStatus()=="J"){拒收}
@@ -73,8 +71,9 @@
             <p>
                 <span>支付方式 :</span>
                 <i>
+                    @if(null==order.getOrder().getPayMethod()){在线支付}
                     @if(order.getOrder().getPayMethod()=="JD"){京东}
-                    @if(order.getOrder().getPayMethod()=="APAY"){支付宝}
+                    @if(order.getOrder().getPayMethod()=="ALIPAY"){支付宝}
                     @if(order.getOrder().getPayMethod()=="WEIXIN"){微信}
                 </i>
             </p>
@@ -195,6 +194,17 @@
 
             </li>
         }
+
+        @if(order.getOrder().getOrderStatus()=="F"){
+            <li>
+                <p class="first">
+                    <span>重要提醒</span>
+                </p>
+                <p>
+                    <i class="color">如果此笔订单扣款成功，我们将会在1-5个工作日返回您的支付金额至您的支付账户里，请以支付公司的通知信息为准，如有疑问请联系我们客服400-664-0808</i>
+                </p>
+            </li>
+        }
         
         <input type="hidden" value="@order.getOrder().getOrderSplitId()" id="orderSplitId"/>
         <input type="hidden" value="@order.getOrder().getOrderStatus()" id="orderStatus"/>
@@ -204,7 +214,7 @@
 
 
 </div>
-    @if(order.getOrder().getOrderStatus()=="I"||order.getOrder().getOrderStatus()=="F"){
+    @if(order.getOrder().getOrderStatus()=="I"){
         <div class="btn btn-fixed clearfix">
             <a href="javascript:;" class="right"  onclick="pay('@payUrl','@order.getOrder().getOrderId()','@token','@order.getOrder().getSecurityCode()')">去支付</a>
             <a href="javascript:;" class="left"  onclick="cancelOrder('@order.getOrder().getOrderId()')">取消订单</a>
@@ -213,7 +223,7 @@
 
     @if(order.getOrder().getOrderStatus()=="S"&&null==order.getRefund()){
         <div class="btn btn-fixed clearfix">
-            <a href="javascript:;" class="left applyRefundCss" >申请退货</a>
+            <a href="javascript:;" class="left applyRefundCss" >申请退款</a>
         </div>
     }
     @if(order.getOrder().getOrderStatus()=="D"){

@@ -17,7 +17,7 @@
     <script src="/assets/javascripts/obligation.js"></script>
     <style>
         body{
-            background-color: #fff;
+            background-color: #f4f4f4;
         }
     </style>
     <script>
@@ -79,7 +79,7 @@
 
                                     </div>
                                 </div>
-                                <p class="coupon-deta">有效期至 <span>@coupon.getEndAt()</span></p>
+                                <p class="coupon-deta">有效期 <span>@coupon.getStartAt().substring(0,10)</span> 至 <span>@coupon.getEndAt().substring(0,10)</span></p>
                             </li>
                         }
                     }
@@ -107,7 +107,7 @@
                                         }
                                     </div>
                                 </div>
-                                <p class="coupon-deta">有效期至 <span>@coupon.getEndAt()</span></p>
+                                <p class="coupon-deta">有效期 <span>@coupon.getStartAt().substring(0,10)</span> 至 <span>@coupon.getEndAt().substring(0,10)</span></p>
                             </li>
                         }
                     }
@@ -135,7 +135,7 @@
                                     }
                                 </div>
                             </div>
-                            <p class="coupon-deta">有效期至 <span>@coupon.getEndAt()</span></p>
+                            <p class="coupon-deta">有效期 <span>@coupon.getStartAt().substring(0,10)</span> 至 <span>@coupon.getEndAt().substring(0,10)</span></p>
                         </li>
                         }
                     }
@@ -151,15 +151,15 @@
 </div>
 
 <div class="not couponNot" style="display:none">
-    <p>您还没有未使用的购物券</p>
+    <img src="/assets/images/coupon.png">
     <a href="/" class="look">去逛逛</a>
 </div>
 <div class="not couponNot" style="display:none">
-    <p>您还没有已使用的购物券</p>
+    <img src="/assets/images/coupon.png">
     <a href="/" class="look">去逛逛</a>
 </div>
 <div class="not couponNot" style="display:none">
-    <p>您还没有未过期的购物券</p>
+    <img src="/assets/images/coupon.png">
     <a href="/" class="look">去逛逛</a>
 </div>
 @comContent()

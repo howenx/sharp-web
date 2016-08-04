@@ -67,41 +67,67 @@ public class ProductsCtrl extends Controller {
                 Logger.info("index接收数据-->\n"+json);
             }
             List<Slider> sliderList = new ArrayList<>();
+            List<SliderNav> sliderNavList = new ArrayList<>();
             List<Theme> themeList = new ArrayList<>();
             int pageCount = json.get("page_count").asInt();
             if (json.has("slider")) {
                 JsonNode sliderJson = json.get("slider");
                 for (JsonNode sliderTemp : sliderJson) {
                     Slider slider = Json.fromJson(sliderTemp, Slider.class);
-                    if(null!=slider.getUrl()){
-                        JsonNode imgJson = Json.parse(slider.getUrl());
-                        slider.setImg(imgJson.get("url").asText());
-                    }
-                    if (slider.getItemTarget().contains(GOODS_PAGE)) {
-                        slider.setItemTarget(slider.getItemTarget().replace(GOODS_PAGE, ""));
-                    }
-                    if ((slider.getItemTarget().contains(THEME_PAGE)) && Objects.equals(slider.getTargetType(), "T")) {
-                        slider.setItemTarget(slider.getItemTarget().replace(THEME_PAGE, ""));
-                    }
+//                    if(null!=slider.getUrl()){
+//                        JsonNode imgJson = Json.parse(slider.getUrl());
+//                        slider.setImg(imgJson.get("url").asText());
+//                    }
+                    slider.setImg(slider.getUrl());
+
+                    //处理TDPU类型的目标地址在M端应该转化成的最终地址
+                    slider.setItemTarget(comCtrl.getFinalItemTargetByTypeTDPU(slider.getTargetType(),slider.getItemTarget()));
+
                     sliderList.add(slider);
                 }
             }
+
+            if (json.has("sliderNav")) {
+                JsonNode sliderJson = json.get("sliderNav");
+                for (JsonNode sliderTemp : sliderJson) {
+                    SliderNav slider = Json.fromJson(sliderTemp, SliderNav.class);
+//                    if(null!=slider.getUrl()){
+//                        JsonNode imgJson = Json.parse(slider.getUrl());
+//                        slider.setImg(imgJson.get("url").asText());
+//                    }
+                    slider.setImg(slider.getUrl());
+
+                    //处理TDPU类型的目标地址在M端应该转化成的最终地址
+                    slider.setItemTarget(comCtrl.getFinalItemTargetByTypeTDPU(slider.getTargetType(),slider.getItemTarget()));
+
+                    sliderNavList.add(slider);
+                }
+            }
+
             if (json.has("theme")) {
                 JsonNode themeJson = json.get("theme");
                 for (JsonNode themeTemp : themeJson) {
                     Theme theme = Json.fromJson(themeTemp, Theme.class);
                     JsonNode imgJson = Json.parse(theme.getThemeImg());
                     theme.setThemeImg(imgJson.get("url").asText());
-                    if (!"h5".equals(theme.getType())) {
+                    //按照类型处理跳转地址
+                    if ("ordinary".equals(theme.getType())) {
                         String themeUrl = theme.getThemeUrl();
                         themeUrl = themeUrl.replace(THEME_PAGE, "");
-                        theme.setThemeUrl(themeUrl);
+                        theme.setThemeUrl("/themeDetail/"+themeUrl);
+                    }
+                    if ("detail".equals(theme.getType())||"pin".equals(theme.getType())) {
+                        String themeUrl = theme.getThemeUrl();
+                        theme.setThemeUrl(comCtrl.getDetailUrl(themeUrl));
+                    }
+                    if ("h5".equals(theme.getType())) {
+                        theme.setThemeUrl(theme.getThemeUrl()+"/M");
                     }
                     themeList.add(theme);
                 }
             }
 
-            return ok(views.html.products.index.render(sliderList, themeList,pageCount));
+            return ok(views.html.products.index.render(sliderList,sliderNavList,themeList,pageCount));
         }
         );
     }
@@ -185,8 +211,11 @@ public class ProductsCtrl extends Controller {
             ThemeBasic themeBasic = new ThemeBasic();
             if (json.has("themeList")) {
                 themeBasic = Json.fromJson(json.get("themeList"), ThemeBasic.class);
-                JsonNode imgJson = Json.parse(themeBasic.getThemeImg());
-                themeBasic.setThemeImg(imgJson.get("url").asText());
+                if(null!=themeBasic.getThemeImg()){
+                    JsonNode imgJson = Json.parse(themeBasic.getThemeImg());
+                    themeBasic.setThemeImg(imgJson.get("url").asText());
+                }
+
 
                 //主题标签
                 if (themeBasic.getMasterItemTag() != null) {
@@ -215,45 +244,52 @@ public class ProductsCtrl extends Controller {
                 //主题中的商品
                 List<ThemeItem> nItemList = new ArrayList<>();
                 List<ThemeItem> itemList = themeBasic.getThemeItemList();
-                for (ThemeItem themeItem : itemList) {
-                    JsonNode itemImgJson = Json.parse(themeItem.getItemImg());
-                    themeItem.setItemImg(itemImgJson.get("url").asText());
-                    themeItem.setItemUrl(themeItem.getItemUrl().replace(GOODS_PAGE, ""));
-                    SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    Date now = new Date();
-                    String strNow = sdfDate.format(now);
-                    Date endAtDate = sdfDate.parse(themeItem.getEndAt());
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTime(endAtDate);
-                    String hour = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
-                    if (calendar.get(Calendar.HOUR_OF_DAY) < 10) {
-                        hour = "0" + hour;
+                if(null!=itemList&&itemList.size()>0){
+                    for (ThemeItem themeItem : itemList) {
+                        JsonNode itemImgJson = Json.parse(themeItem.getItemImg());
+                        themeItem.setItemImg(itemImgJson.get("url").asText());
+                        themeItem.setItemUrl(themeItem.getItemUrl().replace(GOODS_PAGE, ""));
+                        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        Date now = new Date();
+                        String strNow = sdfDate.format(now);
+                        Date endAtDate = sdfDate.parse(themeItem.getEndAt());
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(endAtDate);
+                        String hour = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
+                        if (calendar.get(Calendar.HOUR_OF_DAY) < 10) {
+                            hour = "0" + hour;
+                        }
+                        String minute = String.valueOf(calendar.get(Calendar.MINUTE));
+                        if (calendar.get(Calendar.MINUTE) < 10) {
+                            minute = "0" + minute;
+                        }
+                        String endDate = (calendar.get(Calendar.MONTH) + 1) + "月" + calendar.get(Calendar.DAY_OF_MONTH) + "日" + hour + ":" + minute;
+                        if (themeItem.getEndAt().compareTo(strNow) < 0 || themeItem.getState() == "D" || themeItem.getState() == "N" || themeItem.getState() == "K") {
+                            themeItem.setEndAt("已结束");
+                        } else {
+                            themeItem.setEndAt("截止" + endDate);
+                        }
+                        Logger.error(String.valueOf(themeItem.getItemDiscount()));
+                        nItemList.add(themeItem);
                     }
-                    String minute = String.valueOf(calendar.get(Calendar.MINUTE));
-                    if (calendar.get(Calendar.MINUTE) < 10) {
-                        minute = "0" + minute;
+
+                    for (int i = 0; i < nItemList.size() / 2; i++) {
+                        List<ThemeItem> rowList = new ArrayList<>();
+                        rowList.add(itemList.get(i * 2));
+                        rowList.add(itemList.get(i * 2 + 1));
+                        itemResultList.add(rowList);
                     }
-                    String endDate = (calendar.get(Calendar.MONTH) + 1) + "月" + calendar.get(Calendar.DAY_OF_MONTH) + "日" + hour + ":" + minute;
-                    if (themeItem.getEndAt().compareTo(strNow) < 0 || themeItem.getState() == "D" || themeItem.getState() == "N" || themeItem.getState() == "K") {
-                        themeItem.setEndAt("已结束");
-                    } else {
-                        themeItem.setEndAt("截止" + endDate);
+                    if (nItemList.size() % 2 != 0) {
+                        List<ThemeItem> rowList = new ArrayList<>();
+                        rowList.add(nItemList.get(nItemList.size() - 1));
+                        itemResultList.add(rowList);
                     }
-                    Logger.error(String.valueOf(themeItem.getItemDiscount()));
-                    nItemList.add(themeItem);
+
+
                 }
 
-                for (int i = 0; i < nItemList.size() / 2; i++) {
-                    List<ThemeItem> rowList = new ArrayList<>();
-                    rowList.add(itemList.get(i * 2));
-                    rowList.add(itemList.get(i * 2 + 1));
-                    itemResultList.add(rowList);
-                }
-                if (nItemList.size() % 2 != 0) {
-                    List<ThemeItem> rowList = new ArrayList<>();
-                    rowList.add(nItemList.get(nItemList.size() - 1));
-                    itemResultList.add(rowList);
-                }
+
+
             }
             return ok(views.html.products.themeDetail.render(themeBasic, tagList, itemResultList));
         });
@@ -311,8 +347,9 @@ public class ProductsCtrl extends Controller {
                     //商品参数
                     if (itemMain != null) {
                         JsonNode features = Json.parse(itemMain.getItemFeatures());
-                        HashMap featuresMap = Json.fromJson(features, HashMap.class);
+                        LinkedHashMap featuresMap = Json.fromJson(features, LinkedHashMap.class); //按照顺序不能用hashmap
                         for (Object key : featuresMap.keySet()) {
+
                             Object[] featureObj = new Object[2];
                             featureObj[0] = key;
                             featureObj[1] = featuresMap.get(key);
@@ -426,8 +463,9 @@ public class ProductsCtrl extends Controller {
                     //商品参数
                     if (itemMain != null) {
                         JsonNode features = Json.parse(itemMain.getItemFeatures());
-                        HashMap featuresMap = Json.fromJson(features, HashMap.class);
+                        LinkedHashMap featuresMap = Json.fromJson(features, LinkedHashMap.class); //按照顺序不能用hashmap
                         for (Object key : featuresMap.keySet()) {
+
                             Object[] featureObj = new Object[2];
                             featureObj[0] = key;
                             featureObj[1] = featuresMap.get(key);

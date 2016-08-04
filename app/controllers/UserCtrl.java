@@ -4,14 +4,14 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.ning.http.client.multipart.MultipartBody;
 import com.squareup.okhttp.*;
 import domain.*;
 import domain.Address;
 import filters.UserAjaxAuth;
 import filters.UserAuth;
-import modules.ComTools;
 import net.spy.memcached.MemcachedClient;
+import org.w3c.dom.*;
+import org.xml.sax.InputSource;
 import play.Logger;
 import play.api.libs.Codecs;
 import play.data.Form;
@@ -20,15 +20,20 @@ import play.libs.F.Function;
 import play.libs.F.Function0;
 import play.libs.F.Promise;
 import play.libs.Json;
+import play.libs.XPath;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
 
 import javax.inject.Inject;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.beans.XMLDecoder;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.StringReader;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -71,7 +76,7 @@ public class UserCtrl extends Controller {
 
         return promiseOfInt.map((Function<JsonNode, Result>) json -> {
             if(LOG_OPEN){
-                Logger.info("address接收数据-->\n"+json);
+                Logger.info("address接收数据-selId->\n"+json);
             }
             String path = routes.UserCtrl.myView().url();
             if (session().containsKey("path")) {
@@ -85,7 +90,21 @@ public class UserCtrl extends Controller {
                 return badRequest();
             }
             if (selId == 1) {
-                return ok(json);
+                if (Message.ErrorCode.DATABASE_EXCEPTION.getIndex() == message.getCode()) {
+                    return ok(json);
+                }
+                List<Address> addressList = null;
+                if(json.has("address")){
+                    addressList=mapper.readValue(json.get("address").toString(), new TypeReference<List<Address>>() {});
+                    for(Address address:addressList){
+                    //    address.setIdCardNum(comCtrl.getShowIdCardNum(address.getIdCardNum()));
+                        address.setTel(comCtrl.getShowTel(address.getTel()));
+                    }
+                }
+                Map<String,Object> result = new HashMap<String, Object>();
+                result.put("message",message);
+                result.put("address",addressList);
+                return ok(Json.toJson(result));
             }
             //空地址列表
             if (Message.ErrorCode.DATABASE_EXCEPTION.getIndex() == message.getCode()) {
@@ -96,6 +115,10 @@ public class UserCtrl extends Controller {
                 List<Address> addressList = null;
                 if(json.has("address")){
                     addressList=mapper.readValue(json.get("address").toString(), new TypeReference<List<Address>>() {});
+                    for(Address address:addressList){
+                     //   address.setIdCardNum(comCtrl.getShowIdCardNum(address.getIdCardNum()));
+                        address.setTel(comCtrl.getShowTel(address.getTel()));
+                    }
                 }else {
                     Logger.error("无地址列表"+json);
                 }
@@ -125,8 +148,8 @@ public class UserCtrl extends Controller {
 //        Logger.info("====addressSave===\n" + addressForm.data());
         Map<String, String> addressMap = addressForm.data();
         Integer selId = Integer.valueOf(addressMap.get("selId"));
-        String idCardNum = addressMap.get("idCardNum").trim().toLowerCase();
-        if (addressForm.hasErrors() || !"".equals(ComTools.IDCardValidate(idCardNum))) { //表单错误或者身份证校验不通过
+//        String idCardNum = addressMap.get("idCardNum").trim().toLowerCase();
+        if (addressForm.hasErrors() /*|| !"".equals(ComTools.IDCardValidate(idCardNum))*/) { //表单错误或者身份证校验不通过
             Logger.error("收货地址保存表单错误或者身份证校验不通过" + toJson(addressMap));
             result.putPOJO("message", Json.toJson(new Message(Message.ErrorCode.getName(Message.ErrorCode.BAD_PARAMETER.getIndex()), Message.ErrorCode.BAD_PARAMETER.getIndex())));
             return Promise.promise((Function0<Result>) () -> ok(result));
@@ -151,7 +174,7 @@ public class UserCtrl extends Controller {
             object.put("name", addressMap.get("name").trim());
             object.put("deliveryDetail", addressMap.get("deliveryDetail").trim());
             object.put("orDefault", "on".equals(addressMap.get("orDefault")) ? 1 : 0);
-            object.put("idCardNum", idCardNum);
+        //    object.put("idCardNum", idCardNum);
 
 
             Promise<JsonNode> promiseOfInt = Promise.promise(() -> {
@@ -190,6 +213,8 @@ public class UserCtrl extends Controller {
                                 add += " " + jsonNode.findValue("area").asText();
                             }
                             address.setDeliveryCity(add);
+                        //    address.setIdCardNum(comCtrl.getShowIdCardNum(address.getIdCardNum()));
+                            address.setTel(comCtrl.getShowTel(address.getTel()));
                             result.putPOJO("address", address);
                         }
                     }
@@ -310,10 +335,11 @@ public class UserCtrl extends Controller {
      * @return
      */
     public Result login(String state) {
-        String path = routes.ProductsCtrl.index().url();
-        Object uri = cache.get(state);
-
-        if (uri != null) path = uri.toString();
+     //   String path = routes.ProductsCtrl.index().url();
+//        Object uri = cache.get(state);
+//
+//        if (uri != null) path = uri.toString();
+        String path=comCtrl.pushOrPopHistoryUrl(ctx());
 
         return ok(views.html.users.login.render(IMAGE_CODE, path, "?state=" + state));
 
@@ -1101,6 +1127,7 @@ public class UserCtrl extends Controller {
     //   @Security.Authenticated(UserAuth.class)
     public F.Promise<Result> pinActivity(Long activityId, Integer pay, Integer userPayType) {
         comCtrl.pushOrPopHistoryUrl(ctx());
+        comCtrl.addCurUrlCookie(ctx());
         play.libs.F.Promise<JsonNode> promiseOfInt = play.libs.F.Promise.promise(() -> {
             String url = "";
             if (userPayType > 0) {
@@ -1268,6 +1295,41 @@ public class UserCtrl extends Controller {
             Message message = Json.fromJson(json.findValue("message"), Message.class);
          //   Logger.error(json.toString()+"-----"+message.toString());
             return ok(Json.toJson(message));
+        });
+
+
+
+
+    }
+
+    /**
+     * 前往下载界面
+      * @return
+     */
+    public Promise<Result> appdownload() {
+
+        play.libs.F.Promise<String> promiseOfInt = play.libs.F.Promise.promise(() -> {
+            Request request =comCtrl.getBuilder(ctx())
+                    .url("http://img.hanmimei.com/android/hmm.xml")
+                    .build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                return new String(response.body().bytes(), UTF_8);
+            } else throw new IOException("Unexpected code " + response);
+        });
+
+        return promiseOfInt.map((play.libs.F.Function<String, Result>) xmlContent-> {
+            if(LOG_OPEN) {
+                Logger.info("下载页内容\n" + xmlContent);
+            }
+            //安卓下载路径
+            XMLDecoder xmlDecoder=new XMLDecoder(new InputSource(new StringReader(xmlContent)));
+            JsonNode jsonNode=toJson(xmlDecoder.readObject());
+            String androidPath="http://a.app.qq.com/o/simple.jsp?pkgname=com.hanmimei";
+            if(jsonNode.has("downloadLink")){
+                androidPath=jsonNode.get("downloadLink").asText();
+            }
+            return ok(views.html.users.appdownload.render(androidPath));
         });
 
 

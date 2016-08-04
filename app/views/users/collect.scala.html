@@ -22,10 +22,7 @@
 </div>
 
 <header class="head">
-    <a href="/myView" class="back">
-        <i></i>
-        <b></b>
-    </a>
+    <a href="/myView" class="back"></a>
     <h1>我的收藏</h1>
 </header>
 
@@ -71,7 +68,7 @@
 
 @if(null==collectList||collectList.size()<=0){
     <div class="not">
-        <p>暂无收藏的商品</p>
+        <img src="/assets/images/favorite.png">
         <a href="/" class="look">去逛逛</a>
     </div>
 }

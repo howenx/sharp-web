@@ -564,11 +564,11 @@ public class ShoppingCtrl extends Controller {
             object.put("clientIp", request().remoteAddress());//客户端ip
             object.put("clientType", "3");
             object.put("shipTime", 1); //送货日期：1－工作日双休日与假期均可送货 2-只工作日送货 3-只双休日送货
-            String payMethod = "JD";
-            if (null != settleMap.get("payMethod")) {
-                payMethod = settleMap.get("payMethod");
-            }
-            object.put("payMethod", payMethod);
+//            String payMethod = "JD";
+//            if (null != settleMap.get("payMethod")) {
+//                payMethod = settleMap.get("payMethod");
+//            }
+//            object.put("payMethod", payMethod);
             object.put("buyNow", buyNow);//1－立即支付 2-购物车结算
             Long pinActiveId = 0L;
             if (null != settleMap.get("pinActiveId")) {
@@ -603,6 +603,11 @@ public class ShoppingCtrl extends Controller {
                     return ok(views.html.shopping.settleErr.render(settleInfoList, buyNowTemp, finalPinActiveId, PAY_URL,message.getMessage()));
                 }
                 SettleVo settleVo = Json.fromJson(json.get("settle"), SettleVo.class);
+                if(null!=settleVo.getAddress()){
+                    settleVo.getAddress().setTel(comCtrl.getShowTel(settleVo.getAddress().getTel()));
+                //    settleVo.getAddress().setIdCardNum(comCtrl.getShowIdCardNum(settleVo.getAddress().getIdCardNum()));
+                }
+
 
                 return ok(views.html.shopping.settle.render(settleVo, settleInfoList, buyNowTemp, finalPinActiveId, PAY_URL));
             });
@@ -724,8 +729,12 @@ public class ShoppingCtrl extends Controller {
         object.put("couponId",settleMap.get("couponId"));//优惠券id
         object.put("clientIp",request().remoteAddress());//客户端ip
         object.put("clientType","3");
-        object.put("shipTime",Integer.valueOf(settleMap.get("shipTime"))); //送货日期：1－工作日双休日与假期均可送货 2-只工作日送货 3-只双休日送货
-        object.put("payMethod",settleMap.get("payMethod"));
+        if(null!=settleMap.get("shipTime")){
+            object.put("shipTime",Integer.valueOf(settleMap.get("shipTime"))); //送货日期：1－工作日双休日与假期均可送货 2-只工作日送货 3-只双休日送货
+        }
+        if(null!=settleMap.get("payMethod")){
+            object.put("payMethod",settleMap.get("payMethod"));
+        }
         object.put("buyNow",Integer.valueOf(settleMap.get("buyNow")));//1－立即支付 2-购物车结算
         Long pinActiveId=Long.valueOf(settleMap.get("pinActiveId"));
         object.put("pinActiveId",pinActiveId); //拼购活动id

@@ -49,8 +49,8 @@ span .rmb{
     margin: 0 0 0 2%;
 }
 .photo-img{
-    width:90px;
-    height:60px;
+    width: 65px;
+    height: 65px;
     float: left;
     margin: 0 10px 0 0;
 }
@@ -145,6 +145,8 @@ width:80px;
 }
 
 .fight-timer img{
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     margin:5px 0 0 0;
 }

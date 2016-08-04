@@ -33,4 +33,36 @@
     border-bottom:1px solid #e1e1e1;
 }
 
+.icon{
+    width: 20px;
+    height: 20px;
+    background: url("/assets/images/about-us-.png") left center no-repeat;
+    background-size: contain;
+    float: left;
+    padding: 0 0 0 35px;
+    margin: 15px 0 0 0;
+}
 
+
+
+.install-gy .icon{
+    width: 20px;
+    height: 20px;
+    background: url("/assets/images/opinion.png") no-repeat;
+    background-size: contain;
+}
+
+.tell .icon{
+    width: 20px;
+    height: 20px;
+    background: url("/assets/images/contact-us.png") no-repeat;
+    background-size: contain;
+}
+
+button{
+    width:90%;
+    margin: 30px 5%;
+    background: #fdd000;
+    border-radius:3px;
+    color: #242424;
+}

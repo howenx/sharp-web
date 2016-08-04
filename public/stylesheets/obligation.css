@@ -10,7 +10,7 @@ body{
 }
 
 .nav-tab-top li.current{
-    border-bottom: 2px solid red;
+    border-bottom: 2px solid #fdd000;
 }
 
 section{
@@ -22,11 +22,11 @@ section.current{
 }
 
 .nav-tab-top{
+    font-size: 14px;
     line-height:35px;
     height:35px;
     width:100%;
     background-color: #fff;
-    border-bottom: 1px solid #e1e1e1;
     margin: 0 0 5px 0;
 }
 
@@ -39,7 +39,7 @@ section.current{
     float: left;
     width:20%;
     text-align: center;
-    line-height:35px;
+    line-height:33px;
 }
 .box{
     width:100%;
@@ -58,6 +58,7 @@ section.current{
 }
 
 .day-l{
+    font-size: 14px;
     float: left;
     color: #666;
 }
@@ -67,11 +68,12 @@ section.current{
 
 .day-l .date{
    display: block;
-    font-size: 14px;
+    font-size: 12px;
     color:#999;
     margin: 5px 0;
 }
 .day-r{
+    font-size: 14px;
     float: right;
     color:#ff5359;
     margin: 8px 0 0 0;
@@ -95,6 +97,7 @@ h2{
 }
 
 .commodity .commodity-rmb{
+    font-size: 14px;
     display: block;
     margin:8px 0 0 0;
 }
@@ -124,13 +127,14 @@ span .number{
 }
 .commodity h2{
     font-size: 14px;
-    height:35px;
+    height:32px;
     overflow: hidden;
     -webkit-line-clamp: 2;
     display: -webkit-box;
     word-break: break-all;
     -webkit-box-orient: vertical;
     color: #666;
+    margin: 0 0 2px 0;
 }
 
 .havenot{
@@ -154,7 +158,7 @@ span .number{
     margin: 10px 0 0 0;
     display: block;
     height: 30px;
-    font-size: 14px;
+    font-size: 12px;
     border-radius: 3px;
     border: 1px solid #ededed;
     line-height: 30px;
@@ -258,9 +262,9 @@ span .number{
 
 /*优惠券页面 coupon*/
 
-.coupon-body{
+/*.coupon-body{
     background-color:#ededed;
-}
+}*/
 .coupon li{
     width:33.3%;
 }
@@ -274,7 +278,7 @@ span .number{
     color: #333;
     background: url("/assets/images/youhuiquan_bg.png") no-repeat;
     background-size: contain;
-    margin: 10px auto;
+    margin:5px auto;
     padding:5px 15px;
 }
 
@@ -290,23 +294,23 @@ span .number{
 }
 .coupon-box-l{
     float: left;
-    margin: 12px 18px 0 30px;
+    margin: 12px 18px 0 18px;
 }
 
 .coupon-box-r{
-    float:left;
-    font-size:24px;
-    margin: 16px 0px 0px 0;
+    float: left;
+    margin:25px 0px 0px 0;
+    padding: 0 0 0 5px;
 }
 
 .coupon-m{
-    font-size:20px;
+    font-size: 18px;
 }
 
 .coupon-deta{
     width:100%;
     text-align: right;
-    margin:15px 0 0 0;
+    line-height:50px;
     font-size: 12px;
 }
 
@@ -316,19 +320,19 @@ span .number{
 }
 
 .coupon-box-r{
-    color:#FAA728;
-    font-size: 14px;
-
+    color: #FAA728;
+    width:80px;
+    border-right: 1px solid #ededed;
 }
 .coupon-rmb{
-    font-size:36px;
+    font-size:24px;
 }
 .coupon-hd,.coupon-deta{
     color: #999;
 }
 .coupon-hd,.Fullcut{
     font-size: 12px;
-    margin: 2px 0 0 0;
+    margin:1% 0 0 0;
 }
 
 .coupon-s .coupon-box-r{
@@ -419,7 +423,7 @@ span .number{
 
 
 .size{
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .size span{
@@ -452,6 +456,7 @@ span .number{
 .data{
     float: right;
 }
+
 
 
 

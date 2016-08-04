@@ -1,25 +1,24 @@
 
 
 body{
-	background-color: #F6F6F6;
+	background-color: #f4f4f4;
 }
-
-
-
 
 /***header****/
 .battener{
 	position:fixed;
 	width: 100%;
 	height:44px;
-	background:#ff5359;
+	background:#F9F9F9;
 	z-index:1000;
+	border-bottom: 1px solid #d9d9d9;
 }
 .batten{
 	width:100%;
 	height:44px;
 	line-height:44px;
 	background-size: 100% auto;
+
 }
 
 .icon-user-title{
@@ -37,8 +36,8 @@ body{
 	position: absolute;
 	top:24%;
 	right:4%;
-	width:22px;
-	height:22px;
+	width:20px;
+	height:20px;
 }
 
 
@@ -47,12 +46,12 @@ body{
 	height: 18px;
 	position: absolute;
 	top: -7px;
-	left: 15px;
+	left: 12px;
 	font-size: 10px;
-	background: #fff;
+	background: #ff4242;
 	line-height:18px;
 	cursor: pointer;
-	color:#ff5359;
+	color:#fff;
 	border-radius: 50%;
 	text-align: center;
 }
@@ -62,13 +61,22 @@ h1 {
 	height:50px;
 	text-align: center;
 }
-h1 .logo {
-	width:90px;
+
+
+.battener img{
+	width:110px;
+	margin: 12px auto;
+	vertical-align:middle;
+
+}
+
+.logo {
+	width:100%;
 	padding-top:32px;
 	display: inline-block;
-	background: url("/assets/images/logo.png") no-repeat center center;
+	background: url("/assets/images/kakaogift_logo.png") no-repeat center center;
 	background-size: 100%;
-	margin: 10px 0 0 0;
+	margin:0px auto;
 }
 
 
@@ -82,8 +90,8 @@ h1 .logo {
 
 /* 本例子css -------------------------------------- */
 .slideBox{ position:relative; overflow:hidden;margin:44px 0 auto;}
-.slideBox .hd{ position:absolute; height:25px; bottom:0; left:50%;z-index:1;-webkit-transform: translate(-50%,0);-moz-transform: translate(-50%,0);}
-.slideBox .hd li{ display:inline-block; width:5px; height:5px; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px; background:#333; text-indent:-9999px; overflow:hidden; margin:0 6px;   }
+.slideBox .hd{margin: 0 0 8px 0; position:absolute;/* height:25px;*/ bottom:0; left:50%;z-index:1;-webkit-transform: translate(-50%,0);-moz-transform: translate(-50%,0);}
+.slideBox .hd li{ display:inline-block; width:5px; height:5px; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:50%; background:rgba(0,0,0,0.3); text-indent:-9999px; overflow:hidden; margin:0 6px;   }
 .slideBox .hd li.on{ background:#fff;  }
 .slideBox .bd{ position:relative; z-index:0; }
 .slideBox .bd li{ position:relative; text-align:center;}
@@ -94,12 +102,11 @@ h1 .logo {
 .slideBox .bd li a{ -webkit-tap-highlight-color:rgba(0,0,0,0);  }  /* 去掉链接触摸高亮 */
 .con{
 	width:100%;
-	padding:5px 0 0 0;
 }
 
 #container ul{width:100%;list-style:none;float:left;margin:0 20px 0px 0}
 
-#container ul li{margin-bottom:5px;}
+#container ul li{margin-top:10px; background-color: #fff; padding:20px; }
 
 #container ul li img{width:100%;background-color: #ededed;}
 
@@ -607,7 +614,7 @@ li {
 .top img{
 	width:40px;
 	height:40px;
-
+	filter:alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity: 0.8; opacity: 0.8;
 }
 
 
@@ -692,6 +699,56 @@ li {
 }
 
 
+/*分类模块*/
+.classify{
+	width:100%;
+	margin: 10px 0 0 0 ;
+}
+.classify ul li{
+	width:25%;
+	float: left;
+	border-top: 1px solid #F4F5F4;
+	border-bottom: 1px solid #F4F5F4;
+	border-right: 1px solid #F4F5F4;
+	text-align: center;
+	margin: -1px 0 0 0;
+	background-color: #fff;
+	padding: 10px 0 0 0;
+}
+.classify ul li:last-child{
+	border-right: none;
+}
+.classify ul li a{
+	display: block;
 
+}
+
+.classify ul li img{
+    width:60px;
+	margin: 0 auto 6px auto;
+	}
+
+.classify-text{
+	width: 100%;
+    display: block;
+	margin-bottom: 10px;
+	font-size: 12px;
+	color: #666;
+
+}
+
+.col-text{
+	font-size: 18px;
+	margin: 0 0 10px 0;
+}
+
+.col span{
+	width: 100%;
+	word-break: break-all;
+	font-size: 12px;
+	color: #999;
+	display: block;
+	margin:0 0 20px 0;
+}
 
 

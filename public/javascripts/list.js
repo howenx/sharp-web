@@ -26,7 +26,8 @@ $(function(){
         $("#loading").hide();
     });
 
-
-    echo.init();
+    if(typeof(echo)!="undefined"&&null!=echo){
+        echo.init();
+    }
 
 })

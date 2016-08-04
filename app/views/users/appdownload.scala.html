@@ -1,0 +1,60 @@
+@(androidPath:String)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>App下载</title>
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <link rel="stylesheet" href="/assets/stylesheets/global.css">
+    <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+    <style>
+        .core{
+            padding:55px 0 0 10px;
+        }
+        .core a{
+           display:block;
+            width: 100px;
+            height: 45px;
+            line-height: 45px;
+            background-color: #fdd000;
+            text-align: center;
+            color: #242424;
+            margin:10px auto;
+
+        }
+
+        .core div{
+            float: left;
+            width: 50%;
+
+        }
+
+        .core div span{
+            display: block;
+          text-align: center;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header class="head">
+        <a href="/myView" class="back"></a>
+        <h1>App下载</h1>
+    </header>
+
+    <div class="core">
+        <div>
+            <span>安卓下载</span>
+            <a href="@androidPath">立即下载</a>
+        </div>
+        <div>
+            <span>ios下载</span>
+            <a href="javascript:;">敬请期待</a>
+        </div>
+    </div>
+</body>
+</html>

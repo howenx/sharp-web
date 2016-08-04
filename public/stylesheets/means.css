@@ -6,7 +6,15 @@
 /*灰层开始*/
 .grayDiv { width: 100%; height: 100%; position:fixed; bottom:0;background: #000; opacity: 0.5; z-index: 99; padding:0 2%; display: none;}
 
-.grayDiv-box{width:90%; height:300px;position: absolute; bottom:0;}
+.grayDiv-box{
+    width: 90%;
+    height: 220px;
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translate(-50%,0);
+    -moz-transform: translate(-50%,0);
+    bottom: 0;
+}
 
 .grayDiv-box span,.closeBtn{
     display: block;
@@ -60,15 +68,22 @@
     float: right;
     height:30px;
     background: url("/assets/images/right-arrow.png") right center no-repeat;
-    background-size:10px 20px;
+    background-size:10px 15px;
     margin: 15px 0 0 0;
     line-height:30px;
     padding:0 22px 0 0;
 }
 
+.face-box span img{
+    border-radius: 50%;
+    margin:-5px 0 0 0;
+}
+
 .face-box .none{
     background: none;
     color: #ccc;
+    padding: 0;
+
 }
 
 /*下载*/
@@ -155,8 +170,10 @@ button{
     width:100%;
     line-height:40px;
     text-align: center;
-    color: #fff;
-    font-size: 18px;
+    color: #242424;
+    background-color: #fdd000;
+    font-size: 16px;
+    border-radius: 3px;
 
 }
 
