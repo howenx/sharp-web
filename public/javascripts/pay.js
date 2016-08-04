@@ -1,6 +1,7 @@
 $(function(){
     $('.account-j h2').click(function(){
         $(this).parents(".account-j").find(".way").toggle();
+        $(this).toggleClass("nothave");
     })
 
     $('li.liOther').click(function(){

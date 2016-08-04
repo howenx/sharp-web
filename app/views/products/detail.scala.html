@@ -114,8 +114,8 @@
 								}
 								@if(null!=inventory.getRestrictAmount()&&""!=inventory.getRestrictAmount()&&inventory.getRestrictAmount()>0){
 									<span class="one">
-											<span class="xian">每单限购</span>
-											<span class="xian-j">@inventory.getRestrictAmount()件</span>
+											<span class="xian">限购</span>
+											<span class="xian-j">@inventory.getRestrictAmount()</span>件
 									</span>
 								}
 

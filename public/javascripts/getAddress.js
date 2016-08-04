@@ -38,7 +38,7 @@ $(document).on("click",".closeAddUpdate",function(){
     $('.add-shade').show();
 });
 //其他地址界面
-$(document).on("click",".other",function(){
+$(document).on("click",".message-r",function(){
     $('.add-shade').show();
     $(".big").hide();
     $(".back").hide();
@@ -92,7 +92,7 @@ function paintAddressLi(address){
 //                '<p><span>身份证号:</span><span class="idCardNumSpan">'+address.idCardNum+'</span></p>'+
                 '<p class="clearfix"><span class="add-l">收货地址:</span><span class="add-r deliverSpan">'+address.deliveryCity+' '+address.deliveryDetail+'</span></p>'+
             '</a>'+
-            '<div class="alter clearfix">'+
+            '<div class="alter-x clearfix">'+
 //                '<a href="javascript:;" class="alter-btn color" onclick="delAddress('+address.addId+','+address.orDestroy+')">删除</a>'+
                 '<a href="javascript:;" class="color addressUpdate">修改</a>'+
             '</div>'+

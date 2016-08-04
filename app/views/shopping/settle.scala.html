@@ -165,14 +165,22 @@
 
                         <h2 class="clearfix">
                           <!--  <input type="radio" class="pitch pitch-hd" checked>-->
-                            <span class="quick couponDiv">可使用优惠券</span>
-                            <i>无可用</i>
+                            <span>可使用优惠券</span>
+                            <i class="quick couponDiv">无可用</i>
                         </h2>
                         <ul class="way">
                             <li class="liCoupon">
                                 <label>
-                                   <!-- <input type="radio" name="couponId" class="pitch" value="" checked>-->
-                                    <span class="quick quick-all">不使用优惠券</span>
+                                    <span class="quick quick-all">20元用惠券</span>
+                                    <input type="radio" name="couponId" class="pitch" value="" checked>
+
+                                </label>
+                            </li>
+                            <li class="liCoupon">
+                                <label>
+                                    <span class="quick quick-all">10元优惠券</span>
+                                    <input type="radio" name="couponId" class="pitch" value="" checked>
+
                                 </label>
                             </li>
 
@@ -182,7 +190,8 @@
                                 <label>
 <!--
                                    <input type="radio" name="couponId" value="@coupon.getCoupId()" class="pitch" >
--->                                <div class="quick">@if(coupon.getLimitQuota().doubleValue()>0){满@coupon.getLimitQuota()}减<i class="denominationSpan">@coupon.getDenomination()</i></div>
+-->
+                                <div class="quick">@if(coupon.getLimitQuota().doubleValue()>0){满@coupon.getLimitQuota()}减<i class="denominationSpan">@coupon.getDenomination()</i></div>
                                 </label>
                             </li>
                             }

@@ -27,7 +27,7 @@ img {
 /* 清零 */
 body,div,ul,li,ol,h1,h2,h3,h4,h5,h6,input,textarea,select,p,dl,dt,dd,a,img,button,form,table,th,tr,td,tbody,article,
 aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section{margin:0; padding:0; border:none;}
-body{font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self; color:#565555; background:#F4F9FA; }
+body{font-family:Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-self; color:#565555; background:#f4f4f4; }
 em,i{font-style:normal;}
 strong{font-weight: normal;}
 .clearfix:after{content:""; display:block; visibility:hidden; height:0; clear:both;}
@@ -360,7 +360,7 @@ div .cycle-overlay {
 	text-align: left;
 }
 .u-detail-pricebox {
-	line-height:35px;
+	margin: 15px 0 0 0;
 }
 .u-detail-price {
 	float: left;
@@ -384,6 +384,7 @@ div .cycle-overlay {
 .one{
 	margin: 2px 0 0 10px;
 	float: left;
+	color: #FF4F4D;;
 }
 .u-detail-discount {
 	display: inline-block;
@@ -465,12 +466,12 @@ div .cycle-overlay {
 	border: 1px solid #e1e1e1;
 	border-radius: 5px;
 	cursor: pointer;
-	margin: 0 5px 0 0;
+	margin: 0 5px 10px 0;
 	color: #242424;
 }
 
 .classify .current{
-	border:none;
+	border: 1px solid #fff;
 	background-color: #fdd000;
 }
 
