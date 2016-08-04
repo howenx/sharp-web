@@ -204,10 +204,19 @@
             <div class="tariff">
                 <ul>
                     <!--<li><span>可使用优惠券</span><i>未选择</i></li>-->
-                    <li><span>商品总价</span><i class="colore">￥@settle.getTotalFee()</i></li>
-                    <li><span>优惠金额</span><span id="discTipSpan" class="colore" style="display:none;font-size:14px;text-align:center">(海关规定跨境商品支付金额不小于1元)</span>
-                        @if(null==settle.getDiscountFee()){<i class="colore discountCss">￥0</i><input type="hidden" name="hiddenDiscountFee" value="0"/>}
-                        @if(null!=settle.getDiscountFee()){<i class="colore discountCss">￥settle.getDiscountFee()</i><input type="hidden" name="hiddenDiscountFee" value="@settle.getDiscountFee()"/>}
+                    <li>
+                        <span>商品总价</span>
+                        <i class="colore">￥@settle.getTotalFee()</i>
+                    </li>
+                    <li>
+                        <div class="clearfix">
+                            <span>优惠金额</span>
+                            <i class="colore discountCss">￥0</i>
+                        </div>
+
+                        <!--@if(null==settle.getDiscountFee()){<i class="colore discountCss">￥0</i><input type="hidden" name="hiddenDiscountFee" value="0"/>}
+                        @if(null!=settle.getDiscountFee()){<i class="colore discountCss">￥settle.getDiscountFee()</i><input type="hidden" name="hiddenDiscountFee" value="@settle.getDiscountFee()"/>}-->
+                        <b id="discTipSpan" class="explain">(海关规定跨境商品支付金额不小于1元)</b>
                     </li>
                     <!--<li><span>行邮税</span><i class="colore">￥@settle.getPortalFee()</i></li>
                     <li><span>运费</span><i class="colore">￥@settle.getShipFee()</i></li>-->
