@@ -167,7 +167,7 @@
                         @for(feature <- itemFeaturesList){
                         <li>
                             <span class="param-name">@feature(0)</span>
-                            <p class="param-info">@feature(1)</p>
+                            <span class="param-info">@feature(1)</span>
                         </li>
                         }
                     </ul>
@@ -208,7 +208,7 @@
                 <!--</li>-->
 
                 @for(rowList <- pushList){
-                <li>
+                <li class="clearfix">
                     @for(pushItem <- rowList){
                     @if(pushItem.getItemType() == "item" || pushItem.getItemType() == "vary" || pushItem.getItemType() == "customize"){
                     <a href="/detail/@pushItem.getItemUrl()">
@@ -356,7 +356,7 @@
                 <div>
                 <input class="collectId" value="@pinInvDetail.getCollectId()" style="display:none">
                 @if(pinInvDetail.getCollectId() != 0){
-                    <span class="soul now min"></span>
+                    <span class="soul now min soul-p"></span>
                 }
                 @if(pinInvDetail.getCollectId() == 0){
                 <span class="soul now soul-p"></span>

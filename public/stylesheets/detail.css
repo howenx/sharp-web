@@ -351,7 +351,7 @@ div .cycle-overlay {
 .sku-title {
 	color: #242424;
 	font-family: 'Helvetica Neue', Helvetica, 'microsoft yahei', Arial, sans-serif;
-	font-size: 16px;
+	font-size: 15px;
 	font-weight: normal;
 	text-overflow: ellipsis;
 	white-space: normal;
@@ -497,7 +497,6 @@ div .cycle-overlay {
 	padding: 0 10px;
 }
 .dc_tit{
-	border-bottom: 1px solid #f4f4f4;
 	line-height: 40px;
 }
 .parameter-wrap .size-list table {
@@ -524,7 +523,6 @@ div .cycle-overlay {
 .parameter-wrap .param-list li {
 	line-height: 40px;
 	font-size: 12px;
-	border-bottom: 1px solid #f4f4f4;
 }
 .parameter-wrap .param-list .param-name {
 	display: inline-block;
@@ -775,7 +773,7 @@ div .cycle-overlay {
 	display: block;
 }
 
-.soul-p{
+.like .soul-p{
 	border: none;
 }
 
@@ -975,6 +973,7 @@ div .cycle-overlay {
 }
 .pay-txt{
 	height:30px;
+	color:#242424 ;
 }
 .pay span{
 	float: left;
@@ -983,7 +982,7 @@ div .cycle-overlay {
 .pay a{
 	float: right;
 	font-size:14px;
-	color:#ff5359 ;
+
 }
 
 .love .pin-love{
@@ -1032,7 +1031,7 @@ div .cycle-overlay {
 	display: block;
 	width: 100%;
 	height: 30px;
-	background-color: #ff5359;
+	background-color: #Fdd000;
 	text-align: center;
 	line-height: 30px;
 	font-size: 14px;
@@ -1044,8 +1043,8 @@ div .cycle-overlay {
 }
 
 .diamond a span.ed{
-	background-color:#EDEDED;
-	color: #666;
+	background-color:#e0e0e0;
+	color: #242423;
 }
 
 .diamond a span.big{
@@ -1066,6 +1065,7 @@ div .cycle-overlay {
 }
 
 .sku-meta h2{
+	font-size: 15px;
 	height:20px;
 	overflow: hidden;
 	margin: 0 0 5px 0;
