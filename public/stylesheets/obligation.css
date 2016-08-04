@@ -127,7 +127,7 @@ span .number{
 }
 .commodity h2{
     font-size: 14px;
-    height:33px;
+    height:32px;
     overflow: hidden;
     -webkit-line-clamp: 2;
     display: -webkit-box;
@@ -158,7 +158,7 @@ span .number{
     margin: 10px 0 0 0;
     display: block;
     height: 30px;
-    font-size: 14px;
+    font-size: 12px;
     border-radius: 3px;
     border: 1px solid #ededed;
     line-height: 30px;
