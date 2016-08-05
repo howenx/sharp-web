@@ -405,39 +405,46 @@ public class ProductsCtrl extends Controller {
                     }
                 }
                 //优惠信息
-                JsonNode itemPublicity = Json.parse(itemMain.getPublicity());
-                for (JsonNode publicity : itemPublicity) {
-                    publicityList.add(Json.fromJson(publicity, String.class));
+                if(null!=itemMain.getPublicity()){
+                    JsonNode itemPublicity = Json.parse(itemMain.getPublicity());
+                    for (JsonNode publicity : itemPublicity) {
+                        publicityList.add(Json.fromJson(publicity, String.class));
+                    }
                 }
+
                 //热卖推荐
                 if (json.has("push")) {
                     JsonNode pushJson = json.get("push");
                     List<ThemeItem> pushList = new ArrayList<>();
                     for (JsonNode pushTemp : pushJson) {
-                        ThemeItem themeItem = Json.fromJson(pushTemp, ThemeItem.class);
-                        JsonNode imgJson = Json.parse(themeItem.getItemImg());
-                        themeItem.setItemImg(imgJson.get("url").asText());
-                        themeItem.setItemUrl(themeItem.getItemUrl().replace(GOODS_PAGE, ""));
-                        Date endAtDate = sdfDate.parse(themeItem.getEndAt());
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.setTime(endAtDate);
-                        String hour = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
-                        if (calendar.get(Calendar.HOUR_OF_DAY) < 10) {
-                            hour = "0" + hour;
-                        }
-                        String minute = String.valueOf(calendar.get(Calendar.MINUTE));
-                        if (calendar.get(Calendar.MINUTE) < 10) {
-                            minute = "0" + minute;
-                        }
-                        String endDate = (calendar.get(Calendar.MONTH) + 1) + "月" + calendar.get(Calendar.DAY_OF_MONTH) + "日" + hour + ":" + minute;
+                        try {
+                            ThemeItem themeItem = Json.fromJson(pushTemp, ThemeItem.class);
+                            JsonNode imgJson = Json.parse(themeItem.getItemImg());
+                            themeItem.setItemImg(imgJson.get("url").asText());
+                            themeItem.setItemUrl(themeItem.getItemUrl().replace(GOODS_PAGE, ""));
+                            Date endAtDate = sdfDate.parse(themeItem.getEndAt());
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.setTime(endAtDate);
+                            String hour = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
+                            if (calendar.get(Calendar.HOUR_OF_DAY) < 10) {
+                                hour = "0" + hour;
+                            }
+                            String minute = String.valueOf(calendar.get(Calendar.MINUTE));
+                            if (calendar.get(Calendar.MINUTE) < 10) {
+                                minute = "0" + minute;
+                            }
+                            String endDate = (calendar.get(Calendar.MONTH) + 1) + "月" + calendar.get(Calendar.DAY_OF_MONTH) + "日" + hour + ":" + minute;
 
-                        if (themeItem.getEndAt().compareTo(strNow) < 0) {
-                            themeItem.setEndAt("已结束");
-                        } else {
-                            themeItem.setEndAt("截止" + endDate);
-                        }
+                            if (themeItem.getEndAt().compareTo(strNow) < 0) {
+                                themeItem.setEndAt("已结束");
+                            } else {
+                                themeItem.setEndAt("截止" + endDate);
+                            }
 
-                        pushList.add(themeItem);
+                            pushList.add(themeItem);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
                     }
                     for (int i = 0; i < pushList.size() / 2; i++) {
                         List<ThemeItem> rowList = new ArrayList<>();
@@ -480,12 +487,15 @@ public class ProductsCtrl extends Controller {
                     JsonNode mainJson = json.get("main");
                     itemMain = Json.fromJson(mainJson, Item.class);
                     //优惠信息
-                    JsonNode itemPublicity = Json.parse(itemMain.getPublicity());
-                    for (JsonNode publicity : itemPublicity) {
-                        publicityList.add(Json.fromJson(publicity, String.class));
+                    if(null!=itemMain.getPublicity()){
+                        JsonNode itemPublicity = Json.parse(itemMain.getPublicity());
+                        for (JsonNode publicity : itemPublicity) {
+                            publicityList.add(Json.fromJson(publicity, String.class));
+                        }
                     }
+
                     //商品参数
-                    if (itemMain != null) {
+                    if (itemMain != null&&null!=itemMain.getItemFeatures()) {
                         JsonNode features = Json.parse(itemMain.getItemFeatures());
                         LinkedHashMap featuresMap = Json.fromJson(features, LinkedHashMap.class); //按照顺序不能用hashmap
                         for (Object key : featuresMap.keySet()) {
@@ -519,30 +529,34 @@ public class ProductsCtrl extends Controller {
                 if (json.has("push")) {
                     JsonNode pushJson = json.get("push");
                     for (JsonNode pushTemp : pushJson) {
-                        ThemeItem themeItem = Json.fromJson(pushTemp, ThemeItem.class);
-                        JsonNode imgJson = Json.parse(themeItem.getItemImg());
-                        themeItem.setItemImg(imgJson.get("url").asText());
-                        themeItem.setItemUrl(themeItem.getItemUrl().replace(GOODS_PAGE, ""));
-                        Date endAtDate = sdfDate.parse(themeItem.getEndAt());
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.setTime(endAtDate);
-                        String hour = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
-                        if (calendar.get(Calendar.HOUR_OF_DAY) < 10) {
-                            hour = "0" + hour;
-                        }
-                        String minute = String.valueOf(calendar.get(Calendar.MINUTE));
-                        if (calendar.get(Calendar.MINUTE) < 10) {
-                            minute = "0" + minute;
-                        }
-                        String endDate = (calendar.get(Calendar.MONTH) + 1) + "月" + calendar.get(Calendar.DAY_OF_MONTH) + "日" + hour + ":" + minute;
+                        try {
+                            ThemeItem themeItem = Json.fromJson(pushTemp, ThemeItem.class);
+                            JsonNode imgJson = Json.parse(themeItem.getItemImg());
+                            themeItem.setItemImg(imgJson.get("url").asText());
+                            themeItem.setItemUrl(themeItem.getItemUrl().replace(GOODS_PAGE, ""));
+                            Date endAtDate = sdfDate.parse(themeItem.getEndAt());
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.setTime(endAtDate);
+                            String hour = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
+                            if (calendar.get(Calendar.HOUR_OF_DAY) < 10) {
+                                hour = "0" + hour;
+                            }
+                            String minute = String.valueOf(calendar.get(Calendar.MINUTE));
+                            if (calendar.get(Calendar.MINUTE) < 10) {
+                                minute = "0" + minute;
+                            }
+                            String endDate = (calendar.get(Calendar.MONTH) + 1) + "月" + calendar.get(Calendar.DAY_OF_MONTH) + "日" + hour + ":" + minute;
 
-                        if (themeItem.getEndAt().compareTo(strNow) < 0 || themeItem.getState() == "D" || themeItem.getState() == "N" || themeItem.getState() == "K") {
-                            themeItem.setEndAt("已结束");
-                        } else {
-                            themeItem.setEndAt("截止" + endDate);
-                        }
+                            if (themeItem.getEndAt().compareTo(strNow) < 0 || themeItem.getState() == "D" || themeItem.getState() == "N" || themeItem.getState() == "K") {
+                                themeItem.setEndAt("已结束");
+                            } else {
+                                themeItem.setEndAt("截止" + endDate);
+                            }
 
-                        pushList.add(themeItem);
+                            pushList.add(themeItem);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
                     }
                     for (int i = 0; i < pushList.size() / 2; i++) {
                         List<ThemeItem> rowList = new ArrayList<>();
