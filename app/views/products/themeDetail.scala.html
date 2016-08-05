@@ -8,7 +8,7 @@
 }
 
 
-@layout(title="韩秘美,专卖韩国正品")(scripts) {
+@layout(title="Kakao Gift,专卖韩国正品")(scripts) {
 
 <div id="loading">
     <img src="/assets/images/loading.gif"/>
@@ -75,7 +75,7 @@
                     @if(item.getItemType == "item" || item.getItemType == "vary" || item.getItemType == "customize"){
                         <a class="redirect-app" href="/detail/@item.getItemUrl()">
                             <p class="figure figure-f">
-                                @if(!(item.getState() == "Y" || item.getState() == "P")){
+                                @if(item.getState() != "Y"&&item.getState() != "P"){
                                     <span>已售罄</span>
                                 }
                                 <img src="/assets/images/z-l.png" data-echo="@item.getItemImg()">
@@ -89,9 +89,12 @@
                                      <b>@item.getItemDiscount()折</b>
                                 }
                             </span>
-                            <p class="obstruct">
-                               <span>即将上线</span>
-                            </p>
+
+                            @if(item.getState() == "P"){
+                                <p class="obstruct">
+                                   <span>即将上线</span>
+                                </p>
+                            }
                         </a>
                     }
                     @if(item.getItemType() == "pin"){

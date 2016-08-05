@@ -8,7 +8,7 @@
 	<meta content="yes" name="apple-mobile-web-app-capable">
 	<meta content="black" name="apple-mobile-web-app-status-bar-style">
 	<meta content="telephone=no" name="format-detection">
-	<title>详情页 － 韩秘美</title>
+	<title>详情页 － Kakao Gift</title>
 	<link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
 	<link rel="stylesheet" href="/assets/stylesheets/detail.css">
 	<script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
@@ -88,8 +88,9 @@
 								</ul>
 
 								@if("Y"!=inventory.getState()){
+
 									<div class="under">
-										已抢光
+										@if("P"==inventory.getState()){即将上线}else{已抢光}
 									</div>
 								}
 
