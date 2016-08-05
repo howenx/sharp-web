@@ -84,7 +84,7 @@
                             <p class="title-hd">@item.getItemTitle()</p>
                             <span class="title-fd">
                                 <i class="naw">￥@item.getItemPrice()</i>
-                                 @if(item.getItemDiscount().toString() != "0"){
+                                 @if(null!=item.getItemDiscount()&&item.getItemDiscount().toString() != "10"){
                                      <i class="agio">￥@item.getItemSrcPrice()</i>
                                      <b>@item.getItemDiscount()折</b>
                                 }
@@ -105,7 +105,7 @@
 
                             <span class="title-fd">
                                <i class="naw">￥@item.getItemPrice()</i><i class="minimum">最低</i>
-                                @if(item.getItemDiscount().toString() != "0"){
+                                 @if(null!=item.getItemDiscount()&&item.getItemDiscount().toString() != "10"){
                                     <!--<i class="agio">￥@item.getItemSrcPrice()</i>-->
                                     <!--<b>@item.getItemDiscount()折</b>-->
                                <i class="rate">低至@item.getItemDiscount()折</i>
