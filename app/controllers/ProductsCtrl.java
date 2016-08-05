@@ -73,57 +73,69 @@ public class ProductsCtrl extends Controller {
             if (json.has("slider")) {
                 JsonNode sliderJson = json.get("slider");
                 for (JsonNode sliderTemp : sliderJson) {
-                    Slider slider = Json.fromJson(sliderTemp, Slider.class);
+                    try {
+                        Slider slider = Json.fromJson(sliderTemp, Slider.class);
 //                    if(null!=slider.getUrl()){
 //                        JsonNode imgJson = Json.parse(slider.getUrl());
 //                        slider.setImg(imgJson.get("url").asText());
 //                    }
-                    slider.setImg(slider.getUrl());
+                        slider.setImg(slider.getUrl());
 
-                    //处理TDPU类型的目标地址在M端应该转化成的最终地址
-                    slider.setItemTarget(comCtrl.getFinalItemTargetByTypeTDPU(slider.getTargetType(),slider.getItemTarget()));
+                        //处理TDPU类型的目标地址在M端应该转化成的最终地址
+                        slider.setItemTarget(comCtrl.getFinalItemTargetByTypeTDPU(slider.getTargetType(), slider.getItemTarget()));
 
-                    sliderList.add(slider);
+                        sliderList.add(slider);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
             }
 
             if (json.has("sliderNav")) {
                 JsonNode sliderJson = json.get("sliderNav");
                 for (JsonNode sliderTemp : sliderJson) {
-                    SliderNav slider = Json.fromJson(sliderTemp, SliderNav.class);
+                    try {
+                        SliderNav slider = Json.fromJson(sliderTemp, SliderNav.class);
 //                    if(null!=slider.getUrl()){
 //                        JsonNode imgJson = Json.parse(slider.getUrl());
 //                        slider.setImg(imgJson.get("url").asText());
 //                    }
-                    slider.setImg(slider.getUrl());
+                        slider.setImg(slider.getUrl());
 
-                    //处理TDPU类型的目标地址在M端应该转化成的最终地址
-                    slider.setItemTarget(comCtrl.getFinalItemTargetByTypeTDPU(slider.getTargetType(),slider.getItemTarget()));
+                        //处理TDPU类型的目标地址在M端应该转化成的最终地址
+                        slider.setItemTarget(comCtrl.getFinalItemTargetByTypeTDPU(slider.getTargetType(), slider.getItemTarget()));
 
-                    sliderNavList.add(slider);
+                        sliderNavList.add(slider);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
             }
 
             if (json.has("theme")) {
                 JsonNode themeJson = json.get("theme");
                 for (JsonNode themeTemp : themeJson) {
-                    Theme theme = Json.fromJson(themeTemp, Theme.class);
-                    JsonNode imgJson = Json.parse(theme.getThemeImg());
-                    theme.setThemeImg(imgJson.get("url").asText());
-                    //按照类型处理跳转地址
-                    if ("ordinary".equals(theme.getType())) {
-                        String themeUrl = theme.getThemeUrl();
-                        themeUrl = themeUrl.replace(THEME_PAGE, "");
-                        theme.setThemeUrl("/themeDetail/"+themeUrl);
+                    try {
+                        Theme theme = Json.fromJson(themeTemp, Theme.class);
+                        JsonNode imgJson = Json.parse(theme.getThemeImg());
+                        theme.setThemeImg(imgJson.get("url").asText());
+                        //按照类型处理跳转地址
+                        if ("ordinary".equals(theme.getType())) {
+                            String themeUrl = theme.getThemeUrl();
+                            themeUrl = themeUrl.replace(THEME_PAGE, "");
+                            theme.setThemeUrl("/themeDetail/" + themeUrl);
+                        }
+                        if ("detail".equals(theme.getType()) || "pin".equals(theme.getType())) {
+                            String themeUrl = theme.getThemeUrl();
+                            theme.setThemeUrl(comCtrl.getDetailUrl(themeUrl));
+                        }
+                        if ("h5".equals(theme.getType())) {
+                            theme.setThemeUrl(theme.getThemeUrl() + "/M");
+                        }
+                        themeList.add(theme);
+                    }catch (Exception e){
+                        e.printStackTrace();
                     }
-                    if ("detail".equals(theme.getType())||"pin".equals(theme.getType())) {
-                        String themeUrl = theme.getThemeUrl();
-                        theme.setThemeUrl(comCtrl.getDetailUrl(themeUrl));
-                    }
-                    if ("h5".equals(theme.getType())) {
-                        theme.setThemeUrl(theme.getThemeUrl()+"/M");
-                    }
-                    themeList.add(theme);
                 }
             }
 
@@ -161,17 +173,21 @@ public class ProductsCtrl extends Controller {
             if (json.has("theme")) {
                 JsonNode themeJson = json.get("theme");
                 for (JsonNode themeTemp : themeJson) {
-                    Theme theme = Json.fromJson(themeTemp, Theme.class);
-                    JsonNode imgJson = Json.parse(theme.getThemeImg());
-                    String imgUrl = imgJson.get("url").toString();
-                    imgUrl = imgUrl.substring(1, imgUrl.length() - 1);
-                    theme.setThemeImg(imgUrl);
-                    if (!"h5".equals(theme.getType())) {
-                        String themeUrl = theme.getThemeUrl();
-                        themeUrl = themeUrl.replace(THEME_PAGE, "");
-                        theme.setThemeUrl(themeUrl);
+                    try {
+                        Theme theme = Json.fromJson(themeTemp, Theme.class);
+                        JsonNode imgJson = Json.parse(theme.getThemeImg());
+                        String imgUrl = imgJson.get("url").toString();
+                        imgUrl = imgUrl.substring(1, imgUrl.length() - 1);
+                        theme.setThemeImg(imgUrl);
+                        if (!"h5".equals(theme.getType())) {
+                            String themeUrl = theme.getThemeUrl();
+                            themeUrl = themeUrl.replace(THEME_PAGE, "");
+                            theme.setThemeUrl(themeUrl);
+                        }
+                        themeList.add(theme);
+                    }catch (Exception e){
+                        e.printStackTrace();
                     }
-                    themeList.add(theme);
                 }
                 return ok(Json.toJson(themeList));
             }
@@ -221,24 +237,28 @@ public class ProductsCtrl extends Controller {
                 if (themeBasic.getMasterItemTag() != null) {
                     JsonNode tagJson = Json.parse(themeBasic.getMasterItemTag());
                     for (JsonNode tag : tagJson) {
-                        Object[] tagObject = new Object[5];
-                        tagObject[0] = tag.get("top").asDouble() * 100;
-                        String tagUrl = Json.fromJson(tag.get("url"), String.class);
-                        String urlType = "";
-                        tagUrl = tagUrl.replace(GOODS_PAGE, "");
-                        tagObject[1] = tagUrl;
-                        int tagAngle = tag.get("angle").asInt();
-                        if (tagAngle == 0) {
-                            tagObject[2] = tag.get("left").asDouble() * 100;
+                        try {
+                            Object[] tagObject = new Object[5];
+                            tagObject[0] = tag.get("top").asDouble() * 100;
+                            String tagUrl = Json.fromJson(tag.get("url"), String.class);
+                            String urlType = "";
+                            tagUrl = tagUrl.replace(GOODS_PAGE, "");
+                            tagObject[1] = tagUrl;
+                            int tagAngle = tag.get("angle").asInt();
+                            if (tagAngle == 0) {
+                                tagObject[2] = tag.get("left").asDouble() * 100;
+                            }
+                            if (tagAngle == 180) {
+                                tagObject[2] = 100 - tag.get("left").asDouble() * 100;
+                            }
+                            String tagName = tag.get("name").toString();
+                            tagName = tagName.substring(1, tagName.length() - 1);
+                            tagObject[3] = tagName;
+                            tagObject[4] = tag.get("angle").asInt();
+                            tagList.add(tagObject);
+                        }catch (Exception e){
+                            e.printStackTrace();
                         }
-                        if (tagAngle == 180) {
-                            tagObject[2] = 100 - tag.get("left").asDouble() * 100;
-                        }
-                        String tagName = tag.get("name").toString();
-                        tagName = tagName.substring(1, tagName.length() - 1);
-                        tagObject[3] = tagName;
-                        tagObject[4] = tag.get("angle").asInt();
-                        tagList.add(tagObject);
                     }
                 }
                 //主题中的商品
@@ -246,31 +266,35 @@ public class ProductsCtrl extends Controller {
                 List<ThemeItem> itemList = themeBasic.getThemeItemList();
                 if(null!=itemList&&itemList.size()>0){
                     for (ThemeItem themeItem : itemList) {
-                        JsonNode itemImgJson = Json.parse(themeItem.getItemImg());
-                        themeItem.setItemImg(itemImgJson.get("url").asText());
-                        themeItem.setItemUrl(themeItem.getItemUrl().replace(GOODS_PAGE, ""));
-                        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        Date now = new Date();
-                        String strNow = sdfDate.format(now);
-                        Date endAtDate = sdfDate.parse(themeItem.getEndAt());
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.setTime(endAtDate);
-                        String hour = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
-                        if (calendar.get(Calendar.HOUR_OF_DAY) < 10) {
-                            hour = "0" + hour;
+                        try {
+                            JsonNode itemImgJson = Json.parse(themeItem.getItemImg());
+                            themeItem.setItemImg(itemImgJson.get("url").asText());
+                            themeItem.setItemUrl(themeItem.getItemUrl().replace(GOODS_PAGE, ""));
+                            SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                            Date now = new Date();
+                            String strNow = sdfDate.format(now);
+                            Date endAtDate = sdfDate.parse(themeItem.getEndAt());
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.setTime(endAtDate);
+                            String hour = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
+                            if (calendar.get(Calendar.HOUR_OF_DAY) < 10) {
+                                hour = "0" + hour;
+                            }
+                            String minute = String.valueOf(calendar.get(Calendar.MINUTE));
+                            if (calendar.get(Calendar.MINUTE) < 10) {
+                                minute = "0" + minute;
+                            }
+                            String endDate = (calendar.get(Calendar.MONTH) + 1) + "月" + calendar.get(Calendar.DAY_OF_MONTH) + "日" + hour + ":" + minute;
+                            if (themeItem.getEndAt().compareTo(strNow) < 0 || themeItem.getState() == "D" || themeItem.getState() == "N" || themeItem.getState() == "K") {
+                                themeItem.setEndAt("已结束");
+                            } else {
+                                themeItem.setEndAt("截止" + endDate);
+                            }
+                            Logger.error(String.valueOf(themeItem.getItemDiscount()));
+                            nItemList.add(themeItem);
+                        }catch (Exception e){
+                            e.printStackTrace();
                         }
-                        String minute = String.valueOf(calendar.get(Calendar.MINUTE));
-                        if (calendar.get(Calendar.MINUTE) < 10) {
-                            minute = "0" + minute;
-                        }
-                        String endDate = (calendar.get(Calendar.MONTH) + 1) + "月" + calendar.get(Calendar.DAY_OF_MONTH) + "日" + hour + ":" + minute;
-                        if (themeItem.getEndAt().compareTo(strNow) < 0 || themeItem.getState() == "D" || themeItem.getState() == "N" || themeItem.getState() == "K") {
-                            themeItem.setEndAt("已结束");
-                        } else {
-                            themeItem.setEndAt("截止" + endDate);
-                        }
-                        Logger.error(String.valueOf(themeItem.getItemDiscount()));
-                        nItemList.add(themeItem);
                     }
 
                     for (int i = 0; i < nItemList.size() / 2; i++) {
