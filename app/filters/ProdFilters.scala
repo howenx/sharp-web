@@ -11,6 +11,5 @@ class ProdFilters @Inject()(log: LoggingFilter,
                             tls:TLSFilter,
                             gzip: play.filters.gzip.GzipFilter
                        ) extends HttpFilters {
-//  var filters = Seq(log, tls,gzip)
-    var filters = Seq(log,gzip)
+  var filters = Seq(log, tls,gzip)
 }
