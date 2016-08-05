@@ -654,28 +654,34 @@ li {
 	color: #242424;
 	text-align: center;
 	line-height: 30px;
-	margin:6px 15px 0 0;
+	margin:6px 5px 0 0;
 	font-size: 14px;
 	border: 1px solid #fff;
 }
 
 .footer span{
-	width: 160px;
 	height: 50px;
 	float: left;
-	background: url("/assets/images/personal-down.png") -3px -5px no-repeat;
-	background-size: 55px 55px;
-	padding: 0 0 0 50px;
+	/*background: url("/assets/images/personal-down.png") -3px -5px no-repeat;
+	background-size: 45px 45px;
+	padding: 0 0 0 50px;*/
 	color: #fff;
 	font-size: 12px;
 }
 
+.footer p img,.footer p span{
+	float: left;
+}
+.footer p img{
+	margin: 0 5px 0 0;
+	width:40px;
+}
 
-.footer span i{
+.footer p i{
 	display:block;;
 }
 
-.footer span i:first-child{
+.footer p i:first-child{
 	padding:4px 0 0 0;
 	font-size: 14px;
 }
