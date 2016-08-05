@@ -1,3 +1,6 @@
+body{
+    background-color: #fff;
+}
 .wap{
     background-color: #fff;
 }
@@ -54,7 +57,7 @@ li div{
 
 .alter{
     text-align: right;
-    height: 30px;
+    font-size: 14px;
 }
 
 .alter a:nth-child(1){
@@ -63,29 +66,33 @@ li div{
 
 .address .plus-add{
     text-align: center;
-    line-height: 50px;
-    font-size: 18px;
+    line-height:45px;
     display: block;
     width:100%;
-    height:50px;
-    color:#fff;
+    height:45px;
+    color:#242424;
 }
 
 .plus-add{
+    font-size: 14px;
     text-align: center;
     line-height: 40px;
-    font-size: 18px;
     display: block;
     width:100%;
     height:40px;
     color:#242424;
+    border-radius: 3px;
 
 }
 
-.plus-add-fixed{
+.plus-add-btn{
+    width: 100%;
+    padding: 0 10px;
     position:fixed;
-    bottom:0;
+    bottom:10px;
+
 }
+
 
 .ul-box li:last-child{
     margin: 0 0 30px 0;
@@ -95,10 +102,10 @@ li div{
 /*空地址页面*/
 
 .add-hollow{
+    padding: 0 10px;
     position: absolute;
     top: 50%;
     left: 50%;
-    /* width: 50%; */
     -webkit-transform: translate(-50%,-50%);
 }
 .plus-add-hollow{
@@ -111,25 +118,19 @@ li div{
     height:50px;
     border-bottom:1px solid #E1E1E1;
     line-height: 50px;
-    padding: 0 0 0 5px;
-
-}
-
-.add-s{
-
-    padding: 10px 0 0 5px;
+    font-size: 14px;
 }
 
 .add-s input{
+    width: 60%;
     line-height:30px;
     height:30px;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .cue{
     color: #999;
-    background-color: #F4F4F4;;
-    padding: 0 0 0 5px;
+    font-size: 12px;
     margin:10px 0;
 }
 
@@ -137,12 +138,26 @@ li div{
 
 
 .address_input{
+    font-size: 14px;
     border-bottom: 1px solid #ccc;
-    padding: 0 0 0 5px;
+}
+
+.address_input span{
+    display: inline-block;
+    width: 30%;
+}
+
+.address_input input{
+    width: 60%;
+}
+
+.add-s span{
+    display: inline-block;
+    width:30%;
 }
 
 .address_input1{
-    font-size: 16px;
+    font-size: 14px;
     width: 200px;
     height:50px;
 
@@ -160,7 +175,8 @@ li div{
     background-size:cover;
 }*/
 .address{
-    padding:0 20px 20px;
+    font-size: 14px;
+    padding:0 20px 10px;
 }
 
 .address-padding{
@@ -168,10 +184,11 @@ li div{
 }
 
 .address p{
-    margin:0 0 10px 0;
+    margin:0 0 5px 0;
 }
 
 .address .add-icon{
+    float: left;
     display: inline-block;
     height: 20px;
     width: 20px;
@@ -185,14 +202,7 @@ li div{
     text-align: right;
 }
 
-.add-l{
-    float: left;
-    width:75px;
-}
-.add-r{
-    width:58%;
-    float: left;
-}
+
 
 .add-sett input{
     width: 100%;
@@ -210,7 +220,7 @@ input{
 }
 
 .wap-padding{
-    padding: 44px 0 0 0;
+    padding: 44px 10px 0;
     background-color: #fff;
 }
 
@@ -218,5 +228,5 @@ input{
     padding: 44px 0 0 0;
 }
 .manage{
-    padding: 44px 0 0 0;
+    padding: 44px 10px 0;
 }

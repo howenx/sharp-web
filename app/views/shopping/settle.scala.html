@@ -27,10 +27,7 @@
 </div>
 
 <header class="head">
-    <a href="javascript:;" class="back">
-        <i></i>
-        <b></b>
-    </a>
+    <a href="javascript:;" class="back"></a>
     <h1>支付结算</h1>
 </header>
 
@@ -88,7 +85,7 @@
                     <div class="goods">
                         <h2>@cartInfo.getSkuTitle()</h2>
                         <span class="order colore">￥@cartInfo.getSkuPrice()</span>
-                        <span class="money">购买数量 :@cartInfo.getAmount()件</span>
+                        <span class="money">购买数量 : @cartInfo.getAmount()件</span>
                     </div>
                     <input type="hidden" name="cartId@index-@cartIndex" value="@cartInfo.getCartId()"/>
                     <input type="hidden" name="skuId@index-@cartIndex" value="@cartInfo.getSkuId()"/>
@@ -258,7 +255,9 @@
             <span> × </span>
         </li>
     </ul>
-    <a href="javascript:;" class="plus-add bg de-add addressnew plus-add-fixed">新增收货地址</a>
+    <div class="plus-add-btn">
+        <a href="javascript:;" class="plus-add bg de-add addressnew plus-add-fixed">新增收货地址</a>
+    </div>
 </div>
 
 

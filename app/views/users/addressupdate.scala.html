@@ -33,10 +33,12 @@
     <form id="cell_addressForm">
         <input  id="addId" name="addId" value="@address.getAddId()" type="hidden"/>
        <div class="add-s">
+           <span>收件人姓名:</span>
            <input  placeholder="请输入收货人" id="name" name="name" value="@address.getName()">
        </div>
 
         <div class="add-s">
+            <span>联系电话:</span>
             <input placeholder="请输入联系电话" id="tel" name="tel" value="@address.getTel()">
         </div>
         <!--<div class="add-s">-->
@@ -45,6 +47,7 @@
 
         <div id="addAddress">
             <div class="address_input">
+                <span>省市区:</span>
                 <input class="address_input1" type="text" placeholder="请选择省市" id="shengshi" onClick="getProvinceBuy()" readonly="readonly" value="@address.getDeliveryCity()">
             </div>
         </div>
@@ -58,6 +61,7 @@
 
 
         <div class="add-s">
+            <span>详细地址:</span>
             <input placeholder="输入详细地址" id="deliveryDetail" name="deliveryDetail" value="@address.getDeliveryDetail()">
         </div>
 
@@ -80,9 +84,9 @@
     <p>1.海关需要对海外购物查验身份信息，错误信息可能导致无法通关。</p>
     <p>2.身份信息将加密报关，韩秘美将保证您的信息安全。</p>
 </div>
-
-<button class="plus-add bg addAddressBtn">保存修改</button>
-
+<div class="plus-add-btn">
+   <button class="plus-add bg addAddressBtn">保存修改</button>
+</div>
 <div class="hint" id="tip" style="display:none"></div>
 @comContent()
 </body>

@@ -359,9 +359,9 @@ input[type=radio] {
 }
 .amputate span,.amput span{
     margin:40px 0 0 0;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
+    width:20px;
+    height:20px;
+    line-height:20px;
     background-color:#ff5359;
     border-radius: 50px;
     color: #fff;

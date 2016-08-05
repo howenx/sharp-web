@@ -649,6 +649,7 @@ h1 .logo {
 
 .title-hd{
     color: #666;
+    height: 52px;
     background-color: #fff;
     padding: 5px 5%;
     line-height: 22px;
@@ -661,8 +662,11 @@ h1 .logo {
 }
 
 .product-box{
-    height:55px;
+    height: 55px;
+    position: absolute;
+    top: 0;
     padding: 10px 0 0 0;
+    z-index: 100;
 }
 
 .product-top{
@@ -679,6 +683,7 @@ h1 .logo {
 
 
 .figure{
+    height: 200px;
     position: relative;
     width: 100%;
     border-bottom: 1px solid #ededed;
@@ -762,6 +767,7 @@ h1 .logo {
 .product li a{
     width:49%;
    float: left;
+    position: relative;
 }
 .product li a:nth-child(2){
     margin:0 0 0 2%;

@@ -38,7 +38,7 @@ $(document).on("click",".closeAddUpdate",function(){
     $('.add-shade').show();
 });
 //其他地址界面
-$(document).on("click",".message-r",function(){
+$(document).on("click",".address-r",function(){
     $('.add-shade').show();
     $(".big").hide();
     $(".back").hide();
@@ -110,13 +110,13 @@ $(document).on("click",".addressnew",function(){
      var str='<div class="amput clearfix closeAddNew">'+
                        '<span> × </span>'+
                    '</div>'+
-                   '<form id="cell_addressForm">'+
+                   '<form id="cell_addressForm" style="padding: 0 10px">'+
                       '<input  id="addId" name="addId" value="0" type="hidden"/>'+
-                      '<div class="add-s">'+
+                      '<div class="add-s">'+'<span>收件人姓名:</span>'+
                           '<input  placeholder="请输入收货人" id="name" name="name">'+
                       '</div>'+
 
-                      '<div class="add-s">'+
+                      '<div class="add-s">'+'<span>联系电话:</span>'+
                           '<input placeholder="请输入联系电话" id="tel" name="tel">'+
                       '</div>'+
 //                      '<div class="add-s">'+
@@ -124,8 +124,8 @@ $(document).on("click",".addressnew",function(){
 //                      '</div>'+
 
                       '<div id="addAddress">'+
-                          '<div class="address_input">'+
-                              '<input class="address_input1" style="width:100%" type="text" placeholder="请选择省市" id="shengshi" onClick="getProvinceBuy()" readonly="readonly">'+
+                          '<div class="address_input">'+'<span>省市区:</span>'+
+                              '<input class="address_input1" type="text" placeholder="请选择省市" id="shengshi" onClick="getProvinceBuy()" readonly="readonly">'+
                           '</div>'+
                       '</div>'+
 
@@ -137,7 +137,7 @@ $(document).on("click",".addressnew",function(){
                       '<input  type="hidden" id="province_code" name="province_code" />'+
 
 
-                      '<div class="add-s">'+
+                      '<div class="add-s">'+'<span>详细地址:</span>'+
                           '<input placeholder="输入详细地址" id="deliveryDetail" name="deliveryDetail">'+
                       '</div>'+
 
@@ -153,7 +153,9 @@ $(document).on("click",".addressnew",function(){
                       '<input type="hidden" id="selId" name="selId" value="1">'+
                       '<input type="hidden" class="formSubmitTimes" value="0"/>'+
                   '</form>'+
-                  '<button class="plus-add bg addAddressBtn">添加</button>';
+             '<div class="plus-add-btn">'+
+                  '<button class="plus-add bg addAddressBtn">添加</button>'+
+             '</div>';
                   ;
                   $("#newAddressDiv").prepend(str);
                   $("#newAddressDiv").show();
@@ -178,13 +180,13 @@ $(document).on("click",".addressUpdate",function(){
                  var str='<div class="amput clearfix closeAddUpdate">'+
                                '<span> × </span>'+
                                '</div>'+
-                               '<form id="cell_addressForm">'+
+                               '<form id="cell_addressForm" style="padding: 0 10px">'+
                                  '<input  id="addId" name="addId" value="'+data.addId+'" type="hidden"/>'+
-                                 '<div class="add-s">'+
+                                 '<div class="add-s">'+'<span>收件人姓名:</span>'+
                                      '<input  placeholder="请输入收货人" id="name" name="name" value="'+data.name+'">'+
                                  '</div>'+
 
-                                  '<div class="add-s">'+
+                                  '<div class="add-s">'+'<span>联系电话:</span>'+
                                       '<input placeholder="请输入联系电话" id="tel" name="tel" value="'+data.tel+'">'+
                                   '</div>'+
 //                                  '<div class="add-s">'+
@@ -192,7 +194,7 @@ $(document).on("click",".addressUpdate",function(){
 //                                  '</div>'+
 
                                   '<div id="addAddress">'+
-                                      '<div class="address_input">'+
+                                      '<div class="address_input">'+'<span>省市区:</span>'+
                                           '<input class="address_input1" type="text" placeholder="请选择省市" id="shengshi" onClick="getProvinceBuy()" readonly="readonly" value="'+data.deliveryCity+'">'+
                                       '</div>'+
                                   '</div>'+
@@ -205,7 +207,7 @@ $(document).on("click",".addressUpdate",function(){
                                   '<input  type="hidden" id="province_code" name="province_code" />'+
 
 
-                                  '<div class="add-s">'+
+                                  '<div class="add-s">'+'<span>详细地址:</span>'+
                                       '<input placeholder="输入详细地址" id="deliveryDetail" name="deliveryDetail" value="'+data.deliveryDetail+'">'+
                                   '</div>'+
 
@@ -227,8 +229,9 @@ $(document).on("click",".addressUpdate",function(){
                                   '<input type="hidden" id="selId" name="selId" value="2">'+
                                   '<input type="hidden" class="formSubmitTimes" value="0"/>'+
                               '</form>'+
-
-                              '<button class="plus-add bg addAddressBtn">保存修改</button>';
+                              '<div class="plus-add-btn">'+
+                                  '<button class="plus-add bg addAddressBtn">保存修改</button>'+
+                               '</div>';
 
                               $("#updateAddressDiv").prepend(str);
                               $("#updateAddressDiv").show();
