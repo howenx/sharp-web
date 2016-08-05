@@ -83,9 +83,9 @@ function paintAddressLi(address){
            '<a href="javascript:;" class="sel_add clearfix addressAreaA">'+
                 '<p><i class="add-icon"></i><span>姓名:</span><span class="nameSpan">'+address.name+'</span>';
                 if(address.orDefault==1){
-                    str+='<span class="color orDefaultSpan">默认</span>';
+                    str+='<span class="default orDefaultSpan">默认</span>';
                 }else{
-                    str+='<span class="color orDefaultSpan" style="display:none">默认</span>';
+                    str+='<span class="default orDefaultSpan" style="display:none">默认</span>';
                 }
                 str+='</p>'+
                 '<p><span>联系电话:</span><span class="telSpan">'+address.tel+'</span></p>'+
