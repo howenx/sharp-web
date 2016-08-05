@@ -37,11 +37,11 @@ body{
 }
 
 .mold{
-    background-color:#ff5359;
-    height: 40px;
-    line-height: 40px;
-    color: #fff;
-    padding: 0 0 0 2%;
+    background-color:#fdd000;
+    height:35px;
+    line-height:35px;
+    color: #242424;
+    padding: 0 0 0 10px;
 
 }
 
@@ -54,6 +54,7 @@ ul li .num-hd{
 ul li{
     color: #333;
     padding: 0px 2%;
+    font-size: 14px;
     border-bottom: 1px solid #ededed;
 }
 
@@ -80,17 +81,17 @@ ul li p{
 }
 
 ul li.current{
-    color:#ff5359;;
+    color:#ff5359;
     border-bottom: 2px solid #ff5359;
 }
 
 .choose-b{
     height:40px;
     line-height:40px;
-    color: #fff;
+    color: #242424;
     text-align: center;
-    background-color:#ff5359;
-    border-radius:5px;
+    background-color:#Fdd000;
+    border-radius:3px;
     margin: 0 0 10px 0;
 
 }

@@ -651,10 +651,11 @@ li {
 	width: 80px;
 	height: 30px;
 	float: right;
-	color: #fff;
+	color: #242424;
 	text-align: center;
 	line-height: 30px;
 	margin:6px 15px 0 0;
+	font-size: 14px;
 	border: 1px solid #fff;
 }
 
