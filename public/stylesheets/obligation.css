@@ -375,18 +375,31 @@ span .number{
     font-size: 12px;
 }
 .coll .pin{
+    position:relative;
     float: left;
     width: 80px;
     height: 80px;
     margin: 0 5px 0 0;
 }
 .coll .pin .pinicon{
-    position: absolute;left: 0;top: 0;
-    width: 30px;height: 30px;background: orangered;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 25px;
+    height: 25px;
+    background: orangered;
 }
 .coll .pin .pinicon span{
-    display: inline-block;width: 24px;height: 24px;text-align: center;line-height: 24px;
-    margin: 3px;border-radius: 50%;background: #fff;color: orangered;font-size: 14px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    margin: 3px;
+    border-radius: 50%;
+    background: #fff;
+    color: orangered;
+    font-size: 12px;
 
 }
 

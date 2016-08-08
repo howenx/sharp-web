@@ -13,15 +13,51 @@
     <title>详情页 － Kakao Gift</title>
     <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
     <link rel="stylesheet" href="/assets/stylesheets/detail.css">
-    <script src="/assets/javascripts/loading.js"></script>
+    <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+    <script>
+    window.onload =function(){
+
+
+        $(function(){
+            //关闭下载添加cookie
+            function addDownloadCookie(){
+                //过期时间1小时
+                var str = "downloadState=1";
+                var date = new Date();
+                var ms = 3600*1000;
+                date.setTime(date.getTime() + ms);
+                str += "; expires=" + date.toGMTString();
+                document.cookie = str;
+                $("#downloadDiv").hide();
+                $("#topDiv").addClass("top-bottom");
+                $("#col-bottom").css('margin-bottom','0px');
+            };
+
+            if($("#downloadDiv").css("display")=="none"){
+                $("#col-bottom").css('margin-bottom','0px');
+            }else{
+                $("#col-bottom").css('margin-bottom','60px');
+
+            }
+
+            setTimeout(function () {
+                $('.footer').hide();
+                $("#col-bottom").css('margin-bottom','0px');
+                $("#topDiv").addClass("top-bottom");
+            },10000);
+
+
+            $('.delete-down').click(function(){
+                addDownloadCookie();
+            });
+
+
+        })
+    }
+    </script>
 </head>
 <body>
 
-<div id="loading">
-    <img src="/assets/images/loading.gif"/>
-</div>
-
-<div class="fixed-box" style="position: fixed;width: 100%">
 <div id='screen_wrap'>
     <div class="nav_ban_detail">
         <a href="/" class="back">
@@ -36,14 +72,8 @@
     </div>
 </div>
 
-<div class="footer">
-	  <span>
-		<i>Kakao Gift,只卖韩国正品!</i>
-		<i>app首单立减10元</i>
-	  </span>
-    <a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.hanmimei" class="bg">立即下载</a>
-</div>
+@download()
 @comContent()
-</div>
+
 </body>
 </html>
