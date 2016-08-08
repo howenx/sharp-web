@@ -468,7 +468,6 @@ input[type=checkbox]{
 
 .list dd>.input-weak {
     width:100%;
-    float: left;
 }
 .dd-padding span{
 
