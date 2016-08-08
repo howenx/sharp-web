@@ -78,6 +78,9 @@ public class ShoppingCtrl extends Controller {
                         sku.setInvUrl(comCtrl.getDetailUrl(sku.getInvUrl()));
                     }
                     orderDTO.getOrder().setSecurityCode(comCtrl.orderSecurityCode(orderDTO.getOrder().getOrderId()+"",token));
+                    if(null!=orderDTO.getAddress()){
+                        orderDTO.getAddress().setTel(comCtrl.getShowTel(orderDTO.getAddress().getTel()));
+                    }
                 }
             }
 
