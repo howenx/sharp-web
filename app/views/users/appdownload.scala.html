@@ -10,6 +10,7 @@
     <meta content="telephone=no" name="format-detection">
     <link rel="stylesheet" href="/assets/stylesheets/global.css">
     <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+    <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
     <style>
         .core{
             padding:55px 0 0 10px;
@@ -38,6 +39,19 @@
         }
 
     </style>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+            //苹果端
+                $("#androidDiv").hide();
+            } else if (/(Android)/i.test(navigator.userAgent)) {
+            //安卓端
+                $("#iosDiv").hide();
+            } else {
+            //pc端
+            }
+        });
+    </script>
 </head>
 
 <body>
@@ -47,11 +61,11 @@
     </header>
 
     <div class="core">
-        <div>
+        <div id="androidDiv">
             <span>安卓下载</span>
             <a href="@androidPath">立即下载</a>
         </div>
-        <div>
+        <div id="iosDiv">
             <span>ios下载</span>
             <a href="javascript:;">敬请期待</a>
         </div>

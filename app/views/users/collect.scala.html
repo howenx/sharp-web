@@ -45,12 +45,13 @@
                             </div>
 
                             <h2>@collect.getCartSkuDto().getSkuTitle()</h2>
-                            <div class="size"><span>@collect.getCartSkuDto().getItemColor()</span><span>@collect.getCartSkuDto().getItemSize()</span></div>
+                            <div class="size">
+                                @if(null!=collect.getCartSkuDto().getItemColor()){<span>@collect.getCartSkuDto().getItemColor()</span>}
+                                @if(null!=collect.getCartSkuDto().getItemSize()){<span>@collect.getCartSkuDto().getItemSize()</span>}
+                            </div>
                             <span class="commodity-rmb clearfix">
                                  <span>
-                                     @if(collect.getSkuType=="pin"){最低至}
-                                     @if(collect.getSkuType!="pin"){单价}
-                                    :
+                                     @if(collect.getSkuType=="pin"){最低至}else{单价}:
                                  </span>
 
                                 <i class="rmb color">￥@collect.getCartSkuDto().getPrice()</i>
