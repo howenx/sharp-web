@@ -371,3 +371,64 @@ h1 {
     padding:1px 3px;
     font-size: 12px;
 }
+
+
+/*下载*/
+.footer{
+    position: fixed;
+    bottom:0;
+    width: 100%;
+    background-color:#FC555D;
+    height:60px;
+    padding:10px 2%;
+}
+
+.footer a{
+    width: 80px;
+    height: 30px;
+    float: right;
+    color: #242424;
+    text-align: center;
+    line-height: 30px;
+    margin:6px 5px 0 0;
+    font-size: 14px;
+    border: 1px solid #fff;
+}
+
+.footer span{
+    height: 50px;
+    float: left;
+    /*background: url("/assets/images/personal-down.png") -3px -5px no-repeat;
+    background-size: 45px 45px;
+    padding: 0 0 0 50px;*/
+    color: #fff;
+    font-size: 12px;
+}
+
+.footer p img,.footer p span{
+    float: left;
+}
+.footer p img{
+    margin: 0 5px 0 0;
+    width:40px;
+}
+
+.footer p i{
+    display:block;;
+}
+
+.footer p i:first-child{
+    padding:4px 0 0 0;
+    font-size: 14px;
+}
+
+
+.footer .delete-down{
+    width: 24px;
+    height: 24px;
+    float: right;
+    background: url("/assets/images/delete-down.png") no-repeat;
+    margin: -8px 0 0 8px;
+    background-size: 22px;
+
+}
