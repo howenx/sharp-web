@@ -706,6 +706,7 @@ div .cycle-overlay {
 
 .buy_box a{
 	color:#242424;
+	display: block;
 }
 
 
@@ -1458,7 +1459,7 @@ div .cycle-overlay {
 	-moz-transform: translate(-50%,-50%);
 }
 
-.buy_box .invalid{
+.buy_btn a.invalid{
 	background-color:#b0b0b0 ;
 
 }
