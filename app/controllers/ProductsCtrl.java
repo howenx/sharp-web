@@ -586,7 +586,8 @@ public class ProductsCtrl extends Controller {
      * @return
      */
     public Result pinInstruction() {
-        return ok(views.html.products.pinInstruction.render());
+        String hisUrl=comCtrl.pushOrPopHistoryUrl(ctx());
+        return ok(views.html.products.pinInstruction.render(hisUrl));
     }
 
     /**
