@@ -103,14 +103,14 @@
 						</div>
 						<div class="box">
 							<div class="sku-title">
-								@if(null!=inventory.getItemDiscount()&&inventory.getItemDiscount().toString() != "10"){
+								@if(null!=inventory.getItemDiscount()&&(false==inventory.getItemDiscount().toString().startsWith("10"))){
 									<span class="u-detail-discount">@inventory.getItemDiscount()折 </span>
 								}
 								<span>@inventory.getInvTitle()</span>
 							</div>
 							<p class="u-detail-pricebox clearfix">
 								<span class="u-detail-price"><i>¥</i>@inventory.getItemPrice()</span>
-								@if(null!=inventory.getItemDiscount()&&inventory.getItemDiscount().toString() != "10"){
+								@if(null!=inventory.getItemDiscount()&&(false==inventory.getItemDiscount().toString().startsWith("10"))){
 									<span class="u-detail-mprice">¥@inventory.getItemSrcPrice()</span>
 								}
 								@if(null!=inventory.getRestrictAmount()&&""!=inventory.getRestrictAmount()&&inventory.getRestrictAmount()>0){
@@ -267,13 +267,18 @@
 										<img src="@pushItem.getItemImg()">
 									</p>
 									<p class="title-hd">@pushItem.getItemTitle()</p>
-							   <span class="title-fd">
-								   <i class="naw">￥@pushItem.getItemPrice()</i>
-								   @if(pushItem.getItemDiscount().toString() != "0"){
-								   		<i class="agio">￥@pushItem.getItemSrcPrice()</i>
-								   		<b>@pushItem.getItemDiscount()折</b>
-								   }
-							   </span>
+								   <span class="title-fd">
+									   <i class="naw">￥@pushItem.getItemPrice()</i>
+									   @if(pushItem.getItemDiscount().toString() != "0"){
+											<i class="agio">￥@pushItem.getItemSrcPrice()</i>
+											<b>@pushItem.getItemDiscount()折</b>
+									   }
+								   </span>
+									@if(pushItem.getState() == "P"){
+										<p class="obstruct">
+											<span>即将上线</span>
+										</p>
+									}
 								</a>
 							}
 						}
