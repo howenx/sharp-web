@@ -112,6 +112,10 @@
 
 }
 
+.box-a a.box-l{
+    color: #242424;
+}
+
 .delet{
     width: 20px;
     right:10px;
@@ -185,7 +189,7 @@ input.input-proof{
 }
 
 .hq{
-    padding:11px 0 ;
+    padding:12px 0 ;
     width:110px;
     text-align: center;
     border: 1px solid #ccc;
@@ -200,6 +204,7 @@ input.input-proof{
 .cue{
     background-color:#FFEEDE;
     color: #E66255;
+    font-size: 14px;
 }
 
 
