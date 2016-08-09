@@ -46,8 +46,9 @@
 
                             <h2>@collect.getCartSkuDto().getSkuTitle()</h2>
                             <div class="size">
-                                @if(null!=collect.getCartSkuDto().getItemColor()){<span>@collect.getCartSkuDto().getItemColor()</span>}
-                                @if(null!=collect.getCartSkuDto().getItemSize()){<span>@collect.getCartSkuDto().getItemSize()</span>}
+                                <span>规格:</span>
+                                @if(null!=collect.getCartSkuDto().getItemColor()&&""!=collect.getCartSkuDto().getItemColor()){<span>@collect.getCartSkuDto().getItemColor()</span>}
+                                @if(null!=collect.getCartSkuDto().getItemSize()&&""!=collect.getCartSkuDto().getItemSize()){<span>@collect.getCartSkuDto().getItemSize()</span>}
                             </div>
                             <span class="commodity-rmb clearfix">
                                  <span>
