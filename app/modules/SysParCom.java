@@ -125,6 +125,8 @@ public class SysParCom {
 
     public static String WEIXIN_UNION;
 
+    public static String WEIXIN_DOWNLOAD_URL;
+
     //打印接收数据的LOG是否开启
     public static Boolean LOG_OPEN;
 
@@ -234,6 +236,8 @@ public class SysParCom {
         REDIS_CHANNEL = configuration.getString("redis.channel");
 
         WEIXIN_UNION = configuration.getString("weixin.union");
+
+        WEIXIN_DOWNLOAD_URL=configuration.getString("weixin.download.url");
 
         LOG_OPEN=configuration.getBoolean("print.log.open");
 
