@@ -93,13 +93,15 @@ h1 .logo {
     position: absolute;
     top: -7px;
     left: 13px;
-    background: #fff;
+    background:#ff4242;
     line-height: 18px;
     cursor: pointer;
-    color: #ff5359;
+    color: #fff;
     border-radius: 50%;
     text-align: center;
+    -webkit-text-size-adjust:none;
     font-size: 10px;
+
 
 }
 
