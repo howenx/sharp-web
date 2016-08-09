@@ -74,6 +74,7 @@
                         <span>验证码</span>
                         <input id="code" name="code" type="text" class="input-rese input-res-t" placeholder="短信验证码" maxlength="6" required pattern="[0-9]{6}" onkeyup="this.value=this.value.replace(/\D/g,'')"/>
                         <div class="hq" id="get-code">获取验证码 <i id="time"></i></div>
+                        <input type="hidden" id="smsType" name="smsType" value="register"/>
                     </dd>
                     <dd class="dd-padding clearfix">
                         <span>设置密码</span> <input id="password" name="password" type="password" class="input-rese input-reseT" placeholder="6-12位字母/数字组合" maxlength="12"  required pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}"/>
@@ -211,6 +212,7 @@
                 setTimeout("$('#js-userinfo-error').hide()", 2000);
             }
             else {
+                $("#smsType").removeAttr("name");
                 console.log($('form#cell_regForm').serialize());
                 $.ajax({
                     url: "/regist/submit",
@@ -218,6 +220,7 @@
                     data: $('form#cell_regForm').serialize(),
                     type: 'POST',
                     success: function(data) {
+                        $("#smsType").attr({"name": "smsType"});
                         console.log(data);
                         if (data==null || data=="") {
                             $('#js-userinfo-error').text("网络连接异常,请检查网络").show();

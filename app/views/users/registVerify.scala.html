@@ -94,13 +94,15 @@
             //用户注册检测手机号
             $(document).on('click', '#btn-reg', function() {
                 var phone = $("#phone").val();
-                //console.log($('form#cell_verifyForm').serialize());
+                $("#smsType").removeAttr("name");
+                console.log($('form#cell_verifyForm').serialize());
                 $.ajax({
                         url: "/phone/verify",
                         dataType: 'json',
                         data: $('form#cell_verifyForm').serialize(),
                         type: 'POST',
                         success: function(data) {
+                               $("#smsType").attr({"name": "smsType"});
                                console.log(data);
                                if (data==null || data=="") {
                                     $('#js-userinfo-error').text("网络连接异常,请检查网络").show();
@@ -111,6 +113,7 @@
                                } else if (data.code === 4003) {
                                        //用户未注册,请求手机验证码接口
                                        $("#code").removeAttr("name");
+                                       $("#smsType").val("register");
                                        console.log($('form#cell_verifyForm').serialize());
                                        $.ajax({
                                                 url: "/phone/code",
@@ -150,6 +153,8 @@
             $('.box-r').click(function(){
                 $("#code").removeAttr("name");
                 var phone = $("#phone").val();
+                $("#smsType").val("reset");
+                console.log($('form#cell_verifyForm').serialize());
                 //请求手机验证码
                 $.ajax({
                         url: "/phone/code",
@@ -201,7 +206,7 @@
                             <input type="hidden" id="code" name="code" value="-1">
                     </dd>
                 </dl>
-                <input type="hidden" name="smsType" value="register"/>
+                <input type="hidden" id="smsType" name="smsType"/>
             </form>
             <div class="submitBox">
                 <input id="btn-reg" class="registBtn button" type="submit" disabled="disabled" value="下一步">
