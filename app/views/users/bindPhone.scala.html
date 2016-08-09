@@ -113,7 +113,7 @@
             //输入手机号格式正确可以点击下一步
             $('#phone').bind('input propertychange', function() {
                 if (phoneReg.test($(this).val())) {
-                    $("#btn-bind").css('background-color', '#ff5359');
+                    $("#btn-bind").css('background-color', '#fdd000');
                     $("#btn-bind").css('cursor', 'pointer');
                     $('#btn-bind').attr("disabled",false);
                 }
@@ -168,6 +168,7 @@
                         $("#password").removeAttr("name");
                         $("#auto").removeAttr("name");
                         $("#code").val("-1");
+                        $("#smsType").removeAttr("name");
                         var phone = $("#phone").val();
                         console.log($('form#cell_bindForm').serialize());
                         $.ajax({
@@ -179,6 +180,7 @@
                                        console.log(data);
                                        $("#password").attr({"name":"password"});
                                        $("#auto").attr({"name":"auto"});
+                                       $("#smsType").attr({"name": "smsType"});
                                        //用户已经注册,输入密码
                                        if (data.code === 5001) {
                                             $('#js-userinfo-error').text('该手机号已经注册,请输入密码').show();;
@@ -214,6 +216,7 @@
                         else {
                             if ($("#imgCode").val()=="") $("#code").val("-1");
                             else $("#code").val($("#imgCode").val());
+                            $("#smsType").removeAttr("name");
                             console.log($('form#cell_bindForm').serialize());
                             $.ajax({
                                     url: "/login/submit",
@@ -221,6 +224,7 @@
                                     data: $('form#cell_bindForm').serialize(),
                                     type: 'POST',
                                     success: function(data) {
+                                        $("#smsType").attr({"name": "smsType"});
                                         console.log(data);
                                         if(data.code === 200){
                                             $('#js-userinfo-error').text('绑定并登录成功').show();
@@ -253,8 +257,10 @@
             //立即注册
             $('.box-r').click(function() {
                 $("#code").removeAttr("name");
+                $("#password").removeAttr("name");
                 $("#auto").removeAttr("name");
                 var phone = $("#phone").val();
+                console.log($('form#cell_bindForm').serialize());
                 $.ajax({
                     url: "/phone/code",
                     dataType: 'json',
@@ -263,6 +269,7 @@
                     success: function(data) {
                         console.log(data);
                         $("#code").attr({"name":"code"});
+                        $("#password").attr({"name":"password"});
                         $("#auto").attr({"name":"auto"});
                         //手机验证码发送成功
                         if (data.code === 200) {
@@ -316,6 +323,7 @@
                             </dd>
                     </dl>
                     <input type="hidden" id="auto" name="auto" value="true">
+                    <input type="hidden" id="smsType" name="smsType" value="register"/>
             </form>
             <div class="submitBox">
                 <input id="btn-bind" class="registBtn button" type="button" disabled="disabled" value="下一步">

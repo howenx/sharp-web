@@ -99,6 +99,7 @@
                     $("#imgCode").val("");
                     $("#code").val(imgCode);
                     var phone = $("#phone").val();
+                    $("#smsType").removeAttr("name");
                     console.log($('form#cell_verifyForm').serialize());
                     $.ajax({
                             url: "/phone/verify",
@@ -106,6 +107,7 @@
                             data: $('form#cell_verifyForm').serialize(),
                             type: 'POST',
                             success: function(data) {
+                                $("#smsType").attr({"name": "smsType"});
                                 console.log(data);
                                 if (data==null || data=="") {
                                     $('#js-userinfo-error2').text("网络连接异常,请检查网络").show();
@@ -113,6 +115,7 @@
                                 } else if(data.code === 5001){
                                     //请求手机验证码接口
                                     $("#code").removeAttr("name");
+                                    $("#smsType").val("reset");
                                     console.log($('form#cell_verifyForm').serialize());
                                     $.ajax({
                                             url: "/phone/code",
@@ -120,6 +123,7 @@
                                             data: $('form#cell_verifyForm').serialize(),
                                             type: 'POST',
                                             success: function(data2) {
+
                                                console.log(data2);
                                                $("#code").attr({"name":"code"});
                                                if (data2==null || data2=="") {
@@ -156,6 +160,8 @@
             $('.box-r').click(function () {
                 $("#code").removeAttr("name");
                 var phone = $("#phone").val();
+                $("#smsType").val("register");
+                console.log($('form#cell_verifyForm').serialize());
                 $.ajax({
                     url: "/phone/code",
                     dataType: 'json',
@@ -223,7 +229,7 @@
                             <input type="hidden" id="code" name="code" value="">
                     </dd>
                 </dl>
-                <input type="hidden" name="smsType" value="reset"/>
+                <input type="hidden" id="smsType" name="smsType"/>
             </form>
 
             <div class="submitBox">
