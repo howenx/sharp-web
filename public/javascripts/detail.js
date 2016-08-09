@@ -106,8 +106,8 @@ $(function() {
 //                    $(".buy_btn .mabuy").addClass('buyBtnCss');
 //                    $("#isCanBuy").val(1); //不能购买
 //                }
-                if($(".buy_btn.invalid").length >0){
-                    $(".buy_btn ").removeClass('invalid');
+                if($(".buy_btn .invalid").length >0){
+                    $(".buy_btn .mabuy").removeClass('invalid');
                     $("#isCanBuy").val(1); //可以购买
                 }
 	    }

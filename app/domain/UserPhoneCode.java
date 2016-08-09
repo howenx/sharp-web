@@ -16,15 +16,12 @@ public class UserPhoneCode implements Serializable {
     @Constraints.Pattern("[1][345678]\\d{9}")
     protected String phone;
 
+    //发送短信接口，增加了一个字断smsType(String类型)-> 值：register(注册)，reset(重置密码)，comm(其他)，不传时默认此字断值为comm
+    private String smsType;
+
     public UserPhoneCode() {
     }
 
-    @Override
-    public String toString() {
-        return "UserPhoneCode{" +
-                "phone='" + phone + '\'' +
-                '}';
-    }
 
     public String getPhone() {
         return phone;
@@ -34,7 +31,19 @@ public class UserPhoneCode implements Serializable {
         this.phone = phone;
     }
 
-    public UserPhoneCode(String phone) {
-        this.phone = phone;
+    public String getSmsType() {
+        return smsType;
+    }
+
+    public void setSmsType(String smsType) {
+        this.smsType = smsType;
+    }
+
+    @Override
+    public String toString() {
+        return "UserPhoneCode{" +
+                "phone='" + phone + '\'' +
+                ", smsType='" + smsType + '\'' +
+                '}';
     }
 }
