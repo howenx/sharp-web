@@ -16,7 +16,7 @@
 
 
 
-.install-g{
+.install-g {
     width:100%;
     height:50px;
     display: block;
@@ -24,8 +24,8 @@
     border-bottom:1px solid #e1e1e1;
     line-height: 50px;
     padding:0 2%;
-
 }
+
 .list p{
     width:100%;
     line-height:40px;
@@ -44,7 +44,6 @@
 }
 
 
-
 .install-gy .icon{
     width: 20px;
     height: 20px;
@@ -59,10 +58,16 @@
     background-size: contain;
 }
 
+
 button{
-    width:90%;
-    margin: 30px 5%;
+    width:100%;
     background: #fdd000;
     border-radius:3px;
     color: #242424;
 }
+
+
+.submitBox{
+    margin: 20px 10px;
+}
+

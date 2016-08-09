@@ -172,11 +172,11 @@ button{
     text-align: center;
     -webkit-border-radius: 4px;
     border-radius: 4px;
-    color: #fff;
+    color: #242424;
     font-size: 16px;
     cursor: pointer;
     margin: 20px 0 0 0;
-    background-color:#ff5359;
+    background-color:#fdd000;
 }
 
 .warn-info-box{
@@ -197,9 +197,6 @@ button{
     margin: 20px auto;
     font-size: 14px;
 }
-
-
-
 
 
 
