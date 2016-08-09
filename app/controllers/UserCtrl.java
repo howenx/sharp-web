@@ -1307,6 +1307,9 @@ public class UserCtrl extends Controller {
       * @return
      */
     public Promise<Result> appdownload() {
+        if (ctx().request().getHeader("User-Agent").contains("MicroMessenger")) {
+            return Promise.promise((Function0<Result>) () -> ok(views.html.users.appdownload.render(WEIXIN_DOWNLOAD_URL)));
+        }
 
         play.libs.F.Promise<String> promiseOfInt = play.libs.F.Promise.promise(() -> {
             Request request =comCtrl.getBuilder(ctx())
