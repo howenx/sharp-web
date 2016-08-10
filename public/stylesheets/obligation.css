@@ -129,6 +129,7 @@ span .number{
     font-size: 14px;
     height:32px;
     overflow: hidden;
+    font-weight: normal;
     -webkit-line-clamp: 2;
     display: -webkit-box;
     word-break: break-all;
@@ -163,7 +164,7 @@ span .number{
     border: 1px solid #ededed;
     line-height: 30px;
     color: #666;
-    width:70px;
+    width:60px;
     text-align: center;
 }
 
@@ -408,7 +409,7 @@ span .number{
     width:30px;
     height:30px;
     position: relative;
-    color: #333;
+   color: #242424;
 }
 
 .shopping i{
@@ -419,18 +420,19 @@ span .number{
 }
 
 .shopping .cart_num{
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     position: absolute;
     top: -7px;
-    font-size: 11px;
-    left: 42px;
+    font-size:9px;
+    left: 38px;
     background: #ff5359;
-    line-height: 20px;
+    line-height: 15px;
     cursor: pointer;
     color: #fff;
     border-radius: 50%;
     text-align: center;
+    -webkit-text-size-adjust:none;
 }
 
 

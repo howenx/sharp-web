@@ -178,6 +178,8 @@ img{
 }
 
 .tabpin>li{
+    font-size: 14px;
+    color: #242424;
     float: left;width: 50%;text-align: center;line-height: 36px;
     background: #fff;
 }

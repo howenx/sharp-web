@@ -138,6 +138,7 @@
 }
 /*找回密码*/
 .box-s{
+    margin: 10px 0 0 0;
     width:100%;
 }
 .box-s .box-q,.box-s .box-d{
@@ -147,8 +148,12 @@
     background-color: #ededed;
 }
 .box-s .box-q{
-    border-right:1px solid #ccc;
-    color: #999;
+    color: #242424;
+}
+
+.box-s a.box-d{
+    color: #242424;
+    background-color: #fdd000;
 }
 .proof-box{
     width: 100%;

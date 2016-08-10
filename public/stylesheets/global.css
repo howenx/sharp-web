@@ -272,14 +272,15 @@ h1 {
 }
 
 .look{
-    width: 120px;
-    height: 40px;
-    line-height: 40px;
-    background-color: #Fdd000;
+
+    width: 110px;
+    font-size: 14px;
+    line-height: 35px;
+    border: 1px solid #fdd000;
     color: #242424;
+    border-radius: 3px;
     display: block;
     margin: 10px auto;
-
 }
 
 
@@ -374,61 +375,56 @@ h1 {
 
 
 /*下载*/
+
 .footer{
     position: fixed;
-    bottom:0;
+    bottom: 0;
     width: 100%;
-    background-color:#FC555D;
-    height:60px;
-    padding:10px 2%;
+    height: 70px;
+    padding: 10px 0px;
+    background: url("/assets/images/huang.png") no-repeat;
+    background-size: cover;
 }
 
 .footer a{
     width: 80px;
-    height: 30px;
+    height:40px;
     float: right;
-    color: #242424;
-    text-align: center;
-    line-height: 30px;
-    margin:6px 5px 0 0;
-    font-size: 14px;
-    border: 1px solid #fff;
+    margin:6px 0 0 0;
+    background: url("/assets/images/down.png") no-repeat;
+    background-size: cover;
 }
 
 .footer span{
     height: 50px;
     float: left;
-    /*background: url("/assets/images/personal-down.png") -3px -5px no-repeat;
-    background-size: 45px 45px;
-    padding: 0 0 0 50px;*/
-    color: #fff;
-    font-size: 12px;
+    margin: 0 0 0 70px;
+    color: #242424;
 }
 
-.footer p img,.footer p span{
+.footer p span{
+    padding:8px 0 0 5px;
     float: left;
+    font-size: 14px;
 }
-.footer p img{
-    margin: 0 5px 0 0;
-    width:40px;
+
+.small{
+    font-size: 12px;
 }
 
 .footer p i{
     display:block;;
 }
 
-.footer p i:first-child{
-    padding:4px 0 0 0;
-    font-size: 14px;
-}
-
-
 .footer .delete-down{
     width: 24px;
     height: 24px;
     float: right;
     background: url("/assets/images/delete-down.png") no-repeat;
-    margin: -8px 0 0 8px;
+    margin: -8px 0 0 0;
     background-size: 22px;
 
 }
+
+
+
