@@ -223,7 +223,7 @@ public class ComCtrl extends Controller {
      * @return Result
      */
     public F.Promise<Result> wechatBase(String code, String state) {
-        return ws.url(SysParCom.WEIXIN_ACCESS + "appid=" +  WEIXIN_APPID + "&secret=" + WEIXIN_SECRET + "&code=" + code + "&grant_type=authorization_code").get().map(wsResponse -> {
+        return ws.url(SysParCom.WEIXIN_ACCESS + "appid=" + WEIXIN_APPID + "&secret=" + WEIXIN_SECRET + "&code=" + code + "&grant_type=authorization_code").get().map(wsResponse -> {
             JsonNode response = wsResponse.asJson();
 
             Logger.info("微信scope base返回的数据JSON: " + response.toString());
