@@ -20,9 +20,6 @@
     background-color: #fdd000;
 }
 
-.back{
-    top:10px;
-}
 
 .user span{
     padding:0 0 0 23px;
@@ -107,6 +104,7 @@
     width:100%;
     height:50px;
     padding: 0 10px;
+    font-size: 14px;
     line-height: 50px;
     margin: 10px 0 0 0;
     background-color: #fff;
@@ -233,7 +231,13 @@
 
 
 
-
+.back {
+    position: absolute;
+    background: url(/assets/images/jiantouwd.png) center center no-repeat;
+    background-size: contain;
+    top:10px;
+    left: 2%;
+}
 
 
 
