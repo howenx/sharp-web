@@ -436,7 +436,17 @@ public class ShoppingCtrl extends Controller {
 
             LogisticsDTO logisticsDTO=Json.fromJson(json, LogisticsDTO.class);
 
-            return ok(views.html.shopping.logistics.render(logisticsDTO));
+            Logger.info("==logisticsDTO===="+logisticsDTO);
+
+            WeiShengDTO weiShengDTO=null;
+            if(json.has("weisheng")&&null!=json.get("weisheng")){
+                weiShengDTO=Json.fromJson(json.get("weisheng"), WeiShengDTO.class);
+                Logger.info("==weiShengDTO===="+weiShengDTO);
+            }
+
+
+
+            return ok(views.html.shopping.logistics.render(logisticsDTO,weiShengDTO));
         });
 
 

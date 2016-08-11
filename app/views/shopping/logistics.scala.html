@@ -1,4 +1,4 @@
-@(logistics:domain.LogisticsDTO)
+@(logistics:domain.LogisticsDTO,weiShengDTO:domain.WeiShengDTO)
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -76,8 +76,26 @@
                             </li>
                         }
                  }
-                @if(null==logistics.getData()||logistics.getData().size()<=0){
+                @if((null==logistics.getData()||logistics.getData().size()<=0)&&(null==weiShengDTO.getRtnList()||weiShengDTO.getRtnList().size()<=0)){
                     <p>@logistics.getMessage()</p>
+                }
+                @if(null!=weiShengDTO&&null!=weiShengDTO.getRtnList()&&weiShengDTO.getRtnList().size()>0){
+                    @for(index<-1 to weiShengDTO.getRtnList().size()){
+                        <li>
+                            @if(index==1&&(null==logistics.getData()||logistics.getData().size()<=0)){
+                                <div class="logis-box color">
+                            }else{
+                                <div class="logis-box">
+                            }
+                                <div class="logis-content">
+                                    <p class="logis-content-detail">
+                                        <i>@weiShengDTO.getRtnList().get(weiShengDTO.getRtnList().size()-index).getRemark()</i>
+                                    </p>
+                                    <p class="logis-content-timer"@weiShengDTO.getRtnList().get(weiShengDTO.getRtnList().size()-index).getCreatetime()</p>
+                                </div>
+                            </div>
+                        </li>
+                    }
                 }
             </ul>
 
