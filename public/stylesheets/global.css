@@ -198,10 +198,7 @@ h1 {
     z-index:999;
 }
 
-/**灰色*/
-.discolour{
-    background-color: #969696;
-}
+
 
 
 /*下载页面*/
@@ -427,4 +424,7 @@ h1 {
 }
 
 
-
+/**灰色*/
+.discolour{
+    background-color: #969696;
+}
