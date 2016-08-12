@@ -35,4 +35,13 @@ public class LogisticsDataDTO {
     public void setContext(String context) {
         this.context = context;
     }
+
+    @Override
+    public String toString() {
+        return "LogisticsDataDTO{" +
+                "time='" + time + '\'' +
+                ", location='" + location + '\'' +
+                ", context='" + context + '\'' +
+                '}';
+    }
 }

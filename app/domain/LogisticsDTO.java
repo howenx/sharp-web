@@ -209,4 +209,32 @@ public class LogisticsDTO {
     public void setReturnCode(String returnCode) {
         this.returnCode = returnCode;
     }
+
+    @Override
+    public String toString() {
+        return "LogisticsDTO{" +
+                "nu='" + nu + '\'' +
+                ", comcontact='" + comcontact + '\'' +
+                ", companytype='" + companytype + '\'' +
+                ", com='" + com + '\'' +
+                ", signname='" + signname + '\'' +
+                ", condition='" + condition + '\'' +
+                ", status='" + status + '\'' +
+                ", codenumber='" + codenumber + '\'' +
+                ", signedtime='" + signedtime + '\'' +
+                ", state='" + state + '\'' +
+                ", departure='" + departure + '\'' +
+                ", addressee='" + addressee + '\'' +
+                ", destination='" + destination + '\'' +
+                ", message='" + message + '\'' +
+                ", ischeck='" + ischeck + '\'' +
+                ", pickuptime='" + pickuptime + '\'' +
+                ", comurl='" + comurl + '\'' +
+                ", data=" + data +
+                ", expressName='" + expressName + '\'' +
+                ", expressNum='" + expressNum + '\'' +
+                ", result='" + result + '\'' +
+                ", returnCode='" + returnCode + '\'' +
+                '}';
+    }
 }
