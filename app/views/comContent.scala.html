@@ -8,41 +8,6 @@ var _hmt = _hmt || [];
   s.parentNode.insertBefore(hm, s);
 })();
 
-$(function(){
-  //关闭下载添加cookie
-  function addDownloadCookie(){
-    //过期时间1小时
-    var str = "downloadState=1";
-    var date = new Date();
-    var ms = 3600*1000;
-    date.setTime(date.getTime() + ms);
-    str += "; expires=" + date.toGMTString();
-    document.cookie = str;
-    $("#downloadDiv").hide();
-    $("#topDiv").addClass("top-bottom");
-    $("#col-bottom").css('margin-bottom','0px');
-  };
-
-  if($("#downloadDiv").css("display")=="none"){
-    $("#col-bottom").css('margin-bottom','0px');
-  }else{
-    $("#col-bottom").css('margin-bottom','60px');
-
-  }
-
-  setTimeout(function () {
-    $('.footer').hide();
-    $("#col-bottom").css('margin-bottom','0px');
-    $("#topDiv").addClass("top-bottom");
-  },10000);
-
-
-  $('.delete-down').click(function(){
-    addDownloadCookie();
-  });
-
-
-})
 </script>
 
 
