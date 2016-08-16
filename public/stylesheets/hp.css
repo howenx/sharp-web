@@ -718,6 +718,7 @@ li {
 }
 .classify ul li{
 	width:25%;
+	height: 100px;
 	float: left;
 	border-top: 1px solid #F4F5F4;
 	border-bottom: 1px solid #F4F5F4;
