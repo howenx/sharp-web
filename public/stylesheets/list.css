@@ -726,11 +726,10 @@ h1 .logo {
     height:30px;
     padding: 0 5%;
     line-height:30px;
-    font-size: 12px;
+
 }
 
 .naw{
-    font-size:28px;
     color:#EF2528;
     float:left;
 
@@ -743,7 +742,7 @@ h1 .logo {
     float: right;
 }
 .agio{
-   font-size:16px;
+   font-size:12px;
    text-decoration: line-through;
     margin:1px 0 0 5px;
     float: left;
@@ -754,7 +753,7 @@ h1 .logo {
     text-align: center;
     color: #999;
     font-weight: normal;
-    float:right;
+    font-size: 12px;
     margin:1px 0 0 0;
 }
 
@@ -793,58 +792,6 @@ h2 span{
     color:#454545;
 }
 
-
-@media screen and (min-width:390px) and (max-width:500px) {
-    .naw{
-        font-size:18px;
-
-    }
-    .agio{
-        font-size:12px;
-
-    }
-   /* .title-fd b{
-
-        width:45px;
-        line-height:20px;
-        text-align: center;
-        border: 1px solid #e33a39;
-        color: #e56254;
-        font-weight: normal;
-        margin:2px 0 0 0;
-    }*/
-    .footer {
-
-        margin: 0 0 70px 0;
-
-    }
-
-
-}
-
-@media screen and (min-width:320px) and (max-width:389px) {
-    .content .title-fd{
-
-        padding:0 2%;
-
-    }
-    .naw{
-        font-size:18px;
-
-    }
-    .agio{
-        font-size:12px;
-
-    }
-
-    .footer {
-
-        margin: 0 0 70px 0;
-
-    }
-
-
-}
 
 
 
