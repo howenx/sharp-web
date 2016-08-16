@@ -8,7 +8,12 @@
 	<meta content="yes" name="apple-mobile-web-app-capable">
 	<meta content="black" name="apple-mobile-web-app-status-bar-style">
 	<meta content="telephone=no" name="format-detection">
-	<title>详情页 － Kakao Gift</title>
+	<title>@if(null!=inventoryList&&inventoryList.size()>0){
+			@inventoryList.get(0).getInvTitle()
+		}else{
+			详情页 － Kakao Gift
+		}
+	</title>
 	<link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
 	<link rel="stylesheet" href="/assets/stylesheets/detail.css">
 	<script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
