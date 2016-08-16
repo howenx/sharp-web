@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LogisticsDataDTO {
     private String  time;
-    private String location;
     private String context;
 
     public String getTime() {
@@ -18,14 +17,6 @@ public class LogisticsDataDTO {
 
     public void setTime(String time) {
         this.time = time;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
     public String getContext() {
@@ -40,7 +31,6 @@ public class LogisticsDataDTO {
     public String toString() {
         return "LogisticsDataDTO{" +
                 "time='" + time + '\'' +
-                ", location='" + location + '\'' +
                 ", context='" + context + '\'' +
                 '}';
     }

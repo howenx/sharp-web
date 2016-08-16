@@ -1,4 +1,4 @@
-@(logistics:domain.LogisticsDTO,weiShengDTO:domain.WeiShengDTO)
+@(logistics:domain.LogisticsDTO)
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -46,13 +46,13 @@
             <span>承运来源: <i>@logistics.getExpressName()</i></span>
             <span>运单号: <i>@logistics.getExpressNum()</i></span>
 
-           <!-- <span>官方号码: <i class="nub">95546</i></span>-->
+            <!-- <span>官方号码: <i class="nub">95546</i></span>-->
         </div>
     </div>
 
     <div class="logistics-fd">
         <div class="logis-hd">
-          <p>物流跟踪</p>
+            <p>物流跟踪</p>
         </div>
 
         <div class="logis-fd">
@@ -60,42 +60,21 @@
             <ul>
                 @if(null!=logistics.getData()){
                     @for((logisticsDataDTO,index)<-logistics.getData().zipWithIndex){
-                            <li >
-                               @if(index==0){<div class="logis-box color">}
-                               @if(index!=0){<div class="logis-box">}
-                                    <div class="logis-content">
-                                        <p class="logis-content-detail">
-                                            @if(null!=logisticsDataDTO.getLocation()&&""!=logisticsDataDTO.getLocation().trim()){
-                                            <i>[ @logisticsDataDTO.getLocation() ]</i>
-                                            }
-                                            <i>@logisticsDataDTO.getContext()</i>
-                                        </p>
-                                        <p class="logis-content-timer">@logisticsDataDTO.getTime()</p>
-                                    </div>
-                                </div>
-                            </li>
-                        }
-                 }
-                @if((null==logistics.getData()||logistics.getData().size()<=0)&&(null==weiShengDTO.getRtnList()||weiShengDTO.getRtnList().size()<=0)){
-                    <p>@logistics.getMessage()</p>
-                }
-                @if(null!=weiShengDTO&&null!=weiShengDTO.getRtnList()&&weiShengDTO.getRtnList().size()>0){
-                    @for(index<-1 to weiShengDTO.getRtnList().size()){
-                        <li>
-                            @if(index==1&&(null==logistics.getData()||logistics.getData().size()<=0)){
-                                <div class="logis-box color">
-                            }else{
-                                <div class="logis-box">
-                            }
+                        <li >
+                            @if(index==0){<div class="logis-box color">}
+                            @if(index!=0){<div class="logis-box">}
                                 <div class="logis-content">
                                     <p class="logis-content-detail">
-                                        <i>@weiShengDTO.getRtnList().get(weiShengDTO.getRtnList().size()-index).getRemark()</i>
+                                        <i>@logisticsDataDTO.getContext()</i>
                                     </p>
-                                    <p class="logis-content-timer">@weiShengDTO.getRtnList().get(weiShengDTO.getRtnList().size()-index).getCreatetime()</p>
+                                    <p class="logis-content-timer">@logisticsDataDTO.getTime()</p>
                                 </div>
                             </div>
                         </li>
                     }
+                }
+                @if(null==logistics.getData()||logistics.getData().size()<=0){
+                    <p>@logistics.getMessage()</p>
                 }
             </ul>
 
