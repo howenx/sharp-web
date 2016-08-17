@@ -96,6 +96,19 @@ public class ShoppingCtrl extends Controller {
         return ok(views.html.shopping.appraise.render());
     }
 
+    //优惠券
+    public Result favourable() {
+            return ok(views.html.shopping.favourable.render());
+        }
+
+    public Result groomone() {
+            return ok(views.html.shopping.groomone.render());
+        }
+
+     public Result groomtwo() {
+                return ok(views.html.shopping.groomtwo.render());
+            }
+
     //发表评价
     @Security.Authenticated(UserAuth.class)
     public Result commentView() {

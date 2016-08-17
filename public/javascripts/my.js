@@ -213,15 +213,18 @@ $(document).ready(function(){
      //修改待支付待收货个数
      var waitPayNum=$("#waitPayUl li").length;
      if(waitPayNum>0){
-         $("#waitPay").addClass("cart_num").html(waitPayNum);
+         $("#waitPay").addClass("cart_num");
+         $("#waitPay b").html(waitPayNum);
      }
      var waitGoodsNum=$("#waitGoodsUl li").length;
      if(waitGoodsNum>0){
-        $("#waitGoods").addClass("cart_num").html(waitGoodsNum);
+        $("#waitGoods").addClass("cart_num");
+         $("#waitGoods b").html(waitGoodsNum);
      }
      var waitCommentNum=$("#waitCommentUl li").length;
      if(waitCommentNum>0){
-         $("#waitComment").addClass("cart_num").html(waitCommentNum);
+         $("#waitComment").addClass("cart_num");
+         $("#waitComment b").html(waitCommentNum);
      }
 });
 //意见反馈

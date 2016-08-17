@@ -25,7 +25,7 @@
 
          <a  href="/means" class="land">
              <img id="photo" src="@userInfo.getPhoto()">
-             @userInfo.getName()
+             <i class="my-name">@userInfo.getName()</i>
              @if(userInfo.getGender()=="M") {<i class="man"></i>}
              @if(userInfo.getGender()=="F") {<i class="girl"></i>}
          </a>

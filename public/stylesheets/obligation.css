@@ -472,6 +472,10 @@ span .number{
     float: right;
 }
 
-
+.message_list b{
+    display: inline-block;
+    font-weight: normal;
+    -webkit-transform: scale(0.75);
+}
 
 

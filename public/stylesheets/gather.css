@@ -132,9 +132,50 @@
 
 
 
+.favouone,.favoutwo,.groomone,.groomtwo{
+    width:80%;
+    height: 4%;
+    position: absolute;
+    left: 50%;
+    bottom:5%;
+    background-color:rgba(0,0,0,0);
+    -webkit-transform: translate(-50%,0);
+}
+.groomone{
+    bottom:6%;
+}
+.favoutwo,.groomtwo{
+    width:70%;
+    bottom:2%;
+    height:1.5%;
+}
+.groomtwo{
+    bottom:0.5%;
+}
 
 
+.groomtwo-o,.groomtwo-t,.groomtwo-s,.groomtwo-f{
+    width:70%;
+    position: absolute;
+    height: 10%;
+    left: 50%;
+    top:6%;
+    -webkit-transform: translate(-50%,0);
+    background-color:rgba(0,0,0,0.3);
 
+}
+.groomtwo-t{
+    top:33%;
+    height:7%;
+}
 
+.groomtwo-s{
+    height: 10%;
+    top: 55%;
+}
+.groomtwo-f{
+    height: 10%;
+    top:81%;
+}
 
 
