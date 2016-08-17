@@ -1,5 +1,14 @@
 
+<div class="hint" id="tip" style="display:none"></div>
 <script>
+//提示
+function tip(tipContent){
+    $("#tip").html(tipContent).show();
+    setTimeout(function(){
+    $("#tip").hide();
+    },3000);
+}
+
 var _hmt = _hmt || [];
 (function() {
   var hm = document.createElement("script");

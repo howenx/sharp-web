@@ -96,6 +96,22 @@ public class ShoppingCtrl extends Controller {
         return ok(views.html.shopping.appraise.render());
     }
 
+    //优惠券
+    public Result favourable(String openType) {
+        comCtrl.pushOrPopHistoryUrl(ctx());
+        return ok(views.html.shopping.favourable.render(openType));
+    }
+
+    public Result groomone(String openType) {
+        comCtrl.pushOrPopHistoryUrl(ctx());
+        return ok(views.html.shopping.groomone.render(openType));
+    }
+
+     public Result groomtwo(String openType) {
+         comCtrl.pushOrPopHistoryUrl(ctx());
+         return ok(views.html.shopping.groomtwo.render(openType));
+     }
+
     //发表评价
     @Security.Authenticated(UserAuth.class)
     public Result commentView() {
