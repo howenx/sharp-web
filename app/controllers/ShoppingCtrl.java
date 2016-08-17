@@ -108,6 +108,10 @@ public class ShoppingCtrl extends Controller {
      public Result groomtwo() {
                 return ok(views.html.shopping.groomtwo.render());
             }
+     public Result groomthree() {
+                 return ok(views.html.shopping.groomthree.render());
+             }
+
 
     //发表评价
     @Security.Authenticated(UserAuth.class)

@@ -99,6 +99,7 @@ GET         /favourable                                                        c
 
 GET         /groomone                                                       controllers.ShoppingCtrl.groomone()
 GET         /groomtwo                                                      controllers.ShoppingCtrl.groomtwo()
+GET         /groomthree                                                      controllers.ShoppingCtrl.groomthree()
 
 #评价
 POST        /comment/view                                                      controllers.ShoppingCtrl.commentView()
