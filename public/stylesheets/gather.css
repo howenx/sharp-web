@@ -161,6 +161,7 @@
     left: 50%;
     top:6%;
     -webkit-transform: translate(-50%,0);
+    -moz-transform: translate(-50%,0);
     background-color:rgba(0,0,0,0.3);
 
 }
@@ -178,4 +179,23 @@
     top:81%;
 }
 
-
+.cue{
+    display: none;
+    text-align: center;
+    width: 80%;
+    padding:20px 10px;
+    position: fixed;
+    top:50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    background-color: #fdd000;
+}
+.cue .txt{
+    color: #f73939;
+}
+.coupon-deta {
+    margin: 10px 0 0 0;
+    width: 100%;
+    text-align: right;
+    font-size: 12px;
+}

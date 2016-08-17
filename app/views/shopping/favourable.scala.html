@@ -13,6 +13,17 @@
     <meta name="format-detection"content="telephone=no, email=no"/>
     <link rel="stylesheet" href="/assets/stylesheets/global.css"/>
     <link rel="stylesheet" href="/assets/stylesheets/gather.css"/>
+    <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+    <script>
+        $(function(){
+            $(".favouone").click(function(){
+                $(".cue").show();
+            });
+            setInterval(function(){
+                $(".cue").hide();
+            },3000)
+        })
+    </script>
 
 </head>
 <body>
@@ -33,9 +44,13 @@
         <img src="/assets/images/groom/favourable08.png"/>
         <img src="/assets/images/groom/favourable09.png"/>
         <img src="/assets/images/groom/favourable10.png"/>
-        <a href="/detail/item/888501/111689" class="favouone"></a>
+        <a href="javascript:;" class="favouone"></a>
         <a href="/detail/item/888501/111689" class="favoutwo"></a>
+    </div>
 
+    <div class="cue">
+        <p class="txt">恭喜你获得<span>20元</span>优惠券</p>
+        <p class="coupon-deta">有效期 <span>2016-07-28</span> 至 <span>2016-08-27</span></p>
     </div>
 
 </div>
