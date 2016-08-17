@@ -194,7 +194,7 @@
                         <p class="title-hd">@pushItem.getItemTitle()</p>
                                        <span class="title-fd">
                                            <i class="naw">￥@pushItem.getItemPrice()</i>
-                                           @if(pushItem.getItemDiscount().toString() != "0"){
+                                           @if(null!=pushItem.getItemDiscount()&&(false==pushItem.getItemDiscount().toString().startsWith("10"))){
                                                 <i class="agio">￥@pushItem.getItemSrcPrice()</i>
                                                 <b>@pushItem.getItemDiscount()折</b>
                                            }
@@ -212,7 +212,7 @@
                         <p class="title-hd">@pushItem.getItemTitle()</p>
                                <span class="title-fd">
                                    <i class="naw">￥@pushItem.getItemPrice()</i>
-                                   @if(pushItem.getItemDiscount().toString() != "0"){
+                                    @if(null!=pushItem.getItemDiscount()&&(false==pushItem.getItemDiscount().toString().startsWith("10"))){
                                         <i class="agio">￥@pushItem.getItemSrcPrice()</i>
                                         <b>@pushItem.getItemDiscount()折</b>
                                    }
@@ -350,7 +350,6 @@
 
 }
 
-<div class="hint" id="tip" style="display:none"></div>
 @comContent()
 
 </body>
