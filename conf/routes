@@ -110,6 +110,8 @@ GET         /assemblage                                                        c
 GET         /assemblage/$openType<[a-zA-Z]+>                                   controllers.ShoppingCtrl.assemblage(openType:String)
 #
 
+#领取优惠券
+GET         /coupons/rec/$recCouponId<[0-9]+>                                 controllers.ShoppingCtrl.couponRec(recCouponId:Long)
 
 
 

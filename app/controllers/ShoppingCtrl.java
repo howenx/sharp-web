@@ -912,5 +912,35 @@ public class ShoppingCtrl extends Controller {
         });
     }
 
+    /**
+     * 领取优惠券
+     * @param recCouponId
+     * @return
+     */
+    @Security.Authenticated(UserAjaxAuth.class)
+    public F.Promise<Result> couponRec(Long recCouponId){
+        F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
+            Request.Builder builder = (Request.Builder) ctx().args.get("request");
+            Request request = builder.url(SHOPPING_COUPON_REC).get().build();
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                return Json.parse(new String(response.body().bytes(), UTF_8));
+            }
+            else throw new IOException("Unexpected code " + response);
+        });
+        return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
+            if(LOG_OPEN){
+                Logger.info("领取优惠券数据-->\n"+json);
+            }
+            Message message = Json.fromJson(json.get("message"), Message.class);
+            if (null == message) {
+                Logger.error("返回数据错误json=" + json);
+                return badRequest();
+            }
+            return ok(toJson(message));
+        });
+
+    }
+
 }
 
