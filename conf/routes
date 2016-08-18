@@ -117,8 +117,7 @@ GET         /assemblage/$openType<[a-zA-Z]+>                                   c
 #
 
 #领取优惠券
-GET         /coupons/rec/$recCouponId<[0-9]+>                                 controllers.ShoppingCtrl.couponRec(recCouponId:Long)
-
+POST         /coupons/rec                                                      controllers.ShoppingCtrl.couponRec()
 
 
 

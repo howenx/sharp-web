@@ -25,7 +25,6 @@ import java.util.*;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static modules.SysParCom.*;
-import static play.libs.Json.newObject;
 import static play.libs.Json.toJson;
 import static util.GZipper.dealToString;
 /**
@@ -99,17 +98,18 @@ public class ShoppingCtrl extends Controller {
     //优惠券
     public Result favourable(String openType) {
         comCtrl.pushOrPopHistoryUrl(ctx());
-        return ok(views.html.shopping.favourable.render(openType));
+        comCtrl.addCurUrlCookie(ctx());
+        return ok(views.html.shopping.h5.favourable.render(openType));
     }
 
     public Result groomone(String openType) {
         comCtrl.pushOrPopHistoryUrl(ctx());
-        return ok(views.html.shopping.groomone.render(openType));
+        return ok(views.html.shopping.h5.groomone.render(openType));
     }
 
      public Result groomtwo(String openType) {
          comCtrl.pushOrPopHistoryUrl(ctx());
-         return ok(views.html.shopping.groomtwo.render(openType));
+         return ok(views.html.shopping.h5.groomtwo.render(openType));
      }
 
     //发表评价
@@ -409,19 +409,19 @@ public class ShoppingCtrl extends Controller {
     //new
     public Result article(String openType) {
         comCtrl.pushOrPopHistoryUrl(ctx());
-        return ok(views.html.shopping.article.render(openType));
+        return ok(views.html.shopping.h5.article.render(openType));
     }
 
     //gather  assemblage
     public Result gather(String openType) {
         comCtrl.pushOrPopHistoryUrl(ctx());
-        return ok(views.html.shopping.gather.render(openType));
+        return ok(views.html.shopping.h5.gather.render(openType));
     }
 
     //assemblage
     public Result assemblage(String openType) {
         comCtrl.pushOrPopHistoryUrl(ctx());
-        return ok(views.html.shopping.assemblage.render(openType));
+        return ok(views.html.shopping.h5.assemblage.render(openType));
     }
 
 
@@ -930,11 +930,14 @@ public class ShoppingCtrl extends Controller {
 
     /**
      * 领取优惠券
-     * @param recCouponId
      * @return
      */
     @Security.Authenticated(UserAjaxAuth.class)
-    public F.Promise<Result> couponRec(Long recCouponId){
+    public F.Promise<Result> couponRec(){
+        JsonNode rJson = request().body().asJson();
+
+        Long recCouponId=rJson.findValue("recCouponId").asLong();
+
         F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
             Request request = builder.url(SHOPPING_COUPON_REC+recCouponId).get().build();
