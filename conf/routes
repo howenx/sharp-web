@@ -97,17 +97,14 @@ GET         /order/confirm/delivery/$orderId<[0-9]+>                           c
 POST        /cart/check                                                        controllers.ShoppingCtrl.cartCheck()
 
 
-GET         /groomone                                                       controllers.ShoppingCtrl.groomone()
-GET         /groomtwo                                                      controllers.ShoppingCtrl.groomtwo()
-GET         /groomthree                                                      controllers.ShoppingCtrl.groomthree()
-
 GET         /favourable                                                        controllers.ShoppingCtrl.favourable(openType:String ?= "APP")
 GET         /groomone                                                          controllers.ShoppingCtrl.groomone(openType:String ?= "APP")
 GET         /groomtwo                                                          controllers.ShoppingCtrl.groomtwo(openType:String ?= "APP")
+GET         /groomthree                                                        controllers.ShoppingCtrl.groomthree(openType:String ?= "APP")
 GET         /favourable/$openType<[a-zA-Z]+>                                   controllers.ShoppingCtrl.favourable(openType:String)
 GET         /groomone/$openType<[a-zA-Z]+>                                     controllers.ShoppingCtrl.groomone(openType:String)
 GET         /groomtwo/$openType<[a-zA-Z]+>                                     controllers.ShoppingCtrl.groomtwo(openType:String)
-
+GET         /groomthree/$openType<[a-zA-Z]+>                                   controllers.ShoppingCtrl.groomthree(openType:String)
 
 #评价
 POST        /comment/view                                                      controllers.ShoppingCtrl.commentView()

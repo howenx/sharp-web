@@ -107,19 +107,15 @@ public class ShoppingCtrl extends Controller {
         return ok(views.html.shopping.h5.groomone.render(openType));
     }
 
-
-     public Result groomtwo() {
-                return ok(views.html.shopping.groomtwo.render());
-            }
-     public Result groomthree() {
-                 return ok(views.html.shopping.groomthree.render());
-             }
-
-
-     public Result groomtwo(String openType) {
+    public Result groomtwo(String openType) {
          comCtrl.pushOrPopHistoryUrl(ctx());
          return ok(views.html.shopping.h5.groomtwo.render(openType));
-     }
+    }
+
+    public Result groomthree(String openType) {
+        comCtrl.pushOrPopHistoryUrl(ctx());
+        return ok(views.html.shopping.h5.groomthree.render());
+    }
 
 
     //发表评价
