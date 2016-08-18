@@ -29,25 +29,29 @@
 
 
     function couponRec(recCouponId){
+            var obj=new Object();
+        obj.recCouponId=recCouponId;
         $.ajax({
-              type :"GET",
-              url : "/coupons/rec/"+recCouponId,
-              error : function(request) {
-              },
-              success: function(data) {
-                  if (data!=null){ //成功
-                        if(data.code==200){
-                            $(".cue").show();
-                            setInterval(function(){$(".cue").hide();},3000);
-                        }else if(data.code==5006) { //您还未登录,请先登录
-                                setTimeout("location.href='"+data.message+"'", 2000);//您还未登录,请先登录
-                        }else{
-                            tip(data.message);
-                        }
-                   }else {
-                        tip("操作失败请重新尝试");
-                   }
-              }
+                type: 'POST',
+                url: "/coupons/rec",
+                contentType: "application/json; charset=utf-8",
+                data : JSON.stringify(obj),
+                error : function(request) {
+                },
+                success: function(data) {
+                      if (data!=null){ //成功
+                            if(data.code==200){
+                                $(".cue").show();
+                                setInterval(function(){$(".cue").hide();},3000);
+                            }else if(data.code==5006) { //您还未登录,请先登录
+                                    setTimeout("location.href='"+data.message+"'", 2000);//您还未登录,请先登录
+                            }else{
+                                tip(data.message);
+                            }
+                       }else {
+                            tip("操作失败请重新尝试");
+                       }
+                }
         });
     };
 

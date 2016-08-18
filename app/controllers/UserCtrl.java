@@ -10,7 +10,6 @@ import domain.Address;
 import filters.UserAjaxAuth;
 import filters.UserAuth;
 import net.spy.memcached.MemcachedClient;
-import org.w3c.dom.*;
 import org.xml.sax.InputSource;
 import play.Logger;
 import play.api.libs.Codecs;
@@ -20,15 +19,12 @@ import play.libs.F.Function;
 import play.libs.F.Function0;
 import play.libs.F.Promise;
 import play.libs.Json;
-import play.libs.XPath;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
 
 import javax.inject.Inject;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.beans.XMLDecoder;
 import java.io.File;
 import java.io.FileInputStream;
@@ -1313,7 +1309,7 @@ public class UserCtrl extends Controller {
 
         play.libs.F.Promise<String> promiseOfInt = play.libs.F.Promise.promise(() -> {
             Request request =comCtrl.getBuilder(ctx())
-                    .url("http://dl.kakaogift.cn/android/kakaogift.xml")
+                    .url("http://img.hanmimei.com/android/hmm.xml")
                     .build();
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
