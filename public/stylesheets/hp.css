@@ -15,8 +15,6 @@ body{
 }
 .batten{
 	width:100%;
-	height:44px;
-	line-height:44px;
 	background-size: 100% auto;
 
 }
@@ -56,6 +54,7 @@ body{
 	text-align: center;
 }
 .shopp .cart_num i{
+	display: inline-block;
 	-webkit-transform: scale(0.75);
 }
 

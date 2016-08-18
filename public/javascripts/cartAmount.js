@@ -10,7 +10,7 @@ $(document).ready(function() {
           success: function(data) {
               if (data!=""&&data!=null&&null!=data.message){ //成功
                     if(data.message.code==200){
-                         $("#cartAmountSpan").html(data.cartNum);
+                         $("#cartAmountSpan i").html(data.cartNum);
                     }
                }
           }
