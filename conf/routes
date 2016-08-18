@@ -96,14 +96,6 @@ POST        /cart/nologin/verify/amount                                        c
 GET         /order/confirm/delivery/$orderId<[0-9]+>                           controllers.ShoppingCtrl.orderConfirmDelivery(orderId:Long)
 POST        /cart/check                                                        controllers.ShoppingCtrl.cartCheck()
 
-
-<<<<<<< HEAD
-GET         /groomone                                                        controllers.ShoppingCtrl.groomone()
-GET         /groomtwo                                                       controllers.ShoppingCtrl.groomtwo()
-GET         /groomthree                                                      controllers.ShoppingCtrl.groomthree()
-
-=======
->>>>>>> 0fa91782f9ab128f43a3dd8b61c438840bd8820b
 GET         /favourable                                                        controllers.ShoppingCtrl.favourable(openType:String ?= "APP")
 GET         /groomone                                                          controllers.ShoppingCtrl.groomone(openType:String ?= "APP")
 GET         /groomtwo                                                          controllers.ShoppingCtrl.groomtwo(openType:String ?= "APP")
