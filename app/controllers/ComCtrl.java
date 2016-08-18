@@ -517,4 +517,13 @@ public class ComCtrl extends Controller {
         return tel.substring(0,3)+"****"+tel.substring(7);
     }
 
+    /**
+     * H5页面在跳转之前需要的操作
+     * @param ctx
+     */
+    public void h5OpbeforeRender(Http.Context ctx){
+        pushOrPopHistoryUrl(ctx());
+        addCurUrlCookie(ctx());
+    }
+
 }

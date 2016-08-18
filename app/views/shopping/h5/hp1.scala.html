@@ -17,17 +17,6 @@
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
     <script>
 
-        $(function(){
-
-            $(".favouone").click(function(){
-                $(".cue").show();
-            });
-            setInterval(function(){
-                $(".cue").hide();
-            },3000);
-        })
-
-
     function couponRec(recCouponId){
             var obj=new Object();
         obj.recCouponId=recCouponId;
@@ -76,8 +65,8 @@
         <img src="/assets/images/groom/favourable08.png"/>
         <img src="/assets/images/groom/favourable09.png"/>
         <img src="/assets/images/groom/favourable10.png"/>
-        <a href="javascript:;" class="favouone" onclick="couponRec(1)"></a>
-        <a href="/detail/item/888501/111689" class="favoutwo"></a>
+        <a href="javascript:;" class="favouone redirect-app" onclick="couponRec(888003)"></a>
+        <a href="/detail/item/888501/111689" class="favoutwo redirect-app"></a>
     </div>
 
     <div class="cue">

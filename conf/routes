@@ -96,30 +96,14 @@ POST        /cart/nologin/verify/amount                                        c
 GET         /order/confirm/delivery/$orderId<[0-9]+>                           controllers.ShoppingCtrl.orderConfirmDelivery(orderId:Long)
 POST        /cart/check                                                        controllers.ShoppingCtrl.cartCheck()
 
-GET         /favourable                                                        controllers.ShoppingCtrl.favourable(openType:String ?= "APP")
-GET         /groomone                                                          controllers.ShoppingCtrl.groomone(openType:String ?= "APP")
-GET         /groomtwo                                                          controllers.ShoppingCtrl.groomtwo(openType:String ?= "APP")
-GET         /groomthree                                                        controllers.ShoppingCtrl.groomthree(openType:String ?= "APP")
-GET         /favourable/$openType<[a-zA-Z]+>                                   controllers.ShoppingCtrl.favourable(openType:String)
-GET         /groomone/$openType<[a-zA-Z]+>                                     controllers.ShoppingCtrl.groomone(openType:String)
-GET         /groomtwo/$openType<[a-zA-Z]+>                                     controllers.ShoppingCtrl.groomtwo(openType:String)
-GET         /groomthree/$openType<[a-zA-Z]+>                                   controllers.ShoppingCtrl.groomthree(openType:String)
-
 #评价
 POST        /comment/view                                                      controllers.ShoppingCtrl.commentView()
 POST        /comment/add                                                       controllers.ShoppingCtrl.commentAdd()
 GET         /comment/center/$orderId<[0-9]+>                                   controllers.ShoppingCtrl.commentCenter(orderId:Long)
 GET         /comment/detail/$skuType<item|vary|customize|pin>/$skuTypeId<[0-9]+>/$pageNum<[0-9]+>/$commentType<1|2|3|4>  controllers.ShoppingCtrl.commentDetail(skuType:String,skuTypeId:Long,pageNum:Integer,commentType:Integer)
-GET         /article                                                           controllers.ShoppingCtrl.article(openType:String ?= "APP")
-GET         /article/$openType<[a-zA-Z]+>                                      controllers.ShoppingCtrl.article(openType:String)
-GET         /gather                                                            controllers.ShoppingCtrl.gather(openType:String ?= "APP")
-GET         /gather/$openType<[a-zA-Z]+>                                       controllers.ShoppingCtrl.gather(openType:String)
-GET         /assemblage                                                        controllers.ShoppingCtrl.assemblage(openType:String ?= "APP")
-GET         /assemblage/$openType<[a-zA-Z]+>                                   controllers.ShoppingCtrl.assemblage(openType:String)
 #
 
-#领取优惠券
-POST         /coupons/rec                                                      controllers.ShoppingCtrl.couponRec()
+
 
 
 
@@ -127,6 +111,28 @@ GET         /wechat/base                                                       c
 
 GET         /wechat/userinfo                                                   controllers.ComCtrl.wechatUserinfo(code: String,state:String)
 
+
+#H5页面
+GET         /article                                                           controllers.H5Ctrl.article(openType:String ?= "APP")
+GET         /article/$openType<[a-zA-Z]+>                                      controllers.H5Ctrl.article(openType:String)
+GET         /gather                                                            controllers.H5Ctrl.gather(openType:String ?= "APP")
+GET         /gather/$openType<[a-zA-Z]+>                                       controllers.H5Ctrl.gather(openType:String)
+GET         /assemblage                                                        controllers.H5Ctrl.assemblage(openType:String ?= "APP")
+GET         /assemblage/$openType<[a-zA-Z]+>                                   controllers.H5Ctrl.assemblage(openType:String)
+GET         /hp1                                                               controllers.H5Ctrl.hp1(openType:String ?= "APP")
+GET         /hp1/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp1(openType:String)
+GET         /hp2                                                               controllers.H5Ctrl.hp2(openType:String ?= "APP")
+GET         /hp2/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp2(openType:String)
+GET         /hp3                                                               controllers.H5Ctrl.hp3(openType:String ?= "APP")
+GET         /hp3/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp3(openType:String)
+GET         /hp4                                                               controllers.H5Ctrl.hp4(openType:String ?= "APP")
+GET         /hp4/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp4(openType:String)
+
+
+
+#H5页面内的操作
+#领取优惠券
+POST         /coupons/rec                                                      controllers.H5Ctrl.couponRec()
 
 
 # Map static resources from the /public folder to the /assets URL path
