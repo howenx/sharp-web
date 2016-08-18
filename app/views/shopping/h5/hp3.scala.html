@@ -1,10 +1,9 @@
+@(openType:String)
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <meta charset="UTF-8">
-    <title></title>
+    <title>不用去韩国,韩国本土面膜一样到手</title>
     <!-- 视图窗口，移动端特属的标签。 -->
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
     <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
@@ -13,24 +12,24 @@
     <meta name="format-detection"content="telephone=no, email=no"/>
     <link rel="stylesheet" href="/assets/stylesheets/global.css"/>
     <link rel="stylesheet" href="/assets/stylesheets/gather.css"/>
+    <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
 </head>
 <body>
-<header class="head">
-    <a href="/" class="back"></a>
-    <h1>优惠</h1>
-</header>
+@if(openType=="M"||openType=="m"){
+    @headerH5("面膜专场")
+}
 
 <div class="warp scope">
     <div class="con">
 
         <img src="/assets/images/groom/groomthree_01.png"/>
-        <a href="/detail/item/888501/111689">
+        <a href="https://m.kakaogift.cn/detail/item/888015/111014" class="redirect-app">
           <img src="/assets/images/groom/groomthree_02.png"/>
         </a>
-        <a href="/detail/item/888501/111689">
+        <a href="https://m.kakaogift.cn/detail/item/888228/111184" class="redirect-app">
             <img src="/assets/images/groom/groomthree_03.png"/>
         </a>
-        <a href="/detail/item/888501/111689">
+        <a href="https://m.kakaogift.cn/detail/item/888030/111026" class="redirect-app">
             <img src="/assets/images/groom/groomthree_04.png"/>
         </a>
     </div>

@@ -95,28 +95,6 @@ public class ShoppingCtrl extends Controller {
         return ok(views.html.shopping.appraise.render());
     }
 
-    //优惠券
-    public Result favourable(String openType) {
-        comCtrl.pushOrPopHistoryUrl(ctx());
-        comCtrl.addCurUrlCookie(ctx());
-        return ok(views.html.shopping.h5.favourable.render(openType));
-    }
-
-    public Result groomone(String openType) {
-        comCtrl.pushOrPopHistoryUrl(ctx());
-        return ok(views.html.shopping.h5.groomone.render(openType));
-    }
-
-    public Result groomtwo(String openType) {
-         comCtrl.pushOrPopHistoryUrl(ctx());
-         return ok(views.html.shopping.h5.groomtwo.render(openType));
-    }
-
-    public Result groomthree(String openType) {
-        comCtrl.pushOrPopHistoryUrl(ctx());
-        return ok(views.html.shopping.h5.groomthree.render());
-    }
-
 
     //发表评价
     @Security.Authenticated(UserAuth.class)
@@ -410,24 +388,6 @@ public class ShoppingCtrl extends Controller {
 
     public Result down() {
         return ok(views.html.shopping.down.render());
-    }
-
-    //new
-    public Result article(String openType) {
-        comCtrl.pushOrPopHistoryUrl(ctx());
-        return ok(views.html.shopping.h5.article.render(openType));
-    }
-
-    //gather  assemblage
-    public Result gather(String openType) {
-        comCtrl.pushOrPopHistoryUrl(ctx());
-        return ok(views.html.shopping.h5.gather.render(openType));
-    }
-
-    //assemblage
-    public Result assemblage(String openType) {
-        comCtrl.pushOrPopHistoryUrl(ctx());
-        return ok(views.html.shopping.h5.assemblage.render(openType));
     }
 
 
@@ -934,38 +894,7 @@ public class ShoppingCtrl extends Controller {
         });
     }
 
-    /**
-     * 领取优惠券
-     * @return
-     */
-    @Security.Authenticated(UserAjaxAuth.class)
-    public F.Promise<Result> couponRec(){
-        JsonNode rJson = request().body().asJson();
 
-        Long recCouponId=rJson.findValue("recCouponId").asLong();
-
-        F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
-            Request.Builder builder = (Request.Builder) ctx().args.get("request");
-            Request request = builder.url(SHOPPING_COUPON_REC+recCouponId).get().build();
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                return Json.parse(new String(response.body().bytes(), UTF_8));
-            }
-            else throw new IOException("Unexpected code " + response);
-        });
-        return promiseOfInt.map((F.Function<JsonNode, Result>) json -> {
-            if(LOG_OPEN){
-                Logger.info("领取优惠券数据-->\n"+json);
-            }
-            Message message = Json.fromJson(json.get("message"), Message.class);
-            if (null == message) {
-                Logger.error("返回数据错误json=" + json);
-                return badRequest();
-            }
-            return ok(toJson(message));
-        });
-
-    }
 
 }
 
