@@ -375,7 +375,7 @@ div .cycle-overlay {
 .u-detail-mprice {
 	float: left;
 	display: inline-block;
-	margin: 3px 0 0 10px;
+	margin:2px 0 0 10px;
 	color: #BEBEBE;
 	text-decoration: line-through;
 	font-size: 12px;
