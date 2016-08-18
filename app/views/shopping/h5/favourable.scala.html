@@ -17,6 +17,17 @@
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
     <script>
 
+        $(function(){
+
+            $(".favouone").click(function(){
+                $(".cue").show();
+            });
+            setInterval(function(){
+                $(".cue").hide();
+            },3000);
+        })
+
+
     function couponRec(recCouponId){
             var obj=new Object();
         obj.recCouponId=recCouponId;
@@ -43,6 +54,7 @@
                 }
         });
     };
+
 
     </script>
 
