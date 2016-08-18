@@ -97,8 +97,8 @@ GET         /order/confirm/delivery/$orderId<[0-9]+>                           c
 POST        /cart/check                                                        controllers.ShoppingCtrl.cartCheck()
 
 
-GET         /groomone                                                       controllers.ShoppingCtrl.groomone()
-GET         /groomtwo                                                      controllers.ShoppingCtrl.groomtwo()
+GET         /groomone                                                        controllers.ShoppingCtrl.groomone()
+GET         /groomtwo                                                       controllers.ShoppingCtrl.groomtwo()
 GET         /groomthree                                                      controllers.ShoppingCtrl.groomthree()
 
 GET         /favourable                                                        controllers.ShoppingCtrl.favourable(openType:String ?= "APP")
