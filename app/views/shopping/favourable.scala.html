@@ -39,11 +39,13 @@
                         if(data.code==200){
                             $(".cue").show();
                             setInterval(function(){$(".cue").hide();},3000);
+                        }else if(data.code==5006) { //您还未登录,请先登录
+                                setTimeout("location.href='"+data.message+"'", 2000);//您还未登录,请先登录
                         }else{
                             tip(data.message);
                         }
                    }else {
-                        tip(操作失败请重新尝试);
+                        tip("操作失败请重新尝试");
                    }
               }
         });

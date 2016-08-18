@@ -947,7 +947,7 @@ public class ShoppingCtrl extends Controller {
     public F.Promise<Result> couponRec(Long recCouponId){
         F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
             Request.Builder builder = (Request.Builder) ctx().args.get("request");
-            Request request = builder.url(SHOPPING_COUPON_REC).get().build();
+            Request request = builder.url(SHOPPING_COUPON_REC+recCouponId).get().build();
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
                 return Json.parse(new String(response.body().bytes(), UTF_8));
