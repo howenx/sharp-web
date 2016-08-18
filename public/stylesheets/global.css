@@ -355,10 +355,10 @@ h1 {
     top: -7px;
     left: 15px;
     font-size: 10px;
-    background: #fff;
+    background:#ff4242;
     line-height:18px;
     cursor: pointer;
-    color:#ff5359;
+    color:#fff;
     border-radius: 50%;
     text-align: center;
 }
@@ -427,4 +427,8 @@ h1 {
 /**灰色*/
 .discolour{
     background-color: #969696;
+}
+.shopp .cart_num i{
+    display: inline-block;
+    -webkit-transform: scale(0.75);
 }

@@ -35,15 +35,6 @@ body{
     width:30px;
     height:30px;
 }
-.shopp i{
-    background: url(/assets/images/white_shoppingcar.png) center center no-repeat;
-    background-size: contain;
-    position: absolute;
-    top:0;
-    right:0;
-    width:30px;
-    height:30px;
-}
 
 .shopp .cart_num{
     width:21px;

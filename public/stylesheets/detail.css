@@ -720,13 +720,6 @@ div .cycle-overlay {
 	position: relative;
 }
 
-.shopping i{
-	background: url(/assets/images/white_shoppingcar.png) center center no-repeat;
-	background-size: contain;
-	width:30px;
-	height:30px;
-}
-
 .shopping .cart_num{
 	width: 17px;
 	height: 17px;
@@ -740,6 +733,11 @@ div .cycle-overlay {
 	border-radius: 50%;
 	text-align: center;
 	font-size: 12px;
+}
+
+.cart_num i{
+	display: inline-block;
+	-webkit-transform: scale(0.75);
 }
 
 .love{
