@@ -1,10 +1,11 @@
+@(openType:String)
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <meta charset="UTF-8">
-    <title></title>
+    <title>优惠券</title>
     <!-- 视图窗口，移动端特属的标签。 -->
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
     <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
@@ -15,6 +16,7 @@
     <link rel="stylesheet" href="/assets/stylesheets/gather.css"/>
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
     <script>
+
         $(function(){
 
             $(".favouone").click(function(){
@@ -24,14 +26,37 @@
                 $(".cue").hide();
             },3000);
         })
+
+
+    function couponRec(recCouponId){
+        $.ajax({
+              type :"GET",
+              url : "/coupons/rec/"+recCouponId,
+              error : function(request) {
+              },
+              success: function(data) {
+                  if (data!=null){ //成功
+                        if(data.code==200){
+                            $(".cue").show();
+                            setInterval(function(){$(".cue").hide();},3000);
+                        }else{
+                            tip(data.message);
+                        }
+                   }else {
+                        tip(操作失败请重新尝试);
+                   }
+              }
+        });
+    };
+
+
     </script>
 
 </head>
 <body>
-<header class="head">
-    <a href="/" class="back"></a>
-    <h1>优惠</h1>
-</header>
+@if(openType=="M"||openType=="m"){
+    @headerH5("优惠")
+}
 
 <div class="warp scope">
     <div class="con">
@@ -45,7 +70,7 @@
         <img src="/assets/images/groom/favourable08.png"/>
         <img src="/assets/images/groom/favourable09.png"/>
         <img src="/assets/images/groom/favourable10.png"/>
-        <a href="javascript:;" class="favouone"></a>
+        <a href="javascript:;" class="favouone" onclick="couponRec(1)"></a>
         <a href="/detail/item/888501/111689" class="favoutwo"></a>
     </div>
 
@@ -55,6 +80,6 @@
     </div>
 
 </div>
-
+@comContent()
 </body>
 </html>

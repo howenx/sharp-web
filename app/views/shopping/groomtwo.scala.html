@@ -1,8 +1,9 @@
+@(openType:String)
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>优惠券</title>
     <meta charset="UTF-8">
     <title></title>
     <!-- 视图窗口，移动端特属的标签。 -->
@@ -15,10 +16,9 @@
     <link rel="stylesheet" href="/assets/stylesheets/gather.css"/>
 </head>
 <body>
-<header class="head">
-    <a href="/" class="back"></a>
-    <h1>优惠</h1>
-</header>
+@if(openType=="M"||openType=="m"){
+    @headerH5("优惠")
+}
 
 <div class="warp scope">
     <div class="con">
@@ -51,6 +51,6 @@
     </div>
 
 </div>
-
+@comContent()
 </body>
 </html>

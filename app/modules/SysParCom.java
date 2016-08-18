@@ -130,6 +130,8 @@ public class SysParCom {
     //打印接收数据的LOG是否开启
     public static Boolean LOG_OPEN;
 
+    public static String SHOPPING_COUPON_REC;
+
     @Inject
     public SysParCom(Configuration configuration) {
 
@@ -240,6 +242,8 @@ public class SysParCom {
         WEIXIN_DOWNLOAD_URL=configuration.getString("weixin.download.url");
 
         LOG_OPEN=configuration.getBoolean("print.log.open");
+
+        SHOPPING_COUPON_REC=configuration.getString("shopping.coupon.rec");
 
     }
 }
