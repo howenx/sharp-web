@@ -358,8 +358,8 @@ function addCartEffect(){
 		curvature: 0.0090, //控制抛物线弧度
 		complete: function() {
 			eleFlyElement.style.visibility = "hidden";
-			var numberItem = parseInt($("#cartAmountSpan").html());
-			eleShopCart.querySelector("span").innerHTML = ++numberItem;
+			var numberItem = parseInt($("#cartAmountSpan i").html());
+			eleShopCart.querySelector("span i").innerHTML = ++numberItem;
 		}
 	});
 
