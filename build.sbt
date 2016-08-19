@@ -1,6 +1,6 @@
 name := """style-web"""
 
-version := "0.4.22"
+version := "0.4.23"
 
 lazy val root = (project in file(".")).enablePlugins(PlayJava)
 

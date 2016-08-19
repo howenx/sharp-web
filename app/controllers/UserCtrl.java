@@ -1309,7 +1309,7 @@ public class UserCtrl extends Controller {
 
         play.libs.F.Promise<String> promiseOfInt = play.libs.F.Promise.promise(() -> {
             Request request =comCtrl.getBuilder(ctx())
-                    .url("http://img.hanmimei.com/android/hmm.xml")
+                    .url("http://dl.kakaogift.cn/android/kakaogift.xml")
                     .build();
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
