@@ -127,7 +127,8 @@ GET         /hp3                                                               c
 GET         /hp3/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp3(openType:String)
 GET         /hp4                                                               controllers.H5Ctrl.hp4(openType:String ?= "APP")
 GET         /hp4/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp4(openType:String)
-
+GET         /hp5                                                               controllers.H5Ctrl.hp5(openType:String ?= "APP")
+GET         /hp5/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp5(openType:String)
 
 
 #H5页面内的操作
