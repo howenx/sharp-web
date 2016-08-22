@@ -54,7 +54,7 @@ public class H5Ctrl extends Controller {
 
     public Result hp2(String openType) {
         comCtrl.h5OpbeforeRender(ctx());
-        return ok(views.html.shopping.h5.hp2.render(openType));
+        return ok(views.html.shopping.h5.hp2.render(openType,SHOPPING_COUPON_REC));
     }
 
     public Result hp3(String openType) {

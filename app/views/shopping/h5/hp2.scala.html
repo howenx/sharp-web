@@ -1,4 +1,4 @@
-@(openType:String)
+@(openType:String,couponUrlPrefix:String)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +13,51 @@
     <link rel="stylesheet" href="/assets/stylesheets/global.css"/>
     <link rel="stylesheet" href="/assets/stylesheets/gather.css"/>
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+    <script>
+
+    function couponRec(recCouponId){
+            var obj=new Object();
+        obj.recCouponId=recCouponId;
+        $.ajax({
+                type: 'POST',
+                url: "/coupons/rec",
+                contentType: "application/json; charset=utf-8",
+                data : JSON.stringify(obj),
+                error : function(request) {
+                },
+                success: function(data) {
+                      if (data!=null){ //成功
+                            if(data.code==200){
+                             //   $(".cue").show();
+                             //   setInterval(function(){$(".cue").hide();},3000);
+                             tip(data.message);
+                            }else if(data.code==5006) { //您还未登录,请先登录
+                                    setTimeout("location.href='"+data.message+"'", 2000);//您还未登录,请先登录
+                            }else{
+                                tip(data.message);
+                            }
+                       }else {
+                            tip("操作失败请重新尝试");
+                       }
+                }
+        });
+    };
+
+    //APP获取优惠券
+    function couponApp(urlPrefix,recCouponId){
+            setTimeout(function () {
+                        try {
+                            getCouponIos(urlPrefix+recCouponId);
+                        } catch (err) {
+                            window.android.getCoupon(urlPrefix+recCouponId);
+                        } finally {
+
+                        }
+                    }, 1000);
+    }
+
+
+    </script>
 </head>
 <body>
 @if(openType=="M"||openType=="m"){
@@ -31,9 +76,14 @@
         <img src="/assets/images/groom/groom_08.png"/>
         <img src="/assets/images/groom/groom_09.png"/>
         <img src="/assets/images/groom/groom_10.png"/>
-        <img src="/assets/images/groom/groom_11.png"/>
-        <a href="/detail/item/888501/111689" class="groomone"></a>
-        <a href="/detail/item/888501/111689" class="groomtwo"></a>
+        <!--<img src="/assets/images/groom/groom_11.png"/>-->
+        <!--<a href="/detail/item/888501/111689" class="groomone"></a>-->
+        <!--<a href="/detail/item/888501/111689" class="groomtwo"></a>-->
+        @if(openType=="M"||openType=="m"){
+        <a href="javascript:;" class="groomone" onclick="couponRec(888021)"></a>
+        }else{
+        <a href="javascript:;" class="groomone" onclick="couponApp('@couponUrlPrefix','888021')"></a>
+        }
     </div>
 
 </div>
