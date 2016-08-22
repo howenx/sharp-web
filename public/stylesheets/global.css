@@ -239,17 +239,28 @@ h1 {
 
 
 #loading{
-    position: absolute;
-    top:50%;
-    left: 50%;
     width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    background-color: rgba(0,0,0,0.4);
+    position:fixed;
+    top: 50%;
+    left: 50%;
     -webkit-transform: translate(-50%,0);
     -moz-transform: translate(-50%,0);
-    z-index: 1000;
+    z-index: 100;
+
 }
+
 #loading img{
-    width: 100%;
+    width: 90px;
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    -webkit-transform: translate(-50%,0);
+    -moz-transform: translate(-50%,0);
 }
+
 
 
 .agree{
