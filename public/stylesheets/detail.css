@@ -1387,16 +1387,6 @@ div .cycle-overlay {
 	background-color:rgba(255,255,255,0.1);
 }
 
-#loading img{
-	width: 100px;
-	position:absolute;
-	top:50%;
-	left: 50%;
-	-webkit-transform: translate(-50%,0);
-	-moz-transform: translate(-50%,0);
-}
-
-
 
 /*好评*/
 .opinion{
@@ -1462,6 +1452,27 @@ div .cycle-overlay {
 }
 
 
+#loading img{
+	width: 90px;
+	position: absolute;
+	top: 0%;
+	left: 50%;
+	-webkit-transform: translate(-50%,0);
+    -moz-transform: translate(-50%,0);
+}
+
+
+#loading div{
+	width: 100px;
+	height: 100px;
+	border-radius: 20px;
+    background-color: rgba(0,0,0,0.4);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,0);
+    -moz-transform: translate(-50%,0);
+}
 
 
 
