@@ -61,10 +61,8 @@
 	<div id='screen_wrap'>
 
 		<!--banner开始-->
-
 		<!-- 本例主要代码 Start ================================ -->
 		<div id="slideBox" class="slideBox">
-
 			<div class="bd">
 				<ul>
 					@for(slider <- sliderList){
@@ -126,13 +124,13 @@
 				@for(theme <- themeList){
 					<li>
 						<a href="@theme.getThemeUrl()">
-							<!--标题和简介-->
+							<!--&lt;!&ndash;标题和简介&ndash;&gt;
 							@if(null!=theme.getTitle()&&""!=theme.getTitle()){
-								<h2 class="col-text">@theme.getTitle()</h2>
+								<h2 class="col-text">theme.getTitle()</h2>
 							}
 							@if(null!=theme.getThemeConfigInfo()&&""!=theme.getThemeConfigInfo()){
-								<span>@theme.getThemeConfigInfo()</span>
-							}
+								<span>theme.getThemeConfigInfo()</span>
+							}-->
 							<img src="/assets/images/hp-320.png" data-echo="@theme.getThemeImg()"/>
 						</a>
 
