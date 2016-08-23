@@ -726,10 +726,12 @@ h1 .logo {
 
 }
 .minimum{
+    font-size: 12px;
     margin: 0 0 0 5px;
     float: left;
 }
 .rate{
+    font-size: 12px;
     float: right;
 }
 .agio{

@@ -16,10 +16,8 @@
     <script src="/assets/javascripts/jquery/jquery.cycle2.min.js"></script>
     <script src="/assets/javascripts/jquery/jquery.cycle2.swipe.min.js"></script>
     <script src="/assets/javascripts/detail.js"></script>
-    <script src="/assets/javascripts/echo.min.js"></script>
     <script>
         window.urlParam = "@url"
-        echo.init();
     </script>
 
 </head>
@@ -75,7 +73,7 @@
             @for(img <- preImgList){
                 <div class='slide-img'>
                     <!--<img src='@img' style='display: block;' width='100%'>-->
-                    <img src="/assets/images/d-320-320.png" data-echo="@img"/>
+                    <img src="@img"/>
                 </div>
            }
         </div>

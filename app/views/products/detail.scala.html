@@ -21,10 +21,8 @@
 	<script src="/assets/javascripts/detail.js"></script>
 	<script src="/assets/javascripts/cartAmount.js"></script>
 	<script src="/assets/javascripts/commonDetail.js"></script>
-	<script src="/assets/javascripts/echo.min.js"></script>
 	<script>
 		window.urlParam = "@url"
-		echo.init();
 	</script>
 </head>
 <body>
@@ -83,8 +81,8 @@
 									@for(imgUrl <- preImgList.get(index)){
 										<li>
 											<a class="pic" href="#">
-												<!--<img src="@imgUrl"/>-->
-												<img src="/assets/images/d-320-320.png" data-echo="@imgUrl"/>
+												<img src="@imgUrl"/>
+												<!--<img src="/assets/images/d-320-320.png" data-echo="@imgUrl"/>-->
 											</a>
 
 										</li>
