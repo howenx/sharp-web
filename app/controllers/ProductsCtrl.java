@@ -290,7 +290,7 @@ public class ProductsCtrl extends Controller {
                             } else {
                                 themeItem.setEndAt("截止" + endDate);
                             }
-                            Logger.error(String.valueOf(themeItem.getItemDiscount()));
+
                             nItemList.add(themeItem);
                         }catch (Exception e){
                             e.printStackTrace();
@@ -386,19 +386,27 @@ public class ProductsCtrl extends Controller {
                     JsonNode stockJson = json.get("stock");
                     int disableSkuCount = 0;
                     for (JsonNode stockInv : stockJson) {
-                        Inventory inventory = Json.fromJson(stockInv, Inventory.class);
-                        if("D".equals(inventory.getState())  || "N" .equals(inventory.getState()) || "K".equals(inventory.getState())){
-                            disableSkuCount = disableSkuCount + 1;
+                        try {
+                            Inventory inventory = Json.fromJson(stockInv, Inventory.class);
+                            if ("D".equals(inventory.getState()) || "N".equals(inventory.getState()) || "K".equals(inventory.getState())) {
+                                disableSkuCount = disableSkuCount + 1;
+                            }
+                            JsonNode imgJson = Json.parse(inventory.getInvImg());
+                            inventory.setInvImg(imgJson.get("url").asText());
+                            JsonNode previewImgJson = Json.parse(inventory.getItemPreviewImgs());
+                            List<String> preImgSubList = new ArrayList<>();
+                            for (JsonNode previewJson : previewImgJson) {
+                                if(null!=previewJson.get("url")){
+                                    preImgSubList.add(Json.fromJson(previewJson.get("url"), String.class));
+                                }
+
+                            }
+                            preImgList.add(preImgSubList);
+                            inventoryList.add(inventory);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                            Logger.error("解析详情界面数据异常");
                         }
-                        JsonNode imgJson = Json.parse(inventory.getInvImg());
-                        inventory.setInvImg(imgJson.get("url").asText());
-                        JsonNode previewImgJson = Json.parse(inventory.getItemPreviewImgs());
-                        List<String> preImgSubList = new ArrayList<>();
-                        for (JsonNode previewJson : previewImgJson) {
-                            preImgSubList.add(Json.fromJson(previewJson.get("url"), String.class));
-                        }
-                        preImgList.add(preImgSubList);
-                        inventoryList.add(inventory);
                     }
                     if(inventoryList.size() == disableSkuCount){
                         itemMain.setState("D");
