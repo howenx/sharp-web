@@ -160,19 +160,19 @@
     position: absolute;
     height: 10%;
     left: 50%;
-    top:6%;
+    top:8%;
     -webkit-transform: translate(-50%,0);
     -moz-transform: translate(-50%,0);
 
 }
 .groomtwo-t{
     top:33%;
-    height:7%;
+    height:8%;
 }
 
 .groomtwo-s{
     height: 10%;
-    top: 55%;
+    top: 56%;
 }
 .groomtwo-f{
     height: 10%;
