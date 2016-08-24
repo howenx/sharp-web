@@ -540,7 +540,7 @@ div .cycle-overlay {
 .hot{
 	background-color: #fff;
 	width: 100%;
-	margin: 0 0 50px 0;
+	margin: 0 0 44px 0;
 	padding: 0 0 2% 0;
 
 }
@@ -569,8 +569,8 @@ div .cycle-overlay {
 	height: 45px;
 	color: #4B4B4B;
 	background-color: #fff;
-	border-bottom: 1px solid #ececec;
-	padding: 10px 5%;
+
+	padding: 10px;
 	overflow: hidden;
 	line-height: 16px;
 	-webkit-line-clamp:2;
@@ -598,32 +598,35 @@ div .cycle-overlay {
 
 
 .product .title-fd{
+	border-top: 1px solid #ececec;
+	margin: 5px 0 0 0;
 	display: block;
 	background:white;
 	width:100%;
 	height:50px;
-	padding:0 5%;
+	padding:0 5px;
 	line-height: 50px;
 }
 
 .naw{
-	font-size:24px;
+	font-size:18px;
 	color:#EF2528;
 }
 .agio{
-	font-size:16px;
+	font-size:12px;
 	text-decoration: line-through;
 }
 
 .title-fd b{
 	float:right;
-	width:50px;
-	line-height:25px;
+	font-size:12px;
+	width:35px;
+	line-height:18px;
 	text-align: center;
 	border: 1px solid #e33a39;
-	color: #ff5359;
+	color: #e56254;
 	font-weight: normal;
-	margin: 10px 0 0 0;
+	margin: 15px 0 0 0;
 }
 
 .product{
@@ -646,58 +649,6 @@ div .cycle-overlay {
 }
 
 
-@media screen and (min-width:390px) and (max-width:500px) {
-	.naw{
-		font-size:18px;
-
-	}
-	.agio{
-		font-size:12px;
-
-	}
-	.title-fd b{
-
-		width:45px;
-		line-height:20px;
-		text-align: center;
-		border: 1px solid #e33a39;
-		color: #e56254;
-		font-weight: normal;
-		margin: 15px 0 0 0;
-	}
-
-
-
-}
-
-@media screen and (min-width:320px) and (max-width:389px) {
-	.product .title-fd{
-
-		padding:0 2%;
-
-	}
-	.naw{
-		font-size:18px;
-
-	}
-	.agio{
-		font-size:12px;
-
-	}
-	.title-fd b{
-		font-size:12px;
-		width:35px;
-		line-height:20px;
-		text-align: center;
-		border: 1px solid #e33a39;
-		color: #e56254;
-		font-weight: normal;
-		margin: 15px 0 0 0;
-	}
-
-
-
-}
 
 /*热卖结束*/
 

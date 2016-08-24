@@ -46,13 +46,12 @@ body{
     float:right;
 }
 
-
 .money-box,.address,.refer-box{
     width:100%;
 }
+
 .money-box .picture{
     float: left;
-    width: 30%;
 }
 
 .picture img{
@@ -120,8 +119,9 @@ body{
 }
 
 .money-box .goods{
-    float: right;
+    float: left;
     width: 70%;
+    margin: 0 0 0 20px;
     font-size: 14px;
 }
 
