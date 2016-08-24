@@ -196,6 +196,7 @@ h1 {
     -webkit-transform: translate(-50%,0);
     -moz-transform: translate(-50%,0);
     z-index:999;
+    font-size: 14px;
 }
 
 
