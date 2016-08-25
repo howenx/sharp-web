@@ -4,7 +4,6 @@
 }
 
 .con{
-    padding: 44px 0 0 0;
     position: relative;
 }
 .one,.two,.three,.four,.five,.six,.seven,.nine,.ten,.eleven,.twelve,.thirteen,.fourteen,.fifteen,.under-one,.under-two,
@@ -237,4 +236,8 @@
     width: 100%;
     text-align: right;
     font-size: 12px;
+}
+
+.pd{
+    padding: 44px 0 0 0;
 }

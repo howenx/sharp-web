@@ -598,6 +598,15 @@ public class ProductsCtrl extends Controller {
         return ok(views.html.products.pinInstruction.render(hisUrl));
     }
 
+
+ /**滑动列表页**/
+    public Result slidelist() {
+        String hisUrl=comCtrl.pushOrPopHistoryUrl(ctx());
+        return ok(views.html.products.slidelist.render());
+    }
+
+
+
     /**
      * 拼购商品的价格阶梯
      *

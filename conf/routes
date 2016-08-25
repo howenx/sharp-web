@@ -61,6 +61,7 @@ GET         /detail/*url                                                       c
 GET         /pinInstruction                                                    controllers.ProductsCtrl.pinInstruction()
 GET         /pinTieredPrice/*url                                               controllers.ProductsCtrl.pinTieredPrice(url)
 
+GET         /slidelist                                                         controllers.ProductsCtrl.slidelist()
 
 
 
