@@ -1,6 +1,8 @@
 package controllers;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import domain.*;
@@ -265,35 +267,11 @@ public class ProductsCtrl extends Controller {
                 List<ThemeItem> nItemList = new ArrayList<>();
                 List<ThemeItem> itemList = themeBasic.getThemeItemList();
                 if(null!=itemList&&itemList.size()>0){
+                    ThemeItem temp;
                     for (ThemeItem themeItem : itemList) {
-                        try {
-                            JsonNode itemImgJson = Json.parse(themeItem.getItemImg());
-                            themeItem.setItemImg(itemImgJson.get("url").asText());
-                            themeItem.setItemUrl(themeItem.getItemUrl().replace(GOODS_PAGE, ""));
-                            SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                            Date now = new Date();
-                            String strNow = sdfDate.format(now);
-                            Date endAtDate = sdfDate.parse(themeItem.getEndAt());
-                            Calendar calendar = Calendar.getInstance();
-                            calendar.setTime(endAtDate);
-                            String hour = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
-                            if (calendar.get(Calendar.HOUR_OF_DAY) < 10) {
-                                hour = "0" + hour;
-                            }
-                            String minute = String.valueOf(calendar.get(Calendar.MINUTE));
-                            if (calendar.get(Calendar.MINUTE) < 10) {
-                                minute = "0" + minute;
-                            }
-                            String endDate = (calendar.get(Calendar.MONTH) + 1) + "月" + calendar.get(Calendar.DAY_OF_MONTH) + "日" + hour + ":" + minute;
-                            if (themeItem.getEndAt().compareTo(strNow) < 0 || themeItem.getState() == "D" || themeItem.getState() == "N" || themeItem.getState() == "K") {
-                                themeItem.setEndAt("已结束");
-                            } else {
-                                themeItem.setEndAt("截止" + endDate);
-                            }
-
+                        temp=comCtrl.parseThemeItem(themeItem);
+                        if(null!=temp){
                             nItemList.add(themeItem);
-                        }catch (Exception e){
-                            e.printStackTrace();
                         }
                     }
 
@@ -598,15 +576,6 @@ public class ProductsCtrl extends Controller {
         return ok(views.html.products.pinInstruction.render(hisUrl));
     }
 
-
- /**滑动列表页**/
-    public Result slidelist() {
-        String hisUrl=comCtrl.pushOrPopHistoryUrl(ctx());
-        return ok(views.html.products.slidelist.render());
-    }
-
-
-
     /**
      * 拼购商品的价格阶梯
      *
@@ -652,4 +621,71 @@ public class ProductsCtrl extends Controller {
             return badRequest(views.html.error500.render());
         });
     }
+
+
+    /**滑动列表页**/
+    public F.Promise<Result> getNav(long navId,int pageNum,int op) {
+        if(op==1){
+            comCtrl.pushOrPopHistoryUrl(ctx());
+        }
+        F.Promise<JsonNode> promise = F.Promise.promise(() -> {
+            Request request =comCtrl.getBuilder(ctx())
+                    .url(NAV_PAGE +navId+"/"+pageNum)
+                    .build();
+            client.setConnectTimeout(15, TimeUnit.SECONDS);
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                String result = dealToString(response);
+                if (result != null) {
+                    return Json.parse(result);
+                } else throw new IOException("Unexpected code" + response);
+            } else throw new IOException("Unexpected code" + response);
+        });
+        return promise.map((F.Function<JsonNode, Result>) json -> {
+            if(LOG_OPEN){
+                Logger.info("getNav接收数据-->\n"+json);
+            }
+            List<List<ThemeItem>> itemResultList = new ArrayList<>();
+            List<ThemeItem> itemList=null;
+            List<ThemeItem> nItemList=new ArrayList<ThemeItem>();
+            if(json.has("themeItemList")) {
+                itemList = new ObjectMapper().readValue(json.get("themeItemList").toString(), new TypeReference<List<ThemeItem>>() {
+                });
+            }
+            if(null!=itemList&&itemList.size()>0){
+                ThemeItem temp;
+                for (ThemeItem themeItem : itemList) {
+                    temp=comCtrl.parseThemeItem(themeItem);
+                    if(null!=temp){
+                        nItemList.add(themeItem);
+                    }
+                }
+                for (int i = 0; i < nItemList.size() / 2; i++) {
+                    List<ThemeItem> rowList = new ArrayList<>();
+                    rowList.add(itemList.get(i * 2));
+                    rowList.add(itemList.get(i * 2 + 1));
+                    itemResultList.add(rowList);
+                }
+                if (nItemList.size() % 2 != 0) {
+                    List<ThemeItem> rowList = new ArrayList<>();
+                    rowList.add(nItemList.get(nItemList.size() - 1));
+                    itemResultList.add(rowList);
+                }
+            }
+            if(op==2){
+                return ok(Json.toJson(itemResultList));
+            }
+            int pageCount=0;
+            if(json.has("page_count")){
+                pageCount=json.get("page_count").asInt();
+            }
+            String title="";
+            if(json.has("title")){
+                title=json.get("title").asText();
+            }
+            return ok(views.html.products.navlist.render(itemResultList,pageCount,title,navId));
+        });
+
+    }
+
 }

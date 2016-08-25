@@ -63,6 +63,7 @@ public class SysParCom {
 
     public static String THEME_PAGE;//主题
     public static String GOODS_PAGE;//商品详情
+    public static String NAV_PAGE;//商品分类
 //    public static String PIN_PAGE;//拼购商品
 //    public static String ITEM_PAGE;//普通商品,多样化价格商品
 //    public static String VARY_PAGE;//多样化价格商品
@@ -186,6 +187,7 @@ public class SysParCom {
         //商品信息
         THEME_PAGE = configuration.getString("products.page.theme");
         GOODS_PAGE = configuration.getString("products.page.goods");
+        NAV_PAGE = configuration.getString("products.page.nav");
 //        PIN_PAGE = configuration.getString("products.page.pin");
 //        ITEM_PAGE = configuration.getString("products.page.item");
 //        VARY_PAGE = configuration.getString("products.page.vary");

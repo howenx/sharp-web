@@ -61,7 +61,7 @@ GET         /detail/*url                                                       c
 GET         /pinInstruction                                                    controllers.ProductsCtrl.pinInstruction()
 GET         /pinTieredPrice/*url                                               controllers.ProductsCtrl.pinTieredPrice(url)
 
-GET         /slidelist                                                         controllers.ProductsCtrl.slidelist()
+GET         /nav/$navId<[0-9]+>/$pageNum<[0-9]+>/$op<1|2>                      controllers.ProductsCtrl.getNav(navId:Long,pageNum:Int,op:Int)
 
 
 
