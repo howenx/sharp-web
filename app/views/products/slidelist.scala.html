@@ -11,12 +11,15 @@
     <meta name="format-detection"content="telephone=no, email=no" />
     <link rel="stylesheet" href="/assets/stylesheets/global.css"/>
     <link rel="stylesheet" href="/assets/stylesheets/list.css"/>
+
     <style>
         .content{
             padding:44px 0 0 0;}
     </style>
+    <script src="/assets/javascripts/echo.min.js"></script>
     <script src="/assets/javascripts/jquery/jquery-1.9.1.min.js"></script>
     <script>
+        echo.init();
         $(window).load(function(){
             $("#loading").hide();
         });
@@ -43,7 +46,9 @@
             <li class="clearfix">
                 <a class="redirect-app" href="/detail/item/888351/111674">
                     <p class="figure figure-f">
-                        <img src="/assets/images/HMM--list_01.jpg">
+                        <!--<img src="/assets/images/HMM&#45;&#45;list_01.jpg">-->
+                        <img src="/assets/images/z-l.png" data-echo="/assets/images/HMM--list_01.jpg">
+
                     </p>
                     <p class="title-hd">EXO LOGO纯色T恤</p>
                     <span class="title-fd">
@@ -57,7 +62,7 @@
 
                 <a class="redirect-app" href="/detail/item/888351/111672">
                     <p class="figure figure-f">
-                        <img src="/assets/images/HMM--list_01.jpg">
+                        <img src="/assets/images/z-l.png" data-echo="/assets/images/HMM--list_01.jpg">
                     </p>
                     <p class="title-hd">EXO LOGO纯色T恤</p>
                     <span class="title-fd">
@@ -89,7 +94,7 @@
 
                     var html = "";
 
-                    html = '<li class="clearfix"><a class="redirect-app" href="/detail/item/888351/111670"><p class="figure figure-f"> <img src="/assets/images/'+data+'.jpg"> </p> <p class="title-hd">EXO LOGO纯色T恤</p> <span class="title-fd"> <i class="naw">¥563</i> <i class="agio">¥799</i> <b>7折</b></span></a> <a class="redirect-app" href="/detail/item/888351/111668"><p class="figure figure-f"><img src="/assets/images/'+data+'.jpg"></p><p class="title-hd">EXO LOGO纯色T恤</p><span class="title-fd"><i class="naw">¥563</i> <i class="agio">¥799</i> <b>7折</b> </span> </a> </li>';
+                    html = '<li class="clearfix"><a class="redirect-app" href="/detail/item/888351/111670"><p class="figure figure-f"><img src="/assets/images/z-l.png" data-echo="/assets/images/'+data+'.jpg"> </p> <p class="title-hd">EXO LOGO纯色T恤</p> <span class="title-fd"> <i class="naw">¥563</i> <i class="agio">¥799</i> <b>7折</b></span></a> <a class="redirect-app" href="/detail/item/888351/111668"><p class="figure figure-f"><img src="/assets/images/z-l.png" data-echo="/assets/images/'+data+'.jpg"></p><p class="title-hd">EXO LOGO纯色T恤</p><span class="title-fd"><i class="naw">¥563</i> <i class="agio">¥799</i> <b>7折</b> </span> </a> </li>';
 
                     $minUl = getMinUl();
 
