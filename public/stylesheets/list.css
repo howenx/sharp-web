@@ -658,20 +658,25 @@ h1 .logo {
     height: 55px;
     position: absolute;
     top: 0;
-    padding: 10px 0 0 0;
+    padding:5px 0 0 0;
     z-index: 100;
 }
 
 .product-top{
-    height: 35px;
-    line-height: 37px;
+    height: 30px;
     background: url("/assets/images/hmm_klmpintuan.png") no-repeat 5px #ff5359;
     display: inline-block;
-    padding: 0 10px 0px 35px;
     color: #fff;
-    background-size: 25px;
+    background-size: 20px;
     font-size: 10px;
     border-radius: 0 20px 20px 0px;
+}
+
+.product-top i{
+    line-height: 30px;
+    margin: 0 0 0 18px;
+    display: inline-block;
+    -webkit-transform: scale(0.8);
 }
 
 
@@ -701,6 +706,7 @@ h1 .logo {
 
 
 .figure img{
+    margin: 30px 0 0 0;
     width: 100%;
     height: auto;
     background-color: #ededed;
