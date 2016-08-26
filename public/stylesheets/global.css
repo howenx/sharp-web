@@ -498,8 +498,8 @@ h1 {
 /*底部*/
 .foot{
     width:100%;
-
-    background-color:#fff;
+border-top:1px solid rgba(0,0,0,0.15) ;
+    background-color:#f9f9f9;
     position: fixed;
     bottom:0;
 }
@@ -526,7 +526,7 @@ h1 {
     display: block;
     margin: 3px 0 0 0;
     color:#242424;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 
@@ -538,48 +538,3 @@ h1 {
     height:19px;
     margin: 0 auto;
 }
-
-/*
-@media screen and (min-width:320px) and (max-width:500px) {
-    .foot {
-        height: 60px;
-        font-size: 12px;
-    }
-
-    .foot ul {
-        padding: 15px 0 0 0;
-    }
-
-    .foot i {
-        display: block;
-        background: url("/assets/images/home.png") no-repeat;
-        background-size: contain;
-        width: 20px;
-        height:20px;
-        margin: 0 auto;
-
-    }
-
-    .foot span{
-        text-align: center;
-        display: block;
-    }
-
-    .more{
-        margin:0 0 60px 0;
-    }
-}
-
-@media screen and (min-width:500px) and (max-width:759px) {
-    .more{
-        margin:0 0 90px 0;
-    }
-}
-
-@media screen and (min-width:760px)  {
-    .more{
-        margin:0 0 110px 0;
-    }
-
-}
-*/
