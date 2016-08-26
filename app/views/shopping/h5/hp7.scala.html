@@ -1,3 +1,4 @@
+@(openType:String)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,20 +16,22 @@
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
 </head>
 <body>
-
+@if(openType=="M"||openType=="m"){
+@headerH5("面膜专场")
+}
 <div class="warp scope">
     <div class="con">
 
         <img src="/assets/images/groom/groomsix_01.png"/>
-        <a href=""><img src="/assets/images/groom/groomsix_02.png"/></a>
+        <a href="/detail/item//" class="redirect-app"><img src="/assets/images/groom/groomsix_02.png"/></a>
         <img src="/assets/images/groom/groomsix_03.png"/>
-        <a href=""><img src="/assets/images/groom/groomsix_04.png"/></a>
+        <a href="/detail/item//" class="redirect-app"><img src="/assets/images/groom/groomsix_04.png"/></a>
         <img src="/assets/images/groom/groomsix_05.png"/>
-        <a href=""><img src="/assets/images/groom/groomsix_06.png"/></a>
+        <a href="/detail/item//" class="redirect-app"><img src="/assets/images/groom/groomsix_06.png"/></a>
         <img src="/assets/images/groom/groomsix_07.png"/>
     </div>
 
 </div>
-
+@comContent()
 </body>
 </html>

@@ -1,8 +1,9 @@
+@(openType:String)
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>成功男人背后的TA</title>
     <!-- 视图窗口，移动端特属的标签。 -->
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
     <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
@@ -15,31 +16,33 @@
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
 </head>
 <body>
-
+@if(openType=="M"||openType=="m"){
+@headerH5("成功男人背后的TA")
+}
 <div class="warp scope">
     <div class="con">
 
         <img src="/assets/images/groom/groomseven_01.png"/>
-        <a href=""><img src="/assets/images/groom/groomseven_02.png"/></a>
+        <img src="/assets/images/groom/groomseven_02.png"/>
         <img src="/assets/images/groom/groomseven_03.png"/>
-        <a href=""><img src="/assets/images/groom/groomseven_04.png"/></a>
+        <a href="/detail/item/888279/111272" class="redirect-app"><img src="/assets/images/groom/groomseven_04.png"/></a>
         <img src="/assets/images/groom/groomseven_05.png"/>
-        <a href=""><img src="/assets/images/groom/groomseven_06.png"/></a>
+        <a href="/detail/item/888252/111234" class="redirect-app"><img src="/assets/images/groom/groomseven_06.png"/></a>
         <img src="/assets/images/groom/groomseven_07.png"/>
 
-        <a href=""><img src="/assets/images/groom/groomseven_08.png"/></a>
+        <a href="/detail/item/888270/111254" class="redirect-app"><img src="/assets/images/groom/groomseven_08.png"/></a>
 
         <img src="/assets/images/groom/groomseven_09.png"/>
 
-        <a href=""><img src="/assets/images/groom/groomseven_10.png"/></a>
+        <a href="/detail/item/888258/111238" class="redirect-app"><img src="/assets/images/groom/groomseven_10.png"/></a>
 
         <img src="/assets/images/groom/groomseven_11.png"/>
-        <a href=""><img src="/assets/images/groom/groomseven_12.png"/></a>
+        <a href="/detail/item/888282/111280" class="redirect-app"><img src="/assets/images/groom/groomseven_12.png"/></a>
 
 
     </div>
 
 </div>
-
+@comContent()
 </body>
 </html>
