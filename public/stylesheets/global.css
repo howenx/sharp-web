@@ -455,6 +455,8 @@ h1 {
 
 }
 .hot .hot-hd{
+    text-align: center;
+    color: #242424;
     padding: 0 10px;
     line-height: 40px;
 }
@@ -533,9 +535,7 @@ h1 {
     float:right;
     font-size:12px;
     width:35px;
-    line-height:18px;
     text-align: center;
-    border: 1px solid #e33a39;
     color: #e56254;
     font-weight: normal;
     margin: 15px 0 0 0;
@@ -564,5 +564,16 @@ h1 {
     margin: 20px 0 0 0;
     text-align: center;
     font-size: 14px;
+    color: #242424;
+}
+.bt-txt p{
+    margin: 0 0 10px 0;
+}
+
+.e-txt{
+    padding: 150px 0 120px 0;
+    text-align: center;
+    color: #242424;
+
 }
 /*热卖结束*/
