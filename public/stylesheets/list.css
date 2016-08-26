@@ -681,10 +681,14 @@ h1 .logo {
 
 
 .figure{
-    height: 200px;
+   /* height: 200px;*/
     position: relative;
     width: 100%;
     border-bottom: 1px solid #ededed;
+}
+
+.figure-f{
+    /*height:200px;*/
 }
 
 .figure span {
@@ -712,17 +716,15 @@ h1 .logo {
     background-color: #ededed;
 }
 
-.figure-f{
-    height:200px;
-}
+
 
 .content .title-fd{
     display: block;
     background: white;
     width: 100%;
-    height:30px;
-    padding: 0 5%;
-    line-height:30px;
+    height:35px;
+    padding: 0 5px;
+    line-height:35px;
 
 }
 

@@ -60,7 +60,6 @@
 	<div id='screen_wrap'>
 
 		<!--banner开始-->
-		<!-- 本例主要代码 Start ================================ -->
 		<div id="slideBox" class="slideBox">
 			<div class="bd">
 				<ul>
@@ -116,8 +115,8 @@
 
 			</ul>
 		</div>
-        <!--内容开始-->
 
+		<!--内容开始-->
 		<div id="container">
 			<ul class="col" id="col-bottom">
 				@for(theme <- themeList){
@@ -140,47 +139,93 @@
 		</div>
 
 
-		<script type="text/javascript">
-			function getMinUl(){//每次获取最短的ul,将图片放到其后
-				var $arrUl = $("#container .col");
-				var $minUl =$arrUl.eq(0);
-				$arrUl.each(function(index,elem){
-					if($(elem).height()<$minUl.height()){
-						console.log($(elem));
-						$minUl = $(elem);
-					}
-				});
-				return $minUl;
+<!--<footer class="foot scope">
+        <ul class="clearfix">
+            <li>
+                <a href="/" class="home">
+                    <i class="icon01"></i>
+                    <span>首页</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/pin/list" class="buy">
+                    <i class="icon02"></i>
+                    <span>拼购</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="javascript:;" class="story">
+                    <i id="icon03"></i>
+                    <span>品牌故事</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/cart" class="shopping">
+                    <i id="icon04"></i>
+                    <span>购物车</span>
+                </a>
+            </li>
+
+            <li class="my-icon">
+                <a href="/myView" class="my">
+                    <i id="icon05"></i>
+                    <span>我的</span>
+                </a>
+            </li>
+		</ul>
+</footer>-->
+
+
+		<div class="top" id="topDiv"  style="display:none;">
+			<img src="/assets/images/backtop.png">
+		</div>
+
+</div>
+
+<script type="text/javascript">
+	function getMinUl(){//每次获取最短的ul,将图片放到其后
+		var $arrUl = $("#container .col");
+		var $minUl =$arrUl.eq(0);
+		$arrUl.each(function(index,elem){
+			if($(elem).height()<$minUl.height()){
+				console.log($(elem));
+				$minUl = $(elem);
 			}
-			//url data function dataType
-			function loadMeinv(count){
-				var url = "/indexAjax/" + count;
-				$.ajax({
-					type: 'GET',
-					url:  url,
-					//data: JSON.stringify(pageCount), 
-					contentType: "application/json; charset=utf-8",
-					dataType: 'json',
-					success: function(data) {
-						if(data.length != 0){
-							for(var i=0;i<data.length;i++){
-								if(data[i].type == "ordinary"){
-									var html = '<li><a href="/themeDetail/'+ data[i].themeUrl+ '"><img src="' + data[i].themeImg + '"/></a></li>';
-									$minUl = getMinUl();
-									$minUl.append(html);
-								}
-								if(data[i].type == "h5"){
-									var html = '<li><a href='+ data[i].themeUrl+ '"><img src="' + data[i].themeImg + '"/></a></li>';
-									$minUl = getMinUl();
-									$minUl.append(html);
-								}
-							}
+		});
+		return $minUl;
+	}
+	//url data function dataType
+	function loadMeinv(count){
+		var url = "/indexAjax/" + count;
+		$.ajax({
+			type: 'GET',
+			url:  url,
+			//data: JSON.stringify(pageCount), 
+			contentType: "application/json; charset=utf-8",
+			dataType: 'json',
+			success: function(data) {
+				if(data.length != 0){
+					for(var i=0;i<data.length;i++){
+						if(data[i].type == "ordinary"){
+							var html = '<li><a href="/themeDetail/'+ data[i].themeUrl+ '"><img src="' + data[i].themeImg + '"/></a></li>';
+							$minUl = getMinUl();
+							$minUl.append(html);
 						}
-					},
-					error: function() {
-						console.log("ajax get data fail!");
+						if(data[i].type == "h5"){
+							var html = '<li><a href='+ data[i].themeUrl+ '"><img src="' + data[i].themeImg + '"/></a></li>';
+							$minUl = getMinUl();
+							$minUl.append(html);
+						}
 					}
-				});
+				}
+			},
+			error: function() {
+				console.log("ajax get data fail!");
+			}
+		});
 //					var data = 0;
 //					for(var i=0;i<4;i++){//每次加载时模拟随机加载图片
 //						data = parseInt(Math.random()*4);
@@ -190,29 +235,24 @@
 //						$minUl = getMinUl();
 //						$minUl.append(html);
 //					}
+	}
+
+	$(function(){
+		var currentPageCount = 2;
+		//loadMeinv();
+		$(window).on("scroll",function(){
+			var pageCount = @pageCount;
+			if(currentPageCount <= pageCount){
+				$minUl = getMinUl();
+				if($minUl.height() <= $(window).scrollTop()+$(window).height()){
+					//当最短的ul的高度比窗口滚出去的高度+浏览器高度大时加载新图片
+					loadMeinv(currentPageCount);
+					currentPageCount = currentPageCount + 1;
+				}
 			}
-
-			$(function(){
-				var currentPageCount = 2;
-				//loadMeinv();
-				$(window).on("scroll",function(){
-					var pageCount = @pageCount;
-					if(currentPageCount <= pageCount){
-						$minUl = getMinUl();
-						if($minUl.height() <= $(window).scrollTop()+$(window).height()){
-							//当最短的ul的高度比窗口滚出去的高度+浏览器高度大时加载新图片
-							loadMeinv(currentPageCount);
-							currentPageCount = currentPageCount + 1;
-						}
-					}
-				});
-			})
-		</script>
-
-		<div class="top" id="topDiv"  style="display:none;">
-			<img src="/assets/images/backtop.png">
-		</div>
-</div>
+		});
+	})
+</script>
 
 @download()
 
