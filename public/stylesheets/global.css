@@ -281,7 +281,8 @@ h1 {
 }
 
 .look{
-
+   
+    text-align: center;
     width: 110px;
     font-size: 14px;
     line-height: 35px;
