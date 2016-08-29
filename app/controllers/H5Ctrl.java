@@ -73,17 +73,17 @@ public class H5Ctrl extends Controller {
         }
 
     public Result hp6(String openType) {
-                comCtrl.h5OpbeforeRender(ctx());
-                return ok(views.html.shopping.h5.hp6.render());
-            }
+        comCtrl.h5OpbeforeRender(ctx());
+        return ok(views.html.shopping.h5.hp6.render(openType));
+    }
     public Result hp7(String openType) {
-                    comCtrl.h5OpbeforeRender(ctx());
-                    return ok(views.html.shopping.h5.hp7.render());
-                }
+         comCtrl.h5OpbeforeRender(ctx());
+         return ok(views.html.shopping.h5.hp7.render(openType));
+    }
     public Result hp8(String openType) {
-                    comCtrl.h5OpbeforeRender(ctx());
-                    return ok(views.html.shopping.h5.hp8.render());
-                }
+        comCtrl.h5OpbeforeRender(ctx());
+        return ok(views.html.shopping.h5.hp8.render(openType));
+    }
 
     /**
      * 领取优惠券

@@ -1,8 +1,9 @@
+@(openType:String)
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>面膜专场</title>
     <!-- 视图窗口，移动端特属的标签。 -->
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
     <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
@@ -15,15 +16,25 @@
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
 </head>
 <body>
-
+@if(openType=="M"||openType=="m"){
+@headerH5("面膜专场")
+}
 <div class="warp scope">
     <div class="con">
         <img src="/assets/images/groom/groomsix_01.png"/>
+
         <img src="/assets/images/groom/groomsix_02.png"/>
         <img src="/assets/images/groom/groomsix_03.png"/>
         <img src="/assets/images/groom/groomsix_04.png"/>
         <img src="/assets/images/groom/groomsix_05.png"/>
         <img src="/assets/images/groom/groomsix_06.png"/>
+
+        <a href="/detail/item/888507/111854" class="redirect-app"><img src="/assets/images/groom/groomsix_02.png"/></a>
+        <img src="/assets/images/groom/groomsix_03.png"/>
+        <a href="/detail/item/888522/111864" class="redirect-app"><img src="/assets/images/groom/groomsix_04.png"/></a>
+        <img src="/assets/images/groom/groomsix_05.png"/>
+        <a href="/detail/item/888528/111868" class="redirect-app"><img src="/assets/images/groom/groomsix_06.png"/></a>
+
         <img src="/assets/images/groom/groomsix_07.png"/>
 
         <a href="/detail/item/888507/111854" class="groomsix-o redirect-app"></a>
@@ -63,6 +74,6 @@
     </div>
 
 </div>
-
+@comContent()
 </body>
 </html>
