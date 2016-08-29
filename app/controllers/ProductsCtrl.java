@@ -122,18 +122,8 @@ public class ProductsCtrl extends Controller {
                         JsonNode imgJson = Json.parse(theme.getThemeImg());
                         theme.setThemeImg(imgJson.get("url").asText());
                         //按照类型处理跳转地址
-                        if ("ordinary".equals(theme.getType())) {
-                            String themeUrl = theme.getThemeUrl();
-                            themeUrl = themeUrl.replace(THEME_PAGE, "");
-                            theme.setThemeUrl("/themeDetail/" + themeUrl);
-                        }
-                        if ("detail".equals(theme.getType()) || "pin".equals(theme.getType())) {
-                            String themeUrl = theme.getThemeUrl();
-                            theme.setThemeUrl(comCtrl.getDetailUrl(themeUrl));
-                        }
-                        if ("h5".equals(theme.getType())) {
-                            theme.setThemeUrl(theme.getThemeUrl() + "/M");
-                        }
+                        comCtrl.handleThemeUrl(theme);
+
                         themeList.add(theme);
                     }catch (Exception e){
                         e.printStackTrace();
@@ -189,18 +179,8 @@ public class ProductsCtrl extends Controller {
                         JsonNode imgJson = Json.parse(theme.getThemeImg());
                         theme.setThemeImg(imgJson.get("url").asText());
                         //按照类型处理跳转地址
-                        if ("ordinary".equals(theme.getType())) {
-                            String themeUrl = theme.getThemeUrl();
-                            themeUrl = themeUrl.replace(THEME_PAGE, "");
-                            theme.setThemeUrl("/themeDetail/" + themeUrl);
-                        }
-                        if ("detail".equals(theme.getType()) || "pin".equals(theme.getType())) {
-                            String themeUrl = theme.getThemeUrl();
-                            theme.setThemeUrl(comCtrl.getDetailUrl(themeUrl));
-                        }
-                        if ("h5".equals(theme.getType())) {
-                            theme.setThemeUrl(theme.getThemeUrl() + "/M");
-                        }
+                        comCtrl.handleThemeUrl(theme);
+
                         themeList.add(theme);
                     }catch (Exception e){
                         e.printStackTrace();
@@ -729,10 +709,33 @@ public class ProductsCtrl extends Controller {
         });
         return promise.map((F.Function<JsonNode, Result>) json -> {
             if(LOG_OPEN){
-                Logger.info("getNav接收数据-->\n"+json);
+                Logger.info("getThemeByCate接收数据-->\n"+json);
             }
 
-            return ok(views.html.products.themecate.render());
+            List<Theme> themeList = new ArrayList<>();
+            if (json.has("theme")) {
+                JsonNode themeJson = json.get("theme");
+                for (JsonNode themeTemp : themeJson) {
+                    try {
+                        Theme theme = Json.fromJson(themeTemp, Theme.class);
+                        JsonNode imgJson = Json.parse(theme.getThemeImg());
+                        theme.setThemeImg(imgJson.get("url").asText());
+                        //按照类型处理跳转地址
+                        comCtrl.handleThemeUrl(theme);
+                        themeList.add(theme);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            }
+            if(op==2){
+                return ok(Json.toJson(themeList));
+            }
+            int pageCount =0;
+            if(json.has("page_count")){
+                pageCount=json.get("page_count").asInt();
+            }
+            return ok(views.html.products.themecate.render(themeList,pageCount,themeCateCode));
         });
 
     }
