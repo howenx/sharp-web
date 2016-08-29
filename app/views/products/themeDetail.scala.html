@@ -68,63 +68,9 @@
 
     <!--非拼购产品-->
     <div class="content scope">
-        <ul class="product">
-            @for(rowList <- itemList){
-            <li class="clearfix">
-                @for(item <- rowList){
-                    @if(item.getItemType == "item" || item.getItemType == "vary" || item.getItemType == "customize"){
-                        <a class="redirect-app" href="/detail/@item.getItemUrl()">
-                            <p class="figure figure-f">
-                                @if(item.getState() != "Y"&&item.getState() != "P"){
-                                    <span>已售罄</span>
-                                }
-                                <img src="/assets/images/z-l.png" data-echo="@item.getItemImg()">
-
-                            </p>
-                            <p class="title-hd">@item.getItemTitle()</p>
-                            <span class="title-fd">
-                                <i class="naw">￥@item.getItemPrice()</i>
-                                 @if(null!=item.getItemDiscount()&&false==item.getItemDiscount().toString().startsWith("10")){
-                                     <i class="agio">￥@item.getItemSrcPrice()</i>
-                                     <b>@item.getItemDiscount()折</b>
-                                }
-                            </span>
-
-                            @if(item.getState() == "P"){
-                                <p class="obstruct">
-                                   <span>即将上线</span>
-                                </p>
-                            }
-                        </a>
-                    }
-                    @if(item.getItemType() == "pin"){
-                        <a class="redirect-app"  href="/detail/@item.getItemUrl()">
-                            <p class="product-box">
-                                <span class="product-top"><i>@item.getEndAt()</i></span>
-                            </p>
-
-                            <p class="figure">
-                                <img src="/assets/images/l-120.png" data-echo="@item.getItemImg()">
-                            </p>
-
-                            <p class="title-hd">@item.getItemTitle()</p>
-
-                            <span class="title-fd">
-                               <i class="naw">￥@item.getItemPrice()</i><i class="minimum">最低</i>
-                                 @if(null!=item.getItemDiscount()&&false==item.getItemDiscount().toString().startsWith("10")){
-                                    <!--<i class="agio">￥@item.getItemSrcPrice()</i>-->
-                                    <!--<b>@item.getItemDiscount()折</b>-->
-                               <i class="rate">低至@item.getItemDiscount()折</i>
-                                }
-                            </span>
-                        </a>
-                    }
-                }
-            </li>
-            }
-
-        </ul>
-
+        @if(null!=itemList&&itemList.size>0){
+            @themeItemList(itemList)
+        }
     </div>
 
 }

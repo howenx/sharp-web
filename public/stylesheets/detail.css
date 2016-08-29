@@ -619,10 +619,8 @@ div .cycle-overlay {
 	float:right;
 	font-size:12px;
 	width:35px;
-
-	text-align: center;
-	color: #e56254;
-	font-weight: normal;
+    text-align: center;
+    font-weight: normal;
 }
 
 .product{
@@ -1413,6 +1411,15 @@ div .cycle-overlay {
 	-moz-transform: translate(-50%,0);
 }
 
+.minimum{
+font-size: 12px;
+margin:0 0 0 5px;
+}
 
-
+.rate{
+    float:right;
+    font-size: 12px;
+     height: 20px;
+     line-height: 37px;
+}
 
