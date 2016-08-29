@@ -703,4 +703,39 @@ public class ProductsCtrl extends Controller {
 
     }
 
+    /**
+     * 主题分类
+     * @param themeCateCode
+     * @param pageNum
+     * @param op
+     * @return
+     */
+    public F.Promise<Result> getThemeByCate(int themeCateCode,int pageNum,int op) {
+        if(op==1){
+            comCtrl.pushOrPopHistoryUrl(ctx());
+        }
+        F.Promise<JsonNode> promise = F.Promise.promise(() -> {
+            Request request =comCtrl.getBuilder(ctx())
+                    .url(THEMECATE_PAGE +themeCateCode+"/"+pageNum)
+                    .build();
+            client.setConnectTimeout(15, TimeUnit.SECONDS);
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                String result = dealToString(response);
+                if (result != null) {
+                    return Json.parse(result);
+                } else throw new IOException("Unexpected code" + response);
+            } else throw new IOException("Unexpected code" + response);
+        });
+        return promise.map((F.Function<JsonNode, Result>) json -> {
+            if(LOG_OPEN){
+                Logger.info("getNav接收数据-->\n"+json);
+            }
+
+            return ok("oooo");
+         //   return ok(views.html.products.navlist.render(itemResultList,pageCount,title,navId));
+        });
+
+    }
+
 }
