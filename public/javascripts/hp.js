@@ -39,10 +39,6 @@ $(function() {
 	    echo.init();
 	}
 
-	('.foot .buy').click(function(){
-		$('.icon02').css({'background':'url(images/02.png)'});
-	})
-
 });
 
 
