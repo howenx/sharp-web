@@ -587,6 +587,7 @@ li {
 }
 
 .buy i{
+	width: 23px;
     background: url("/assets/images/buy.png") no-repeat;
 	background-size: contain;
 }

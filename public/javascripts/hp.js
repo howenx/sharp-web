@@ -28,9 +28,6 @@ $(function() {
 
 
 
-	/*('.foot .buy').click(function(){
-		$(this).children('.icon02').css({'backgroundImage':'url(images/02.png)'});
-	})*/
 
 
 	$(window).load(function(){
@@ -41,6 +38,11 @@ $(function() {
     if(typeof(echo)!="undefined"&&null!=echo){
 	    echo.init();
 	}
+
+	$('.foot .buy').click(function(){
+		$('.icon02').css('background','url(/assets/images/02.png)');
+	});
+
 
 });
 

@@ -181,38 +181,39 @@
 
 /*h5-5*/
 .groomfour-o{
-    top: 57%;
-    height: 4%;
+    top: 52%;
+    height: 6%;
+    width: 100%;
 
 }
 
 .groomfour-t{
     width: 84%;
-    top: 68.2%;
+    top: 62.2%;
     height: 6%;
 
 }
 .groomfour-s{
-    top: 80%;
+    top:70%;
     height: 6%;
 
     width: 82%;
 }
 .groomfour-f{
     position: absolute;
-    top: 88%;
+    top: 76.5%;
     left: 6%;
-    height: 10.7%;
-
+    height: 5%;
     width: 40%;
 }
 
 .groomfour-fv{
     position: absolute;
-    top: 88%;
-    right:6%;
-    height: 10.7%;
+    top: 76.5%;
+    left: 51%;
+    height: 5.2%;
     width: 40%;
+
 }
 
 
@@ -240,4 +241,130 @@
 
 .pd{
     padding: 44px 0 0 0;
+}
+
+/*h7*/
+
+.groomsix-o,.groomsix-t,.groomsix-s,.groomsix-f,.groomsix-fv,.groomsix-six,.groomsix-se,.groomsix-ev,.groomsix-n,.groomsix-ten{
+    width: 24%;
+    position: absolute;
+    height: 5%;
+    left: 37%;
+    top: 19%;
+    background-color: pink;
+}
+.groomsix-t{
+    width: 15%;
+    height: 10%;
+    left: 62%;
+    top: 14%}
+
+.groomsix-s{
+    width: 16%;
+    position: absolute;
+    height: 9%;
+    left: 78%;
+    top: 15%;
+}
+.groomsix-f{
+    width: 16%;
+    height: 11%;
+    left: 5%;
+    top: 43%;
+}
+
+.groomsix-fv{
+    width: 18%;
+    height: 11%;
+    left: 22%;
+    top: 43%;
+}
+.groomsix-six{
+    width: 27%;
+    height: 6%;
+    left: 41%;
+    top: 48%;
+}
+
+.groomsix-se{
+    width: 18%;
+    position: absolute;
+    height: 5%;
+    left: 23%;
+    top: 76%;}
+
+.groomsix-ev{
+    width: 21%;
+    height: 5%;
+    left: 42%;
+    top: 76%;}
+
+
+.groomsix-n{
+    width: 16%;
+    height: 9%;
+    left: 64%;
+    top: 72%;}
+
+.groomsix-ten{
+    width: 18%;
+    height: 9.5%;
+    left: 81%;
+    top: 71%;}
+
+.order-o,.order-t,.order-s,.order-f,.order-fv,.order-six,.order-se
+,.order-to,.order-tt,.order-tf,.order-tfv,.order-tsix,.order-tse
+,.order-so,.order-st,.order-ss{
+    width: 10%;
+    position: absolute;
+    height: 4%;
+    left: 7%;
+    top: 36%;
+    background-color: red;
+}
+
+.order-t{
+    left: 20%;
+}
+.order-s{
+    left: 32%;
+}
+.order-f{
+    left: 44%;
+}
+
+.order-fv{
+    left: 56%;
+}
+
+.order-six{
+    left:69% ;
+}
+.order-se{
+    left:82% ;
+}
+.order-to,.order-tt,.order-tf,.order-tfv,.order-tsix,.order-tse{
+    top:63%
+}
+.order-tt{
+    left:20%
+}
+
+.order-tf{
+    left: 32%;
+}
+
+.order-tfv{
+    left: 44%;
+}
+
+.order-so,.order-st,.order-ss{
+    top:92.5%
+}
+
+.order-st{
+    left:20%
+}
+.order-ss{
+    left: 32%;
 }
