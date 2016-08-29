@@ -7,9 +7,16 @@ $(function(){
 
 
         $(".not").css("display","none");
+        $(".orderNot").hide();
         if($('.scroll-wrap .scroll-content section').eq($(this).index()).find("li").length<=0){
-            $(".orderNot").eq($(this).index()).css("display","block");
+           // $(".orderNot").eq($(this).index()).css("display","block");
+           $(".orderNot").css("display","block");
+           var html=$("#recommendUl").html();
+           if(null==html||""==html||""==html.trim||html.match(/^[ ]*$/)){
+                getRecommendSku(2);
+           }
         }
+
         if($('.scroll-coupon .coupon-content section').eq($(this).index()).find("li").length<=0){
            $(".couponNot").eq($(this).index()).css("display","block");
         }

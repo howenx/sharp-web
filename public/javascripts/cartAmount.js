@@ -2,7 +2,7 @@
 //获取购物车数量
 $(document).ready(function() {
     var cartAmountSpan=$("#cartAmountSpan");
-    if(null!=cartAmountSpan&&"undefined"!=typeof(cartAmountSpan)){
+    if(null!=cartAmountSpan&&"undefined"!=typeof(cartAmountSpan)&&cartAmountSpan.length>0){
         $.ajax({
               type :"GET",
               url : "/cart/amount",
@@ -20,6 +20,7 @@ $(document).ready(function() {
      }
 });
 
+//公用部分展示themeItem商品li
 function themeItemListHtml(rowList){
     var html='<li class="clearfix">';
     for(var m in rowList){
@@ -30,7 +31,8 @@ function themeItemListHtml(rowList){
             if(item.state != "Y"&&item.state != "P"){
                 html+='<span>已售罄</span>';
             }
-            html+='<img src="/assets/images/z-l.png" data-echo="'+item.itemImg+'">'+
+//            html+='<img src="/assets/images/z-l.png" data-echo="'+item.itemImg+'">'+
+            html+='<img src="'+item.itemImg+'">'+
             '</p>'+
             '<p class="title-hd">'+item.itemTitle+'</p>'+
                     '<span class="title-fd">'+
@@ -54,7 +56,8 @@ function themeItemListHtml(rowList){
                    '</p>'+
 
                     '<p class="figure">'+
-                        '<img src="/assets/images/l-120.png" data-echo="'+item.itemImg+'">'+
+//                        '<img src="/assets/images/l-120.png" data-echo="'+item.itemImg+'">'+
+                          '<img src="'+item.itemImg+'">'+
                     '</p>'+
 
                     '<p class="title-hd">'+item.itemTitle+'</p>'+
@@ -73,6 +76,26 @@ function themeItemListHtml(rowList){
 
     return html;
 };
+
+function getRecommendSku(position){
+        $.ajax({
+              type :"GET",
+              url : "/recommend/"+position,
+              contentType: "application/json; charset=utf-8",
+              error : function(request) {
+              },
+              success: function(data) {
+                  if(null!=data&&data.length != 0){
+                      for(var i in data){
+                          var rowList=data[i];
+                          var html=themeItemListHtml(rowList);
+                          $("#recommendUl").append(html);
+
+                    }
+                }
+              }
+         });
+}
 
 
 

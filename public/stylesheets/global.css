@@ -453,7 +453,6 @@ h1 {
     text-align: center;
     color: #e56254;
     font-weight: normal;
-    margin: 15px 0 0 0;
 }
 
 .product{
@@ -542,4 +541,48 @@ border-top:1px solid rgba(0,0,0,0.15) ;
 
 .order{
    padding: 44px 0 0 0;
+}
+
+
+/*即将上线 已售罄*/
+.obstruct {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.5);
+    width: 100%;
+    height: 100%;
+    color: #fff;
+}
+
+.obstruct span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+}
+
+.figure span {
+    display: block;
+    width: 70px;
+    position: absolute;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    color: #fff;
+    height: 70px;
+    background-color: rgba(0,0,0,0.4);
+    font-size: 14px;
+    text-align: center;
+    line-height: 70px;
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+}
+
+.figure {
+
+    position: relative;
+    width: 100%;
+    border-bottom: 1px solid #ededed;
 }
