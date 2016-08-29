@@ -6,6 +6,7 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 import domain.Message;
+import domain.Theme;
 import domain.ThemeItem;
 import modules.SysParCom;
 import net.spy.memcached.MemcachedClient;
@@ -119,6 +120,27 @@ public class ComCtrl extends Controller {
         return url;
 
     }
+
+    /**
+     * 处理主题成最终的地址
+     * @param theme
+     */
+    public void handleThemeUrl(Theme theme){
+        //按照类型处理跳转地址
+        if ("ordinary".equals(theme.getType())) {
+            String themeUrl = theme.getThemeUrl();
+            themeUrl = themeUrl.replace(THEME_PAGE, "");
+            theme.setThemeUrl("/themeDetail/" + themeUrl);
+        }
+        if ("detail".equals(theme.getType()) || "pin".equals(theme.getType())) {
+            String themeUrl = theme.getThemeUrl();
+            theme.setThemeUrl(getDetailUrl(themeUrl));
+        }
+        if ("h5".equals(theme.getType())) {
+            theme.setThemeUrl(theme.getThemeUrl() + "/M");
+        }
+    }
+
 
     public F.Promise<Result> getReqReturnMsg(String url) {
         return sendReq(url, null);
