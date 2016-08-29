@@ -732,8 +732,7 @@ public class ProductsCtrl extends Controller {
                 Logger.info("getNav接收数据-->\n"+json);
             }
 
-            return ok("oooo");
-         //   return ok(views.html.products.navlist.render(itemResultList,pageCount,title,navId));
+            return ok(views.html.products.themecate.render());
         });
 
     }
