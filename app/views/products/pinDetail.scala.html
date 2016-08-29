@@ -177,52 +177,9 @@
         <!-- 热卖商品 -->
         <div class="hot">
             <p class="hot-hd">热卖商品</p>
-            <ul class="product">
-                @for(rowList <- pushList){
-                <li class="clearfix">
-                    @for(pushItem <- rowList){
-                    @if(pushItem.getItemType() == "item" || pushItem.getItemType() == "vary" || pushItem.getItemType() == "customize"){
-                    <a href="/detail/@pushItem.getItemUrl()">
-                        <p class="figure figure-f">
-                            @if(!(pushItem.getState() == "Y" || pushItem.getState() == "P")){
-                                <span>该商品已售罄</span>
-                            }
-                            <img src="@pushItem.getItemImg()">
-                        </p>
-                        <p class="title-hd">@pushItem.getItemTitle()</p>
-                                       <span class="title-fd">
-                                           <i class="naw">￥@pushItem.getItemPrice()</i>
-                                           @if(null!=pushItem.getItemDiscount()&&(false==pushItem.getItemDiscount().toString().startsWith("10"))){
-                                                <i class="agio">￥@pushItem.getItemSrcPrice()</i>
-                                                <b>@pushItem.getItemDiscount()折</b>
-                                           }
-                                       </span>
-                    </a>
-                    }
-                    @if(pushItem.getItemType() == "pin"){
-                    <a href="/detail/@pushItem.getItemUrl()">
-                        <p class="product-box">
-                            <span class="product-top">@pushItem.getEndAt()</span>
-                        </p>
-                        <p class="figure figure-f">
-                            <img src="@pushItem.getItemImg()">
-                        </p>
-                        <p class="title-hd">@pushItem.getItemTitle()</p>
-                               <span class="title-fd">
-                                   <i class="naw">￥@pushItem.getItemPrice()</i>
-                                    @if(null!=pushItem.getItemDiscount()&&(false==pushItem.getItemDiscount().toString().startsWith("10"))){
-                                        <i class="agio">￥@pushItem.getItemSrcPrice()</i>
-                                        <b>@pushItem.getItemDiscount()折</b>
-                                   }
-                               </span>
-                    </a>
-                    }
-                    }
-                </li>
-                }
-
-
-            </ul>
+            @if(null!=pushList&&pushList.size>0){
+            @themeItemList(pushList)
+            }
         </div>
 
 

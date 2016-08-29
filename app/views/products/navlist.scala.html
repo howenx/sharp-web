@@ -44,64 +44,8 @@
 
     <div class="content scope">
         @if(null!=itemList&&itemList.size>0){
-        <ul class="product col">
-
-            @for(rowList <- itemList){
-            <li class="clearfix">
-                @for(item <- rowList){
-                @if(item.getItemType == "item" || item.getItemType == "vary" || item.getItemType == "customize"){
-                <a class="redirect-app" href="/detail/@item.getItemUrl()">
-                    <p class="figure figure-f">
-                        @if(item.getState() != "Y"&&item.getState() != "P"){
-                        <span>已售罄</span>
-                        }
-                        <img src="/assets/images/z-l.png" data-echo="@item.getItemImg()">
-
-                    </p>
-                    <p class="title-hd">@item.getItemTitle()</p>
-                            <span class="title-fd">
-                                <i class="naw">￥@item.getItemPrice()</i>
-                                 @if(null!=item.getItemDiscount()&&false==item.getItemDiscount().toString().startsWith("10")){
-                                     <i class="agio">￥@item.getItemSrcPrice()</i>
-                                     <b>@item.getItemDiscount()折</b>
-                                }
-                            </span>
-
-                    @if(item.getState() == "P"){
-                    <p class="obstruct">
-                        <span>即将上线</span>
-                    </p>
-                    }
-                </a>
-                }
-                @if(item.getItemType() == "pin"){
-                <a class="redirect-app"  href="/detail/@item.getItemUrl()">
-                    <p class="product-box">
-                        <span class="product-top"><i>@item.getEndAt()</i></span>
-                    </p>
-
-                    <p class="figure">
-                        <img src="/assets/images/l-120.png" data-echo="@item.getItemImg()">
-                    </p>
-
-                    <p class="title-hd">@item.getItemTitle()</p>
-
-                            <span class="title-fd">
-                               <i class="naw">￥@item.getItemPrice()</i><i class="minimum">最低</i>
-                                 @if(null!=item.getItemDiscount()&&false==item.getItemDiscount().toString().startsWith("10")){
-                                <!--<i class="agio">￥@item.getItemSrcPrice()</i>-->
-                                <!--<b>@item.getItemDiscount()折</b>-->
-                               <i class="rate">低至@item.getItemDiscount()折</i>
-                                }
-                            </span>
-                </a>
-                }
-                }
-            </li>
-            }
-        </ul>
+            @themeItemList(itemList)
         }
-
     </div>
 
 
@@ -125,55 +69,8 @@
 						if(data.length != 0){
                             for(var i in data){
                                 var rowList=data[i];
-                                var html='<li class="clearfix">';
-                                for(var m in rowList){
-                                    var item=rowList[m];
-                                    if(item.itemType == "item" || item.itemType == "vary" || item.itemType == "customize"){
-                                        html+='<a class="redirect-app" href="/detail/'+item.itemUrl+'">'+
-                                        '<p class="figure figure-f">';
-                                        if(item.state != "Y"&&item.state != "P"){
-                                            html+='<span>已售罄</span>';
-                                        }
-                                        html+='<img src="/assets/images/z-l.png" data-echo="'+item.itemImg+'">'+
-                                        '</p>'+
-                                        '<p class="title-hd">'+item.itemTitle+'</p>'+
-                                                '<span class="title-fd">'+
-                                                '<i class="naw">￥'+item.itemPrice+'</i>';
-                                        if(null!=item.itemDiscount&&false==item.itemDiscount.toString().startsWith("10")){
-                                            html+=' <i class="agio">'+item.itemSrcPrice+'</i>'+
-                                            '<b>'+item.itemDiscount+'折</b>';
-                                        }
-                                        html+='</span>';
+                                var html=themeItemListHtml(rowList);
 
-                                        if(item.state== "P"){
-                                            html+='<p class="obstruct"><span>即将上线</span></p>';
-                                        }
-                                        html+=' </a>';
-                                    }
-
-                                    if(item.itemType == "pin"){
-                                        html+='<a class="redirect-app"  href="/detail/'+item.itemUrl+'">'+
-                                               '<p class="product-box">'+
-                                               '<span class="product-top">'+item.endAt+'</span>'+
-                                               '</p>'+
-
-                                                '<p class="figure">'+
-                                                    '<img src="/assets/images/l-120.png" data-echo="'+item.itemImg+'">'+
-                                                '</p>'+
-
-                                                '<p class="title-hd">'+item.itemTitle+'</p>'+
-                                                     '<span class="title-fd">'+
-                                                     '<i class="naw">￥'+item.itemPrice+'</i><i class="minimum">最低</i>';
-                                                  if(null!=item.itemDiscount&&false==item.itemDiscount.toString().startsWith("10")){
-                                                     html+='<i class="rate">低至'+item.itemDiscount+'折</i>';
-                                                  }
-                                        html+='</span>'+
-                                         '</a>';
-                                    }
-
-
-                                }
-                                html+='</li>';
                                 $minUl = getMinUl();
                                 $minUl.append(html);
 							}
