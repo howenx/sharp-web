@@ -39,30 +39,7 @@ body{
 }
 
 
-.shopp .cart_num{
-	width: 18px;
-	height: 18px;
-	position: absolute;
-	top: -7px;
-	left: 12px;
-	font-size: 10px;
-	background: #ff4242;
-	line-height:18px;
-	cursor: pointer;
-	color:#fff;
-	border-radius: 50%;
-	text-align: center;
-}
-.shopp .cart_num i{
-	display: inline-block;
-	-webkit-transform: scale(0.75);
-}
 
-.cart_num b{
-	font-weight: normal;
-	display: inline-block;
-	-webkit-transform: scale(0.75);
-}
 h1 {
 	width:100%;
 	height:50px;

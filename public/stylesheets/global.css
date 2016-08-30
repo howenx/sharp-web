@@ -280,7 +280,7 @@ h1 {
     height: 18px;
     position: absolute;
     top: -7px;
-    left: 15px;
+    left: 12px;
     font-size: 10px;
     background:#ff4242;
     line-height:18px;
@@ -421,18 +421,27 @@ h1 {
 }
 
 .product-box{
-    padding: 10px 0 10px;
+    position: absolute;
+    top: 0;
+    padding: 5px 0 0 0;
+    z-index: 10;
+}
+
+.product-top i {
+    margin: 2px 0 0 -10px;
+    display: inline-block;
+    -webkit-transform: scale(0.8);
 }
 
 .product-top{
     border-radius: 0 20px 20px 0px;
     background: url("/assets/images/hmm_klmpintuan.png") no-repeat 5px #ff5359;
-    background-size: 25px;
+    background-size: 20px;
     display: inline-block;
     padding: 5px 10px 0px 35px;
     color: #fff;
     font-size: 12px;
-    height: 35px;
+    height: 30px;
 }
 
 
@@ -509,6 +518,7 @@ border-top:1px solid rgba(0,0,0,0.15) ;
     background-color:#f9f9f9;
     position: fixed;
     bottom:0;
+    z-index: 100;
 }
 
 .foot ul {
