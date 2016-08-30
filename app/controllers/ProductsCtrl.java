@@ -393,10 +393,10 @@ public class ProductsCtrl extends Controller {
                     }
                 }
 
+                List<ThemeItem> pushList = new ArrayList<>();
                 //热卖推荐
                 if (json.has("push")) {
                     JsonNode pushJson = json.get("push");
-                    List<ThemeItem> pushList = new ArrayList<>();
                     for (JsonNode pushTemp : pushJson) {
                         try {
                             ThemeItem themeItem = Json.fromJson(pushTemp, ThemeItem.class);
@@ -445,7 +445,7 @@ public class ProductsCtrl extends Controller {
                     commentNumDTO=Json.fromJson(json.get("comment"), CommentNumDTO.class);
                 }
 
-                return ok(views.html.products.detail.render(itemMain, itemFeaturesList, pushResultList, inventoryList, inventoryList.size(), preImgList, publicityList,url,hisUrl,commentNumDTO));
+                return ok(views.html.products.detail.render(itemMain, itemFeaturesList, pushResultList, inventoryList, inventoryList.size(), preImgList, publicityList,url,hisUrl,commentNumDTO,pushList));
             }
             //拼购商品
             else {
