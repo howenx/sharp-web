@@ -52,7 +52,7 @@ function themeItemListHtml(rowList){
         if(item.itemType == "pin"){
             html+='<a class="redirect-app"  href="/detail/'+item.itemUrl+'">'+
                    '<p class="product-box">'+
-                   '<span class="product-top">'+item.endAt+'</span>'+
+                   '<span class="product-top"><i>'+item.endAt+'</i></span>'+
                    '</p>'+
 
                     '<p class="figure">'+
