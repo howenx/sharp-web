@@ -376,7 +376,6 @@ h1 {
 
 .hot-hd img{
     width: 100%;
-    margin: 0 0 10px 0;
 }
 .hot{
     width: 100%;
@@ -505,6 +504,7 @@ h1 {
     padding: 110px 0 100px 0;
     text-align: center;
     color: #ccc;
+    background-color: #fff;
 
 }
 /*热卖结束*/
