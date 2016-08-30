@@ -261,10 +261,7 @@ h1 {
 }
 
 
-.not img{
-    width:110px;
-    margin: 0 auto;
-}
+
 
 .shopp{
     background: url(/assets/images/cart01.png) center center no-repeat;
@@ -371,6 +368,16 @@ h1 {
 
 
 /*热卖商品*/
+/*空订单推荐*/
+.orderNot img{
+    width:100px;
+    margin:10px auto;
+}
+
+.hot-hd img{
+    width: 100%;
+    margin: 0 0 10px 0;
+}
 .hot{
     width: 100%;
     margin: 0 0 44px 0;
@@ -380,13 +387,9 @@ h1 {
 .hot .hot-hd{
     text-align: center;
     color: #242424;
-    padding: 0 10px;
+    padding: 0 30px;
     line-height: 40px;
 }
-
-
-
-/*热卖产品*/
 
 .product li {
     margin-bottom: 10px;
@@ -491,9 +494,9 @@ h1 {
 }
 
 .e-txt{
-    padding: 150px 0 120px 0;
+    padding: 110px 0 100px 0;
     text-align: center;
-    color: #242424;
+    color: #ccc;
 
 }
 /*热卖结束*/
@@ -592,3 +595,5 @@ border-top:1px solid rgba(0,0,0,0.15) ;
     width: 100%;
     border-bottom: 1px solid #ededed;
 }
+
+

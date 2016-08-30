@@ -239,6 +239,7 @@ input:password {
     position: fixed;
     left: 0;
     bottom:0;
+    margin: 0 0 53px 0;
 }
 /*footer部分结束*/
 
