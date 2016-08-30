@@ -581,7 +581,7 @@ li {
 
 /*产品结束*/
 
-.home i{
+.home i.current{
 	background: url("/assets/images/home.png") no-repeat;
 	background-size: contain;
 }

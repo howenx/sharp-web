@@ -207,8 +207,12 @@
     background-size: contain;
 }
 
-
 .my i {
+    background: url("/assets/images/my.png") no-repeat;
+    background-size: contain;
+}
+
+.my i.current {
     background: url("/assets/images/05.png") no-repeat;
     background-size: contain;
 }

@@ -300,6 +300,12 @@ body{
 }
 
 .shopping i {
+    background: url("/assets/images/shopping.png") no-repeat;
+    background-size: contain;
+}
+
+
+.shopping i.current{
     background: url("/assets/images/04.png") no-repeat;
     background-size: contain;
 }
