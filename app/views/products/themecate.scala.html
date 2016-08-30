@@ -43,8 +43,11 @@
 
     </ul>
 </div>
-
-@footerMenu(1)
+@if(themeCate==2){
+    @footerMenu(2)
+}else{
+    @footerMenu(3)
+}
 
 <script type="text/javascript">
 
