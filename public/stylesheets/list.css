@@ -655,7 +655,6 @@ h1 .logo {
 }
 
 .product-box{
-    height: 55px;
     position: absolute;
     top: 0;
     padding:5px 0 0 0;
@@ -673,8 +672,7 @@ h1 .logo {
 }
 
 .product-top i{
-    line-height: 30px;
-    margin: 0 0 0 18px;
+    margin: 2px 0 0 -10px;
     display: inline-block;
     -webkit-transform: scale(0.8);
 }

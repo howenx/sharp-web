@@ -822,7 +822,7 @@ div .cycle-overlay {
 }
 
 
-@media (min-width: 750px) {
+
 	.buy_box {
 		position: fixed;
 		bottom: 0;
@@ -838,8 +838,7 @@ div .cycle-overlay {
 		font-size: 14px;
 	}
 
-}
-@media (min-width: 450px) and (max-width:750px) {
+
 	.buy_box {
 		position: fixed;
 		bottom: 0;
@@ -852,9 +851,9 @@ div .cycle-overlay {
 
 	}
 
-}
 
-@media (max-width: 480px) and (min-width: 320px) {
+
+
 	.buy_box {
 		position: fixed;
 		bottom: 0;
@@ -866,7 +865,7 @@ div .cycle-overlay {
 	}
 
 
-}
+
 
 
 
@@ -1075,7 +1074,7 @@ div .cycle-overlay {
 	background: rgba(0,0,0,0.5);z-index: 1000;
 }
 .toup .con{
-	position: fixed;left: 0;bottom: -295px;
+	width: 100%;position: fixed;left: 0;bottom: -295px;
 	background: #fff;z-index: 1001;
 }
 .toup .con h3{
