@@ -154,7 +154,8 @@
 }
 
 
-.groomtwo-o,.groomtwo-t,.groomtwo-s,.groomtwo-f,.groomfour-o,.groomfour-t,.groomfour-s{
+
+.groomtwo-o,.groomtwo-t,.groomtwo-s,.groomtwo-f,.groomfour-o,.groomfour-t,.groomfour-s,.groomfour-f,.groomfour-fv,.groomfour-six{
     width:70%;
     position: absolute;
     height: 10%;
@@ -179,7 +180,7 @@
 }
 
 
-/*h5-5*/
+/*exo h5-5*/
 .groomfour-o{
     top: 52%;
     height: 6%;
@@ -200,21 +201,26 @@
     width: 82%;
 }
 .groomfour-f{
-    position: absolute;
     top: 76.5%;
-    left: 6%;
+    left:25%;
     height: 5%;
     width: 40%;
 }
 
 .groomfour-fv{
-    position: absolute;
     top: 76.5%;
-    left: 51%;
+    left:71%;
     height: 5.2%;
     width: 40%;
 
 }
+.groomfour-six{
+
+}
+
+
+
+
 
 
 
@@ -368,3 +374,5 @@
 .order-ss{
     left: 32%;
 }
+
+
