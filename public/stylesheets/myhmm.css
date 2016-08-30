@@ -192,28 +192,28 @@
 
 
 /*底部*/
-.buy i{
+.buy .footicon{
     background: url("/assets/images/buy.png") no-repeat;
     background-size: contain;
 }
 
-.story i {
+.story .footicon {
     background: url("/assets/images/story.png") no-repeat;
     background-size: contain;
 }
 
-.shopping i {
+.shopping .footicon {
     position: relative;
     background: url("/assets/images/shopping.png") no-repeat;
     background-size: contain;
 }
 
-.my i {
+.my .footicon {
     background: url("/assets/images/my.png") no-repeat;
     background-size: contain;
 }
 
-.my i.current {
+.my .footicon.current {
     background: url("/assets/images/05.png") no-repeat;
     background-size: contain;
 }

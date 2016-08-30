@@ -283,36 +283,36 @@ body{
 
 /*底部*/
 
-.foot i{
+.foot .footicon{
     display: block;
     background: url("/assets/images/01.png") no-repeat;
     background-size: contain;
 }
 
-.buy i{
+.buy .footicon{
     background: url("/assets/images/buy.png") no-repeat;
     background-size: contain;
 }
 
-.story i {
+.story .footicon {
     background: url("/assets/images/story.png") no-repeat;
     background-size: contain;
 }
 
-.shopping i {
+.shopping .footicon {
     background: url("/assets/images/shopping.png") no-repeat;
     background-size: contain;
 }
 
 
-.shopping i.current{
+.shopping .footicon.current{
     position: relative;
     background: url("/assets/images/04.png") no-repeat;
     background-size: contain;
 }
 
 
-.my i {
+.my .footicon {
     background: url("/assets/images/my.png") no-repeat;
     background-size: contain;
 
