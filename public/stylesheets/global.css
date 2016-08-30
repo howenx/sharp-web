@@ -70,7 +70,7 @@ input:password {
     width: 100%;
     height:44px;
     line-height:44px;
-    background-color:#F9F9F9;
+    background-color:#fdd000;
     z-index: 998;
     border-bottom: 1px solid #d9d9d9;;
 }
@@ -278,6 +278,7 @@ h1 {
 
 
 .shopp .cart_num{
+
     width: 18px;
     height: 18px;
     position: absolute;
@@ -290,6 +291,11 @@ h1 {
     color:#fff;
     border-radius: 50%;
     text-align: center;
+}
+.cart_num b{
+    font-weight: normal;
+    display: inline-block;
+    -webkit-transform: scale(0.75);
 }
 
 .default{

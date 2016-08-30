@@ -203,6 +203,7 @@
 }
 
 .shopping i {
+    position: relative;
     background: url("/assets/images/shopping.png") no-repeat;
     background-size: contain;
 }

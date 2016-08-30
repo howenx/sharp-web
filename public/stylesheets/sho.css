@@ -306,6 +306,7 @@ body{
 
 
 .shopping i.current{
+    position: relative;
     background: url("/assets/images/04.png") no-repeat;
     background-size: contain;
 }

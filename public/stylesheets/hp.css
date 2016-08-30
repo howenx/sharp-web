@@ -58,6 +58,11 @@ body{
 	-webkit-transform: scale(0.75);
 }
 
+.cart_num b{
+	font-weight: normal;
+	display: inline-block;
+	-webkit-transform: scale(0.75);
+}
 h1 {
 	width:100%;
 	height:50px;
@@ -598,6 +603,7 @@ li {
 }
 
 .shopping i {
+	position: relative;
 	background: url("/assets/images/shopping.png") no-repeat;
 	background-size: contain;
 }
