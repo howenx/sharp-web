@@ -286,7 +286,9 @@
                                 <span class="txt-box-title">
                                    <i class="box-title-naw">￥@pinPush.getItemPrice()</i>
                                    <i class="box-title-agio">￥@pinPush.getItemSrcPrice()</i>
-                                   <b>5折</b>
+                                   @if(null!=pinPush.getItemDiscount()&&false==pinPush.getItemDiscount().toString().startsWith("10")){
+                            		<b>@pinPush.getItemDiscount()折</b>
+                                    }
                                 </span>
                             </div>
                         </div>
