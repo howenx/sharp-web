@@ -252,80 +252,33 @@
 			<div class="toup">
 				<div class="bg"></div>
 				<div class="con">
-					<h3>该活动已结束，去看看其他拼购吧</h3>
+					<h3>该商品未开售或已抢光,去看看其他商品吧~</h3>
+					@if(null!=soldOutPushList&&soldOutPushList.size>0){
+						<div class="conaddr">
+							<div>
+								@for(item<-soldOutPushList){
+								<a href="/detail/@item.getItemUrl()">
+									<div class="item">
 
-					<div class="conaddr">
-						<div>
-							<a href="/detail/pin/888483/111847">
-								<div class="item">
-
-									<div class="conaddr-p">
-										<img src="http://kgtest-images.oss-cn-hangzhou.aliyuncs.com/templates/photo/20160728/0207483c080745418447b73d406a79d71469698585942.jpg" alt="">
+										<div class="conaddr-p">
+											<img src="@item.getItemImg()" alt="">
+										</div>
+										<div class="txt-box">
+											<p>@item.getItemTitle()</p>
+											<span class="txt-box-title">
+											   <i class="box-title-naw">￥@item.getItemPrice()</i>
+											   <i class="box-title-agio">￥@item.getItemSrcPrice()</i>
+												@if(null!=item.getItemDiscount()&&false==item.getItemDiscount().toString().startsWith("10")){
+                            						<b>@item.getItemDiscount()折</b>
+												}
+											</span>
+										</div>
 									</div>
-									<div class="txt-box">
-										<p>拼购商品测试</p>
-                                <span class="txt-box-title">
-                                   <i class="box-title-naw">￥699</i>
-                                   <i class="box-title-agio">￥988</i>
-                                   <b>5折</b>
-                                </span>
-									</div>
-								</div>
-							</a>
-
-							<a href="/detail/pin/888495/211693">
-								<div class="item">
-
-									<div class="conaddr-p">
-										<img src="http://kgtest-images.oss-cn-hangzhou.aliyuncs.com/templates/photo/20160616/9da66f5ed9264c4abd828a338b634da41466073412636.jpg" alt="">
-									</div>
-									<div class="txt-box">
-										<p>tetsestesetstst_zhu</p>
-                                <span class="txt-box-title">
-                                   <i class="box-title-naw">￥339</i>
-                                   <i class="box-title-agio">￥358</i>
-                                   <b>5折</b>
-                                </span>
-									</div>
-								</div>
-							</a>
-
-							<a href="/detail/pin/888495/111693">
-								<div class="item">
-
-									<div class="conaddr-p">
-										<img src="http://kgtest-images.oss-cn-hangzhou.aliyuncs.com/templates/photo/20160616/9da66f5ed9264c4abd828a338b634da41466073412636.jpg" alt="">
-									</div>
-									<div class="txt-box">
-										<p>［快来拼啦］月光曲手镯，拼购价更低</p>
-                                <span class="txt-box-title">
-                                   <i class="box-title-naw">￥339</i>
-                                   <i class="box-title-agio">￥358</i>
-                                   <b>5折</b>
-                                </span>
-									</div>
-								</div>
-							</a>
-
-							<a href="/detail/pin/888495/111719">
-								<div class="item">
-
-									<div class="conaddr-p">
-										<img src="http://kgtest-images.oss-cn-hangzhou.aliyuncs.com/templates/photo/20160616/9da66f5ed9264c4abd828a338b634da41466073412636.jpg" alt="">
-									</div>
-									<div class="txt-box">
-										<p>test_zhu</p>
-                                <span class="txt-box-title">
-                                   <i class="box-title-naw">￥339</i>
-                                   <i class="box-title-agio">￥358</i>
-                                   <b>5折</b>
-                                </span>
-									</div>
-								</div>
-							</a>
-
+								</a>
+								}
+							</div>
 						</div>
-					</div>
+					}
 				</div>
 
 				<div class="top">
