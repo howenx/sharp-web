@@ -581,20 +581,28 @@ div .cycle-overlay {
 }
 
 .product-box{
-	padding: 10px 0 10px;
+	position: absolute;
+	top: 0;
+	padding: 5px 0 0 0;
+	z-index: 100;
 }
 
 .product-top{
 	border-radius: 0 20px 20px 0px;
 	background: url("/assets/images/hmm_klmpintuan.png") no-repeat 5px #ff5359;
-	background-size: 25px;
+	background-size: 20px;
 	display: inline-block;
-	padding: 5px 10px 0px 35px;
+	padding: 1px 10px 0px 30px;
 	color: #fff;
 	font-size: 12px;
-	height: 35px;
+	height: 30px;
 }
 
+.product-top i {
+	margin: 2px 0 0 -10px;
+	display: inline-block;
+	-webkit-transform: scale(0.8);
+}
 
 
 .product .title-fd{
@@ -1092,6 +1100,7 @@ div .cycle-overlay {
 }
 
 .toup .con .item{
+	position: relative;
 	width: 180px;float: left;
 }
 .toup .con .item div{

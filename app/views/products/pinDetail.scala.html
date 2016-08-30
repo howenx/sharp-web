@@ -274,10 +274,14 @@
                 @for(pinPush <- SoldOutPushList){
                     <a href="/detail/@pinPush.getItemUrl()">
                         <div class="item">
-                            <div>
+                            <!--<div>
                                 <span>拼</span>
                                 <p>@pinPush.getEndAt()</p>
-                            </div>
+                            </div>-->
+                            <p class="product-box">
+                                <span class="product-top"><i>截止10月13日17:12</i></span>
+                            </p>
+
                             <div class="conaddr-p">
                                 <img src="@pinPush.getItemImg()" alt="">
                             </div>

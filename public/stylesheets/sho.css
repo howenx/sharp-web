@@ -131,6 +131,7 @@ input:password {
 }
 
 .item-con{
+    width: 100%;
     padding: 15px;
     overflow: hidden;
     margin: 0 0 0 20px;
@@ -152,13 +153,13 @@ input:password {
     text-align: center;
 }
 .item-con-r{
+    width: 100%;
     float: left;
-    margin-left: 80px;
+    padding: 0 15px 0 70px;
     box-sizing: border-box;
     text-align: left;
 }
 .cart-product-name{
-    text-align: left;
     line-height: 22px;
 }
 .cart-product-name a span{
