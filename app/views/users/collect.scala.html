@@ -13,6 +13,7 @@
     <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="/assets/javascripts/my.js"></script>
+    <script type="text/javascript" src="/assets/javascripts/cartAmount.js"></script>
 </head>
 
 <body>
@@ -77,73 +78,14 @@
         </div>
         <div class="hot">
             <p class="hot-hd">为您推荐的今日商品</p>
-            <ul class="product">
-                <li class="clearfix">
-                    <a href="/detail/item/888462/111663">
-                        <p class="figure figure-f">
-                            <img src="http://kgtest-images.oss-cn-hangzhou.aliyuncs.com/item/photo/20160519/4efe2848d1784414b10c2fdb12f0d87f1463642624730.jpg">
-                        </p>
-                        <p class="title-hd">韩秘美 Crystalshop 【只为你闪烁】施华洛世奇水晶奥斯汀手链</p>
-                       <span class="title-fd">
-                           <i class="naw">￥219</i>
-
-                                <i class="agio">￥288</i>
-                                <b>7.6折</b>
-
-                       </span>
-                    </a>
-
-                    <a href="/detail/item/888432/111637">
-                        <p class="figure figure-f">
-
-                            <img src="http://kgtest-images.oss-cn-hangzhou.aliyuncs.com/item/photo/20160512/4de4121fdf11424f93309d13b337919b1463029200549.jpg">
-                        </p>
-                        <p class="title-hd"> W.DRESSROOM&amp;SNP 绅士欧巴面膜 </p>
-                       <span class="title-fd">
-                           <i class="naw">￥10</i>
-
-                                <i class="agio">￥166.8</i>
-                                <b>0.6折</b>
-
-                       </span>
-                    </a>
-                </li>
-
-
-                <li class="clearfix">
-                    <a href="/detail/item/888462/111663">
-                        <p class="figure figure-f">
-                            <img src="http://kgtest-images.oss-cn-hangzhou.aliyuncs.com/item/photo/20160519/4efe2848d1784414b10c2fdb12f0d87f1463642624730.jpg">
-                        </p>
-                        <p class="title-hd">韩秘美 Crystalshop 【只为你闪烁】施华洛世奇水晶奥斯汀手链</p>
-                       <span class="title-fd">
-                           <i class="naw">￥219</i>
-
-                                <i class="agio">￥288</i>
-                                <b>7.6折</b>
-
-                       </span>
-                    </a>
-
-                    <a href="/detail/item/888432/111637">
-                        <p class="figure figure-f">
-
-                            <img src="http://kgtest-images.oss-cn-hangzhou.aliyuncs.com/item/photo/20160512/4de4121fdf11424f93309d13b337919b1463029200549.jpg">
-                        </p>
-                        <p class="title-hd"> W.DRESSROOM&amp;SNP 绅士欧巴面膜 </p>
-                       <span class="title-fd">
-                           <i class="naw">￥10</i>
-                           <i class="agio">￥166.8</i>
-                           <b>0.6折</b>
-                       </span>
-                    </a>
-                </li>
+            <ul class="product" id="recommendUl">
+                <script type="text/javascript">getRecommendSku(3)</script>
             </ul>
 
-            <div class="bt-txt">
-                <p>kakaogift 正品直邮 品质生活</p>
-                <p>没有更多了</p>
-            </div>
+            <!--<div class="bt-txt">-->
+                <!--<p>kakaogift 正品直邮 品质生活</p>-->
+                <!--<p>没有更多了</p>-->
+            <!--</div>-->
         </div>
     </div>
 }

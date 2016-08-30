@@ -740,4 +740,60 @@ public class ProductsCtrl extends Controller {
 
     }
 
+    /**
+     * 获取推荐商品
+     * @param position
+     * @return
+     */
+    public F.Promise<Result> getRecommendSku(int position){
+        F.Promise<JsonNode> promise = F.Promise.promise(() -> {
+            Request request =comCtrl.getBuilder(ctx())
+                    .url(RECOMMEND_PAGE +position)
+                    .build();
+            client.setConnectTimeout(15, TimeUnit.SECONDS);
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                String result = dealToString(response);
+                if (result != null) {
+                    return Json.parse(result);
+                } else throw new IOException("Unexpected code" + response);
+            } else throw new IOException("Unexpected code" + response);
+        });
+        return promise.map((F.Function<JsonNode, Result>) json -> {
+            if(LOG_OPEN){
+                Logger.info("getRecommendSku接收数据-->\n"+json);
+            }
+
+            List<List<ThemeItem>> itemResultList = new ArrayList<>();
+            List<ThemeItem> itemList=null;
+            List<ThemeItem> nItemList=new ArrayList<ThemeItem>();
+            if(json.has("themeItemList")) {
+                itemList = new ObjectMapper().readValue(json.get("themeItemList").toString(), new TypeReference<List<ThemeItem>>() {
+                });
+            }
+            if(null!=itemList&&itemList.size()>0){
+                ThemeItem temp;
+                for (ThemeItem themeItem : itemList) {
+                    temp=comCtrl.parseThemeItem(themeItem);
+                    if(null!=temp){
+                        nItemList.add(themeItem);
+                    }
+                }
+                for (int i = 0; i < nItemList.size() / 2; i++) {
+                    List<ThemeItem> rowList = new ArrayList<>();
+                    rowList.add(itemList.get(i * 2));
+                    rowList.add(itemList.get(i * 2 + 1));
+                    itemResultList.add(rowList);
+                }
+                if (nItemList.size() % 2 != 0) {
+                    List<ThemeItem> rowList = new ArrayList<>();
+                    rowList.add(nItemList.get(nItemList.size() - 1));
+                    itemResultList.add(rowList);
+                }
+            }
+
+            return ok(Json.toJson(itemResultList));
+        });
+    }
+
 }
