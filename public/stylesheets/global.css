@@ -388,6 +388,7 @@ h1 {
     color: #242424;
     padding: 0 30px;
     line-height: 40px;
+    margin: 20px 0;
 }
 
 .product li {
@@ -507,6 +508,10 @@ h1 {
     background-color: #fff;
 
 }
+.e-txt img{
+    width: 100px;
+}
+
 /*热卖结束*/
 
 
