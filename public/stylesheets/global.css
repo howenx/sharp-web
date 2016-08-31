@@ -634,14 +634,14 @@ border-top:1px solid rgba(0,0,0,0.15) ;
     left: 0;
     background-color: rgba(0,0,0,0.8);
     z-index: 20;
-
+    display: none;
 }
 
 .shade .box{
     width: 80%;
     padding:5% 5%;
     position: fixed;
-    top:30%;
+    top:16%;
     left: 50%;
     margin-left:-40%;
     color: #fff;
@@ -650,17 +650,6 @@ border-top:1px solid rgba(0,0,0,0.15) ;
 }
 
 .up-box{
-    padding: 10px;
-    font-size: 18px;
-    color: #fff;
-}
 
-.shade-up{
-    font-size: 28px;
-}
-.shade .box p{
-    font-size: 14px;
-    margin: 10px 0 0 0;
-    font-weight: normal;
-}
+
 
