@@ -175,6 +175,11 @@
     background-size: contain;
 }
 
+.myAdd-setting .icon{
+    background: url("/assets/images/me_setting.png") no-repeat;
+    background-size: contain;
+}
+
 
 
 
