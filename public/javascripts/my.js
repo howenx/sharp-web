@@ -443,9 +443,9 @@ function pay(url,orderId,token,securityCode){
      });
 };
 
-$(document).on("click", "#inviteFriendDiv", function() {
-      tip("亲,请点击浏览器分享把拼团分享给小伙伴吧");
- });
+//$(document).on("click", "#inviteFriendDiv", function() {
+//      tip("亲,请点击浏览器分享把拼团分享给小伙伴吧");
+// });
 
 //申请退货
 $(document).on("click", ".applyRefundCss", function() {
