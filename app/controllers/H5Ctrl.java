@@ -90,21 +90,12 @@ public class H5Ctrl extends Controller {
                         try {
                             Object[] tagObject = new Object[5];
                             tagObject[0] = tag.get("top").asDouble() * 100;
+                            tagObject[1] = tag.get("left").asDouble() * 100;
+                            tagObject[2] = tag.get("width").asDouble() * 100;
+                            tagObject[3] = tag.get("height").asDouble() * 100;
                             String tagUrl = Json.fromJson(tag.get("url"), String.class);
-                            String urlType = "";
                             tagUrl = tagUrl.replace(GOODS_PAGE, "");
-                            tagObject[1] = tagUrl;
-                            int tagAngle = tag.get("angle").asInt();
-                            if (tagAngle == 0) {
-                                tagObject[2] = tag.get("left").asDouble() * 100;
-                            }
-                            if (tagAngle == 180) {
-                                tagObject[2] = 100 - tag.get("left").asDouble() * 100;
-                            }
-                            String tagName = tag.get("name").toString();
-                            tagName = tagName.substring(1, tagName.length() - 1);
-                            tagObject[3] = tagName;
-                            tagObject[4] = tag.get("angle").asInt();
+                            tagObject[4] = tagUrl;
                             tagList.add(tagObject);
                         }catch (Exception e){
                             e.printStackTrace();
