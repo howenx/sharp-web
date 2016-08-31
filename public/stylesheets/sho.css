@@ -90,6 +90,10 @@ input:password {
     background-color: white;
 }
 
+.cart-goods-list li:last-child{
+    margin: 0 0 50px 0;
+}
+
 
 .item{
     margin: 0 0 -1px 20px;

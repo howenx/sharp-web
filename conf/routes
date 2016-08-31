@@ -137,6 +137,11 @@ GET         /hp7/$openType<[a-zA-Z]+>                                          c
 GET         /hp8                                                               controllers.H5Ctrl.hp8(openType:String ?= "APP")
 GET         /hp8/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp8(openType:String)
 
+GET         /hp9                                                               controllers.H5Ctrl.hp9(openType:String ?= "APP")
+GET         /hp9/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp9(openType:String)
+
+
+
 #H5页面内的操作
 #领取优惠券
 POST         /coupons/rec                                                      controllers.H5Ctrl.couponRec()

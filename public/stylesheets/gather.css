@@ -382,4 +382,37 @@
     left: 32%;
 }
 
+.hs-o,.hs-t,.hs-s,.hs-f,.hs-fv,.hs-six,.hs-se,.hs-ev,.hs-n,.hs-ten{
+    width: 42%;
+    position: absolute;
+    height: 7%;
+    left: 7%;
+    top: 33%;
+}
 
+.hs-t,.hs-f{
+    left: 51%;
+}
+.hs-s,.hs-f{
+    top:40.2%;
+}
+
+.hs-fv{
+    width: 26%;
+    height: 2%;
+    top: 60%;
+    left: 71%;
+}
+
+.hs-six,.hs-se{
+    top: 69.5%;
+    left: 5%;
+}
+
+.hs-ev,.hs-ten{
+    left: 6%;
+    top:76.9%;
+}
+.hs-se,.hs-ten{
+     left: 51%;
+ }
