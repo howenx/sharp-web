@@ -4,6 +4,12 @@
 <link rel="stylesheet" href="/assets/stylesheets/myhmm.css">
 <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="/assets/javascripts/cartAmount.js"></script>
+<script>
+    //退出登录
+    $(document).on("click", "#logout-btn", function() {
+        window.location.href = "/logout";
+    });
+</script>
 }
 
 @layout(title="Kakao Gift,专卖韩国正品")(scripts) {

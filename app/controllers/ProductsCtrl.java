@@ -52,7 +52,7 @@ public class ProductsCtrl extends Controller {
         comCtrl.pushOrPopHistoryUrl(ctx());
         F.Promise<JsonNode> promise = F.Promise.promise(() -> {
             //Request request = comCtrl.getBuilder(ctx())
-            Request request = getBuilder(request(), session())
+            Request request = comCtrl.getBuilder(ctx())
                     .url(INDEX_PAGE + "1")
                     .build();
             client.setConnectTimeout(15, TimeUnit.SECONDS);
@@ -145,7 +145,7 @@ public class ProductsCtrl extends Controller {
     public F.Promise<Result> loadIndexAjax(String pageCount){
         F.Promise<JsonNode> promise = F.Promise.promise(() -> {
             //String pageCount = request().body().asJson().toString();
-            Request request = getBuilder(request(), session())
+            Request request = comCtrl.getBuilder(ctx())
                     .url(INDEX_PAGE + pageCount)
                     .build();
             client.setConnectTimeout(15, TimeUnit.SECONDS);
@@ -202,7 +202,7 @@ public class ProductsCtrl extends Controller {
     public F.Promise<Result> themeDetail(String url){
         String hisUrl=comCtrl.pushOrPopHistoryUrl(ctx());
         F.Promise<JsonNode> promise = F.Promise.promise(() -> {
-            Request request = getBuilder(request(), session())
+            Request request = comCtrl.getBuilder(ctx())
                     .url(THEME_PAGE + url)
                     .build();
             client.setConnectTimeout(15, TimeUnit.SECONDS);

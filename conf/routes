@@ -120,6 +120,8 @@ GET         /gather                                                            c
 GET         /gather/$openType<[a-zA-Z]+>                                       controllers.H5Ctrl.gather(openType:String)
 GET         /assemblage                                                        controllers.H5Ctrl.assemblage(openType:String ?= "APP")
 GET         /assemblage/$openType<[a-zA-Z]+>                                   controllers.H5Ctrl.assemblage(openType:String)
+GET         /h5page/$themeId<[0-9]+>                                           controllers.H5Ctrl.h5page(themeId:Long,openType:String ?= "APP")
+GET         /h5page/$themeId<[0-9]+>/$openType<[a-zA-Z]+>                      controllers.H5Ctrl.h5page(themeId:Long,openType:String)
 GET         /hp1                                                               controllers.H5Ctrl.hp1(openType:String ?= "APP")
 GET         /hp1/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp1(openType:String)
 GET         /hp2                                                               controllers.H5Ctrl.hp2(openType:String ?= "APP")

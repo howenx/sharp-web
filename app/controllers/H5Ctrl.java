@@ -1,9 +1,12 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import domain.Message;
+import domain.ThemeBasic;
+import domain.ThemeItem;
 import filters.UserAjaxAuth;
 import play.Logger;
 import play.libs.F;
@@ -14,12 +17,15 @@ import play.mvc.Security;
 
 import javax.inject.Inject;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static modules.SysParCom.LOG_OPEN;
-import static modules.SysParCom.SHOPPING_COUPON_REC;
-import static modules.SysParCom.client;
+import static modules.SysParCom.*;
+import static modules.SysParCom.GOODS_PAGE;
 import static play.libs.Json.toJson;
+import static util.GZipper.dealToString;
 
 /**
  * Created by sibyl.sun on 16/8/18.
@@ -44,6 +50,70 @@ public class H5Ctrl extends Controller {
     public Result assemblage(String openType) {
         comCtrl.h5OpbeforeRender(ctx());
         return ok(views.html.shopping.h5.assemblage.render(openType));
+    }
+
+    //H5页面
+    public F.Promise<Result> h5page(Long themeId,String openType) {
+        comCtrl.h5OpbeforeRender(ctx());
+        F.Promise<JsonNode> promise = F.Promise.promise(() -> {
+            Request request = comCtrl.getBuilder(ctx())
+                    .url(THEME_PAGE + themeId)
+                    .build();
+            client.setConnectTimeout(15, TimeUnit.SECONDS);
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                String result = dealToString(response);
+                if (result != null) {
+                    return Json.parse(result);
+                } else throw new IOException("Unexpected code" + response);
+            } else throw new IOException("Unexpected code" + response);
+        });
+        return promise.map((F.Function<JsonNode, Result>) json -> {
+            if(LOG_OPEN){
+                Logger.info("h5page接收数据-->\n"+json);
+            }
+            String themeImg = "";
+            List<Object[]> tagList = new ArrayList<>();
+            List<List<ThemeItem>> itemResultList = new ArrayList<>();
+            ThemeBasic themeBasic = new ThemeBasic();
+            if (json.has("themeList")) {
+                themeBasic = Json.fromJson(json.get("themeList"), ThemeBasic.class);
+                if(null!=themeBasic.getThemeImg()){
+                    List<String> imgList = new ObjectMapper().readValue(themeBasic.getThemeImg(), new ObjectMapper().getTypeFactory().constructCollectionType(List.class, String.class));
+                    themeBasic.setImgList(imgList);
+
+                }
+                //主题标签
+                if (themeBasic.getMasterItemTag() != null) {
+                    JsonNode tagJson = Json.parse(themeBasic.getMasterItemTag());
+                    for (JsonNode tag : tagJson) {
+                        try {
+                            Object[] tagObject = new Object[5];
+                            tagObject[0] = tag.get("top").asDouble() * 100;
+                            String tagUrl = Json.fromJson(tag.get("url"), String.class);
+                            String urlType = "";
+                            tagUrl = tagUrl.replace(GOODS_PAGE, "");
+                            tagObject[1] = tagUrl;
+                            int tagAngle = tag.get("angle").asInt();
+                            if (tagAngle == 0) {
+                                tagObject[2] = tag.get("left").asDouble() * 100;
+                            }
+                            if (tagAngle == 180) {
+                                tagObject[2] = 100 - tag.get("left").asDouble() * 100;
+                            }
+                            String tagName = tag.get("name").toString();
+                            tagName = tagName.substring(1, tagName.length() - 1);
+                            tagObject[3] = tagName;
+                            tagObject[4] = tag.get("angle").asInt();
+                            tagList.add(tagObject);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+            return ok(views.html.shopping.h5.h5page.render(themeBasic, tagList,openType));
+        });
     }
 
     //优惠券
