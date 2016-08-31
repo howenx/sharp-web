@@ -28,7 +28,9 @@
                 <img src="@imgSrc"/>
 
             }
-            <a href="javascript:;" class="favouone"></a>
+            @for(tag <- tagList){
+                <a href="/detail/@tag(4)" class="redirect-app"  style="position: absolute;top:@tag(0)%;left:@tag(1)%;width:@tag(2)%;height:@tag(3)%"></a>
+            }
         }
     </div>
 </div>
