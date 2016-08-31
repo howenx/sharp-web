@@ -62,7 +62,7 @@
             </li>
             <li>
                 <b>总额:</b>
-                <span><i class="ordermoney">@order.getOrder().getPayTotal()</i>
+                <span><i class="ordermoney">¥@order.getOrder().getPayTotal()</i>
                     @if(null==order.getOrder().getPayMethod()){(在线支付)}
                     @if(order.getOrder().getPayMethod()=="JD"){(京东)}
                     @if(order.getOrder().getPayMethod()=="ALIPAY"){(支付宝)}
