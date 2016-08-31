@@ -64,7 +64,7 @@
 		<!-- 本例主要代码 Start ================================-->
 		<div id="slideBox" class="slideBox">
 			<div class="bd">
-				<ul>
+				<!--<ul>
 					@for(slider <- sliderList){
 
 					    @if(null==slider.getTargetType()){
@@ -78,6 +78,13 @@
 						}
 
 					}
+				</ul>-->
+
+				<ul style="width: 2898px; position: relative; overflow: hidden; padding: 0px; margin: 0px; transition-duration: 0ms; transform: translate(-414px, 0px) translateZ(0px);">
+
+					<li style="display: table-cell; vertical-align: middle; width: 414px;">
+						<a class="pic" href="/detail/item/888432/111643"><img src="http://kgtest-images.oss-cn-hangzhou.aliyuncs.com/slider/pic/20160728/d1ca2d79d4e446f6b8971a8a070b2c6e1469685282267.jpg"></a>
+					</li>
 				</ul>
 			</div>
 
@@ -117,8 +124,8 @@
 
 			</ul>
 		</div>
-        <!--内容开始-->
 
+        <!--内容开始-->
 		<div id="container">
 			<ul class="col" id="col-bottom">
 				@for(theme <- themeList){
@@ -140,7 +147,7 @@
 			</ul>
 		</div>
 
-
+		<!--瀑布流-->
 		<script type="text/javascript">
 			function getMinUl(){//每次获取最短的ul,将图片放到其后
 				var $arrUl = $("#container .col");

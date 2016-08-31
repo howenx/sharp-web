@@ -51,6 +51,7 @@ body{
 }
 
 .money-box .picture{
+    width: 25%;
     float: left;
 }
 
