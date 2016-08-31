@@ -409,10 +409,17 @@
     left: 5%;
 }
 
-.hs-ev,.hs-ten{
+.hs-ev,.hs-n{
     left: 6%;
     top:76.9%;
 }
-.hs-se,.hs-ten{
+.hs-se,.hs-n{
      left: 51%;
+ }
+
+ .hs-ten{
+     top: 96%;
+     left: 66%;
+     width: 28%;
+     height: 2%;
  }
