@@ -28,20 +28,19 @@
 
 
     <div class="detailcon">
-        <div class="process">
+
             @if(order.getOrder().getOrderStatus()=="S"){
-                <img src="/assets/images/hmm_order_submit.png" alt="">
+                <div class="process"><img src="/assets/images/hmm_order_submit.png" alt=""></div>
             }
             @if(order.getOrder().getOrderStatus()=="D"){
-            <img src="/assets/images/hmm_ distribution.png" alt="">
+                <div class="process"><img src="/assets/images/hmm_ distribution.png" alt=""></div>
             }
             @if(order.getOrder().getOrderStatus()=="R"){
-            <img src="/assets/images/hmm_sign.png" alt="">
+                <div class="process"><img src="/assets/images/hmm_sign.png" alt=""></div>
             }
             @if(order.getOrder().getOrderStatus()=="F"){
-            <img src="/assets/images/hmm_order_error.png" alt="">
+                <div class="process"><img src="/assets/images/hmm_order_error.png" alt=""></div>
             }
-        </div>
         <ul>
             <li>
                 <b>订单状态:</b>
