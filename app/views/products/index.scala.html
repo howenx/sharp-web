@@ -24,6 +24,17 @@
 			$("#downloadDiv").hide();
 		  	$("#topDiv").addClass("top-bottom");
 		}
+
+		if($('.bd ul li').length!==1){
+			TouchSlide({
+				slideCell:"#slideBox",
+				titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+				mainCell:".bd ul",
+				effect:"leftLoop",
+				autoPage:true,//自动分页
+				autoPlay:true //自动播放
+			});
+		}
 	});
 
 
@@ -64,7 +75,7 @@
 		<!-- 本例主要代码 Start ================================-->
 		<div id="slideBox" class="slideBox">
 			<div class="bd">
-				<!--<ul>
+				<ul>
 					@for(slider <- sliderList){
 
 					    @if(null==slider.getTargetType()){
@@ -78,30 +89,15 @@
 						}
 
 					}
-				</ul>-->
-
-				<ul style="width: 2898px; position: relative; overflow: hidden; padding: 0px; margin: 0px; transition-duration: 0ms; transform: translate(-414px, 0px) translateZ(0px);">
-
-					<li style="display: table-cell; vertical-align: middle; width: 414px;">
-						<a class="pic" href="/detail/item/888432/111643"><img src="http://kgtest-images.oss-cn-hangzhou.aliyuncs.com/slider/pic/20160728/d1ca2d79d4e446f6b8971a8a070b2c6e1469685282267.jpg"></a>
-					</li>
 				</ul>
+
 			</div>
 
 			<div class="hd">
 				<ul></ul>
 			</div>
 		</div>
-		<script type="text/javascript">
-			TouchSlide({
-				slideCell:"#slideBox",
-				titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
-				mainCell:".bd ul",
-				effect:"leftLoop",
-				autoPage:true,//自动分页
-				autoPlay:true //自动播放
-			});
-		</script>
+
 		<!-- 本例主要代码 End ================================ -->
 
 		<!--分类模块-->

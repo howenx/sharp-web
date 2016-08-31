@@ -237,10 +237,23 @@
 
 section a:last-child{
     display: block;
-    margin: 0 0 65px 0;
+    margin: 0 0 40px 0;
 }
 
+.submitBox {
+    margin: 20px 10px;
+}
 
+.submitBox button {
+    width: 100%;
+    line-height: 40px;
+    text-align: center;
+    font-size: 14px;
+    background: #fdd000;
+    border-radius: 3px;
+    color: #242424;
+    margin: 0 0 100px 0;
+}
 
 
 
