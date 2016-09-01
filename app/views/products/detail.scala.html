@@ -31,14 +31,18 @@
 	<img src="/assets/images/loading.gif"/>
 </div>
 
+<!--头部-->
+<div class="nav_ban_detail">
+	<a href="@hisUrl" class="back"></a>
+	<h1>商品详情</h1>
+</div>
+
 <div id='screen_wrap'>
 
 	<form id="settleForm" action="/settle" method="POST">
+
 		<input type="hidden" name="buyNow" value="1"/>
-		<div class="nav_ban_detail">
-			<a href="@hisUrl" class="back"></a>
-			<h1>商品详情</h1>
-		</div>
+
 		<div class="picture_wrap">
 			@for((inventory,index) <- inventoryList.zipWithIndex){
 				@if(inventory.getOrMasterInv()){
@@ -236,129 +240,19 @@
 				</div>
 			</div>
 		</div>
-		<div class="hot">
-			<p class="hot-hd">热卖商品</p>
-			@if(null!=pushList&&pushList.size>0){
-				@themeItemList(pushList)
-			}
-		</div>
-		<!--加入购物车-->
-		<div class="buy_box">
-				@if(itemMain.getState() == "D"){
-					<div class="finish-box">
-						该商品未开售或已抢光,去看看其他商品吧~
-					</div>
-
-			<div class="toup">
-				<div class="bg"></div>
-				<div class="con">
-					<h3>该商品未开售或已抢光,去看看其他商品吧~</h3>
-					@if(null!=soldOutPushList&&soldOutPushList.size>0){
-						<div class="conaddr">
-							<div>
-								@for(item<-soldOutPushList){
-								<a href="/detail/@item.getItemUrl()">
-									<div class="item">
-
-										<div class="conaddr-p">
-											<img src="@item.getItemImg()" alt="">
-										</div>
-										<div class="txt-box">
-											<p>@item.getItemTitle()</p>
-											<span class="txt-box-title">
-											   <i class="box-title-naw">￥@item.getItemPrice()</i>
-											   <i class="box-title-agio">￥@item.getItemSrcPrice()</i>
-												@if(null!=item.getItemDiscount()&&false==item.getItemDiscount().toString().startsWith("10")){
-                            						<b>@item.getItemDiscount()折</b>
-												}
-											</span>
-										</div>
-									</div>
-								</a>
-								}
-							</div>
-						</div>
-					}
-				</div>
-
-				<div class="top">
-					<img src="/assets/images/backtop.png">
-				</div>
-			</div>
-
+			<div class="hot">
+				<p class="hot-hd">热卖商品</p>
+				@if(null!=pushList&&pushList.size>0){
+					@themeItemList(pushList)
 				}
-
-
-
-			<div class="love">
-				<div id="shopCart">
-					<a href="/cart" class="message_list shopping">
-						<i class="message"></i>
-						<span class="cart_num" id="cartAmountSpan"><i>0</i></span>
-					</a>
-				</div>
-
-				<!--收藏-->
-				<a href="javascript:;" class="like">
-
-					@for((inventory) <- inventoryList){
-					<div>
-						@if(inventory.getOrMasterInv()){
-							<input class="collectId" value="@inventory.getCollectId()" style="display:none">
-							@if(inventory.getCollectId() != 0){
-								<span class="soul now min"></span>
-							}
-							@if(inventory.getCollectId() == 0){
-								<span class="soul now"></span>
-							}
-						}
-						@if(!inventory.getOrMasterInv()){
-							<input class="collectId" value="@inventory.getCollectId()" style="display:none">
-							@if(inventory.getCollectId() != 0){
-								<span class="soul min"></span>
-							}
-							@if(inventory.getCollectId() == 0){
-								<span class="soul"></span>
-							}
-						}
-					</div>
-					}
-					<i class="like-s">收藏成功</i>
-					<i class="like-x">取消收藏</i>
-				</a>
-
-			</div>
-
-			<div class="add_cart btns" data-type="cart">
-				<a href="javascript:;" class="btnCart add_cart_large cartAdd">
-					加入购物车
-				</a>
-			</div>
-
-			<div class="buy_btn" data-type="buy">
-				<a href="hmmapp://data/@url" class="mabuy">
-					立即购买
-				</a>
 			</div>
 
 
-			<div id="flyItem" class="fly_item">
-				<img src="/assets/images/gouwu.jpg" width="25" height="25" id="flyImgId" style="z-index:1;"/>
+			<div class="top">
+				<img src="/assets/images/backtop.png">
 			</div>
-		</div>
-		<!--加入购物车 end-->
-
-			    <div class="top">
-					<img src="/assets/images/backtop.png">
-				</div>
 
 		</div>
-
-
-
-
-
-
 
 
 		<div class="top top-b">
@@ -366,11 +260,115 @@
 		</div>
 
 
-	<input type="hidden" id="curUrl" name="curUrl" value="" />
-	<input type="hidden" id="isCanBuy" value="1" />
+		<input type="hidden" id="curUrl" name="curUrl" value="" />
+		<input type="hidden" id="isCanBuy" value="1" />
 	</form>
+
 </div>
 
+
+<!--加入购物车-->
+<div class="buy_box">
+	@if(itemMain.getState() == "D"){
+	<div class="finish-box">
+		该商品未开售或已抢光,去看看其他商品吧~
+	</div>
+
+	<div class="toup">
+		<div class="bg"></div>
+		<div class="con">
+			<h3>该商品未开售或已抢光,去看看其他商品吧~</h3>
+			@if(null!=soldOutPushList&&soldOutPushList.size>0){
+			<div class="conaddr">
+				<div>
+					@for(item<-soldOutPushList){
+					<a href="/detail/@item.getItemUrl()">
+						<div class="item">
+
+							<div class="conaddr-p">
+								<img src="@item.getItemImg()" alt="">
+							</div>
+							<div class="txt-box">
+								<p>@item.getItemTitle()</p>
+											<span class="txt-box-title">
+											   <i class="box-title-naw">￥@item.getItemPrice()</i>
+											   <i class="box-title-agio">￥@item.getItemSrcPrice()</i>
+												@if(null!=item.getItemDiscount()&&false==item.getItemDiscount().toString().startsWith("10")){
+                            						<b>@item.getItemDiscount()折</b>
+												}
+											</span>
+							</div>
+						</div>
+					</a>
+					}
+				</div>
+			</div>
+			}
+		</div>
+
+		<div class="top">
+			<img src="/assets/images/backtop.png">
+		</div>
+	</div>
+
+	}
+	<div class="love">
+		<div id="shopCart">
+			<a href="/cart" class="message_list shopping">
+				<i class="message"></i>
+				<span class="cart_num" id="cartAmountSpan"><i>0</i></span>
+			</a>
+		</div>
+
+		<!--收藏-->
+		<a href="javascript:;" class="like">
+
+			@for((inventory) <- inventoryList){
+			<div>
+				@if(inventory.getOrMasterInv()){
+				<input class="collectId" value="@inventory.getCollectId()" style="display:none">
+				@if(inventory.getCollectId() != 0){
+				<span class="soul now min"></span>
+				}
+				@if(inventory.getCollectId() == 0){
+				<span class="soul now"></span>
+				}
+				}
+				@if(!inventory.getOrMasterInv()){
+				<input class="collectId" value="@inventory.getCollectId()" style="display:none">
+				@if(inventory.getCollectId() != 0){
+				<span class="soul min"></span>
+				}
+				@if(inventory.getCollectId() == 0){
+				<span class="soul"></span>
+				}
+				}
+			</div>
+			}
+			<i class="like-s">收藏成功</i>
+			<i class="like-x">取消收藏</i>
+		</a>
+
+	</div>
+
+	<div class="add_cart btns" data-type="cart">
+		<a href="javascript:;" class="btnCart add_cart_large cartAdd">
+			加入购物车
+		</a>
+	</div>
+
+	<div class="buy_btn" data-type="buy">
+		<a href="hmmapp://data/@url" class="mabuy">
+			立即购买
+		</a>
+	</div>
+
+
+	<div id="flyItem" class="fly_item">
+		<img src="/assets/images/gouwu.jpg" width="25" height="25" id="flyImgId" style="z-index:1;"/>
+	</div>
+</div>
+<!--加入购物车 end-->
 
 
 <!--购物车-->

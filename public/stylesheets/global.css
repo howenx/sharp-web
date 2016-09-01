@@ -355,6 +355,32 @@ h1 {
 
 }
 
+.lines{
+    width:70%;
+    height:150px;
+    background-color: rgba(0,0,0,0.6);
+    position:fixed;
+    top:50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    border-radius: 10px;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+.lines p:nth-child(1){
+    margin: 30px 0 0 0;
+}
+
+.lines p:nth-child(2){
+    margin: 10px 0 0 0;
+}
+
+
+
+
 
 /**灰色*/
 .discolour{
@@ -369,7 +395,7 @@ h1 {
 
 /*热卖商品*/
 /*空订单推荐*/
-.orderNot img{
+.product img{
     width: 100%;
     margin:10px auto;
 }
@@ -510,9 +536,15 @@ h1 {
 }
 .e-txt img{
     width: 100px;
+    margin:0 auto;
 }
 
-/*热卖结束*/
+.e-txt p{
+margin: 10px 0 0 0;
+}
+
+
+    /*热卖结束*/
 
 
 
@@ -649,7 +681,7 @@ border-top:1px solid rgba(0,0,0,0.15) ;
     font-weight: bold;
 }
 
-.up-box{
+
 
 
 
