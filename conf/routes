@@ -65,7 +65,7 @@ GET         /nav/$navId<[0-9]+>/$pageNum<[0-9]+>/$op<1|2>                      c
 GET         /theme/$themeCateCode<2|3>/$pageNum<[0-9]+>/$op<1|2>               controllers.ProductsCtrl.getThemeByCate(themeCateCode:Integer,pageNum:Int,op:Int)
 GET         /recommend/$position<[0-9]+>                                       controllers.ProductsCtrl.getRecommendSku(position:Int)
 
-
+GET         /track                                                             controllers.ProductsCtrl.track()
 
 
 
