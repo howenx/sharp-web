@@ -10,11 +10,14 @@
 	echo.init();
 	$(document).ready(function() {
 		var closeDownload=false;
+		var closePreSale=false;
 		var arrStr = document.cookie.split("; ");
 		for(var i = 0;i < arrStr.length;i ++){
 			var temp = arrStr[i].split("=");
 			if(temp[0] == "downloadState"){
 				closeDownload=true;
+			}else if(temp[0] == "preSaleState"){
+				closePreSale=true;
 			}
 		}
 		if(!closeDownload){
@@ -22,6 +25,17 @@
 		}else{
 			$("#downloadDiv").hide();
 		  	$("#topDiv").addClass("top-bottom");
+		}
+
+		var myDate=new Date();
+		myDate.setFullYear(2016,9,8);
+		var today = new Date();
+		if (myDate>today){
+			if(!closePreSale){
+				$("#preSaleDiv").show();
+			}else{
+				$("#preSaleDiv").hide();
+			}
 		}
 
 		if($('.bd ul li').length!==1){
@@ -37,28 +51,29 @@
 	});
 
 
-
+	/*提示弹窗*/
 	$(function(){
 		//关闭下载添加cookie
-		function addDownloadCookie() {
-			//过期时间1小时
-			var str = "downloadState=1";
-			var date = new Date();
-			var ms = 3600 * 1000;
-			date.setTime(date.getTime() + ms);
-			str += "; expires=" + date.toGMTString();
-			document.cookie = str;
-			$("#downloadDiv").hide();
-		};
-
-
 		setTimeout(function () {
 			$('.lines').hide();
 		}, 10000);
 
-		$('.delete-down').click(function(){
-			addDownloadCookie();
+		$("#preSaleDiv").click(function(){
+			var preSale="preSaleState=1";
+			addCookie(preSale);
+			$("#preSaleDiv").hide();
 		});
+
+		//添加cookie
+		function addCookie(paramStr) {
+			//过期时间1小时
+			var date = new Date();
+			var ms = 3600 * 1000;
+			date.setTime(date.getTime() + ms);
+			var str =paramStr+ "; expires=" + date.toGMTString();
+			document.cookie = str;
+		};
+		
 	})
 
 </script>
@@ -234,7 +249,7 @@
 
 
 
-		<div class="lines" id="downloadDiv">
+		<div class="lines" id="preSaleDiv">
 			<p>9月8号开始售卖</p>
 			<p>亲可以提前加入购物车哦~</p>
 			<b class="delete-down"></b>

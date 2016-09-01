@@ -136,6 +136,9 @@ public class SysParCom {
 
     public static String SHOPPING_COUPON_REC;
 
+    //亿起发有效时间设为15天
+    public static Integer YIQIFA_COOKIE_EXPIRES;
+
     @Inject
     public SysParCom(Configuration configuration) {
 
@@ -251,6 +254,10 @@ public class SysParCom {
         LOG_OPEN=configuration.getBoolean("print.log.open");
 
         SHOPPING_COUPON_REC=configuration.getString("shopping.coupon.rec");
+
+        YIQIFA_COOKIE_EXPIRES=configuration.getInt("yiqifa.cookie.expires");
+
+
 
     }
 }
