@@ -51,27 +51,12 @@
 	});
 
 
-
+	/*提示弹窗*/
 	$(function(){
 		//关闭下载添加cookie
-		function addDownloadCookie() {
-			//过期时间1小时
-			var str = "downloadState=1";
-			var date = new Date();
-			var ms = 3600 * 1000;
-			date.setTime(date.getTime() + ms);
-			str += "; expires=" + date.toGMTString();
-			document.cookie = str;
-			$("#downloadDiv").hide();
-		};
-
 		setTimeout(function () {
 			$('.lines').hide();
 		}, 10000);
-
-		$('.delete-down').click(function(){
-			addDownloadCookie();
-		});
 
 		$("#preSaleDiv").click(function(){
 			var preSale="preSaleState=1";
@@ -88,7 +73,7 @@
 			var str =paramStr+ "; expires=" + date.toGMTString();
 			document.cookie = str;
 		};
-
+		
 	})
 
 </script>
