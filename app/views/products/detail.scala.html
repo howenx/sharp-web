@@ -25,7 +25,7 @@
 		window.urlParam = "@url"
 	</script>
 </head>
-<body>
+<body onload="adSource()">
 
 <div id="loading">
 	<img src="/assets/images/loading.gif"/>
@@ -262,6 +262,7 @@
 
 		<input type="hidden" id="curUrl" name="curUrl" value="" />
 		<input type="hidden" id="isCanBuy" value="1" />
+		<div class="adSourceCss"></div>
 	</form>
 
 </div>
