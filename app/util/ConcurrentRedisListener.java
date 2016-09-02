@@ -7,6 +7,7 @@ package util;
 
 import akka.actor.ActorRef;
 import domain.VersionVo;
+import play.Logger;
 import play.libs.Json;
 import redis.clients.jedis.JedisPubSub;
 
@@ -22,13 +23,16 @@ public class ConcurrentRedisListener extends JedisPubSub {
     @Override
     public void onMessage(String channel, String message) {
         try {
-            VersionVo vo = Json.fromJson(Json.toJson(message), VersionVo.class);
-            webRunActor.tell(vo, ActorRef.noSender());
+            if (message!=null){
+                VersionVo vo = Json.fromJson(Json.toJson(message), VersionVo.class);
+                webRunActor.tell(vo, ActorRef.noSender());
+            }
             if (message.equalsIgnoreCase("quit")) {
                 this.unsubscribe(channel);
             }
 
         } catch (Exception e) {
+            Logger.error(e.toString());
             this.unsubscribe(channel);
         }
     }
@@ -36,12 +40,15 @@ public class ConcurrentRedisListener extends JedisPubSub {
     @Override
     public void onPMessage(String pattern, String channel, String message) {
         try {
-            VersionVo vo = Json.fromJson(Json.toJson(message), VersionVo.class);
-            webRunActor.tell(vo, ActorRef.noSender());
+            if (message!=null){
+                VersionVo vo = Json.fromJson(Json.toJson(message), VersionVo.class);
+                webRunActor.tell(vo, ActorRef.noSender());
+            }
             if (message.equalsIgnoreCase("quit")) {
                 this.punsubscribe(pattern);
             }
         } catch (Exception e) {
+            Logger.error(e.toString());
             this.punsubscribe(pattern);
         }
     }
