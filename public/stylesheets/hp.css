@@ -757,7 +757,7 @@ li {
 
 .col span{
 	width: 100%;
-	word-break: break-all;
+	word-break:break-all;
 	font-size: 12px;
 	color: #999;
 	display: block;
