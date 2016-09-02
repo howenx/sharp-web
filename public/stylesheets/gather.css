@@ -423,3 +423,41 @@
      width: 28%;
      height: 2%;
  }
+
+ /*hp9*/
+
+ .hn-o,.hn-t,.hn-s,.hn-f,.hn-fv,.hn-six,.hn-se,.hn-ev,.hn-n,.hn-ten,.hn-eleven,.hn-twelve,.hn-thirteen,.hn-fourteen,.hn-fifteen,.hn-sixteen,.hn-seventeen
+ ,.hn-eighteen,.hn-nineteen,.hn-twenty,.hn-twenty-one,.hn-twenty-two,.hn-twenty-three,.hn-twenty-four,.hn-twenty-five,.hn-twenty-six{
+     width: 82%;
+     height: 3.2%;
+     position: absolute;
+     top: 3.8%;
+     left: 10%;
+     background-color:rgba(0,0,0,0.5);
+ }
+
+.hn-t{
+    top:7.7%;
+}
+.hn-s,.hn-f,.hn-fv,.hn-six,.hn-se,.hn-ev,.hn-n,.hn-ten,.hn-eleven,.hn-twelve,.hn-thirteen,.hn-fourteen{
+    width: 53%;
+    left: 4%;
+    height: 2.2%;
+    top: 16.6%;
+}
+
+.hn-f{
+    left: 43%;
+    height: 2.2%;
+    top: 19.4%;
+}
+
+.hn-fv{
+    top:22.2%
+}
+.hn-six{
+    top:24%;
+    left: 43%;
+}
+
+

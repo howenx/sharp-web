@@ -142,6 +142,8 @@ GET         /hp8/$openType<[a-zA-Z]+>                                          c
 GET         /hp9                                                               controllers.H5Ctrl.hp9(openType:String ?= "APP")
 GET         /hp9/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp9(openType:String)
 
+GET         /hp10                                                              controllers.H5Ctrl.hp10(openType:String ?= "APP")
+GET         /hp10/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp10(openType:String)
 
 
 #H5页面内的操作
