@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.common.base.Throwables;
 import com.squareup.okhttp.*;
 import domain.*;
 import filters.UserAuth;
@@ -679,6 +680,8 @@ public class ShoppingCtrl extends Controller {
         Map<String,Object> object=new HashMap<>();
         List<SettleDTO> settleDTOs=new ArrayList<SettleDTO>();
         boolean isYiqifa=null!=settleMap.get("aid")?true:false;
+        /**pn	商品编号	pna商品名称 ct佣金类型 ta商品数量 pp商品单价*/
+        StringBuffer pnsb=new StringBuffer(),pnasb=new StringBuffer(),ctsb=new StringBuffer(),tasb=new StringBuffer(),ppsb=new StringBuffer();
         Integer areaNum=Integer.valueOf(settleMap.get("areaNum"));
         for(int i=0;i<areaNum;i++){
             String invCustoms=settleMap.get("invCustoms"+i);  //保税区
@@ -697,6 +700,13 @@ public class ShoppingCtrl extends Controller {
                 Long pinTieredPriceId=Long.valueOf(settleMap.get("pinTieredPriceId"+suffix));//在提交拼购商品订单时填写阶梯价格的id
                 CartDto cartDTO=new CartDto(cartId,skuId,amount,state,skuType,skuTypeId,pinTieredPriceId,"Y",3);
                 cartDtos.add(cartDTO);
+                if(isYiqifa){
+                    pnsb.append((pnsb.length()>0?"|":"")+skuTypeId);
+                    pnasb.append((pnasb.length()>0?"|":"")+settleMap.get("skuTitle"+suffix));
+                    ctsb.append((ctsb.length()>0?"|":"")+"佣金类型"); //TODO...
+                    tasb.append((tasb.length()>0?"|":"")+amount);
+                    ppsb.append((ppsb.length()>0?"|":"")+settleMap.get("skuPrice"+suffix));
+                }
             }
             if(cartDtos.size()<=0){
                 Logger.error("订单提交第"+(i+1)+"个保税区无商品"+Json.toJson(settleMap));
@@ -758,39 +768,72 @@ public class ShoppingCtrl extends Controller {
                 objectNode.put("orderId",orderId);
                 objectNode.put("securityCode",securityCode);
 
-                Map<String,String> yiqifaParamMap=new HashMap<String, String>();
-                //cid=&wi=&on=&pn=&pna=&ct=&ta=&pp=&sd=&dt=&os=&ps=&pw=&far=&fav=&fac=&encoding=
-                if(isYiqifa) {
-                    yiqifaParamMap.put("cid", settleMap.get("cid"));
-                    yiqifaParamMap.put("wi",settleMap.get("wi"));
-                    yiqifaParamMap.put("on",orderId+"");
-                    /***
-                     *
-                     pn	商品编号	是	否
-                     pna商品名称	否	是
-                     ct	佣金类型	是	是
-                     ta	商品数量	是	是
-                     pp	商品单价	是	否
-                     */
-                    yiqifaParamMap.put("sd", URLEncoder.encode(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),UTF8));
-                    yiqifaParamMap.put("dt","m");//区分标识
-                    yiqifaParamMap.put("os",URLEncoder.encode("订单待支付",UTF8));//订单状态 TODO...
-                    yiqifaParamMap.put("ps",URLEncoder.encode("待支付",UTF8));//支付状态 TODO...
-                    yiqifaParamMap.put("pw",URLEncoder.encode("JD",UTF8));//支付方式 TODO...
-                    yiqifaParamMap.put("far",0+"");//运费
-                    yiqifaParamMap.put("fav",0+"");//优惠额 TODO...
-                    yiqifaParamMap.put("fac",URLEncoder.encode(settleMap.get("couponId"),UTF8));
-                    yiqifaParamMap.put("encoding",UTF8);//编码方式
 
-                    StringBuffer sb=new StringBuffer();
-                    for(Map.Entry<String,String> entry:yiqifaParamMap.entrySet()){
-                        if(sb.length()>0){
-                            sb.append("&"+entry.getKey()+"="+entry.getValue());
-                        }else {
-                            sb.append(entry.getKey()+"="+entry.getValue());
+
+                if (isYiqifa) {
+                    try {
+                        
+                        LinkedHashMap<String, String> yiqifaParamMap = new LinkedHashMap<String, String>();
+                        //cid=&wi=&on=&pn=&pna=&ct=&ta=&pp=&sd=&dt=&os=&ps=&pw=&far=&fav=&fac=&encoding=
+                        yiqifaParamMap.put("cid", settleMap.get("cid"));
+                        yiqifaParamMap.put("wi", settleMap.get("wi"));
+                        yiqifaParamMap.put("on", orderId + "");
+
+                        yiqifaParamMap.put("pn", pnsb.toString());
+                        yiqifaParamMap.put("pna", URLEncoder.encode(pnasb.toString(), UTF8));
+                        yiqifaParamMap.put("ct", URLEncoder.encode(ctsb.toString(), UTF8));
+                        yiqifaParamMap.put("ta", URLEncoder.encode(tasb.toString(), UTF8));
+                        yiqifaParamMap.put("pp", ppsb.toString());
+
+                        yiqifaParamMap.put("sd", URLEncoder.encode(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()), UTF8));
+                        yiqifaParamMap.put("dt", "m");//区分标识
+                        yiqifaParamMap.put("os", URLEncoder.encode("订单待支付", UTF8));//订单状态 TODO...
+                        yiqifaParamMap.put("ps", URLEncoder.encode("待支付", UTF8));//支付状态 TODO...
+                        yiqifaParamMap.put("pw", URLEncoder.encode("JD", UTF8));//支付方式 TODO...
+                        yiqifaParamMap.put("far", 0 + "");//运费
+                        yiqifaParamMap.put("fav", 0 + "");//优惠额 TODO...
+                        if (null == settleMap.get("couponId") || "".equals(settleMap.get("couponId"))) {
+                            yiqifaParamMap.put("fac", URLEncoder.encode("0", UTF8));
+                        } else {
+                            yiqifaParamMap.put("fac", URLEncoder.encode(settleMap.get("couponId"), UTF8));
                         }
+                        yiqifaParamMap.put("encoding", UTF8);//编码方式
+                        StringBuffer sb = new StringBuffer();
+                        for (Map.Entry<String, String> entry : yiqifaParamMap.entrySet()) {
+                            if (sb.length() > 0) {
+                                sb.append("&" + entry.getKey() + "=" + entry.getValue());
+                            } else {
+                                sb.append(entry.getKey() + "=" + entry.getValue());
+                            }
+                        }
+
+                        F.Promise.promise(() -> {
+                            String url = "http://o.yiqifa.com/servlet/handleCpsIn?" + sb.toString();
+                            //创建一个OkHttpClient对象
+                            OkHttpClient okHttpClient = new OkHttpClient();
+                            //创建一个请求对象
+                            Request request = new Request.Builder().url(url).get().build();
+                            //发送请求获取响应
+                            try {
+                                Response response = okHttpClient.newCall(request).execute();
+                                //判断请求是否成功
+                                if (response.isSuccessful()) {
+                                    //打印服务端返回结果
+                                    String notify_return = response.body().string();
+                                    Logger.info("亿起发请求地址url=" + url + ",返回内容" + notify_return);
+                                    return notify_return;
+                                } else throw new IOException("Unexpected code" + response);
+                            } catch (IOException e) {
+                                Logger.error("亿起发返回异常" + Throwables.getStackTraceAsString(e));
+                            }
+                            return null;
+                        });
+
+                    }catch (Exception e){
+                        Logger.error("亿起发异常" + Throwables.getStackTraceAsString(e));
                     }
                 }
+
 
 
             }
