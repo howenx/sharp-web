@@ -24,7 +24,7 @@ public class ConcurrentRedisListener extends JedisPubSub {
     public void onMessage(String channel, String message) {
         try {
             if (message!=null){
-                VersionVo vo = Json.fromJson(Json.toJson(message), VersionVo.class);
+                VersionVo vo = Json.fromJson(Json.parse(message), VersionVo.class);
                 webRunActor.tell(vo, ActorRef.noSender());
             }
             if (message.equalsIgnoreCase("quit")) {
@@ -41,7 +41,7 @@ public class ConcurrentRedisListener extends JedisPubSub {
     public void onPMessage(String pattern, String channel, String message) {
         try {
             if (message!=null){
-                VersionVo vo = Json.fromJson(Json.toJson(message), VersionVo.class);
+                VersionVo vo = Json.fromJson(Json.parse(message), VersionVo.class);
                 webRunActor.tell(vo, ActorRef.noSender());
             }
             if (message.equalsIgnoreCase("quit")) {
