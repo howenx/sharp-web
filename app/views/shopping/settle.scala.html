@@ -19,6 +19,27 @@
     <script src="/assets/javascripts/pay.js"></script>
     <script src="/assets/javascripts/getAddress.js"></script>
     <script type="text/javascript" src="/assets/javascripts/comfunc.js"></script>
+    <script type="text/javascript">
+    //亿起发广告来源
+    function adSource(){
+           var html="";
+           var arrStr = document.cookie.split("; ");
+            for(var i = 0;i < arrStr.length;i ++){
+                var temp = arrStr[i].split("=");
+                if(temp[0] == "aid"){
+                    html+='<input type="hidden" name="aid" value="'+temp[1]+'"/>'
+                }else if(temp[0] == "channel"){
+                    html+='<input type="hidden" name="channel" value="'+temp[1]+'"/>'
+                }else if(temp[0] == "cid"){
+                    html+='<input type="hidden" name="cid" value="'+temp[1]+'"/>'
+                }else if(temp[0] == "wi"){
+                    html+='<input type="hidden" name="wi" value="'+temp[1]+'"/>'
+                }
+            }
+            $("#adSourceDiv").append(html);
+    }
+
+    </script>
 </head>
 <body>
 <!--头部开始-->
@@ -236,6 +257,7 @@
             <a href="javascript:;" class="refer submitOrder">提交订单</a>
         </div>
     </div>
+    <div id="adSourceDiv"><script type="text/javascript">adSource()</script></div>
 </form>
 
 <input type="hidden" id="formSubmitTimes" value="0"/>
