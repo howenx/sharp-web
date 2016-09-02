@@ -21,6 +21,8 @@ import play.mvc.Security;
 
 import javax.inject.Inject;
 import java.io.*;
+import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -676,6 +678,7 @@ public class ShoppingCtrl extends Controller {
         Map<String, String> settleMap = Form.form().bindFromRequest().data();
         Map<String,Object> object=new HashMap<>();
         List<SettleDTO> settleDTOs=new ArrayList<SettleDTO>();
+        boolean isYiqifa=null!=settleMap.get("aid")?true:false;
         Integer areaNum=Integer.valueOf(settleMap.get("areaNum"));
         for(int i=0;i<areaNum;i++){
             String invCustoms=settleMap.get("invCustoms"+i);  //保税区
@@ -722,7 +725,7 @@ public class ShoppingCtrl extends Controller {
         object.put("buyNow",Integer.valueOf(settleMap.get("buyNow")));//1－立即支付 2-购物车结算
         Long pinActiveId=Long.valueOf(settleMap.get("pinActiveId"));
         object.put("pinActiveId",pinActiveId); //拼购活动id
-        if(null!=settleMap.get("aid")){
+        if(isYiqifa){
             object.put("adSource",settleMap.get("aid"));
         }
         F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
@@ -757,21 +760,36 @@ public class ShoppingCtrl extends Controller {
 
                 Map<String,String> yiqifaParamMap=new HashMap<String, String>();
                 //cid=&wi=&on=&pn=&pna=&ct=&ta=&pp=&sd=&dt=&os=&ps=&pw=&far=&fav=&fac=&encoding=
-                if(null!=settleMap.get("aid")) {
+                if(isYiqifa) {
                     yiqifaParamMap.put("cid", settleMap.get("cid"));
                     yiqifaParamMap.put("wi",settleMap.get("wi"));
                     yiqifaParamMap.put("on",orderId+"");
                     /***
-                     * pn	商品编号	是	否
-                     pna	商品名称	否	是
+                     *
+                     pn	商品编号	是	否
+                     pna商品名称	否	是
                      ct	佣金类型	是	是
                      ta	商品数量	是	是
                      pp	商品单价	是	否
                      */
+                    yiqifaParamMap.put("sd", URLEncoder.encode(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),UTF8));
+                    yiqifaParamMap.put("dt","m");//区分标识
+                    yiqifaParamMap.put("os",URLEncoder.encode("订单待支付",UTF8));//订单状态 TODO...
+                    yiqifaParamMap.put("ps",URLEncoder.encode("待支付",UTF8));//支付状态 TODO...
+                    yiqifaParamMap.put("pw",URLEncoder.encode("JD",UTF8));//支付方式 TODO...
+                    yiqifaParamMap.put("far",0+"");//运费
+                    yiqifaParamMap.put("fav",0+"");//优惠额 TODO...
+                    yiqifaParamMap.put("fac",URLEncoder.encode(settleMap.get("couponId"),UTF8));
+                    yiqifaParamMap.put("encoding",UTF8);//编码方式
 
-
-                    yiqifaParamMap.put("dt","m");
-                    yiqifaParamMap.put("dt","m");//订单状态
+                    StringBuffer sb=new StringBuffer();
+                    for(Map.Entry<String,String> entry:yiqifaParamMap.entrySet()){
+                        if(sb.length()>0){
+                            sb.append("&"+entry.getKey()+"="+entry.getValue());
+                        }else {
+                            sb.append(entry.getKey()+"="+entry.getValue());
+                        }
+                    }
                 }
 
 
@@ -780,30 +798,6 @@ public class ShoppingCtrl extends Controller {
         });
     }
 
-//    private String getYiqifaParams(String cid,String wi,Long orderId){
-//        /**
-//         * cid	活动id	是	否	广告主在亿起发平台推广的标识，固定值，来自于广告入口的cid值
-//         wi	亿起发下级网站信息	是	否	来自于广告入口的wi值
-//         on	订单编号	是	否	广告主网站的订单编号
-//         pn	商品编号	是	否	如果是多个商品，请以“|”分开
-//         pna	商品名称	否	是
-//         ct	佣金类型	是	是
-//         ta	商品数量	是	是
-//         pp	商品单价	是	否
-//         sd	下单时间	是	是	格式：yyyy-MM-dd HH:mm:ss，
-//         dt	区分标识	是	否	移动互联网手机活动，固定值为：m
-//         os	订单状态	是	是
-//         ps	支付状态	是	是
-//         pw	支付方式	是	是
-//         far	运费	是	否
-//         fav 	优惠额	是	否
-//         fac	优惠码	是	是
-//         encoding	编码方式	否	否	如果不加此参数，默认编码方式为GBK
-//         */
-//
-//      //  http://o.yiqifa.com/servlet/handleCpsIn?cid=&wi=&on=&pn=&pna=&ct=&ta=&pp=&sd=&dt=&os=&ps=&pw=&far=&fav=&fac=&encoding=
-//       // StringBuffer sb=new StringBuffer();
-//    }
 
     /**
      * 用户将本地购物车添加到网络购物车中（POST请求）
