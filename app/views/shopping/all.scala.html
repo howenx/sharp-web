@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/assets/stylesheets/global.css">
     <link rel="stylesheet" href="/assets/stylesheets/obligation.css">
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="/assets/javascripts/cartAmount.js"></script>
     <script src="/assets/javascripts/obligation.js"></script>
     <script src="/assets/javascripts/my.js"></script>
 </head>
@@ -152,10 +153,14 @@
                                     @if(order.getOrder().getOrderStatus()=="D"){
                                         <a href="javascript:;" class="right red" onclick="orderConfirmDelivery(@order.getOrder().getOrderId())">确认收货</a>
                                     }
+                                    @if(null!=order.getOrder().getRemark()){
+                                        <a href="/comment/center/@order.getOrder().getOrderId()" class="right red">评论晒单</a>
+                                    }
                                     <!--@if(order.getOrder().getOrderStatus()=="R"){-->
                                         <!--<a href="javascript:;" class="right " onclick="delOrder(@order.getOrder().getOrderId(),0)">删除订单</a>-->
                                     <!--}-->
                                     <a href="/logistic/@order.getOrder().getOrderId()" class="left">查看物流</a>
+
 
                                 </div>
                             }
@@ -164,6 +169,8 @@
                                     <a href="javascript:;" class="right " onclick="delOrder(@order.getOrder().getOrderId(),0)">删除订单</a>
                                 </div>
                             }
+
+
 
 
                         </div>
@@ -343,7 +350,7 @@
 
                                 <div class="payment clearfix">
                                     <a href="/comment/center/@order.getOrder().getOrderId()" class="right red">评论晒单</a>
-                                    <a href="javascript:;" class="right " onclick="delOrder(@order.getOrder().getOrderId(),0)">删除订单</a>
+                                    <!--<a href="javascript:;" class="right " onclick="delOrder(@order.getOrder().getOrderId(),0)">删除订单</a>-->
                                 </div>
                             </div>
                         </li>
@@ -359,30 +366,18 @@
 </div>
 
 
-@if(null==orderList||orderList.size<=0){
-    <div class="not orderNot">
-        <img src="/assets/images/order.png">
-        <a href="/" class="look">去逛逛</a>
-    </div>
-}
-@if(null!=orderList&&orderList.size>0){
-<div class="not orderNot" style="display:none">
-    <img src="/assets/images/order.png">
-    <a href="/" class="look">去逛逛</a>
-</div>
-}
-<div class="not orderNot" style="display:none">
-    <img src="/assets/images/order.png">
-    <a href="/" class="look">去逛逛</a>
-</div>
 
-<div class="not orderNot" style="display:none">
-    <img src="/assets/images/order.png">
-    <a href="/" class="look">去逛逛</a>
-</div>
-<div class="not orderNot" style="display:none">
-    <img src="/assets/images/order.png">
-    <a href="/" class="look">去逛逛</a>
+<div class="orderNot" style="@if(null==orderList||orderList.size<=0){}else{display:none}">
+    <!--<img src="/assets/images/order.png">
+    <a href="/" class="look">去逛逛</a>-->
+    <div class="e-txt">
+        <img src="/assets/images/dindan.png"/>
+        <p>暂无订单</p>
+    </div>
+    <div class="hot">
+        <p class="hot-hd"><img src="/assets/images/tuijian.png"/></p>
+        <ul class="product" id="recommendUl">@if(null==orderList||orderList.size<=0){<script type="text/javascript">getRecommendSku(2)</script>}</ul>
+    </div>
 </div>
 
 

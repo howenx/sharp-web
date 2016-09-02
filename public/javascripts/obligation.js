@@ -7,11 +7,23 @@ $(function(){
 
 
         $(".not").css("display","none");
+        $(".orderNot").hide();
         if($('.scroll-wrap .scroll-content section').eq($(this).index()).find("li").length<=0){
-            $(".orderNot").eq($(this).index()).css("display","block");
+           // $(".orderNot").eq($(this).index()).css("display","block");
+           $(".orderNot").css("display","block");
+           var html=$("#recommendUl").html().trim();
+           if(null==html||""==html||html.length<=0){
+                getRecommendSku(2);
+           }
         }
+
+        $(".couponNot").hide();
         if($('.scroll-coupon .coupon-content section').eq($(this).index()).find("li").length<=0){
-           $(".couponNot").eq($(this).index()).css("display","block");
+           $(".couponNot").show();
+           var html=$("#recommendUl").html().trim();
+           if(null==html||""==html||html.length<=0){
+               getRecommendSku(5);
+           }
         }
 
     })

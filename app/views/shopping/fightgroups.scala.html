@@ -16,6 +16,16 @@
     <script src="/assets/javascripts/detail.js"></script>
     <script src="/assets/javascripts/comfunc.js"></script>
     <script>window.urlParam = "@url"</script>
+    <script>
+        $(function(){
+            $('.shade').click(function(){
+                $(this).hide();
+            });
+            $('.inviteFriendCss').click(function(){
+                $('.shade').show();
+            });
+        });
+    </script>
 </head>
 <body>
 
@@ -26,9 +36,6 @@
     </a>
     <h1>我的拼团</h1>
 </header>
-
-
-
 
 <div class="wrap scope">
     @if(pin.getPay()=="new"){
@@ -188,6 +195,18 @@
             </span>
     </div>
     }
+
+    <div class="shade">
+        <div class="box">
+            <img src="/assets/images/img_share.png"/>
+            <!--<span>
+                还差
+                <i>9人</i>
+                ,邀请小伙伴来组团吧 !
+            </span>-->
+        </div>
+    </div>
+
 
 @comContent()
 

@@ -1,0 +1,110 @@
+@(themeList:List[domain.Theme],pageCount:Int,themeCate:Int)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>@if(themeCate==2){拼购}else{礼物}</title>
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+	<link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+	<link rel="stylesheet" href="/assets/stylesheets/global.css">
+    <link rel="stylesheet" href="/assets/stylesheets/hp.css">
+    <script src="/assets/javascripts/jquery/jquery-1.9.1.min.js"></script>
+    <script src="/assets/javascripts/cartAmount.js"></script>
+	<style>
+		.buy .footicon.current{
+			background: url("/assets/images/fankuip.png") no-repeat;
+			background-size: contain;
+		}
+		.story .footicon.current {
+			background: url("/assets/images/fankuili.png") no-repeat;
+			background-size: contain;
+		}
+	</style>
+</head>
+<body>
+<header class="head">
+    <!--<a href="/" class="back"></a>-->
+    <h1>@if(themeCate==2){拼购}else{礼品}</h1>
+    <!--<a href="/cart" class="shopp">
+        <span class="cart_num" id="cartAmountSpan"><i>0</i></span>
+    </a>-->
+</header>
+
+<div id="container" class="order scope">
+
+    <ul class="col" id="col-bottom" style="margin-bottom: 0px;">
+        @for(theme <- themeList){
+            <li>
+                <a href="@theme.getThemeUrl()">
+                    <!--<img src="/assets/images/hp-320.png" data-echo="@theme.getThemeImg()"/>-->
+                    <img src="@theme.getThemeImg()"/>
+                </a>
+
+            </li>
+        }
+
+    </ul>
+</div>
+
+@if(themeCate==2){
+    @footerMenu(2)
+}else{
+    @footerMenu(3)
+}
+
+<script type="text/javascript">
+
+   function getMinUl(){//每次获取最短的ul,将图片放到其后
+				var $arrUl = $("#container .col");
+				var $minUl =$arrUl.eq(0);
+				$arrUl.each(function(index,elem){
+					if($(elem).height()<$minUl.height()){
+						console.log($(elem));
+						$minUl = $(elem);
+					}
+				});
+				return $minUl;
+			}
+
+			function loadMeinv(count){
+				var url = "/theme/" +@themeCate+"/"+count+"/2";
+				$.ajax({
+					type: 'GET',
+					url:  url,
+					contentType: "application/json; charset=utf-8",
+					dataType: 'json',
+					success: function(data) {
+						if(data.length != 0){
+							for(var i=0;i<data.length;i++){
+								var html = '<li><a href="'+ data[i].themeUrl+ '"><img src="' + data[i].themeImg + '"/></a></li>';
+								$minUl = getMinUl();
+								$minUl.append(html);
+							}
+						}
+					},
+					error: function() {
+						console.log("ajax get data fail!");
+					}
+				});
+			}
+
+			$(function(){
+				var currentPageCount = 2;
+				$(window).on("scroll",function(){
+					var pageCount = @pageCount;
+					if(currentPageCount <= pageCount){
+						$minUl = getMinUl();
+						if($minUl.height() <= $(window).scrollTop()+$(window).height()){
+							//当最短的ul的高度比窗口滚出去的高度+浏览器高度大时加载新图片
+							loadMeinv(currentPageCount);
+							currentPageCount = currentPageCount + 1;
+						}
+					}
+				});
+			})
+</script>
+</body>
+</html>

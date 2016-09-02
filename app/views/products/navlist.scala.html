@@ -1,0 +1,126 @@
+@(itemList:List[List[domain.ThemeItem]],pageCount:Int,title:String,navId:Long)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>@title</title>
+    <!-- 视图窗口，移动端特属的标签。 -->
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+    <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- 忽略页面中的数字识别为电话号码,email识别 -->
+    <meta name="format-detection"content="telephone=no, email=no" />
+    <link rel="stylesheet" href="/assets/stylesheets/global.css"/>
+    <link rel="stylesheet" href="/assets/stylesheets/list.css"/>
+    <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+    <style>
+        .content{
+            padding:44px 0 0 0;}
+    </style>
+    <script src="/assets/javascripts/echo.min.js"></script>
+    <script src="/assets/javascripts/jquery/jquery-1.9.1.min.js"></script>
+    <script src="/assets/javascripts/cartAmount.js"></script>
+    <script>
+        echo.init();
+        $(window).load(function(){
+            $("#loading").hide();
+        });
+    </script>
+</head>
+<body>
+
+    <div id="loading">
+        <img src="/assets/images/loading.gif"/>
+    </div>
+
+    <header class="head">
+        <a href="/" class="back"></a>
+        <h1>@title</h1>
+        <a href="/cart" class="shopp">
+            <span class="cart_num" id="cartAmountSpan"><i>0</i></span>
+        </a>
+    </header>
+
+
+    <div class="content scope">
+        @if(null!=itemList&&itemList.size>0){
+            @themeItemList(itemList)
+        }
+    </div>
+
+
+
+    <script type="text/javascript">
+
+        $(function(){
+
+            //url data function dataType
+
+            function loadMeinv(count){
+
+                var url = "/nav/" + @navId+"/"+count+"/2";
+				$.ajax({
+					type: 'GET',
+					url:  url,
+					//data: JSON.stringify(pageCount), 
+					contentType: "application/json; charset=utf-8",
+					dataType: 'json',
+					success: function(data) {
+						if(data.length != 0){
+                            for(var i in data){
+                                var rowList=data[i];
+                                var html=themeItemListHtml(rowList);
+
+                                $minUl = getMinUl();
+                                $minUl.append(html);
+							}
+						}
+					},
+					error: function() {
+						console.log("ajax get data fail!");
+					}
+				});
+
+            }
+            $(function(){
+				var currentPageCount = 2;
+				$(window).on("scroll",function(){
+					var pageCount = @pageCount;
+					if(currentPageCount <= pageCount){
+						$minUl = getMinUl();
+						if($minUl.height() <= $(window).scrollTop()+$(window).height()){
+							//当最短的ul的高度比窗口滚出去的高度+浏览器高度大时加载新图片
+							loadMeinv(currentPageCount);
+							currentPageCount = currentPageCount + 1;
+						}
+					}
+				});
+			})
+
+            function getMinUl(){//每次获取最短的ul,将图片放到其后
+
+                var $arrUl = $(".content .product");
+
+                var $minUl =$arrUl.eq(0);
+
+                $arrUl.each(function(index,elem){
+
+                    if($(elem).height()<$minUl.height()){
+
+                        $minUl = $(elem);
+
+                    }
+
+                });
+
+                return $minUl;
+
+            }
+
+        });
+
+    </script>
+
+    @comContent()
+</body>
+</html>

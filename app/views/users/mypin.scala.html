@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/assets/stylesheets/mypin.css">
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
     <script src="/assets/javascripts/loading.js"></script>
+    <script type="text/javascript" src="/assets/javascripts/cartAmount.js"></script>
     <script>
         $(function(){
             $(".tabpin>li").click(function(){
@@ -24,7 +25,11 @@
                 $(".not").css("display","none");
                 var html=$(".myall").eq(index).html().trim();
                 if(null==html||""==html||html.length<=0){
-                    $(".not").eq(index).css("display","block");
+                    $(".not").show();
+                    var rh=$("#recommendUl").html().trim();
+                       if(null==rh||""==rh||rh.length<=0){
+                            getRecommendSku(4);
+                       }
                 }
             })
         });
@@ -144,14 +149,17 @@
 
     </div>
 
-    <div class="not" style="display:none">
-        <img src="/assets/images/Groupon.png">
-        <a href="/" class="look">去逛逛</a>
-    </div>
-
-    <div class="not" style="display:none">
-        <img src="/assets/images/Groupon.png">
-        <a href="/" class="look">去逛逛</a>
+    <div class="not" style="@if(null==pinList||pinList.size<=0){}else{display:none}">
+        <div class="orderNot">
+            <div class="e-txt">
+                <img src="/assets/images/dindan.png"/>
+                <p>暂无订单</p>
+            </div>
+            <div class="hot">
+                <p class="hot-hd"><img src="/assets/images/tuijian.png"/></p>
+                <ul class="product" id="recommendUl">@if(null==pinList||pinList.size<=0){<script type="text/javascript">getRecommendSku(4)</script>}</ul>
+            </div>
+        </div>
     </div>
     <!--
     <div class="imm">

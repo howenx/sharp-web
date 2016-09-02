@@ -6,6 +6,8 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 import domain.Message;
+import domain.Theme;
+import domain.ThemeItem;
 import modules.SysParCom;
 import net.spy.memcached.MemcachedClient;
 import play.Logger;
@@ -20,6 +22,7 @@ import util.Crypto;
 import javax.inject.Inject;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -97,6 +100,9 @@ public class ComCtrl extends Controller {
         if (url.contains(THEME_PAGE) && Objects.equals(targetType, "T")) {
             url=url.replace(THEME_PAGE, "");
         }
+        if (url.contains(NAV_PAGE) && Objects.equals(targetType, "M")) {
+            url=url.replace(NAV_PAGE, "");
+        }
         //处理成最终跳转地址
         if("D".equals(targetType)||"P".equals(targetType)){
             url="/detail/"+url;
@@ -107,10 +113,34 @@ public class ComCtrl extends Controller {
         if("T".equals(targetType)){
             url="/themeDetail/"+url;
         }
+        if("M".equals(targetType)){
+            url="/nav/"+url+"1/1";
+        }
 
         return url;
 
     }
+
+    /**
+     * 处理主题成最终的地址
+     * @param theme
+     */
+    public void handleThemeUrl(Theme theme){
+        //按照类型处理跳转地址
+        if ("ordinary".equals(theme.getType())) {
+            String themeUrl = theme.getThemeUrl();
+            themeUrl = themeUrl.replace(THEME_PAGE, "");
+            theme.setThemeUrl("/themeDetail/" + themeUrl);
+        }
+        if ("detail".equals(theme.getType()) || "pin".equals(theme.getType())) {
+            String themeUrl = theme.getThemeUrl();
+            theme.setThemeUrl(getDetailUrl(themeUrl));
+        }
+        if ("h5".equals(theme.getType())) {
+            theme.setThemeUrl(theme.getThemeUrl() + "/M");
+        }
+    }
+
 
     public F.Promise<Result> getReqReturnMsg(String url) {
         return sendReq(url, null);
@@ -524,6 +554,46 @@ public class ComCtrl extends Controller {
     public void h5OpbeforeRender(Http.Context ctx){
         pushOrPopHistoryUrl(ctx());
         addCurUrlCookie(ctx());
+    }
+
+    /**
+     * 解析themeItem
+     * @param themeItem
+     * @return
+     */
+    public ThemeItem parseThemeItem(ThemeItem themeItem){
+        try {
+            JsonNode itemImgJson = Json.parse(themeItem.getItemImg());
+            themeItem.setItemImg(itemImgJson.get("url").asText());
+            themeItem.setItemUrl(themeItem.getItemUrl().replace(GOODS_PAGE, ""));
+            SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date now = new Date();
+            String strNow = sdfDate.format(now);
+            Date endAtDate = sdfDate.parse(themeItem.getEndAt());
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(endAtDate);
+            String hour = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
+            if (calendar.get(Calendar.HOUR_OF_DAY) < 10) {
+                hour = "0" + hour;
+            }
+            String minute = String.valueOf(calendar.get(Calendar.MINUTE));
+            if (calendar.get(Calendar.MINUTE) < 10) {
+                minute = "0" + minute;
+            }
+            String endDate = (calendar.get(Calendar.MONTH) + 1) + "月" + calendar.get(Calendar.DAY_OF_MONTH) + "日" + hour + ":" + minute;
+            if (themeItem.getEndAt().compareTo(strNow) < 0 || themeItem.getState() == "D" || themeItem.getState() == "N" || themeItem.getState() == "K") {
+                themeItem.setEndAt("已结束");
+            } else {
+                themeItem.setEndAt("截止" + endDate);
+            }
+            return themeItem;
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
 }

@@ -51,6 +51,7 @@ body{
 }
 
 .money-box .picture{
+    width: 25%;
     float: left;
 }
 
@@ -121,11 +122,11 @@ body{
 .money-box .goods{
     float: left;
     width: 70%;
-    margin: 0 0 0 20px;
+    margin: 0 0 0 10px;
     font-size: 14px;
 }
 
-.order{
+.order-pay{
     float: left;
 }
 

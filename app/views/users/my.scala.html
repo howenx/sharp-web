@@ -3,6 +3,15 @@
 <link rel="stylesheet" href="/assets/stylesheets/global.css">
 <link rel="stylesheet" href="/assets/stylesheets/myhmm.css">
 <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="/assets/javascripts/cartAmount.js"></script>
+<script>
+    //退出登录
+    $(document).on("click", "#logout-btn", function() {
+        window.location.href = "/logout";
+    });
+
+
+</script>
 }
 
 @layout(title="Kakao Gift,专卖韩国正品")(scripts) {
@@ -16,11 +25,11 @@
 
 </header>-->
 
-<div class="fixed-box" style="position:fixed;width: 100%">
+<div class="fixed-box">
 
 <div class="wap">
     <div class="user">
-        <a href="@path"  class="back"></a>
+        <!--<a href="@path"  class="back"></a>-->
         <a href="/setting" class="fit"></a>
 
          <a  href="/means" class="land">
@@ -93,9 +102,9 @@
         <a href="/coupon" class="list-agio">
             <div class="agio-box">
                 <i class="icon"></i>
-                <i class="icon-txt">优惠券</i>
+                <i class="icon-txt">我的优惠券</i>
                 <span>
-                   @userInfo.getCouponsCount()张可用
+                   @userInfo.getCouponsCount() 张可用
                 </span>
             </div>
         </a>
@@ -106,15 +115,30 @@
                 <span></span>
             </div>
         </a>
+        <a id="myAdd" href="/setting"  class="list-add">
+            <div class="add-box myAdd-setting">
+                <i class="icon"></i>
+                <i class="icon-txt">设置</i>
+                <span></span>
+            </div>
+        </a>
     </section>
 
 
  </div>
-</div>
-}
 
+    <div class="submitBox">
+        <button type="button" id="logout-btn">退出登录</button>
+    </div>
+
+
+
+</div>
+
+}
+@footerMenu(5)
 <script>
-    $(function() {
+    $(function(){
 
         <!--$(document).on("click", "#myAdd", function() {-->
             <!--var url = '/address';-->

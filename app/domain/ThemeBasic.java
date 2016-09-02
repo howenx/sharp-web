@@ -21,6 +21,10 @@ public class ThemeBasic implements Serializable {
     private List<ThemeItem>     themeItemList;          //主题中的商品数据
 
     private String              title;                  //主题的标题
+    @JsonIgnore
+    private List<String>        imgList;                //暂存的所有图片
+
+
 
     public ThemeBasic() {
     }
@@ -73,6 +77,14 @@ public class ThemeBasic implements Serializable {
         this.themeItemList = themeItemList;
     }
 
+    public List<String> getImgList() {
+        return imgList;
+    }
+
+    public void setImgList(List<String> imgList) {
+        this.imgList = imgList;
+    }
+
     public ThemeBasic(Long themeId, String themeImg, String masterItemTag, String masterItemTagAndroid, List<ThemeItem> themeItemList) {
         this.themeId = themeId;
         this.themeImg = themeImg;
@@ -89,7 +101,8 @@ public class ThemeBasic implements Serializable {
                 ", masterItemTag='" + masterItemTag + '\'' +
                 ", masterItemTagAndroid='" + masterItemTagAndroid + '\'' +
                 ", themeItemList=" + themeItemList +
-                ", title="+title+
+                ", title='" + title + '\'' +
+                ", imgList=" + imgList +
                 '}';
     }
 }

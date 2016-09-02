@@ -8,14 +8,16 @@
 <script src="/assets/javascripts/echo.min.js"></script>
 <script>
 	echo.init();
-
 	$(document).ready(function() {
 		var closeDownload=false;
+		var closePreSale=false;
 		var arrStr = document.cookie.split("; ");
 		for(var i = 0;i < arrStr.length;i ++){
 			var temp = arrStr[i].split("=");
 			if(temp[0] == "downloadState"){
 				closeDownload=true;
+			}else if(temp[0] == "preSaleState"){
+				closePreSale=true;
 			}
 		}
 		if(!closeDownload){
@@ -24,7 +26,55 @@
 			$("#downloadDiv").hide();
 		  	$("#topDiv").addClass("top-bottom");
 		}
+
+
+		var myDate=new Date(2016, 8, 8, 0, 0, 0, 0);
+		var today = new Date();
+		if(myDate>today){
+			if(!closePreSale){
+				$("#preSaleDiv").show();
+			}else{
+				$("#preSaleDiv").hide();
+			}
+		}
+
+		if($('.bd ul li').length!==1){
+			TouchSlide({
+				slideCell:"#slideBox",
+				titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+				mainCell:".bd ul",
+				effect:"leftLoop",
+				autoPage:true,//自动分页
+				autoPlay:true //自动播放
+			});
+		}
 	});
+
+
+	/*提示弹窗*/
+	$(function(){
+		//关闭下载添加cookie
+		setTimeout(function () {
+			$('.lines').hide();
+		}, 10000);
+
+		$("#preSaleDiv").click(function(){
+			var preSale="preSaleState=1";
+			addCookie(preSale);
+			$("#preSaleDiv").hide();
+		});
+
+		//添加cookie
+		function addCookie(paramStr) {
+			//过期时间1小时
+			var date = new Date();
+			var ms = 3600 * 1000;
+			date.setTime(date.getTime() + ms);
+			var str =paramStr+ "; expires=" + date.toGMTString();
+			document.cookie = str;
+		};
+		
+	})
 
 </script>
 
@@ -37,6 +87,7 @@
 </div>
 
 <!--头部-->
+
 	<div class="battener">
 		<header class="batten">
 			<!--<span class="icon-search-title" id="searchBtn"></span>-->
@@ -44,23 +95,20 @@
 				KakaoGift
 			</h1>-->
 			<img src="/assets/images/kakaogift_logo.png"/>
-			<a href="/myView"><span class="icon-user-title" id="userBtn"></span></a>
+			<!--<a href="/myView"><span class="icon-user-title" id="userBtn"></span></a>
 			<a href="/cart" class="shopp">
 				<span class="cart_num" id="cartAmountSpan"><i>0</i></span>
-			</a>
+			</a>-->
 		</header>
 	</div>
-
-
 
 <!--主体	-->
 
 
 
 	<div id='screen_wrap'>
-
 		<!--banner开始-->
-		<!-- 本例主要代码 Start ================================ -->
+		<!-- 本例主要代码 Start ================================-->
 		<div id="slideBox" class="slideBox">
 			<div class="bd">
 				<ul>
@@ -78,22 +126,14 @@
 
 					}
 				</ul>
+
 			</div>
 
 			<div class="hd">
 				<ul></ul>
 			</div>
 		</div>
-		<script type="text/javascript">
-			TouchSlide({
-				slideCell:"#slideBox",
-				titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
-				mainCell:".bd ul",
-				effect:"leftLoop",
-				autoPage:true,//自动分页
-				autoPlay:true //自动播放
-			});
-		</script>
+
 		<!-- 本例主要代码 End ================================ -->
 
 		<!--分类模块-->
@@ -116,8 +156,8 @@
 
 			</ul>
 		</div>
-        <!--内容开始-->
 
+        <!--内容开始-->
 		<div id="container">
 			<ul class="col" id="col-bottom">
 				@for(theme <- themeList){
@@ -139,7 +179,7 @@
 			</ul>
 		</div>
 
-
+		<!--瀑布流-->
 		<script type="text/javascript">
 			function getMinUl(){//每次获取最短的ul,将图片放到其后
 				var $arrUl = $("#container .col");
@@ -164,16 +204,9 @@
 					success: function(data) {
 						if(data.length != 0){
 							for(var i=0;i<data.length;i++){
-								if(data[i].type == "ordinary"){
-									var html = '<li><a href="/themeDetail/'+ data[i].themeUrl+ '"><img src="' + data[i].themeImg + '"/></a></li>';
-									$minUl = getMinUl();
-									$minUl.append(html);
-								}
-								if(data[i].type == "h5"){
-									var html = '<li><a href='+ data[i].themeUrl+ '"><img src="' + data[i].themeImg + '"/></a></li>';
-									$minUl = getMinUl();
-									$minUl.append(html);
-								}
+								var html = '<li><a href="'+ data[i].themeUrl+ '"><img src="' + data[i].themeImg + '"/></a></li>';
+								$minUl = getMinUl();
+								$minUl.append(html);
 							}
 						}
 					},
@@ -212,8 +245,20 @@
 		<div class="top" id="topDiv"  style="display:none;">
 			<img src="/assets/images/backtop.png">
 		</div>
-</div>
 
-@download()
+
+
+		<div class="lines" id="preSaleDiv" style="display:none;">
+			<p>9月8号开始售卖</p>
+			<p>亲可以提前加入购物车哦~</p>
+			<b class="delete-down"></b>
+		</div>
+
+
+	</div>
+@footerMenu(1)
+
+
+<!--@download()-->
 
 }

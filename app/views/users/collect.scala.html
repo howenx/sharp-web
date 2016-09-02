@@ -13,6 +13,7 @@
     <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="/assets/javascripts/my.js"></script>
+    <script type="text/javascript" src="/assets/javascripts/cartAmount.js"></script>
 </head>
 
 <body>
@@ -69,11 +70,24 @@
 </div>
 
 @if(null==collectList||collectList.size()<=0){
-    <div class="not">
-        <img src="/assets/images/favorite.png">
-        <a href="/" class="look">去逛逛</a>
+
+<div class="not">
+    <div class="orderNot" style="display: block;">
+        <!--<img src="/assets/images/order.png">
+        <a href="/" class="look">去逛逛</a>-->
+        <div class="e-txt">
+            <img src="/assets/images/shoucang.png"/>
+            <p>您的收藏夹是空的</p>
+        </div>
+        <div class="hot">
+            <p class="hot-hd"><img src="/assets/images/tuijian.png"/></p>
+            <ul class="product" id="recommendUl"><script type="text/javascript">getRecommendSku(3)</script></ul>
+        </div>
     </div>
+</div>
+
 }
+
 
 
 @comContent()

@@ -1,13 +1,3 @@
-.fit{
-    width: 25px;
-    height: 25px;
-    background: url("/assets/images/icon_setting.png") no-repeat;
-    background-size: contain;
-    position: absolute;
-    top:10px;
-    right:5%;
-
-}
 
 .scope{min-width:320px; max-width:750px; margin: 0 auto;}
 
@@ -185,6 +175,11 @@
     background-size: contain;
 }
 
+.myAdd-setting .icon{
+    background: url("/assets/images/me_setting.png") no-repeat;
+    background-size: contain;
+}
+
 
 
 
@@ -192,23 +187,28 @@
 
 
 /*底部*/
-.buy i{
+.buy .footicon{
     background: url("/assets/images/buy.png") no-repeat;
     background-size: contain;
 }
 
-.story i {
+.story .footicon {
     background: url("/assets/images/story.png") no-repeat;
     background-size: contain;
 }
 
-.shopping i {
+.shopping .footicon {
+    position: relative;
     background: url("/assets/images/shopping.png") no-repeat;
     background-size: contain;
 }
 
+.my .footicon {
+    background: url("/assets/images/my.png") no-repeat;
+    background-size: contain;
+}
 
-.my i {
+.my .footicon.current {
     background: url("/assets/images/05.png") no-repeat;
     background-size: contain;
 }
@@ -240,13 +240,30 @@
     left: 2%;
 }
 
+section a:last-child{
+    display: block;
+    margin: 0 0 40px 0;
+}
+
+.submitBox {
+    margin: 20px 10px;
+}
+
+.submitBox button {
+    width: 100%;
+    line-height: 40px;
+    text-align: center;
+    font-size: 14px;
+    background: #fdd000;
+    border-radius: 3px;
+    color: #242424;
+    margin: 0 0 100px 0;
+}
 
 
-
-
-
-
-
+.list-agio span{
+    font-size: 12px;
+}
 
 
 

@@ -61,11 +61,11 @@ GET         /detail/*url                                                       c
 GET         /pinInstruction                                                    controllers.ProductsCtrl.pinInstruction()
 GET         /pinTieredPrice/*url                                               controllers.ProductsCtrl.pinTieredPrice(url)
 
-GET         /slidelist                                                         controllers.ProductsCtrl.slidelist()
+GET         /nav/$navId<[0-9]+>/$pageNum<[0-9]+>/$op<1|2>                      controllers.ProductsCtrl.getNav(navId:Long,pageNum:Int,op:Int)
+GET         /theme/$themeCateCode<2|3>/$pageNum<[0-9]+>/$op<1|2>               controllers.ProductsCtrl.getThemeByCate(themeCateCode:Integer,pageNum:Int,op:Int)
+GET         /recommend/$position<[0-9]+>                                       controllers.ProductsCtrl.getRecommendSku(position:Int)
 
-
-
-
+GET         /track                                                             controllers.ProductsCtrl.track()
 
 
 
@@ -120,6 +120,8 @@ GET         /gather                                                            c
 GET         /gather/$openType<[a-zA-Z]+>                                       controllers.H5Ctrl.gather(openType:String)
 GET         /assemblage                                                        controllers.H5Ctrl.assemblage(openType:String ?= "APP")
 GET         /assemblage/$openType<[a-zA-Z]+>                                   controllers.H5Ctrl.assemblage(openType:String)
+GET         /h5page/$themeId<[0-9]+>                                           controllers.H5Ctrl.h5page(themeId:Long,openType:String ?= "APP")
+GET         /h5page/$themeId<[0-9]+>/$openType<[a-zA-Z]+>                      controllers.H5Ctrl.h5page(themeId:Long,openType:String)
 GET         /hp1                                                               controllers.H5Ctrl.hp1(openType:String ?= "APP")
 GET         /hp1/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp1(openType:String)
 GET         /hp2                                                               controllers.H5Ctrl.hp2(openType:String ?= "APP")
@@ -130,6 +132,18 @@ GET         /hp4                                                               c
 GET         /hp4/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp4(openType:String)
 GET         /hp5                                                               controllers.H5Ctrl.hp5(openType:String ?= "APP")
 GET         /hp5/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp5(openType:String)
+GET         /hp6                                                               controllers.H5Ctrl.hp6(openType:String ?= "APP")
+GET         /hp6/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp6(openType:String)
+GET         /hp7                                                               controllers.H5Ctrl.hp7(openType:String ?= "APP")
+GET         /hp7/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp7(openType:String)
+GET         /hp8                                                               controllers.H5Ctrl.hp8(openType:String ?= "APP")
+GET         /hp8/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp8(openType:String)
+
+GET         /hp9                                                               controllers.H5Ctrl.hp9(openType:String ?= "APP")
+GET         /hp9/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp9(openType:String)
+
+GET         /hp10                                                              controllers.H5Ctrl.hp10(openType:String ?= "APP")
+GET         /hp10/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp10(openType:String)
 
 
 #H5页面内的操作

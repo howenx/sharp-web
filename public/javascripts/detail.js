@@ -32,6 +32,8 @@ $(function() {
     function masunmit(pin) {
         if($(pin).hasClass("mabuyPin")){
             window.location = "/pinTieredPrice/"+window.urlParam;
+        }else if($(pin).hasClass("mabuyPinOnlyOne")){
+           $("#pinSettleForm").submit();
         }else{
             var state=$("input[name='state0-0']:not(:disabled)").val() ;
             if(checkSkuBeforeBuy(state)){

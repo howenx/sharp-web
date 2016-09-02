@@ -16,10 +16,12 @@
     <meta http-equiv="Pragma" CONTENT="no-cache">
 
     <title>购物车</title>
+    <link rel="stylesheet" href="/assets/stylesheets/global.css">
     <link rel="stylesheet" href="/assets/stylesheets/com.css"/>
     <link rel="stylesheet" href="/assets/stylesheets/sho.css"/>
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
     <script src="/assets/javascripts/sho.js"></script>
+    <script type="text/javascript" src="/assets/javascripts/cartAmount.js"></script>
 
 </head>
 <body>
@@ -29,11 +31,11 @@
 </div>
 
 <header class="header">
-    <a href="@hisUrl" class="home_link"></a>
+   <!-- <a href="@hisUrl" class="home_link"></a>-->
     <div class="header-text">
         <h1 class="header-title">购物车</h1>
     </div>
-    <a href="@routes.ProductsCtrl.index()"><span class="icon-user-title" id="userBtn"></span></a>
+    <!--<a href="@routes.ProductsCtrl.index()"><span class="icon-user-title" id="userBtn"></span></a>-->
 
 </header>
 
@@ -99,7 +101,7 @@
                                         <span>@cartInfo.getInvTitle()</span>
                                     </a>
                                 </div>
-                                <div class="cart-product-price">
+                                <div class="cart-product-price clearfix">
                                     <div class="cart-product-price-l">
                                        <!--￥<span class="price">@cartInfo.getItemPrice()</span>-->
                                        <span class="spec">规格 :</span> <span class="spec">@cartInfo.getItemColor() @cartInfo.getItemSize()</span>
@@ -178,9 +180,8 @@
     </div>
 </div>
     <input type="hidden" name="buyNow" value="2"/>
-
 </form>
-
+@footerMenu(4)
 <!--footer部分结束-->
 @comContent()
 </body>

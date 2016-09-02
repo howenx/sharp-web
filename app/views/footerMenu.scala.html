@@ -1,0 +1,41 @@
+@(curPosition:Int)
+<footer class="foot">
+    <ul class="clearfix">
+        <li>
+            <a href="/" class="home">
+                <i class="footicon @if(curPosition==1){current}"></i>
+                <span>首页</span>
+            </a>
+        </li>
+        <li>
+            <a href="/theme/2/1/1" class="buy">
+                <i class="footicon icon02 @if(curPosition==2){current}"></i>
+                <span>拼购</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/theme/3/1/1" class="story">
+                <i class="footicon @if(curPosition==3){current}"></i>
+                <span>礼品</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/cart" class="shopping">
+                <i class="footicon shopp @if(curPosition==4){current}">
+                    <b class="cart_num" id="cartAmountSpan"><i>0</i></b>
+                </i>
+                <span>购物车</span>
+                <!--<span id="cartAmountSpan"><i>0</i></span>-->
+            </a>
+        </li>
+
+        <li class="my-icon">
+            <a href="/myView" class="my">
+                <i class="footicon @if(curPosition==5){current}"></i>
+                <span>我的</span>
+            </a>
+        </li>
+    </ul>
+</footer>

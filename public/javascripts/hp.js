@@ -28,9 +28,6 @@ $(function() {
 
 
 
-	/*('.foot .buy').click(function(){
-		$(this).children('.icon02').css({'backgroundImage':'url(images/02.png)'});
-	})*/
 
 
 	$(window).load(function(){

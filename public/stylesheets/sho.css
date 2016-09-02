@@ -61,13 +61,12 @@ input:password {
 }
 
 .areaAndSku:last-child{
-    margin: 0 0 43px 0;
+    margin: 0 0 60px 0;
 }
 
 .cart-goods {
-    margin-top: 44px;
+    margin: 44px 0 110px 0;
     width: 100%;
-
     padding: 25px 0 0 0;
 }
 .cart-goods-area{
@@ -81,7 +80,6 @@ input:password {
 }
 .cart-goods-list{
     overflow: hidden;
-    border-bottom: 1px solid #d9d9d9;
 }
 .cart-goods-list li{
     width: 100%;
@@ -89,7 +87,6 @@ input:password {
 
     background-color: white;
 }
-
 
 .item{
     margin: 0 0 -1px 20px;
@@ -131,6 +128,7 @@ input:password {
 }
 
 .item-con{
+    width: 100%;
     padding: 15px;
     overflow: hidden;
     margin: 0 0 0 20px;
@@ -152,13 +150,13 @@ input:password {
     text-align: center;
 }
 .item-con-r{
+    width: 100%;
     float: left;
-    margin-left: 80px;
+    padding: 0 15px 0 70px;
     box-sizing: border-box;
     text-align: left;
 }
 .cart-product-name{
-    text-align: left;
     line-height: 22px;
 }
 .cart-product-name a span{
@@ -239,6 +237,7 @@ input:password {
     position: fixed;
     left: 0;
     bottom:0;
+    margin: 0 0 53px 0;
 }
 /*footer部分结束*/
 
@@ -255,11 +254,13 @@ body{
     background-color: #f4f4f4;
 }
 
+
 .wrap{
-    padding: 50% 0 0 0;
+    padding:44px 0 0 0;
 
 }
 
+/*
 .wrap img{
     width:120px;
    margin: 0 auto;
@@ -273,114 +274,44 @@ body{
     line-height: 40px;
     margin: 10px auto;
 }
+*/
 
 
 
 
 
 /*底部*/
-.foot{
-    width:100%;
-    height:90px;
-    background-color: #000;
-    position: fixed;
-    bottom:0;
 
-}
-
-.foot ul {
-    padding:22px 0 0 0;
-}
-
-.foot ul li{
-    float: left;
-    width:20%;
-
-}
-
-.foot ul a{
+.foot .footicon{
     display: block;
-    width:100%;
-
-}
-
-
-.foot span{
-    text-align: center;
-    display: block;
-    margin: 3px 0 0 0;
-    color:#b1b1b1;
-}
-
-
-.foot i{
-    display: block;
-    background: url("/assets/images/home.png") no-repeat;
+    background: url("/assets/images/01.png") no-repeat;
     background-size: contain;
-    width:30px;
-    height:30px;
-    margin: 0 auto;
 }
 
-@media screen and (min-width:320px) and (max-width:500px) {
-    .foot {
-        height: 60px;
-        font-size: 12px;
-    }
-
-    .foot ul {
-        padding: 15px 0 0 0;
-    }
-
-    .foot i {
-        display: block;
-        background: url("/assets/images/home.png") no-repeat;
-        background-size: contain;
-        width: 20px;
-        height:20px;
-        margin: 0 auto;
-
-    }
-
-    .foot span{
-        text-align: center;
-        display: block;
-    }
-
-    .more{
-        margin:0 0 60px 0;
-    }
-}
-
-@media screen and (min-width:500px) and (max-width:759px) {
-    .more{
-        margin:0 0 90px 0;
-    }
-}
-
-@media screen and (min-width:760px)  {
-    .more{
-        margin:0 0 110px 0;
-    }
-}
-
-.buy i{
+.buy .footicon{
     background: url("/assets/images/buy.png") no-repeat;
     background-size: contain;
 }
 
-.story i {
+.story .footicon {
     background: url("/assets/images/story.png") no-repeat;
     background-size: contain;
 }
 
-.shopping i {
+.shopping .footicon {
+    background: url("/assets/images/shopping.png") no-repeat;
+    background-size: contain;
+}
+
+
+.shopping .footicon.current{
+    position: relative;
     background: url("/assets/images/04.png") no-repeat;
     background-size: contain;
 }
 
 
-.my i {
+.my .footicon {
     background: url("/assets/images/my.png") no-repeat;
     background-size: contain;
 

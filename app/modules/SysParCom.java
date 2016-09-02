@@ -17,6 +17,7 @@ public class SysParCom {
     public static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
     public static final MediaType MEDIA_TYPE_MULTIPART = MediaType.parse("multipart/form-data; charset=utf-8");
     public static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
+    public static final String UTF8="UTF-8";
 
     //图片服务器url
     public static String IMAGE_URL;
@@ -63,6 +64,10 @@ public class SysParCom {
 
     public static String THEME_PAGE;//主题
     public static String GOODS_PAGE;//商品详情
+    public static String NAV_PAGE;//商品分类
+    public static String THEMECATE_PAGE;//商品分类
+    public static String RECOMMEND_PAGE;//推荐商品
+
 //    public static String PIN_PAGE;//拼购商品
 //    public static String ITEM_PAGE;//普通商品,多样化价格商品
 //    public static String VARY_PAGE;//多样化价格商品
@@ -132,6 +137,9 @@ public class SysParCom {
 
     public static String SHOPPING_COUPON_REC;
 
+    //亿起发有效时间设为15天
+    public static Integer YIQIFA_COOKIE_EXPIRES;
+
     @Inject
     public SysParCom(Configuration configuration) {
 
@@ -186,6 +194,9 @@ public class SysParCom {
         //商品信息
         THEME_PAGE = configuration.getString("products.page.theme");
         GOODS_PAGE = configuration.getString("products.page.goods");
+        NAV_PAGE = configuration.getString("products.page.nav");
+        THEMECATE_PAGE = configuration.getString("products.page.themecate");
+        RECOMMEND_PAGE=configuration.getString("products.page.recommend");
 //        PIN_PAGE = configuration.getString("products.page.pin");
 //        ITEM_PAGE = configuration.getString("products.page.item");
 //        VARY_PAGE = configuration.getString("products.page.vary");
@@ -244,6 +255,10 @@ public class SysParCom {
         LOG_OPEN=configuration.getBoolean("print.log.open");
 
         SHOPPING_COUPON_REC=configuration.getString("shopping.coupon.rec");
+
+        YIQIFA_COOKIE_EXPIRES=configuration.getInt("yiqifa.cookie.expires");
+
+
 
     }
 }

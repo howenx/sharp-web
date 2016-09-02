@@ -39,24 +39,6 @@ body{
 }
 
 
-.shopp .cart_num{
-	width: 18px;
-	height: 18px;
-	position: absolute;
-	top: -7px;
-	left: 12px;
-	font-size: 10px;
-	background: #ff4242;
-	line-height:18px;
-	cursor: pointer;
-	color:#fff;
-	border-radius: 50%;
-	text-align: center;
-}
-.shopp .cart_num i{
-	display: inline-block;
-	-webkit-transform: scale(0.75);
-}
 
 h1 {
 	width:100%;
@@ -581,28 +563,30 @@ li {
 
 /*产品结束*/
 
-.home i{
-	background: url("/assets/images/01.png") no-repeat;
+.home .footicon.current{
+	background: url("/assets/images/home.png") no-repeat;
 	background-size: contain;
 }
 
-.buy i{
+.buy .footicon{
+	width: 23px;
     background: url("/assets/images/buy.png") no-repeat;
 	background-size: contain;
 }
 
-.story i {
+.story .footicon {
 	background: url("/assets/images/story.png") no-repeat;
 	background-size: contain;
 }
 
-.shopping i {
+.shopping .shopp {
+	position: relative;
 	background: url("/assets/images/shopping.png") no-repeat;
 	background-size: contain;
 }
 
 
-.my i {
+.my .footicon {
 	background: url("/assets/images/my.png") no-repeat;
 	background-size: contain;
 }
@@ -705,11 +689,21 @@ li {
 }
 */
 
+.delete-down{
+	position: absolute;
+	top:10px;
+	right:10px;
+	width: 24px;
+	height: 24px;
+	background: url("/assets/images/delete-down.png") no-repeat;
+	background-size: 22px;
+
+}
 
 
 
 .top-bottom{
-	bottom:20px;
+	bottom:90px;
 }
 
 .col-bom{
@@ -744,7 +738,7 @@ li {
 
 .classify ul li img{
     width:60px;
-	margin: 0 auto 6px auto;
+	margin: 0 auto 0px auto;
 	}
 
 .classify-text{
@@ -824,4 +818,7 @@ li {
 
 }
 
+.col li:last-child{
+	margin: 0 0 60px 0;
+}
 

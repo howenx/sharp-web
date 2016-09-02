@@ -1,6 +1,8 @@
 package controllers;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import domain.*;
@@ -50,7 +52,7 @@ public class ProductsCtrl extends Controller {
         comCtrl.pushOrPopHistoryUrl(ctx());
         F.Promise<JsonNode> promise = F.Promise.promise(() -> {
             //Request request = comCtrl.getBuilder(ctx())
-            Request request = getBuilder(request(), session())
+            Request request = comCtrl.getBuilder(ctx())
                     .url(INDEX_PAGE + "1")
                     .build();
             client.setConnectTimeout(15, TimeUnit.SECONDS);
@@ -120,18 +122,8 @@ public class ProductsCtrl extends Controller {
                         JsonNode imgJson = Json.parse(theme.getThemeImg());
                         theme.setThemeImg(imgJson.get("url").asText());
                         //按照类型处理跳转地址
-                        if ("ordinary".equals(theme.getType())) {
-                            String themeUrl = theme.getThemeUrl();
-                            themeUrl = themeUrl.replace(THEME_PAGE, "");
-                            theme.setThemeUrl("/themeDetail/" + themeUrl);
-                        }
-                        if ("detail".equals(theme.getType()) || "pin".equals(theme.getType())) {
-                            String themeUrl = theme.getThemeUrl();
-                            theme.setThemeUrl(comCtrl.getDetailUrl(themeUrl));
-                        }
-                        if ("h5".equals(theme.getType())) {
-                            theme.setThemeUrl(theme.getThemeUrl() + "/M");
-                        }
+                        comCtrl.handleThemeUrl(theme);
+
                         themeList.add(theme);
                     }catch (Exception e){
                         e.printStackTrace();
@@ -153,7 +145,7 @@ public class ProductsCtrl extends Controller {
     public F.Promise<Result> loadIndexAjax(String pageCount){
         F.Promise<JsonNode> promise = F.Promise.promise(() -> {
             //String pageCount = request().body().asJson().toString();
-            Request request = getBuilder(request(), session())
+            Request request = comCtrl.getBuilder(ctx())
                     .url(INDEX_PAGE + pageCount)
                     .build();
             client.setConnectTimeout(15, TimeUnit.SECONDS);
@@ -175,15 +167,20 @@ public class ProductsCtrl extends Controller {
                 for (JsonNode themeTemp : themeJson) {
                     try {
                         Theme theme = Json.fromJson(themeTemp, Theme.class);
+//                        JsonNode imgJson = Json.parse(theme.getThemeImg());
+//                        String imgUrl = imgJson.get("url").toString();
+//                        imgUrl = imgUrl.substring(1, imgUrl.length() - 1);
+//                        theme.setThemeImg(imgUrl);
+//                        if (!"h5".equals(theme.getType())) {
+//                            String themeUrl = theme.getThemeUrl();
+//                            themeUrl = themeUrl.replace(THEME_PAGE, "");
+//                            theme.setThemeUrl(themeUrl);
+//                        }
                         JsonNode imgJson = Json.parse(theme.getThemeImg());
-                        String imgUrl = imgJson.get("url").toString();
-                        imgUrl = imgUrl.substring(1, imgUrl.length() - 1);
-                        theme.setThemeImg(imgUrl);
-                        if (!"h5".equals(theme.getType())) {
-                            String themeUrl = theme.getThemeUrl();
-                            themeUrl = themeUrl.replace(THEME_PAGE, "");
-                            theme.setThemeUrl(themeUrl);
-                        }
+                        theme.setThemeImg(imgJson.get("url").asText());
+                        //按照类型处理跳转地址
+                        comCtrl.handleThemeUrl(theme);
+
                         themeList.add(theme);
                     }catch (Exception e){
                         e.printStackTrace();
@@ -205,7 +202,7 @@ public class ProductsCtrl extends Controller {
     public F.Promise<Result> themeDetail(String url){
         String hisUrl=comCtrl.pushOrPopHistoryUrl(ctx());
         F.Promise<JsonNode> promise = F.Promise.promise(() -> {
-            Request request = getBuilder(request(), session())
+            Request request = comCtrl.getBuilder(ctx())
                     .url(THEME_PAGE + url)
                     .build();
             client.setConnectTimeout(15, TimeUnit.SECONDS);
@@ -265,35 +262,11 @@ public class ProductsCtrl extends Controller {
                 List<ThemeItem> nItemList = new ArrayList<>();
                 List<ThemeItem> itemList = themeBasic.getThemeItemList();
                 if(null!=itemList&&itemList.size()>0){
+                    ThemeItem temp;
                     for (ThemeItem themeItem : itemList) {
-                        try {
-                            JsonNode itemImgJson = Json.parse(themeItem.getItemImg());
-                            themeItem.setItemImg(itemImgJson.get("url").asText());
-                            themeItem.setItemUrl(themeItem.getItemUrl().replace(GOODS_PAGE, ""));
-                            SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                            Date now = new Date();
-                            String strNow = sdfDate.format(now);
-                            Date endAtDate = sdfDate.parse(themeItem.getEndAt());
-                            Calendar calendar = Calendar.getInstance();
-                            calendar.setTime(endAtDate);
-                            String hour = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
-                            if (calendar.get(Calendar.HOUR_OF_DAY) < 10) {
-                                hour = "0" + hour;
-                            }
-                            String minute = String.valueOf(calendar.get(Calendar.MINUTE));
-                            if (calendar.get(Calendar.MINUTE) < 10) {
-                                minute = "0" + minute;
-                            }
-                            String endDate = (calendar.get(Calendar.MONTH) + 1) + "月" + calendar.get(Calendar.DAY_OF_MONTH) + "日" + hour + ":" + minute;
-                            if (themeItem.getEndAt().compareTo(strNow) < 0 || themeItem.getState() == "D" || themeItem.getState() == "N" || themeItem.getState() == "K") {
-                                themeItem.setEndAt("已结束");
-                            } else {
-                                themeItem.setEndAt("截止" + endDate);
-                            }
-
+                        temp=comCtrl.parseThemeItem(themeItem);
+                        if(null!=temp){
                             nItemList.add(themeItem);
-                        }catch (Exception e){
-                            e.printStackTrace();
                         }
                     }
 
@@ -420,10 +393,10 @@ public class ProductsCtrl extends Controller {
                     }
                 }
 
+                List<ThemeItem> pushList = new ArrayList<>();
                 //热卖推荐
                 if (json.has("push")) {
                     JsonNode pushJson = json.get("push");
-                    List<ThemeItem> pushList = new ArrayList<>();
                     for (JsonNode pushTemp : pushJson) {
                         try {
                             ThemeItem themeItem = Json.fromJson(pushTemp, ThemeItem.class);
@@ -472,7 +445,7 @@ public class ProductsCtrl extends Controller {
                     commentNumDTO=Json.fromJson(json.get("comment"), CommentNumDTO.class);
                 }
 
-                return ok(views.html.products.detail.render(itemMain, itemFeaturesList, pushResultList, inventoryList, inventoryList.size(), preImgList, publicityList,url,hisUrl,commentNumDTO));
+                return ok(views.html.products.detail.render(itemMain, itemFeaturesList, pushResultList, inventoryList, inventoryList.size(), preImgList, publicityList,url,hisUrl,commentNumDTO,pushList));
             }
             //拼购商品
             else {
@@ -598,15 +571,6 @@ public class ProductsCtrl extends Controller {
         return ok(views.html.products.pinInstruction.render(hisUrl));
     }
 
-
- /**滑动列表页**/
-    public Result slidelist() {
-        String hisUrl=comCtrl.pushOrPopHistoryUrl(ctx());
-        return ok(views.html.products.slidelist.render());
-    }
-
-
-
     /**
      * 拼购商品的价格阶梯
      *
@@ -652,4 +616,217 @@ public class ProductsCtrl extends Controller {
             return badRequest(views.html.error500.render());
         });
     }
+
+
+    /**滑动列表页**/
+    public F.Promise<Result> getNav(long navId,int pageNum,int op) {
+        if(op==1){
+            comCtrl.pushOrPopHistoryUrl(ctx());
+        }
+        F.Promise<JsonNode> promise = F.Promise.promise(() -> {
+            Request request =comCtrl.getBuilder(ctx())
+                    .url(NAV_PAGE +navId+"/"+pageNum)
+                    .build();
+            client.setConnectTimeout(15, TimeUnit.SECONDS);
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                String result = dealToString(response);
+                if (result != null) {
+                    return Json.parse(result);
+                } else throw new IOException("Unexpected code" + response);
+            } else throw new IOException("Unexpected code" + response);
+        });
+        return promise.map((F.Function<JsonNode, Result>) json -> {
+            if(LOG_OPEN){
+                Logger.info("getNav接收数据-->\n"+json);
+            }
+            List<List<ThemeItem>> itemResultList = new ArrayList<>();
+            List<ThemeItem> itemList=null;
+            List<ThemeItem> nItemList=new ArrayList<ThemeItem>();
+            if(json.has("themeItemList")) {
+                itemList = new ObjectMapper().readValue(json.get("themeItemList").toString(), new TypeReference<List<ThemeItem>>() {
+                });
+            }
+            if(null!=itemList&&itemList.size()>0){
+                ThemeItem temp;
+                for (ThemeItem themeItem : itemList) {
+                    temp=comCtrl.parseThemeItem(themeItem);
+                    if(null!=temp){
+                        nItemList.add(themeItem);
+                    }
+                }
+                for (int i = 0; i < nItemList.size() / 2; i++) {
+                    List<ThemeItem> rowList = new ArrayList<>();
+                    rowList.add(itemList.get(i * 2));
+                    rowList.add(itemList.get(i * 2 + 1));
+                    itemResultList.add(rowList);
+                }
+                if (nItemList.size() % 2 != 0) {
+                    List<ThemeItem> rowList = new ArrayList<>();
+                    rowList.add(nItemList.get(nItemList.size() - 1));
+                    itemResultList.add(rowList);
+                }
+            }
+            if(op==2){
+                return ok(Json.toJson(itemResultList));
+            }
+            int pageCount=0;
+            if(json.has("page_count")){
+                pageCount=json.get("page_count").asInt();
+            }
+            String title="";
+            if(json.has("title")){
+                title=json.get("title").asText();
+            }
+            return ok(views.html.products.navlist.render(itemResultList,pageCount,title,navId));
+        });
+
+    }
+
+    /**
+     * 主题分类
+     * @param themeCateCode
+     * @param pageNum
+     * @param op
+     * @return
+     */
+    public F.Promise<Result> getThemeByCate(int themeCateCode,int pageNum,int op) {
+        if(op==1){
+            comCtrl.pushOrPopHistoryUrl(ctx());
+        }
+        F.Promise<JsonNode> promise = F.Promise.promise(() -> {
+            Request request =comCtrl.getBuilder(ctx())
+                    .url(THEMECATE_PAGE +themeCateCode+"/"+pageNum)
+                    .build();
+            client.setConnectTimeout(15, TimeUnit.SECONDS);
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                String result = dealToString(response);
+                if (result != null) {
+                    return Json.parse(result);
+                } else throw new IOException("Unexpected code" + response);
+            } else throw new IOException("Unexpected code" + response);
+        });
+        return promise.map((F.Function<JsonNode, Result>) json -> {
+            if(LOG_OPEN){
+                Logger.info("getThemeByCate接收数据-->\n"+json);
+            }
+
+            List<Theme> themeList = new ArrayList<>();
+            if (json.has("theme")) {
+                JsonNode themeJson = json.get("theme");
+                for (JsonNode themeTemp : themeJson) {
+                    try {
+                        Theme theme = Json.fromJson(themeTemp, Theme.class);
+                        JsonNode imgJson = Json.parse(theme.getThemeImg());
+                        theme.setThemeImg(imgJson.get("url").asText());
+                        //按照类型处理跳转地址
+                        comCtrl.handleThemeUrl(theme);
+                        themeList.add(theme);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            }
+            if(op==2){
+                return ok(Json.toJson(themeList));
+            }
+            int pageCount =0;
+            if(json.has("page_count")){
+                pageCount=json.get("page_count").asInt();
+            }
+            return ok(views.html.products.themecate.render(themeList,pageCount,themeCateCode));
+        });
+
+    }
+
+    /**
+     * 获取推荐商品
+     * @param position
+     * @return
+     */
+    public F.Promise<Result> getRecommendSku(int position){
+        F.Promise<JsonNode> promise = F.Promise.promise(() -> {
+            Request request =comCtrl.getBuilder(ctx())
+                    .url(RECOMMEND_PAGE +position)
+                    .build();
+            client.setConnectTimeout(15, TimeUnit.SECONDS);
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                String result = dealToString(response);
+                if (result != null) {
+                    return Json.parse(result);
+                } else throw new IOException("Unexpected code" + response);
+            } else throw new IOException("Unexpected code" + response);
+        });
+        return promise.map((F.Function<JsonNode, Result>) json -> {
+            if(LOG_OPEN){
+                Logger.info("getRecommendSku接收数据-->\n"+json);
+            }
+
+            List<List<ThemeItem>> itemResultList = new ArrayList<>();
+            List<ThemeItem> itemList=null;
+            List<ThemeItem> nItemList=new ArrayList<ThemeItem>();
+            if(json.has("themeItemList")) {
+                itemList = new ObjectMapper().readValue(json.get("themeItemList").toString(), new TypeReference<List<ThemeItem>>() {
+                });
+            }
+            if(null!=itemList&&itemList.size()>0){
+                ThemeItem temp;
+                for (ThemeItem themeItem : itemList) {
+                    temp=comCtrl.parseThemeItem(themeItem);
+                    if(null!=temp){
+                        nItemList.add(themeItem);
+                    }
+                }
+                for (int i = 0; i < nItemList.size() / 2; i++) {
+                    List<ThemeItem> rowList = new ArrayList<>();
+                    rowList.add(itemList.get(i * 2));
+                    rowList.add(itemList.get(i * 2 + 1));
+                    itemResultList.add(rowList);
+                }
+                if (nItemList.size() % 2 != 0) {
+                    List<ThemeItem> rowList = new ArrayList<>();
+                    rowList.add(nItemList.get(nItemList.size() - 1));
+                    itemResultList.add(rowList);
+                }
+            }
+
+            return ok(Json.toJson(itemResultList));
+        });
+    }
+
+    /**
+     * 接收亿起发参数接口
+     * @return
+     */
+    public Result track(){
+        Map<String, String[]> body_map = request().queryString();
+        Map<String, String> params = new HashMap<>();
+        body_map.forEach((k, v) -> params.put(k, v[0]));
+        Logger.info("亿起发参数\nparams="+params);
+        int expires=YIQIFA_COOKIE_EXPIRES*24*60*60;
+        if(null!=params.get("cid")){
+            ctx().response().setCookie("cid", params.get("cid"), expires);
+        }
+        if(null!=params.get("channel")){
+            ctx().response().setCookie("channel", params.get("channel"), expires);
+        }
+        if(null!=params.get("aid")){
+            ctx().response().setCookie("aid", params.get("aid"), expires);
+        }
+        if(null!=params.get("wi")){
+            ctx().response().setCookie("wi", params.get("wi"), expires);
+        }
+        String url=null;
+        if(null!=params.get("url")){
+            url=params.get("url");
+        }
+        if(null==url||"".equals(url)){
+            url=M_HTTP;
+        }
+        return redirect(url);
+
+    }
+
 }

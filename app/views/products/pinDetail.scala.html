@@ -28,27 +28,28 @@
         <img src="/assets/images/loading.gif"/>
 </div>
 
+<!--头部-->
+<div class="nav_ban_detail">
+    <a href="@hisUrl" class="back">
+        <i></i>
+        <b></b>
+    </a>
+    <h1>商品详情</h1>
+    <!--分享icon-->
+    <div id="shopCart">
+        <a href="" class="message_list shopping">
+            <i class="message"></i>
+        </a>
+    </div>
+    @if(pinInvDetail.isSoldOut() == true){
+    <span class="finish">该商品已售罄</span>
+    }
+
+</div>
 
 <form id="settleForm" action="/settle" method="POST">
   <div id='screen_wrap' class="pin-wrap">
      <div class="picture_wrap">
-        <div class="nav_ban_detail">
-            <a href="@hisUrl" class="back">
-                <i></i>
-                <b></b>
-            </a>
-            <h1>商品详情</h1>
-            <!--分享icon-->
-            <div id="shopCart">
-                <a href="" class="message_list shopping">
-                    <i class="message"></i>
-                </a>
-            </div>
-                @if(pinInvDetail.isSoldOut() == true){
-                    <span class="finish">该商品已售罄</span>
-                }
-
-        </div>
 
         <div id='slide' class="cycle-slideshow composite-slide"
              data-cycle-slides="> div.slide-img"
@@ -90,10 +91,15 @@
         </div>
 
         <div class="txt">
-            <span class="txt-pay">支付开团并邀请2人参团,人数不足自动退款,详见下方拼团玩法</span>
+            <!--<span class="txt-pay">支付开团并邀请2人参团,人数不足自动退款,详见下方拼团玩法</span>-->
             <div class="diamond">
                 @if(pinInvDetail.isSoldOut() != true){
+                @if(pinInvDetail.getPinTieredPrices().size()==1){
+                    <a href="hmmapp://data/@url" class="mabuy mabuyPinOnlyOne">
+                }else{
                     <a href="hmmapp://data/@url" class="mabuy mabuyPin">
+                }
+
                         <!---->
                 }
                 @if(pinInvDetail.isSoldOut() == true){
@@ -177,81 +183,39 @@
         <!-- 热卖商品 -->
         <div class="hot">
             <p class="hot-hd">热卖商品</p>
-            <ul class="product">
-                @for(rowList <- pushList){
-                <li class="clearfix">
-                    @for(pushItem <- rowList){
-                    @if(pushItem.getItemType() == "item" || pushItem.getItemType() == "vary" || pushItem.getItemType() == "customize"){
-                    <a href="/detail/@pushItem.getItemUrl()">
-                        <p class="figure figure-f">
-                            @if(!(pushItem.getState() == "Y" || pushItem.getState() == "P")){
-                                <span>该商品已售罄</span>
-                            }
-                            <img src="@pushItem.getItemImg()">
-                        </p>
-                        <p class="title-hd">@pushItem.getItemTitle()</p>
-                                       <span class="title-fd">
-                                           <i class="naw">￥@pushItem.getItemPrice()</i>
-                                           @if(null!=pushItem.getItemDiscount()&&(false==pushItem.getItemDiscount().toString().startsWith("10"))){
-                                                <i class="agio">￥@pushItem.getItemSrcPrice()</i>
-                                                <b>@pushItem.getItemDiscount()折</b>
-                                           }
-                                       </span>
-                    </a>
-                    }
-                    @if(pushItem.getItemType() == "pin"){
-                    <a href="/detail/@pushItem.getItemUrl()">
-                        <p class="product-box">
-                            <span class="product-top">@pushItem.getEndAt()</span>
-                        </p>
-                        <p class="figure figure-f">
-                            <img src="@pushItem.getItemImg()">
-                        </p>
-                        <p class="title-hd">@pushItem.getItemTitle()</p>
-                               <span class="title-fd">
-                                   <i class="naw">￥@pushItem.getItemPrice()</i>
-                                    @if(null!=pushItem.getItemDiscount()&&(false==pushItem.getItemDiscount().toString().startsWith("10"))){
-                                        <i class="agio">￥@pushItem.getItemSrcPrice()</i>
-                                        <b>@pushItem.getItemDiscount()折</b>
-                                   }
-                               </span>
-                    </a>
-                    }
-                    }
-                </li>
-                }
-
-
-            </ul>
+            @if(null!=pushList&&pushList.size>0){
+            @themeItemList(pushList)
+            }
         </div>
 
 
-
-
+        <div class="top">
+            <img src="/assets/images/backtop.png">
+        </div>
+   </div>
 
     <!--加入购物车-->
     <div class="buy_box">
         <div class="hd-js">活动已结束</div>
         @if(pinInvDetail.isSoldOut() == true){
-            <div class="finish-box">
-                该商品已结束去看看其他拼购吧
-            </div>
+        <div class="finish-box">
+            该商品已结束去看看其他商品吧
+        </div>
         }
 
         <div class="love">
-
             <!--收藏-->
             <a href="javascript:;" class="like pin-love">
                 <div>
-                <input class="collectId" value="@pinInvDetail.getCollectId()" style="display:none">
-                @if(pinInvDetail.getCollectId() != 0){
+                    <input class="collectId" value="@pinInvDetail.getCollectId()" style="display:none">
+                    @if(pinInvDetail.getCollectId() != 0){
                     <span class="soul now min soul-p"></span>
-                }
-                @if(pinInvDetail.getCollectId() == 0){
-                <span class="soul now soul-p"></span>
-                }
-                <i class="like-s">收藏成功</i>
-                <i class="like-x">取消收藏</i>
+                    }
+                    @if(pinInvDetail.getCollectId() == 0){
+                    <span class="soul now soul-p"></span>
+                    }
+                    <i class="like-s">收藏成功</i>
+                    <i class="like-x">取消收藏</i>
                 </div>
             </a>
 
@@ -259,27 +223,33 @@
 
         <div class="add_cart btns" data-type="cart">
             @if(pinInvDetail.isSoldOut() != true){
-                <a href="hmmapp://data/@url" class="btnCart add_cart_large pin-cart mabuy mabuyPin">
-                    立即开团
-                </a>
+            @if(pinInvDetail.getPinTieredPrices().size()==1){
+            <a href="hmmapp://data/@url" class="btnCart add_cart_large pin-cart mabuy mabuyPinOnlyOne">
+                立即开团
+            </a>
+            }else{
+            <a href="hmmapp://data/@url" class="btnCart add_cart_large pin-cart mabuy mabuyPin">
+                立即开团
+            </a>
+            }
             <!---->
             }
             @if(pinInvDetail.isSoldOut() == true){
-                <a href="javascript:;" class="btnCart add_cart_large pin-cart soldOut ">
-                    立即开团
-                </a>
+            <a href="javascript:;" class="btnCart add_cart_large pin-cart soldOut ">
+                立即开团
+            </a>
             }
         </div>
         <div class="buy_btn" data-type="buy">
             @if(pinInvDetail.isSoldOut() != true){
-                <a href="hmmapp://data/@url" class="mabuy">
-                    单独购买
-                </a>
+            <a href="hmmapp://data/@url" class="mabuy">
+                单独购买
+            </a>
             }
             @if(pinInvDetail.isSoldOut() == true){
-                <a href="javascript:;" class="soldOut invalid">
-                    单独购买
-                </a>
+            <a href="javascript:;" class="soldOut invalid">
+                单独购买
+            </a>
             }
         </div>
 
@@ -298,15 +268,28 @@
         <input type="hidden" name="skuPrice0-0" value="@pinInvDetail.getInvPrice()"/>
         <input type="hidden" name="pinTieredPriceId0-0" id="pinTieredPriceId" value="0"/>
         <input type="hidden" id="curUrl" name="curUrl" value="" />
-
-
-
     </div>
-    <div class="top">
-        <img src="/assets/images/backtop.png">
-    </div>
-</div>
 </form>
+
+@if(pinInvDetail.getPinTieredPrices().size()==1){
+    <form id="pinSettleForm" action="/settle" method="POST">
+        <input type="hidden" name="isPinCheck" id="isPinCheck" value="0">
+        <input type="hidden" name="buyNow" value="1"/>
+        <input type="hidden" name="invCustoms0" value="@pinInvDetail.getInvCustoms()"/>
+        <input type="hidden" name="invArea0" value="@pinInvDetail.getInvArea()"/>
+        <input type="hidden" name="invAreaNm0" value="@pinInvDetail.getInvAreaNm()"/>
+        <input type="hidden" name="skuId0-0" value="@pinInvDetail.getId()"/>
+        <input type="hidden" name="skuType0-0" value="@pinInvDetail.getSkuType()"/>
+        <input type="hidden" name="skuTypeId0-0" value="@pinInvDetail.getSkuTypeId()"/>
+        <input type="hidden" name="skuTitle0-0" value="@pinInvDetail.getPinTitle()"/>
+        <input type="hidden" name="skuInvImg0-0" value="@pinInvDetail.getInvImg()"/>
+        <input type="hidden" name="state0-0" value="@pinInvDetail.getStatus()"/>
+        @if(null!=pinInvDetail.getPinTieredPrices()&&pinInvDetail.getPinTieredPrices().size()>0){
+        <input type="hidden" name="skuPrice0-0" id="skuPrice" value="@pinInvDetail.getPinTieredPrices().get(0).getPrice()"/>
+        <input type="hidden" name="pinTieredPriceId0-0" value="@pinInvDetail.getPinTieredPrices().get(0).getId()"/>
+        }
+    </form>
+}
 <!--该活动已结束-->
 @if(pinInvDetail.isSoldOut() == true){
 <div class="toup">
@@ -318,10 +301,14 @@
                 @for(pinPush <- SoldOutPushList){
                     <a href="/detail/@pinPush.getItemUrl()">
                         <div class="item">
-                            <div>
+                            <!--<div>
                                 <span>拼</span>
                                 <p>@pinPush.getEndAt()</p>
-                            </div>
+                            </div>-->
+                            <p class="product-box">
+                                <span class="product-top"><i>截止10月13日17:12</i></span>
+                            </p>
+
                             <div class="conaddr-p">
                                 <img src="@pinPush.getItemImg()" alt="">
                             </div>
@@ -330,7 +317,9 @@
                                 <span class="txt-box-title">
                                    <i class="box-title-naw">￥@pinPush.getItemPrice()</i>
                                    <i class="box-title-agio">￥@pinPush.getItemSrcPrice()</i>
-                                   <b>5折</b>
+                                   @if(null!=pinPush.getItemDiscount()&&false==pinPush.getItemDiscount().toString().startsWith("10")){
+                            		<b>@pinPush.getItemDiscount()折</b>
+                                    }
                                 </span>
                             </div>
                         </div>
