@@ -21,10 +21,12 @@ public class ExecSubscribe {
     @Named("webRunActor")
     private ActorRef webRunActor;
 
-    public ExecSubscribe( ) {
-        try (Jedis jedis = RedisPool.createPool().getResource()) {
+    public ExecSubscribe() {
+        try {
+            Jedis jedis = RedisPool.createPool().getResource();
             JedisPubSub listener = new ConcurrentRedisListener(webRunActor);
             jedis.psubscribe(listener, "style-web-version");
+        } catch (Exception ignore) {
         }
     }
 }
