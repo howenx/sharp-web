@@ -543,3 +543,76 @@
     top: 88.8%;
 }
 
+/*h12*/
+.htw-s,.htw-f,.htw-fv,.htw-six,.htw-se,.htw-ev,.htw-n,.htw-ten,.htw-eleven,.htw-twelve,.htw-thirteen,.htw-fourteen
+,.htw-fifteen,.htw-sixteen,.htw-seventeen,.htw-eighteen,.htw-nineteen,.htw-twenty,.htw-twenty-one,.htw-twenty-two,.htw-twenty-three,.htw-twenty-four,.htw-twenty-five,.htw-twenty-six{
+    position: absolute;
+    width: 30%;
+    left: 1.5%;
+    height: 4%;
+    top: 22%;
+}
+.htw-f,.htw-se,.htw-ten,.htw-thirteen,.htw-sixteen,.htw-nineteen,.htw-twenty-two,.htw-twenty-five{
+    left:35.5%;
+}
+
+.htw-fv,.htw-ev,.htw-eleven,.htw-fourteen,.htw-seventeen,.htw-twenty,.htw-twenty-three,.htw-twenty-three,.htw-twenty-six{
+    left:68.5%;
+}
+
+.htw-six,.htw-se,.htw-ev{
+    top:26.5%
+}
+
+.htw-n,.htw-ten,.htw-eleven{
+    top:31%
+}
+.htw-twelve,.htw-thirteen,.htw-fourteen{
+    top:35.4%
+}
+.htw-fifteen,.htw-sixteen,.htw-seventeen{
+    top: 53.7%;
+}
+
+.htw-eighteen,.htw-nineteen,.htw-twenty{
+    top: 59.2%;
+}
+
+.htw-twenty-one,.htw-twenty-two,.htw-twenty-three{
+    top: 64.8%;
+}
+
+
+.htw-twenty-four,.htw-twenty-five,.htw-twenty-six{
+    top:70.2%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

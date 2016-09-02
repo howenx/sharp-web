@@ -145,6 +145,12 @@ GET         /hp9/$openType<[a-zA-Z]+>                                          c
 GET         /hp10                                                              controllers.H5Ctrl.hp10(openType:String ?= "APP")
 GET         /hp10/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp10(openType:String)
 
+GET         /hp11                                                               controllers.H5Ctrl.hp11(openType:String ?= "APP")
+GET         /hp11/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp11(openType:String)
+
+GET         /hp12                                                               controllers.H5Ctrl.hp12(openType:String ?= "APP")
+GET         /hp12/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp12(openType:String)
+
 
 #H5页面内的操作
 #领取优惠券
