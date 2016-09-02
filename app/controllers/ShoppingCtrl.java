@@ -703,7 +703,7 @@ public class ShoppingCtrl extends Controller {
                 if(isYiqifa){
                     pnsb.append((pnsb.length()>0?"|":"")+skuTypeId);
                     pnasb.append((pnasb.length()>0?"|":"")+settleMap.get("skuTitle"+suffix));
-                    ctsb.append((ctsb.length()>0?"|":"")+"佣金类型"); //TODO...
+                    ctsb.append((ctsb.length()>0?"|":"")+"basic"); //
                     tasb.append((tasb.length()>0?"|":"")+amount);
                     ppsb.append((ppsb.length()>0?"|":"")+settleMap.get("skuPrice"+suffix));
                 }
@@ -737,6 +737,7 @@ public class ShoppingCtrl extends Controller {
         object.put("pinActiveId",pinActiveId); //拼购活动id
         if(isYiqifa){
             object.put("adSource",settleMap.get("aid"));
+            object.put("subAdSource",settleMap.get("cid"));
         }
         F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
             RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, toJson(object).toString());
@@ -772,7 +773,7 @@ public class ShoppingCtrl extends Controller {
 
                 if (isYiqifa) {
                     try {
-                        
+
                         LinkedHashMap<String, String> yiqifaParamMap = new LinkedHashMap<String, String>();
                         //cid=&wi=&on=&pn=&pna=&ct=&ta=&pp=&sd=&dt=&os=&ps=&pw=&far=&fav=&fac=&encoding=
                         yiqifaParamMap.put("cid", settleMap.get("cid"));
@@ -787,8 +788,8 @@ public class ShoppingCtrl extends Controller {
 
                         yiqifaParamMap.put("sd", URLEncoder.encode(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()), UTF8));
                         yiqifaParamMap.put("dt", "m");//区分标识
-                        yiqifaParamMap.put("os", URLEncoder.encode("订单待支付", UTF8));//订单状态 TODO...
-                        yiqifaParamMap.put("ps", URLEncoder.encode("待支付", UTF8));//支付状态 TODO...
+                        yiqifaParamMap.put("os", URLEncoder.encode("I", UTF8));//订单状态
+                        yiqifaParamMap.put("ps", URLEncoder.encode("I", UTF8));//支付状态
                         yiqifaParamMap.put("pw", URLEncoder.encode("JD", UTF8));//支付方式 TODO...
                         yiqifaParamMap.put("far", 0 + "");//运费
                         yiqifaParamMap.put("fav", 0 + "");//优惠额 TODO...
