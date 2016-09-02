@@ -426,38 +426,120 @@
 
  /*hp9*/
 
- .hn-o,.hn-t,.hn-s,.hn-f,.hn-fv,.hn-six,.hn-se,.hn-ev,.hn-n,.hn-ten,.hn-eleven,.hn-twelve,.hn-thirteen,.hn-fourteen,.hn-fifteen,.hn-sixteen,.hn-seventeen
- ,.hn-eighteen,.hn-nineteen,.hn-twenty,.hn-twenty-one,.hn-twenty-two,.hn-twenty-three,.hn-twenty-four,.hn-twenty-five,.hn-twenty-six{
+ .hn-o,.hn-t,.hn-s,.hn-f,.hn-fv,.hn-six,.hn-se,.hn-ev,.hn-n,.hn-ten,.hn-eleven,.hn-twelve,.hn-thirteen,.hn-fourteen
+ ,.hn-fifteen,.hn-sixteen,.hn-seventeen,.hn-eighteen,.hn-nineteen,.hn-twenty,.hn-twenty-one,.hn-twenty-two,.hn-twenty-three,.hn-twenty-four,.hn-twenty-five,.hn-twenty-six{
      width: 82%;
      height: 3.2%;
      position: absolute;
-     top: 3.8%;
+     top: 3.6%;
      left: 10%;
-     background-color:rgba(0,0,0,0.5);
  }
 
 .hn-t{
-    top:7.7%;
+    top:7.4%;
 }
-.hn-s,.hn-f,.hn-fv,.hn-six,.hn-se,.hn-ev,.hn-n,.hn-ten,.hn-eleven,.hn-twelve,.hn-thirteen,.hn-fourteen{
+.hn-s,.hn-f,.hn-fv,.hn-six,.hn-se,.hn-ev,.hn-n,.hn-ten,.hn-eleven,.hn-twelve,.hn-thirteen,.hn-fourteen
+,.hn-fifteen,.hn-sixteen,.hn-seventeen,.hn-eighteen,.hn-nineteen,.hn-twenty,.hn-twenty-one,.hn-twenty-two,.hn-twenty-three,.hn-twenty-four,.hn-twenty-five,.hn-twenty-six{
     width: 53%;
-    left: 4%;
+    left:4.5%;
     height: 2.2%;
-    top: 16.6%;
+    top: 16%;
 }
 
 .hn-f{
-    left: 43%;
+    left: 42%;
     height: 2.2%;
-    top: 19.4%;
+    top: 18.7%;
 }
 
 .hn-fv{
-    top:22.2%
+    top:21.4%
 }
 .hn-six{
     top:24%;
     left: 43%;
 }
+.hn-se{
+    top: 26.7%;
+    left: 7%;
+}
 
+.hn-ev{
+    left: 38.5%;
+    height: 2.3%;
+    top: 29%;
+}
+.hn-n{
+    left: 2.4%;
+    height: 2.2%;
+    top: 31.6%;
+
+}
+
+.hn-ten{
+    left: 44.4%;
+    top: 34.2%;
+}
+.hn-eleven{
+    left: 7%;
+    top: 36.7%;
+}
+.hn-twelve{
+    left: 41%;
+    top: 39.4%;
+}
+
+.hn-thirteen, .hn-fourteen {
+    left: 6%;
+    top: 42%;
+}
+.hn-fourteen {
+    left: 37%;
+    top: 44.8%;
+}
+
+.hn-fifteen,.hn-sixteen,.hn-seventeen,.hn-eighteen,.hn-nineteen,.hn-twenty,.hn-twenty-one,.hn-twenty-two,.hn-twenty-three,.hn-twenty-four,.hn-twenty-five,.hn-twenty-six
+{  left: 5%;
+    width:92%;
+    top: 52.5%;
+}
+.hn-sixteen{
+    top: 55.8%;
+}
+
+.hn-seventeen{
+    top: 59.1%;
+}
+
+.hn-eighteen{
+    top: 62.4%;
+}
+.hn-nineteen{
+    top: 65.7%;
+}
+
+.hn-twenty{
+    top: 68.9%;
+}
+.hn-twenty-one{
+    top: 72.3%;
+}
+
+.hn-twenty-two{
+    top: 75.6%;
+}
+.hn-twenty-three{
+    top: 78.9%;
+}
+.hn-twenty-four{
+    top: 82.2%;
+}
+
+.hn-twenty-five{
+    top: 85.5%;
+}
+
+.hn-twenty-six {
+    top: 88.8%;
+}
 
