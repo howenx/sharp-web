@@ -9,6 +9,7 @@ import play.mvc.Result;
 
 import javax.inject.Inject;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -75,12 +76,20 @@ public class AdCtrl extends Controller {
         if(null!=params.get("ud")){
             date=params.get("ud");
         }
+
+        try {
+            //校验时间格式
+            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyyMMdd");
+            simpleDateFormat.setLenient(false);
+            simpleDateFormat.parse(date);
+        } catch (Exception e) {
+            return F.Promise.promise((F.Function0<Result>) () -> ok("FAIL,时间格式不是yyyyMMdd"));
+        }
         if(null==params.get("cid")||"".equals(params.get("cid"))||"".equals(date)){
-           F.Promise.promise((F.Function0<Result>) () -> ok("FAIL"));
+           return F.Promise.promise((F.Function0<Result>) () -> ok("FAIL,cid或者date为空"));
         }
         final String finalDate = date;
         F.Promise<String> promise = F.Promise.promise(() -> {
-
             Request request =comCtrl.getBuilder(ctx())
                     .url(AD_QUERY_ORDER +YIQIFA_AID+"/"+params.get("cid")+"/"+ finalDate)
                     .build();

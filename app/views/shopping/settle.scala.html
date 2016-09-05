@@ -229,10 +229,10 @@
                         <i class="colore">￥@settle.getTotalFee()</i>
                     </li>
                     <li>
-                            <span>优惠金额</span>
-
+                        <span>优惠金额</span>
                         @if(null==settle.getDiscountFee()){<i class="colore discountCss">￥0</i><input type="hidden" name="hiddenDiscountFee" value="0"/>}
                         @if(null!=settle.getDiscountFee()){<i class="colore discountCss">￥settle.getDiscountFee()</i><input type="hidden" name="hiddenDiscountFee" value="@settle.getDiscountFee()"/>}
+                        <input type="hidden" name="discount" id="discount" value="0">
                     </li>
 
                     <!--<li><span>行邮税</span><i class="colore">￥@settle.getPortalFee()</i></li>

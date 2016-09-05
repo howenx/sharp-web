@@ -795,7 +795,7 @@ public class ShoppingCtrl extends Controller {
                         yiqifaParamMap.put("ps", URLEncoder.encode("I", UTF8));//支付状态
                         yiqifaParamMap.put("pw", URLEncoder.encode("JD", UTF8));//支付方式 TODO...
                         yiqifaParamMap.put("far", 0 + "");//运费
-                        yiqifaParamMap.put("fav", 0 + "");//优惠额 TODO...
+                        yiqifaParamMap.put("fav", null==settleMap.get("discount")?"0":settleMap.get("discount"));//优惠额
                         if (null == settleMap.get("couponId") || "".equals(settleMap.get("couponId"))) {
                             yiqifaParamMap.put("fac", URLEncoder.encode("0", UTF8));
                         } else {

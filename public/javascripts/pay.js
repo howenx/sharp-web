@@ -23,6 +23,7 @@ $(function(){
             if(typeof(denominationSpan)=="undefined"||null==denominationSpan){
                 $("#totalPaySpan").html(tempTotal);
                 $(".discountCss").html("￥"+hiddenDiscountFee);
+                $("#discount").val(hiddenDiscountFee);
             }else{
                 var totalFinal=parseFloat(tempTotal-denominationSpan).toFixed(2);
                 var fee=parseFloat(denominationSpan)+parseFloat(hiddenDiscountFee);
@@ -33,6 +34,7 @@ $(function(){
                 }
                 $("#totalPaySpan").html(totalFinal);
                 $(".discountCss").html("￥"+fee);
+                $("#discount").val(fee);
             }
 
         });
