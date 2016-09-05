@@ -738,6 +738,9 @@ public class ShoppingCtrl extends Controller {
         if(isYiqifa){
             object.put("adSource",settleMap.get("aid"));
             object.put("subAdSource",settleMap.get("cid"));
+            ObjectNode adParamNode=Json.newObject();
+            adParamNode.put("wi",settleMap.get("wi"));
+            object.put("adParam",toJson(adParamNode).toString());
         }
         F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
             RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, toJson(object).toString());
