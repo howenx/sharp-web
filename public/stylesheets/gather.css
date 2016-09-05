@@ -256,15 +256,14 @@
     padding: 44px 0 0 0;
 }
 
-/*h7*/
 
+/*h7*/
 .groomsix-o,.groomsix-t,.groomsix-s,.groomsix-f,.groomsix-fv,.groomsix-six,.groomsix-se,.groomsix-ev,.groomsix-n,.groomsix-ten{
     width: 24%;
     position: absolute;
     height: 5%;
     left: 37%;
     top: 19%;
-    background-color: pink;
 }
 .groomsix-t{
     width: 15%;
@@ -320,20 +319,19 @@
     top: 72%;}
 
 .groomsix-ten{
-    width: 18%;
+    width: 13%;
     height: 9.5%;
     left: 81%;
     top: 71%;}
 
 .order-o,.order-t,.order-s,.order-f,.order-fv,.order-six,.order-se
 ,.order-to,.order-tt,.order-tf,.order-tfv,.order-tsix,.order-tse
-,.order-so,.order-st,.order-ss{
+,.order-so,.order-st,.order-ss,.order-ts{
     width: 10%;
     position: absolute;
     height: 4%;
     left: 7%;
     top: 36%;
-    background-color: red;
 }
 
 .order-t{
@@ -356,7 +354,7 @@
 .order-se{
     left:82% ;
 }
-.order-to,.order-tt,.order-tf,.order-tfv,.order-tsix,.order-tse{
+.order-to,.order-tt,.order-tf,.order-tfv,.order-tsix,.order-tse,.order-ts{
     top:63%
 }
 .order-tt{
@@ -364,6 +362,10 @@
 }
 
 .order-tf{
+    left:45%;
+}
+
+.order-ts{
     left: 32%;
 }
 
@@ -424,9 +426,10 @@
      height: 2%;
  }
 
- /*hp9*/
 
- .hn-o,.hn-t,.hn-s,.hn-f,.hn-fv,.hn-six,.hn-se,.hn-ev,.hn-n,.hn-ten,.hn-eleven,.hn-twelve,.hn-thirteen,.hn-fourteen
+
+ /*hp9*/
+.hn-o,.hn-t,.hn-s,.hn-f,.hn-fv,.hn-six,.hn-se,.hn-ev,.hn-n,.hn-ten,.hn-eleven,.hn-twelve,.hn-thirteen,.hn-fourteen
  ,.hn-fifteen,.hn-sixteen,.hn-seventeen,.hn-eighteen,.hn-nineteen,.hn-twenty,.hn-twenty-one,.hn-twenty-two,.hn-twenty-three,.hn-twenty-four,.hn-twenty-five,.hn-twenty-six{
      width: 82%;
      height: 3.2%;

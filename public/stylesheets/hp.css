@@ -88,7 +88,7 @@ h1 {
 	width:100%;
 }
 
-#container ul{width:100%;list-style:none;float:left;margin:0 20px 0px 0}
+#container ul{width:100%;list-style:none;float:left;margin:0 20px 10px 0}
 
 #container ul li{margin-top:10px; background-color: #fff; }
 
@@ -818,7 +818,6 @@ li {
 
 }
 
-.col li:last-child{
+#container{
 	margin: 0 0 60px 0;
 }
-

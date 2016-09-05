@@ -318,6 +318,7 @@ input[type=radio] {
 
 }
 .box span{
+    color: #242424;
     width:100%;
     text-align: center;
     display: block;

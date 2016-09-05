@@ -275,7 +275,7 @@ h1 {
 
 
 .shopp .cart_num{
-
+    font-weight: normal;
     width: 18px;
     height: 18px;
     position: absolute;
@@ -420,9 +420,10 @@ h1 {
 .product li {
     margin-bottom: 10px;
 }
-.product li:last-child{
+
+/*.product li:last-child{
     margin-bottom:40px;
-}
+}*/
 
 .product li a{
     position: relative;
@@ -681,7 +682,11 @@ border-top:1px solid rgba(0,0,0,0.15) ;
     font-weight: bold;
 }
 
-
+.period{
+    font-size: 14px;
+    text-align: center;
+    margin: 20px 0 0 0;
+}
 
 
 

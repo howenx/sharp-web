@@ -35,7 +35,7 @@
 
 <div id="container" class="order scope">
 
-    <ul class="col" id="col-bottom" style="margin-bottom: 0px;">
+    <ul class="col" id="col-bottom">
         @for(theme <- themeList){
             <li>
                 <a href="@theme.getThemeUrl()">
@@ -47,6 +47,9 @@
         }
 
     </ul>
+
+	<p class="period">没有更多了~</p>
+
 </div>
 
 @if(themeCate==2){

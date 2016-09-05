@@ -158,8 +158,8 @@
 		</div>
 
         <!--内容开始-->
-		<div id="container">
-			<ul class="col" id="col-bottom">
+		<div id="container" class="clearfix">
+			<ul class="col clearfix" id="col-bottom">
 				@for(theme <- themeList){
 					<li>
 						<a href="@theme.getThemeUrl()">
@@ -177,7 +177,10 @@
 
 				}
 			</ul>
+			<p class="period">没有更多了~</p>
+
 		</div>
+
 
 		<!--瀑布流-->
 		<script type="text/javascript">
