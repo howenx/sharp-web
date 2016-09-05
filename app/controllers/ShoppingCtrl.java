@@ -738,6 +738,9 @@ public class ShoppingCtrl extends Controller {
         if(isYiqifa){
             object.put("adSource",settleMap.get("aid"));
             object.put("subAdSource",settleMap.get("cid"));
+            ObjectNode adParamNode=Json.newObject();
+            adParamNode.put("wi",settleMap.get("wi"));
+            object.put("adParam",toJson(adParamNode).toString());
         }
         F.Promise<JsonNode> promiseOfInt = F.Promise.promise(() -> {
             RequestBody formBody = RequestBody.create(MEDIA_TYPE_JSON, toJson(object).toString());
@@ -792,7 +795,7 @@ public class ShoppingCtrl extends Controller {
                         yiqifaParamMap.put("ps", URLEncoder.encode("I", UTF8));//支付状态
                         yiqifaParamMap.put("pw", URLEncoder.encode("JD", UTF8));//支付方式 TODO...
                         yiqifaParamMap.put("far", 0 + "");//运费
-                        yiqifaParamMap.put("fav", 0 + "");//优惠额 TODO...
+                        yiqifaParamMap.put("fav", null==settleMap.get("discount")?"0":settleMap.get("discount"));//优惠额
                         if (null == settleMap.get("couponId") || "".equals(settleMap.get("couponId"))) {
                             yiqifaParamMap.put("fac", URLEncoder.encode("0", UTF8));
                         } else {

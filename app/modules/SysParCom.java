@@ -139,6 +139,11 @@ public class SysParCom {
 
     //亿起发有效时间设为15天
     public static Integer YIQIFA_COOKIE_EXPIRES;
+    //用来判断流量来自于亿起发联盟
+    public static String YIQIFA_AID;
+
+    //广告查询订单
+    public static String AD_QUERY_ORDER;
 
     @Inject
     public SysParCom(Configuration configuration) {
@@ -257,6 +262,10 @@ public class SysParCom {
         SHOPPING_COUPON_REC=configuration.getString("shopping.coupon.rec");
 
         YIQIFA_COOKIE_EXPIRES=configuration.getInt("yiqifa.cookie.expires");
+
+        YIQIFA_AID=configuration.getString("yiqifa.aid");
+
+        AD_QUERY_ORDER=configuration.getString("ad.query.order");
 
 
 

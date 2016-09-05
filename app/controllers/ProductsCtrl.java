@@ -796,37 +796,5 @@ public class ProductsCtrl extends Controller {
         });
     }
 
-    /**
-     * 接收亿起发参数接口
-     * @return
-     */
-    public Result track(){
-        Map<String, String[]> body_map = request().queryString();
-        Map<String, String> params = new HashMap<>();
-        body_map.forEach((k, v) -> params.put(k, v[0]));
-        Logger.info("亿起发参数\nparams="+params);
-        int expires=YIQIFA_COOKIE_EXPIRES*24*60*60;
-        if(null!=params.get("cid")){
-            ctx().response().setCookie("cid", params.get("cid"), expires);
-        }
-        if(null!=params.get("channel")){
-            ctx().response().setCookie("channel", params.get("channel"), expires);
-        }
-        if(null!=params.get("aid")){
-            ctx().response().setCookie("aid", params.get("aid"), expires);
-        }
-        if(null!=params.get("wi")){
-            ctx().response().setCookie("wi", params.get("wi"), expires);
-        }
-        String url=null;
-        if(null!=params.get("url")){
-            url=params.get("url");
-        }
-        if(null==url||"".equals(url)){
-            url=M_HTTP;
-        }
-        return redirect(url);
-
-    }
 
 }
