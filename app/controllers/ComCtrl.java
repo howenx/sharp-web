@@ -596,4 +596,14 @@ public class ComCtrl extends Controller {
         return null;
     }
 
+    /**
+     * 禁止浏览器缓存
+     * @param ctx
+     */
+    public void disableBrowserCache(Http.Context ctx){
+        ctx.response().setHeader("Cache-Control","no-cache,no-store,must-revalidate");
+        ctx.response().setHeader("Expires", "0");
+        ctx.response().setHeader("Pragma","no-cache");
+    }
+
 }

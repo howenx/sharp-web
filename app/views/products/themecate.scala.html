@@ -48,7 +48,7 @@
 
     </ul>
 
-	<p class="period">没有更多了~</p>
+	<p class="period" id="noMore">没有更多了~</p>
 
 </div>
 
@@ -86,6 +86,8 @@
 								$minUl = getMinUl();
 								$minUl.append(html);
 							}
+						}else{
+							$("#noMore").show();
 						}
 					},
 					error: function() {
@@ -98,7 +100,7 @@
 				var currentPageCount = 2;
 				$(window).on("scroll",function(){
 					var pageCount = @pageCount;
-					if(currentPageCount <= pageCount){
+					if(currentPageCount <= (pageCount+1)){
 						$minUl = getMinUl();
 						if($minUl.height() <= $(window).scrollTop()+$(window).height()){
 							//当最短的ul的高度比窗口滚出去的高度+浏览器高度大时加载新图片

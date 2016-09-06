@@ -86,6 +86,8 @@ public class ShoppingCtrl extends Controller {
                 }
             }
 
+            comCtrl.disableBrowserCache(ctx());
+
             if (id > 0) {
                 return ok(views.html.shopping.orderpa.render(orderList.get(0),PAY_URL,token));//订单详情
             }
@@ -589,6 +591,7 @@ public class ShoppingCtrl extends Controller {
                     Logger.info("返回数据code=" + json);
                     return ok(views.html.shopping.settleErr.render(settleInfoList, buyNowTemp, finalPinActiveId, PAY_URL,message.getMessage()));
                 }
+                comCtrl.disableBrowserCache(ctx());
                 SettleVo settleVo = Json.fromJson(json.get("settle"), SettleVo.class);
                 if(null!=settleVo.getAddress()){
                     settleVo.getAddress().setTel(comCtrl.getShowTel(settleVo.getAddress().getTel()));
@@ -761,6 +764,8 @@ public class ShoppingCtrl extends Controller {
                 Logger.error("返回商品结算数据错误code=" + json);
                 return badRequest();
             }
+
+            comCtrl.disableBrowserCache(ctx());
 
             ObjectNode objectNode = Json.newObject();
             objectNode.putPOJO("message",message);
