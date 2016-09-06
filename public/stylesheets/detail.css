@@ -551,9 +551,6 @@ div .cycle-overlay {
 .product li {
 	margin-bottom: 10px;
 }
-.product li:last-child{
-	margin-bottom:40px;
-}
 
 .product li a{
 	position: relative;

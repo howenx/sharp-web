@@ -9,6 +9,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <!-- 忽略页面中的数字识别为电话号码,email识别 -->
     <meta name="format-detection"content="telephone=no, email=no" />
+    <META HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-store, must-revalidate">
+    <META HTTP-EQUIV="expires" CONTENT="0">
     <script type="text/javascript" src="/assets/javascripts/jquery/jquery-1.9.1.js"></script>
     <script type="text/javascript" src="/assets/javascripts/jquery/area.js"></script>
     <script type="text/javascript" src="/assets/javascripts/my.js"></script>
@@ -37,7 +40,8 @@
                 }
             }
             $("#adSourceDiv").append(html);
-    }
+    };
+
 
     </script>
 </head>
@@ -272,13 +276,13 @@
     <input type="hidden" name="paySrc" value="M"/>
 </form>
 
+<!--地址-->
 <div class="hint" id="tip" style="display:none"></div>
 
-<div id="addressArea" class="add-shade" style="height: 100%;overflow: scroll">
+<div id="addressArea" class="add-shade" style="height: 100%;overflow: scroll;">
     <ul class="ul-box clearfix scope">
-
         <li class="amputate clearfix">
-            <span> × </span>
+            <span style="cursor:pointer;"> × </span>
         </li>
     </ul>
     <div class="plus-add-btn">

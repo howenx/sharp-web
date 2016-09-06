@@ -85,6 +85,9 @@ public class UserCtrl extends Controller {
                 Logger.error("返回地址数据错误code=" + (null != message ? message.getCode() : 0));
                 return badRequest();
             }
+
+            comCtrl.disableBrowserCache(ctx());
+
             if (selId == 1) {
                 if (Message.ErrorCode.DATABASE_EXCEPTION.getIndex() == message.getCode()) {
                     return ok(json);
@@ -192,6 +195,8 @@ public class UserCtrl extends Controller {
                     Logger.error("返回创建新的收货地址数据错误code=" + json);
                     return badRequest();
                 }
+                comCtrl.disableBrowserCache(ctx());
+
                 if (selId != 0) {   //0-普通添加更新跳全部地址界面  1-结算结算添加 2-结算界面更新
                     result.putPOJO("message", message);
                     if (message.getCode() == Message.ErrorCode.SUCCESS.getIndex()) {
@@ -250,6 +255,8 @@ public class UserCtrl extends Controller {
                 Logger.error("返回数据code=" + json);
                 return badRequest(views.html.error.render(message.getMessage()));
             }
+            comCtrl.disableBrowserCache(ctx());
+
             ObjectMapper mapper = new ObjectMapper();
             List<Address> addressList = new ArrayList<Address>();
             if(json.has("address")){

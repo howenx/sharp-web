@@ -31,6 +31,7 @@ $(document).on("click",".closeAddNew",function(){
     $('.xnew-add-shade').hide();
     addNewViewClose();
 });
+
 //隐藏修改地址模块
 $(document).on("click",".closeAddUpdate",function(){
     $('.xnew-add-shade').html("");
@@ -45,14 +46,16 @@ $(document).on("click",".address-r",function(){
     $("li").removeClass("amputate-current");
     var addId=$("input[name=addressId]").val();
     $("#li"+addId).addClass("amputate-current");
-
  });
+
 //关闭其他地址界面
 $(document).on("click",".amputate span",function(){
     $('.add-shade').hide();
     $(".big").show();
     $(".back").show();
 });
+
+
 //新增地址界面保存或者关闭的时候
 function addNewViewClose(){
     if($("#addressArea").find("ul").find("li").size()>2){//说明是从地址列表界面新增
@@ -108,7 +111,7 @@ function paintAddressLi(address){
 //添加地址弹出层
 $(document).on("click",".addressnew",function(){
      var str='<div class="amput clearfix closeAddNew">'+
-                       '<span> × </span>'+
+                       '<span style="cursor:pointer;"> × </span>'+
                    '</div>'+
                    '<form id="cell_addressForm" style="padding: 0 10px">'+
                       '<input  id="addId" name="addId" value="0" type="hidden"/>'+
@@ -178,7 +181,7 @@ $(document).on("click",".addressUpdate",function(){
               },
               success: function(data) {
                  var str='<div class="amput clearfix closeAddUpdate">'+
-                               '<span> × </span>'+
+                               '<span style="cursor:pointer;"> × </span>'+
                                '</div>'+
                                '<form id="cell_addressForm" style="padding: 0 10px">'+
                                  '<input  id="addId" name="addId" value="'+data.addId+'" type="hidden"/>'+
