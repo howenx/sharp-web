@@ -165,6 +165,11 @@ public class H5Ctrl extends Controller {
                  comCtrl.h5OpbeforeRender(ctx());
                  return ok(views.html.shopping.h5.hp12.render(openType));
           }
+
+     public Result hp13(String openType) {
+                     comCtrl.h5OpbeforeRender(ctx());
+                     return ok(views.html.shopping.h5.hp13.render(openType));
+     }
     /**
      * 领取优惠券
      * @return

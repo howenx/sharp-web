@@ -590,14 +590,38 @@
     top:70.2%;
 }
 
+.hthir-f,.hthir-fv,.hthir-six,.hthir-se,.hthir-ev,.hthir-n,.hthir-ten,.hthir-eleven{
+    width: 23%;
+    height: 7.5%;
+    position: absolute;
+    top:51%;
+    left: 20%;
+}
+
+.hthir-fv{
+    left:59%;
+}
 
 
+.hthir-six,.hthir-ev,.hthir-se{
+    top: 77.2%;
+    left: 9%;
+}
 
 
+.hthir-n,.hthir-ten,.hthir-eleven{
+    top:86.7%;
+    left: 9%;
+}
 
+.hthir-se,.hthir-ten{
 
+    left:38%;
+}
 
-
+.hthir-ev,.hthir-eleven{
+    left:67%;
+}
 
 
 
