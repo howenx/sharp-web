@@ -44,7 +44,7 @@ function themeItemListHtml(rowList){
             html+='</span>';
 
             if(item.state== "P"){
-                html+='<p class="obstruct"><span>即将上线</span></p>';
+                html+=' <p class="obstruct"><span><img src="/assets/images/hmm_goods_yushou.png"/></span></p>';
             }
             html+=' </a>';
         }

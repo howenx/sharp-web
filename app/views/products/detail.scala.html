@@ -33,11 +33,12 @@
 </div>
 
 <!--头部-->
-<div class="nav_ban_detail">
+@download()
+<div class="nav_ban_detail head-global">
 	<a href="@hisUrl" class="back"></a>
 	<h1>商品详情</h1>
 </div>
-@download()
+
 <div id='screen_wrap'>
 
 	<form id="settleForm" action="/settle" method="POST">
@@ -100,7 +101,6 @@
 										@if("P"==inventory.getState()){即将上线}else{已抢光}
 									</div>
 								}
-
 							</div>
 
 							<div class="hd">
@@ -210,7 +210,7 @@
 					<ul>
 						<li class="tab-item active pic-tex pin-pic current"> <span class='tab-span'>图文详情</span> <i></i> </li>
 						<li class="tab-item goods-para"> <span class='tab-span'>商品参数</span> <i></i> </li>
-						<li class="tab-item hot-sale"> <span>热卖推荐</span> <i></i> </li>
+						<li class="tab-item hot-sale"> <span>热卖推荐</span> <i></i></li>
 					</ul>
 				</nav>
 			</div>

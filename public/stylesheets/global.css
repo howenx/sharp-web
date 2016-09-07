@@ -307,9 +307,7 @@ h1 {
 
 
 /*下载*/
-.footerbox{
-    padding: 44px 0 0 0;
-}
+
 .footer{
     /*position: fixed;
     bottom: 0;*/
@@ -652,7 +650,9 @@ border-top:1px solid rgba(0,0,0,0.15) ;
     font-weight: normal;
 }
 
-
+.battener-fixed{
+    top:0;
+}
 
 
 
