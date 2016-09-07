@@ -107,4 +107,23 @@ public class AdCtrl extends Controller {
             return ok(re);
         });
     }
+
+
+    /**
+     * ios通配符 apple-app-site-association
+     * @return
+     */
+    public Result appleAppSiteAssociation(){
+        return ok("{\n" +
+                "\"applinks\": {\n" +
+                "\"apps\": [],\n" +
+                "\"details\": [\n" +
+                "{\n" +
+                "\"appID\": \"6E6255HJ5K.com.kakao.kakaogift\",\n" +
+                "\"paths\": [ \"*\" ]\n" +
+                "}\n" +
+                "]\n" +
+                "}\n" +
+                "}");
+    }
 }
