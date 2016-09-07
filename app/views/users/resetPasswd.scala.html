@@ -71,8 +71,7 @@
                                         $("#password").attr({"name":"password"});
                                         $("#code").attr({"name":"code"});
                                         if (data==null || data=="") {
-                                            $('#js-userinfo-error').text("网络连接异常,请检查网络").show();
-                                            setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                            tip("网络连接异常,请检查网络");
                                         } else if (data.code === 200) {
                                             //手机验证码发送成功
                                             $('#js-userinfo-error').text('验证码发送成功!').show();
@@ -92,8 +91,7 @@
                                                  }
                                             }, 1000);
                                         } else {
-                                            $('#js-userinfo-error').text(data.message).show();
-                                            setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                            tip(data.message);
                                         }
                                 }
                         });
@@ -107,20 +105,16 @@
                 var passwordReg = new RegExp(/^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,12}/);
 
                 if ($('#code').val().length!=6 || !codeReg.test($('#code').val())) {
-                    $('#js-userinfo-error').text('请输入6位验证码').show();
-                    setTimeout("$('#js-userinfo-error').hide()", 2000);
+                    tip('请输入6位验证码');
                 }
                 else if ($('#password').val().length<6 || $('#password').val().length>12) {
-                    $('#js-userinfo-error').text('请输入6-12位密码').show();
-                    setTimeout("$('#js-userinfo-error').hide()", 2000);
+                    tip('请输入6-12位密码');
                 }
                 else if (!passwordReg.test($('#password').val())) {
-                    $('#js-userinfo-error').text('密码必须是字母数字组合').show();
-                    setTimeout("$('#js-userinfo-error').hide()", 2000);
+                    tip('密码必须是字母数字组合');
                 }
                 else if ($('#re_password').val()!=$('#password').val()) {
-                    $('#js-userinfo-error').text('两次密码输入的不一致').show();
-                    setTimeout("$('#js-userinfo-error').hide()", 2000);
+                    tip('两次密码输入的不一致');
                 }
                 else {
                     $("#smsType").removeAttr("name");
@@ -134,8 +128,7 @@
                                 $("#smsType").attr({"name": "smsType"});
                                 console.log(data);
                                 if (data==null || data=="") {
-                                    $('#js-userinfo-error').text("网络连接异常,请检查网络").show();
-                                    setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                    tip("网络连接异常,请检查网络");
                                 } else if(data.code === 200){
                                     $('#js-userinfo-error').text('密码修改并登录成功').show();
                                     setTimeout("$('#js-userinfo-error').hide()", 2000);
@@ -143,8 +136,7 @@
                                         window.location.href = $("#uri").val();
                                     }, 1000);
                                 } else{
-                                    $('#js-userinfo-error').text(data.message).show();
-                                    setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                    tip(data.message);
                                 }
                             }
                     });

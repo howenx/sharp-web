@@ -183,8 +183,7 @@
                                        $("#smsType").attr({"name": "smsType"});
                                        //用户已经注册,输入密码
                                        if (data.code === 5001) {
-                                            $('#js-userinfo-error').text('该手机号已经注册,请输入密码').show();;
-                                            setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                           tip('该手机号已经注册,请输入密码');
                                             $('.pwd').css("display","block");
                                             $('#btn-bind').val("登录");
                                             $('.loginInfo').css("display","block");
@@ -199,19 +198,15 @@
                 //输入密码登录
                 if ($("#btn-bind").val()=="登录") {
                         if (11 != $('#phone').val().length) {
-                            $('#js-userinfo-error').text('请输入11位的手机号').show();;
-                            setTimeout("$('#js-userinfo-error').hide()", 2000);
+                            tip('请输入11位的手机号');
                         } else if (!phoneReg.test($('#phone').val())) {
-                            $('#js-userinfo-error').text('请输入正确位数的手机号').show();;
-                            setTimeout("$('#js-userinfo-error').hide()", 2000);
+                            tip('请输入正确位数的手机号');
                         }
                         else  if ($('#password').val().length<6 || $('#password').val().length>12) {
-                            $('#js-userinfo-error').text('请输入6-12位密码').show();;
-                            setTimeout("$('#js-userinfo-error').hide()", 2000);
+                            tip('请输入6-12位密码');
                         }
                         else if (!passwordReg.test($('#password').val())) {
-                            $('#js-userinfo-error').text('密码必须是字母数字组合').show();;
-                            setTimeout("$('#js-userinfo-error').hide()", 2000);
+                            tip('密码必须是字母数字组合');
                         }
                         else {
                             if ($("#imgCode").val()=="") $("#code").val("-1");
@@ -238,15 +233,13 @@
                                             $(".proving-box").show();
                                             var code = $("#code").val();
                                             if (!code_regexp.test(code)) {
-                                                $('#js-userinfo-error').text("请输入正确格式的验证码").show();
-                                                setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                               tip("请输入正确格式的验证码");
                                             }
                                         } else if (data.code === 4003) {
                                             //用户未注册,弹框提示
                                             $('.shade-reg').show();
                                         } else {
-                                            $('#js-userinfo-error').text(data.message).show();
-                                            setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                            tip(data.message);
                                         }
                                     }
                             });
@@ -281,8 +274,7 @@
                                 form.submit();
                         }
                         else {
-                                $('#js-userinfo-error').text(data.message).show();
-                                setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                tip(data.message);
                         }
                     }
                 });
