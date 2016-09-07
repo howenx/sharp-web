@@ -9,24 +9,14 @@
 <script>
 	echo.init();
 	$(document).ready(function() {
-		var closeDownload=false;
 		var closePreSale=false;
 		var arrStr = document.cookie.split("; ");
 		for(var i = 0;i < arrStr.length;i ++){
 			var temp = arrStr[i].split("=");
-			if(temp[0] == "downloadState"){
-				closeDownload=true;
-			}else if(temp[0] == "preSaleState"){
+			if(temp[0] == "preSaleState"){
 				closePreSale=true;
 			}
 		}
-		if(!closeDownload){
-			$("#downloadDiv").show();
-		}else{
-			$("#downloadDiv").hide();
-		  	$("#topDiv").addClass("top-bottom");
-		}
-
 
 		var myDate=new Date(2016, 8, 8, 0, 0, 0, 0);
 		var today = new Date();

@@ -68,7 +68,7 @@ GET         /recommend/$position<[0-9]+>                                       c
 #广告
 GET         /track                                                             controllers.AdCtrl.track()
 GET         /queryorder                                                        controllers.AdCtrl.yiqifaQueryorder()
-
+GET         /apple-app-site-association                                        controllers.AdCtrl.appleAppSiteAssociation()
 
 
 
@@ -159,6 +159,10 @@ GET         /hp13/$openType<[a-zA-Z]+>                                          
 #H5页面内的操作
 #领取优惠券
 POST         /coupons/rec                                                      controllers.H5Ctrl.couponRec()
+
+
+
+
 
 
 # Map static resources from the /public folder to the /assets URL path

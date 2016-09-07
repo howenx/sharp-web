@@ -1335,7 +1335,8 @@ public class UserCtrl extends Controller {
             if(jsonNode.has("downloadLink")){
                 androidPath=jsonNode.get("downloadLink").asText();
             }
-            return ok(views.html.users.appdownload.render(androidPath));
+         //   return ok(views.html.users.appdownload.render(androidPath));
+            return redirect(androidPath);
         });
 
 

@@ -1,6 +1,21 @@
 <script>
 
 $(function(){
+
+    var closeDownload=false;
+    var arrStr = document.cookie.split("; ");
+    for(var i = 0;i < arrStr.length;i ++){
+        var temp = arrStr[i].split("=");
+        if(temp[0] == "downloadState"){
+            closeDownload=true;
+        }
+    }
+    if(!closeDownload){
+        $("#downloadDiv").show();
+    }else{
+        $("#downloadDiv").hide();
+    }
+
   //关闭下载添加cookie
   function addDownloadCookie(){
     //过期时间1小时
@@ -28,7 +43,7 @@ $(function(){
     $("#topDiv").addClass("top-bottom");
   },10000);*/
 
-  $('.delete-down').click(function(){
+  $('#closeDownloadBtn').click(function(){
     addDownloadCookie();
   });
 
@@ -45,7 +60,7 @@ $(function(){
 
         }else if (/(Android)/i.test(navigator.userAgent)){
             //如果是安卓机，就打开安卓页面
-            window.location.href ="http://dl.kakaogift.cn/android/KakaoGift-1.0.0.apk";// 如果是苹果机，就打开苹果的页面
+            window.location.href ="/appdownload";// 如果是苹果机，就打开苹果的页面
         }
     });
 
@@ -60,7 +75,7 @@ $(function(){
             <i class="small">买遍韩国正品</i>
         </span>
     </p>
-    <b class="delete-down"></b>
-    <a href="/appdownload" class="bg" target="_blank"></a>
+    <b class="delete-down" id="closeDownloadBtn"></b>
+    <a href="javascript:;" class="bg" target="_blank"></a>
 </div>
 </div>
