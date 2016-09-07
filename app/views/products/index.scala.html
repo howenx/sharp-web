@@ -54,7 +54,7 @@
 	/*提示弹窗*/
 	$(function(){
 		//关闭下载添加cookie
-		setTimeout(function () {
+		setTimeout(function() {
 			$('.lines').hide();
 		}, 10000);
 
@@ -73,8 +73,27 @@
 			var str =paramStr+ "; expires=" + date.toGMTString();
 			document.cookie = str;
 		};
-		
+
+
+		/*if(/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+			$('.footerbox').click(function(){
+				window.location.href ="ios.html";// 如果是苹果机，就打开苹果的页面
+			});
+		}else if (/(Android)/i.test(navigator.userAgent)) {
+			//如果是安卓机，就打开安卓页面
+			$('.footerbox').click(function(){
+				window.location.href ="http://dl.kakaogift.cn/android/KakaoGift-1.0.0.apk";// 如果是苹果机，就打开苹果的页面
+			});
+		}else {
+			//不是移动设备，就是pc端的
+			window.location.href ="pc.html";
+		};
+*/
+
+
 	})
+
+
 
 </script>
 
@@ -103,7 +122,7 @@
 	</div>
 <!--主体	-->
 
-
+@download()
 
 	<div id='screen_wrap'>
 		<!--banner开始-->
@@ -255,7 +274,7 @@
 		<div class="lines" id="preSaleDiv" style="display:none;">
 			<p>9月8号开始售卖</p>
 			<p>亲可以提前加入购物车哦~</p>
-			<b class="delete-down"></b>
+			<b class="deletedown"></b>
 		</div>
 
 

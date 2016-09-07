@@ -152,6 +152,9 @@ h1 {
     font-weight: bold;
 }
 
+.footer p{
+    line-height:24px;
+}
 
 
 
@@ -304,10 +307,12 @@ h1 {
 
 
 /*下载*/
-
+.footerbox{
+    padding: 44px 0 0 0;
+}
 .footer{
-    position: fixed;
-    bottom: 0;
+    /*position: fixed;
+    bottom: 0;*/
     width: 100%;
     height: 70px;
     padding: 10px 0px;
@@ -319,7 +324,7 @@ h1 {
     width: 80px;
     height:40px;
     float: right;
-    margin:6px 0 0 0;
+    margin:6px 2px 0 0;
     background: url("/assets/images/down.png") no-repeat;
     background-size: cover;
 }
@@ -332,7 +337,7 @@ h1 {
 }
 
 .footer p span{
-    padding:8px 0 0 5px;
+    padding:3px 0 0 5px;
     float: left;
     font-size: 14px;
 }
@@ -342,7 +347,7 @@ h1 {
 }
 
 .footer p i{
-    display:block;;
+    display:block;
 }
 
 .footer .delete-down{
@@ -350,9 +355,8 @@ h1 {
     height: 24px;
     float: right;
     background: url("/assets/images/delete-down.png") no-repeat;
-    margin: -8px 0 0 0;
+    margin: -8px 2px 0 0;
     background-size: 22px;
-
 }
 
 .lines{
@@ -595,11 +599,6 @@ border-top:1px solid rgba(0,0,0,0.15) ;
 }
 
 
-.order{
-   padding: 44px 0 0 0;
-}
-
-
 /*即将上线 已售罄*/
 .obstruct {
     position: absolute;
@@ -685,7 +684,6 @@ border-top:1px solid rgba(0,0,0,0.15) ;
 .period{
     font-size: 14px;
     text-align: center;
-    margin: 20px 0 0 0;
     display:none;
 }
 

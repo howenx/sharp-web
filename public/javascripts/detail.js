@@ -64,7 +64,7 @@ $(function() {
         // }
             // 通过iframe的方式试图打开APP，如果能正常打开，会直接切换到APP，并自动阻止a标签的默认行为
             // 否则打开a标签的href链接
-
+/*
         if (navigator.userAgent.match(/MicroMessenger/i)) {
             masunmit(this);
             return;
@@ -85,7 +85,9 @@ $(function() {
                 function(){
                     masunmit(mabuyThis);
                 }, 1000);
-        }
+        }*/
+        e.preventDefault();
+        masunmit(this);
     })
 
 	$('.classify ul li').click(function(){

@@ -10,6 +10,7 @@
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <meta content="telephone=no" name="format-detection">
     <title>@pinInvDetail.getPinTitle()</title>
+    <link rel="stylesheet" href="/assets/stylesheets/global.css">
     <link rel="stylesheet" href="/assets/stylesheets/detail.css">
     <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
     <script src="/assets/javascripts/jquery/jquery-1.9.1.min.js"></script>
@@ -46,9 +47,9 @@
     }
 
 </div>
-
+@download()
 <form id="settleForm" action="/settle" method="POST">
-  <div id='screen_wrap' class="pin-wrap">
+  <div id='screen_wrap'>
      <div class="picture_wrap">
 
         <div id='slide' class="cycle-slideshow composite-slide"
@@ -224,11 +225,11 @@
         <div class="add_cart btns" data-type="cart">
             @if(pinInvDetail.isSoldOut() != true){
             @if(pinInvDetail.getPinTieredPrices().size()==1){
-            <a href="hmmapp://data/@url" class="btnCart add_cart_large pin-cart mabuy mabuyPinOnlyOne">
+            <a href="javascript:;" class="btnCart add_cart_large pin-cart mabuy mabuyPinOnlyOne">
                 立即开团
             </a>
             }else{
-            <a href="hmmapp://data/@url" class="btnCart add_cart_large pin-cart mabuy mabuyPin">
+            <a href="javascript:;" class="btnCart add_cart_large pin-cart mabuy mabuyPin">
                 立即开团
             </a>
             }
@@ -242,7 +243,7 @@
         </div>
         <div class="buy_btn" data-type="buy">
             @if(pinInvDetail.isSoldOut() != true){
-            <a href="hmmapp://data/@url" class="mabuy">
+            <a href="javascript:;" class="mabuy">
                 单独购买
             </a>
             }

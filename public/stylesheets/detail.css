@@ -90,7 +90,7 @@ input:password {
 
 /*海报*/
 /* 本例子css -------------------------------------- */
-.slideBox{ margin:1px auto;position:relative; width:100%;  height:auto; overflow:hidden;padding: 40px 0 0 0; }
+.slideBox{ margin:1px auto;position:relative; width:100%;  height:auto; overflow:hidden;}
 .slideBox .hd{ position: absolute;
 	height: auto;
 	line-height: 28px;
@@ -906,13 +906,11 @@ div .cycle-overlay {
 
 }
 .pin-buy a{
+
 	color:#666 ;
 }
 
 
-.pin-wrap{
-	padding:44px 0 0 0;
-}
 
 .txt{
 	padding:0 3%;
@@ -1125,7 +1123,9 @@ div .cycle-overlay {
 }
 
 
-/*玩法 页面*/
+
+/*
+!*玩法 页面*!
 .footer{
 	position: fixed;
 	bottom:0;
@@ -1150,9 +1150,9 @@ div .cycle-overlay {
 .footer span{
 	height: 50px;
 	float: left;
-	/*background: url("/assets/images/personal-down.png") -3px -5px no-repeat;
+	!*background: url("/assets/images/personal-down.png") -3px -5px no-repeat;
 	background-size: 45px 45px;
-	padding: 0 0 0 50px;*/
+	padding: 0 0 0 50px;*!
 	color: #fff;
 	font-size: 12px;
 }
@@ -1189,6 +1189,9 @@ div .cycle-overlay {
 	padding:44px 0 0 0;
 	margin:0 0 100px 0;
 }
+*/
+
+
 
 /*提示信息*/
 .hint{

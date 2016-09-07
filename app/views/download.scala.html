@@ -12,30 +12,47 @@ $(function(){
     document.cookie = str;
     $("#downloadDiv").hide();
     $("#topDiv").addClass("top-bottom");
-    $("#col-bottom").css('margin-bottom','0px');
+  /*  $("#col-bottom").css('margin-bottom','0px');*/
   };
 
-  if($("#downloadDiv").css("display")=="none"){
+ /* if($("#downloadDiv").css("display")=="none"){
     $("#col-bottom").css('margin-bottom','0px');
   }else{
     $("#col-bottom").css('margin-bottom','60px');
 
   }
-
-  setTimeout(function () {
-    $('.footer').hide();
+*/
+  /*setTimeout(function () {
+    //$('.footer').hide();
     $("#col-bottom").css('margin-bottom','0px');
     $("#topDiv").addClass("top-bottom");
-  },10000);
+  },10000);*/
 
   $('.delete-down').click(function(){
     addDownloadCookie();
   });
 
 
+    /*判断ios 安卓*/
+    if(/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+        $('.footer').hide();
+    };
+
+    $('.footer a').click(function(){
+        if(/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+
+            window.location.href ="javascript:;";// 如果是苹果机，就打开苹果的页面
+
+        }else if (/(Android)/i.test(navigator.userAgent)){
+            //如果是安卓机，就打开安卓页面
+            window.location.href ="http://dl.kakaogift.cn/android/KakaoGift-1.0.0.apk";// 如果是苹果机，就打开苹果的页面
+        }
+    });
+
+
 })
 </script>
-
+<div class="footerbox">
 <div class="footer" id="downloadDiv">
     <p class="color">
         <span>
@@ -46,4 +63,4 @@ $(function(){
     <b class="delete-down"></b>
     <a href="/appdownload" class="bg" target="_blank"></a>
 </div>
-
+</div>
