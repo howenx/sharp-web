@@ -64,7 +64,7 @@
                             data: $('form#account_loginForm').serialize(),
                             type: 'POST',
                             success: function (data) {
-                                console.log(data);
+                                console.log(data.message);
                                 if (data==null || data=="") {
                                     $('#js-userinfo-error').text("网络连接异常,请检查网络").show();
                                     setTimeout("$('#js-userinfo-error').hide()", 2000);
@@ -84,7 +84,11 @@
                                         setTimeout("$('#js-userinfo-error').removeClass('cue').addClass('pcue')", 2000);
                                     }
                                 } else {
-                                    $('#js-userinfo-error').removeClass("pcue").text(data.message).addClass("cue");
+                                    var msg = "";
+                                    if(data.message.hasOwnProperty('message'))
+                                        msg = data.message.message;
+                                    else msg = data.message;
+                                    $('#js-userinfo-error').removeClass("pcue").text(msg).addClass("cue");
                                     setTimeout("$('#js-userinfo-error').removeClass('cue').addClass('pcue')", 1000);
 //                                    setTimeout(function(){
 //                                        window.location.href='/login'+$("#state").val();
