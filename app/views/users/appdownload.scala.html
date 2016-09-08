@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>元宵节</title>
+    <title>KakaoGift</title>
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'/>
     <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
     <link rel="stylesheet" href="/assets/stylesheets/swiper.min.css">
@@ -28,6 +28,12 @@
         }
         body{
             font-family:"microsoft yahei";
+        }
+        a{
+            border:none;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            -webkit-tap-highlight-color:transparent;
+            outline: none;
         }
         .swiper-container {
             /*  width: 320px;
@@ -70,7 +76,9 @@
         <!-------------slide1----------------->
         <section class="swiper-slide" style="position: relative">
             <img src="/assets/images/1.1.jpg" alt="">
-            <div class="downloadapp resize" style="position: absolute;width:170px;height:30px; top:390px; left:75px;"></div>
+            <a href="javascript:void(0);" class="downloadapp resize" style="position: absolute;width:190px;height:48px; top:390px; left:66px;">
+                <img src="/assets/images/nowd.png" alt="">
+            </a>
         </section>
         <!---------------slide2-------------->
         <section class="swiper-slide">
@@ -126,6 +134,7 @@
 
     var mySwiper = new Swiper ('.swiper-container', {
         paginationClickable :true,
+        prevButton:'.swiper-button-prev',
         nextButton:'.swiper-button-next',
         direction : 'vertical',
         pagination: '.swiper-pagination',
@@ -138,6 +147,7 @@
             if(swiper.activeIndex == 2){
                 sss=document.getElementsByClassName("swiper-button-next")[0].style;
                 sss.webkitTransform = sss.MsTransform = sss.msTransform = sss.MozTransform = sss.OTransform =sss.transform = "rotate(180deg)";
+                console.log(document.getElementsByClassName("swiper-button-next")[0].classList.value = "resize swiper-button-prev");
             }
             swiperAnimate(swiper);
         }
