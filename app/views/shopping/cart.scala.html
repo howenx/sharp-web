@@ -22,6 +22,22 @@
     <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
     <script src="/assets/javascripts/sho.js"></script>
     <script type="text/javascript" src="/assets/javascripts/cartAmount.js"></script>
+    <style>
+        .foot{
+            position: static;
+
+        }
+
+        .last{
+            width: 100%;
+            position: fixed;
+            bottom:0;
+        }
+        .footer-hd{
+            margin: 0 0 2px 0;
+            position: static;
+        }
+    </style>
 
 </head>
 <body>
@@ -178,11 +194,50 @@
         <div class="footer-r settleBtn" id="selected">去结算(<span id="selectedTotal">0</span>)</div>
     </div>
 
-    @footerMenu(4)
+    <footer class="foot">
+        <ul class="clearfix">
+            <li>
+                <a href="/" class="home">
+                    <i class="footicon "></i>
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/theme/2/1/1" class="buy">
+                    <i class="footicon icon02"></i>
+                    <span>拼购</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/theme/3/1/1" class="story">
+                    <i class="footicon"></i>
+                    <span>礼品</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/cart" class="shopping">
+                    <i class="footicon shopp ">
+                        <b class="cart_num" id="cartAmountSpan"><i>0</i></b>
+                    </i>
+                    <span>购物车</span>
+                    <!--<span id="cartAmountSpan"><i>0</i></span>-->
+                </a>
+            </li>
+
+            <li class="my-icon">
+                <a href="/myView" class="my">
+                    <i class="footicon"></i>
+                    <span>我的</span>
+                </a>
+            </li>
+        </ul>
+    </footer>
 </div>
     <input type="hidden" name="buyNow" value="2"/>
 </form>
-
+<!--@footerMenu(4)-->
 <!--footer部分结束-->
 @comContent()
 </body>

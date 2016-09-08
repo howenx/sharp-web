@@ -168,12 +168,12 @@
 }
 .footer-r{
     width: 32%;
-    height: 44px;
+    height: 46px;
     background-color:#fdd000;
     float: left;
     text-align: center;
     cursor: pointer;
-    line-height: 44px;
+    line-height: 46px;
 }
 
 .postage{
