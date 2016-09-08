@@ -136,12 +136,11 @@
 }
 .footer-l{
     width: 68%;
-
+    height: 44px;
     background-color: #fff;
     float: left;
     font-size: 16px;
     border-top:1px solid #ededed;
-    padding-bottom: 3px;
 }
 .footer-l-left{
     float: left;
@@ -162,18 +161,18 @@
 .footer-l-right{
     text-align: center;
     color:#242424;
-
-    padding: 2px 0;
+    height: 44px;
+    padding: 2px 0 0 0;
 
 }
 .footer-r{
     width: 32%;
-    height: 46px;
+    height: 44px;
     background-color:#fdd000;
     float: left;
     text-align: center;
     cursor: pointer;
-    line-height: 46px;
+    line-height: 44px;
 }
 
 .postage{
