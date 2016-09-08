@@ -141,7 +141,7 @@
     float: left;
     font-size: 16px;
     border-top:1px solid #ededed;
-    margin: 1px 0;
+    padding-bottom: 3px;
 }
 .footer-l-left{
     float: left;
