@@ -145,7 +145,8 @@
         },
         onSlideChangeEnd: function(swiper){
             if(swiper.activeIndex == 2){
-                document.getElementsByClassName("downloadapp")[0].src = '/assets/images/bottom11.png';
+                sss=document.getElementsByClassName("swiper-button-next")[0].style;
+                sss.webkitTransform = sss.MsTransform = sss.msTransform = sss.MozTransform = sss.OTransform =sss.transform = "rotate(180deg)";
             }
             swiperAnimate(swiper);
         }
@@ -155,7 +156,7 @@
             document.getElementsByClassName("shade")[0].style.display="block";
 
         }else if (navigator.userAgent.match(/android/i)){
-            window.location = "http://dl.kakaogift.cn/android/KakaoGift-1.0.1.apk";
+            window.location = '@androidPath';
         }else if(navigator.userAgent.match(/iphone|ipad|ipod/i)){
         }else{
         }
