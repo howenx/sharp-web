@@ -31,24 +31,24 @@ function themeItemListHtml(rowList){
             if(item.state != "Y"&&item.state != "P"){
                 html+='<span>已售罄</span>';
             }
+
 //            html+='<img src="/assets/images/z-l.png" data-echo="'+item.itemImg+'">'+
             html+='<img src="'+item.itemImg+'">'+
             '</p>'+
             '<p class="title-hd">'+item.itemTitle+'</p>'+
                     '<span class="title-fd">'+
                     '<i class="naw">￥'+item.itemPrice+'</i>';
-            if(null!=item.itemDiscount&&false==item.itemDiscount.toString().startsWith("10")){
+
+            if(null!=item.itemDiscount&&item.itemDiscount.indexOf("10")!=0){
                 html+=' <i class="agio">'+item.itemSrcPrice+'</i>'+
                 '<b>'+item.itemDiscount+'折</b>';
             }
             html+='</span>';
-
             if(item.state== "P"){
                 html+=' <p class="obstruct"><span><img src="/assets/images/hmm_goods_yushou.png"/></span></p>';
             }
             html+=' </a>';
         }
-
         if(item.itemType == "pin"){
             html+='<a class="redirect-app"  href="/detail/'+item.itemUrl+'">'+
                    '<p class="product-box">'+
@@ -63,13 +63,12 @@ function themeItemListHtml(rowList){
                     '<p class="title-hd">'+item.itemTitle+'</p>'+
                          '<span class="title-fd">'+
                          '<i class="naw">￥'+item.itemPrice+'</i><i class="minimum">最低</i>';
-                      if(null!=item.itemDiscount&&false==item.itemDiscount.toString().startsWith("10")){
+                    if(null!=item.itemDiscount&&item.itemDiscount.indexOf("10")!=0){
                          html+='<i class="rate">低至'+item.itemDiscount+'折</i>';
-                      }
+                    }
             html+='</span>'+
              '</a>';
         }
-
 
     }
     html+='</li>';
