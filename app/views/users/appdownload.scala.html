@@ -28,6 +28,12 @@
         body{
             font-family:"microsoft yahei";
         }
+        a{
+            border:none;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            -webkit-tap-highlight-color:transparent;
+            outline: none;
+        }
         .swiper-container {
             /*  width: 320px;
               height: 480px;*/
@@ -137,6 +143,7 @@
 
     var mySwiper = new Swiper ('.swiper-container', {
         paginationClickable :true,
+        prevButton:'.swiper-button-prev',
         nextButton:'.swiper-button-next',
         direction : 'vertical',
         pagination: '.swiper-pagination',
@@ -148,8 +155,8 @@
         onSlideChangeEnd: function(swiper){
             if(swiper.activeIndex == 2){
                 sss=document.getElementsByClassName("swiper-button-next")[0].style;
-//                sss.webkitTransform = sss.MsTransform = sss.msTransform = sss.MozTransform = sss.OTransform =sss.transform = "rotate(180deg)";
-//                console.log(document.getElementsByClassName("swiper-button-next")[0].classList.value = "resize swiper-button-prev");
+                sss.webkitTransform = sss.MsTransform = sss.msTransform = sss.MozTransform = sss.OTransform =sss.transform = "rotate(180deg)";
+                console.log(document.getElementsByClassName("swiper-button-next")[0].classList.value = "resize swiper-button-prev");
             }
             swiperAnimate(swiper);
         }
