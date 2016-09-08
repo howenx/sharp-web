@@ -7,6 +7,7 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'/>
     <link rel="stylesheet" href="/assets/stylesheets/swiper.min.css">
     <link rel="stylesheet" href="/assets/stylesheets/animate.min.css">
+    <link rel="stylesheet" href="/assets/stylesheets/download.css">
     <script src="/assets/javascripts/swiper.min.js"></script>
     <script src="/assets/javascripts/swiper.animate.min.js"></script>
 
@@ -43,6 +44,7 @@
         }
         img{
             width: 100%;
+            height: 100%;
             display:block;
         }
         .swiper-pagination-bullet {
@@ -72,7 +74,7 @@
         <!-------------slide1----------------->
         <section class="swiper-slide" style="position: relative">
             <img src="/assets/images/1.1.jpg" alt="">
-            <div class="downloadapp resize" style="position: absolute;width:170px;height:30px; top:365px; left:75px;background: rgba(0,0,0,0.5)"></div>
+            <div class="downloadapp resize" style="position: absolute;width:170px;height:30px; top:390px; left:75px;"></div>
         </section>
         <!---------------slide2-------------->
         <section class="swiper-slide">
@@ -106,7 +108,7 @@
 
     </div>
 
-    <img src="/assets/images/top11.png" style="width:50px;height:40px; top:433px; left:132px;background: none" id="array" class="resize swiper-button-next">
+    <img src="/assets/images/top11.png" style="width:40px;height:30px; top:450px; left:140px;background: none" id="array" class="resize swiper-button-next">
     <div class="swiper-pagination"></div>
 </div>
 
@@ -149,14 +151,10 @@
     })
     document.getElementsByClassName("downloadapp")[0].onclick = function () {
         if (navigator.userAgent.match(/MicroMessenger/i)) {
-            alert("微信");
         }else if (navigator.userAgent.match(/android/i)){
-            alert("安卓");
             window.location = "http://dl.kakaogift.cn/android/KakaoGift-1.0.1.apk";
         }else if(navigator.userAgent.match(/iphone|ipad|ipod/i)){
-            alert("苹果");
         }else{
-            alert("其他");
         }
     }
 </script>
