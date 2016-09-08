@@ -97,21 +97,11 @@ h2{
 }
 
 .commodity .commodity-rmb{
+    color: #f73939;
+    float: right;
     font-size: 14px;
     display: block;
-    margin:8px 0 0 0;
 }
-
-
-span .rmb{
-    float: left;
-    color:#f73939;
-}
-
-span .number{
-    float: right;
-}
-
 
 .commodity .photo-img{
     width:80px;
@@ -127,7 +117,7 @@ span .number{
 }
 .commodity h2{
     font-size: 14px;
-    height:32px;
+    height:45px;
     overflow: hidden;
     font-weight: normal;
     -webkit-line-clamp: 2;
@@ -438,6 +428,7 @@ span .number{
 
 
 .size{
+    float: left;
     font-size: 12px;
 }
 
@@ -478,4 +469,6 @@ span .number{
     -webkit-transform: scale(0.75);
 }
 
-
+.size-box{
+    padding: 17px 0 0 0;
+}

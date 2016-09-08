@@ -399,7 +399,10 @@ h1 {
 /*空订单推荐*/
 .product img{
     width: 100%;
-    margin:10px auto;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translate(0,-50%);
+    -moz-transform: translate(0,-50%);
 }
 
 .hot-hd img{
@@ -693,5 +696,23 @@ border-top:1px solid rgba(0,0,0,0.15) ;
     margin: 0 auto;
 }
 
+
+@media all and (orientation : landscape) {
+
+    .figure {
+        height: auto;
+
+    }
+    /*横屏时字体红色*/
+
+}
+
+@media all and (orientation : portrait){
+
+    .figure {
+        height:200px;
+    }
+
+}
 
 

@@ -123,10 +123,11 @@
 
                                     <h2>@sku.getSkuTitle()</h2>
 
-                                    <div class="size"><span>@sku.getItemColor()</span><span>@sku.getItemSize()</span></div>
+                                    <div class="size-box clearfix">
+                                        <div class="size"><span>@sku.getItemColor()</span><span>@sku.getItemSize()</span></div>
 
-                                    <span class="commodity-rmb clearfix"><i class="rmb">￥@sku.getPrice()</i><i class="number">x@sku.getAmount()</i></span>
-
+                                       <span class="commodity-rmb clearfix"><i class="rmb">￥@sku.getPrice() </i> <i class="number"> x @sku.getAmount()</i></span>
+                                    </div>
                                 </a>
                                 }
                             }

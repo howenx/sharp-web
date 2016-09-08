@@ -111,7 +111,6 @@ body{
 
 span .rmb{
     font-size:20px;
-    margin: 0 10px 0 0 ;
 }
 
 
@@ -126,6 +125,7 @@ span .rmb{
 }
 
 .commodity h2{
+    font-size: 14px;
     overflow: hidden;
     display: -webkit-box;
     word-break: break-all;
@@ -190,7 +190,9 @@ span .rmb{
 }
 
 
-
+.rmb-box{
+    text-align: right;
+}
 
 
 
