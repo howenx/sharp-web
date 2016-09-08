@@ -543,6 +543,8 @@ div .cycle-overlay {
 .hot .hot-hd{
 	padding: 0 10px;
 	line-height: 40px;
+	margin: 0 0 0 0 ;
+	text-align: left;
 }
 
 /*拼购产品*/
