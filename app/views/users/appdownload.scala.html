@@ -138,7 +138,10 @@
         },
         onSlideChangeEnd: function(swiper){
             if(swiper.activeIndex == 2){
-                document.getElementsByClassName("downloadapp")[0].src = '/assets/images/bottom11.png';
+                sss=document.getElementsByClassName("swiper-button-next")[0].style;
+                sss.webkitTransform = sss.MsTransform = sss.msTransform = sss.MozTransform = sss.OTransform =sss.transform = "rotate("+180+")";
+//                document.getElementsByClassName("swiper-button-next")[0].style.transform = "rotate(180)";
+//                console.log(window.urlParam);
             }
             swiperAnimate(swiper);
         }
