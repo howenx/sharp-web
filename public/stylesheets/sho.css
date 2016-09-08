@@ -4,7 +4,7 @@ html {
     -ms-text-size-adjust: 100%;
 }
 /* 去除iPhone中默认的input样式 */
-input{/* -webkit-appearance:none; */ resize: none;}
+input{ -webkit-appearance:none;  resize: none;}
 /* 取消链接高亮  */
 body,div,ul,li,ol,h1,h2,h3,h4,h5,h6,input,textarea,select,p,dl,dt,dd,a,img,button,form,table,th,tr,td,tbody,article,
 aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section{ -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
@@ -205,14 +205,15 @@ input:password {
     -moz-border-radius: 0 2px 2px 0 ;
 }
 .quantity{
+
     display: block;
     line-height: 20px;
     height: 20px;
     width: 35px;
-    color: #666;
     border: 1px solid #ccc;
     border-width: 1px 0 1px 0;
     -webkit-appearance: none;
+    color:#242424;
     border-radius: 0;
     overflow: hidden;
     float: left;
@@ -220,6 +221,8 @@ input:password {
     text-align: center;
 
 }
+
+
 
 .cart-del-btn {
     width:15px;
@@ -236,8 +239,7 @@ input:password {
 .footer-hd{
     position: fixed;
     left: 0;
-    bottom:0;
-    margin: 0 0 53px 0;
+    bottom:52px;
 }
 /*footer部分结束*/
 
