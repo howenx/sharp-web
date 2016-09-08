@@ -73,7 +73,7 @@ h1 {
 }
 
 /* 本例子css -------------------------------------- */
-.slideBox{ position:relative; overflow:hidden;/*margin:44px 0 auto;*/}
+.slideBox{ position:relative; overflow:hidden;margin:44px 0 auto;}
 .slideBox .hd{margin: 0 0 8px 0; position:absolute;/* height:25px;*/ bottom:0; left:50%;z-index:1;-webkit-transform: translate(-50%,0);-moz-transform: translate(-50%,0);}
 .slideBox .hd li{ display:inline-block; width:5px; height:5px; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:50%; background:rgba(0,0,0,0.3); text-indent:-9999px; overflow:hidden; margin:0 6px;   }
 .slideBox .hd li.on{ background:#fff;  }
@@ -90,7 +90,7 @@ h1 {
 
 #container ul{width:100%;list-style:none;float:left;margin:0 20px 28px 0}
 
-#container ul li{margin-top:10px; background-color: #fff; }
+#container ul li{margin-bottom:10px; background-color: #fff; }
 
 #container ul li img{width:100%;background-color: #ededed;}
 
@@ -714,7 +714,7 @@ li {
 /*分类模块*/
 .classify{
 	width:100%;
-	margin: 10px 0 0 0 ;
+	margin:10px 0;
 }
 .classify ul li{
 	width:25%;
@@ -821,3 +821,8 @@ li {
 #container{
 	margin: 0 auto 60px auto;
 }
+
+.order{
+	padding: 44px 0 0 0;
+}
+

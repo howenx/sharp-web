@@ -27,16 +27,18 @@
 			background-size: contain;
 		}
 	</style>
+
 </head>
 <body>
-<header class="head">
+@download()
+<header class="head head-global">
     <!--<a href="/" class="back"></a>-->
     <h1>@if(themeCate==2){拼购}else{礼品}</h1>
     <!--<a href="/cart" class="shopp">
         <span class="cart_num" id="cartAmountSpan"><i>0</i></span>
     </a>-->
 </header>
-@download()
+
 <div id="container" class="order scope">
 
     <ul class="col" id="col-bottom">
@@ -49,8 +51,7 @@
 
             </li>
         }
-
-    </ul>
+	</ul>
 
 	<p class="period" id="noMore"><img src="/assets/images/meiyougengudo.png"/></p>
 

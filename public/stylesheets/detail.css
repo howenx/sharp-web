@@ -70,7 +70,6 @@ input:password {
 	z-index: 600;
 	background:#F9F9F9;
 	position: fixed;
-	top:0;
 	color:#fff;
 	border-bottom: 1px solid #ededed;
 }

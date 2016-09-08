@@ -37,20 +37,16 @@
                     var code_regexp = new RegExp(/^[0-9a-zA-Z]{4}$/);   //校验码
 
                     if (11 != $('#input_username').val().length) {
-                        $('#js-userinfo-error').removeClass("pcue").text('请输入正确位数的手机号').addClass("cue");
-                        setTimeout("$('#js-userinfo-error').removeClass('cue').addClass('pcue')", 2000);
+                        tip('请输入正确位数的手机号');
                     }
                     else if (!phone_regexp.test($('#input_username').val())) {
-                        $('#js-userinfo-error').removeClass("pcue").text('请输入正确的手机号').addClass("cue");
-                        setTimeout("$('#js-userinfo-error').removeClass('cue').addClass('pcue')", 2000);
+                       tip('请输入正确的手机号');
                     }
                     else if ($('#input_password').val().length < 6 || $('#input_password').val().length > 12) {
-                        $('#js-userinfo-error').removeClass("pcue").text('请输入正确的密码').addClass("cue");
-                        setTimeout("$('#js-userinfo-error').removeClass('cue').addClass('pcue')", 2000);
+                       tip('请输入正确的密码');
                     }
                     else if (!password_regexp.test($('#input_password').val())) {
-                        $('#js-userinfo-error').removeClass("pcue").text('请输入正确的密码').addClass("cue");
-                        setTimeout("$('#js-userinfo-error').removeClass('cue').addClass('pcue')", 2000);
+                        tip('请输入正确的密码');
                     }
                     else {
                         if ($('#autoLogin').is(':checked')) $("#auto").val('true');
@@ -66,8 +62,7 @@
                             success: function (data) {
                                 console.log(data.message);
                                 if (data==null || data=="") {
-                                    $('#js-userinfo-error').text("网络连接异常,请检查网络").show();
-                                    setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                    tip("网络连接异常,请检查网络");
                                 } else if (data.code === 200) {
                                     $('#js-userinfo-error').removeClass("pcue").text('登录成功').addClass("cue");
                                     setTimeout("$('#js-userinfo-error').removeClass('cue').addClass('pcue')", 1000);
@@ -80,16 +75,14 @@
                                     $(".proving-box").show();
                                     var code = $("#code").val();
                                     if (!code_regexp.test(code)) {
-                                        $('#js-userinfo-error').removeClass("pcue").text('请输入正确格式的验证码').addClass("cue");
-                                        setTimeout("$('#js-userinfo-error').removeClass('cue').addClass('pcue')", 2000);
+                                        tip('请输入正确格式的验证码');
                                     }
                                 } else {
                                     var msg = "";
                                     if(data.message.hasOwnProperty('message'))
                                         msg = data.message.message;
                                     else msg = data.message;
-                                    $('#js-userinfo-error').removeClass("pcue").text(msg).addClass("cue");
-                                    setTimeout("$('#js-userinfo-error').removeClass('cue').addClass('pcue')", 1000);
+                                    tip(msg);
 //                                    setTimeout(function(){
 //                                        window.location.href='/login'+$("#state").val();
 //                                    }, 1200);

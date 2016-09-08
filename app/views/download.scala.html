@@ -64,10 +64,21 @@ $(function(){
         }
     });
 
+    $(window).scroll(function(e) {
+
+        if($(window).scrollTop() >=1){
+            $('.head-global').addClass('battener-fixed');
+        }else{
+            $('.head-global').removeClass('battener-fixed');
+        }
+
+    });
+
 
 })
 </script>
-<div class="footerbox">
+
+
 <div class="footer" id="downloadDiv" style="display:none;">
     <p class="color">
         <span>
@@ -78,4 +89,4 @@ $(function(){
     <b class="delete-down" id="closeDownloadBtn"></b>
     <a href="javascript:;" class="bg" target="_blank"></a>
 </div>
-</div>
+

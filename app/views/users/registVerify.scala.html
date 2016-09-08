@@ -105,8 +105,7 @@
                                $("#smsType").attr({"name": "smsType"});
                                console.log(data);
                                if (data==null || data=="") {
-                                    $('#js-userinfo-error').text("网络连接异常,请检查网络").show();
-                                    setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                   tip("网络连接异常,请检查网络");
                                } else if (data.code === 5001) {
                                     //用户已经注册,弹框提示
                                     $('.shade-reg').show();
@@ -124,8 +123,7 @@
                                                     console.log(data2);
                                                     $("#code").attr({"name":"code"});
                                                     if (data2==null || data2=="") {
-                                                        $('#js-userinfo-error').text("网络连接异常,请检查网络").show();
-                                                        setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                                        tip("网络连接异常,请检查网络");
                                                     } else if (data2.code === 200) {
                                                         //手机验证码发送成功
                                                         var url = '/register'+$("#state").val();
@@ -136,14 +134,12 @@
                                                         form.submit();
                                                     }
                                                     else {
-                                                        $('#js-userinfo-error').text(data2.message).show();
-                                                        setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                                       tip(data2.message);
                                                     }
                                                 }
                                        });
                                } else {
-                                   $('#js-userinfo-error').text(data.message).show();
-                                   setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                   tip(data.message);
                                }
                         }
                 });
@@ -174,8 +170,7 @@
                                 form.submit();
                            }
                            else {
-                                $('#js-userinfo-error').text(data.message).show();
-                                setTimeout("$('#js-userinfo-error').hide()", 2000);
+                                tip(data.message);
                            }
                         }
                 });
