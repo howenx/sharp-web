@@ -1,74 +1,158 @@
 @(androidPath:String)
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>App下载</title>
-    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport">
-    <meta content="yes" name="apple-mobile-web-app-capable">
-    <meta content="black" name="apple-mobile-web-app-status-bar-style">
-    <meta content="telephone=no" name="format-detection">
-    <link rel="stylesheet" href="/assets/stylesheets/global.css">
-    <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
-    <script src="/assets/javascripts/jquery-1.11.1.min.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>元宵节</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'/>
+    <link rel="stylesheet" href="/assets/stylesheets/swiper.min.css">
+    <link rel="stylesheet" href="/assets/stylesheets/animate.min.css">
+    <script src="/assets/javascripts/swiper.min.js"></script>
+    <script src="/assets/javascripts/swiper.animate.min.js"></script>
+
+    <!--<link rel="stylesheet" href="/dist/css/swiper.min.css">
+    <link rel="stylesheet" href="/dist/css/animate.min.css">
+    <script src="/dist/js/swiper.min.js"></script>
+    <script src="/dist/js/swiper.animate.min.js"></script>-->
+
     <style>
-        .core{
-            padding:55px 0 0 10px;
+        *{
+            margin:0;
+            padding:0;
         }
-        .core a{
-           display:block;
-            width: 100px;
-            height: 45px;
-            line-height: 45px;
-            background-color: #fdd000;
-            text-align: center;
-            color: #242424;
-            margin:10px auto;
-
+        html,body{
+            height:100%;
         }
-
-        .core div{
-            float: left;
-            width: 50%;
-
+        body{
+            font-family:"microsoft yahei";
         }
-
-        .core div span{
-            display: block;
-          text-align: center;
+        .swiper-container {
+            /*  width: 320px;
+              height: 480px;*/
+            width: 100%;
+            height: 100%;
+            background:#fff;
         }
-
+        .swiper-slide{
+        }
+        .swiper-slide{
+            width:100%;
+            height:100%;
+            /*background:url(/assets/images/bg.jpg) no-repeat left top;*/
+            background-size:100% 100%;
+        }
+        img{
+            width: 100%;
+            display:block;
+        }
+        .swiper-pagination-bullet {
+            width: 6px;
+            height: 6px;
+            background: #fff;
+            opacity: .4;
+        }
+        .swiper-pagination-bullet-active {
+            opacity: 1;
+        }
+        #array{
+            position:absolute;z-index:999;-webkit-animation: tipmove 1.5s infinite ease-in-out;
+        }
     </style>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
-            //苹果端
-                $("#androidDiv").hide();
-            } else if (/(Android)/i.test(navigator.userAgent)) {
-            //安卓端
-                $("#iosDiv").hide();
-            } else {
-            //pc端
-            }
-        });
-    </script>
 </head>
 
 <body>
-    <header class="head">
-        <a href="/myView" class="back"></a>
-        <h1>App下载</h1>
-    </header>
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <!-------------slide1----------------->
+        <section class="swiper-slide" style="position: relative">
+            <img src="/assets/images/1.1.jpg" alt="">
+            <div class="downloadapp resize" style="position: absolute;width:170px;height:30px; top:365px; left:75px;background: rgba(0,0,0,0.5)"></div>
+        </section>
+        <!---------------slide2-------------->
+        <section class="swiper-slide">
+            <img src="/assets/images/1.2.jpg" alt="">
+        </section>
+        <!----------------slide3-------------->
+        <section class="swiper-slide">
+            <img src="/assets/images/1.3.jpg" alt="">
+        </section>
+        <!-------------slide4----------------->
+        <!--<section class="swiper-slide">-->
 
-    <div class="core">
-        <div id="androidDiv">
-            <span>安卓下载</span>
-            <a href="@androidPath">立即下载</a>
-        </div>
-        <div id="iosDiv">
-            <span>ios下载</span>
-            <a href="javascript:;">敬请期待</a>
-        </div>
+        <!--<div class="ani resize" style="width:120px;height:110px;left:110px;top:184px;z-index:3;" swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="1s"  >-->
+        <!--<div class="txt">-->
+        <!--<p style="width:15px;color:#b60927; display:inline-block; font-size:90%; line-height:1; margin-right:10px;">愿您羊年运旺福旺</p>-->
+        <!--<p style="width:15px;color:#b60927; display:inline-block; font-size:90%; line-height:1; margin-right:10px;">条条祝福给您送上</p>-->
+        <!--<p style="width:15px;color:#b60927; display:inline-block; font-size:90%; line-height:1; margin-right:10px;">美丽花灯传递吉祥</p>-->
+        <!--<p style="width:15px;color:#b60927; display:inline-block; font-size:90%; line-height:1; margin-right:10px;">圆圆汤圆味道芬芳</p></div>-->
+        <!---->
+        <!--</div>-->
+        <!--<div class="ani resize" style="width:60px;height:110px;left:260px;top:185px;z-index:3;color:#b60927; font-size:160%; font-weight:bold;" swiper-animate-effect="fadeInRight" swiper-animate-duration="1s" swiper-animate-delay="1s"  > -->
+        <!--<div class="txt">-->
+        <!--元<br>宵<br>节</div>-->
+        <!--</div>-->
+        <!--<img src="upload/flower.png" class="ani resize" style="width:180px;height:220px;left:0;top:0;z-index:2;" swiper-animate-effect="fadeInLeft" swiper-animate-duration="0.5s" swiper-animate-delay="0s"   > -->
+        <!--<img src="upload/s1.png"  class="ani resize" style="width:320px;height:200px;left:0px;top:140px;z-index:1;" swiper-animate-effect="fadeIn" swiper-animate-duration="0.5s" swiper-animate-delay="0.5s"  >-->
+        <!---->
+        <!--</section>-->
+
+
+
     </div>
+
+    <img src="/assets/images/top11.png" style="width:50px;height:40px; top:433px; left:132px;background: none" id="array" class="resize swiper-button-next">
+    <div class="swiper-pagination"></div>
+</div>
+
+
+<script>
+
+    scaleW=window.innerWidth/320;
+    scaleH=window.innerHeight/480;
+    var resizes = document.querySelectorAll('.resize');
+    for (var j=0; j<resizes.length; j++) {
+        resizes[j].style.width=parseInt(resizes[j].style.width)*scaleW+'px';
+        resizes[j].style.height=parseInt(resizes[j].style.height)*scaleH+'px';
+        resizes[j].style.top=parseInt(resizes[j].style.top)*scaleH+'px';
+        resizes[j].style.left=parseInt(resizes[j].style.left)*scaleW+'px';
+
+    }
+    var scales = document.querySelectorAll('.txt');
+    for (var i=0; i<scales.length; i++) {
+        ss=scales[i].style;
+        ss.webkitTransform = ss.MsTransform = ss.msTransform = ss.MozTransform = ss.OTransform =ss.transform='translateX('+scales[i].offsetWidth*(scaleW-1)/2+'px) translateY('+scales[i].offsetHeight*(scaleH-1)/2+'px)scaleX('+scaleW+') scaleY('+scaleH+') ';
+    }
+
+
+    var mySwiper = new Swiper ('.swiper-container', {
+        paginationClickable :true,
+        nextButton:'.swiper-button-next',
+        direction : 'vertical',
+        pagination: '.swiper-pagination',
+        mousewheelControl : true,
+        onInit: function(swiper){
+            swiperAnimateCache(swiper);
+            swiperAnimate(swiper);
+        },
+        onSlideChangeEnd: function(swiper){
+            if(swiper.activeIndex == 2){
+                document.getElementsByClassName("downloadapp")[0].src = '/assets/images/bottom11.png';
+            }
+            swiperAnimate(swiper);
+        }
+    })
+    document.getElementsByClassName("downloadapp")[0].onclick = function () {
+        if (navigator.userAgent.match(/MicroMessenger/i)) {
+            alert("微信");
+        }else if (navigator.userAgent.match(/android/i)){
+            alert("安卓");
+            window.location = "http://dl.kakaogift.cn/android/KakaoGift-1.0.1.apk";
+        }else if(navigator.userAgent.match(/iphone|ipad|ipod/i)){
+            alert("苹果");
+        }else{
+            alert("其他");
+        }
+    }
+</script>
 </body>
 </html>
