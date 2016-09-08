@@ -151,6 +151,8 @@
     })
     document.getElementsByClassName("downloadapp")[0].onclick = function () {
         if (navigator.userAgent.match(/MicroMessenger/i)) {
+            document.getElementsByClassName("shade")[0].style.display="block";
+
         }else if (navigator.userAgent.match(/android/i)){
             window.location = "http://dl.kakaogift.cn/android/KakaoGift-1.0.1.apk";
         }else if(navigator.userAgent.match(/iphone|ipad|ipod/i)){
