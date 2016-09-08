@@ -194,7 +194,10 @@ span .rmb{
     text-align: right;
 }
 
-
+.orderpa-box{
+    padding: 10px 0;
+    border-bottom:1px solid #ededed;
+    }
 
 
 
