@@ -1331,12 +1331,12 @@ public class UserCtrl extends Controller {
             //安卓下载路径
             XMLDecoder xmlDecoder=new XMLDecoder(new InputSource(new StringReader(xmlContent)));
             JsonNode jsonNode=toJson(xmlDecoder.readObject());
-            String androidPath="http://a.app.qq.com/o/simple.jsp?pkgname=com.hanmimei";
+            String androidPath=WEIXIN_DOWNLOAD_URL;
             if(jsonNode.has("downloadLink")){
                 androidPath=jsonNode.get("downloadLink").asText();
             }
-         //   return ok(views.html.users.appdownload.render(androidPath));
-            return redirect(androidPath);
+            return ok(views.html.users.appdownload.render(androidPath));
+        //    return redirect(androidPath);
         });
 
 
