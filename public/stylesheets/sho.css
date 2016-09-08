@@ -220,6 +220,11 @@ input:password {
     text-align: center;
 
 }
+input:disabled{
+    background-color:#fff;
+    color: #000;
+    opacity: 1;
+}
 
 .cart-del-btn {
     width:15px;
