@@ -1,6 +1,6 @@
 //添加修改地址
 $(document).on("click",".addAddressBtn",function(){
-        var zszReg = new RegExp(/^[a-zA-Z0-9\u4e00-\u9fa5]/); //字母数字中文
+        var zszReg = new RegExp(/^[a-zA-Z0-9-\u4e00-\u9fa5]/); //字母数字中文
         var telReg=new RegExp(/^[1][345678]\d{9}/);
         var card15Reg=new RegExp(/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$/);
         var card18Reg=new RegExp(/^(\d{6})(18|19|20)?(\d{2})([01]\d)([0123]\d)(\d{3})(\d|X|x)?$/);
@@ -77,7 +77,14 @@ $(document).on("click",".addAddressBtn",function(){
                                 if(data.code==200) {
                                      setTimeout("location.href='/address/"+Number(selId)+"'", 1000);
                                 }else{
-                                    tip(data.message);
+                                    if(null!=data.message){
+                                        if("undefined"!=typeof(echo)&&null!=data.message.message){
+                                            tip(data.message.message);
+                                        }else{
+                                            tip(data.message);
+                                        }
+                                    }
+
                                     resetFormSubmitTimes(curForm);
                                 }
                             }
