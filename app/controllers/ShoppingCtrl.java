@@ -347,7 +347,7 @@ public class ShoppingCtrl extends Controller {
                         path = session().get("path");
                         session().replace("path", routes.ShoppingCtrl.cart().url());
                     }else session().put("path", routes.ShoppingCtrl.cart().url());
-
+                    comCtrl.disableBrowserCache(ctx());
                     CartListResultVo resultVo = Json.fromJson(json, CartListResultVo.class);
                     if (resultVo.getMessage().getCode() == Message.ErrorCode.SUCCESS.getIndex()) {
                         for(CartItemDTO cart:resultVo.getCartList()){

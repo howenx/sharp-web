@@ -726,7 +726,7 @@ border-top:1px solid rgba(0,0,0,0.15) ;
 @media all and (orientation : portrait){
 
     .figure {
-        height:180px;
+        height:200px;
     }
 
 }
