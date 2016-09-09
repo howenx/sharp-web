@@ -140,7 +140,7 @@ h2{
     line-height: 30px;
     border-top: 1px solid #e1e1e1;
 }
-.payment,.duein {
+.payment,.duein{
     width:100%;
     border-top:1px solid #ededed;
 }
@@ -159,7 +159,6 @@ h2{
 }
 
 .payment .right,.payment .left{
-
     float:right;
 }
 
@@ -169,7 +168,6 @@ h2{
     font-size: 14px;
     display: inline-block;
     line-height: 30px;
-
 }
 
 .duein a{
@@ -184,10 +182,8 @@ h2{
 }
 
 .payment .left{
-
     color:#8D8D8D;
 }
-
 
 
 .footer{
@@ -197,7 +193,6 @@ h2{
     background-color: #000;
     height:60px;
     padding:10px 2%;
-
 }
 .footer a{
     width:80px;
@@ -215,7 +210,6 @@ h2{
     background: url("/assets/images/personal-14.jpg") no-repeat;
     background-size: 40px 40px;
     padding:0 0 0 50px;
-
 }
 .footer span i{
     display:block;;
@@ -336,6 +330,15 @@ h2{
 
 
 /*收藏页面*/
+
+.collect-size,.collect-rmb{
+    font-size: 12px;
+}
+
+.collect-rmb{
+    display: block;
+    margin: 5px 0 0 0;
+}
 .coll{
     padding-top:44px;
 
@@ -346,10 +349,11 @@ h2{
     padding:5px 5px;
 }
 .coll ul .con{
+    height: 105px;
     border: 0;margin: 0;padding: 0;
 }
 .coll ul .con a{
-    margin: -1px 0 0 0;padding: 15px 8px;height: auto;
+    margin: -1px 0 0 0;padding: 10px 8px;height: auto;
 }
 
 .coll ul .size span{

@@ -27,7 +27,7 @@
     <h1>我的收藏</h1>
 </header>
 
-<div class="fixed-box" style="position: fixed;width: 100%">
+
 <div class="scope wap">
     @if(null!=collectList&&collectList.size()>0){
         <div class="coll">
@@ -46,12 +46,12 @@
                             </div>
 
                             <h2>@collect.getCartSkuDto().getSkuTitle()</h2>
-                            <div class="size">
+                            <div class="collect-size">
                                 <span>规格:</span>
                                 @if(null!=collect.getCartSkuDto().getItemColor()&&""!=collect.getCartSkuDto().getItemColor()){<span>@collect.getCartSkuDto().getItemColor()</span>}
                                 @if(null!=collect.getCartSkuDto().getItemSize()&&""!=collect.getCartSkuDto().getItemSize()){<span>@collect.getCartSkuDto().getItemSize()</span>}
                             </div>
-                            <span class="commodity-rmb clearfix">
+                            <span class="collect-rmb clearfix">
                                  <span>
                                      @if(collect.getSkuType=="pin"){最低至}else{单价}:
                                  </span>
@@ -67,7 +67,7 @@
         </div>
     }
 </div>
-</div>
+
 
 @if(null==collectList||collectList.size()<=0){
 
