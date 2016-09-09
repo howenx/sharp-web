@@ -346,6 +346,7 @@ input[type=radio] {
 }
 
 .one{
+    border-bottom: 1px solid #ededed;
     padding: 14px 0 10px;
 
 }
