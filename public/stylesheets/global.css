@@ -504,15 +504,19 @@ h1 {
 }
 
 .naw{
+    float: left;
     font-size:18px;
     color:#EF2528;
 }
 .agio{
+    float: left;
+    margin:1px 0 0 5px;
     font-size:12px;
     text-decoration: line-through;
 }
 
 .title-fd b{
+    margin: 1px 0 0 0;
     float:right;
     font-size:12px;
     width:35px;
@@ -660,10 +664,14 @@ border-top:1px solid rgba(0,0,0,0.15) ;
 }
 
 .minimum{
+
+    float: left;
+    margin: 1px 0 0 4px;
  font-size: 12px;
 }
 .rate{
- float: right;
+    margin: 1px 0 0 0 ;
+    float: right;
     font-size: 12px;
     text-align: center;
     font-weight: normal;
@@ -713,15 +721,7 @@ border-top:1px solid rgba(0,0,0,0.15) ;
 }
 
 
-@media all and (orientation : landscape) {
 
-    .figure {
-        height: auto;
-
-    }
-    /*横屏时字体红色*/
-
-}
 
 @media all and (orientation : portrait){
 
@@ -731,4 +731,32 @@ border-top:1px solid rgba(0,0,0,0.15) ;
 
 }
 
+/*@media all and (orientation : landscape) {
 
+    .figure {
+        height: auto;
+
+    }
+
+    .figure img{
+        position: static;
+        top:0;
+        -webkit-transform: translate(0,0%);
+
+    }
+    !*横屏时字体红色*!
+
+}*/
+
+@media screen and (min-width:500px){
+    .figure {
+        height: auto;
+
+    }
+    .figure img{
+        position: static;
+        top:0;
+        -webkit-transform: translate(0,0);
+
+    }
+}

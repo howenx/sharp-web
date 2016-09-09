@@ -4,7 +4,7 @@
     <li class="clearfix">
         @for(item <- rowList){
         @if(item.getItemType == "item" || item.getItemType == "vary" || item.getItemType == "customize"){
-        <a class="redirect-app" href="/detail/@item.getItemUrl()">
+        <a class="redirect-app clearfix" href="/detail/@item.getItemUrl()">
             <p class="figure figure-f">
                 @if(item.getState() != "Y"&&item.getState() != "P"){
                 <span>已售罄</span>
@@ -26,18 +26,15 @@
                 <span><img src="/assets/images/hmm_goods_yushou.png"/></span>
             </p>
             }
-
-
         </a>
         }
         @if(item.getItemType() == "pin"){
-            <a class="redirect-app"  href="/detail/@item.getItemUrl()">
+            <a class="redirect-app clearfix"  href="/detail/@item.getItemUrl()">
                 <p class="product-box">
                     <span class="product-top"><i>@item.getEndAt()</i></span>
                 </p>
 
                 <p class="figure">
-                    <!--<img src="/assets/images/l-120.png" data-echo="@item.getItemImg()">-->
                     <img src="@item.getItemImg()">
                 </p>
 
