@@ -150,6 +150,7 @@ public class SysParCom {
     @Inject
     public SysParCom(Configuration configuration) {
 
+        CONNECT_TIME_OUT=configuration.getInt("connect.time.out");
         client.setConnectTimeout(CONNECT_TIME_OUT, TimeUnit.SECONDS);
 
         IMAGE_URL = configuration.getString("image.server.url");
@@ -269,7 +270,7 @@ public class SysParCom {
 
         AD_QUERY_ORDER=configuration.getString("ad.query.order");
 
-        CONNECT_TIME_OUT=configuration.getInt("connect.time.out");
+
 
 
 
