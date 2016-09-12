@@ -145,10 +145,12 @@ public class SysParCom {
     //广告查询订单
     public static String AD_QUERY_ORDER;
 
+    public static Integer CONNECT_TIME_OUT;
+
     @Inject
     public SysParCom(Configuration configuration) {
 
-        client.setConnectTimeout(50, TimeUnit.SECONDS);
+        client.setConnectTimeout(CONNECT_TIME_OUT, TimeUnit.SECONDS);
 
         IMAGE_URL = configuration.getString("image.server.url");
 
@@ -266,6 +268,8 @@ public class SysParCom {
         YIQIFA_AID=configuration.getString("yiqifa.aid");
 
         AD_QUERY_ORDER=configuration.getString("ad.query.order");
+
+        CONNECT_TIME_OUT=configuration.getInt("connect.time.out");
 
 
 

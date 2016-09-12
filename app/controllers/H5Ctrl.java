@@ -59,7 +59,6 @@ public class H5Ctrl extends Controller {
             Request request = comCtrl.getBuilder(ctx())
                     .url(THEME_PAGE + themeId)
                     .build();
-            client.setConnectTimeout(15, TimeUnit.SECONDS);
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
                 String result = dealToString(response);

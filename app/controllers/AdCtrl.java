@@ -93,7 +93,6 @@ public class AdCtrl extends Controller {
             Request request =comCtrl.getBuilder(ctx())
                     .url(AD_QUERY_ORDER +YIQIFA_AID+"/"+params.get("cid")+"/"+ finalDate)
                     .build();
-            client.setConnectTimeout(15, TimeUnit.SECONDS);
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
                 String result = dealToString(response);
