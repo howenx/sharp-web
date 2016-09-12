@@ -108,7 +108,9 @@ public class ComCtrl extends Controller {
             url="/detail/"+url;
         }
         if("U".equals(targetType)){
-            url=url+"/M";
+            if(!url.contains("jd.com")){ //非京东的
+                url=url+"/M";
+            }
         }
         if("T".equals(targetType)){
             url="/themeDetail/"+url;
@@ -137,7 +139,9 @@ public class ComCtrl extends Controller {
             theme.setThemeUrl(getDetailUrl(themeUrl));
         }
         if ("h5".equals(theme.getType())) {
-            theme.setThemeUrl(theme.getThemeUrl() + "/M");
+            if(!theme.getThemeUrl().contains("jd.com")){ //非京东的
+                theme.setThemeUrl(theme.getThemeUrl() + "/M");
+            }
         }
     }
 
