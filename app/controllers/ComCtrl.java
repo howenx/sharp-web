@@ -108,8 +108,8 @@ public class ComCtrl extends Controller {
             url="/detail/"+url;
         }
         if("U".equals(targetType)){
-            if(!url.contains("jd.com")){ //非京东的
-                url=url+"/M";
+            if(url.contains("kakaogift")||url.contains("172.28")){ //内部地址
+                url=url+"?s=m";
             }
         }
         if("T".equals(targetType)){
@@ -139,8 +139,8 @@ public class ComCtrl extends Controller {
             theme.setThemeUrl(getDetailUrl(themeUrl));
         }
         if ("h5".equals(theme.getType())) {
-            if(!theme.getThemeUrl().contains("jd.com")){ //非京东的
-                theme.setThemeUrl(theme.getThemeUrl() + "/M");
+            if(theme.getThemeUrl().contains("kakaogift")||theme.getThemeUrl().contains("172.28")){ //内部
+                theme.setThemeUrl(theme.getThemeUrl() + "?s=m");
             }
         }
     }
@@ -552,6 +552,24 @@ public class ComCtrl extends Controller {
     }
 
     /**
+     *  获取H5请求来源
+     * @param request
+     * @return
+     */
+    public String getH5OpenType(Http.Request request,Http.Context ctx){
+        String openType="APP";
+        Map<String, String[]> body_map = request().queryString();
+        if(null!=body_map){
+            Map<String, String> params = new HashMap<>();
+            body_map.forEach((k, v) -> params.put(k, v[0]));
+            if(null!=params.get("s")){
+                openType="M";
+            }
+        }
+        h5OpbeforeRender(ctx);
+        return openType;
+    }
+    /**
      * H5页面在跳转之前需要的操作
      * @param ctx
      */
@@ -609,5 +627,4 @@ public class ComCtrl extends Controller {
         ctx.response().setHeader("Expires", "0");
         ctx.response().setHeader("Pragma","no-cache");
     }
-
 }

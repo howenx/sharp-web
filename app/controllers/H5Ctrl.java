@@ -18,7 +18,9 @@ import play.mvc.Security;
 import javax.inject.Inject;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -35,26 +37,26 @@ public class H5Ctrl extends Controller {
     @Inject
     ComCtrl comCtrl;
     //new
-    public Result article(String openType) {
-        comCtrl.h5OpbeforeRender(ctx());
+    public Result article() {
+        String openType=comCtrl.getH5OpenType(request(),ctx());
         return ok(views.html.shopping.h5.article.render(openType));
     }
 
     //gather  assemblage
-    public Result gather(String openType) {
-        comCtrl.h5OpbeforeRender(ctx());
+    public Result gather() {
+        String openType=comCtrl.getH5OpenType(request(),ctx());
         return ok(views.html.shopping.h5.gather.render(openType));
     }
 
     //assemblage
-    public Result assemblage(String openType) {
-        comCtrl.h5OpbeforeRender(ctx());
+    public Result assemblage() {
+        String openType=comCtrl.getH5OpenType(request(),ctx());
         return ok(views.html.shopping.h5.assemblage.render(openType));
     }
 
     //H5页面
-    public F.Promise<Result> h5page(Long themeId,String openType) {
-        comCtrl.h5OpbeforeRender(ctx());
+    public F.Promise<Result> h5page(Long themeId) {
+        String openType=comCtrl.getH5OpenType(request(),ctx());
         F.Promise<JsonNode> promise = F.Promise.promise(() -> {
             Request request = comCtrl.getBuilder(ctx())
                     .url(THEME_PAGE + themeId)
@@ -107,67 +109,68 @@ public class H5Ctrl extends Controller {
     }
 
     //优惠券
-    public Result hp1(String openType) {
-        comCtrl.h5OpbeforeRender(ctx());
+    public Result hp1() {
+        String openType=comCtrl.getH5OpenType(request(),ctx());
         return ok(views.html.shopping.h5.hp1.render(openType,SHOPPING_COUPON_REC));
     }
 
-    public Result hp2(String openType) {
-        comCtrl.h5OpbeforeRender(ctx());
+    public Result hp2() {
+        String openType=comCtrl.getH5OpenType(request(),ctx());
         return ok(views.html.shopping.h5.hp2.render(openType,SHOPPING_COUPON_REC));
     }
 
-    public Result hp3(String openType) {
-        comCtrl.h5OpbeforeRender(ctx());
+    public Result hp3() {
+        String openType=comCtrl.getH5OpenType(request(),ctx());
         return ok(views.html.shopping.h5.hp3.render(openType));
     }
 
-    public Result hp4(String openType) {
-        comCtrl.h5OpbeforeRender(ctx());
+    public Result hp4() {
+        String openType=comCtrl.getH5OpenType(request(),ctx());
         return ok(views.html.shopping.h5.hp4.render(openType));
     }
 
-     public Result hp5(String openType) {
-            comCtrl.h5OpbeforeRender(ctx());
-            return ok(views.html.shopping.h5.hp5.render(openType));
-        }
+    public Result hp5() {
+         String openType=comCtrl.getH5OpenType(request(),ctx());
+        return ok(views.html.shopping.h5.hp5.render(openType));
+    }
 
-    public Result hp6(String openType) {
-        comCtrl.h5OpbeforeRender(ctx());
+    public Result hp6() {
+        String openType=comCtrl.getH5OpenType(request(),ctx());
         return ok(views.html.shopping.h5.hp6.render(openType));
     }
-    public Result hp7(String openType) {
-         comCtrl.h5OpbeforeRender(ctx());
+    public Result hp7() {
+        String openType=comCtrl.getH5OpenType(request(),ctx());
          return ok(views.html.shopping.h5.hp7.render(openType));
     }
-    public Result hp8(String openType) {
-        comCtrl.h5OpbeforeRender(ctx());
+    public Result hp8() {
+        String openType=comCtrl.getH5OpenType(request(),ctx());
         return ok(views.html.shopping.h5.hp8.render(openType));
     }
 
-    public Result hp9(String openType) {
-            comCtrl.h5OpbeforeRender(ctx());
-            return ok(views.html.shopping.h5.hp9.render(openType));
-        }
+    public Result hp9() {
+        String openType=comCtrl.getH5OpenType(request(),ctx());
+        return ok(views.html.shopping.h5.hp9.render(openType));
+    }
 
-     public Result hp10(String openType) {
-            comCtrl.h5OpbeforeRender(ctx());
-            return ok(views.html.shopping.h5.hp10.render(openType));
+     public Result hp10() {
+         String openType=comCtrl.getH5OpenType(request(),ctx());
+         return ok(views.html.shopping.h5.hp10.render(openType));
      }
 
-     public Result hp11(String openType) {
-                 comCtrl.h5OpbeforeRender(ctx());
-                 return ok(views.html.shopping.h5.hp11.render(openType));
-          }
+     public Result hp11() {
+         String openType=comCtrl.getH5OpenType(request(),ctx());
+         return ok(views.html.shopping.h5.hp11.render(openType));
+     }
 
-     public Result hp12(String openType) {
-                 comCtrl.h5OpbeforeRender(ctx());
-                 return ok(views.html.shopping.h5.hp12.render(openType));
-          }
+     public Result hp12() {
+         String openType=comCtrl.getH5OpenType(request(),ctx());
+         return ok(views.html.shopping.h5.hp12.render(openType));
 
-     public Result hp13(String openType) {
-                     comCtrl.h5OpbeforeRender(ctx());
-                     return ok(views.html.shopping.h5.hp13.render(openType));
+     }
+
+     public Result hp13() {
+         String openType=comCtrl.getH5OpenType(request(),ctx());
+         return ok(views.html.shopping.h5.hp13.render(openType));
      }
     /**
      * 领取优惠券
