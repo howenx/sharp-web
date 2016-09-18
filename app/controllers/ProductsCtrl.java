@@ -55,7 +55,6 @@ public class ProductsCtrl extends Controller {
             Request request = comCtrl.getBuilder(ctx())
                     .url(INDEX_PAGE + "1")
                     .build();
-            client.setConnectTimeout(15, TimeUnit.SECONDS);
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
                 String result = dealToString(response);
@@ -148,7 +147,6 @@ public class ProductsCtrl extends Controller {
             Request request = comCtrl.getBuilder(ctx())
                     .url(INDEX_PAGE + pageCount)
                     .build();
-            client.setConnectTimeout(15, TimeUnit.SECONDS);
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
                 String result = dealToString(response);
@@ -205,7 +203,6 @@ public class ProductsCtrl extends Controller {
             Request request = comCtrl.getBuilder(ctx())
                     .url(THEME_PAGE + url)
                     .build();
-            client.setConnectTimeout(15, TimeUnit.SECONDS);
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
                 String result = dealToString(response);
@@ -306,7 +303,6 @@ public class ProductsCtrl extends Controller {
                     // getBuilder(request(), session())
                     .url(GOODS_PAGE + url)
                     .build();
-            client.setConnectTimeout(15, TimeUnit.SECONDS);
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
                 String result = dealToString(response);
@@ -585,7 +581,6 @@ public class ProductsCtrl extends Controller {
             Request request = getBuilder(request(), session())
                     .url(GOODS_PAGE + url)
                     .build();
-            client.setConnectTimeout(15, TimeUnit.SECONDS);
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
                 String result = dealToString(response);
@@ -627,7 +622,6 @@ public class ProductsCtrl extends Controller {
             Request request =comCtrl.getBuilder(ctx())
                     .url(NAV_PAGE +navId+"/"+pageNum)
                     .build();
-            client.setConnectTimeout(15, TimeUnit.SECONDS);
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
                 String result = dealToString(response);
@@ -698,7 +692,6 @@ public class ProductsCtrl extends Controller {
             Request request =comCtrl.getBuilder(ctx())
                     .url(THEMECATE_PAGE +themeCateCode+"/"+pageNum)
                     .build();
-            client.setConnectTimeout(15, TimeUnit.SECONDS);
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
                 String result = dealToString(response);
@@ -750,7 +743,6 @@ public class ProductsCtrl extends Controller {
             Request request =comCtrl.getBuilder(ctx())
                     .url(RECOMMEND_PAGE +position)
                     .build();
-            client.setConnectTimeout(15, TimeUnit.SECONDS);
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
                 String result = dealToString(response);

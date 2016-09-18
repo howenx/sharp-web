@@ -115,45 +115,23 @@ GET         /wechat/userinfo                                                   c
 
 
 #H5页面
-GET         /article                                                           controllers.H5Ctrl.article(openType:String ?= "APP")
-GET         /article/$openType<[a-zA-Z]+>                                      controllers.H5Ctrl.article(openType:String)
-GET         /gather                                                            controllers.H5Ctrl.gather(openType:String ?= "APP")
-GET         /gather/$openType<[a-zA-Z]+>                                       controllers.H5Ctrl.gather(openType:String)
-GET         /assemblage                                                        controllers.H5Ctrl.assemblage(openType:String ?= "APP")
-GET         /assemblage/$openType<[a-zA-Z]+>                                   controllers.H5Ctrl.assemblage(openType:String)
-GET         /h5page/$themeId<[0-9]+>                                           controllers.H5Ctrl.h5page(themeId:Long,openType:String ?= "APP")
-GET         /h5page/$themeId<[0-9]+>/$openType<[a-zA-Z]+>                      controllers.H5Ctrl.h5page(themeId:Long,openType:String)
-GET         /hp1                                                               controllers.H5Ctrl.hp1(openType:String ?= "APP")
-GET         /hp1/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp1(openType:String)
-GET         /hp2                                                               controllers.H5Ctrl.hp2(openType:String ?= "APP")
-GET         /hp2/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp2(openType:String)
-GET         /hp3                                                               controllers.H5Ctrl.hp3(openType:String ?= "APP")
-GET         /hp3/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp3(openType:String)
-GET         /hp4                                                               controllers.H5Ctrl.hp4(openType:String ?= "APP")
-GET         /hp4/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp4(openType:String)
-GET         /hp5                                                               controllers.H5Ctrl.hp5(openType:String ?= "APP")
-GET         /hp5/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp5(openType:String)
-GET         /hp6                                                               controllers.H5Ctrl.hp6(openType:String ?= "APP")
-GET         /hp6/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp6(openType:String)
-GET         /hp7                                                               controllers.H5Ctrl.hp7(openType:String ?= "APP")
-GET         /hp7/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp7(openType:String)
-GET         /hp8                                                               controllers.H5Ctrl.hp8(openType:String ?= "APP")
-GET         /hp8/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp8(openType:String)
-
-GET         /hp9                                                               controllers.H5Ctrl.hp9(openType:String ?= "APP")
-GET         /hp9/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp9(openType:String)
-
-GET         /hp10                                                              controllers.H5Ctrl.hp10(openType:String ?= "APP")
-GET         /hp10/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp10(openType:String)
-
-GET         /hp11                                                               controllers.H5Ctrl.hp11(openType:String ?= "APP")
-GET         /hp11/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp11(openType:String)
-
-GET         /hp12                                                               controllers.H5Ctrl.hp12(openType:String ?= "APP")
-GET         /hp12/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp12(openType:String)
-
-GET         /hp13                                                               controllers.H5Ctrl.hp13(openType:String ?= "APP")
-GET         /hp13/$openType<[a-zA-Z]+>                                          controllers.H5Ctrl.hp13(openType:String)
+GET         /article                                                           controllers.H5Ctrl.article()
+GET         /gather                                                            controllers.H5Ctrl.gather()
+GET         /assemblage                                                        controllers.H5Ctrl.assemblage()
+GET         /h5page/$themeId<[0-9]+>                                           controllers.H5Ctrl.h5page(themeId:Long)
+GET         /hp1                                                               controllers.H5Ctrl.hp1()
+GET         /hp2                                                               controllers.H5Ctrl.hp2()
+GET         /hp3                                                               controllers.H5Ctrl.hp3()
+GET         /hp4                                                               controllers.H5Ctrl.hp4()
+GET         /hp5                                                               controllers.H5Ctrl.hp5()
+GET         /hp6                                                               controllers.H5Ctrl.hp6()
+GET         /hp7                                                               controllers.H5Ctrl.hp7()
+GET         /hp8                                                               controllers.H5Ctrl.hp8()
+GET         /hp9                                                               controllers.H5Ctrl.hp9()
+GET         /hp10                                                              controllers.H5Ctrl.hp10()
+GET         /hp11                                                              controllers.H5Ctrl.hp11()
+GET         /hp12                                                              controllers.H5Ctrl.hp12()
+GET         /hp13                                                              controllers.H5Ctrl.hp13()
 
 
 #H5页面内的操作

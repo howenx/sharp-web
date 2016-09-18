@@ -647,7 +647,6 @@ public class UserCtrl extends Controller {
                         .url(PHONE_VERIFY)
                         .post(formBody)
                         .build();
-                client.setConnectTimeout(10, TimeUnit.SECONDS);
                 Response response = client.newCall(request).execute();
                 if (response.isSuccessful()) {
                     return Json.parse(new String(response.body().bytes(), UTF_8));
@@ -686,7 +685,6 @@ public class UserCtrl extends Controller {
                         .url(PHONE_CODE)
                         .post(formBody)
                         .build();
-                client.setConnectTimeout(10, TimeUnit.SECONDS);
                 Response response = client.newCall(request).execute();
                 if (response.isSuccessful()) {
                     return Json.parse(new String(response.body().bytes(), UTF_8));
@@ -777,7 +775,6 @@ public class UserCtrl extends Controller {
                         .url(REGISTER_PAGE)
                         .post(formBody)
                         .build();
-                client.setConnectTimeout(10, TimeUnit.SECONDS);
                 Response response = client.newCall(request).execute();
                 if (response.isSuccessful()) {
                     return Json.parse(new String(response.body().bytes(), UTF_8));
@@ -868,7 +865,6 @@ public class UserCtrl extends Controller {
                         .url(RESET_PASSWORD)
                         .post(formBody)
                         .build();
-                client.setConnectTimeout(10, TimeUnit.SECONDS);
                 Response response = client.newCall(request).execute();
                 if (response.isSuccessful()) return Json.parse(new String(response.body().bytes(), UTF_8));
                 else throw new IOException("Unexpected code" + response);
